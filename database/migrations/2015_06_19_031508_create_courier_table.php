@@ -17,6 +17,8 @@ class CreateCourierTable extends Migration
             $table->string('name');
             $table->string('image');
             $table->integer('status');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -29,6 +29,8 @@ class CreateCustomerTable extends Migration
             $table->string('sso_id');
             $table->text('sso_date');
             $table->string('remember_token');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

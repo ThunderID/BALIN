@@ -18,6 +18,8 @@ class CreateTransactionDetailTable extends Migration
             $table->integer('qty');
             $table->double('price');
             $table->integer('transaction_id');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

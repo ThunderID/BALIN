@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCreditLogsTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,12 @@ class CreateCreditLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('credit_logs', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('coupon_code');
-            $table->string('name');
-            $table->double('ammount');
-            $table->date('date');
-            $table->date('expired_date');
+            $table->integer('product_id');
+            $table->string('path');
             $table->timestamps();
-            $table->softDeletes();            
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +28,6 @@ class CreateCreditLogsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('credit_logs');
+        Schema::drop('images');
     }
 }

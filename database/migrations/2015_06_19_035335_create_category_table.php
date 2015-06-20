@@ -17,6 +17,8 @@ class CreateCategoryTable extends Migration
             $table->string('name');
             $table->string('path');
             $table->integer('parent_id');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

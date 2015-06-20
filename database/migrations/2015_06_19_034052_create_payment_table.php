@@ -19,6 +19,8 @@ class CreatePaymentTable extends Migration
             $table->string('account_number');
             $table->date('date');
             $table->integer('transaction_id');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -22,6 +22,8 @@ class CreateShippingTable extends Migration
             $table->string('phone');
             $table->date('date');
             $table->integer('transaction_id');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

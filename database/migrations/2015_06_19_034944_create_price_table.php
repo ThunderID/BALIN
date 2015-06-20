@@ -19,6 +19,8 @@ class CreatePriceTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('product_id');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

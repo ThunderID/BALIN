@@ -16,6 +16,8 @@ class CreateProductCategoryTable extends Migration
             $table->increments('id');
             $table->integer('product_id');
             $table->integer('category_id');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

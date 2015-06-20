@@ -22,6 +22,8 @@ class CreateTransactionTable extends Migration
             $table->double('shipping_cost');
             $table->double('total_payment');
             $table->integer('status');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
