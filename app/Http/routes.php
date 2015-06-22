@@ -35,3 +35,13 @@ Route::get('/product', ['as' => 'product', function()
 {
     return view('pages/Frontend/product');
 }]);
+
+Route::get('/join', ['as' => 'join', function()
+{
+    return view('pages/Frontend/join');
+}]);
+
+Route::get('/whyJoin', ['as' => 'whyJoin', function()
+{
+    return view('pages/Frontend/whyJoin');
+}]);

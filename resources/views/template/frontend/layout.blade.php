@@ -31,7 +31,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">{!! HTML::image('Balin/image/logo.png') !!}</a>
+                <a class="navbar-brand" href="{{ URL::route('home') }}">{!! HTML::image('Balin/image/logo.png') !!}</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
@@ -42,11 +42,11 @@
                     <li {{ Request::is('product') ? 'class=active' : '' }}>
                         <a href="{{ URL::route('product') }}">Products</a>
                     </li>
-                    <li>
-                        <a href="#">Join</a>
+                    <li {{ Request::is('join') ? 'class=active' : '' }}>
+                        <a href="{{ URL::route('join') }}">Join</a>
                     </li>
-                    <li>
-                        <a href="#">Why Join</a>
+                    <li {{ Request::is('whyJoin') ? 'class=active' : '' }}>
+                        <a href="{{ URL::route('whyJoin') }}">Why Join</a>
                     </li>                    
                 </ul>
             </div>
@@ -61,7 +61,6 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    {!! HTML::style('Balin/css/full-slider.css') !!}
     {!! HTML::script('Balin/js/jquery.js') !!}
     {!! HTML::script('Balin/js//bootstrap.min.js') !!}
 

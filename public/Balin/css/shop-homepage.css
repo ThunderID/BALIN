@@ -94,3 +94,11 @@ footer {
     margin-bottom: 0px;
     color: black;
 }
+
+.mt-75{
+    margin-top: 75px;
+}
+
+.img-center {
+    margin: 0 auto;
+}
