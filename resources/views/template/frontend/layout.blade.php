@@ -13,7 +13,6 @@
 
     <!-- Custom CSS -->
    {!! HTML::style('Balin/css/bootstrap.min.css') !!}
-   {!! HTML::style('Balin/css/full-slider.css') !!}
    {!! HTML::style('Balin/css/shop-homepage.css') !!}
    {!! HTML::style('Balin/plugin/fontawesome/css/font-awesome.min.css') !!}
 
