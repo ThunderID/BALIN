@@ -12,9 +12,11 @@
 */
 
 Route::get('/', function () {
-    //return view('Template/Frontend/layout');
+    // return view('pages/Frontend/home');
+    // return view('template/Frontend/index');
+    return view('template/Frontend/layout');
 
     //'shippings' => nama function di relations
- 	$tes = \Models\Courier::with(['Shippings'])->get();
-    print_r($tes);
+ 	// $tes = \Models\Courier::with(['Shippings'])->get();
+  //   print_r($tes);
 });
