@@ -37,11 +37,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="#">Home</a>
+                    <li {{ Request::is('home') ? 'class=active' : '' }}>
+                        <a href="{{ URL::route('home') }}">Home</a>
                     </li>
-                    <li>
-                        <a href="#">Products</a>
+                    <li {{ Request::is('product') ? 'class=active' : '' }}>
+                        <a href="{{ URL::route('product') }}">Products</a>
                     </li>
                     <li>
                         <a href="#">Join</a>

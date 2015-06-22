@@ -34,6 +34,10 @@ body {
     width: 100%;
 }
 
+.imageCard {
+    height: 320px !important;
+}
+
 .ratings {
     padding-right: 10px;
     padding-left: 10px;
@@ -51,4 +55,15 @@ body {
 
 footer {
     margin: 50px 0;
+}
+
+.promo-price{
+    color: green;
+}
+
+.normal-price{
+    padding-top: inherit;
+    padding-bottom: initial;
+    margin-bottom: 0px;
+    color: black;
 }

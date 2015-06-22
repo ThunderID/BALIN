@@ -11,12 +11,27 @@
 |
 */
 
-Route::get('/', function () {
-    return view('pages/Frontend/product');
-    // return view('template/Frontend/index');
-    // return view('template/Frontend/layout');
+// Route::get('/', function () {
+//     // return view('pages/Frontend/product');
+//     // return view('template/Frontend/index');
+//     // return view('template/Frontend/layout');
 
-    //'shippings' => nama function di relations
- 	// $tes = \Models\Courier::with(['Shippings'])->get();
-  //   print_r($tes);
-});
+//     //'shippings' => nama function di relations
+//  	// $tes = \Models\Courier::with(['Shippings'])->get();
+//   //   print_r($tes);
+// });
+
+Route::get('/', ['as' => 'index', function()
+{
+	return Redirect::to('home');
+}]);
+
+Route::get('/home', ['as' => 'home', function()
+{
+    return view('pages/Frontend/home');
+}]);
+
+Route::get('/product', ['as' => 'product', function()
+{
+    return view('pages/Frontend/product');
+}]);
