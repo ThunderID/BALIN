@@ -29,4 +29,9 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public function tes(){
+        $tes = \Model\Courier::all();
+        dd($tes);
+    }
 }
