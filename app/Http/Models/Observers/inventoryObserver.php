@@ -12,15 +12,22 @@ class InventoryObserver
 {
 	public function saving($model)
 	{
-		$validator 				= Validator::make($model['attributes'], $model['rules']);
+		$validator 					= Validator::make($model['attributes'], $model['rules']);
 
 		if ($validator->passes())
 		{
-			return true;
+			if(make($model['attributes']['number_of_Stock'] > 0)
+			{
+				return true;
+			}else{
+				$model['errors'] 	= 'Stok harus lebih besar dari 0';
+
+				return false;
+			}
 		}
 		else
 		{
-			$model['errors'] 	= $validator->errors();
+			$model['errors'] 		= $validator->errors();
 
 			return false;
 		}

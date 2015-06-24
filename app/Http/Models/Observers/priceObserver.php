@@ -16,7 +16,14 @@ class PriceObserver
 
 		if ($validator->passes())
 		{
-			return true;
+			if($model['attributes']['price'] > 0 && $model['attributes']['promo_price'] > 0)
+			{
+				return true;
+			}else{
+				$model['errors'] 	= 'Harga harus lebih besar dari 0';
+
+				return false;
+			}
 		}
 		else
 		{
