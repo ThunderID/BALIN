@@ -6,10 +6,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Transaction_detail extends Eloquent {
 	use  SoftDeletes;
 
-	protected $guarded = array();
-	protected $table = 'transaction_details';
-	protected $fillable = ['qty','price'];
-	protected $errors = [];
+	protected $guarded 			= array();
+	protected $table 			= 'transaction_details';
+	protected $fillable 		=	[
+										'qty',
+										'price'
+									];
+	protected $rules			= 	[
+										'qty' 						=> 'required',
+										'price' 					=> 'required',
+									];										
+	protected $errors 			=	[];
 
 	/* --------------------------------------------- RELATIONSHIP ---------------------------------------------*/
 	//jamak untuk return jamak ('s')
@@ -23,4 +30,16 @@ class Transaction_detail extends Eloquent {
 	{
 	   return $this->belongsTo('\Models\Transaction');
 	}
+
+	/* ---------------------------------------------------------------------------- ERRORS ----------------------------------------------------------------------------*/
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	function getError()
+	{
+		return $this->errors;
+	}	
 }

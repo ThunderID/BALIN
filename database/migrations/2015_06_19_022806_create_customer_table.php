@@ -16,7 +16,8 @@ class CreateCustomerTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->date('DOB');
+            $table->string('password');
+            $table->date('dob');
             $table->text('address');
             $table->string('zip_code');
             $table->string('phone');
@@ -27,7 +28,7 @@ class CreateCustomerTable extends Migration
             $table->date('join_date');
             $table->string('sso_type');
             $table->string('sso_id');
-            $table->text('sso_date');
+            $table->text('sso_data');
             $table->string('remember_token');
             $table->timestamps();
             $table->softDeletes();

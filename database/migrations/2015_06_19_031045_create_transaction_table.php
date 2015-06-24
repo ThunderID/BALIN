@@ -15,12 +15,13 @@ class CreateTransactionTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('customer_id');
-            $table->integer('transcation_detail_id');
-            $table->date('transaction_date');
+            $table->date('date');
             $table->string('coupon_code');
             $table->integer('unique_number');
+            $table->double('total_product_price');
             $table->double('shipping_cost');
-            $table->double('total_payment');
+            $table->double('total_discount');
+            $table->double('total_price');
             $table->integer('status');
             $table->timestamps();
             $table->softDeletes();

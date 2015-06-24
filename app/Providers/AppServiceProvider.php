@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Models\Customer::observe(new \Models\Observers\customerObserver);
+        \Models\Credit_log::observe(new \Models\Observers\credit_logObserver);
+        \Models\Shipping::observe(new \Models\Observers\shippingObserver);
     }
 
     /**
@@ -23,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        \Models\Customer::observe(new \Models\Observers\customerObserver);
+        \Models\Credit_log::observe(new \Models\Observers\credit_logObserver);
+        \Models\Shipping::observe(new \Models\Observers\shippingObserver);
     }
 }

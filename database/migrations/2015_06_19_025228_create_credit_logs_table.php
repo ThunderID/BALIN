@@ -16,7 +16,8 @@ class CreateCreditLogsTable extends Migration
             $table->increments('id');
             $table->string('coupon_code');
             $table->string('name');
-            $table->double('ammount');
+            $table->double('credit');
+            $table->double('debet');
             $table->date('date');
             $table->date('expired_date');
             $table->timestamps();

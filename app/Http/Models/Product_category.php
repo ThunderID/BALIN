@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product_category extends Eloquent {
 	use  SoftDeletes;
 
-	protected $guarded = array();
-	protected $table = 'product_categories';
-	protected $fillable = [];
-	protected $errors = [];
+	protected $guarded 				= array();
+	protected $table 				= 'product_categories';
+	protected $fillable 			=	[];
+	protected $rules				= 	[];
+	protected $errors 				=	[];
 
 	/* --------------------------------------------- RELATIONSHIP ---------------------------------------------*/
 	//jamak untuk return jamak ('s')
@@ -23,4 +24,16 @@ class Product_category extends Eloquent {
 	{
 	   return $this->belongsTo('\Models\Category');
 	}
+
+	/* ---------------------------------------------------------------------------- ERRORS ----------------------------------------------------------------------------*/
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	function getError()
+	{
+		return $this->errors;
+	}	
 }

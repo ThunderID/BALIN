@@ -23,6 +23,8 @@
 
 Route::get('/', ['as' => 'index', function()
 {
+ 	$tes = \Models\Product::with(['categories'])->get();
+    dd($tes);exit;
 	return Redirect::to('home');
 }]);
 

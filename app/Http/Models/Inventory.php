@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Inventory extends Eloquent {
 	use  SoftDeletes;
 
-	protected $guarded = array();
-	protected $table = 'inventories';
-	protected $fillable = ['number_of_stock'];
-	protected $errors = [];
+	protected $guarded 				= array();
+	protected $table 				= 'inventories';
+	protected $fillable 			=	[
+											'number_of_stock'
+										];
+	protected $rules				= 	[
+											'number_of_stock' 			=> 'required'
+										];
+	protected $errors 				=	[];
 
 	/* --------------------------------------------- RELATIONSHIP ---------------------------------------------*/
 	//jamak untuk return jamak ('s')
@@ -18,4 +23,16 @@ class Inventory extends Eloquent {
 	{
 	   return $this->belongsTo('\Models\Product');
 	}
+
+	/* ---------------------------------------------------------------------------- ERRORS ----------------------------------------------------------------------------*/
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	function getError()
+	{
+		return $this->errors;
+	}	
 }
