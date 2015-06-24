@@ -15,7 +15,7 @@ class shippingTableSeeder extends Seeder
 		DB::table('shippings')->truncate();
 		$faker 										= Factory::create();
 
-		$Transactions								= Courier::where('status' , '<', 3)->get();
+		$Transactions								= Transaction::where('status' , '<', 3)->get();
 		$total_transaction							= count($Transactions);
 
 		$Couriers 									= Courier::where('status' , '=', 1)->get();
