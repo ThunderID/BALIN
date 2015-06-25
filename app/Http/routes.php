@@ -21,15 +21,9 @@
 //   //   print_r($tes);
 // });
 
-Route::get('/', ['as' => 'index', function()
-{
- 	// $tes = \Models\Product::with(['categories'])->get();
-  //   dd($tes);exit;
-	return Redirect::to('home');
-}]);
-
+Route::get('/', ['as' => 'frontend.index', function(){return Redirect::route('frontend.home.index');}]);
 Route::get('home', ['uses' => 'Frontend\\homeController@index', 'as' => 'frontend.home.index']);
-Route::get('product', ['uses' => 'Frontend\\productController@index', 'as' => 'frontend.product.index']);
+Route::get('products', ['uses' => 'Frontend\\productController@index', 'as' => 'frontend.product.index']);
 Route::get('join', ['uses' => 'Frontend\\joinController@index', 'as' => 'frontend.join.index']);
 Route::get('whyJoin', ['uses' => 'Frontend\\whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
 
