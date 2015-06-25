@@ -19,41 +19,7 @@
 </head>
 
 <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ URL::route('home') }}">{!! HTML::image('Balin/image/logo.png') !!}</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li {{ Request::is('home') ? 'class=active' : '' }}>
-                        <a href="{{ URL::route('home') }}">Home</a>
-                    </li>
-                    <li {{ Request::is('product') ? 'class=active' : '' }}>
-                        <a href="{{ URL::route('product') }}">Products</a>
-                    </li>
-                    <li {{ Request::is('join') ? 'class=active' : '' }}>
-                        <a href="{{ URL::route('join') }}">Join</a>
-                    </li>
-                    <li {{ Request::is('whyJoin') ? 'class=active' : '' }}>
-                        <a href="{{ URL::route('whyJoin') }}">Why Join</a>
-                    </li>                    
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+    @include('widgets.topMenu')
 
     @yield('content')
 

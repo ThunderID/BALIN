@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-6 col-xs-12">
+                    <div class="col-md-5 col-xs-12">
                         <h3>Sign In</h3>
 
                         <div class="row carousel-holder">
@@ -34,7 +34,9 @@
 		                </div>
                     </div>
 
-                    <div class="col-md-6 col-xs-12">
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-5 col-xs-12">
                         <h3>Sign Up</h3>
 
                         <div class="row carousel-holder">

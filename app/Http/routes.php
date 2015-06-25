@@ -23,27 +23,13 @@
 
 Route::get('/', ['as' => 'index', function()
 {
- 	$tes = \Models\Product::with(['categories'])->get();
-    dd($tes);exit;
+ 	// $tes = \Models\Product::with(['categories'])->get();
+  //   dd($tes);exit;
 	return Redirect::to('home');
 }]);
 
-Route::get('/home', ['as' => 'home', function()
-{
-    return view('pages/Frontend/home');
-}]);
+Route::get('home', ['uses' => 'Frontend\\homeController@index', 'as' => 'frontend.home.index']);
+Route::get('product', ['uses' => 'Frontend\\productController@index', 'as' => 'frontend.product.index']);
+Route::get('join', ['uses' => 'Frontend\\joinController@index', 'as' => 'frontend.join.index']);
+Route::get('whyJoin', ['uses' => 'Frontend\\whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
 
-Route::get('/product', ['as' => 'product', function()
-{
-    return view('pages/Frontend/product');
-}]);
-
-Route::get('/join', ['as' => 'join', function()
-{
-    return view('pages/Frontend/join');
-}]);
-
-Route::get('/whyJoin', ['as' => 'whyJoin', function()
-{
-    return view('pages/Frontend/whyJoin');
-}]);
