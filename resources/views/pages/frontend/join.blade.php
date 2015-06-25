@@ -12,24 +12,11 @@
                         <div class="row carousel-holder">
 		                </div>
 
+		                @include('widgets.alerts')
+
 		                <div class="row">
 		                	<div class="col-md-12">
-								<form role="form">
-								    <div class="form-group">
-								        <label for="email">Email address:</label>
-								        <input type="email" class="form-control" id="email">
-								    </div>
-								    <div class="form-group">
-									    <label for="pwd">Password:</label>
-									    <input type="password" class="form-control" id="pwd">
-									</div>
-									<div class="checkbox">
-									    <label><input type="checkbox"> Remember me</label>
-									</div>
-									<div class="form-group">
-									    <button type="submit" class="btn btn-default">Submit</button>
-									</div>
-								</form>
+		                		@include('widgets.login')
 			                </div>
 		                </div>
                     </div>
@@ -52,16 +39,14 @@
 		                        <div class="row carousel-holder">
 				                </div>								                	
 								<div class="form-group">
-									<button type="submit" class="btn btn-default">Facebook</button>
-									<button type="submit" class="btn btn-default">Twitter</button>
-									<button type="submit" class="btn btn-default">Email</button>
+									<button type="submit" class="btn btn-default" tabindex="2">Facebook</button>
+									<button type="submit" class="btn btn-default" tabindex="2">Twitter</button>
+									<button type="submit" class="btn btn-default" tabindex="2">Email</button>
 								</div>		                	
 							</div>		                	
 		                </div>                        
                     </div>
                 </div>
-
-
             </div>
         </div>
 
