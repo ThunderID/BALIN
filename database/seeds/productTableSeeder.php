@@ -19,8 +19,8 @@ class productTableSeeder extends Seeder
 				$data = new product;
 				$data->fill([
 					'SKU'							=> $faker->ean8,
-					'Name'							=> $faker->word,
-					'Description'					=> $faker->sentence($nbWords = 6),			
+					'name'							=> $faker->word,
+					'description'					=> $faker->sentence($nbWords = 6),			
 					'slug'							=> $faker->sentence($nbWords = 3),			
 				]);
 

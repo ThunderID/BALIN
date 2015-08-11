@@ -8,7 +8,7 @@ use \Validator;
  * 	Deleting						
  * ---------------------------------------------------------------------- */
 
-class CourierObserver 
+class ProductObserver 
 {
 	public function saving($model)
 	{
@@ -28,7 +28,7 @@ class CourierObserver
 
 	public function deleting($model)
 	{
-		if($model->Images->count() && $model->Prices->count() $model->Inventories->count() && $model->Categories->count() && $model->Transaction_details->count())
+		if($model->Images->count() && $model->Prices->count() && $model->Inventories->count() && $model->Categories->count() && $model->Transaction_details->count())
 		{
 			$model['errors'] 	= ['Tidak dapat menghapus data Produk'];
 

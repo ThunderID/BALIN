@@ -16,7 +16,7 @@ class InventoryObserver
 
 		if ($validator->passes())
 		{
-			if(make($model['attributes']['number_of_Stock'] > 0)
+			if($model['attributes']['number_of_stock'] > 0)
 			{
 				return true;
 			}else{

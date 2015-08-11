@@ -17,7 +17,7 @@ class transactionDetailTableSeeder extends Seeder
 
 		$total_product								= Product::count();
 
-		$total_transaction							= Transaction::count() -1;
+		$total_transaction							= Transaction::count();
 
 		try
 		{
@@ -34,7 +34,7 @@ class transactionDetailTableSeeder extends Seeder
 				$data->transaction()->associate($Transaction->id);				
 
 
-				$Product 							= Product::find(rand(0,$total_product));
+				$Product 							= Product::find(rand(1,$total_product));
 				
 				$data->product()->associate($Product->id);							
 
