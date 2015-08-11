@@ -29,6 +29,8 @@
                         <div class="row carousel-holder">
 		                </div>
 
+		                @include('widgets.alerts')
+
 		                <div class="row">
 		                	<div class="col-md-12">
 	                			@include('widgets.signup')

@@ -26,4 +26,6 @@ Route::get('home', ['uses' => 'Frontend\\homeController@index', 'as' => 'fronten
 Route::get('products', ['uses' => 'Frontend\\productController@index', 'as' => 'frontend.product.index']);
 Route::get('join', ['uses' => 'Frontend\\joinController@index', 'as' => 'frontend.join.index']);
 Route::get('whyJoin', ['uses' => 'Frontend\\whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
+Route::get('profile', ['uses' => 'Frontend\\profileController@index', 'as' => 'frontend.profile.index']);
+Route::get('chart', ['uses' => 'Frontend\\chartController@index', 'as' => 'frontend.chart.index']);
 

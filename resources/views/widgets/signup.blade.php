@@ -25,7 +25,7 @@
 	      	<div class="modal-body">
 				<form role="form">
 				    <div class="form-group">
-				        <label for="name">Full Name</label>
+				        <label for="name">Name</label>
 				        <input type="name" class="form-control" id="name" tabindex="1" required>
 				    </div>					
 				    <div class="form-group">
@@ -41,15 +41,13 @@
 					    <input type="password" class="form-control" id="cnfrm_pwd" tabindex="1" required>
 					</div>					
 					<div class="checkbox">
-					    <label><input type="checkbox" tabindex="1"> Remember me</label>
+					    <label><input type="checkbox" tabindex="1">I Agree To The <a href="#" style="color:blue;">Terms & Conditions</a></label>
 					</div>
+					</br>
 					<div class="form-group">
-					    <button type="submit" class="btn btn-default" tabindex="1">Submit</button>
+					    <button type="submit" class="btn btn-md btn-block btn-success" tabindex="1">Sign Up</button>
 					</div>
 				</form>		     	
-	      	</div>
-	      	<div class="modal-footer">
-	        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	      	</div>
 	    </div>
 

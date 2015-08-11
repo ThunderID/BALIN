@@ -13,6 +13,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+                <li @if($controller_name == 'chart') class=active @endif>
+                    <a href="{{ URL::route('frontend.chart.index') }}">Chart</a>
+                </li>                                                    
                 <li @if($controller_name == 'home') class=active @endif  }}>
                     <a href="{{ URL::route('frontend.home.index') }}">Home</a>
                 </li>
@@ -24,7 +27,10 @@
                 </li>
                 <li @if($controller_name == 'whyjoin') class=active @endif>
                     <a href="{{ URL::route('frontend.whyjoin.index') }}">Why Join</a>
-                </li>                    
+                </li>    
+                <li @if($controller_name == 'profile') class=active @endif>
+                    <a href="{{ URL::route('frontend.profile.index') }}">Profile</a>
+                </li> 
             </ul>
         </div>
         <!-- /.navbar-collapse -->
