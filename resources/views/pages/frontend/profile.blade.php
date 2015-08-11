@@ -1,5 +1,36 @@
 @extends('template.frontend.layout')
 
 @section('content')
-	
+	<div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                	<div class="col-md-12">
+		                <h3>My Profile</h3>
+                	</div>
+                </div>
+		    </div>         
+	    </div> 
+	    </br>     
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                	<div class="col-md-2 col-lg-2 col-sm-3 hidden-xs">              		
+						@include('widgets.myProfileMenu')                		               		                  		                		               		
+			        </div>                	
+			        <div class="col-md-10 col-lg-10 col-sm-9">
+			        	<div class="row">
+                			<div class="col-md-12">
+                				@if($subPage)
+									@include('widgets.'. $subPage)                		               		                  		                		               		              		               		                  		                		               		
+                				@endif
+                			</div>
+                		</div>	
+
+			       </div>
+		        </div>
+	        </div>
+        </div>
+    </div>         
 @stop
