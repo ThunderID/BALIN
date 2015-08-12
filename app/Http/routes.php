@@ -29,4 +29,5 @@ Route::get('whyJoin', ['uses' => 'Frontend\\whyjoinController@index', 'as' => 'f
 Route::get('chart', ['uses' => 'Frontend\\chartController@index', 'as' => 'frontend.chart.index']);
 Route::get('profile', ['uses' => 'Frontend\\profileController@index', 'as' => 'frontend.profile.index']);
 Route::get('profile/membershipDetail', ['uses' => 'Frontend\\profileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
+Route::get('profile/changePassword', ['uses' => 'Frontend\\profileController@changePassword', 'as' => 'frontend.profile.changePassword']);
 

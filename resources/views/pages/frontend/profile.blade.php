@@ -17,14 +17,14 @@
             <div class="col-lg-12">
                 <div class="row">
                 	<div class="col-md-2 col-lg-2 col-sm-3 hidden-xs">              		
-						@include('widgets.myProfileMenu')                		               		                  		                		               		
+						@include('widgets.frontend.profile.myProfileMenu')                		               		                  		                		               		
 			        </div>                	
 			        <div class="col-md-10 col-lg-10 col-sm-9">
 			        	<div class="row">
                 			<div class="col-md-12">
                 				@if($subPage)
                                     @include('widgets.alerts')
-									@include('widgets.'. $subPage)                		               		                  		                		               		              		               		                  		                		               		
+									@include('widgets.frontend.profile.'. $subPage)                		               		                  		                		               		              		               		                  		                		               		
                 				@endif
                 			</div>
                 		</div>	

@@ -23,7 +23,7 @@
 	        	<h4 class="modal-title">Sign Up Using Email</h4>
 	      	</div>
 	      	<div class="modal-body">
-				<form role="form">
+				<form role="form" style="padding-right:inherit;padding-left:inherit;">
 				    <div class="form-group">
 				        <label for="name">Name</label>
 				        <input type="name" class="form-control" id="name" tabindex="1" required>

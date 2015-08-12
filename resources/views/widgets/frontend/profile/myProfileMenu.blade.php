@@ -35,7 +35,7 @@
 </div>  
 <div class="row">
 	<div class="col-md-12">
-    	<a href="#" style="color:blue;">Change Password</a>
+    	<a href="{{ route('frontend.profile.changePassword') }}" style="color:blue;">Change Password</a>
 	</div>
 </div>  
 <div class="row">
