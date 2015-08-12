@@ -2,14 +2,9 @@
 
 @section('content')
 	<div class="container">
-
         <div class="row">
             <div class="col-lg-12">
-                <div class="row">
-                	<div class="col-md-12">
-		                <h3>My Profile</h3>
-                	</div>
-                </div>
+                @include('widgets.pageElements.pageTitle', array('pageTitle' => 'Profile'))                                                                                                              
 		    </div>         
 	    </div> 
 	    </br>     

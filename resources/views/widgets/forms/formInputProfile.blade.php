@@ -5,7 +5,11 @@
     </div>	
     <div class="form-group">
         <label for="gender">Gender</label>
-        <input type="text" class="form-control" id="gender" required>
+		<select class="form-control" id="gender">
+			<option value="" disabled selected>Select Gender</option>
+		    <option value="Male">Male</option>
+		    <option value="Female">Female</option>
+		</select>
     </div>	
     <div class="form-group">
         <label for="dob">Date of Birth</label>
@@ -18,10 +22,12 @@
     <div class="form-group">
         <label for="phone">Phone Number</label>
         <input type="text" class="form-control" id="phone" required>
+        <p class="pull-right">Ex : 081234567890</p>
     </div>	    		    		    			
     <div class="form-group">
         <label for="address">Address</label>
         <input type="text" class="form-control" id="address" required>
+        <p class="pull-right">Ex : Jl. Green 12, West Estate</p>
     </div>	
     <div class="form-group">
         <label for="postal">Postal Code</label>
@@ -39,6 +45,14 @@
         <label for="country">Country</label>
         <input type="text" class="form-control" id="country" required>
     </div>    
+    <div class="form-group">
+        <label for="type">Profile Type</label>
+        <select class="form-control" id="gender">
+            <option value="" disabled selected>Select Profile Type</option>
+            <option value="Admin">Admin</option>
+            <option value="Customer">Customer</option>
+        </select>
+    </div>       
 	</br>
 	<div class="form-group">
 	    <button type="submit" class="btn btn-md btn-info">Save Profile</button>
