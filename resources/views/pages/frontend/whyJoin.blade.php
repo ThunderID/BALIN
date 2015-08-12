@@ -5,11 +5,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>Why Join</h3>
-                    </div>
-                </div>
+                @include('widgets.pageElements.pageTitle', array('pageTitle' => 'Why Join'))                                                                                                              
 
                 <div class="row carousel-holder">
                 </div>

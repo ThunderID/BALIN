@@ -5,11 +5,8 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="row">
-                	<div class="col-md-12">
-		                <h3>Products</h3>
-                	</div>
-                </div>
+                @include('widgets.pageElements.pageTitle', array('pageTitle' => 'Products'))                                                                                                              
+
                 <div class="row">
                 	<div class="col-md-2 col-sm-6 col-xs-12 pull-right">
                 		<p class="pull-right">Search</p>
