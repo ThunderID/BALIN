@@ -25,7 +25,7 @@
 
                 @include('widgets.particle.formLabelUpDown', array('labelTitle' => 'Phone', 'labelValue' => '+6287859538065'))                                                                                                               
 
-                @include('widgets.particle.formLabelUpDown', array('labelTitle' => 'Address', 'labelValue' => 'jl. manggis 5, perum magersari indah. </br>Mojokerto 61318, Jawa Timur. </br>Indonesia'))                                                                                                               				                								                			
+                @include('widgets.particle.formLabelUpDown', array('labelTitle' => 'Address', 'labelValue' => 'jl. manggis 5, perum magersari indah, </br>Mojokerto, Jawa Timur - 61318, </br>Indonesia'))                                                                                                               				                								                			
 			</div>
 		</div>	                				
 	</div>		                			

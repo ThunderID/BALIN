@@ -30,7 +30,7 @@
 </div> 
 <div class="row">
 	<div class="col-md-12">
-    	<a href="#" style="color:blue;">Change Profile</a>
+    	<a href="{{ route('frontend.profile.changeProfile') }}" style="color:blue;">Change Profile</a>
 	</div>
 </div>  
 <div class="row">

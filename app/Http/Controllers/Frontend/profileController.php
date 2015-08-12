@@ -36,4 +36,14 @@ class profileController extends baseController
 
 		return $this->layout;
 	}	
+
+	public function changeProfile()
+	{		
+		$this->layout->page 					= view('pages.frontend.profile')
+													->with('controller_name', $this->controller_name)
+													->with('subPage', 'profileEdit');
+		$this->layout->controller_name			= $this->controller_name;
+
+		return $this->layout;
+	}	
 }
