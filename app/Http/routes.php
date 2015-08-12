@@ -31,4 +31,5 @@ Route::get('profile', ['uses' => 'Frontend\\profileController@index', 'as' => 'f
 Route::get('profile/membershipDetail', ['uses' => 'Frontend\\profileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
 Route::get('profile/changePassword', ['uses' => 'Frontend\\profileController@changePassword', 'as' => 'frontend.profile.changePassword']);
 Route::get('profile/changeProfile', ['uses' => 'Frontend\\profileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
+Route::get('profile/changeProfilePicture', ['uses' => 'Frontend\\profileController@changeProfilePicture', 'as' => 'frontend.profile.changeProfilePicture']);
 
