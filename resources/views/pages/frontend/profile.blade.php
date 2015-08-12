@@ -23,11 +23,11 @@
 			        	<div class="row">
                 			<div class="col-md-12">
                 				@if($subPage)
+                                    @include('widgets.alerts')
 									@include('widgets.'. $subPage)                		               		                  		                		               		              		               		                  		                		               		
                 				@endif
                 			</div>
                 		</div>	
-
 			       </div>
 		        </div>
 	        </div>

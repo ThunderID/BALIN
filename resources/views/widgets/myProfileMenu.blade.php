@@ -30,12 +30,12 @@
 </div> 
 <div class="row">
 	<div class="col-md-12">
-    	<a href="#" style="color:blue;">Submenu 2</a>
+    	<a href="#" style="color:blue;">Change Profile</a>
 	</div>
 </div>  
 <div class="row">
 	<div class="col-md-12">
-    	<a href="#" style="color:blue;">Submenu 3</a>
+    	<a href="#" style="color:blue;">Change Password</a>
 	</div>
 </div>  
 <div class="row">
@@ -52,9 +52,10 @@
 	<div class="col-md-12">
     	<a href="#" style="color:blue;">Submenu 2</a>
 	</div>
-</div>  
+</div>
+</br>  
 <div class="row">
 	<div class="col-md-12">
-    	<a href="#" style="color:blue;">Submenu 3</a>
+    	<a href="#" style="color:blue;">Logout</a>
 	</div>
 </div> 
