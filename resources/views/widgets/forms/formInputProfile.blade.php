@@ -1,13 +1,13 @@
 <form role="form" style="padding-right:inherit;padding-left:inherit;">
     <div class="row">
-        <div class="col-sm-4 col-xs-4">                             
+        <div class="col-sm-5 col-xs-5">                             
             <div class="row">
                 <div class="col-md-12">
                     <img style ="width:100%;" src="https://placeholdit.imgix.net/~text?txtsize=30&txt=320%C3%97150&w=320&h=320" alt="Profile" clas="img-responsive">
                 </div>
             </div>
         </div>
-        <div class="col-sm-8 col-xs-8"> 
+        <div class="col-sm-7 col-xs-7"> 
             <div class="row">
                 <p style="font-size:12px;">Click this button bellow to browse image for your profile</p>
                 <p style="font-size:12px;">* Max image size : 1,5 MB</p>
