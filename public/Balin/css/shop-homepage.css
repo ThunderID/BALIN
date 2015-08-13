@@ -8,6 +8,7 @@
 body {
     height: 100%;
     padding-top: 50px;
+    font-family: 'Roboto', sans-serif;
 }
 
 html {
@@ -101,4 +102,14 @@ footer {
 
 .img-center {
     margin: 0 auto;
+}
+
+.page404 {
+    padding-top: 170px;
+}
+
+@media screen and (max-width: 767px) {
+    .page404 {
+        padding-top: 70px;
+    }
 }

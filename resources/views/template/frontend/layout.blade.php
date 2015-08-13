@@ -15,6 +15,7 @@
    {!! HTML::style('Balin/css/bootstrap.min.css') !!}
    {!! HTML::style('Balin/css/shop-homepage.css') !!}
    {!! HTML::style('Balin/plugin/fontawesome/css/font-awesome.min.css') !!}
+   {!! HTML::style('http://fonts.googleapis.com/css?family=Roboto:400,300,700') !!}
 
 </head>
 
