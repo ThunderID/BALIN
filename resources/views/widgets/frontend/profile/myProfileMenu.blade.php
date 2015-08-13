@@ -35,11 +35,6 @@
 </div>  
 <div class="row">
 	<div class="col-md-12">
-    	<a href="{{ route('frontend.profile.changeProfilePicture') }}" style="color:blue;">Change Profile Picture</a>
-	</div>
-</div> 
-<div class="row">
-	<div class="col-md-12">
     	<a href="{{ route('frontend.profile.changePassword') }}" style="color:blue;">Change Password</a>
 	</div>
 </div>  

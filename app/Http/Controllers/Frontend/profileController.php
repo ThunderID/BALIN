@@ -46,14 +46,4 @@ class profileController extends baseController
 
 		return $this->layout;
 	}	
-
-	public function changeProfilePicture()
-	{		
-		$this->layout->page 					= view('pages.frontend.profile')
-													->with('controller_name', $this->controller_name)
-													->with('subPage', 'profileChangeProfilePicture');
-		$this->layout->controller_name			= $this->controller_name;
-
-		return $this->layout;
-	}
 }
