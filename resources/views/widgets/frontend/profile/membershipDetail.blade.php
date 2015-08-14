@@ -14,6 +14,6 @@
 
         @include('widgets.particle.formLabelUpDown', array('labelTitle' => 'Coupon Balance', 'labelValue' => '150.000 points'))                                                                                                               
 
-        @include('widgets.particle.formLabelUpDown', array('labelTitle' => 'Coupon Valid Thru', 'labelValue' => '26 May 2016'))                                                                                                                               				                			
+        @include('widgets.particle.formLabelUpDown', array('labelTitle' => 'Coupon Balance Reset On', 'labelValue' => '26 May 2016'))                                                                                                                               				                			
 	</div>
 </div>
