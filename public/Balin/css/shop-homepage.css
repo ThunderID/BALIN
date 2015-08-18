@@ -113,3 +113,38 @@ footer {
         padding-top: 70px;
     }
 }
+
+.container a{
+    color: black;
+}
+
+.chart-header{
+    border-bottom: 2px solid #ccc;
+}
+
+.chart-header p{
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+}
+
+.chart-item{
+    border-bottom: 1px solid #ccc;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.chart-item h4{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.chart-item p{
+    font-size: 14px;
+    color: #777;
+}
+
+.chart-item-mobile h4{
+    margin-top: 5px;
+    margin-bottom: 5px;    
+}

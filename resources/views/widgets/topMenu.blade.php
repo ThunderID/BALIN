@@ -13,8 +13,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li @if($controller_name == 'chart') class=active @endif>
-                    <a href="{{ URL::route('frontend.chart.index') }}">Chart</a>
+                <li @if($controller_name == 'cart') class=active @endif>
+                    <a href="{{ URL::route('frontend.cart.index') }}">Cart</a>
                 </li>                                                    
                 <li @if($controller_name == 'home') class=active @endif  }}>
                     <a href="{{ URL::route('frontend.home.index') }}">Home</a>

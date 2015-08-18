@@ -26,7 +26,7 @@ Route::get('home', ['uses' => 'Frontend\\homeController@index', 'as' => 'fronten
 Route::get('products', ['uses' => 'Frontend\\productController@index', 'as' => 'frontend.product.index']);
 Route::get('join', ['uses' => 'Frontend\\joinController@index', 'as' => 'frontend.join.index']);
 Route::get('whyJoin', ['uses' => 'Frontend\\whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
-Route::get('chart', ['uses' => 'Frontend\\chartController@index', 'as' => 'frontend.chart.index']);
+Route::get('cart', ['uses' => 'Frontend\\cartController@index', 'as' => 'frontend.cart.index']);
 Route::get('profile', ['uses' => 'Frontend\\profileController@index', 'as' => 'frontend.profile.index']);
 Route::get('profile/membershipDetail', ['uses' => 'Frontend\\profileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
 Route::get('profile/changePassword', ['uses' => 'Frontend\\profileController@changePassword', 'as' => 'frontend.profile.changePassword']);
