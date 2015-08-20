@@ -119,7 +119,7 @@ footer {
 }
 
 .chart-header{
-    border-bottom: 2px solid #ccc;
+    border-bottom: 3px solid #ccc;
 }
 
 .chart-header p{
@@ -147,4 +147,17 @@ footer {
 .chart-item-mobile h4{
     margin-top: 5px;
     margin-bottom: 5px;    
+}
+
+.chart-lowLine{
+    border-top: 2px solid #ccc;
+}
+
+.chart-footer{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.chart-footer h4{
+    font-weight: bold;
 }

@@ -32,7 +32,7 @@
 								<h4>:</h4>
 							</div>
 							<div class="col-xs-7">
-								<h4>1</hp>
+								<h4 class="text-right">1</h4>
 							</div>
 						</div>
 						<div class="row">
@@ -43,7 +43,7 @@
 								<h4>:</h4>
 							</div>
 							<div class="col-xs-7">
-								<h4 style="margin-bottom:10px;">1.200.000 - 1.000.000</hp>
+								<h4 class="text-right" style="margin-bottom:10px;">1.200.000 - 1.000.000</h4>
 							</div>
 						</div>
 						<div class="row">
@@ -60,7 +60,7 @@
 								<h4>:</h4>
 							</div>
 							<div class="col-xs-7">
-								<h4>1.000.000</hp>
+								<h4 class="text-right">1.000.000</h4>
 							</div>
 						</div>
 					</div>
@@ -69,17 +69,17 @@
 		</div>
 	</div>
 	<div class="col-md-1 col-sm-1 hidden-xs">
-		<h4>1</h4>
+		<h4 class="text-center">1</h4>
 	</div>
 	<div class="col-md-2 col-sm-2 hidden-xs">
-		<h4>1.200.000</h4>
-		<h4>1.000.000</h4>
+		<h4 class="text-right">1.200.000</h4>
+		<h4 class="text-right">1.000.000</h4>
 	</div>
 	<div class="col-md-2 col-sm-2 hidden-xs">
-		<h4>1.200.000</h4>
+		<h4 class="text-right">1.200.000</h4>
 	</div>
 	<div class="col-md-1 col-sm-1 hidden-xs">
-        <button type="button" class="btn btn-default pull-right">
+        <button style="margin-top:7px;" type="button" class="btn btn-xs btn-default pull-right">
             <span class="glyphicon glyphicon-remove" style="padding-top:4px;"></span>
         </button></td>	
 	</div>
@@ -92,6 +92,9 @@
 		        </button>						
 			</div>
 			</br>			
+		</div>
+		<div class"row">
+			</br>
 		</div>	
 	</div>
 </div>
