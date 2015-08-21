@@ -30,12 +30,34 @@
 		        	</div>				        	
 	        	</div>
 	        	    	
-		        @include('widgets.cartItemList')
-		        @include('widgets.cartItemList')
-		        @include('widgets.cartItemList')
-		        @include('widgets.cartItemList')
+		        @include('widgets.cartItemList', array(
+					"itemListName" 			=> "Batik Andong Cap Jagung",
+					"ItemListSku" 			=> "74347tgcs7", 
+					"itemListQty"			=> "1",
+					"itemListNormalPrice"	=> "290.000",
+					"itemListDiscountPrice"	=> "245.000",
+					"itemListTotalPrice"	=> "245.000",
+		        ))
 
-		        <div class="row chart-lowLine">
+		        @include('widgets.cartItemList', array(
+					"itemListName" 			=> "Batik Cikrak Cap Jigong",
+					"ItemListSku" 			=> "a13f2tgcs2", 
+					"itemListQty"			=> "1",
+					"itemListNormalPrice"	=> "790.000",
+					"itemListDiscountPrice"	=> "605.000",
+					"itemListTotalPrice"	=> "605.000",
+		        ))		        
+
+		        @include('widgets.cartItemList', array(
+					"itemListName" 			=> "Batik Polong Cap Singkong",
+					"ItemListSku" 			=> "343f1tg3s0", 
+					"itemListQty"			=> "1",
+					"itemListNormalPrice"	=> "90.000",
+					"itemListDiscountPrice"	=> NULL,
+					"itemListTotalPrice"	=> "90.000",
+		        ))	
+
+		        <div class="row chart-topLine">
 		        </div>
         	</div>
         </div>
@@ -84,7 +106,7 @@
 						<h4 class="text-right">SubTotal(Rp) :</h4>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2">
-						<h4 class="text-right">10.000.000</h4>
+						<h4 class="text-right">940.000</h4>
 					</div>	
 				</div>
 				</br>
@@ -103,6 +125,7 @@
 				</br>
 			</div>
         </div>        
+    </div>        
 @stop
 
 @section('script')

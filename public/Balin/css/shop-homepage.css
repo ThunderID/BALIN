@@ -149,8 +149,12 @@ footer {
     margin-bottom: 5px;    
 }
 
-.chart-lowLine{
+.chart-topLine{
     border-top: 2px solid #ccc;
+}
+
+.chart-lowLine{
+    border-bottom: 2px solid #ccc;
 }
 
 .chart-footer{
@@ -160,4 +164,43 @@ footer {
 
 .chart-footer h4{
     font-weight: bold;
+}
+
+.chart-dropdown{
+    width: 280px;
+    font-size: 12px;
+}
+
+.chart-dropdown li{
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 7px;
+    padding-bottom: 3px;
+}
+
+.chart-dropdown h4{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.chart-dropdown p{
+    font-size: 11px;
+    margin-top: 0px;
+    margin-bottom:0px;
+}
+
+.chart-dropdown-item-grid{
+    border-bottom: 2px dashed #ccc;
+}
+
+.chart-dropdown-subtotal{
+    /*background-color: #bbb;*/
+    color : #222;
+    padding-bottom: 0px;
+}
+
+.chart-dropdown-subtotal p{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }

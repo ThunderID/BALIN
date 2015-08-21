@@ -9,18 +9,18 @@
 			<div class="col-sm-8 col-xs-8">
  				<div class="row">
 					<div class="col-sm-12 col-xs-12">
-						<h4 style="margin-bottom:3px;">Batik Andong Cap Jempol</h4>
+						<h4 style="margin-bottom:3px;">{{$itemListName}}</h4>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">	
-						<p>SKU : 72347tgas7</p>
+						<p>SKU : {{$ItemListSku}}</p>
 					</div>
 				</div>	
 				<div class="row">
-			        @include('widgets.particle.labelCategory')
-			        @include('widgets.particle.labelCategory')
-			        @include('widgets.particle.labelCategory')
+			        @include('widgets.particle.labelCategory', array("labelTitle" => "Ukuran", "labelValue" => "M"))
+			        @include('widgets.particle.labelCategory', array("labelTitle" => "Warna", "labelValue" => "Merah"))
+			        @include('widgets.particle.labelCategory', array("labelTitle" => "Motif", "labelValue" => "Floral"))
 				</div>
 				<div class="row chart-item-mobile">
 					<div class="hidden-lg hidden-md hidden-sm col-xs-12">
@@ -32,7 +32,7 @@
 								<h4>:</h4>
 							</div>
 							<div class="col-xs-7">
-								<h4 class="text-right">1</h4>
+								<h4 class="text-right">{{$itemListQty}}</h4>
 							</div>
 						</div>
 						<div class="row">
@@ -43,7 +43,7 @@
 								<h4>:</h4>
 							</div>
 							<div class="col-xs-7">
-								<h4 class="text-right" style="margin-bottom:10px;">1.200.000 - 1.000.000</h4>
+								<h4 class="text-right" style="margin-bottom:10px;">{{$itemListNormalPrice}} - {{$itemListDiscountPrice}}</h4>
 							</div>
 						</div>
 						<div class="row">
@@ -60,7 +60,7 @@
 								<h4>:</h4>
 							</div>
 							<div class="col-xs-7">
-								<h4 class="text-right">1.000.000</h4>
+								<h4 class="text-right">{{$itemListTotalPrice}}</h4>
 							</div>
 						</div>
 					</div>
@@ -69,14 +69,14 @@
 		</div>
 	</div>
 	<div class="col-md-1 col-sm-1 hidden-xs">
-		<h4 class="text-center">1</h4>
+		<h4 class="text-center">{{$itemListQty}}</h4>
 	</div>
 	<div class="col-md-2 col-sm-2 hidden-xs">
-		<h4 class="text-right">1.200.000</h4>
-		<h4 class="text-right">1.000.000</h4>
+		<h4 class="text-right">{{$itemListNormalPrice}}</h4>
+		<h4 class="text-right">{{$itemListDiscountPrice}}</h4>
 	</div>
 	<div class="col-md-2 col-sm-2 hidden-xs">
-		<h4 class="text-right">1.200.000</h4>
+		<h4 class="text-right">{{$itemListTotalPrice}}</h4>
 	</div>
 	<div class="col-md-1 col-sm-1 hidden-xs">
         <button style="margin-top:7px;" type="button" class="btn btn-xs btn-default pull-right">
