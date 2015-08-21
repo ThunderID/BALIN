@@ -204,3 +204,7 @@ footer {
     font-weight: bold;
     margin-bottom: 5px;
 }
+
+.btn-text-white{
+    color:#FFF !important;
+}
