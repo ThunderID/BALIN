@@ -24,7 +24,7 @@
 <body>
     <div id="wrapper">
 
-        @include('widgets.backend.nav')
+        @include('widgets.backend.pageElements.nav')
 
         <div id="page-wrapper">
             @yield('content')

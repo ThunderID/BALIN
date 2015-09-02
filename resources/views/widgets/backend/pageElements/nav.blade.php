@@ -80,6 +80,9 @@
                         <a href="#">Blokir User</a>
                     </li>  
                     <li>
+                        <a href="#">Log User</a>
+                    </li>                      
+                    <li>
                         <a href="#">Log Aplikasi</a>
                     </li>                      
                 </ul>                    
