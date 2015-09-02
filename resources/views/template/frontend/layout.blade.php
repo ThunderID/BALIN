@@ -1,3 +1,6 @@
+@extends('template.layout')
+
+@section('content_layout')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,12 +12,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Full Slider - Start Bootstrap Template</title>
+    <title>Balin</title>
 
     <!-- Custom CSS -->
-   {!! HTML::style('Balin/css/bootstrap.min.css') !!}
-   {!! HTML::style('Balin/css/shop-homepage.css') !!}
-   {!! HTML::style('Balin/plugin/fontawesome/css/font-awesome.min.css') !!}
+   {!! HTML::style('Balin/web/css/bootstrap.min.css') !!}
+   {!! HTML::style('Balin/web/css/shop-homepage.css') !!}
+   {!! HTML::style('Balin/web/plugin/fontawesome/css/font-awesome.min.css') !!}
    {!! HTML::style('http://fonts.googleapis.com/css?family=Roboto:400,300,700') !!}
 
 </head>
@@ -28,8 +31,8 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    {!! HTML::script('Balin/js/jquery.js') !!}
-    {!! HTML::script('Balin/js//bootstrap.min.js') !!}
+    {!! HTML::script('Balin/web/js/jquery.js') !!}
+    {!! HTML::script('Balin/web/js//bootstrap.min.js') !!}
 
     <!-- Script to Activate the Carousel -->
     <script>
@@ -51,3 +54,4 @@
 </body>
 
 </html>
+@stop

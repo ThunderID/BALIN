@@ -21,6 +21,7 @@
 //   //   print_r($tes);
 // });
 
+// frontend
 Route::get('/', ['as' => 'frontend.index', function(){return Redirect::route('frontend.home.index');}]);
 Route::get('home', ['uses' => 'Frontend\\homeController@index', 'as' => 'frontend.home.index']);
 Route::get('products', ['uses' => 'Frontend\\productController@index', 'as' => 'frontend.product.index']);
@@ -33,3 +34,6 @@ Route::get('profile/changePassword', ['uses' => 'Frontend\\profileController@cha
 Route::get('profile/changeProfile', ['uses' => 'Frontend\\profileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
 
 Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error']);
+
+// backend
+Route::get('cms', ['uses' => 'Backend\\homeController@index', 'as' => 'backend.home']);

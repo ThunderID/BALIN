@@ -9,7 +9,7 @@ abstract class baseController extends Controller {
 
 	function __construct() 
 	{
-		$this->layout = view('template.frontend.layout');
+		$this->layout = view('template.layout');
 	}
 
 }
