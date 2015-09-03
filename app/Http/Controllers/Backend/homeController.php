@@ -4,13 +4,17 @@ use App\Http\Controllers\baseController;
 
 class homeController extends baseController 
 {
-	protected $controller_name 					= 'index';
+	protected $view_name 					= 'Home';
 
 	public function index()
 	{		
+		$breadcrumb								= array();
+
 		$this->layout->page 					= view('pages.backend.home')
-													->with('controller_name', $this->controller_name);
-		$this->layout->controller_name			= $this->controller_name;
+													->with('WT_pageTitle', $this->view_name )
+													->with('WT_pageSubTitle','Dashboard')
+													->with('WB_breadcrumbs', $breadcrumb)
+													;													
 
 		return $this->layout;
 	}

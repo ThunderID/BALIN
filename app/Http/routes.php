@@ -37,3 +37,5 @@ Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error
 
 // backend
 Route::get('cms', ['uses' => 'Backend\\homeController@index', 'as' => 'backend.home']);
+Route::get('cms/courier', ['uses' => 'Backend\\courierController@index', 'as' => 'backend.courier.index']);
+

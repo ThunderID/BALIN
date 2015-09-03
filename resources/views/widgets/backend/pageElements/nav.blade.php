@@ -128,7 +128,7 @@
                         <a href="#">Data Pengiriman</a>
                     </li>   
                     <li>
-                        <a href="#">Kurir</a>
+                        <a href="{{ URL::route('backend.courier.index') }}">Kurir</a>
                     </li>                                                                                              
                 </ul>                
             </li>   
