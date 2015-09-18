@@ -1,7 +1,7 @@
 <?php namespace Models\Observers;
 
 use \Validator;
-use Models\Courier;
+use Models\courierBranches;
 
 /* ----------------------------------------------------------------------
  * Event:
@@ -17,9 +17,9 @@ class shippingObserver
 
 		if ($validator->passes())
 		{
-			$courierId 			= $model['attributes']['courier_id'];
+			$courierId 			= $model['attributes']['courier_branch_id'];
 
-			$data 				= Courier::id($courierId)->first();
+			$data 				= courierBranches::id($courierId)->first();
 
 			if($data['status'] == 1)
 			{
@@ -39,12 +39,12 @@ class shippingObserver
 
 	public function deleting($model)
 	{
-		if($model->courier->count() && $model->Transaction->count())
-		{
-			$model['errors'] 	= ['Tidak dapat menghapus data shipping'];
+		// if($model->courierBranch->count() && $model->Transaction->count())
+		// {
+		// 	$model['errors'] 	= ['Tidak dapat menghapus data pengiriman'];
 
-			return false;
-		}
+		// 	return false;
+		// }
 
 		return true;
 	}

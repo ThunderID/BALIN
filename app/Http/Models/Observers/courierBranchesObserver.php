@@ -8,7 +8,7 @@ use \Validator;
  * 	Deleting						
  * ---------------------------------------------------------------------- */
 
-class CustomerObserver 
+class courierBranchesObserver 
 {
 	public function saving($model)
 	{
@@ -28,9 +28,9 @@ class CustomerObserver
 
 	public function deleting($model)
 	{
-		if($model->Credit_logs->count() || $model->Transactions->count() )
+		if($model->Shippings->count())
 		{
-			$model['errors'] 	= ['Tidak dapat menghapus data Customer yang telah bertransaksi'];
+			$model['errors'] 	= ['Tidak dapat menghapus data yang memiliki data transaksi'];
 
 			return false;
 		}

@@ -21,6 +21,7 @@ class customerTableSeeder extends Seeder
 				$data = new customer;
 				$data->fill([
 					'name'							=> $faker->name,
+					'username'						=> $faker->username,
 					'email'							=> $faker->email,
 					'dob'							=> $faker->dateTime($max = 'now')->format('Y-m-d'),
 					'address'						=> $faker->streetAddress,

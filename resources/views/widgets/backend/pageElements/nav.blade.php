@@ -88,7 +88,7 @@
                 </ul>                    
             </li>  
             <li>
-                <a href="#"><i class="fa fa-fw fa-users"></i> Customer </a>               
+                <a href="{{ URL::route('backend.customer.index') }}"><i class="fa fa-fw fa-users"></i> Customer </a>               
             </li>            
             <li>
                 <a href="#"><i class="fa fa-fw fa-archive"></i> inventory </a>
@@ -97,10 +97,7 @@
                 <a href="javascript:;" data-toggle="collapse" data-target="#down-transaction"><i class="fa fa-fw fa-briefcase"></i> Transaksi <i class="fa arrow pull-right"></i></a>
                 <ul id="down-transaction" class="collapse">
                     <li>
-                        <a href="#">Penjualan</a>
-                    </li>  
-                    <li>
-                        <a href="#">Retur</a>
+                        <a href="{{ URL::route('backend.transaction.index') }}">Penjualan</a>
                     </li>       
                     <li>
                         <a href="#">Kupon</a>
@@ -114,7 +111,7 @@
                         <a href="#">Validasi Pembayaran</a>
                     </li>  
                     <li>
-                        <a href="#">Data Pembayaran</a>
+                        <a href="{{ URL::route('backend.payment.index') }}">Data Pembayaran</a>
                     </li>                                                               
                 </ul>                
             </li>     
@@ -125,7 +122,7 @@
                         <a href="#">Kirim Barang</a>
                     </li>   
                     <li>
-                        <a href="#">Data Pengiriman</a>
+                        <a href="{{ URL::route('backend.shipping.index') }}">Data Pengiriman</a>
                     </li>   
                     <li>
                         <a href="{{ URL::route('backend.courier.index') }}">Kurir</a>

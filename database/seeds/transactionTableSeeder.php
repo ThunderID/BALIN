@@ -24,6 +24,7 @@ class transactionTableSeeder extends Seeder
 				$data = new transaction;
 				$data->fill([
 					'date'							=> $faker->dateTime($max = 'now')->format('Y-m-d'),	
+					'invoice_no'					=> $faker->creditCardNumber,
 					'unique_number' 				=> rand(0,1000),
 					'total_product_price' 			=> rand(1000000, 10000000000),
 					'shipping_cost' 				=> rand(10000, 100000),

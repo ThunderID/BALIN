@@ -3,29 +3,36 @@ use Validator;
 use Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Courier extends Eloquent {
+class CourierBranches extends Eloquent {
 	use  SoftDeletes;
 
 	protected $guarded 				= array();
-	protected $table 				= 'couriers';
+	protected $table 				= 'courier_branches';
 	protected $fillable				= 	[
 											'name',
-											'image',
-											'status'
+											'status',
+											'phone',
+											'address'
 										];
 	protected $rules				= 	[
 											'name' 						=> 'required|max:255',
-											'image' 					=> 'max:255',
-											'status' 					=> 'required|integer'
+											'status' 					=> 'required|numeric',
+											'phone' 					=> 'max:255',
+											'address' 					=> 'max:255'
 										];													  
 	protected $errors 				= 	[];
 
 	/* --------------------------------------------- RELATIONSHIP ---------------------------------------------*/
 	//jamak untuk return jamak ('s')
 
-	public function courierBranches()
+	public function Shippings()
 	{
-	   return $this->hasMany('\Models\courierBranches');
+	   return $this->hasMany('\Models\Shipping');
+	}
+
+	public function Courier()
+	{
+	   return $this->belongsTo('\Models\Courier');
 	}
 
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/

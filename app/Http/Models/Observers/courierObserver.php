@@ -28,9 +28,9 @@ class CourierObserver
 
 	public function deleting($model)
 	{
-		if($model->Shippings->count())
+		if($model->courierBranches->count())
 		{
-			$model['errors'] 	= ['Tidak dapat menghapus data Kurir yang memiliki data transaksi'];
+			$model['errors'] 	= ['Tidak dapat menghapus data kurir yang memiliki data kantor cabang'];
 
 			return false;
 		}

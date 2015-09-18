@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call('customerTableSeeder');
         $this->call('creditLogTableSeeder');
         $this->call('courierTableSeeder');
+        $this->call('courierBranchesTableSeeder');
         $this->call('settingTableSeeder');
         $this->call('shippingTableSeeder');
         $this->call('paymentTableSeeder');
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call('categoryTableSeeder');
         $this->call('productCategoryTableSeeder');
         $this->call('transactionDetailTableSeeder');
+
 
         // Model::reguard();
     }

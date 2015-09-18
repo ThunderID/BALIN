@@ -19,6 +19,8 @@
    {!! HTML::style('Balin/admin/css/sb-admin.css') !!}
    {!! HTML::style('Balin/admin/css/metisMenu.css') !!}
    {!! HTML::style('Balin/admin/plugin/fontawesome/css/font-awesome.min.css') !!}
+   {!! HTML::style('Balin/admin/css/select2.css') !!}
+
 </head>
 
 <body>
@@ -37,11 +39,15 @@
     {!! HTML::script('/Balin/admin/js/jquery.js') !!}
     {!! HTML::script('/Balin/admin/js/bootstrap.min.js') !!}
     {!! HTML::script('/Balin/admin/js/metisMenu.min.js') !!}
+    {!! HTML::script('/Balin/admin/js/select2.min.js') !!}
+    
     <!-- jQuery -->
     <script type="text/javascript">
         $(function () {
            $('#side-menu').metisMenu();
          });
+
+        @yield('script')
     </script>
 </body>
 

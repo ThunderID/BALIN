@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateShippingTable extends Migration
+class CreateTableCourierBranches extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,13 @@ class CreateShippingTable extends Migration
      */
     public function up()
     {
-        Schema::create('shippings', function (Blueprint $table) {
+        Schema::create('courier_branches', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('courier_branch_id');
+            $table->integer('courier_id');
             $table->string('name');
-            $table->string('code');
-            $table->text('address');
-            $table->string('zip_code');
+            $table->integer('status');
             $table->string('phone');
-            $table->date('date');
-            $table->integer('transaction_id');
+            $table->string('address');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +31,6 @@ class CreateShippingTable extends Migration
      */
     public function down()
     {
-        Schema::drop('shippings');
+        Schema::drop('courier_branches');
     }
 }

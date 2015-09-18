@@ -10,6 +10,7 @@ class Transaction extends Eloquent {
 	protected $table 			= 'transactions';
 	protected $fillable 		=	[
 										'date', 
+										'invoice_no',
 										'coupon_code',
 										'unique_number',
 										'total_product_price', 
@@ -20,6 +21,7 @@ class Transaction extends Eloquent {
 									];
 	protected $rules			= 	[
 										'date' 							=> 'required|date',
+										'invoice_no'					=> 'required',
 										'coupon_code' 					=> 'max:255',
 										'unique_number' 				=> 'required',
 										'total_product_price'			=> 'required',

@@ -28,11 +28,11 @@ class Customer extends Eloquent {
 										];
 	protected $rules				= 	[
 											'name' 						=> 'required|max:255',
-											'email' 					=> 'required|max:255',
-											'dob' 						=> 'required|date',
-											'address' 					=> 'required',
-											'phone' 					=> 'required',
-											'gender'					=> 'required', 
+											// 'email' 					=> 'required|max:255',
+											// 'dob' 						=> 'required|date',
+											// 'address' 					=> 'required',
+											// 'phone' 					=> 'required',
+											// 'gender'					=> 'required', 
 											'password' 					=> 'max:255',
 											'join_date' 				=> 'required|date'
 										];										

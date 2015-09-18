@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
         \Models\Category::observe(new \Models\Observers\categoryObserver);
         \Models\courier::observe(new \Models\Observers\courierObserver);
+        \Models\courierBranches::observe(new \Models\Observers\courierBranchesObserver);
         \Models\Category::observe(new \Models\Observers\categoryObserver);
         \Models\Credit_log::observe(new \Models\Observers\credit_logObserver);
         \Models\Customer::observe(new \Models\Observers\customerObserver);

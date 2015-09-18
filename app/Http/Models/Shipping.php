@@ -29,9 +29,9 @@ class Shipping extends Eloquent {
 	/* --------------------------------------------- RELATIONSHIP ---------------------------------------------*/
 	//jamak untuk return jamak ('s')
 		
-	public function courier()
+	public function courierBranch()
 	{
-	   return $this->belongsTo('\Models\Courier');
+	   return $this->belongsTo('\Models\courierBranches');
 	}
 
 	public function Transaction()

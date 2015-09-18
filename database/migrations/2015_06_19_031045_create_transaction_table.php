@@ -15,6 +15,7 @@ class CreateTransactionTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('customer_id');
+            $table->string('invoice_no');
             $table->date('date');
             $table->string('coupon_code');
             $table->integer('unique_number');

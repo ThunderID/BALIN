@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Models\Shipping;
-use Models\Courier;
+use Models\courierBranches;
 use Models\Transaction;
 use Faker\Factory;
 use Illuminate\Support\Facades\DB;
@@ -18,8 +18,8 @@ class shippingTableSeeder extends Seeder
 		$Transactions								= Transaction::where('status' , '<', 3)->get();
 		$total_transaction							= count($Transactions);
 
-		$Couriers 									= Courier::where('status' , '=', 1)->get();
-		$total_courier								= count($Couriers) - 1;
+		$Courier_branches							= courierBranches::all();
+		$total_courier								= count($Courier_branches) - 1;
 
 		try
 		{
@@ -41,9 +41,9 @@ class shippingTableSeeder extends Seeder
 				$data->transaction()->associate($Transaction->id);	
 
 
-				$Courier 							= $Couriers[rand(0,$total_courier)];
-				
-				$data->courier()->associate($Courier->id);		
+				$Courier_branch 					= $Courier_branches[rand(0,$total_courier)];
+
+				$data->courierBranch()->associate($Courier_branch->id);		
 
 
 				if (!$data->save())
