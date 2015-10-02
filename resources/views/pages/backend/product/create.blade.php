@@ -107,6 +107,7 @@
                 </div>  
             </div> 
         </div>
+        </br>
 
         <div class="row">
             <div class="col-md-12">
@@ -115,6 +116,7 @@
                 </h4>
             </div>
         </div>
+        @foreach($data['_attributes'] as $_attribute)
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
@@ -122,7 +124,7 @@
                     {!! 
                         Form::text(
                             'attribute',
-                            $data['_attributes'][0]['attribute'], 
+                            $_attribute['attribute'], 
                             [
                                 'class'         => 'form-control', 
                                 'tabindex'      => '4', 
@@ -137,7 +139,7 @@
                     {!! 
                         Form::text(
                             'value',
-                            $data['_attributes'][0]['value'], 
+                            $_attribute['value'], 
                             [
                                 'class'         => 'form-control', 
                                 'tabindex'      => '5', 
@@ -147,7 +149,39 @@
                 </div>            
             </div>
         </div>
-
+        @endforeach 
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label for="attribute">Attribut</label>
+                    {!! 
+                        Form::text(
+                            'attribute',
+                            null, 
+                            [
+                                'class'         => 'form-control', 
+                                'tabindex'      => '4', 
+                            ] 
+                        ) 
+                    !!}                
+                </div>            
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="form-group">
+                    <label for="value">Nilai Attribut</label>
+                    {!! 
+                        Form::text(
+                            'value',
+                            null, 
+                            [
+                                'class'         => 'form-control', 
+                                'tabindex'      => '5', 
+                            ] 
+                        ) 
+                    !!}  
+                </div>            
+            </div>
+        </div>
 
 
         <div class="row">
