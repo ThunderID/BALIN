@@ -9,25 +9,47 @@ class Category extends Eloquent {
 	protected $guarded 				= array();
 	protected $table 				= 'categories';
 	protected $fillable 			=	[
+											'path',
 											'name',
-											'path', 
 											'parent_id'
 										];
 	protected $rules				= 	[
-											'name' 						=> 'required|max:255',
-											'path' 						=> 'required|max:255',
-											'parent_id' 				=> 'required'
+											'name' 					=> 'required|max:255',
 										];										
-	protected $errors 				= 	[];
+	protected $errors 				=	[];
 
 	/* --------------------------------------------- RELATIONSHIP ---------------------------------------------*/
 	//jamak untuk return jamak ('s')
-		
-	public function Products()
+
+	public function category()
 	{
-	   return $this->belongsToMany('\Models\Product', 'product_categories', 'product_id', 'category_id')
-	   		->WithPivot('category_id', 'product_id');
+	   return $this->belongsTo('\Models\category','parent_id');
 	}
+
+	public function categories()
+	{
+	   return $this->hasMany('\Models\category','parent_id');
+	}		
+
+	public function categoryProducts()
+	{
+	   return $this->hasMany('\Models\category_product','category_id');
+	}	
+		
+	// public function products()
+	// {
+	//    return $this->hasMany('\Models\product');
+	// }
+
+	/* --------------------------------------------- SCOPE ---------------------------------------------*/
+	public function scopeFindCategory($query, $variable)
+	{
+		return $query
+			->where('parent_id', '<>', $variable)
+		;
+	}
+
+
 
 	/* ---------------------------------------------------------------------------- ERRORS ----------------------------------------------------------------------------*/
 	/**
@@ -39,5 +61,5 @@ class Category extends Eloquent {
 	function getError()
 	{
 		return $this->errors;
-	}	
+	}		
 }

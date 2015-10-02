@@ -3,26 +3,29 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Models\Product;
+use Models\attribute;
 use Faker\Factory;
 use Illuminate\Support\Facades\DB;
 
-class productTableSeeder extends Seeder
+class attributeTableSeeder extends Seeder
 {
 	function run()
 	{
-		DB::table('products')->truncate();
+		DB::table('attributes')->truncate();
 		$faker 										= Factory::create();
 		try
 		{
+			$product_length							= product::count();
+
 			foreach(range(1, 50) as $index)
 			{
-				$data = new product;
+				$data = new attribute;
 				$data->fill([
-					'name'							=> $faker->word,
-					'sku'							=> $faker->ean8,
-					'slug'							=> $faker->sentence($nbWords = 3),			
-					'description'					=> $faker->sentence($nbWords = 6),			
+					'attribute'						=> $faker->word,
+					'value'							=> $faker->word,
 				]);
+
+				$data->product()->associate(rand(1, $product_length	));
 
 				if (!$data->save())
 				{

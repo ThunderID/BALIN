@@ -12,37 +12,15 @@ class categoryTableSeeder extends Seeder
 	{
 		DB::table('categories')->truncate();
 		$faker 										= Factory::create();
-
 		try
 		{
-			for ($i = 1; $i <= 5; $i++) 
+			$parent									= ['lengan','warna','jenis batik','tipe batik'];					
+			foreach(range(1, 4) as $index)
 			{
 				$data = new category;
 				$data->fill([
-					'name'							=> $faker->word,
-					'path'							=> $i,
-					'parent_id'						=> 0			
-				]);
-
-				if (!$data->save())
-				{
-					print_r($data->getError());
-					exit;
-				}					
-			}
-
-			$Categories								= Category::where('parent_id' , '=', 0)->get();
-			$total_categories						= count($Categories) -1;
-
-			for ($i = 6; $i <= 20; $i++) 
-			{
-				$Category  							= $Categories[rand(0,$total_categories)];
-
-				$data = new category;
-				$data->fill([
-					'name'							=> $faker->word,
-					'path'							=> $Category->id . "," . $i,
-					'parent_id'						=> $Category->id			
+					'name'							=> $parent[$index-1],
+					'path'							=> $index,
 				]);
 
 				if (!$data->save())
@@ -52,30 +30,84 @@ class categoryTableSeeder extends Seeder
 				}					
 			}	
 
-			$Categories								= Category::where('parent_id' , '!=', 0)->get();
-			$total_categories						= count($Categories) -1;
-
-			for ($i = 21; $i < 50; $i++) 
+			$parent									= ['panjang','pendek'];					
+			foreach(range(1, 2) as $index)
 			{
-				$Category  							= $Categories[rand(0,$total_categories)];
-
 				$data = new category;
 				$data->fill([
-					'name'							=> $faker->word,
-					'path'							=> $Category->path . "," . $i,
-					'parent_id'						=> $Category->id			
+					'name'							=> $parent[$index-1],
+					'path'							=> '1,' . $index,
 				]);
+
+				$data->category()->associate('1');
 
 				if (!$data->save())
 				{
 					print_r($data->getError());
 					exit;
 				}					
-			}						
+			}	
+
+			$parent									= ['merah','kuning','hijau','biru','oranye','putih','hitam','ungu','abu-abu','magenta','maroon','coklat'];					
+			foreach(range(1, 12) as $index)
+			{
+				$data = new category;
+				$data->fill([
+					'name'							=> $parent[$index-1],
+					'path'							=> '2,' . $index,
+				]);
+
+				$data->category()->associate('2');
+
+				if (!$data->save())
+				{
+					print_r($data->getError());
+					exit;
+				}					
+			}	
+
+			$parent									= ['batik tulis','batik celup','batik print','batik cap'];					
+			foreach(range(1, 4) as $index)
+			{
+				$data = new category;
+				$data->fill([
+					'name'							=> $parent[$index-1],
+					'path'							=> '3,' . $index,
+				]);
+
+				$data->category()->associate('3');
+
+				if (!$data->save())
+				{
+					print_r($data->getError());
+					exit;
+				}					
+			}	
+
+			$parent									= ['batik madura','batik klaten','batik kawung','batik jombang'];					
+			foreach(range(1, 4) as $index)
+			{
+				$data = new category;
+				$data->fill([
+					'name'							=> $parent[$index-1],
+					'path'							=> '4,' . $index,
+				]);
+
+				$data->category()->associate('4');
+
+				if (!$data->save())
+				{
+					print_r($data->getError());
+					exit;
+				}					
+			}
+
 		}
 		catch (Exception $e) 
 		{
     		echo 'Caught exception: ',  $e->getMessage(), "\n";
+    		echo 'Caught exception: ',  $e->getFile(), "\n";
+    		echo 'Caught exception: ',  $e->getLine(), "\n";
 		}		
 	}
 }			

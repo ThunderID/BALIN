@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductTable extends Migration
+class CreateAttributeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,11 @@ class CreateProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('Products', function (Blueprint $table) {
+        Schema::create('Attributes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('sku');
-            $table->string('slug');
-            $table->text('description');
+            $table->integer('product_id');
+            $table->string('attribute');
+            $table->string('value');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +29,6 @@ class CreateProductTable extends Migration
      */
     public function down()
     {
-        Schema::drop('Products');
+        Schema::drop('Attributes');
     }
 }

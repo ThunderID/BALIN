@@ -29,7 +29,12 @@
         @include('widgets.backend.pageElements.nav')
 
         <div id="page-wrapper">
-            @yield('content')
+            <div class="container-fluid">
+                @include('widgets.backend.pageElements.pageTitle')
+                @include('widgets.backend.pageElements.breadcrumb')
+                @include('widgets.backend.pageElements.alertBox')
+                @yield('content')
+            </div>
         </div>
         <!-- /#page-wrapper -->
 
@@ -40,14 +45,22 @@
     {!! HTML::script('/Balin/admin/js/bootstrap.min.js') !!}
     {!! HTML::script('/Balin/admin/js/metisMenu.min.js') !!}
     {!! HTML::script('/Balin/admin/js/select2.min.js') !!}
+    {!! HTML::script('/Balin/admin/js/inputmask.js') !!}
+
     
     <!-- jQuery -->
     <script type="text/javascript">
         $(function () {
            $('#side-menu').metisMenu();
-         });
+        });
+
+        $(document).ready(function(){
+            $(".IDRCurrencyL").inputmask({ rightAlign: false, alias: "numeric", prefix: 'Rp ', radixPoint: '', placeholder: "", autoGroup: !0, digitsOptional: !1, groupSeparator: '.', groupSize: 3, repeat: 15 });              
+            $(".IDRCurrencyR").inputmask({ rightAlign: true, alias: "numeric", prefix: 'Rp ', radixPoint: '', placeholder: "", autoGroup: !0, digitsOptional: !1, groupSeparator: '.', groupSize: 3, repeat: 15 });              
+        });
 
         @yield('script')
+        @yield('scriptDelete')
     </script>
 </body>
 

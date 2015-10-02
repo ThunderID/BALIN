@@ -62,7 +62,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse ex3" role="navigation" id="side-menu" aria-expanded="">
         <ul class="nav navbar-nav side-nav ex3">
             <li>
-                <a href="{{ URL::route('backend.home') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard </a>
+                <a href="#"><i class="fa fa-fw fa-dashboard"></i> Dashboard </a>
             </li>
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#down-administrative"><i class="fa fa-fw fa-unlock-alt"></i> Administrative <i class="fa arrow pull-right"></i></a>
@@ -88,7 +88,7 @@
                 </ul>                    
             </li>  
             <li>
-                <a href="{{ URL::route('backend.customer.index') }}"><i class="fa fa-fw fa-users"></i> Customer </a>               
+                <a href="#"><i class="fa fa-fw fa-users"></i> Customer </a>               
             </li>            
             <li>
                 <a href="#"><i class="fa fa-fw fa-archive"></i> inventory </a>
@@ -97,7 +97,7 @@
                 <a href="javascript:;" data-toggle="collapse" data-target="#down-transaction"><i class="fa fa-fw fa-briefcase"></i> Transaksi <i class="fa arrow pull-right"></i></a>
                 <ul id="down-transaction" class="collapse">
                     <li>
-                        <a href="{{ URL::route('backend.transaction.index') }}">Penjualan</a>
+                        <a href="#">Penjualan</a>
                     </li>       
                     <li>
                         <a href="#">Kupon</a>
@@ -111,7 +111,7 @@
                         <a href="#">Validasi Pembayaran</a>
                     </li>  
                     <li>
-                        <a href="{{ URL::route('backend.payment.index') }}">Data Pembayaran</a>
+                        <a href="#">Data Pembayaran</a>
                     </li>                                                               
                 </ul>                
             </li>     
@@ -122,10 +122,10 @@
                         <a href="#">Kirim Barang</a>
                     </li>   
                     <li>
-                        <a href="{{ URL::route('backend.shipping.index') }}">Data Pengiriman</a>
+                        <a href="#">Data Pengiriman</a>
                     </li>   
                     <li>
-                        <a href="{{ URL::route('backend.courier.index') }}">Kurir</a>
+                        <a href="#">Kurir</a>
                     </li>                                                                                              
                 </ul>                
             </li>   
@@ -150,7 +150,24 @@
                         <a href="#">Homepage config</a>
                     </li>                                          
                 </ul>
-            </li>                              
+            </li>  
+            <li>
+                <a href="#"><i class="fa fa-fw fa-dashboard"></i> Stock </a>
+            </li>             
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#dd-product"><i class="fa fa-fw fa-archive"></i> Product <i class="fa arrow pull-right"></i></a>
+                <ul id="dd-product" class="collapse">
+                    <li>
+                        <a href="{{ URL::route('backend.category.index') }}">Category</a>
+                    </li> 
+                    <li>
+                        <a href="{{ URL::route('backend.product.index') }}">Product</a>
+                    </li>   
+                    <li>
+                        <a href="#">Price</a>
+                    </li>                                                                                                    
+                </ul>
+            </li>                                         
         </ul>
     </div>
     <!-- /.navbar-collapse -->

@@ -16,7 +16,7 @@
             </div>
             <div class="form-group">
                 <label for="cost">Biaya Pengiriman</label>
-                {!! Form::text('cost', null, ['class' => 'form-control mod_cost', 'required' => 'required', 'tabindex' => '1'] ) !!}
+                {!! Form::text('cost', null, ['class' => 'form-control mod_cost IDRCurrencyL', 'required' => 'required', 'tabindex' => '1'] ) !!}
             </div>            
             <div class="form-group">
                 <label for="date">Tanggal Pengiriman</label>

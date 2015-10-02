@@ -253,3 +253,10 @@ ul.alert-dropdown {
 .danger{
     color : #a94442;
 }
+
+.sub-header{
+    padding-bottom: 6px;
+    border-bottom: 1px solid #eee;
+    color: #777;
+}
+

@@ -26,16 +26,16 @@ class ProductObserver
 		}
 	}
 
-	public function deleting($model)
-	{
-		if($model->Images->count() && $model->Prices->count() && $model->Inventories->count() && $model->Categories->count() && $model->Transaction_details->count())
-		{
-			$model['errors'] 	= ['Tidak dapat menghapus data Produk'];
+	// public function deleting($model)
+	// {
+	// 	if($model->Images->count() && $model->Prices->count() && $model->Inventories->count() && $model->Categories->count() && $model->Transaction_details->count())
+	// 	{
+	// 		$model['errors'] 	= ['Tidak dapat menghapus data Produk'];
 
-			return false;
-		}
+	// 		return false;
+	// 	}
 
-		return true;
-	}
+	// 	return true;
+	// }
 
 }
