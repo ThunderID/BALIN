@@ -69,8 +69,12 @@ class productController extends baseController
 
 		$data									= product::where('id', Input::get('id'))
 													->with('_attributes')
+													->with(['categories'=> function($q){$q->GetName();}])
 													->first()
 													;
+
+		// dd($data['categories'][0]);
+		// dd($data['categories'][0]['id']);
 
 		if(count($data) == 0)
 		{

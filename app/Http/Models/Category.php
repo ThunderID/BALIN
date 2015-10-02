@@ -54,6 +54,12 @@ class Category extends Eloquent {
 		;
 	}
 
+	public function scopeGetName($query)
+	{
+		return $query
+			->select('categories.id', 'name');
+		;
+	}
 
 
 	/* ---------------------------------------------------------------------------- ERRORS ----------------------------------------------------------------------------*/

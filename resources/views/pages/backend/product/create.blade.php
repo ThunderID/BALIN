@@ -164,14 +164,20 @@
 
 
 @section('script')
-    @if($data['parent_id'])
-        var preload_data = [];
-        var id = {!! $data['parent_id'] !!};
-        var text = "{!! $data['category']['name'] !!}";
-        preload_data.push({ id: id, text: text});
-    @else
-        var preload_data = [];
-    @endif
+    var preload_data = [];
+
+    selections = [
+        @foreach($data['categories'] as $category)
+            { 
+                id:{{$category['id']}},
+                text:'{{$category['name']}}'
+            },
+        @endforeach
+    ];
+
+    for (i = 0; i < selections.length; i++) { 
+        preload_data.push(selections[i]);         
+    }
 
     $('#find_category').select2({
         placeholder: 'Masukkan nama kategori',
