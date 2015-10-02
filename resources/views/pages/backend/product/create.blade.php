@@ -97,7 +97,6 @@
                             null, 
                             [
                                 'class'         => 'form-control', 
-                                'required'      => 'required', 
                                 'rows'          => '3',
                                 'tabindex'      => '3',
                                 'id'            => 'find_category',
@@ -211,5 +210,5 @@
             }
         }
     });
-    $('#find_category').select2('data', preload_data );  
+    $('#find_category').select2('data', preload_data );       
 @stop

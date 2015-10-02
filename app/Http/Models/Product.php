@@ -34,6 +34,11 @@ class Product extends Eloquent {
 	   return $this->hasMany('\Models\attribute','product_id');
 	}
 
+	public function categories()
+	{
+	   return $this->belongsToMany('\Models\category','categories_products');
+	}		
+
 	// public function Prices()
 	// {
 	//    return $this->hasMany('\Models\Price');

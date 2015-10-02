@@ -35,6 +35,11 @@ class Category extends Eloquent {
 	{
 	   return $this->hasMany('\Models\category_product','category_id');
 	}	
+
+	public function products()
+	{
+	   return $this->belongsToMany('\Models\product','categories_products');
+	}		
 		
 	// public function products()
 	// {

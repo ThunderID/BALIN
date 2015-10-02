@@ -121,6 +121,12 @@ class productController extends baseController
 					->with('msg-type', 'danger')
 					;
 		}else{
+			// category
+			$categories 						= explode(',', $inputs['category']);
+
+			$data->categories()->sync($categories);
+
+
 			// attributes
 			if(Input::get('attribute') && Input::get('value'))
 			{
