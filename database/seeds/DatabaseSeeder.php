@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call('productTableSeeder');
         $this->call('category_productTableSeeder');
         $this->call('attributeTableSeeder');
+        $this->call('priceTableSeeder');
+        $this->call('discountTableSeeder');
+
+        $this->call('supplierTableSeeder');
 
 
         // Model::reguard();

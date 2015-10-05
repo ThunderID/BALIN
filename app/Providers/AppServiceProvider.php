@@ -16,6 +16,10 @@ class AppServiceProvider extends ServiceProvider
         \Models\category::observe(new \Models\Observers\categoryObserver);
         \Models\category_product::observe(new \Models\Observers\category_productObserver);
         \Models\product::observe(new \Models\Observers\productObserver);
+        \Models\attribute::observe(new \Models\Observers\attributeObserver);
+        \Models\price::observe(new \Models\Observers\priceObserver);
+
+        \Models\supplier::observe(new \Models\Observers\supplierObserver);
 
     }
 
@@ -29,6 +33,9 @@ class AppServiceProvider extends ServiceProvider
         \Models\category::observe(new \Models\Observers\categoryObserver);
         \Models\category_product::observe(new \Models\Observers\category_productObserver);
         \Models\product::observe(new \Models\Observers\productObserver);
+        \Models\attribute::observe(new \Models\Observers\attributeObserver);
+        \Models\price::observe(new \Models\Observers\priceObserver);
 
+        \Models\supplier::observe(new \Models\Observers\supplierObserver);
     }
 }

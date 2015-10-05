@@ -46,7 +46,7 @@
     {!! HTML::script('/Balin/admin/js/metisMenu.min.js') !!}
     {!! HTML::script('/Balin/admin/js/select2.min.js') !!}
     {!! HTML::script('/Balin/admin/js/inputmask.js') !!}
-
+    {!! HTML::script('/Balin/admin/js/dynamicForm.js') !!}
     
     <!-- jQuery -->
     <script type="text/javascript">

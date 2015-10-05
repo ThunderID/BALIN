@@ -55,6 +55,34 @@ Route::get('cms/product/edit', ['uses' => 'Backend\\productController@edit', 'as
 Route::get('cms/product/create', ['uses' => 'Backend\\productController@create', 'as' => 'backend.product.create']);
 Route::post('cms/product/save', ['uses' => 'Backend\\productController@save', 'as' => 'backend.product.save']);
 Route::post('cms/product/delete', ['uses' => 'Backend\\productController@delete', 'as' => 'backend.product.delete']);
+// ajax
+Route::get('cms/ajax/get-product', 'Backend\\productController@getproductBySku');
+
+
+// price
+Route::get('cms/price', ['uses' => 'Backend\\priceController@index', 'as' => 'backend.price.index']);
+Route::get('cms/price/detail', ['uses' => 'Backend\\priceController@detail', 'as' => 'backend.price.detail']);
+Route::get('cms/price/create', ['uses' => 'Backend\\priceController@create', 'as' => 'backend.price.create']);
+Route::get('cms/price/edit', ['uses' => 'Backend\\priceController@edit', 'as' => 'backend.price.edit']);
+Route::post('cms/price/save', ['uses' => 'Backend\\priceController@save', 'as' => 'backend.price.save']);
+Route::post('cms/price/delete', ['uses' => 'Backend\\priceController@delete', 'as' => 'backend.price.delete']);
+
+
+// discount
+Route::get('cms/discount', ['uses' => 'Backend\\discountController@index', 'as' => 'backend.discount.index']);
+Route::get('cms/discount/detail', ['uses' => 'Backend\\discountController@detail', 'as' => 'backend.discount.detail']);
+Route::get('cms/discount/create', ['uses' => 'Backend\\discountController@create', 'as' => 'backend.discount.create']);
+Route::get('cms/discount/edit', ['uses' => 'Backend\\discountController@edit', 'as' => 'backend.discount.edit']);
+Route::post('cms/discount/save', ['uses' => 'Backend\\discountController@save', 'as' => 'backend.discount.save']);
+Route::post('cms/discount/delete', ['uses' => 'Backend\\discountController@delete', 'as' => 'backend.discount.delete']);
+
+// supplier
+Route::get('cms/supplier', ['uses' => 'Backend\\supplierController@index', 'as' => 'backend.supplier.index']);
+Route::get('cms/supplier/detail', ['uses' => 'Backend\\supplierController@detail', 'as' => 'backend.supplier.detail']);
+Route::get('cms/supplier/create', ['uses' => 'Backend\\supplierController@create', 'as' => 'backend.supplier.create']);
+Route::get('cms/supplier/edit', ['uses' => 'Backend\\supplierController@edit', 'as' => 'backend.supplier.edit']);
+Route::post('cms/supplier/save', ['uses' => 'Backend\\supplierController@save', 'as' => 'backend.supplier.save']);
+Route::post('cms/supplier/delete', ['uses' => 'Backend\\supplierController@delete', 'as' => 'backend.supplier.delete']);
 
 
 Route::get('cms', ['uses' => 'Backend\\homeController@index', 'as' => 'backend.home']);

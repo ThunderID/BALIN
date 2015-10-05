@@ -8,20 +8,20 @@
                 <h3 class="text-capitalize">Informasi Kategori</h3>
                 <div class="row">
                     <div class="col-md-4 text-left">
+                        <p class="text-capitalize">Parent<span class="pull-right">:</span></p>
+                    </div>
+                    <div class="col-md-8">
+                        <p class="text-capitalize">{{ $data['name'] }}</p>
+                    </div>
+                </div>                
+                <div class="row">
+                    <div class="col-md-4 text-left">
                         <p class="text-capitalize">Nama Kategori<span class="pull-right">:</span></p>
                     </div>
                     <div class="col-md-8">
                         <p class="text-capitalize">{{ $data['name'] }}</p>
                     </div>
                 </div> 
-                <div class="row">
-                    <div class="col-md-4 text-left">
-                        <p class="text-capitalize">Prefix Kategori<span class="pull-right">:</span></p>
-                    </div>
-                    <div class="col-md-8">
-                        <p>{{ $data['prefix'] }}</p>
-                    </div>
-                </div>  
                 <div class="row">
                     <div class="col-md-4 text-left">
                         <p class="text-capitalize">Jumlah Produk<span class="pull-right">:</span></p>
@@ -32,7 +32,7 @@
                 </div>                                                        
                 <div class="row">
                     <div class="col-md-10 text-right">
-                        <a href="#" >Edit</a> 
+                        <a href="{{ URL::route('backend.category.edit', ['id' => $data['id']]) }}" >Edit</a> 
                         |                                                                                  
                         <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#category_del"
                             data-id="{{$data['id']}}"
@@ -69,25 +69,42 @@
         <table class="table table-bordered table-hover table-striped">
             <thead>
                 <tr>
-                    <th>SKU</th>
-                    <th>Nama</th>
-                    <th>Brand</th>
+                    <th>No</th>
+                    <th class="col-md-3">SKU</th>
+                    <th class="col-md-7">Nama</th>
                     <th>Kontrol</th>
                 </tr>
             </thead>
             <tbody>
+                <?php
+                    $ctr = 1;
+                ?>                 
                 @foreach($data['products'] as $product)
                     <tr>
+                        <td>{{ $ctr }}</td>
                         <td>{{ $product['sku'] }}</td>
                         <td>{{ $product['name'] }}</td>
-                        <td>{{ $product['brand'] }}</td>
                         <td> 
-                            <a href="#"> Detail </a>
+                            <a href="#"> Detail </a>,
+                            <a href="#"> Edit </a>,
+                            <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
+                                data-id="{{$product['id']}}"
+                                data-title="Hapus Data Produk {{$product['name']}}">
+                                Hapus
+                            </a>   
                         </td>
                     </tr>
+                    <?php $ctr += 1; ?>                     
                 @endforeach
             </tbody>
         </table>
-    </div>  
+    </div>
+    @include(
+        'widgets.pageElements.formModalDelete', 
+        array(
+            'modal_id'      => 'product_del', 
+            'modal_route'   => 'backend.product.delete'
+            )
+        )      
 @endif         
 @Stop

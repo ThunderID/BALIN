@@ -8,7 +8,7 @@ use \Validator;
  * 	Deleting						
  * ---------------------------------------------------------------------- */
 
-class AttributeObserver 
+class PriceObserver 
 {
 	public function saving($model)
 	{

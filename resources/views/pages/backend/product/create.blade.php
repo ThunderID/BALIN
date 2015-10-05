@@ -116,73 +116,104 @@
                 </h4>
             </div>
         </div>
-        @foreach($data['_attributes'] as $_attribute)
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    <label for="attribute">Attribut</label>
-                    {!! 
-                        Form::text(
-                            'attribute',
-                            $_attribute['attribute'], 
-                            [
-                                'class'         => 'form-control', 
-                                'tabindex'      => '4', 
-                            ] 
-                        ) 
-                    !!}                
-                </div>            
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    <label for="value">Nilai Attribut</label>
-                    {!! 
-                        Form::text(
-                            'value',
-                            $_attribute['value'], 
-                            [
-                                'class'         => 'form-control', 
-                                'tabindex'      => '5', 
-                            ] 
-                        ) 
-                    !!}  
-                </div>            
+            <div class="col-md-12">
+                <a href="javascript:;" id="add" class="btn btn-default">Tambah Attribute</a>
             </div>
         </div>
-        @endforeach 
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    <label for="attribute">Attribut</label>
-                    {!! 
-                        Form::text(
-                            'attribute',
-                            null, 
-                            [
-                                'class'         => 'form-control', 
-                                'tabindex'      => '4', 
-                            ] 
-                        ) 
-                    !!}                
-                </div>            
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    <label for="value">Nilai Attribut</label>
-                    {!! 
-                        Form::text(
-                            'value',
-                            null, 
-                            [
-                                'class'         => 'form-control', 
-                                'tabindex'      => '5', 
-                            ] 
-                        ) 
-                    !!}  
-                </div>            
+        </br>
+        <div class="hidden">
+            <div id="attributeTemplate">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <div class="form-group">
+                            <label for="attribute[]">Attribut</label>
+                            {!! 
+                                Form::text(
+                                    'attribute[]',
+                                    null, 
+                                    [
+                                        'class'         => 'form-control', 
+                                        'tabindex'      => '4', 
+                                        'placeholder'   => 'Masukkan nama produk'
+                                    ] 
+                                ) 
+                            !!}
+                        </div>                 
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <div class="form-group">
+                            <label for="value[]">Nilai Attribut</label>
+                            {!! 
+                                Form::text(
+                                    'value[]',
+                                    null, 
+                                    [
+                                        'class'         => 'form-control', 
+                                        'tabindex'      => '4', 
+                                        'placeholder'   => 'Masukkan nama produk'
+                                    ] 
+                                ) 
+                            !!}
+                        </div>                 
+                    </div> 
+                    <div class="col-md-2 col-sm-2 col-xs-12" style="padding-top:24px;">
+                        <button class="delete btn btn-default">Delete</button>                    
+                    </div>
+                    <div class="hidden-lg hidden-md hidden-sm col-xs-12">
+                        </br>
+                        </br>
+                    </div>           
+                </div>
             </div>
         </div>
-
+        <div id="items">
+            @if(count($data['_attributes']) > 0 )
+                @for ($i = 0; $i < count($data['_attributes']); $i++)
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <div class="form-group">
+                                <label for="attribute[]">Attribut</label>
+                                {!! 
+                                    Form::text(
+                                        'attribute[]',
+                                        $data['_attributes'][$i]['attribute'], 
+                                        [
+                                            'class'         => 'form-control', 
+                                            'tabindex'      => '4', 
+                                            'placeholder'   => 'Masukkan nama produk'
+                                        ] 
+                                    ) 
+                                !!}
+                            </div>                 
+                        </div>
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <div class="form-group">
+                                <label for="value[]">Nilai Attribut</label>
+                                {!! 
+                                    Form::text(
+                                        'value[]',
+                                        $data['_attributes'][$i]['value'], 
+                                        [
+                                            'class'         => 'form-control', 
+                                            'tabindex'      => '4', 
+                                            'placeholder'   => 'Masukkan nama produk'
+                                        ] 
+                                    ) 
+                                !!}
+                            </div>                 
+                        </div> 
+                        <div class="col-md-2 col-sm-2 col-xs-12" style="padding-top:24px;">
+                            <button class="delete btn btn-default">Delete</button>                    
+                        </div>  
+                        <div class="hidden-lg hidden-md hidden-sm col-xs-12">
+                            </br>
+                            </br>
+                        </div>                                   
+                    </div>
+                @endfor
+            @endif
+        </div>
 
         <div class="row">
             <div class="col-md-12">
@@ -193,20 +224,39 @@
                 </div>        
             </div>        
         </div>        
-    {!! Form::close() !!}
+    {!! Form::close() !!}   
 @stop
 
 
 @section('script')
+    $( document ).ready(function() {
+        var tmplt      =   $("#attributeTemplate").html();
+
+        $("#items").append(tmplt);
+    });
+
+
+    $("#add").click(function (e) {
+        var tmplt      =   $("#attributeTemplate").html();
+
+        $("#items").append(tmplt);
+    });
+
+    $("body").on("click", ".delete", function (e) {
+        $(this).parent("div").parent("div").remove();
+    });    
+
     var preload_data = [];
 
     selections = [
+        @if($data['_attributes'])
         @foreach($data['categories'] as $category)
             { 
                 id:{{$category['id']}},
                 text:'{{$category['name']}}'
             },
         @endforeach
+        @endif
     ];
 
     for (i = 0; i < selections.length; i++) { 

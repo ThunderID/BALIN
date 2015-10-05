@@ -17,8 +17,8 @@ class productController extends baseController
 
 		if($search = Input::get('q'))
 		{
-			$datas 								= product::where('name','like','%' . $search . '%')
-													->orwhere('sku','like','%' . $search . '%')
+			$datas 								= product::where('deleted_at',null)
+													->FindProduct(Input::get('q'))
 													->paginate()
 													; 
 			$searchResult						= $search;
@@ -73,9 +73,6 @@ class productController extends baseController
 													->first()
 													;
 
-		// dd($data['categories'][0]);
-		// dd($data['categories'][0]['id']);
-
 		if(count($data) == 0)
 		{
 			App::abort(404);
@@ -95,7 +92,7 @@ class productController extends baseController
 
 	public function save()
 	{
-		$inputs 								= Input::only('id','category','name','sku','description');
+		$inputs 								= Input::only('id','category','name','sku','description','attribute','value');
 
 		if(Input::get('id'))
 		{
@@ -113,47 +110,63 @@ class productController extends baseController
 			'description' 						=> $inputs['description'],
 		]);
 
-		// print_r($inputs);exit;
-
 		DB::beginTransaction();
 		if (!$data->save())
 		{
 			DB::rollback();
 			return Redirect::back()
-					->withInput()
-					->withErrors($data->getError())
-					->with('msg-type', 'danger')
-					;
+				->withInput()
+				->withErrors($data->getError())
+				->with('msg-type', 'danger')
+				;
 		}else{
 			// category
 			$categories 						= explode(',', $inputs['category']);
 
 			$data->categories()->sync($categories);
 
-
 			// attributes
-			if(Input::get('attribute') && Input::get('value'))
+			$attributes						= attribute::where('product_id',$data['id'])
+												->get()
+												;
+
+			foreach ($attributes as $attribute) 
 			{
-				$attributes						= new attribute;
-
-				$attributes->fill([
-					'attribute' 				=> Input::get('attribute'),
-					'value' 					=> Input::get('value'),
-				]);
-
-				$attributes->product()->associate($data['id']);
-
-				if(!$attributes->save())
+				if(!$attribute->delete())
 				{
 					DB::rollback();
 					return Redirect::back()
+						->withInput()
+						->withErrors($attributes->getError())
+						->with('msg-type', 'danger')
+						;
+				}
+			}
+
+
+			for ($i=0; $i < count($inputs['attribute']); $i++) { 
+				if($inputs['attribute'][$i] != "" && $inputs['value'][$i] != "" )
+				{
+					$attribute 				= new attribute;
+
+					$attribute->fill([
+						'attribute' 		=> $inputs['attribute'][$i],
+						'value' 			=> $inputs['value'][$i],
+					]);
+
+					$attribute->product()->associate($data['id']);
+
+					if(!$attribute->save())
+					{
+						DB::rollback();
+						return Redirect::back()
 							->withInput()
 							->withErrors($attribute->getError())
 							->with('msg-type', 'danger')
 							;
+					}
 				}
-			}
-
+			}						
 
 			DB::commit();
 			if(Input::get('id'))
@@ -166,9 +179,9 @@ class productController extends baseController
 			else
 			{
 				return Redirect::route('backend.product.index')
-						->with('msg','Data sudah ditambahkan')
-						->with('msg-type', 'success')
-						;
+					->with('msg','Data sudah ditambahkan')
+					->with('msg-type', 'success')
+					;
 			}
 		}
 	}
@@ -222,4 +235,14 @@ class productController extends baseController
 	    return $result;
 	}	
 
+	public function getProductBySku()
+	{
+	    $inputs = Input::only('name');
+	    
+	    $tmp =  product::select(array('id', 'sku', 'name'))
+	    		->where('sku', 'like', "%" . $inputs['name'] . "%")
+	    		->get();
+	    		
+	    return json_decode(json_encode($tmp));
+	}	
 }

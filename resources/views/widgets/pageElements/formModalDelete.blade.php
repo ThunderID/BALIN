@@ -51,6 +51,7 @@
     $('#{{$modal_id}}').on('show.bs.modal', function (e) {
         var id = $(e.relatedTarget).attr('data-id');
         var title = $(e.relatedTarget).attr('data-title');
+        console.log(title);
 
         $('.mod_pwd').val('');
         $('.mod_id').val(id);
@@ -60,4 +61,4 @@
     $('#{{$modal_id}}').on('shown.bs.modal', function () {
         $('.mod_pwd').focus();
     })    
-@stop
+@append

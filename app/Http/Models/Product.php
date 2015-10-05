@@ -37,6 +37,26 @@ class Product extends Eloquent {
 	public function categories()
 	{
 	   return $this->belongsToMany('\Models\category','categories_products');
+	}	
+
+	public function prices()
+	{
+	   return $this->hasMany('\Models\price','product_id');
+	}	
+
+	public function price()
+	{
+	   return $this->hasOne('\Models\price','product_id');
+	}		
+
+	public function discounts()
+	{
+	   return $this->hasMany('\Models\discount','product_id');
+	}	
+
+	public function discount()
+	{
+	   return $this->hasOne('\Models\discount','product_id');
 	}		
 
 	// public function Prices()
@@ -59,6 +79,15 @@ class Product extends Eloquent {
 	// {
 	//    return $this->hasMany('\Models\Transaction_detail');
 	// }	
+
+	/* --------------------------------------------- SCOPE ---------------------------------------------*/
+	public function scopeFindProduct($query, $variable)
+	{
+		return $query
+			->where('sku','like','%' . $variable . '%')
+	  		->orwhere('name','like','%' . $variable . '%')
+  		;
+	}	
 
 	/* ---------------------------------------------------------------------------- ERRORS ----------------------------------------------------------------------------*/
 	/**

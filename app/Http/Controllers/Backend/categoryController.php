@@ -19,22 +19,7 @@ class categoryController extends baseController
 													'Kategori' => 'backend.category.index',
 													);
 
-		// if(Input::get('q'))
-		// {
-		// 	$datas 								= category::where('deleted_at',null)
-		// 											->where(function ($query) {
-		// 												$query->where('prefix','like','%' . Input::get('q') . '%')
-		// 					                      			->orwhere('name','like','%' . Input::get('q') . '%');
-		// 								            })
-		// 											->paginate()
-		// 											; 
-		// 	$searchResult						= Input::get('q');
-		// }
-		// else
-		// {
-		// 	$datas								= category::paginate();
-			$searchResult						= NULL;
-		// }
+		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.category.index')
 													->with('WT_pageTitle', $this->view_name )
@@ -57,8 +42,10 @@ class categoryController extends baseController
 														 );
 
 			$data									= category::where('Categories.id',Input::get('id'))
+														->with('products')
 														->first()
 														;
+
 			if(count($data) == 0)
 			{
 				App::abort(404);
@@ -198,10 +185,7 @@ class categoryController extends baseController
 
 			if(count($data) == 0)
 			{
-				return Redirect::back()
-					->withErrors('Data not exist')
-					->with('msg-type','danger')
-					;
+				App::abort(404);
 			}
 
 			DB::beginTransaction();

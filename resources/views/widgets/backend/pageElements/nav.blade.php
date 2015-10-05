@@ -153,7 +153,10 @@
             </li>  
             <li>
                 <a href="#"><i class="fa fa-fw fa-dashboard"></i> Stock </a>
-            </li>             
+            </li>
+            <li>
+                <a href="{{ URL::route('backend.supplier.index') }}"><i class="fa fa-fw fa-university"></i> Supplier </a>
+            </li>                         
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#dd-product"><i class="fa fa-fw fa-archive"></i> Product <i class="fa arrow pull-right"></i></a>
                 <ul id="dd-product" class="collapse">
@@ -164,8 +167,11 @@
                         <a href="{{ URL::route('backend.product.index') }}">Product</a>
                     </li>   
                     <li>
-                        <a href="#">Price</a>
-                    </li>                                                                                                    
+                        <a href="{{ URL::route('backend.price.index') }}">Price</a>
+                    </li>    
+                    <li>
+                        <a href="{{ URL::route('backend.discount.index') }}">Discount</a>
+                    </li>                                                                                                                       
                 </ul>
             </li>                                         
         </ul>
