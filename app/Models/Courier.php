@@ -23,7 +23,7 @@ class Courier extends Eloquent
 	 *
 	 * @var string
 	 */
-	protected $table				= 'courier_branches';
+	protected $table				= 'couriers';
 
 	// protected $timestamps			= true;
 

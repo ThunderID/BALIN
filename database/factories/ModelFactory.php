@@ -27,5 +27,32 @@ $factory->define(App\Models\User::class, function ($faker) use ($gender, $role)
 	];
 });
 
-$gender 								= ['male', 'female'];
-$role 									= ['customer', 'cashier', 'admin'];
+$factory->define(App\Models\Supplier::class, function ($faker)
+{
+	return 
+	[
+		'name'							=> $faker->company.' '.$faker->companySuffix,
+		'phone'							=> $faker->phoneNumber,
+		'address' 						=> $faker->address,
+	];
+});
+
+$colors 								= ['ffcccc', 'ccccff', 'fffdcc', 'ddffcc', 'ffccfc', '000000', 'bababa', '00ffae', 'a0000a', '00fff0'];
+$factory->define(App\Models\Courier::class, function ($faker) use ($colors)
+{
+	return 
+	[
+		'name'							=> $faker->company.' '.$faker->companySuffix,
+		'logo_url' 						=> 'http://placehold.it/200x200/'.$colors[rand(0, count($colors)-1)].'/000000',
+	];
+});
+
+
+$factory->define(App\Models\CourierBranch::class, function (Faker\Generator $faker) {
+    return 
+    [
+		'courier_id' 				=> App\Models\Courier::all()->random()->id,
+		'name'						=> $faker->city,
+		'address'					=> $faker->address,
+    ];
+});
