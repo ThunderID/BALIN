@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Eloquent
+class Shipment extends Eloquent
 {
 
 	use SoftDeletes;
@@ -16,21 +16,15 @@ class Product extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\hasMany\HasStocksTrait;
-	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
-	use \App\Models\Traits\hasMany\HasProductAttributesTrait;
-	use \App\Models\Traits\hasMany\HasProductImagesTrait;
-	use \App\Models\Traits\hasMany\HasPricesTrait;
-	use \App\Models\Traits\hasMany\HasDiscountsTrait;
-	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
-	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
+	use \App\Models\Traits\belongsTo\HasTransactionTrait;
+	use \App\Models\Traits\belongsTo\HasCourierBranchTrait;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'products';
+	protected $table				= 'shipments';
 
 	// protected $timestamps			= true;
 
@@ -41,10 +35,15 @@ class Product extends Eloquent
 	 */
 
 	protected $fillable				=	[
+											'courier_branch_id'				,
+											'transaction_id'				,
+											'receipt_number'				,
+											'ondate'						,
 											'name'							,
-											'sku'							,
-											'slug'							,
-											'description'					,
+											'phone'							,
+											'address'						,
+											'postal_code'					,
+											'status'						,
 										];
 
 	/**
@@ -60,9 +59,13 @@ class Product extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
+											'receipt_number'				=> 'required|max:255',
+											'ondate'						=> 'required|date_format:"Y-m-d"',
 											'name'							=> 'required|max:255',
-											'sku'							=> 'required|max:255',
-											'slug'							=> 'required|max:255',
+											'phone'							=> 'required|max:20',
+											'address'						=> 'required',
+											'postal_code'					=> 'required|max:6',
+											'status'						=> 'required|in:waiting,shipping,shipped,delivered',
 										];
 
 	/**

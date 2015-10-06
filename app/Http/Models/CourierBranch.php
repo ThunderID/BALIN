@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Eloquent
+class CourierBranch extends Eloquent
 {
 
 	use SoftDeletes;
@@ -16,21 +16,14 @@ class Product extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\hasMany\HasStocksTrait;
-	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
-	use \App\Models\Traits\hasMany\HasProductAttributesTrait;
-	use \App\Models\Traits\hasMany\HasProductImagesTrait;
-	use \App\Models\Traits\hasMany\HasPricesTrait;
-	use \App\Models\Traits\hasMany\HasDiscountsTrait;
-	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
-	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
+	use \App\Models\Traits\belongsTo\HasCourierTrait;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'products';
+	protected $table				= 'courier_branches';
 
 	// protected $timestamps			= true;
 
@@ -41,10 +34,9 @@ class Product extends Eloquent
 	 */
 
 	protected $fillable				=	[
+											'courier_id'					,
 											'name'							,
-											'sku'							,
-											'slug'							,
-											'description'					,
+											'address'						,
 										];
 
 	/**
@@ -61,8 +53,7 @@ class Product extends Eloquent
 	 */
 	protected $rules				=	[
 											'name'							=> 'required|max:255',
-											'sku'							=> 'required|max:255',
-											'slug'							=> 'required|max:255',
+											'address'						=> 'required',
 										];
 
 	/**

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Eloquent
+class CategoryProduct extends Eloquent
 {
 
 	use SoftDeletes;
@@ -16,21 +16,15 @@ class Product extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\hasMany\HasStocksTrait;
-	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
-	use \App\Models\Traits\hasMany\HasProductAttributesTrait;
-	use \App\Models\Traits\hasMany\HasProductImagesTrait;
-	use \App\Models\Traits\hasMany\HasPricesTrait;
-	use \App\Models\Traits\hasMany\HasDiscountsTrait;
-	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
-	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
+	use \App\Models\Traits\belongsTo\HasCategoryTrait;
+	use \App\Models\Traits\belongsTo\HasProductTrait;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'products';
+	protected $table				= 'categories_products';
 
 	// protected $timestamps			= true;
 
@@ -41,10 +35,8 @@ class Product extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'name'							,
-											'sku'							,
-											'slug'							,
-											'description'					,
+											'category_id'					,
+											'product_id'					,
 										];
 
 	/**
@@ -60,9 +52,6 @@ class Product extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:255',
-											'sku'							=> 'required|max:255',
-											'slug'							=> 'required|max:255',
 										];
 
 	/**

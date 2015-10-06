@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Eloquent
+class ProductImage extends Eloquent
 {
 
 	use SoftDeletes;
@@ -16,21 +16,14 @@ class Product extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\hasMany\HasStocksTrait;
-	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
-	use \App\Models\Traits\hasMany\HasProductAttributesTrait;
-	use \App\Models\Traits\hasMany\HasProductImagesTrait;
-	use \App\Models\Traits\hasMany\HasPricesTrait;
-	use \App\Models\Traits\hasMany\HasDiscountsTrait;
-	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
-	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
+	use \App\Models\Traits\belongsTo\HasProductTrait;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'products';
+	protected $table				= 'product_images';
 
 	// protected $timestamps			= true;
 
@@ -41,10 +34,13 @@ class Product extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'name'							,
-											'sku'							,
-											'slug'							,
-											'description'					,
+											'product_id'					,
+											'thumbnail'						,
+											'image_xs'						,
+											'image_sm'						,
+											'image_md'						,
+											'image_l'						,
+											'published_at'					,
 										];
 
 	/**
@@ -60,9 +56,12 @@ class Product extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:255',
-											'sku'							=> 'required|max:255',
-											'slug'							=> 'required|max:255',
+											'thumbnail'						=> 'required|max:255',
+											'image_xs'						=> 'required|max:255',
+											'image_sm'						=> 'required|max:255',
+											'image_md'						=> 'required|max:255',
+											'image_l'						=> 'required|max:255',
+											'published_at'					=> 'required|date_format:"Y-m-d H:i:s"',
 										];
 
 	/**

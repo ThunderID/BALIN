@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Eloquent
+class Payment extends Eloquent
 {
 
 	use SoftDeletes;
@@ -16,21 +16,14 @@ class Product extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\hasMany\HasStocksTrait;
-	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
-	use \App\Models\Traits\hasMany\HasProductAttributesTrait;
-	use \App\Models\Traits\hasMany\HasProductImagesTrait;
-	use \App\Models\Traits\hasMany\HasPricesTrait;
-	use \App\Models\Traits\hasMany\HasDiscountsTrait;
-	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
-	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
+	use \App\Models\Traits\belongsTo\HasTransactionTrait;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'products';
+	protected $table				= 'payments';
 
 	// protected $timestamps			= true;
 
@@ -41,10 +34,12 @@ class Product extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'name'							,
-											'sku'							,
-											'slug'							,
-											'description'					,
+											'transaction_id'				,
+											'method'						,
+											'account_name'					,
+											'account_number'				,
+											'ondate'						,
+											'amount'						,
 										];
 
 	/**
@@ -60,9 +55,11 @@ class Product extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:255',
-											'sku'							=> 'required|max:255',
-											'slug'							=> 'required|max:255',
+											'method'						=> 'required|max:255',
+											'account_name'					=> 'required|max:255',
+											'account_number'				=> 'required|max:255',
+											'ondate'						=> 'required|date_format:"Y-m-d"',
+											'amount'						=> 'required|numeric',
 										];
 
 	/**

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Eloquent
+class Stock extends Eloquent
 {
 
 	use SoftDeletes;
@@ -16,21 +16,15 @@ class Product extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\hasMany\HasStocksTrait;
-	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
-	use \App\Models\Traits\hasMany\HasProductAttributesTrait;
-	use \App\Models\Traits\hasMany\HasProductImagesTrait;
-	use \App\Models\Traits\hasMany\HasPricesTrait;
-	use \App\Models\Traits\hasMany\HasDiscountsTrait;
-	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
-	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
+	use \App\Models\Traits\belongsTo\HasProductTrait;
+	use \App\Models\Traits\belongsTo\HasTransactionDetailTrait;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'products';
+	protected $table				= 'stocks';
 
 	// protected $timestamps			= true;
 
@@ -41,10 +35,14 @@ class Product extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'name'							,
+											'product_id'					,
+											'transaction_detail_id'			,
 											'sku'							,
-											'slug'							,
-											'description'					,
+											'ondate'						,
+											'current_stocks'				,
+											'on_hold_stocks'				,
+											'reserved_stocks'				,
+											'upcoming_stocks'				,
 										];
 
 	/**
@@ -60,9 +58,12 @@ class Product extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:255',
 											'sku'							=> 'required|max:255',
-											'slug'							=> 'required|max:255',
+											'ondate'						=> 'required|date_format:"Y-m-d H:i:s"',
+											'current_stocks'				=> 'required|numeric',
+											'on_hold_stocks'				=> 'required|numeric',
+											'reserved_stocks'				=> 'required|numeric',
+											'upcoming_stocks'				=> 'required|numeric',
 										];
 
 	/**

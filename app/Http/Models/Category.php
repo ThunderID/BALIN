@@ -1,76 +1,97 @@
-<?php namespace Models;
-use Validator;
-use Eloquent;
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Eloquent {
-	use  SoftDeletes;
+class Category extends Eloquent
+{
 
-	protected $guarded 				= array();
-	protected $table 				= 'categories';
-	protected $fillable 			=	[
-											'path',
-											'name',
-											'parent_id'
-										];
-	protected $rules				= 	[
-											'name' 					=> 'required|max:255',
-										];										
-	protected $errors 				=	[];
+	use SoftDeletes;
 
-	/* --------------------------------------------- RELATIONSHIP ---------------------------------------------*/
-	//jamak untuk return jamak ('s')
-
-	public function category()
-	{
-	   return $this->belongsTo('\Models\category','parent_id');
-	}
-
-	public function categories()
-	{
-	   return $this->hasMany('\Models\category','parent_id');
-	}		
-
-	public function categoryProducts()
-	{
-	   return $this->hasMany('\Models\category_product','category_id');
-	}	
-
-	public function products()
-	{
-	   return $this->belongsToMany('\Models\product','categories_products');
-	}		
-		
-	// public function products()
-	// {
-	//    return $this->hasMany('\Models\product');
-	// }
-
-	/* --------------------------------------------- SCOPE ---------------------------------------------*/
-	public function scopeFindCategory($query, $variable)
-	{
-		return $query
-			->where('parent_id', '<>', $variable)
-		;
-	}
-
-	public function scopeGetName($query)
-	{
-		return $query
-			->select('categories.id', 'name');
-		;
-	}
-
-
-	/* ---------------------------------------------------------------------------- ERRORS ----------------------------------------------------------------------------*/
 	/**
-	 * return errors
+	 * The trait used by the model.
 	 *
-	 * @return MessageBag
-	 * @author 
-	 **/
-	function getError()
+	 * @var string
+	 */
+
+	use \App\Models\Traits\belongsTo\HasCategoryTrait;
+	use \App\Models\Traits\hasMany\HasCategoriesTrait;
+	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
+	use \App\Models\Traits\belongsToMany\HasProductsTrait;
+
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
+	protected $table				= 'categories';
+
+	// protected $timestamps			= true;
+
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+
+	protected $fillable				=	[
+											'category_id'					,
+											'path'							,
+											'name'							,
+										];
+
+	/**
+	 * Timestamp field
+	 *
+	 * @var array
+	 */
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
+
+	/**
+	 * Basic rule of database
+	 *
+	 * @var array
+	 */
+	protected $rules				=	[
+											'path'							=> 'required|max:255',
+											'name'							=> 'required|max:255',
+										];
+
+	/**
+	 * The appends attributes from mutator and accessor
+	 *
+	 * @var array
+	 */
+	protected $appends				=	[
+										];
+
+	/**
+	 * The attributes excluded from the model's JSON form.
+	 *
+	 * @var array
+	 */
+	protected $hidden 				= [];
+
+	
+	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
+
+	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
+
+	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
+	
+	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
+
+	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
+
+	public function scopeID($query, $variable)
 	{
-		return $this->errors;
-	}		
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('id', $variable);
+		}
+
+		return 	$query->where('id', $variable);
+	}
 }
