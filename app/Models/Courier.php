@@ -16,7 +16,7 @@ class Courier extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\belongsTo\HasCourierTrait;
+	use \App\Models\Traits\hasMany\HasShipmentsTrait;
 
 	/**
 	 * The database table used by the model.
@@ -36,6 +36,7 @@ class Courier extends Eloquent
 	protected $fillable				=	[
 											'name'							,
 											'logo_url'						,
+											'address'						,
 										];
 
 	/**
@@ -53,6 +54,7 @@ class Courier extends Eloquent
 	protected $rules				=	[
 											'name'							=> 'required|max:255',
 											'logo_url'						=> 'required|max:255|url',
+											'address'						=> 'required',
 										];
 
 	/**

@@ -16,6 +16,7 @@ class CreateCourierTable extends Migration
             $table->increments('id');
             $table->string('name', 255);
             $table->string('logo_url', 255);
+            $table->text('address');
             $table->timestamps();
             $table->softDeletes();
         });

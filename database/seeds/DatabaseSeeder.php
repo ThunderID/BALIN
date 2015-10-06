@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call('UserTableSeeder');
         $this->call('SupplierTableSeeder');
         $this->call('CourierTableSeeder');
-        $this->call('CourierBranchTableSeeder');
 
         Model::reguard();
     }

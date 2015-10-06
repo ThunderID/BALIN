@@ -44,15 +44,6 @@ $factory->define(App\Models\Courier::class, function ($faker) use ($colors)
 	[
 		'name'							=> $faker->company.' '.$faker->companySuffix,
 		'logo_url' 						=> 'http://placehold.it/200x200/'.$colors[rand(0, count($colors)-1)].'/000000',
+		'address' 						=> $faker->address,
 	];
-});
-
-
-$factory->define(App\Models\CourierBranch::class, function (Faker\Generator $faker) {
-    return 
-    [
-		'courier_id' 				=> App\Models\Courier::all()->random()->id,
-		'name'						=> $faker->city,
-		'address'					=> $faker->address,
-    ];
 });
