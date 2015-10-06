@@ -14,7 +14,7 @@ class CreateCategoryTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('parent_id');
+            $table->integer('category_id')->unsigned()->index();
             $table->string('path');
             $table->string('name');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('Categories');
+        Schema::drop('categories');
     }
 }

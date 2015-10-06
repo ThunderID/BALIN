@@ -14,9 +14,8 @@ class CreateAttributeTable extends Migration
     {
         Schema::create('attributes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id');
-            $table->string('attribute');
-            $table->string('value');
+            $table->string('name', 255);
+            $table->string('logo_url', 255);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +28,6 @@ class CreateAttributeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('Attributes');
+        Schema::drop('couriers');
     }
 }

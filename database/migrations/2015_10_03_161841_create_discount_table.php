@@ -14,10 +14,10 @@ class CreateDiscountTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id');
+            $table->integer('product_id')->unsigned()->index();
             $table->double('promo_price');
-            $table->date('start_date');
-            $table->date('end_date');   
+            $table->datetime('started_at');
+            $table->datetime('ended_at');   
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +30,6 @@ class CreateDiscountTable extends Migration
      */
     public function down()
     {
-        Schema::drop('Discounts');
+        Schema::drop('discounts');
     }
 }

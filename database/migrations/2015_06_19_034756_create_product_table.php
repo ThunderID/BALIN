@@ -15,8 +15,8 @@ class CreateProductTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('sku');
-            $table->string('slug');
+            $table->string('sku')->unique();
+            $table->string('slug')->unique();
             $table->text('description');
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +30,6 @@ class CreateProductTable extends Migration
      */
     public function down()
     {
-        Schema::drop('Products');
+        Schema::drop('products');
     }
 }
