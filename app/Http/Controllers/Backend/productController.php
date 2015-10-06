@@ -11,11 +11,9 @@ class productController extends baseController
 
 	public function index()
 	{	
-		$breadcrumb								= array(
-													'Produk' => 'backend.product.index',
-													);
+		$breadcrumb								= ['Produk' => 'backend.product.index'];
 
-		if($search = Input::get('q'))
+		if ($search = Input::get('q'))
 		{
 			$datas 								= product::where('deleted_at',null)
 													->FindProduct(Input::get('q'))
@@ -40,47 +38,35 @@ class productController extends baseController
 		return $this->layout;		
 	}
 
-	public function create()
+	public function create($id = null)
 	{
-		$breadcrumb								= array(
-													'Kategori' => 'backend.product.index',
+		if ($id) 
+		{
+			$breadcrumb							= [	'Kategori' => 'backend.product.index',
 													'Data Baru' => 'backend.product.create',
-													 );
-
-		$data									= NULL;
-
-
-		$this->layout->page 					= view('pages.backend.product.create')
-													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle','Create')		
-													->with('WB_breadcrumbs', $breadcrumb)
-													->with('data', $data)
-													;
-
-		return $this->layout;		
-	}
-
-	public function edit()
-	{
-		$breadcrumb								= array(
-													'Kategori' => 'backend.product.index',
-													'Edit Data' => 'backend.product.create',
-													 );
-
-		$data									= product::where('id', Input::get('id'))
+													];
+			$title 								= 'Edit';
+			$data 								= product::where('id', Input::get('id'))
 													->with('_attributes')
 													->with(['categories'=> function($q){$q->GetName();}])
-													->first()
-													;
-
-		if(count($data) == 0)
+													->first();
+			if (count($data) == 0)
+			{
+				App::abort(404);
+			}	
+		}
+		else
 		{
-			App::abort(404);
-		}													
+			$breadcrumb							= [ 'Kategori' => 'backend.product.index',
+													'Edit Data' => 'backend.product.create',
+													];
+			$title 								= 'Create';
+			$data								= NULL;
+		}
 
 		$this->layout->page 					= view('pages.backend.product.create')
 													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle','Edit')		
+													->with('WT_pageSubTitle', $title)		
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('data', $data)
 													;
@@ -88,15 +74,20 @@ class productController extends baseController
 		return $this->layout;		
 	}
 
+	public function edit($id)
+	{
+		return $this->create($id);		
+	}
 
 
-	public function save()
+
+	public function store($id = null)
 	{
 		$inputs 								= Input::only('id','category','name','sku','description','attribute','value');
 
-		if(Input::get('id'))
+		if ($id)
 		{
-			$data 								= product::find(Input::get('id'));
+			$data 								= product::find($id);
 		}
 		else
 		{
@@ -119,16 +110,16 @@ class productController extends baseController
 				->withErrors($data->getError())
 				->with('msg-type', 'danger')
 				;
-		}else{
+		}
+		else
+		{
 			// category
 			$categories 						= explode(',', $inputs['category']);
 
 			$data->categories()->sync($categories);
 
 			// attributes
-			$attributes						= attribute::where('product_id',$data['id'])
-												->get()
-												;
+			$attributes							= attribute::where('product_id',$data['id'])->get();
 
 			foreach ($attributes as $attribute) 
 			{
@@ -162,14 +153,13 @@ class productController extends baseController
 						return Redirect::back()
 							->withInput()
 							->withErrors($attribute->getError())
-							->with('msg-type', 'danger')
-							;
+							->with('msg-type', 'danger');
 					}
 				}
 			}						
 
 			DB::commit();
-			if(Input::get('id'))
+			if ($id)
 			{
 				return Redirect::route('backend.product.index')
 					->with('msg','Data sudah diperbarui')
@@ -186,45 +176,41 @@ class productController extends baseController
 		}
 	}
 
-	public function delete()
+	public function destroy($id)
 	{
-		if(Input::get('password'))
+		if (Input::get('password'))
 		{
-			$data 								= product::find(Input::get('id'));
+			$data 								= product::find($id);
 
-			if(count($data) == 0)
+			if (count($data) == 0)
 			{
 				return Redirect::back()
 					->withErrors('Data not exist')
-					->with('msg-type','danger')
-					;
+					->with('msg-type','danger');
 			}
 
 			DB::beginTransaction();
 
-			if(!$data->delete())
+			if (!$data->delete())
 			{
 				DB::rollback();
 				return Redirect::back()
 					->withErrors($data->getError())
-					->with('msg-type','danger')
-					;
+					->with('msg-type','danger');
 			}
 			else
 			{
 				DB::commit();
 				return Redirect::route('backend.product.index')
 					->with('msg', 'Data telah dihapus')
-					->with('msg-type','success')
-					;
+					->with('msg-type','success');
 			}
 		}
 		else
 		{
 			return Redirect::back()
 					->withErrors('Password tidak valid')
-					->with('msg-type', 'danger')
-					;
+					->with('msg-type', 'danger');
 		}
 
 	}
@@ -235,13 +221,13 @@ class productController extends baseController
 	    return $result;
 	}	
 
-	public function getProductBySku()
+	public function getProductBySKU()
 	{
-	    $inputs = Input::only('name');
+	    $inputs 	= Input::only('name');
 	    
-	    $tmp =  product::select(array('id', 'sku', 'name'))
-	    		->where('sku', 'like', "%" . $inputs['name'] . "%")
-	    		->get();
+	    $tmp 		=  product::select(array('id', 'sku', 'name'))
+	    				->where('sku', 'like', "%" . $inputs['name'] . "%")
+	    				->get();
 	    		
 	    return json_decode(json_encode($tmp));
 	}	

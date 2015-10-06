@@ -10,15 +10,8 @@ class categoryController extends baseController
 
 	public function index()
 	{		
-		$datas									= Category::orderBy('path','asc')
-													->paginate()
-													;
-
-
-		$breadcrumb								= array(
-													'Kategori' => 'backend.category.index',
-													);
-
+		$datas									= category::orderBy('path','asc')->paginate();
+		$breadcrumb								= ['Kategori' => 'backend.category.index'];
 		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.category.index')
@@ -32,25 +25,19 @@ class categoryController extends baseController
 		return $this->layout;		
 	}
 
-	public function detail()
+	public function show($id)
 	{
-		if(Input::get('id'))
+		if($id)
 		{
-			$breadcrumb								= array(
-														'Kategori' => 'backend.category.index',
-														'Detail' => 'backend.category.detail',
-														 );
+			$breadcrumb								= [	'Kategori' => 'backend.category.index',
+														'Detail' => 'backend.category.detail' ];
 
-			$data									= category::where('Categories.id',Input::get('id'))
-														->with('products')
-														->first()
-														;
+			$data									= category::where('id', $id)->with('products')->first();
 
 			if(count($data) == 0)
 			{
 				App::abort(404);
 			}
-
 
 			$this->layout->page 					= view('pages.backend.category.detail')
 														->with('WT_pageTitle', $this->view_name )
@@ -68,15 +55,27 @@ class categoryController extends baseController
 	}
 
 
-	public function create()
+	public function create($id = null)
 	{
-		$breadcrumb								= array(
-													'Kategori' => 'backend.category.index',
-													'Data Baru' => 'backend.category.create',
-													 );
 
-		$data									= NULL;
+		if ($id)
+		{
+			$breadcrumb							= [ 'Kategori' => 'backend.category.index',
+													'Edit Data' => 'backend.category.create' ];
+			$data 								= category::with('category')->where('categories.id', Input::get('id'))->first();
 
+			if (count($data) == 0)
+			{
+				App::abort(404);
+			}
+		}
+		else
+		{
+			$breadcrumb							= [	'Kategori' => 'backend.category.index',
+													'Data Baru' => 'backend.category.create' ];
+
+			$data								= NULL;
+		}
 
 		$this->layout->page 					= view('pages.backend.category.create')
 													->with('WT_pageTitle', $this->view_name )
@@ -88,42 +87,18 @@ class categoryController extends baseController
 		return $this->layout;		
 	}
 
-	public function edit()
+	public function edit($id)
 	{
-		$breadcrumb								= array(
-													'Kategori' => 'backend.category.index',
-													'Edit Data' => 'backend.category.create',
-													 );
-
-		$data									= category::with('category')
-													->where('categories.id', Input::get('id'))
-													->first();
-
-		if(count($data) == 0)
-		{
-			App::abort(404);
-		}
-
-
-		$this->layout->page 					= view('pages.backend.category.create')
-													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle','Edit')		
-													->with('WB_breadcrumbs', $breadcrumb)
-													->with('data', $data)
-													;
-
-		return $this->layout;		
+		return $this->create($id);		
 	}
 
-
-
-	public function save()
+	public function store($id = null)
 	{
 		$inputs 								= Input::only('id','name', 'parent');
 
-		if(Input::get('id'))
+		if ($id)
 		{
-			$data 								= Category::find(Input::get('id'));
+			$data 								= Category::find($id);
 			$inputs['path']						= $data['path'];
 		}
 		else
@@ -137,7 +112,7 @@ class categoryController extends baseController
 			'path'								=> $inputs['id']
 		]);
 
-		if(Input::get('parent') != 0)
+		if (Input::get('parent') != 0)
 		{
 			$data->category()->associate($inputs['parent']);
 		}
@@ -158,9 +133,11 @@ class categoryController extends baseController
 					->withErrors($data->getError())
 					->with('msg-type', 'danger')
 					;
-		}else{
+		}
+		else
+		{
 			DB::commit();
-			if(Input::get('id'))
+			if (Input::get('id'))
 			{
 				return Redirect::route('backend.category.index')
 					->with('msg','Data sudah diperbarui')
@@ -177,20 +154,20 @@ class categoryController extends baseController
 		}
 	}
 
-	public function delete()
+	public function destroy($id)
 	{
-		if(Input::get('password'))
+		if (Input::get('password'))
 		{
-			$data 								= Category::find(Input::get('id'));
+			$data 								= Category::find($id);
 
-			if(count($data) == 0)
+			if (count($data) == 0)
 			{
 				App::abort(404);
 			}
 
 			DB::beginTransaction();
 
-			if(!$data->delete())
+			if (!$data->delete())
 			{
 				DB::rollback();
 				return Redirect::back()
