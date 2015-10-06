@@ -39,13 +39,15 @@ class Transaction extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'transaction_id'				,
-											'product_id'					,
+											'user_id'						,
+											'supplier_id'					,
+											'ref_number'					,
 											'type'							,
 											'status'						,
-											'quantity'						,
-											'price'							,
-											'discount'						,
+											'transacted_at'					,
+											'unique_number'					,
+											'shipping_cost'					,
+											'amount'						,
 										];
 	/**
 	 * Timestamp field
@@ -62,9 +64,10 @@ class Transaction extends Eloquent
 	protected $rules				=	[
 											'type'							=> 'required|in:buy,sell',
 											'status'						=> 'required|in:waiting,paid,shipping,delivered,canceled',
-											'quantity'						=> 'required|numeric',
-											'price'							=> 'required|numeric',
-											'discount'						=> 'required|numeric',
+											'transacted_at'					=> 'required|date_format:"Y-m-d H:i:s"',
+											'unique_number'					=> 'required|numeric',
+											'shipping_cost'					=> 'required|numeric',
+											'amount'						=> 'required|numeric',
 										];
 
 	/**
