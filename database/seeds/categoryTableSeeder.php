@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Models\Category;
+use Models\category;
 use Faker\Factory;
 use Illuminate\Support\Facades\DB;
 
