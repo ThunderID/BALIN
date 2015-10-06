@@ -41,11 +41,12 @@ class Transaction extends Eloquent
 	protected $fillable				=	[
 											'transaction_id'				,
 											'product_id'					,
+											'type'							,
+											'status'						,
 											'quantity'						,
 											'price'							,
 											'discount'						,
 										];
-
 	/**
 	 * Timestamp field
 	 *
@@ -59,6 +60,8 @@ class Transaction extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
+											'type'							=> 'required|in:buy,sell',
+											'status'						=> 'required|in:waiting,paid,shipping,delivered,canceled',
 											'quantity'						=> 'required|numeric',
 											'price'							=> 'required|numeric',
 											'discount'						=> 'required|numeric',
