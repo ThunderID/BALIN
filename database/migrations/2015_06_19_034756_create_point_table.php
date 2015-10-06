@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryProductTable extends Migration
+class CreatePointTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class CreateCategoryProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories_products', function (Blueprint $table) {
+        Schema::create('points', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_id')->unsigned()->index();
-            $table->integer('product_id')->unsigned()->index();
+            $table->integer('user_id')->unsigned()->index();
+            $table->string('refferal_code', 255)->unique();
+            $table->double('balance');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +29,6 @@ class CreateCategoryProductTable extends Migration
      */
     public function down()
     {
-        Schema::drop('categories_products');
+        Schema::drop('points');
     }
 }

@@ -12,11 +12,11 @@ class CreatePriceTable extends Migration
      */
     public function up()
     {
-        Schema::create('Prices', function (Blueprint $table) {
+        Schema::create('prices', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id');
+            $table->integer('product_id')->unsigned()->index();
             $table->double('price');
-            $table->date('start_date');
+            $table->datetime('started_at');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +29,6 @@ class CreatePriceTable extends Migration
      */
     public function down()
     {
-        Schema::drop('Prices');
+        Schema::drop('prices');
     }
 }
