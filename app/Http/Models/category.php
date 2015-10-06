@@ -3,7 +3,7 @@ use Validator;
 use Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Eloquent {
+class category extends Eloquent {
 	use  SoftDeletes;
 
 	protected $guarded 				= array();
