@@ -12,7 +12,7 @@ class CreateDiscountTable extends Migration
      */
     public function up()
     {
-        Schema::create('Discounts', function (Blueprint $table) {
+        Schema::create('discounts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id');
             $table->double('promo_price');

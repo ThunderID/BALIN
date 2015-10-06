@@ -12,7 +12,7 @@ class CreateAttributeTable extends Migration
      */
     public function up()
     {
-        Schema::create('Attributes', function (Blueprint $table) {
+        Schema::create('attributes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id');
             $table->string('attribute');

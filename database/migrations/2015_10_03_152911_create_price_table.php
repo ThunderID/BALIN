@@ -12,7 +12,7 @@ class CreatePriceTable extends Migration
      */
     public function up()
     {
-        Schema::create('Prices', function (Blueprint $table) {
+        Schema::create('prices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id');
             $table->double('price');
