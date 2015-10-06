@@ -17,6 +17,8 @@ class CreateUserTable extends Migration
             $table->string('name', 255);
             $table->string('email', 255)->unique();
             $table->string('password', 60);
+            $table->string('refferal_code', 255)->unique();
+            $table->double('balance');
             $table->string('avatar', 255);
             $table->string('role', 255);
             $table->boolean('is_active');
@@ -29,6 +31,7 @@ class CreateUserTable extends Migration
             $table->string('phone', 20);
             $table->string('postal_code', 6);
             $table->datetime('joined_at');
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });

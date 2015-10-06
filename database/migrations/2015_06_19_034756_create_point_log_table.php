@@ -14,10 +14,11 @@ class CreatePointLogTable extends Migration
     {
         Schema::create('point_logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('point_id')->unsigned()->index();
-            $table->string('ref_number', 255);
-            $table->double('point');
-            $table->date('ondate');
+            $table->integer('transaction_id')->unsigned()->index();
+            $table->integer('user_id')->unsigned()->index();
+            $table->double('debit');
+            $table->double('credit');
+            $table->boolean('is_expired');
             $table->timestamps();
             $table->softDeletes();
         });
