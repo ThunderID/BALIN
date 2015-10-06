@@ -23,7 +23,7 @@ class ProductAttribute extends Eloquent
 	 *
 	 * @var string
 	 */
-	protected $table				= 'categories';
+	protected $table				= 'product_attributes';
 
 	// protected $timestamps			= true;
 

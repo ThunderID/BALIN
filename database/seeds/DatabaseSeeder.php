@@ -14,14 +14,14 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call('categoryTableSeeder');
-        $this->call('productTableSeeder');
-        $this->call('category_productTableSeeder');
-        $this->call('attributeTableSeeder');
-        $this->call('priceTableSeeder');
-        $this->call('discountTableSeeder');
+        $this->call('CategoryTableSeeder');
+        $this->call('ProductTableSeeder');
+        // $this->call('category_productTableSeeder');
+        // $this->call('attributeTableSeeder');
+        // $this->call('priceTableSeeder');
+        // $this->call('discountTableSeeder');
 
-        $this->call('supplierTableSeeder');
+        // $this->call('supplierTableSeeder');
 
 
         // Model::reguard();

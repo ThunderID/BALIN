@@ -26,9 +26,4 @@ trait HasCategoriesTrait
 	{
 		return $query->whereHas('categories', function($q)use($variable){$q;});
 	}
-
-	public function scopeCategoryID($query, $variable)
-	{
-		return $query->whereHas('categories', function($q)use($variable){$q->id($variable);});
-	}
 }
