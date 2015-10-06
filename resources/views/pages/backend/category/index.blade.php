@@ -73,7 +73,7 @@
                                             </p>
                                         </td>
                                         <td>
-                                            <a href="{{ url::route('backend.category.detail', ['id' => $data['id']]) }}"> Detail </a>,
+                                            <a href="{{ url::route('backend.category.show',  $data['id']) }}"> Detail </a>,
                                             <a href="{{ url::route('backend.category.edit', ['id' => $data['id']]) }}"> Edit </a>, 
                                             <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#category_del"
                                                 data-id="{{$data['id']}}"
@@ -87,7 +87,7 @@
                                         'widgets.pageElements.formModalDelete', 
                                         array(
                                             'modal_id'      => 'category_del', 
-                                            'modal_route'   => 'backend.category.delete'
+                                            'modal_route'   => 'backend.category.destroy'
                                             )
                                         )                                    
                                 @endif

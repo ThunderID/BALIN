@@ -11,26 +11,21 @@ class discountController extends baseController
 
 	public function index()
 	{		
-		$datas									= Discount::paginate();
+		$datas									= discount::paginate();
+		$breadcrumb								= ['Diskon' => 'backend.discount.index'];
 
-		$breadcrumb								= array(
-													'Diskon' => 'backend.discount.index',
-													);
-
-		if(Input::get('q'))
+		if (Input::get('q'))
 		{
 			$datas 								= product::FindProduct(Input::get('q'))
 													->where('deleted_at',null)
 													->with(['discount'=> function($q){$q->LatestDiscount();}])
-													->paginate()
-													; 
+													->paginate(); 
 			$searchResult						= Input::get('q');
 		}
 		else
 		{
 			$datas								= product::with(['discount'=> function($q){$q->LatestDiscount();}])
-													->paginate()
-													; 
+													->paginate(); 
 			$searchResult						= NULL;
 		}
 
@@ -39,44 +34,46 @@ class discountController extends baseController
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('datas', $datas)
-													->with('searchResult', $searchResult)
-													;
-
+													->with('searchResult', $searchResult);
 		return $this->layout;		
 	}
 
-	public function detail()
+	public function show($id)
 	{
 		
 	}
 
 
-	public function create()
+	public function create($id = null)
 	{
-		$breadcrumb								= array(
-													'Diskon' => 'backend.discount.index',
-													'Diskon Baru' => 'backend.discount.create',
-													 );
-
-		$data									= NULL;
-
+		if ($id)
+		{
+			$breadcrumb							= [ 'Diskon' => 'backend.discount.index',
+													'Diskon Baru' => 'backend.discount.create' ];
+			$data								= NULL;
+		}
+		else
+		{
+			$breadcrumb							= [ 'Diskon' => 'backend.discount.index',
+													'Diskon Baru' => 'backend.discount.create' ];
+			$data								= NULL;	
+		}
 
 		$this->layout->page 					= view('pages.backend.discount.create')
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Create')		
 													->with('WB_breadcrumbs', $breadcrumb)
-													->with('data', $data)
-													;
+													->with('data', $data);
 
 		return $this->layout;	
 	}
 
-	public function edit()
+	public function edit($id)
 	{
-		
+		return $this->create($id);
 	}
 
-	public function save()
+	public function store($id = null)
 	{
 		$inputs 								= Input::only('product','promo_price', 'start_date', 'end_date');
 	
@@ -97,8 +94,7 @@ class discountController extends baseController
 			return Redirect::back()
 				->withInput()
 				->withErrors($data->getError())
-				->with('msg-type', 'danger')
-				;
+				->with('msg-type', 'danger');
 		}	
 		else
 		{
@@ -106,12 +102,11 @@ class discountController extends baseController
 
 			return Redirect::route('backend.discount.index')
 				->with('msg','Data sudah ditambahkan')
-				->with('msg-type', 'success')
-				;
+				->with('msg-type', 'success');
 		}
 	}
 
-	public function delete()
+	public function destroy($id)
 	{
 		
 	}
