@@ -105,4 +105,24 @@ class Transaction extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+
+	public function scopeStatus($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('status', $variable);
+		}
+
+		return 	$query->where('status', $variable);
+	}
+
+	public function scopeType($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('type', $variable);
+		}
+
+		return 	$query->where('type', $variable);
+	}
 }

@@ -14,7 +14,7 @@ class CreateShipmentTable extends Migration
     {
         Schema::create('shipments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('courier_branch_id')->unsigned()->index();
+            $table->integer('courier_id')->unsigned()->index();
             $table->integer('transaction_id')->unsigned()->index();
             $table->string('receipt_number', 255);
             $table->date('ondate');

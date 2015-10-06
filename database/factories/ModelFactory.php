@@ -87,12 +87,29 @@ $factory->define(App\Models\TransactionDetail::class, function ($faker)
 	$product_id 						= App\Models\Product::all()->random()->id;
 
 	$product 							= App\Models\Product::id($product_id)->first();
+
+	if(isset($product->dicounts[0]) && $product->dicounts[0]->promo_price!=0)
+	{
+		$price 							= $product->prices[0]->price;
+		$discounts 						= $product->prices[0]->price - $product->discounts[0]->promo_price;
+	}
+	elseif(isset($product->prices[0]))
+	{
+		$price 							= $product->prices[0]->price;
+		$discounts 						= 0;
+	}
+	else
+	{
+		$price 							= 0;
+		$discounts 						= 0;
+	}
+
 	return 
 	[
-		'user_id'						=> App\Models\User::all()->random()->id,
+		'transaction_id'				=> App\Models\Transaction::all()->random()->id,
 		'product_id' 					=> $product_id,
 		'quantity' 						=> rand(1, 50),
-		'price' 						=> ($product->dicounts[0]->promo_price!=0 ? $product->dicounts[0]->promo_price : $product->prices[0]->price),
-		'discount' 						=> ($product->dicounts[0]->promo_price!=0 ? ($product->prices[0]->price - $product->dicounts[0]->promo_price) : 0),
+		'price' 						=> $price,
+		'discount' 						=> $discounts,
 	];
 });

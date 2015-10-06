@@ -35,7 +35,7 @@ class Shipment extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'courier_branch_id'				,
+											'courier_id'					,
 											'transaction_id'				,
 											'receipt_number'				,
 											'ondate'						,
