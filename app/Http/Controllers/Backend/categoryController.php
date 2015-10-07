@@ -30,7 +30,7 @@ class categoryController extends baseController
 		if($id)
 		{
 			$breadcrumb								= [	'Kategori' => 'backend.category.index',
-														'Detail' => 'backend.category.detail' ];
+														'Detail' => 'backend.category.show' ];
 
 			$data									= category::where('id', $id)->with('products')->first();
 
