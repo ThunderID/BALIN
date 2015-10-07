@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Courier extends Eloquent
+class ShippingCost extends Eloquent
 {
 
 	use SoftDeletes;
@@ -16,15 +16,14 @@ class Courier extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\hasMany\HasShipmentsTrait;
-	use \App\Models\Traits\hasMany\HasShippingCostsTrait;
+	use \App\Models\Traits\belongsTo\HasCourierTrait;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'couriers';
+	protected $table				= 'shipping_costs';
 
 	// protected $timestamps			= true;
 
@@ -35,9 +34,10 @@ class Courier extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'name'							,
-											'logo_url'						,
-											'address'						,
+											'courier_id'					,
+											'start_postal_code'				,
+											'end_postal_code'				,
+											'cost'							,
 										];
 
 	/**
@@ -53,9 +53,9 @@ class Courier extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:255',
-											'logo_url'						=> 'required|max:255|url',
-											'address'						=> 'required',
+											'start_postal_code'				=> 'required|numeric',
+											'end_postal_code'				=> 'required|numeric',
+											'cost'							=> 'required|numeric',
 										];
 
 	/**

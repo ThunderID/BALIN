@@ -48,6 +48,17 @@ $factory->define(App\Models\Courier::class, function ($faker) use ($colors)
 	];
 });
 
+$factory->define(App\Models\ShippingCost::class, function ($faker)
+{
+	return 
+	[
+		'courier_id'					=> App\Models\Courier::all()->random()->id,
+		'start_postal_code' 			=> $faker->postcode,
+		'end_postal_code' 				=> $faker->postcode,
+		'cost' 							=> date('s')*1000,
+	];
+});
+
 $types 									= ['sell', 'buy'];
 $status 								= ['waiting','paid','shipping','delivered','canceled'];
 $factory->define(App\Models\Transaction::class, function ($faker) use ($types, $status)
@@ -58,7 +69,7 @@ $factory->define(App\Models\Transaction::class, function ($faker) use ($types, $
 		return 
 		[
 			'supplier_id' 				=> App\Models\Supplier::all()->random()->id,
-			'ref_number' 				=> bin2hex(openssl_random_pseudo_bytes(8)),
+			'refferal_code' 			=> App\Models\User::all()->random()->refferal_code,
 			'type' 						=> $types[$rand],
 			'status' 					=> $status[rand(0, count($status)-1)],
 			'transacted_at' 			=> $faker->dateTimeThisYear,
