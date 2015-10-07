@@ -41,6 +41,7 @@ class Transaction extends Eloquent
 	protected $fillable				=	[
 											'user_id'						,
 											'supplier_id'					,
+											'ref_number'					,
 											'referral_code'					,
 											'type'							,
 											'status'						,
