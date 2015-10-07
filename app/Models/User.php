@@ -44,7 +44,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'name'							,
 											'email'							,
 											'password'						,
-											'refferal_code'					,
+											'referral_code'					,
 											'balance'						,
 											'avatar'						,
 											'role'							,

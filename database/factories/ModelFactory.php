@@ -22,7 +22,7 @@ $factory->define(App\Models\User::class, function ($faker) use ($gender, $role)
 		'password' 						=> bcrypt('admin'),
 		'role' 							=> $role[rand(0,2)],
 		'gender' 						=> $gender[rand(0,1)],
-		'refferal_code' 				=> bin2hex(openssl_random_pseudo_bytes(4)),
+		'referral_code' 				=> bin2hex(openssl_random_pseudo_bytes(4)),
 		'remember_token' 				=> str_random(10),
 	];
 });
@@ -69,7 +69,7 @@ $factory->define(App\Models\Transaction::class, function ($faker) use ($types, $
 		return 
 		[
 			'supplier_id' 				=> App\Models\Supplier::all()->random()->id,
-			'refferal_code' 			=> App\Models\User::all()->random()->refferal_code,
+			'referral_code' 			=> App\Models\User::all()->random()->referral_code,
 			'type' 						=> $types[$rand],
 			'status' 					=> $status[rand(0, count($status)-1)],
 			'transacted_at' 			=> $faker->dateTimeThisYear,
@@ -82,7 +82,7 @@ $factory->define(App\Models\Transaction::class, function ($faker) use ($types, $
 		return 
 		[
 			'user_id' 					=> App\Models\User::all()->random()->id,
-			'ref_number' 				=> bin2hex(openssl_random_pseudo_bytes(8)),
+			'referral_code' 			=> bin2hex(openssl_random_pseudo_bytes(8)),
 			'type' 						=> $types[$rand],
 			'status' 					=> $status[rand(0, count($status)-1)],
 			'transacted_at' 			=> $faker->dateTimeThisYear,
