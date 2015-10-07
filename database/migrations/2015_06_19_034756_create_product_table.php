@@ -17,6 +17,7 @@ class CreateProductTable extends Migration
             $table->string('name');
             $table->string('sku')->unique();
             $table->string('slug')->unique();
+            $table->boolean('is_new');
             $table->text('description');
             $table->timestamps();
             $table->softDeletes();

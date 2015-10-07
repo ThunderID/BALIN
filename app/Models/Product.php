@@ -45,6 +45,7 @@ class Product extends Eloquent
 											'name'							,
 											'sku'							,
 											'slug'							,
+											'is_new'						,
 											'description'					,
 										];
 
@@ -64,6 +65,7 @@ class Product extends Eloquent
 											'name'							=> 'required|max:255',
 											'sku'							=> 'required|max:255',
 											'slug'							=> 'required|max:255',
+											'is_new'						=> 'boolean',
 										];
 
 	/**

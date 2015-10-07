@@ -38,6 +38,7 @@ class ProductTableSeeder extends Seeder
 						'name'						=> $value->name.' '.$brand.' '.$color.' '.$size,
 						'sku'						=> $faker->ean8,
 						'slug'						=> $faker->slug($nbWords = 3),			
+						'is_new'					=> rand(0,1),			
 						'description'				=> $faker->sentence($nbWords = 6),			
 					]);
 
