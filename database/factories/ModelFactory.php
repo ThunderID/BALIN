@@ -125,3 +125,13 @@ $factory->define(App\Models\TransactionDetail::class, function ($faker)
 		'discount' 						=> $discounts,
 	];
 });
+
+$factory->define(App\Models\FeaturedProduct::class, function ($faker)
+{
+	return 
+	[
+		'product_id'					=> App\Models\Product::all()->random()->id,
+		'started_at' 					=> $faker->dateTimeBetween($startDate = '- 3 months', $endDate = 'now'),
+		'ended_at' 						=> $faker->dateTimeBetween($startDate = '+ 3 months', $endDate = '+ 12 months'),
+	];
+});
