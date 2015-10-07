@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductTable extends Migration
+class CreateStoreSettingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,11 @@ class CreateProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('tmp_store_settings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('sku')->unique();
-            $table->string('slug')->unique();
-            $table->boolean('is_new');
-            $table->text('description');
+            $table->string('type', 255);
+            $table->string('url', 255);
+            $table->text('content');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +29,6 @@ class CreateProductTable extends Migration
      */
     public function down()
     {
-        Schema::drop('products');
+        Schema::drop('tmp_store_settings');
     }
 }

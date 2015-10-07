@@ -26,6 +26,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call('PaymentTableSeeder');
         $this->call('ShipmentTableSeeder');
+        
+        $this->call('FeaturedProductTableSeeder');
+        $this->call('PolicyTableSeeder');
+        $this->call('StoreSettingTableSeeder');
 
         Model::reguard();
     }

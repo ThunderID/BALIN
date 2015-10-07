@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductTable extends Migration
+class CreatePolicyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,11 @@ class CreateProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('tmp_policies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('sku')->unique();
-            $table->string('slug')->unique();
-            $table->boolean('is_new');
-            $table->text('description');
+            $table->string('type', 255);
+            $table->string('value');
+            $table->datetime('started_at');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +29,6 @@ class CreateProductTable extends Migration
      */
     public function down()
     {
-        Schema::drop('products');
+        Schema::drop('tmp_policies');
     }
 }

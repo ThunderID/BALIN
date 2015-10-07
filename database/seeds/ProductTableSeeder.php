@@ -16,6 +16,7 @@ class ProductTableSeeder extends Seeder
 	function run()
 	{
 		DB::table('products')->truncate();
+		DB::table('categories_products')->truncate();
 		$faker 										= Factory::create();
 		$categories 								= Category::all();
 
@@ -27,7 +28,7 @@ class ProductTableSeeder extends Seeder
 		{
 			foreach($categories as $key => $value)
 			{
-				foreach (range(0, rand(3,10)) as $key) 
+				foreach (range(0, rand(3,9)) as $key2) 
 				{
 					$clridx							= rand(0, count($colors)-1);
 					$color 							= $colors[$clridx];
@@ -38,6 +39,7 @@ class ProductTableSeeder extends Seeder
 						'name'						=> $value->name.' '.$brand.' '.$color.' '.$size,
 						'sku'						=> $faker->ean8,
 						'slug'						=> $faker->slug($nbWords = 3),			
+						'is_new'					=> rand(0,1),			
 						'description'				=> $faker->sentence($nbWords = 6),			
 					]);
 
@@ -49,7 +51,7 @@ class ProductTableSeeder extends Seeder
 					else
 					{
 						//sync category
-						$cats[] 					= $key;
+						$cats[] 					= $key+1;
 						if($key <= 12)
 						{
 							$cats[]					= rand(13,51);
