@@ -9,7 +9,12 @@ namespace App\Jobs;
 */
 
 use App\Jobs\Job;
+
+use App\Models\Transaction;
+
 use Illuminate\Contracts\Bus\SelfHandling;
+
+use Exception;
 
 class PaymentIsValid extends Job implements SelfHandling
 {

@@ -61,22 +61,22 @@ class JSend
 
 	public function getErrorMessage()
 	{
-		if ($this->isError()) {
+		if ($this->isError()) 
+		{
 			return $this->errorMessage;
 		}
 
-		throw new \BadMethodCallException(
-			'Only responses with a status of error may have an error message.');
+		throw new \BadMethodCallException('Only responses with a status of error may have an error message.');
 	}
 
 	public function getErrorCode()
 	{
-		if ($this->isError()) {
+		if ($this->isError()) 
+		{
 			return $this->errorCode;
 		}
 
-		throw new \BadMethodCallException(
-			'Only responses with a status of error may have an error code.');
+		throw new \BadMethodCallException('Only responses with a status of error may have an error code.');
 	}
 
 	protected function isStatusValid($status)
@@ -111,20 +111,26 @@ class JSend
 			'status' => $this->status,
 		);
 
-		if ($this->data) {
+		if ($this->data) 
+		{
 			$theArray['data'] = $this->data;
-		} else {
-			if (! $this->isError()) {
+		} 
+		else 
+		{
+			if (! $this->isError()) 
+			{
 				// Data is optional for errors, so it should not be set
 				// rather than be null.
 				$theArray['data'] = null;
 			}
 		}
 
-		if ($this->isError()) {
+		if ($this->isError()) 
+		{
 			$theArray['message'] = (string) $this->errorMessage;
 
-			if (! empty($this->errorCode)) {
+			if (! empty($this->errorCode)) 
+			{
 				$theArray['code'] = (int) $this->errorCode;
 			}
 		}
@@ -168,25 +174,31 @@ class JSend
 	{
 		$rawDecode = json_decode($json, true, $depth, $options);
 
-		if ($rawDecode === null) {
+		if ($rawDecode === null) 
+		{
 			throw new \UnexpectedValueException('JSON is invalid.');
 		}
 
-		if ((! is_array($rawDecode)) or (! array_key_exists('status', $rawDecode))) {
+		if ((! is_array($rawDecode)) or (! array_key_exists('status', $rawDecode))) 
+		{
 			throw new InvalidJSendException(
 				'JSend must be an object with a valid status.');
 		}
 
-		$status = $rawDecode['status'];
-		$data = array_key_exists('data', $rawDecode) ? $rawDecode['data'] : null;
-		$errorMessage = array_key_exists('message', $rawDecode) ? $rawDecode['message'] : null;
-		$errorCode = array_key_exists('code', $rawDecode) ? $rawDecode['code'] : null;
+		$status 		= $rawDecode['status'];
+		$data 			= array_key_exists('data', $rawDecode) ? $rawDecode['data'] : null;
+		$errorMessage 	= array_key_exists('message', $rawDecode) ? $rawDecode['message'] : null;
+		$errorCode 		= array_key_exists('code', $rawDecode) ? $rawDecode['code'] : null;
 
-		if ($status === self::ERROR) {
-			if ($errorMessage === null) {
+		if ($status === self::ERROR) 
+		{
+			if ($errorMessage === null) 
+			{
 				throw new InvalidJSendException('JSend errors must contain a message.');
 			}
-		} elseif (! array_key_exists('data', $rawDecode)) {
+		} 
+		elseif (! array_key_exists('data', $rawDecode)) 
+		{
 			throw new InvalidJSendException('JSend must contain data unless it is an error.');
 		}
 
