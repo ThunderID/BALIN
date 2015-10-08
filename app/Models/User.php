@@ -58,6 +58,8 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'phone'							,
 											'postal_code'					,
 											'joined_at'						,
+											'activation_link'				,
+											'reset_password_link'			,
 										];
 
 	/**

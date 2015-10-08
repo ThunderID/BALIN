@@ -43,7 +43,6 @@ class Shipment extends Eloquent
 											'phone'							,
 											'address'						,
 											'postal_code'					,
-											'status'						,
 										];
 
 	/**
@@ -65,7 +64,6 @@ class Shipment extends Eloquent
 											'phone'							=> 'required|max:20',
 											'address'						=> 'required',
 											'postal_code'					=> 'required|max:6',
-											'status'						=> 'required|in:waiting,shipping,shipped,delivered',
 										];
 
 	/**

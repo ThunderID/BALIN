@@ -31,6 +31,8 @@ class CreateUserTable extends Migration
             $table->string('phone', 20);
             $table->string('postal_code', 6);
             $table->datetime('joined_at');
+            $table->string('activation_link', 255);
+            $table->string('reset_password_link', 255);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

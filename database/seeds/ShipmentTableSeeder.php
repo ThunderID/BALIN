@@ -28,7 +28,6 @@ class ShipmentTableSeeder extends Seeder
 					'phone'							=> $faker->phoneNumber,
 					'address'						=> $faker->address,
 					'postal_code'					=> $faker->postcode,
-					'status'						=> $value->status,
 				]);
 
 				if (!$data->save())

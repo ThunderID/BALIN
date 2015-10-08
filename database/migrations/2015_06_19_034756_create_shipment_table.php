@@ -16,13 +16,12 @@ class CreateShipmentTable extends Migration
             $table->increments('id');
             $table->integer('courier_id')->unsigned()->index();
             $table->integer('transaction_id')->unsigned()->index();
-            $table->string('receipt_number', 255);
+            $table->string('receipt_number', 255)->nullable();
             $table->date('ondate');
             $table->string('name', 255);
             $table->string('phone', 20);
             $table->string('address');
             $table->string('postal_code', 6);
-            $table->enum('status', ['waiting', 'shipping', 'shipped', 'delivered']);
             $table->timestamps();
             $table->softDeletes();
         });

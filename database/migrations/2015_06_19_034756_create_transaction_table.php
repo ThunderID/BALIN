@@ -19,10 +19,11 @@ class CreateTransactionTable extends Migration
             $table->string('ref_number', 255);
             $table->string('referral_code', 255);
             $table->enum('type', ['sell', 'buy']);
-            $table->enum('status', ['waiting', 'hold', 'paid', 'shipping', 'delivered', 'canceled']);
+            $table->enum('status', ['waiting', 'hold', 'paid', 'shipped', 'delivered', 'canceled']);
             $table->datetime('transacted_at');
             $table->integer('unique_number');
             $table->double('shipping_cost');
+            $table->double('referral_discount');
             $table->double('amount');
             $table->timestamps();
             $table->softDeletes();
