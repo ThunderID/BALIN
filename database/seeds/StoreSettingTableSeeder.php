@@ -12,8 +12,8 @@ class StoreSettingTableSeeder extends Seeder
 	{
 		DB::table('tmp_store_settings')->truncate();
 
-		$types 										= ['url', 'logo', 'facebook_url', 'twitter_url', 'email', 'phone', 'address', 'pages', 'pages', 'pages'];
-		$values 									= ['http://balin.id', 'http://balin.id/logo.png', 'http://www.facebook.com/balin.id', 'http://www.twitter.com/balin.id', 'cs@balin.id', ' ', ' ', 'about-us', 'why-join', 'term-condition'];
+		$types 										= ['url', 'logo', 'facebook_url', 'twitter_url', 'email', 'phone', 'address', 'pages', 'pages', 'pages', 'bank_information'];
+		$values 									= ['http://balin.id', 'http://balin.id/logo.png', 'http://www.facebook.com/balin.id', 'http://www.twitter.com/balin.id', 'cs@balin.id', ' ', ' ', 'about-us', 'why-join', 'term-condition', 'http://bca.com/logo.png'];
 		$contents 									= ['', '', '', '', '', '0888 8888 8888', 'Ruko Puri Niaga A10 - Araya Kota Malang', 
 														'<h1>About Us</h1><br/>
 														<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget mauris a arcu maximus malesuada ultrices iaculis ipsum. Curabitur consectetur, sem non rhoncus vulputate, nibh ex iaculis sem, a fermentum purus metus ut diam. Nulla suscipit magna vel fermentum dictum. Pellentesque interdum blandit purus, vitae tempor risus molestie quis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas volutpat nisl a luctus fermentum. Duis purus tellus, facilisis in nisi quis, condimentum consectetur ipsum. Integer neque felis, mollis at molestie ac, sagittis eu urna. Nulla hendrerit facilisis porttitor. Vestibulum vel ultrices eros. Duis auctor quam quis sem porta, id dictum libero finibus. Aenean ut fringilla est, at lacinia tellus. Sed pharetra felis et velit eleifend, et consectetur nibh placerat. Vestibulum in volutpat est.</p>
@@ -24,6 +24,9 @@ class StoreSettingTableSeeder extends Seeder
 														'<h1>Term and Condition</h1><br/>
 														<p>Aliquam sit amet lectus aliquet, tincidunt lectus pulvinar, iaculis ligula. Pellentesque malesuada mi nec urna tincidunt, in suscipit leo varius. Vivamus ac velit ultrices, mattis mauris a, pellentesque lacus. Sed consequat lorem et condimentum varius. Sed orci nisi, dictum sed lorem sed, accumsan pharetra nisl. Pellentesque viverra lacus id vestibulum elementum. Cras rutrum ex sed neque varius, ac elementum nulla blandit. Nullam vel vestibulum urna.</p>
 														<p>Vivamus ultricies eleifend aliquet. Sed vel arcu vel mi feugiat dictum. Integer eget sem augue. Pellentesque sit amet lorem vulputate, congue turpis non, dignissim leo. Nullam mattis erat tortor, a lobortis lectus accumsan imperdiet. Cras sit amet pretium velit, id eleifend lorem. Phasellus leo neque, sollicitudin ac nisi et, rhoncus pretium metus. </p>
+														<p>BCA</p>
+														<p>No.Rek 088 88 88</p>
+														<p>A.N. BALINDOTID</p>
 														'];
 		try
 		{
