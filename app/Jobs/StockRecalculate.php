@@ -2,9 +2,18 @@
 
 namespace App\Jobs;
 
+/*
+    Input   : Instance of transaction with transaction ID (exists transaction)
+    OutPut  : JSEND format, if errors will displayed errors with error message
+*/
+
 use App\Jobs\Job;
 use App\Models\Transaction;
+
 use Illuminate\Contracts\Bus\SelfHandling;
+use \Illuminate\Support\MessageBag as MessageBag;
+
+use App\Libraries\JSend;
 
 class StockRecalculate extends Job implements SelfHandling
 {
@@ -27,7 +36,14 @@ class StockRecalculate extends Job implements SelfHandling
     public function handle()
     {
         //
+        if(is_null($this->transaction->id))
+        {
+            throw new Exception('Sent variable must be object of a record.');
+        }
+        
         $details                    = $this->transaction->transactiondetails;
+
+        $errors                     = new MessageBag;
 
         foreach ($details as $key => $value) 
         {
@@ -47,13 +63,22 @@ class StockRecalculate extends Job implements SelfHandling
                     'reserved_stocks'               => $reserved->reserved_stock,
                 ]);
 
-            if($stock->Save())
+            if(!$stock->Save())
             {
-                return true;
+                $errors->add($value->product->name, $stock->getError()); 
             }
 
-            return false;
         }
 
+        if($errors->count())
+        {
+            $result                 = new Jsend('error', (array)$this->transaction, (array)$errors);
+        }
+        else
+        {
+            $result                 = new Jsend('success', (array)$this->transaction);
+        }
+
+        return $result;
     }
 }

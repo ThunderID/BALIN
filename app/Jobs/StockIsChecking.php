@@ -13,6 +13,8 @@ use \Illuminate\Support\MessageBag as MessageBag;
 
 use App\Models\Transaction;
 
+use App\Libraries\JSend;
+
 use Exception;
 
 class StockIsChecking extends Job implements SelfHandling
