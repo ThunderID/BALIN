@@ -58,12 +58,12 @@ class Stock extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'sku'							=> 'required|max:255',
+											// 'sku'							=> 'required|max:255',
 											'ondate'						=> 'required|date_format:"Y-m-d H:i:s"',
 											'current_stocks'				=> 'required|numeric',
 											'on_hold_stocks'				=> 'required|numeric',
 											'reserved_stocks'				=> 'required|numeric',
-											'upcoming_stocks'				=> 'required|numeric',
+											// 'upcoming_stocks'				=> 'required|numeric',
 										];
 
 	/**
