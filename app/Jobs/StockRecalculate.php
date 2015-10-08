@@ -27,7 +27,7 @@ class StockRecalculate extends Job implements SelfHandling
     public function handle()
     {
         //
-        $details                    = $transaction->transactiondetails;
+        $details                    = $this->transaction->transactiondetails;
 
         foreach ($details as $key => $value) 
         {
