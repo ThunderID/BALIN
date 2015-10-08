@@ -22,7 +22,6 @@ class CreateShipmentTable extends Migration
             $table->string('phone', 20);
             $table->string('address');
             $table->string('postal_code', 6);
-            $table->enum('status', ['waiting', 'shipping', 'shipped', 'delivered']);
             $table->timestamps();
             $table->softDeletes();
         });
