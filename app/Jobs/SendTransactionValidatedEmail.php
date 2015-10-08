@@ -18,6 +18,12 @@ class SendTransactionValidatedEmail extends Job implements SelfHandling
 
     public function handle(Mailer $mail)
     {
+        // checking
+        if(is_null($this->user->id))
+        {
+            throw new Exception('Sent variable must be object of a record.');
+        }
+        
         //get Billing
         $Validation                   = $this->getValidation();
 

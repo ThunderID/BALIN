@@ -19,6 +19,12 @@ class sendActivationEmail extends Job implements SelfHandling
 
     public function handle(Mailer $mail)
     {
+        // checking
+        if(is_null($this->user->id))
+        {
+            throw new Exception('Sent variable must be object of a record.');
+        }
+        
         //generate activation link
         $activation             = $this->generateActivationLink();
 
