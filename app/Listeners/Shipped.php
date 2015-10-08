@@ -28,7 +28,7 @@ class Shipped
      */
     public function handle(Shipment $shipment)
     {
-        if($shipment->transaction->status == 'shipped' && isset($shipment->transaction->payments))
+        if($shipment->transaction->status == 'shipping' && isset($shipment->transaction->payments))
         {
             $result					= $this->dispatch(new StockRecalculate($shipment->transaction));
         }
