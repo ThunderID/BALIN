@@ -4,27 +4,37 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\user;
-
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 class sendActivationEmail extends Job implements SelfHandling
 {
-    protected $email;
+    protected $user;
 
-    public function __construct(user $email)
+    public function __construct(user $user)
     {
-        //
-        $this->email = $email;
+        $this->user             = $user;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle()
+
+    public function handle(Mailer $mail)
     {
-        //
-        // dd($this->email);
+        //generate activation link
+        $activation             = $this->generateActivationLink();
+
+        //send email
+        $mail->send('emails.test', ['activation' => $activation], function($message)
+        {
+            $message->to($this->user['email'], $this->user['name'])->subject('Email Activation');
+        });   
+
+        return true;
+    }
+
+    public function generateActivationLink()
+    {
+        $activation             = md5(uniqid(rand(), TRUE));
+
+        return $activation;
     }
 }

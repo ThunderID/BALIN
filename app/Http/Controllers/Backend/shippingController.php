@@ -3,7 +3,6 @@
 use App\Http\Controllers\Controller;
 // use Models\Shipping;
 use App\Models\user;
-use App\Jobs\SendActivationEmail;
 // use Models\transaction;
 // use Models\courierBranch;
 use Input, Session, DB, Redirect, Mail;
@@ -14,16 +13,6 @@ class shippingController extends Controller
 
 	public function index()
 	{	
-
-		$this->dispatch(new SendActivationEmail(user::find(1) ));
-
-		Mail::send('emails.test', ['key' => 'value'], function($message)
-		{
-		    $message->to('budi-purnomo@outlook.com', 'Budi')->subject('Welcome!');
-		});		
-
-		print('sending email');exit;
-
 		$breadcrumb								= array(
 													'Pengriman Barang' => 'backend.shipping.index',
 													);
