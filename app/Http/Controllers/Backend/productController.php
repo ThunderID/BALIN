@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\baseController;
-use Models\product;
-use Models\attribute;
+use App\Models\product;
+use App\Models\attribute;
 use Input, Session, DB, Redirect;
 
 class productController extends baseController 
@@ -23,7 +23,6 @@ class productController extends baseController
 		}
 		else
 		{
-			$datas								= product::paginate();
 			$searchResult						= NULL;
 		}
 
@@ -31,8 +30,9 @@ class productController extends baseController
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
-													->with('datas', $datas)
 													->with('searchResult', $searchResult)
+													->with('nav_active', 'product')
+													->with('subnav_active', 'product')
 													;
 
 		return $this->layout;		
@@ -46,13 +46,13 @@ class productController extends baseController
 													'Data Baru' => 'backend.product.create',
 													];
 			$title 								= 'Edit';
-			$data 								= product::where('id', Input::get('id'))
+			$data 								= product::where('id', $id)
 													->with('_attributes')
 													->with(['categories'=> function($q){$q->GetName();}])
 													->first();
 			if (count($data) == 0)
 			{
-				App::abort(404);
+				\App::abort(404);
 			}	
 		}
 		else
@@ -78,8 +78,6 @@ class productController extends baseController
 	{
 		return $this->create($id);		
 	}
-
-
 
 	public function store($id = null)
 	{

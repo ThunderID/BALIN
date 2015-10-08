@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\baseController;
-use Models\category;
+use App\Models\Category;
 use Input, Session, DB, Redirect, Response;
 
 class categoryController extends baseController 
@@ -10,7 +10,6 @@ class categoryController extends baseController
 
 	public function index()
 	{		
-		$datas									= category::orderBy('path','asc')->paginate();
 		$breadcrumb								= ['Kategori' => 'backend.category.index'];
 		$searchResult							= NULL;
 
@@ -18,8 +17,9 @@ class categoryController extends baseController
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
-													->with('datas', $datas)
 													->with('searchResult', $searchResult)
+													->with('nav_active', 'product')
+													->with('subnav_active', 'category')
 													;
 
 		return $this->layout;		
@@ -32,18 +32,13 @@ class categoryController extends baseController
 			$breadcrumb								= [	'Kategori' => 'backend.category.index',
 														'Detail' => 'backend.category.show' ];
 
-			$data									= category::where('id', $id)->with('products')->first();
-
-			if(count($data) == 0)
-			{
-				App::abort(404);
-			}
-
 			$this->layout->page 					= view('pages.backend.category.detail')
 														->with('WT_pageTitle', $this->view_name )
 														->with('WT_pageSubTitle','Detail')		
 														->with('WB_breadcrumbs', $breadcrumb)
-														->with('data', $data)
+														->with('id', $id)
+														->with('nav_active', 'product')
+														->with('subnav_active', 'category')
 														;
 
 			return $this->layout;
@@ -62,12 +57,6 @@ class categoryController extends baseController
 		{
 			$breadcrumb							= [ 'Kategori' => 'backend.category.index',
 													'Edit Data' => 'backend.category.create' ];
-			$data 								= category::with('category')->where('categories.id', Input::get('id'))->first();
-
-			if (count($data) == 0)
-			{
-				App::abort(404);
-			}
 		}
 		else
 		{
@@ -81,7 +70,9 @@ class categoryController extends baseController
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Create')		
 													->with('WB_breadcrumbs', $breadcrumb)
-													->with('data', $data)
+													->with('id', $id)
+													->with('nav_active', 'product')
+													->with('subnav_active', 'category')
 													;
 
 		return $this->layout;		

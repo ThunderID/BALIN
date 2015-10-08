@@ -1,3 +1,5 @@
+@inject('data', 'App\Models\Category')
+{!! $data = $data::where('id', $id)->with('products')->first() !!}
 @extends('template.backend.layout')
 
 @section('content')
