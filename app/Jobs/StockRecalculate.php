@@ -5,7 +5,7 @@ namespace App\Jobs;
 /*
     Input   : Instance of transaction with transaction ID (exists transaction)
     Process : Count Reserved stock, current stock and on hold stock in based on transactions' products quantity
-    Output  : JSEND format, if errors will displayed errors with error message
+    Output  : JSEND format, if errors will displayed errors with error message, if success return transaction model
 */
 
 use App\Jobs\Job;
