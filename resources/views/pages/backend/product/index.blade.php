@@ -1,3 +1,6 @@
+@inject('datas', 'App\Models\Product')
+{!! $datas = $datas::paginate() !!}
+
 @extends('template.backend.layout') 
 
 @section('content')
@@ -16,19 +19,12 @@
                         <div class="col-md-2 col-sm-3 hidden-xs">
                         </div>
                         <div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
-                            {!!
-                                Form::input(
-                                    'text', 
-                                    'q', 
-                                    Null ,
-                                    [
+                            {!! Form::input('text', 'q', Null , [
                                         'class'         => 'form-control',
                                         'placeholder'   => 'Cari sesuatu',
                                         'required'      => 'required',
                                         'style'         =>'text-align:right'
-                                    ]
-                                )
-                            !!}                                          
+                                ]) !!}                                          
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
                             <button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
@@ -84,7 +80,7 @@
                                         'widgets.pageElements.formModalDelete', 
                                         array(
                                             'modal_id'      => 'product_del', 
-                                            'modal_route'   => 'backend.product.delete'
+                                            'modal_route'   => 'backend.product.destroy'
                                             )
                                         )
                                 @endif
