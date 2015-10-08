@@ -31,11 +31,11 @@ class TransactionSaved
     	$flag 					= 0;
     	$result 				= true;
 
-    	if($transaction->status=='paid' && isset($transaction->payments))
+    	if($transaction->type=='sell' && $transaction->status=='paid' && isset($transaction->payments))
     	{
     		$flag 				= 1;
     	}
-    	elseif($transaction->status=='shipping' && isset($transaction->shipments) && isset($transaction->payments))
+    	elseif($transaction->type=='sell' && $transaction->status=='shipping' && isset($transaction->shipments) && isset($transaction->payments))
     	{
     		$flag 				= 1;
     	}
@@ -43,7 +43,7 @@ class TransactionSaved
     	{
     		$flag 				= 1;
     	}
-    	elseif(in_array($transaction->status, ['waiting', 'draft']))
+    	elseif($transaction->type=='sell' && in_array($transaction->status, ['waiting', 'draft']))
     	{
     		$flag 				= 1;
     	}
