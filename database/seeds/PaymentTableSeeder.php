@@ -23,6 +23,7 @@ class PaymentTableSeeder extends Seeder
 				$data->fill([
 					'transaction_id'				=> $value->id,
 					'method'						=> 'bank transfer',
+					'destination'					=> 'BCA',
 					'account_name'					=> $faker->creditCardType,
 					'account_number'				=> $faker->creditCardNumber,
 					'ondate'						=> date('Y-m-d'),

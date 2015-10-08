@@ -36,6 +36,7 @@ class Payment extends Eloquent
 	protected $fillable				=	[
 											'transaction_id'				,
 											'method'						,
+											'destination'					,
 											'account_name'					,
 											'account_number'				,
 											'ondate'						,
@@ -56,6 +57,7 @@ class Payment extends Eloquent
 	 */
 	protected $rules				=	[
 											'method'						=> 'required|max:255',
+											'destination'					=> 'required|max:255',
 											'account_name'					=> 'required|max:255',
 											'account_number'				=> 'required|max:255',
 											'ondate'						=> 'required|date_format:"Y-m-d"',

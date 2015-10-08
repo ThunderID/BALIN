@@ -60,7 +60,7 @@ $factory->define(App\Models\ShippingCost::class, function ($faker)
 });
 
 $types 									= ['sell', 'buy'];
-$status 								= ['waiting','paid','shipping','delivered','canceled'];
+$status 								= ['waiting','paid','shipped','delivered','canceled'];
 $factory->define(App\Models\Transaction::class, function ($faker) use ($types, $status)
 {
 	$rand 								= rand(0, count($types)-1);
