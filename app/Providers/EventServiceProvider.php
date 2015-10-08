@@ -13,9 +13,9 @@ class EventServiceProvider extends ServiceProvider
 	 * @var array
 	 */
 	protected $listen = [
-		'eloquent.saved: App\\Models\\Transaction'			=>	['App\Listeners\TransactionSaved'],
-		'eloquent.saved: App\\Models\\Payment'				=>	['App\Listeners\PaymentValidated'],
-		'eloquent.saved: App\\Models\\Shipment'				=>	['App\Listeners\Shipped'],
+		// 'eloquent.saved: App\\Models\\Transaction'			=>	['App\Listeners\TransactionSaved'],
+		// 'eloquent.saved: App\\Models\\Payment'				=>	['App\Listeners\PaymentValidated'],
+		// 'eloquent.saved: App\\Models\\Shipment'				=>	['App\Listeners\Shipped'],
 	];
 
 	/**

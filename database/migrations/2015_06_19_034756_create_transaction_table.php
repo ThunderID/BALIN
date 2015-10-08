@@ -23,6 +23,7 @@ class CreateTransactionTable extends Migration
             $table->datetime('transacted_at');
             $table->integer('unique_number');
             $table->double('shipping_cost');
+            $table->double('referral_discount');
             $table->double('amount');
             $table->timestamps();
             $table->softDeletes();

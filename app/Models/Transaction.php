@@ -49,6 +49,7 @@ class Transaction extends Eloquent
 											'transacted_at'					,
 											'unique_number'					,
 											'shipping_cost'					,
+											'referral_discount'				,
 											'amount'						,
 										];
 	/**
