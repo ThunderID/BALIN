@@ -32,7 +32,11 @@ class PaymentValidated
         {
             $result					= $this->dispatch(new StockRecalculate($payment->transaction));
         }
-        elseif($payment->transaction->status == 'shipped' && isset($payment->transaction->shipments))
+        elseif($payment->transaction->status == 'shipping' && isset($payment->transaction->shipments))
+        {
+            $result                 = $this->dispatch(new StockRecalculate($payment->transaction));
+        }
+        elseif($payment->transaction->status == 'delivered' && isset($payment->transaction->shipments) && $payment->transaction->shipments[0]=='delivered')
         {
             $result                 = $this->dispatch(new StockRecalculate($payment->transaction));
         }
