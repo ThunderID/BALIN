@@ -20,6 +20,7 @@ class Transaction extends Eloquent
 	use \App\Models\Traits\belongsTo\HasSupplierTrait;
 	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
 	use \App\Models\Traits\hasMany\HasPaymentsTrait;
+	use \App\Models\Traits\hasMany\HasShipmentsTrait;
 	use \App\Models\Traits\hasMany\HasPointLogsTrait;
 	use \App\Models\Traits\belongsToMany\HasTransactionProductsTrait;
 
