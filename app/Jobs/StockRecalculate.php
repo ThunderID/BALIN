@@ -10,6 +10,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\Transaction;
+use App\Models\Product;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 use \Illuminate\Support\MessageBag as MessageBag;
