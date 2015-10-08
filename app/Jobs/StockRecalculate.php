@@ -4,7 +4,8 @@ namespace App\Jobs;
 
 /*
     Input   : Instance of transaction with transaction ID (exists transaction)
-    OutPut  : JSEND format, if errors will displayed errors with error message
+    Process : Count Reserved stock, current stock and on hold stock in based on transactions' products quantity
+    Output  : JSEND format, if errors will displayed errors with error message
 */
 
 use App\Jobs\Job;
@@ -40,7 +41,7 @@ class StockRecalculate extends Job implements SelfHandling
         {
             throw new Exception('Sent variable must be object of a record.');
         }
-        
+
         $details                    = $this->transaction->transactiondetails;
 
         $errors                     = new MessageBag;
