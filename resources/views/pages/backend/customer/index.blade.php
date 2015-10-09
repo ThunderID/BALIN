@@ -1,15 +1,15 @@
+@inject('datas', 'App\Models\User')
+{!! $datas= $datas::Customer($id)->paginate() !!}
+
 @extends('template.backend.layout')
 
 @section('content')
 <div class="container-fluid">
-	@include('widgets.backend.pageElements.pageTitle')
-    @include('widgets.backend.pageElements.breadcrumb')
-    @include('widgets.backend.pageElements.alertBox')
 	<div class="row">
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-md-8 col-sm-4 hidden-xs">
-                    <a data-backdrop="static" data-keyboard="false" class="btn btn-default" href="#" data-toggle="modal" data-target="#cus" data-button="Tambah Data" data-title="Tambah Data Customer"> Data Baru </a>
+                    <a class="btn btn-default" href="{{ route('backend.customer.create') }}"> Data Baru </a>
                 </div>
                 <div class="hidden-lg hidden-md hidden-sm col-xs-12">
                 </div>
@@ -62,21 +62,8 @@
                                         <td>{{$data['phone']}}</td>
                                         <td>{{$data['address']}}</td>
                                         <td>
-                                            <a href="{{ route('backend.courier.detail', ['courier_id' => $data['id']]) }}">Detail</a>,
-                                            <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#cus" 
-                                                data-id="{{ $data['id'] }}" 
-                                                data-name="{{ $data['name'] }}" 
-                                                data-gender="{{ $data['gender'] }}" 
-                                                data-dob="{{ $data['dob'] }}" 
-                                                data-email="{{ $data['email'] }}" 
-                                                data-phone="{{ $data['phone'] }}" 
-                                                data-address="{{ $data['address'] }}" 
-                                                data-zip="{{ $data['zip_code'] }}" 
-                                                data-title="Edit Data {{$data['name']}}" 
-                                                data-button="Simpan Data"
-                                                href="#">
-                                                Edit
-                                            </a>, 
+                                            <a href="">Detail</a>,
+                                            <a href="{{ route('backend.customer.edit', $data['id']) }}">Edit</a>, 
                                             <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#cus_del"
                                                 data-id="{{$data['id']}}"
                                                 data-title="Hapus Data Customer {{$data['name']}}" 
@@ -103,8 +90,7 @@
             </div>
         </div>
     </div>
-</div>
-@include('widgets.pageElements.formModal2', array('modal_id'=>'cus', 'modal_content' => 'pages.backend.customer.create'))                                    
+</div>                                    
 @stop
 
 @section('script')
