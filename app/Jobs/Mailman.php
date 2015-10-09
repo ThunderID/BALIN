@@ -15,7 +15,7 @@ class Mailman extends Job implements SelfHandling
         $mail_data                  = $mail_Data;
     }
 
-    public function handle()
+    public function handle(Mailer $mail)
     {
         try
         {

@@ -17,7 +17,7 @@ class SendShipmentEmail extends Job implements SelfHandling
         $this->transaction 					= $transaction;
     }
 
-    public function handle(Mailer $mail)
+    public function handle()
     {
         // checking
         if(is_null($this->transaction->id))
