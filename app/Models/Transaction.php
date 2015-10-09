@@ -66,7 +66,7 @@ class Transaction extends Eloquent
 	 */
 	protected $rules				=	[
 											'type'							=> 'required|in:buy,sell',
-											'status'						=> 'required|in:waiting,paid,shipped,delivered,canceled',
+											'status'						=> 'required|in:draft,waiting,paid,shipped,delivered,canceled',
 											'transacted_at'					=> 'required|date_format:"Y-m-d H:i:s"',
 											'unique_number'					=> 'required|numeric',
 											'shipping_cost'					=> 'required|numeric',
