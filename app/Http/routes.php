@@ -38,8 +38,11 @@ Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error
 /*========================BACKEND-CMS=============================*/
 Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 {
+	/*--------------LOGIN--------------*/
+	Route::get('/login', 													['uses' => 'authController@index', 								'as' => 'backend.login']);
+
 	/*--------------HOME--------------*/
-	Route::get('/', 											['uses' => 'homeController@index', 								'as' => 'backend.home']);
+	Route::get('/', 															['uses' => 'homeController@index', 								'as' => 'backend.home']);
 
 	/*--------------CATEGORY--------------*/
 	Route::resource('category', 'categoryController', 			['names' => ['index' => 'backend.category.index', 'create' => 'backend.category.create', 'store' => 'backend.category.store', 'show' => 'backend.category.show', 'edit' => 'backend.category.edit', 'update' => 'backend.category.update', 'destroy' => 'backend.category.destroy']]);
@@ -62,6 +65,9 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 
 	/*--------------SUPPLIER---------------*/
 	Route::resource('supplier',  'supplierController',			['names' => ['index' => 'backend.supplier.index', 'create' => 'backend.supplier.create', 'store' => 'backend.supplier.store', 'show' => 'backend.supplier.show', 'edit' => 'backend.supplier.edit', 'update' => 'backend.supplier.update', 'destroy' => 'backend.supplier.destroy']]);
+
+	/*--------------CUSTOMER---------------*/
+	Route::resource('customer',  'customerController',			['names' => ['index' => 'backend.customer.index', 'create' => 'backend.customer.create', 'store' => 'backend.customer.store', 'show' => 'backend.customer.show', 'edit' => 'backend.customer.edit', 'update' => 'backend.customer.update', 'destroy' => 'backend.customer.destroy']]);
 });
 
 /*Route::get('cms/category', ['uses' => 'Backend\\categoryController@index', 'as' => 'backend.category.index']);
