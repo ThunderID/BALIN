@@ -55,7 +55,7 @@ class TrackOrderTransaction extends Job implements SelfHandling
                     $result         = $this->draft();
                 break;
             case 'waiting':
-                    $result         = $this->draft();
+                    $result         = $this->waiting();
                 break;
             case 'paid':
                     $result         = $this->paid();
@@ -110,6 +110,90 @@ class TrackOrderTransaction extends Job implements SelfHandling
     }
 
     public function waiting()
+    {
+        $flag                       = false;
+
+        $is_paid                    = $this->dispatch(new PaymentIsValid($this->transaction));
+
+        if($is_paid->getStatus()=='error')
+        {
+            $flag                   = true;
+        }
+
+        $is_shipped                 = $this->dispatch(new ShippingNoted($this->transaction));
+
+        if($is_shipped->getStatus()=='error')
+        {
+            $flag                   = true;
+        }
+
+        return $flag;
+    }
+
+    public function paid()
+    {
+        $flag                       = false;
+
+        $is_paid                    = $this->dispatch(new PaymentIsValid($this->transaction));
+
+        if($is_paid->getStatus()=='success')
+        {
+            $flag                   = true;
+        }
+
+        $is_shipped                 = $this->dispatch(new ShippingNoted($this->transaction));
+
+        if($is_shipped->getStatus()=='error')
+        {
+            $flag                   = true;
+        }
+
+        return $flag;
+    }
+
+    public function shipped()
+    {
+        $flag                       = false;
+
+        $is_paid                    = $this->dispatch(new PaymentIsValid($this->transaction));
+
+        if($is_paid->getStatus()=='success')
+        {
+            $flag                   = true;
+        }
+
+        $is_shipped                 = $this->dispatch(new ShippingNoted($this->transaction));
+
+        if($is_shipped->getStatus()=='success')
+        {
+            $flag                   = true;
+        }
+
+        return $flag;
+    }
+
+    public function delivered()
+    {
+        $flag                       = false;
+
+        $is_paid                    = $this->dispatch(new PaymentIsValid($this->transaction));
+
+        if($is_paid->getStatus()=='success')
+        {
+            $flag                   = true;
+        }
+
+        $is_shipped                 = $this->dispatch(new ShippingNoted($this->transaction));
+
+        if($is_shipped->getStatus()=='success')
+        {
+            $flag                   = true;
+        }
+
+        return $flag;
+    }
+
+    public function canceled()
     {
         $flag                       = false;
 
