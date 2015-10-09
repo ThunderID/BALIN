@@ -22,6 +22,7 @@
                     <li>
                         <a href="#"><i class="fa fa-users"></i><span class="nav-label">Customer</span></a>
                         <ul class="nav nav-third-level">
+                            <li><a href="{{ route('backend.customer.index') }}">Customer</a></li>
                             <li><a href="#">Point Logs</a></li>
                         </ul>
                     </li>
