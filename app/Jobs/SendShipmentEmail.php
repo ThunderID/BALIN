@@ -6,10 +6,15 @@ use App\Jobs\Job;
 use App\Jobs\Mailman;
 use App\Jobs\GenerateShipmentEmail;
 use App\Models\Transaction;
+
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class SendShipmentEmail extends Job implements SelfHandling
 {
+    use DispatchesJobs, ValidatesRequests;
+    
     protected $transaction;
 
     public function __construct(Transaction $transaction)
