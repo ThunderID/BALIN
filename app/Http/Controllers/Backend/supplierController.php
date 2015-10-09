@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\baseController;
-use Models\supplier;
+use App\Models\Transaction;
 use Input, Session, DB, Redirect, Response;
 
 class supplierController extends baseController 
@@ -10,6 +10,10 @@ class supplierController extends baseController
 
 	public function index()
 	{		
+		$transaction 							= Transaction::type('sell')->status('waiting')->first();
+
+		$result = $transaction->save();
+		dd($result);
 		$breadcrumb								= ['Supllier' => 'backend.supplier.index'];
 
 		if (Input::get('q'))

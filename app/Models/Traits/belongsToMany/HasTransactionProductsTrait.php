@@ -19,6 +19,6 @@ trait HasTransactionProductsTrait
 
 	public function Products()
 	{
-		return $this->belongsToMany('App\Models\Product', 'transactions_details');
+		return $this->belongsToMany('App\Models\Product', 'transaction_details');
 	}
 }

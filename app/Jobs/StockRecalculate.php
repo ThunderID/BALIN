@@ -11,6 +11,7 @@ namespace App\Jobs;
 use App\Jobs\Job;
 use App\Models\Transaction;
 use App\Models\Product;
+use App\Models\Stock;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 use \Illuminate\Support\MessageBag as MessageBag;
@@ -52,7 +53,32 @@ class StockRecalculate extends Job implements SelfHandling
             $onhold                 = Product::id($value->product_id)->countOnHoldStock(true);
             $reserved               = Product::id($value->product_id)->countReservedStock(true);
             $physical               = Product::id($value->product_id)->CountBoughtStock(true);
-            $current                = $physical->bought_stock - $onhold->on_hold_stock - $reserved->reserved_stock;
+            $current                = 0;
+
+            if($physical)
+            {
+                $current            = $current + $physical->bought_stock;
+            }
+
+            if(isset($onhold->on_hold_stock))
+            {
+                $current            = $current - $onhold->on_hold_stock;
+                $onholdstock        = $onhold->on_hold_stock;
+            }
+            else
+            {
+                $onholdstock        = 0;
+            }
+
+            if(isset($reserved->reserved_stock))
+            {
+                $current            = $current - $reserved->reserved_stock;
+                $reservedstock      = $reserved->reserved_stock;
+            }
+            else
+            {
+                $reservedstock      = 0;
+            }
 
             $stock                  = new Stock;
 
@@ -61,8 +87,8 @@ class StockRecalculate extends Job implements SelfHandling
                     'transaction_detail_id'         => $value->id,
                     'ondate'                        => date('Y-m-d', strtotime($value->updated_at)),
                     'current_stocks'                => $current,
-                    'on_hold_stocks'                => $onhold->on_hold_stock,
-                    'reserved_stocks'               => $reserved->reserved_stock,
+                    'on_hold_stocks'                => $onholdstock,
+                    'reserved_stocks'               => $reservedstock,
                 ]);
 
             if(!$stock->Save())

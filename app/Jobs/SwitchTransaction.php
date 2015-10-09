@@ -12,12 +12,16 @@ use App\Jobs\Job;
 use App\Models\Transaction;
 
 use Illuminate\Contracts\Bus\SelfHandling;
-use \Illuminate\Support\MessageBag as MessageBag;
+use Illuminate\Support\MessageBag as MessageBag;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Libraries\JSend;
 
 class SwitchTransaction extends Job implements SelfHandling
 {
+    use DispatchesJobs, ValidatesRequests;
+
     /**
      * Create a new job instance.
      *
@@ -44,13 +48,13 @@ class SwitchTransaction extends Job implements SelfHandling
 
         $errors                     = new MessageBag;
 
-        switch ($transaction->type) 
+        switch ($this->transaction->type) 
         {
             case 'buy':
-                    $result         = $this->dispatch(new TrackPurchaseTransaction($transaction));
+                    $result         = $this->dispatch(new TrackPurchaseTransaction($this->transaction));
                 break;
             case 'sell':
-                    $result         = $this->dispatch(new TrackOrderTransaction($transaction));
+                    $result         = $this->dispatch(new TrackOrderTransaction($this->transaction));
                 break;
             default:
                 throw new Exception('Transaction type must be one of buy or sell.');
