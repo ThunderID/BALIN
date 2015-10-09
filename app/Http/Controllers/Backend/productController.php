@@ -46,14 +46,6 @@ class productController extends baseController
 													'Data Baru' => 'backend.product.create',
 													];
 			$title 								= 'Edit';
-			$data 								= product::where('id', $id)
-													->with('_attributes')
-													->with(['categories'=> function($q){$q->GetName();}])
-													->first();
-			if (count($data) == 0)
-			{
-				\App::abort(404);
-			}	
 		}
 		else
 		{
@@ -61,14 +53,14 @@ class productController extends baseController
 													'Edit Data' => 'backend.product.create',
 													];
 			$title 								= 'Create';
-			$data								= NULL;
 		}
 
 		$this->layout->page 					= view('pages.backend.product.create')
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle', $title)		
 													->with('WB_breadcrumbs', $breadcrumb)
-													->with('data', $data)
+													->with('id', $id)
+													->with('nav_active', 'product')
 													;
 
 		return $this->layout;		
