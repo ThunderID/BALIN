@@ -55,7 +55,7 @@ class StockRecalculate extends Job implements SelfHandling
             $physical               = Product::id($value->product_id)->CountBoughtStock(true);
             $current                = 0;
 
-            if($physical)
+            if(isset($physical->bought_stock))
             {
                 $current            = $current + $physical->bought_stock;
             }
