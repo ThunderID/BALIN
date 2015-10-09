@@ -12,6 +12,8 @@ use App\Jobs\Job;
 
 use App\Models\Transaction;
 
+use App\Libraries\JSend;
+
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use Exception;
@@ -48,16 +50,22 @@ class PaymentIsValid extends Job implements SelfHandling
         $amount                     = $this->transaction->amount;
         $paid                       = 0;
 
-        foreach ($payments as $key => $value) 
+        if($payments)
         {
-            $paid                   = $paid + $value->amount;
+            foreach ($payments as $key => $value) 
+            {
+                $paid               = $paid + $value->amount;
+            }
         }
 
-        foreach ($points as $key => $value) 
+         if($points)
         {
-            $paid                   = $paid + $value->credit - $value->debit ;
+            foreach ($points as $key => $value) 
+            {
+                $paid               = $paid + $value->credit - $value->debit ;
+            }
         }
-
+       
         $achieved                   = $paid - $amount;
         if($achieved = 0)
         {

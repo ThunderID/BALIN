@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\baseController;
-use Models\price;
-use Models\product;
+use App\Models\Price;
+use App\Models\Product;
 use Input, Session, DB, Redirect, Response;
 
 class priceController extends baseController 

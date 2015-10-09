@@ -76,13 +76,10 @@
                                     </tr>       
                                     <?php $ctr += 1; ?>                     
                                     @endforeach 
-                                    @include(
-                                        'widgets.pageElements.formModalDelete', 
-                                        array(
+                                    @include('widgets.pageElements.formModalDelete', [
                                             'modal_id'      => 'product_del', 
                                             'modal_route'   => 'backend.product.destroy'
-                                            )
-                                        )
+                                    ])
                                 @endif
                             </tbody>
                         </table> 

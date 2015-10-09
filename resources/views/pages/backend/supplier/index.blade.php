@@ -1,3 +1,6 @@
+@inject('datas', 'App\Models\Supplier')
+{!! $datas = $datas::paginate() !!}
+
 @extends('template.backend.layout') 
 
 @section('content')
@@ -16,18 +19,12 @@
                         <div class="col-md-2 col-sm-3 hidden-xs">
                         </div>
                         <div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
-                            {!!
-                                Form::input(
-                                    'text', 
-                                    'q', 
-                                    Null ,
-                                    [
+                            {!! Form::input('text', 'q', Null ,[
                                         'class'         => 'form-control',
                                         'placeholder'   => 'Cari sesuatu',
                                         'required'      => 'required',
                                         'style'         =>'text-align:right'
-                                    ]
-                                )
+                                ])
                             !!}                                          
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
@@ -82,13 +79,10 @@
                                     </tr>       
                                     <?php $ctr += 1; ?>                     
                                     @endforeach 
-                                    @include(
-                                        'widgets.pageElements.formModalDelete', 
-                                        array(
+                                    @include('widgets.pageElements.formModalDelete', [
                                             'modal_id'      => 'supplier_del', 
-                                            'modal_route'   => 'backend.supplier.delete'
-                                            )
-                                        )
+                                            'modal_route'   => 'backend.supplier.destroy'
+                                    ])
                                 @endif
                             </tbody>
                         </table> 

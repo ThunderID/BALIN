@@ -62,14 +62,14 @@
                                     @foreach ($datas as $data)
                                         <tr>
                                             <td>
-                                                @if ($data['parent_id'] == 0)
+                                                @if ($data['category_id'] == 0)
                                                     <i class="fa fa-circle"></i>
                                                 @endif
                                             </td>
                                             <td class="col-md-10">
                                                 <p class="text-capitalize">
                                                     @for ($i = 0; $i < substr_count($data['path'],','); $i++)
-                                                        &nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     @endfor
                                                     {{$data['name']}}
                                                 </p>

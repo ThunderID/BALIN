@@ -6,6 +6,8 @@ use App\Jobs\Job;
 
 use App\Models\Transaction;
 
+use App\Libraries\JSend;
+
 use Illuminate\Contracts\Bus\SelfHandling;
 use \Illuminate\Support\MessageBag as MessageBag;
 

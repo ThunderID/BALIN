@@ -107,8 +107,9 @@ class Product extends Eloquent
 	public function scopeCountOnHoldStock($query, $variable)
 	{
 		return 	$query
-					->selectraw('sum((SELECT quantity FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null)) as on_hold_stock')
-					->wherehas('transaction', function($q){$q->status(['draft', 'waiting'])->type('sell');})
+					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as on_hold_stock')
+					->wherehas('transactions', function($q){$q->status(['draft', 'waiting'])->type('sell');})
+					->first()
 					;
 		;
 	}
@@ -116,8 +117,9 @@ class Product extends Eloquent
 	public function scopeCountReservedStock($query, $variable)
 	{
 		return 	$query
-					->selectraw('sum((SELECT quantity FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null)) as reserved_stock')
-					->wherehas('transaction', function($q){$q->status(['paid'])->type('sell');})
+					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as reserved_stock')
+					->wherehas('transactions', function($q){$q->status(['paid'])->type('sell');})
+					->first()
 					;
 		;
 	}
@@ -125,8 +127,9 @@ class Product extends Eloquent
 	public function scopeCountBoughtStock($query, $variable)
 	{
 		return 	$query
-					->selectraw('sum((SELECT quantity FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null)) as bought_stock')
-					->wherehas('transaction', function($q){$q->status('delivered')->type('buy');})
+					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as bought_stock')
+					->wherehas('transactions', function($q){$q->status('delivered')->type('buy');})
+					->first()
 					;
 		;
 	}

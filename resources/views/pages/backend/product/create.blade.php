@@ -1,18 +1,15 @@
+@inject('data', 'App\Models\Product')
+{!! $data = $data::where('id', $id)
+            ->first(); 
+!!}
 @extends('template.backend.layout') 
 
 @section('content')
-    {!! Form::open(array('route' => 'backend.product.save')) !!}
-        {!!
-            Form::input(
-                'hidden', 
-                'id', 
-                $data['id'],  
-                [
+    {!! Form::open(array('route' => 'backend.product.store')) !!}
+        {!! Form::input('hidden', 'id', $data['id'], [
                     'class' => 'mod_id'
-                ]
-            ) 
+            ]) 
         !!}
-
         <div class="row">
             <div class="col-md-12">
                 <h4 class="sub-header">
@@ -24,34 +21,24 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="name">Nama Produk</label>
-                    {!! 
-                        Form::text(
-                            'name',
-                            $data['name'], 
-                            [
+                    {!! Form::text('name', $data['name'], [
                                 'class'         => 'form-control', 
                                 'required'      => 'required', 
                                 'tabindex'      => '1', 
                                 'placeholder'   => 'Masukkan nama produk'
-                            ] 
-                        ) 
+                        ]) 
                     !!}
                 </div>  
             </div> 
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="sku">SKU Produk</label>
-                    {!! 
-                        Form::text(
-                            'sku',
-                            $data['sku'], 
-                            [
+                    {!! Form::text('sku', $data['sku'], [
                                 'class'         => 'form-control', 
                                 'required'      => 'required', 
                                 'placeholder'   => 'Masukkan kode SKU produk',
                                 'tabindex'      => '2', 
-                            ] 
-                        ) 
+                        ]) 
                     !!}
                 </div>
             </div>                                         
@@ -60,25 +47,19 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="description">Deskripsi Produk</label>
-                    {!! 
-                        Form::textarea(
-                            'description',
-                            $data['description'], 
-                            [
+                    {!! Form::textarea('description', $data['description'], [
                                 'class'         => 'form-control', 
                                 'required'      => 'required', 
                                 'placeholder'   => 'Masukkan deskripsi produk',
                                 'rows'          => '3',
                                 'tabindex'      => '3',
                                 'style'         => 'resize:none;',
-                            ] 
-                        ) 
+                        ]) 
                     !!}
                 </div>            
             </div>
         </div>
         </br>
-
 
         <div class="row">
             <div class="col-md-12">
