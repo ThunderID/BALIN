@@ -116,8 +116,8 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 		return 	$query->where('id', $variable);
 	}
 
-	public function scopeActiveToken($query, $variable)
+	public function scopeCustomer($query, $variable)
 	{
-		return 	$query->accesstokenid($variable);
+		return 	$query->where('role', 'customer');
 	}
 }
