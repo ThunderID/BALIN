@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\baseController;
 use App\Models\Transaction;
+use App\Models\Supplier;
 use Input, Session, DB, Redirect, Response;
 
 class supplierController extends baseController 
@@ -25,7 +26,6 @@ class supplierController extends baseController
 		}
 		else
 		{
-			$datas								= supplier::paginate(); 
 			$searchResult						= NULL;
 		}
 
@@ -33,8 +33,8 @@ class supplierController extends baseController
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
-													->with('datas', $datas)
-													->with('searchResult', $searchResult);
+													->with('searchResult', $searchResult)
+													->with('nav_active', 'supplier');
 		return $this->layout;		
 	}
 
@@ -50,25 +50,19 @@ class supplierController extends baseController
 		{
 			$breadcrumb							= [	'Supplier' => 'backend.supplier.index',
 													'Supplier Baru' => 'backend.supplier.create' ];
-			$data								= NULL;
 		}
 		else
 		{
 			$breadcrumb							= [ 'Supplier' => 'backend.supplier.index',
 													'Edit Data' => 'backend.supplier.create' ];
-			$data								= supplier::find($id);
-
-			if (count($data) == 0)
-			{
-				App::abort(404);
-			}
 		}
 
 		$this->layout->page 					= view('pages.backend.supplier.create')
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Create')		
 													->with('WB_breadcrumbs', $breadcrumb)
-													->with('data', $data);
+													->with('id', $id)
+													->with('nav_active', 'supplier');
 		return $this->layout;		
 	}
 

@@ -30,7 +30,7 @@
                 </li> 
                 <li @if($controller_name == 'cart') class=active @endif class="dropdown">
                     <a href="{{ URL::route('frontend.cart.index') }}" class="dropdown-toggle">Cart</a>
-                    @include('widgets.frontend.topmenu.cartDropdown')
+                    @include('widgets.frontend.topMenu.cartDropdown')
                 </li>                                                    
             </ul>
         </div>
