@@ -3,8 +3,9 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
+use App\Jobs\Mailman;
+use App\Jobs\GenerateShipmentEmail;
 use App\Models\transaction;
-use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 class SendShipmentEmail extends Job implements SelfHandling
@@ -26,18 +27,20 @@ class SendShipmentEmail extends Job implements SelfHandling
 
         //get shipment
         // call job get shipment
+		$datas 								= $this->dispatch(new GenerateShipmentEmail($this->transaction));        
 
         //send email
         $mail_data      = [
                             'view'          => 'emails.test', 
-                            'datas'         => 'nn', 
+                            'datas'         => '$datas', 
                             'dest_email'    => 'budi-purnomo@outlook.com', 
                             'dest_name'     => 'budi purnomo', 
                             'subject'       => 'Shipping Information', 
                         ];
 
         // call email send job
-        
+        $this->dispatch(new Mailman($mail_data));
+
         return true;
     }
 }

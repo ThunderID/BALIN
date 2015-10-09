@@ -3,8 +3,7 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
-use App\Models\trnsaction;
-use App\Models\shipment;
+use App\Models\transaction;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 class GenerateShipmentEmail extends Job implements SelfHandling
