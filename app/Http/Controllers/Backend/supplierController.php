@@ -11,7 +11,7 @@ class supplierController extends baseController
 
 	public function index()
 	{		
-		$transaction 							= Transaction::type('sell')->status('waiting')->first();
+		$transaction 							= Transaction::type('sell')->status('shipped')->first();
 
 		$result = $transaction->save();
 		dd($result);

@@ -5,14 +5,14 @@ namespace App\Jobs;
 use App\Jobs\Job;
 use App\Jobs\Mailman;
 use App\Jobs\GenerateShipmentEmail;
-use App\Models\transaction;
+use App\Models\Transaction;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 class SendShipmentEmail extends Job implements SelfHandling
 {
     protected $transaction;
 
-    public function __construct(transaction $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction 					= $transaction;
     }
