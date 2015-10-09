@@ -18,7 +18,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Libraries\JSend;
 
-class TrackOrderTransaction extends Job implements SelfHandling
+class TrackShippedOrder extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
@@ -47,36 +47,38 @@ class TrackOrderTransaction extends Job implements SelfHandling
         }
 
         $errors                     = new MessageBag;
-        $result                     = false;
 
-        switch ($this->transaction->status) 
+        $flag                       = false;
+
+        $is_paid                    = $this->dispatch(new PaymentIsValid($this->transaction));
+
+        if($is_paid->getStatus()=='success')
         {
-            case 'draft':
-                $result             = $this->dispatch(new TrackDraftOrder($this->transaction));
-                break;
-            case 'waiting':
-                $result             = $this->dispatch(new TrackWaitingOrder($this->transaction));
-                break;
-            case 'paid':
-                $result             = $this->dispatch(new TrackPaidOrder($this->transaction));
-                break;
-            case 'shipped':
-                $result             = $this->dispatch(new TrackShippedOrder($this->transaction));
-                break;
-            case 'delivered':
-                $result             = $this->dispatch(new TrackDeliveredOrder($this->transaction));
-                break;
-            case 'canceled':
-                $result             = $this->dispatch(new TrackCanceledOrder($this->transaction));
-                break;
-            default:
-                throw new Exception('Transaction status invalid.');
-                break;
+            $flag                   = true;
         }
 
-        if(!isset($results))
+        $is_shipped                 = $this->dispatch(new ShippingNoted($this->transaction));
+
+        if($is_shipped->getStatus()=='success')
         {
-            $errors                 = $errors->add('Stock', 'Failed Recalculate Stock');
+            $flag                   = true;
+        }
+
+        if($flag)
+        {
+            $is_calculated          = $this->dispatch(new StockRecalculate($this->transaction));
+            if($is_calculated->getStatus()=='success')
+            {
+                $results            = $this->dispatch(new SendShipmentEmail($this->transaction));
+            }
+            else
+            {
+                $is_calculated      = $results;
+            }
+        }
+        else
+        {
+            $errors                 = $errors->add('Validate', 'Draft invalid');
             $results                = new Jsend('error', (array)$this->transaction, (array)$errors);
         }
 

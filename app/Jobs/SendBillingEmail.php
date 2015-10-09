@@ -11,34 +11,34 @@ class SendBillingEmail extends Job implements SelfHandling
 {
     protected $user;
 
-    public function __construct(user $user)
-    {
-        $this->user             = $user;
-    }
+	public function __construct(user $user)
+	{
+	    $this->user				= $user;
+	}
 
-    public function handle(Mailer $mail)
-    {
-        // checking
-        if(is_null($this->user->id))
-        {
-            throw new Exception('Sent variable must be object of a record.');
-        }
-        
-        //get Billing
-        $Bills                   = $this->getBill();
+	public function handle(Mailer $mail)
+	{
+	    // checking
+	    if(is_null($this->user->id))
+	    {
+	        throw new Exception('Sent variable must be object of a record.');
+	    }
+	    
+	    //get Billing
+	    $Bills					= $this->getBill();
 
-        //send email
-        $mail->send('emails.test', ['Bills' => $Bills], function($message)
-        {
-            $message->to($this->user['email'], $this->user['name'])->subject('Billing Statement');
-        });   
+	    //send email
+	    $mail->send('emails.test', ['Bills' => $Bills], function($message)
+	    {
+	        $message->to($this->user['email'], $this->user['name'])->subject('Billing Statement');
+	    });   
 
-        return true;
-    }
+	    return true;
+	}
 
-    public function getBill()
-    {
-        // call job get bill
-        return "a";
-    }
+	public function getBill()
+	{
+	    // call job get bill
+	    return "a";
+	}
 }
