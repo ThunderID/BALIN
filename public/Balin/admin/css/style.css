@@ -3673,6 +3673,10 @@ body.modal-open {
   width: 300px;
   margin-left: -150px;
   margin-top: -330px;
+  color: #fff;
+}
+.loginscreen a {
+  color: #fff;
 }
 .loginColumns {
   width: 760px;
