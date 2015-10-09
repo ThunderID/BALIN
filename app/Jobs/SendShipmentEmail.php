@@ -3,42 +3,41 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
-use App\Models\user;
+use App\Models\transaction;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 class SendShipmentEmail extends Job implements SelfHandling
 {
-    protected $user;
+    protected $transaction;
 
-    public function __construct(user $user)
+    public function __construct(transaction $transaction)
     {
-        $this->user             = $user;
+        $this->transaction 					= $transaction;
     }
 
     public function handle(Mailer $mail)
     {
         // checking
-        if(is_null($this->user->id))
+        if(is_null($this->transaction->id))
         {
             throw new Exception('Sent variable must be object of a record.');
         }
 
-        //get Billing
-        $shipment                   = $this->getShipment();
+        //get shipment
+        // call job get shipment
 
         //send email
-        $mail->send('emails.test', ['shipment' => $shipment], function($message)
-        {
-            $message->to($this->user['email'], $this->user['name'])->subject('Shipping Information');
-        });   
+        $mail_data      = [
+                            'view'          => 'emails.test', 
+                            'datas'         => 'nn', 
+                            'dest_email'    => 'budi-purnomo@outlook.com', 
+                            'dest_name'     => 'budi purnomo', 
+                            'subject'       => 'Shipping Information', 
+                        ];
 
+        // call email send job
+        
         return true;
     }
-
-    public function getShipment()
-    {
-        // call job get bill
-        return "a";
-    }  
 }

@@ -6,6 +6,7 @@ use App\Jobs\SendActivationEmail;
 use App\Jobs\sendBillingEmail;
 use App\Jobs\SendTransactionValidatedEmail;
 use App\Jobs\sendShipmentEmail;
+use Mail;
 
 class testController extends Controller 
 {
@@ -25,7 +26,7 @@ class testController extends Controller
 		$user= User::find(1);
 		$this->dispatch(new SendActivationEmail($user));
 
-		exit;	
+		exit;
 	}
 
 	public function sendBillingEmail()
