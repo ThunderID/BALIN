@@ -14,7 +14,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 class SendShipmentEmail extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
-    
+
     protected $transaction;
 
     public function __construct(Transaction $transaction)
@@ -37,7 +37,7 @@ class SendShipmentEmail extends Job implements SelfHandling
         //send email
         $mail_data      = [
                             'view'          => 'emails.test', 
-                            'datas'         => '$datas', 
+                            'datas'         => (array)$datas, 
                             'dest_email'    => 'budi-purnomo@outlook.com', 
                             'dest_name'     => 'budi purnomo', 
                             'subject'       => 'Shipping Information', 
