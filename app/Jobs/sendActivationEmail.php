@@ -17,7 +17,7 @@ class sendActivationEmail extends Job implements SelfHandling
     }
 
 
-    public function handle(Mailer $mail)
+    public function handle()
     {
         // checking
         if(is_null($this->user->id))
@@ -25,22 +25,21 @@ class sendActivationEmail extends Job implements SelfHandling
             throw new Exception('Sent variable must be object of a record.');
         }
         
-        //generate activation link
-        $activation             = $this->generateActivationLink();
+        //get Billing
+        $datas                              = $this->dispatch(new GenerateActivationEmail($this->user));        
 
         //send email
-        $mail->send('emails.test', ['activation' => $activation], function($message)
-        {
-            $message->to($this->user['email'], $this->user['name'])->subject('Email Activation');
-        });   
+        $mail_data      = [
+                            'view'          => 'emails.test', 
+                            'datas'         => (array)$datas, 
+                            'dest_email'    => 'budi-purnomo@outlook.com', 
+                            'dest_name'     => 'budi purnomo', 
+                            'subject'       => 'Email Activation', 
+                        ];
+
+        // call email send job
+        $this->dispatch(new Mailman($mail_data));
 
         return true;
-    }
-
-    public function generateActivationLink()
-    {
-        $activation             = md5(uniqid(rand(), TRUE));
-
-        return $activation;
     }
 }

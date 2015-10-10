@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Jobs;
+
+use App\Jobs\Job;
+use App\Models\user;
+use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Support\MessageBag as MessageBag;
+
+class GenerateActivationEmail extends Job implements SelfHandling
+{
+ protected $user;
+
+    public function __construct(user $user)
+    {
+        $this->user           = $user;
+    }
+
+    public function handle()
+    {
+        // checking
+        if(is_null($this->user->id))
+        {
+            throw new Exception('Sent variable must be object of a record.');
+        }
+
+        //generate link
+        $activation                 = md5(uniqid(rand(), TRUE));
+
+        $data                       = $this->user;
+
+        $data->fill([
+                'activation_link'  => $activation;
+                'expired_at'       => 
+            ]);
+
+        if($data->save())
+        {
+            $result                 = new Jsend('success', (array)$data);
+        }
+        else
+        {
+            $result                 = new Jsend('error', (array)$this->user, (array)$data->getError());
+        }
+
+        return $result;
+    }
+}
