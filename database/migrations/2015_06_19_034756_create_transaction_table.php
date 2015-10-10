@@ -17,7 +17,7 @@ class CreateTransactionTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->integer('supplier_id')->unsigned()->index();
             $table->string('ref_number', 255);
-            $table->string('referral_code', 255);
+            $table->string('referral_code', 255)->nullable();
             $table->enum('type', ['sell', 'buy']);
             $table->enum('status', ['waiting', 'hold', 'paid', 'shipped', 'delivered', 'canceled']);
             $table->datetime('transacted_at');
