@@ -2,9 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Jobs\Job;
-use App\Jobs\Mailman;
-use App\Jobs\GenerateShipmentEmail;
 use App\Models\Transaction;
 
 use Illuminate\Contracts\Bus\SelfHandling;

@@ -3,8 +3,6 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
-use App\Jobs\Mailman;
-use App\Jobs\GenerateBillingEmail;
 use App\Models\Transaction;
 
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -20,7 +18,7 @@ class SendBillingEmail extends Job implements SelfHandling
 	    $this->transaction				= $transaction;
 	}
 
-	public function handle(Mailer $mail)
+	public function handle()
 	{
 	    // checking
 	    if(is_null($this->transaction->id))
