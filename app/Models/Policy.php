@@ -90,4 +90,38 @@ class Policy extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+
+	public function scopeType($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('type', $variable);
+		}
+
+		return 	$query->where('type', $variable);
+	}
+
+	public function scopeGetTTL($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			throw new Exception('Date must not be array.');
+		}
+
+		return 	$query->type('expired_link_duration')->ondate($variable);
+	}
+
+	public function scopeOnDate($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			throw new Exception('Date must not be array.');
+		}
+		else
+		{
+			$started_at 				= date('Y-m-d H:i:s', strtotime($variable));
+		}
+
+		return 	$query->where('started_at', '<=', $started_at)->orderBy('started_at', 'desc');
+	}
 }
