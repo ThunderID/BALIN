@@ -4,6 +4,7 @@ use App\Http\Controllers\baseController;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\Supplier;
+use App\Models\Payment;
 use Input, Session, DB, Redirect, Response;
 
 class supplierController extends baseController 
@@ -12,8 +13,10 @@ class supplierController extends baseController
 
 	public function index()
 	{		
+		$payment 								= Payment::wherehas('transaction', function($q){$q->status('waiting')->type('sell');})->first();
+		$result = $payment->save();
+		dd($result);
 		$product 								= Product::find(1);
-		dd($product);
 		$transaction 							= Transaction::type('sell')->status('shipped')->first();
 
 		$result = $transaction->save();

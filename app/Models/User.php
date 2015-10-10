@@ -60,6 +60,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'joined_at'						,
 											'activation_link'				,
 											'reset_password_link'			,
+											'expired_at'					,
 										];
 
 	/**
@@ -67,7 +68,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'joined_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'joined_at', 'expired_at'];
 
 	/**
 	 * Basic rule of database
