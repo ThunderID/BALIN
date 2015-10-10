@@ -7,9 +7,9 @@ use App\Models\user;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests
 
-class sendActivationEmail extends Job implements SelfHandling
+class SendResetPasswordEmail extends Job implements SelfHandling
 {
     protected $user;
 
@@ -27,7 +27,7 @@ class sendActivationEmail extends Job implements SelfHandling
         }
         
         //get Billing
-        $datas                              = $this->dispatch(new GenerateActivationEmail($this->user));        
+        $datas                              = $this->dispatch(new GenerateResetPasswordEmail($this->user));        
 
         //send email
         $mail_data      = [
@@ -35,12 +35,11 @@ class sendActivationEmail extends Job implements SelfHandling
                             'datas'         => (array)$datas, 
                             'dest_email'    => 'budi-purnomo@outlook.com', 
                             'dest_name'     => 'budi purnomo', 
-                            'subject'       => 'Email Activation', 
+                            'subject'       => 'Password Reset', 
                         ];
 
         // call email send job
         $this->dispatch(new Mailman($mail_data));
 
         return true;
-    }
 }
