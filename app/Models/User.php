@@ -121,4 +121,14 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	{
 		return 	$query->where('role', 'customer');
 	}
+
+	public function scopeReferralCode($query, $variable)
+	{
+		return 	$query->where('referral_code', $variable);
+	}
+
+	public function scopeActive($query, $variable)
+	{
+		return 	$query->ReferralCode($variable)->where('is_active', true);
+	}
 }
