@@ -93,4 +93,20 @@ class Discount extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+
+	public function scopeOnDate($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			$started_at 				= date('Y-m-d H:i:s', strtotime($variable[0]));
+			$ended_at 					= date('Y-m-d H:i:s', strtotime($variable[1]));
+		}
+		else
+		{
+			$started_at 				= date('Y-m-d H:i:s', strtotime($variable));
+			$ended_at 					= date('Y-m-d H:i:s', strtotime($variable));
+		}
+
+		return 	$query->where('started_at', '>=', $started_at)->where('ended_at', '<=', $ended_at);
+	}
 }

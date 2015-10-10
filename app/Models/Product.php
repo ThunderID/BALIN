@@ -74,6 +74,10 @@ class Product extends Eloquent
 	 * @var array
 	 */
 	protected $appends				=	[
+											'price',
+											'promo_price',
+											'discount',
+											'stock',
 										];
 
 	/**
@@ -87,6 +91,49 @@ class Product extends Eloquent
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
+
+	public function getPriceAttribute($value)
+	{
+		$price 						= Price::productid($this->id)->ondate('now')->first();
+
+		if($price)
+		{
+			return $price->price;
+		}
+
+		return 0;
+	}
+
+	public function getDiscountAttribute($value)
+	{
+		return $this->price - $this->promo_price;
+
+		return 0;
+	}
+
+	public function getPromoPriceAttribute($value)
+	{
+		$discount 					= Discount::productid($this->id)->ondate('now')->first();
+		
+		if($discount)
+		{
+			return $discount->promo_price;
+		}
+
+		return 0;
+	}
+
+	public function getStockAttribute($value)
+	{
+		$stock 						= Stock::productid($this->id)->ondate('now')->first();
+
+		if($stock)
+		{
+			return $stock->current_stock;
+		}
+
+		return 0;
+	}
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 	

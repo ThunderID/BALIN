@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\baseController;
+use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\Supplier;
 use Input, Session, DB, Redirect, Response;
@@ -11,6 +12,8 @@ class supplierController extends baseController
 
 	public function index()
 	{		
+		$product 								= Product::find(1);
+		dd($product);
 		$transaction 							= Transaction::type('sell')->status('shipped')->first();
 
 		$result = $transaction->save();

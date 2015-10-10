@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Exception;
+
 class Price extends Eloquent
 {
 
@@ -90,5 +92,19 @@ class Price extends Eloquent
 		}
 
 		return 	$query->where('id', $variable);
+	}
+
+	public function scopeOnDate($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			throw new Exception('Date must not be array.');
+		}
+		else
+		{
+			$started_at 				= date('Y-m-d H:i:s', strtotime($variable));
+		}
+
+		return 	$query->where('started_at', '<=', $started_at)->orderBy('started_at', 'desc');
 	}
 }
