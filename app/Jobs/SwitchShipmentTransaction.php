@@ -48,7 +48,7 @@ class SwitchShipmentTransaction extends Job implements SelfHandling
 
         $errors                     = new MessageBag;
 
-        if(!$this->shipment->transaction)
+        if(is_null($this->shipment->receipt_number))
         {
             $result                 = new Jsend('success', (array)$this->shipment);
         }

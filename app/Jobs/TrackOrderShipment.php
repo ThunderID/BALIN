@@ -51,9 +51,9 @@ class TrackOrderShipment extends Job implements SelfHandling
 
         switch ($this->shipment->transaction->status) 
         {
-            case 'draft': case 'canceled': case 'paid': case 'waiting': case 'delivered':
+            case 'draft': case 'canceled': case 'shipped': case 'waiting': case 'delivered':
                 break;
-            case 'shipped':
+            case 'paid':
                 $result             = $this->dispatch(new TrackShippedShipment($this->shipment->transaction));
                 break;
             default:
