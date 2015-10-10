@@ -4,8 +4,10 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\user;
-use Illuminate\Contracts\Mail\Mailer;
+
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class sendActivationEmail extends Job implements SelfHandling
 {

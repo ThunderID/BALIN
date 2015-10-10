@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Jobs\Job;
 use App\Models\Transaction;
 
 use Illuminate\Contracts\Bus\SelfHandling;

@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\user;
+use App\Models\policy;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\MessageBag as MessageBag;
 
