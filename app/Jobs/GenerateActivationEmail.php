@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\user;
+use App\Models\policy;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\MessageBag as MessageBag;
 
@@ -26,12 +27,13 @@ class GenerateActivationEmail extends Job implements SelfHandling
 
         //generate link
         $activation                 = md5(uniqid(rand(), TRUE));
+        $ttl                        = policy::GetTTL('now')->first;
 
         $data                       = $this->user;
 
         $data->fill([
                 'activation_link'  => $activation;
-                'expired_at'       => 
+                'expired_at'       => date('Y-m-d H:i:s', strtotime($ttl));
             ]);
 
         if($data->save())
