@@ -12,8 +12,8 @@ class PolicyTableSeeder extends Seeder
 	{
 		DB::table('tmp_policies')->truncate();
 
-		$types 										= ['expired_draft', 'expired_holded', 'expired_paid', 'expired_shipped', 'reset_point', 'referral_royalty', 'referral_discount', 'limit_unique_number', 'min_transfer', 'multiple_point'];
-		$values 									= [' + 1 day', '+ 2 days', ' + 2 day', '+ 5 days', '+ 1 year', '10', '5', '100', '10000', '1000'];
+		$types 										= ['expired_draft', 'expired_holded', 'expired_paid', 'expired_shipped', 'reset_point', 'referral_royalty', 'referral_discount', 'limit_unique_number', 'min_transfer', 'multiple_point', 'expired_link_duration'];
+		$values 									= [' + 1 day', '+ 2 days', ' + 2 day', '+ 5 days', '+ 1 year', '10', '5', '100', '10000', '1000', '+ 2 hours'];
 		try
 		{
 			$i 										= 0;
