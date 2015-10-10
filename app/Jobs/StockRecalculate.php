@@ -80,7 +80,16 @@ class StockRecalculate extends Job implements SelfHandling
                 $reservedstock      = 0;
             }
 
-            $stock                  = new Stock;
+            $stocks                 = Stock::transactiondetailid($value->id)->first();
+
+            if($stocks)
+            {
+                $stock              = $stocks;
+            }
+            else
+            {
+                $stock              = new Stock;
+            }
 
             $stock->fill([
                     'product_id'                    => $value->product_id,
