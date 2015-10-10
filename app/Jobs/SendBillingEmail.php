@@ -43,10 +43,4 @@ class SendBillingEmail extends Job implements SelfHandling
 
         return true;
 	}
-
-	public function getBill()
-	{
-	    // call job get bill
-	    return "a";
-	}
 }

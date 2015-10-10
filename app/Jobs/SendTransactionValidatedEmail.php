@@ -45,11 +45,5 @@ class SendTransactionValidatedEmail extends Job implements SelfHandling
         return true;
 
         return true;
-    }
-
-    public function getValidation()
-    {
-        // call job get bill
-        return "a";
-    }    
+    } 
 }
