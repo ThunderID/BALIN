@@ -101,4 +101,18 @@ class Stock extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+
+	public function scopeOnDate($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			throw new Exception('Date must not be array.');
+		}
+		else
+		{
+			$updated_at 			= date('Y-m-d H:i:s', strtotime($variable));
+		}
+
+		return 	$query->where('updated_at', '<=', $updated_at)->orderBy('updated_at', 'desc');
+	}
 }

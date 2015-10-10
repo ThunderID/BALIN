@@ -77,6 +77,7 @@ class Product extends Eloquent
 											'price',
 											'promo_price',
 											'discount',
+											'stock',
 										];
 
 	/**
@@ -117,6 +118,18 @@ class Product extends Eloquent
 		if($discount)
 		{
 			return $discount->promo_price;
+		}
+
+		return 0;
+	}
+
+	public function getStockAttribute($value)
+	{
+		$stock 						= Stock::productid($this->id)->ondate('now')->first();
+
+		if($stock)
+		{
+			return $stock->current_stock;
 		}
 
 		return 0;
