@@ -75,6 +75,7 @@ class Product extends Eloquent
 	 */
 	protected $appends				=	[
 											'price',
+											'promo_price',
 											'discount',
 										];
 
@@ -104,11 +105,18 @@ class Product extends Eloquent
 
 	public function getDiscountAttribute($value)
 	{
+		return $this->price - $this->promo_price;
+
+		return 0;
+	}
+
+	public function getPromoPriceAttribute($value)
+	{
 		$discount 					= Discount::productid($this->id)->ondate('now')->first();
 		
 		if($discount)
 		{
-			return $this->price - $discount->promo_price;
+			return $discount->promo_price;
 		}
 
 		return 0;
