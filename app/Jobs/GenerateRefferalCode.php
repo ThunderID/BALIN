@@ -32,7 +32,7 @@ class GenerateRefferalCode extends Job implements SelfHandling
         //check is user doesnt have refferal code yet
         if($this->user['referral_code'])
         {
-            return new Jsend('error', (array)$this->user, 'Referral code allready exist');
+            $result                 = Jsend('error', (array)$this->user, 'Referral code allready exist');
         }
         else
         {
@@ -61,12 +61,13 @@ class GenerateRefferalCode extends Job implements SelfHandling
                     $result         = new Jsend('error', (array)$this->user, (array)$data->getError());
                 }
 
-                return $result;
             }
             else
             {
-                return $transac_data;
+                $result             = $transac_data;
             }            
         }
+
+        return $result;
     }
 }

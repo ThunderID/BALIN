@@ -25,37 +25,31 @@ class ValidateEmail extends Job implements SelfHandling
         }
 
         //validate
-        if($this->user['activation_link'] && $this->user['expired_at'])
+        $validate                            = $this->dispatch(new CheckValidationLink($this->user));
+
+
+        if($validate->getstatus == 'success')
         {
-            if(date('Y-m-d H:i:s', strtotime('now')) <= $this->user['expired_at'])
+            $data                           = $this->user;
+
+            $data->fill([
+                    'activation_link'       => null,
+                    'expired_at'            => null
+                ]);
+
+            if($data->save())
             {
-                $data                        = $this->user;
-
-                $data->fill([
-                        'activation_link'    => null,
-                        'expired_at'         => null
-                    ]);
-
-                if($data->save())
-                {
-                    $result                  = new Jsend('success', (array)$data);
-                }
-                else
-                {
-                    $result                  = new Jsend('error', (array)$this->user, (array)$data->getError());
-                }
+                $result                     = new Jsend('success', (array)$data);
             }
             else
             {
-                $result                      = new Jsend('error', (array)$this->user, 'Activation code expired');
+                $result                     = new Jsend('error', (array)$this->user, (array)$data->getError());
             }
         }
         else
         {
-            $result                         = new Jsend('error', (array)$this->user, 'Activation code not found');
-
+            $result                         = $validate;
         }
-
 
         return $result;
     }
