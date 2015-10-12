@@ -3,34 +3,31 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
-use App\Models\Transaction;
+use App\Models\user;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests
 
-class SendShipmentEmail extends Job implements SelfHandling
+class SendResetPasswordEmail extends Job implements SelfHandling
 {
-    use DispatchesJobs, ValidatesRequests;
+    protected $user;
 
-    protected $transaction;
-
-    public function __construct(Transaction $transaction)
+    public function __construct(user $user)
     {
-        $this->transaction 					= $transaction;
+        $this->user             = $user;
     }
 
     public function handle()
     {
         // checking
-        if(is_null($this->transaction->id))
+        if(is_null($this->user->id))
         {
             throw new Exception('Sent variable must be object of a record.');
         }
-
-        //get shipment
-        // call job get shipment
-		$datas 								= $this->dispatch(new GenerateShipmentEmail($this->transaction));        
+        
+        //get Billing
+        $datas                              = $this->dispatch(new GenerateResetPasswordEmail($this->user));        
 
         //send email
         $mail_data      = [
@@ -38,12 +35,11 @@ class SendShipmentEmail extends Job implements SelfHandling
                             'datas'         => (array)$datas, 
                             'dest_email'    => 'budi-purnomo@outlook.com', 
                             'dest_name'     => 'budi purnomo', 
-                            'subject'       => 'Shipping Information', 
+                            'subject'       => 'Password Reset', 
                         ];
 
         // call email send job
         $this->dispatch(new Mailman($mail_data));
 
         return true;
-    }
 }

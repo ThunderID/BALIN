@@ -9,7 +9,7 @@ namespace App\Jobs;
 */
 
 use App\Jobs\Job;
-use App\Models\Transaction;
+use App\Models\Payment;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\MessageBag as MessageBag;
@@ -18,7 +18,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Libraries\JSend;
 
-class TrackOrderTransaction extends Job implements SelfHandling
+class TrackOrderPayment extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
@@ -27,10 +27,10 @@ class TrackOrderTransaction extends Job implements SelfHandling
      *
      * @return void
      */
-    public function __construct(Transaction $transaction)
+    public function __construct(Payment $payment)
     {
         //
-        $this->transaction          = $transaction;
+        $this->payment          = $payment;
     }
 
     /**
@@ -41,32 +41,20 @@ class TrackOrderTransaction extends Job implements SelfHandling
     public function handle()
     {
         //
-        if(is_null($this->transaction->id))
+        if(is_null($this->payment->id))
         {
             throw new Exception('Sent variable must be object of a record.');
         }
 
         $errors                     = new MessageBag;
+        $result                     = false;
 
-        switch ($this->transaction->status) 
+        switch ($this->payment->transaction->status) 
         {
-            case 'draft':
-                $results            = $this->dispatch(new TrackDraftOrder($this->transaction));
+            case 'draft': case 'canceled': case 'paid': case 'shipped': case 'delivered':
                 break;
             case 'waiting':
-                $results            = $this->dispatch(new TrackWaitingOrder($this->transaction));
-                break;
-            case 'paid':
-                $results            = $this->dispatch(new TrackPaidOrder($this->transaction));
-                break;
-            case 'shipped':
-                $results            = $this->dispatch(new TrackShippedOrder($this->transaction));
-                break;
-            case 'delivered':
-                $results            = $this->dispatch(new TrackDeliveredOrder($this->transaction));
-                break;
-            case 'canceled':
-                $results            = $this->dispatch(new TrackCanceledOrder($this->transaction));
+                $result             = $this->dispatch(new TrackWaitingPayment($this->payment->transaction));
                 break;
             default:
                 throw new Exception('Transaction status invalid.');
@@ -75,8 +63,8 @@ class TrackOrderTransaction extends Job implements SelfHandling
 
         if(!isset($results))
         {
-            $errors                 = $errors->add('Stock', 'Failed Recalculate Stock');
-            $results                = new Jsend('error', (array)$this->transaction, (array)$errors);
+            $errors                 = $errors->add('Stock', 'Payment Invalid');
+            $results                = new Jsend('error', (array)$this->payment, (array)$errors);
         }
 
         return $results;

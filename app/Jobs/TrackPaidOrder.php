@@ -66,7 +66,16 @@ class TrackPaidOrder extends Job implements SelfHandling
 
         if($flag)
         {
-            $results                = $this->dispatch(new StockRecalculate($this->transaction));
+            $is_calculated          = $this->dispatch(new StockRecalculate($this->transaction));
+       
+            if($is_calculated->getStatus()=='success')
+            {
+                $results            = $this->dispatch(new SendTransactionValidatedEmail($this->transaction));
+            }
+            else
+            {
+                $is_calculated      = $results;
+            }
         }
         else
         {

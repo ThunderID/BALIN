@@ -33,6 +33,7 @@ class CreateUserTable extends Migration
             $table->datetime('joined_at');
             $table->string('activation_link', 255);
             $table->string('reset_password_link', 255);
+            $table->datetime('expired_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

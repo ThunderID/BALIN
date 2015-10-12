@@ -60,6 +60,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'joined_at'						,
 											'activation_link'				,
 											'reset_password_link'			,
+											'expired_at'					,
 										];
 
 	/**
@@ -67,7 +68,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'joined_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'joined_at', 'expired_at'];
 
 	/**
 	 * Basic rule of database
@@ -119,5 +120,15 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	public function scopeCustomer($query, $variable)
 	{
 		return 	$query->where('role', 'customer');
+	}
+
+	public function scopeReferralCode($query, $variable)
+	{
+		return 	$query->where('referral_code', $variable);
+	}
+
+	public function scopeActive($query, $variable)
+	{
+		return 	$query->ReferralCode($variable)->where('is_active', true);
 	}
 }

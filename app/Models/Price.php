@@ -105,6 +105,6 @@ class Price extends Eloquent
 			$started_at 				= date('Y-m-d H:i:s', strtotime($variable));
 		}
 
-		return 	$query->where('started_at', '<=', $started_at)->orderBy('started_at', 'desc');
+		return 	$query->where('started_at', '<=', $started_at)->orderBy('started_at', 'asc');
 	}
 }
