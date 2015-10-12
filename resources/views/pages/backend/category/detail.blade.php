@@ -1,5 +1,7 @@
 @inject('data', 'App\Models\Category')
-{!! $data = $data::where('id', $id)->with('products')->first() !!}
+
+<?php $data = $data::where('id', $id)->with('products')->first() ?>
+
 @extends('template.backend.layout')
 
 @section('content')
@@ -84,8 +86,8 @@
 							<td>{{ $product['sku'] }}</td>
 							<td>{{ $product['name'] }}</td>
 							<td> 
-								<a href="#"> Detail </a>,
-								<a href="#"> Edit </a>,
+								<a href="{{ route('backend.product.show', $product->id) }}"> Detail </a>,
+								<a href="{{ route('backend.product.edit', $product->id) }}"> Edit </a>,
 								<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
 									data-id="{{$product['id']}}"
 									data-title="Hapus Data Produk {{$product['name']}}">
@@ -96,7 +98,7 @@
 					@endforeach
 				</tbody>
 			</table>
-		</div>
+		</div>  
 
 		@include(
 			'widgets.pageElements.formModalDelete', [

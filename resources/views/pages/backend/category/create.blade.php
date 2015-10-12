@@ -10,7 +10,7 @@
     {!! Form::open(array('route' => 'backend.category.store')) !!}
         {!! Form::input('hidden', 'id', $data['id'], ['class' => 'mod_id']) !!}
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="parent" class="text-capitalize">Termasuk dalam Kategori</label>
                     {!! Form::text('parent', $data['parent_id'], [
@@ -20,6 +20,8 @@
                                 'placeholder'   => 'Kosongkan bila tidak ada'
                     ]) !!}
                 </div>              
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="name" class="text-capitalize">Nama Kategori</label>
                     {!! Form::text('name', $data['name'], [

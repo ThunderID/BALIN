@@ -4,7 +4,6 @@ use App\Http\Controllers\baseController;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\Supplier;
-use App\Models\Payment;
 use Input, Session, DB, Redirect, Response;
 
 class supplierController extends baseController 
@@ -13,34 +12,26 @@ class supplierController extends baseController
 
 	public function index()
 	{		
-		$payment 								= Payment::wherehas('transaction', function($q){$q->status('waiting')->type('sell');})->first();
-		$result = $payment->save();
-		dd($result);
-		$product 								= Product::find(1);
-		$transaction 							= Transaction::type('sell')->status('shipped')->first();
-
-		$result = $transaction->save();
-		dd($result);
-		$breadcrumb								= ['Supllier' => 'backend.supplier.index'];
+		$breadcrumb										= ['Supllier' => 'backend.supplier.index'];
 
 		if (Input::get('q'))
 		{
-			$datas 								= supplier::where('name','like','%'.Input::get('q').'%')
-															->where('deleted_at',null)
-															->paginate(); 
-			$searchResult						= Input::get('q');
+			$datas 											= supplier::where('name','like','%'.Input::get('q').'%')
+																						->where('deleted_at',null)
+																						->paginate(); 
+			$searchResult								= Input::get('q');
 		}
 		else
 		{
-			$searchResult						= NULL;
+			$searchResult								= NULL;
 		}
 
 		$this->layout->page 					= view('pages.backend.supplier.index')
-													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle','Index')
-													->with('WB_breadcrumbs', $breadcrumb)
-													->with('searchResult', $searchResult)
-													->with('nav_active', 'supplier');
+																			->with('WT_pageTitle', $this->view_name )
+																			->with('WT_pageSubTitle','Index')
+																			->with('WB_breadcrumbs', $breadcrumb)
+																			->with('searchResult', $searchResult)
+																			->with('nav_active', 'supplier');
 		return $this->layout;		
 	}
 
