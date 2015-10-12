@@ -72,24 +72,17 @@
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="category">Kategori</label>
-					{!! 
-						Form::text(
-							'category',
-							null, 
-							[
-								'class'         => 'form-control', 
-								'rows'          => '3',
+					{!! Form::text('category', null, [
+								'class'         => 'select-category', 
 								'tabindex'      => '3',
 								'id'            => 'find_category',
-								'style'         => 'resize:none;',
-							] 
-						) 
+								'style'         => 'width:100%',
+							]) 
 					!!}
 				</div>  
 			</div> 
 		</div>
 		</br>
-
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
@@ -106,39 +99,29 @@
 		<div class="hidden">
 			<div id="attributeTemplate">
 				<div class="row">
-					<div class="col-md-5 col-sm-5 col-xs-12">
+					<div class="col-md-6 col-sm-6 col-xs-12">
 						<div class="form-group">
 							<label for="attribute[]">Attribut</label>
-							{!! 
-								Form::text(
-									'attribute[]',
-									null, 
-									[
+							{!! Form::text('attribute[]', null, [
 										'class'         => 'form-control', 
 										'tabindex'      => '4', 
 										'placeholder'   => 'Masukkan nama produk'
-									] 
-								) 
+									]) 
 							!!}
 						</div>                 
 					</div>
 					<div class="col-md-5 col-sm-5 col-xs-12">
 						<div class="form-group">
 							<label for="value[]">Nilai Attribut</label>
-							{!! 
-								Form::text(
-									'value[]',
-									null, 
-									[
+							{!! Form::text('value[]', null, [
 										'class'         => 'form-control', 
 										'tabindex'      => '4', 
 										'placeholder'   => 'Masukkan nama produk'
-									] 
-								) 
+									]) 
 							!!}
 						</div>                 
 					</div> 
-					<div class="col-md-2 col-sm-2 col-xs-12" style="padding-top:24px;">
+					<div class="col-md-1 col-sm-1 col-xs-12" style="padding-top:24px;">
 						<button class="delete btn btn-default">Delete</button>                    
 					</div>
 					<div class="hidden-lg hidden-md hidden-sm col-xs-12">
@@ -155,32 +138,22 @@
 						<div class="col-md-5 col-sm-5 col-xs-12">
 							<div class="form-group">
 								<label for="attribute[]">Attribut</label>
-								{!! 
-									Form::text(
-										'attribute[]',
-										$data['_attributes'][$i]['attribute'], 
-										[
+								{!! Form::text('attribute[]', $data['_attributes'][$i]['attribute'], [
 											'class'         => 'form-control', 
 											'tabindex'      => '4', 
 											'placeholder'   => 'Masukkan nama produk'
-										] 
-									) 
+										]) 
 								!!}
 							</div>                 
 						</div>
 						<div class="col-md-5 col-sm-5 col-xs-12">
 							<div class="form-group">
 								<label for="value[]">Nilai Attribut</label>
-								{!! 
-									Form::text(
-										'value[]',
-										$data['_attributes'][$i]['value'], 
-										[
+								{!! Form::text('value[]', $data['_attributes'][$i]['value'], [
 											'class'         => 'form-control', 
 											'tabindex'      => '4', 
 											'placeholder'   => 'Masukkan nama produk'
-										] 
-									) 
+										]) 
 								!!}
 							</div>                 
 						</div> 
@@ -244,42 +217,9 @@
 		preload_data.push(selections[i]);         
 	}
 
-	$('#find_category').select2({
-		placeholder: 'Masukkan nama kategori',
-		minimumInputLength: 3,
-		tags: false,
-		ajax: {
-			url: '/cms/ajax/get-category',
-			dataType: 'json',
-			data: function (term, path) {
-				return {
-					name: term,
-					path : '{{$data['path']}}'
-				};
-			},
-		   results: function (data) {
-				return {
-					results: $.map(data, function (item) {
-						return {
-							text: item.name +' ',
-							id: item.id +' ',
-							path: item.path
-						}
-					})
-				};
-			},
-			query: function (query){
-				var data = {results: []};
-				 
-				$.each(preload_data, function(){
-					if(query.term.length == 0 || this.text.toUpperCase().indexOf(query.term.toUpperCase()) >= 0 ){
-						data.results.push({id: this.id, text: this.text });
-					}
-				});
- 
-				query.callback(data);
-			}
-		}
-	});
-	$('#find_category').select2('data', preload_data );       
+	       
+@stop
+
+@section('script_plugin')
+	@include('plugins.select2')
 @stop
