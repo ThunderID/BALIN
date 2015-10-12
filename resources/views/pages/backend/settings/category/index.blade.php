@@ -7,13 +7,13 @@
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-md-8 col-sm-4 hidden-xs">
-					<a class="btn btn-default" href="{{ route('backend.category.create') }}"> Data Baru </a>
+					<a class="btn btn-default" href="{{ route('backend.settings.category.create') }}"> Data Baru </a>
 				</div>
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-					<a class="btn btn-default btn-block" href="{{ URL::route('backend.category.create') }}"> Data Baru </a>
+					<a class="btn btn-default btn-block" href="{{ URL::route('backend.settings.category.create') }}"> Data Baru </a>
 				</div>
 <!--                 <div class="col-md-4 col-sm-8 col-xs-12">
-					{!! Form::open(array('route' => 'backend.category.index', 'method' => 'get' )) !!}
+					{!! Form::open(array('route' => 'backend.settings.category.index', 'method' => 'get' )) !!}
 					<div class="row">
 						<div class="col-md-2 col-sm-3 hidden-xs">
 						</div>
@@ -39,7 +39,7 @@
 					{!! Form::close() !!}
 				</div>   -->          
 			</div>
-			@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.category.index') ])
+			@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.settings.category.index') ])
 			</br> 
 			<div class="row">
 				<div class="col-lg-12">
@@ -75,8 +75,8 @@
 												</p>
 											</td>
 											<td>
-												<a href="{{ route('backend.category.show',  $data['id']) }}"> Detail </a>,
-												<a href="{{ route('backend.category.edit', ['id' => $data['id']]) }}"> Edit </a>, 
+												<a href="{{ route('backend.settings.category.show',  $data['id']) }}"> Detail </a>,
+												<a href="{{ route('backend.settings.category.edit', ['id' => $data['id']]) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#category_del"
 													data-id="{{$data['id']}}"
 													data-title="Hapus Data Kategori {{$data['name']}}">
@@ -87,7 +87,7 @@
 									@endforeach 
 									@include('widgets.pageElements.formModalDelete', [
 										'modal_id'      => 'category_del', 
-										'modal_route'   => 'backend.category.destroy'
+										'modal_route'   => 'backend.settings.category.destroy'
 									])                                    
 								@endif
 							</tbody>

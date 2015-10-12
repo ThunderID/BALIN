@@ -1,7 +1,6 @@
-<?php namespace App\Http\Controllers\Backend;
+<?php namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\baseController;
-use App\Models\Category;
 use Input, Session, DB, Redirect, Response;
 
 class categoryController extends baseController 
@@ -10,16 +9,14 @@ class categoryController extends baseController
 
 	public function index()
 	{		
-		$breadcrumb								= ['Kategori' => 'backend.category.index'];
-		$searchResult							= NULL;
+		$breadcrumb								= ['Kategori' => 'backend.settings.category.index'];
 
-		$this->layout->page 					= view('pages.backend.category.index')
-													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle','Index')
-													->with('WB_breadcrumbs', $breadcrumb)
-													->with('searchResult', $searchResult)
-													->with('nav_active', 'product')
-													->with('subnav_active', 'category')
+		$this->layout->page 					= view('pages.backend.settings.category.index')
+														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pageSubTitle','Index')
+														->with('WB_breadcrumbs', $breadcrumb)
+														->with('nav_active', 'product')
+														->with('subnav_active', 'category')
 													;
 
 		return $this->layout;		
@@ -29,16 +26,16 @@ class categoryController extends baseController
 	{
 		if($id)
 		{
-			$breadcrumb								= [	'Kategori' => 'backend.category.index',
-														'Detail' => 'backend.category.show' ];
+			$breadcrumb								= ['Kategori' => 'backend.settings.category.index',
+															'Detail' => 'backend.settings.category.show' ];
 
-			$this->layout->page 					= view('pages.backend.category.detail')
-														->with('WT_pageTitle', $this->view_name )
-														->with('WT_pageSubTitle','Detail')		
-														->with('WB_breadcrumbs', $breadcrumb)
-														->with('id', $id)
-														->with('nav_active', 'product')
-														->with('subnav_active', 'category')
+			$this->layout->page 					= view('pages.backend.settings.category.detail')
+															->with('WT_pageTitle', $this->view_name )
+															->with('WT_pageSubTitle','Detail')		
+															->with('WB_breadcrumbs', $breadcrumb)
+															->with('id', $id)
+															->with('nav_active', 'product')
+															->with('subnav_active', 'category')
 														;
 
 			return $this->layout;
@@ -55,18 +52,16 @@ class categoryController extends baseController
 
 		if ($id)
 		{
-			$breadcrumb							= [ 'Kategori' => 'backend.category.index',
-													'Edit Data' => 'backend.category.create' ];
+			$breadcrumb								= ['Kategori' => 'backend.settings.category.index',
+															'Edit Data' => 'backend.settings.category.create' ];
 		}
 		else
 		{
-			$breadcrumb							= [	'Kategori' => 'backend.category.index',
-													'Data Baru' => 'backend.category.create' ];
-
-			$data								= NULL;
+			$breadcrumb								= ['Kategori' => 'backend.settings.category.index',
+															'Data Baru' => 'backend.settings.category.create' ];
 		}
 
-		$this->layout->page 					= view('pages.backend.category.create')
+		$this->layout->page 					= view('pages.backend.settings.category.create')
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Create')		
 													->with('WB_breadcrumbs', $breadcrumb)
@@ -130,14 +125,14 @@ class categoryController extends baseController
 			DB::commit();
 			if (Input::get('id'))
 			{
-				return Redirect::route('backend.category.index')
+				return Redirect::route('backend.settings.category.index')
 					->with('msg','Data sudah diperbarui')
 					->with('msg-type', 'success')
 					;
 			}
 			else
 			{
-				return Redirect::route('backend.category.index')
+				return Redirect::route('backend.settings.category.index')
 						->with('msg','Data sudah ditambahkan')
 						->with('msg-type', 'success')
 						;
@@ -169,7 +164,7 @@ class categoryController extends baseController
 			else
 			{
 				DB::commit();
-				return Redirect::route('backend.category.index')
+				return Redirect::route('backend.settings.category.index')
 					->with('msg', 'Data telah dihapus')
 					->with('msg-type','success')
 					;

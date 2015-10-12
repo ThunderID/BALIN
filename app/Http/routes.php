@@ -39,26 +39,19 @@ Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error
 Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 {
 	/*--------------LOGIN--------------*/
-	Route::get('/login', 													['uses' => 'authController@index', 								'as' => 'backend.login']);
+	Route::get('/', 																				['uses' => 'authController@index', 													'as' => 'backend.login']);
 
 	/*--------------HOME--------------*/
-	Route::get('/', 															['uses' => 'homeController@index', 								'as' => 'backend.home']);
+	Route::get('/dashboard', 																['uses' => 'homeController@index', 													'as' => 'backend.home']);
 
-	/*--------------CATEGORY--------------*/
-	Route::resource('category', 'categoryController', 			['names' => ['index' => 'backend.category.index', 'create' => 'backend.category.create', 'store' => 'backend.category.store', 'show' => 'backend.category.show', 'edit' => 'backend.category.edit', 'update' => 'backend.category.update', 'destroy' => 'backend.category.destroy']]);
+	/*--------------DATA PRODUCT---------------*/
+	Route::resource('product',  'Data\\productController',					['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
 
-	/*-----------AJAX-[CATEGORY]----------*/
-	Route::any('ajax/get-category',								['uses' => 'categoryController@getCategoryByName', 				'as' => 'backend.category.ajax.getByName']);
-	Route::any('ajax/get-category-parent',						['uses' => 'categoryController@getCategoryParentByName', 		'as' => 'backend.category.ajax.getParent']);
-
-	/*--------------PRODUCT---------------*/
-	Route::resource('product',  'productController',			['names' => ['index' => 'backend.product.index', 'create' => 'backend.product.create', 'store' => 'backend.product.store', 'show' => 'backend.product.show', 'edit' => 'backend.product.edit', 'update' => 'backend.product.update', 'destroy' => 'backend.product.destroy']]);
-
-	/*-----------AJAX-[PRODUCT]----------*/
-	Route::any('ajax/get-product', 								['uses' => 'productController@getProductBySKU' ,				'as' => 'backend.product.ajax.getProduct']);
+	/*-----------DATA AJAX-[PRODUCT]----------*/
+	Route::any('ajax/get-product', 													['uses' => 'Data\\productController@getProductBySKU' ,						'as' => 'backend.product.ajax.getProduct']);
 
 	/*--------------PRICE---------------*/
-	Route::resource('price',  'priceController',			['names' => ['index' => 'backend.price.index', 'create' => 'backend.price.create', 'store' => 'backend.price.store', 'show' => 'backend.price.show', 'edit' => 'backend.price.edit', 'update' => 'backend.price.update', 'destroy' => 'backend.price.destroy']]);
+	Route::resource('price',  'priceController',						['names' => ['index' => 'backend.price.index', 'create' => 'backend.price.create', 'store' => 'backend.price.store', 'show' => 'backend.price.show', 'edit' => 'backend.price.edit', 'update' => 'backend.price.update', 'destroy' => 'backend.price.destroy']]);
 
 	/*--------------DISCOUNT---------------*/
 	Route::resource('discount',  'discountController',			['names' => ['index' => 'backend.discount.index', 'create' => 'backend.discount.create', 'store' => 'backend.discount.store', 'show' => 'backend.discount.show', 'edit' => 'backend.discount.edit', 'update' => 'backend.discount.update', 'destroy' => 'backend.discount.destroy']]);
@@ -67,7 +60,21 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 	Route::resource('supplier',  'supplierController',			['names' => ['index' => 'backend.supplier.index', 'create' => 'backend.supplier.create', 'store' => 'backend.supplier.store', 'show' => 'backend.supplier.show', 'edit' => 'backend.supplier.edit', 'update' => 'backend.supplier.update', 'destroy' => 'backend.supplier.destroy']]);
 
 	/*--------------CUSTOMER---------------*/
-	Route::resource('customer',  'customerController',			['names' => ['index' => 'backend.customer.index', 'create' => 'backend.customer.create', 'store' => 'backend.customer.store', 'show' => 'backend.customer.show', 'edit' => 'backend.customer.edit', 'update' => 'backend.customer.update', 'destroy' => 'backend.customer.destroy']]);
+	Route::resource('customer',  'customerController',							['names' => ['index' => 'backend.customer.index', 'create' => 'backend.customer.create', 'store' => 'backend.customer.store', 'show' => 'backend.customer.show', 'edit' => 'backend.customer.edit', 'update' => 'backend.customer.update', 'destroy' => 'backend.customer.destroy']]);
+
+	/*--------------SETTING STORE---------------*/
+	Route::resource('store',  'Setting\\storeController',						['names' => ['index' => 'backend.settings.store.index', 'create' => 'backend.settings.store.create', 'store' => 'backend.settings.store.store', 'show' => 'backend.settings.store.show', 'edit' => 'backend.settings.store.edit', 'update' => 'backend.settings.store.update', 'destroy' => 'backend.settings.store.destroy']]);
+
+	/*--------------SETTING COURIER---------------*/
+	Route::resource('courier',  'Setting\\courierController',				['names' => ['index' => 'backend.settings.courier.index', 'create' => 'backend.settings.courier.create', 'store' => 'backend.settings.courier.store', 'show' => 'backend.settings.courier.show', 'edit' => 'backend.settings.courier.edit', 'update' => 'backend.settings.courier.update', 'destroy' => 'backend.settings.courier.destroy']]);
+
+	/*--------------SETTING CATEGORY--------------*/
+	Route::resource('category', 'Setting\\categoryController', 				['names' => ['index' => 'backend.settings.category.index', 'create' => 'backend.settings.category.create', 'store' => 'backend.settings.category.store', 'show' => 'backend.settings.category.show', 'edit' => 'backend.settings.category.edit', 'update' => 'backend.settings.category.update', 'destroy' => 'backend.settings.category.destroy']]);
+
+	/*-----------SETTING AJAX-[CATEGORY]----------*/
+	Route::any('ajax/get-category',													['uses' => 'Setting\\categoryController@getCategoryByName', 					'as' => 'backend.category.ajax.getByName']);
+	Route::any('ajax/get-category-parent',											['uses' => 'Setting\\categoryController@getCategoryParentByName', 		'as' => 'backend.category.ajax.getParent']);
+
 });
 
 /*Route::get('cms/category', ['uses' => 'Backend\\categoryController@index', 'as' => 'backend.category.index']);

@@ -7,7 +7,7 @@
 @extends('template.backend.layout') 
 
 @section('content')
-    {!! Form::open(array('route' => 'backend.category.store')) !!}
+    {!! Form::open(array('route' => 'backend.settings.category.store')) !!}
         {!! Form::input('hidden', 'id', $data['id'], ['class' => 'mod_id']) !!}
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -33,7 +33,7 @@
                 </div>   
                 </br>
                 <div class="form-group text-right">
-                    <a href="{{ URL::route('backend.category.index') }}" class="btn btn-md btn-default" tabindex="3">Batal</a>
+                    <a href="{{ URL::route('backend.settings.category.index') }}" class="btn btn-md btn-default" tabindex="3">Batal</a>
                     <button type="submit" class="btn btn-md btn-success" tabindex="4">Simpan</button>
                 </div>
             </div>                                          

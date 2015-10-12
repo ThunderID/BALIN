@@ -5,7 +5,7 @@
 @extends('template.backend.layout') 
 
 @section('content')
-	{!! Form::open(array('route' => 'backend.product.store')) !!}
+	{!! Form::open(array('route' => 'backend.data.product.store')) !!}
 		{!! Form::input('hidden', 'id', $data['id'], [
 					'class' => 'mod_id'
 			]) 
@@ -173,7 +173,7 @@
 			<div class="col-md-12">
 				</br>
 				<div class="form-group text-right">
-					<a href="{{ URL::route('backend.product.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
+					<a href="{{ URL::route('backend.data.product.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
 					<button type="submit" class="btn btn-md btn-success" tabindex="7">Simpan</button>
 				</div>        
 			</div>        

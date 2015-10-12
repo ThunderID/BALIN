@@ -36,7 +36,7 @@
 					</div>                                                        
 					<div class="row">
 						<div class="col-md-10 text-right">
-							<a href="{{ URL::route('backend.category.edit', $data['id']) }}" >Edit</a> 
+							<a href="{{ URL::route('backend.settings.category.edit', $data['id']) }}" >Edit</a> 
 							|                                                                                  
 							<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#category_del"
 								data-id="{{$data['id']}}"
@@ -54,7 +54,7 @@
 	@include(
 		'widgets.pageElements.formModalDelete', [
 				'modal_id'      => 'category_del', 
-				'modal_route'   => 'backend.category.destroy'
+				'modal_route'   => 'backend.settings.category.destroy'
 			]
 		)
 

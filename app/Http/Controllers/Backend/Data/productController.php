@@ -1,21 +1,19 @@
-<?php namespace App\Http\Controllers\Backend;
+<?php namespace App\Http\Controllers\Backend\Data;
 
 use App\Http\Controllers\baseController;
-use App\Models\product;
-use App\Models\attribute;
 use Input, Session, DB, Redirect;
 
 class productController extends baseController 
 {
-	protected $view_name 						= 'Product';
+	protected $view_name 							= 'Product';
 
 	public function index()
 	{	
-		$breadcrumb										= ['Produk' => 'backend.product.index'];
+		$breadcrumb										= ['Produk' => 'backend.data.product.index'];
 
 		if ($search = Input::get('q'))
 		{
-			$datas 											= product::where('deleted_at',null)
+			$datas 										= product::where('deleted_at',null)
 																		->FindProduct(Input::get('q'))
 																		->paginate()
 																		; 
@@ -26,7 +24,7 @@ class productController extends baseController
 			$searchResult								= NULL;
 		}
 
-		$this->layout->page 					= view('pages.backend.product.index')
+		$this->layout->page 							= view('pages.backend.data.product.index')
 																		->with('WT_pageTitle', $this->view_name )
 																		->with('WT_pageSubTitle','Index')
 																		->with('WB_breadcrumbs', $breadcrumb)
@@ -42,22 +40,20 @@ class productController extends baseController
 	{
 		if ($id) 
 		{
-			$breadcrumb							= [ 'Produk' => 'backend.product.index',
-																	'Edit Data' => 'backend.product.create',
-																];
+			$breadcrumb									= ['Produk' => 'backend.data.product.index',
+																'Edit Data' => 'backend.data.product.create'];
 
-			$title 									= 'Edit';
+			$title 										= 'Edit';
 		}
 		else
 		{
-			$breadcrumb							= [	'Produk' => 'backend.product.index',
-																	'Data Baru' => 'backend.product.create',
-																];
+			$breadcrumb									= ['Produk' => 'backend.product.index',
+																'Data Baru' => 'backend.product.create'];
 
-			$title 									= 'Create';
+			$title 										= 'Create';
 		}
 
-		$this->layout->page 			= view('pages.backend.product.create')
+		$this->layout->page 							= view('pages.backend.data.product.create')
 																->with('WT_pageTitle', $this->view_name )
 																->with('WT_pageSubTitle', $title)		
 																->with('WB_breadcrumbs', $breadcrumb)
@@ -75,13 +71,13 @@ class productController extends baseController
 
 	public function show($id)
 	{
-		$breadcrumb							= [ 'Produk' => 'backend.product.index',
-																'Detail' => 'backend.product.create',
+		$breadcrumb										= ['Produk' => 'backend.data.product.index',
+																'Detail' => 'backend.data.product.create',
 															];
 
 		if ($search = Input::get('q'))
 		{
-			$datas 											= product::where('deleted_at',null)
+			$datas 										= product::where('deleted_at',null)
 																		->FindProduct(Input::get('q'))
 																		->paginate()
 																		; 
@@ -92,7 +88,7 @@ class productController extends baseController
 			$searchResult								= NULL;
 		}
 
-		$this->layout->page 					= view('pages.backend.product.show')
+		$this->layout->page 							= view('pages.backend.data.product.show')
 																		->with('WT_pageTitle', $this->view_name )
 																		->with('WT_pageSubTitle','Show')
 																		->with('WB_breadcrumbs', $breadcrumb)
@@ -107,15 +103,15 @@ class productController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 								= Input::only('id','category','name','sku','description','attribute','value');
+		$inputs 											= Input::only('id','category','name','sku','description','attribute','value');
 
 		if ($id)
 		{
-			$data 								= product::find($id);
+			$data 										= product::find($id);
 		}
 		else
 		{
-			$data 								= new product;	
+			$data 										= new product;	
 		}
 
 		$data->fill([
@@ -185,14 +181,14 @@ class productController extends baseController
 			DB::commit();
 			if ($id)
 			{
-				return Redirect::route('backend.product.index')
+				return Redirect::route('backend.data.product.index')
 					->with('msg','Data sudah diperbarui')
 					->with('msg-type', 'success')
 					;
 			}
 			else
 			{
-				return Redirect::route('backend.product.index')
+				return Redirect::route('backend.data.product.index')
 					->with('msg','Data sudah ditambahkan')
 					->with('msg-type', 'success')
 					;
@@ -225,7 +221,7 @@ class productController extends baseController
 			else
 			{
 				DB::commit();
-				return Redirect::route('backend.product.index')
+				return Redirect::route('backend.data.product.index')
 					->with('msg', 'Data telah dihapus')
 					->with('msg-type','success');
 			}
