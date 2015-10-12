@@ -15,7 +15,7 @@
                         <ul class="nav nav-third-level">
                             <li><a href="#">Stock</a></li>
                             <li><a href="{{ route('backend.price.index') }}">Price</a></li>
-                            <li><a href="{{ route('backend.product.index') }}">Products</a></li>
+                            <li><a href="{{ route('backend.data.product.index') }}">Products</a></li>
                         </ul>
                     </li>
                     <li><a href="{{ route('backend.supplier.index') }}"><i class="fa fa-university"></i><span class="nav-label">Supplier</span></a></li>
@@ -33,16 +33,16 @@
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">Settings</span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="{{ route('backend.category.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Categories</span></a>
+                        <a href="{{ route('backend.settings.category.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Categories</span></a>
                     </li>
                     <li>
                         <a href=""><i class="fa fa-credit-card"></i> <span class="nav-label">Payment Methods</span></a>
                     </li>
                     <li>
-                        <a href=""><i class="fa fa-truck"></i> <span class="nav-label">Couriers</span></a>
+                        <a href="{{ route('backend.settings.courier.index') }}"><i class="fa fa-truck"></i> <span class="nav-label">Couriers</span></a>
                     </li>
                     <li>
-                        <a href=""><i class="fa fa-home"></i> <span class="nav-label">Store</span></a>
+                        <a href="{{ route('backend.settings.store.index') }}"><i class="fa fa-home"></i> <span class="nav-label">Store</span></a>
                     </li>
                     <li>
                         <a href=""><i class="fa fa-life-ring"></i> <span class="nav-label">Policies</span></a>
