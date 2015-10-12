@@ -27,7 +27,6 @@ class ValidateEmail extends Job implements SelfHandling
         //validate
         $validate                            = $this->dispatch(new CheckValidationLink($this->user));
 
-
         if($validate->getstatus == 'success')
         {
             $data                           = $this->user;
