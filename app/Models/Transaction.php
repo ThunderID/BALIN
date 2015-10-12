@@ -128,4 +128,14 @@ class Transaction extends Eloquent
 
 		return 	$query->where('type', $variable);
 	}
+
+	public  function scopeTransactionProcessed($query)
+	{
+		return $query
+			->where(function ($q) {
+			    $q->where('status', 'paid')
+			        ->orWhere('status',  'delivered')
+			        ->orWhere('status',  'shipped');
+				});
+	}
 }
