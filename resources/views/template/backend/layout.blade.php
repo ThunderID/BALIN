@@ -64,6 +64,7 @@
 		@yield('script')
 		@yield('scriptDelete')
 	</script>
+	@yield('script_plugin')
 </body>
 
 </html>
