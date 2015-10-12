@@ -44,21 +44,21 @@ class customerController extends baseController
 	{
 		if (!$id)
 		{
-			$breadcrumb							= [	'Customer' => 'backend.customer.index',
-													'Customer Baru' => 'backend.customer.create' ];
+			$breadcrumb									= [	'Customer' => 'backend.customer.index',
+																			'Customer Baru' => 'backend.customer.create' ];
 		}
 		else
 		{
-			$breadcrumb							= [ 'Customer' => 'backend.customer.index',
-													'Edit Data' => 'backend.customer.create' ];
+			$breadcrumb									= [ 'Customer' => 'backend.customer.index',
+																			'Edit Data' => 'backend.customer.create' ];
 		}
 
 		$this->layout->page 					= view('pages.backend.customer.create')
-													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle','Create')		
-													->with('WB_breadcrumbs', $breadcrumb)
-													->with('id', $id)
-													->with('nav_active', 'customer');
+																			->with('WT_pageTitle', $this->view_name )
+																			->with('WT_pageSubTitle','Create')		
+																			->with('WB_breadcrumbs', $breadcrumb)
+																			->with('id', $id)
+																			->with('nav_active', 'customer');
 		return $this->layout;		
 	}
 

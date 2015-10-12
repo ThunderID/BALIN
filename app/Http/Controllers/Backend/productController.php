@@ -11,29 +11,29 @@ class productController extends baseController
 
 	public function index()
 	{	
-		$breadcrumb								= ['Produk' => 'backend.product.index'];
+		$breadcrumb										= ['Produk' => 'backend.product.index'];
 
 		if ($search = Input::get('q'))
 		{
-			$datas 								= product::where('deleted_at',null)
-													->FindProduct(Input::get('q'))
-													->paginate()
-													; 
-			$searchResult						= $search;
+			$datas 											= product::where('deleted_at',null)
+																		->FindProduct(Input::get('q'))
+																		->paginate()
+																		; 
+			$searchResult								= $search;
 		}
 		else
 		{
-			$searchResult						= NULL;
+			$searchResult								= NULL;
 		}
 
 		$this->layout->page 					= view('pages.backend.product.index')
-													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle','Index')
-													->with('WB_breadcrumbs', $breadcrumb)
-													->with('searchResult', $searchResult)
-													->with('nav_active', 'product')
-													->with('subnav_active', 'product')
-													;
+																		->with('WT_pageTitle', $this->view_name )
+																		->with('WT_pageSubTitle','Index')
+																		->with('WB_breadcrumbs', $breadcrumb)
+																		->with('searchResult', $searchResult)
+																		->with('nav_active', 'product')
+																		->with('subnav_active', 'product')
+																		;
 
 		return $this->layout;		
 	}
@@ -42,26 +42,28 @@ class productController extends baseController
 	{
 		if ($id) 
 		{
-			$breadcrumb							= [	'Kategori' => 'backend.product.index',
-													'Data Baru' => 'backend.product.create',
-													];
-			$title 								= 'Edit';
+			$breadcrumb							= [ 'Produk' => 'backend.product.index',
+																	'Edit Data' => 'backend.product.create',
+																];
+
+			$title 									= 'Edit';
 		}
 		else
 		{
-			$breadcrumb							= [ 'Kategori' => 'backend.product.index',
-													'Edit Data' => 'backend.product.create',
-													];
-			$title 								= 'Create';
+			$breadcrumb							= [	'Produk' => 'backend.product.index',
+																	'Data Baru' => 'backend.product.create',
+																];
+
+			$title 									= 'Create';
 		}
 
-		$this->layout->page 					= view('pages.backend.product.create')
-													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle', $title)		
-													->with('WB_breadcrumbs', $breadcrumb)
-													->with('id', $id)
-													->with('nav_active', 'product')
-													;
+		$this->layout->page 			= view('pages.backend.product.create')
+																->with('WT_pageTitle', $this->view_name )
+																->with('WT_pageSubTitle', $title)		
+																->with('WB_breadcrumbs', $breadcrumb)
+																->with('id', $id)
+																->with('nav_active', 'product')
+																;
 
 		return $this->layout;		
 	}
@@ -69,6 +71,38 @@ class productController extends baseController
 	public function edit($id)
 	{
 		return $this->create($id);		
+	}
+
+	public function show($id)
+	{
+		$breadcrumb							= [ 'Produk' => 'backend.product.index',
+																'Detail' => 'backend.product.create',
+															];
+
+		if ($search = Input::get('q'))
+		{
+			$datas 											= product::where('deleted_at',null)
+																		->FindProduct(Input::get('q'))
+																		->paginate()
+																		; 
+			$searchResult								= $search;
+		}
+		else
+		{
+			$searchResult								= NULL;
+		}
+
+		$this->layout->page 					= view('pages.backend.product.show')
+																		->with('WT_pageTitle', $this->view_name )
+																		->with('WT_pageSubTitle','Show')
+																		->with('WB_breadcrumbs', $breadcrumb)
+																		->with('searchResult', $searchResult)
+																		->with('id', $id)
+																		->with('nav_active', 'product')
+																		->with('subnav_active', 'product')
+																		;
+
+		return $this->layout;
 	}
 
 	public function store($id = null)

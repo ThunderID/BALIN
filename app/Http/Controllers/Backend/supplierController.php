@@ -12,32 +12,26 @@ class supplierController extends baseController
 
 	public function index()
 	{		
-		$product 								= Product::find(1);
-		dd($product);
-		$transaction 							= Transaction::type('sell')->status('shipped')->first();
-
-		$result = $transaction->save();
-		dd($result);
-		$breadcrumb								= ['Supllier' => 'backend.supplier.index'];
+		$breadcrumb										= ['Supllier' => 'backend.supplier.index'];
 
 		if (Input::get('q'))
 		{
-			$datas 								= supplier::where('name','like','%'.Input::get('q').'%')
-															->where('deleted_at',null)
-															->paginate(); 
-			$searchResult						= Input::get('q');
+			$datas 											= supplier::where('name','like','%'.Input::get('q').'%')
+																						->where('deleted_at',null)
+																						->paginate(); 
+			$searchResult								= Input::get('q');
 		}
 		else
 		{
-			$searchResult						= NULL;
+			$searchResult								= NULL;
 		}
 
 		$this->layout->page 					= view('pages.backend.supplier.index')
-													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle','Index')
-													->with('WB_breadcrumbs', $breadcrumb)
-													->with('searchResult', $searchResult)
-													->with('nav_active', 'supplier');
+																			->with('WT_pageTitle', $this->view_name )
+																			->with('WT_pageSubTitle','Index')
+																			->with('WB_breadcrumbs', $breadcrumb)
+																			->with('searchResult', $searchResult)
+																			->with('nav_active', 'supplier');
 		return $this->layout;		
 	}
 
