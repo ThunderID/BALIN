@@ -27,7 +27,7 @@ class GenerateActivationEmail extends Job implements SelfHandling
 
         //generate link
         $activation                 = md5(uniqid(rand(), TRUE));
-        $ttl                        = policy::GetTTL('now')->first;
+        $ttl                        = policy::GetTTL('now')->first();
 
         $data                       = $this->user;
 
