@@ -138,6 +138,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         'Illuminate\Html\HtmlServiceProvider',
         'Intervention\Image\ImageServiceProvider',
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -196,8 +197,8 @@ return [
         'Form'      => 'Illuminate\Html\FormFacade',
         'HTML'      => 'Illuminate\Html\HtmlFacade',
         'Image'     => 'Intervention\Image\Facades\Image',
-        'carbon'    => 'Carbon\Carbon'
-
+        'carbon'    => 'Carbon\Carbon',
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
