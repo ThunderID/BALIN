@@ -35,10 +35,6 @@ class TransactionIsExpired extends Job implements SelfHandling
                 $exp_date       = $this->getExpiredFromSetting('expired_draft');
                 $result         = $this->checkIsExpired($exp_date['value'], $transac_date);
                 break;
-            case 'hold':
-                $exp_date       = $this->getExpiredFromSetting('expired_holded');
-                $result         = $this->checkIsExpired($exp_date['value'], $transac_date);
-                break;
             case 'paid':
                 $exp_date       = $this->getExpiredFromSetting('expired_paid');
                 $result         = $this->checkIsExpired($exp_date['value'], $transac_date);

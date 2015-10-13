@@ -141,10 +141,6 @@ class Transaction extends Eloquent
 
 	public  function scopeTransactionWaiting($query)
 	{
-		return $query
-			->where(function ($q) {
-			    $q->where('status', 'waiting')
-			        ->orWhere('status', 'hold');
-				});
+		return $query->where('status', 'waiting');
 	}	
 }
