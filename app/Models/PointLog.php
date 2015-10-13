@@ -39,7 +39,7 @@ class PointLog extends Eloquent
 											'user_id'						,
 											'debit'							,
 											'credit'						,
-											'is_expired'					,
+											'expired_date'					,
 										];
 
 	/**
@@ -57,7 +57,7 @@ class PointLog extends Eloquent
 	protected $rules				=	[
 											'debit'							=> 'required|numeric',
 											'credit'						=> 'required|numeric',
-											'is_expired'					=> 'boolean',
+											'expired_date'					=> 'date',
 										];
 
 	/**

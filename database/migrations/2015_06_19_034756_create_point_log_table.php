@@ -18,7 +18,7 @@ class CreatePointLogTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->double('debit');
             $table->double('credit');
-            $table->boolean('is_expired');
+            $table->datetime('expired_date');
             $table->timestamps();
             $table->softDeletes();
         });
