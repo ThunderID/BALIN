@@ -20,7 +20,7 @@ class ResetCart extends Job implements SelfHandling
     public function __construct()
     {
         // get seting
-        $exp_date                       = policy::GetExpiredDraft('now')->first();
+        $exp_date                       = policy::GetExpired(['type' => 'expired_draft', 'date' => 'now'])->first();
 
         $this->transaction              = transaction::TransactionWaiting()
                                             ->whereRaw('Date(transacted_at + INTERVAL' . $exp_date['value'] .') <= CURDATE()')
