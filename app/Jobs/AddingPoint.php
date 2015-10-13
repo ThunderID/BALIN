@@ -64,7 +64,7 @@ class AddingPoint extends Job implements SelfHandling
                         'user_id'                      => $customer->id,
                         'debit'                        => $royalty->value,
                         'credit'                       => 0,
-                        'expired_date'                 => false,
+                        'expired_date'                 => date('Y-m-d H:i:s'),
                     ]);
 
                 if($point->save())
