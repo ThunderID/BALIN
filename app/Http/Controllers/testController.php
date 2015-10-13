@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Controller;
 use App\Models\user;
+use App\Models\transaction;
 use App\Jobs\SendActivationEmail;
 use App\Jobs\sendBillingEmail;
 use App\Jobs\SendTransactionValidatedEmail;
+use App\Jobs\TransactionIsExpired;
 use App\Jobs\sendShipmentEmail;
 use Mail;
 
@@ -20,6 +22,14 @@ class testController extends Controller
 
 		return $this->layout;
 	}
+
+	public function testLab()
+	{		
+		$transaction = transaction::find(1);
+		$this->dispatch(new TransactionIsExpired($transaction));
+
+		exit;
+	}	
 
 	public function SendActivationEmail()
 	{
