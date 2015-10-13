@@ -111,16 +111,6 @@ class Policy extends Eloquent
 		return 	$query->type('expired_link_duration')->ondate($variable);
 	}
 
-	public function scopeGetExpired($query, $variable)
-	{
-		if(!is_array($variable))
-		{
-			throw new Exception('Data must be an array.');
-		}
-
-		return 	$query->type($variable['type'])->ondate($variable['date']);
-	}	
-
 	public function scopeOnDate($query, $variable)
 	{
 		if(is_array($variable))
