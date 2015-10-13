@@ -54,7 +54,7 @@ class TrackPurchaseTransaction extends Job implements SelfHandling
             case 'delivered':
                 $result             = $this->dispatch(new TrackDeliveredPurchase($this->transaction));
                 break;
-            case 'canceled': case 'draft': case 'waiting': case 'paid': case 'shipped':
+            case 'canceled': case 'draft': case 'waiting': case 'paid': case 'shipped': case 'hold':
                 break;
             default:
                 throw new Exception('Transaction status invalid.');
