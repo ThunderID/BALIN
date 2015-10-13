@@ -59,7 +59,7 @@ class TransactionIsExpired extends Job implements SelfHandling
 
     public function getExpiredFromSetting($type)
     {
-        $exp_date       = policy::GetExpired(['type' => $type, 'date' => 'now'])->first();
+        $exp_date       = Policy::type($type)->ondate('now')->first();
         
         if(empty($exp_date))
         {
