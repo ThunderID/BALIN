@@ -57,8 +57,7 @@ class TransactionIsExpired extends Job implements SelfHandling
                 $result         = new jsend('fail', (array)'Transaction status not found');        
                 break;
         }
-
-        dd($result);
+        return($result);
     }
 
 
