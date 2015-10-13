@@ -37,7 +37,7 @@ class CountPointExpirationDate extends Job implements SelfHandling
                 $expired_date           = date('Y-m-d H:i:s', strtotime($expired_date   . $expired_range['value']));
             } while ($expired_date < date('Y-m-d H:i:s'));
 
-            $result                     = new Jsend('success', (array)$expired_date);
+            $result                     = new Jsend('success', ['expired_date' => $expired_date]);
 
         } 
         catch (Exception $e) 
