@@ -196,6 +196,7 @@ return [
         'Form'      => 'Illuminate\Html\FormFacade',
         'HTML'      => 'Illuminate\Html\HtmlFacade',
         'Image'     => 'Intervention\Image\Facades\Image',
+        'carbon'    => 'Carbon\Carbon'
 
     ],
 
