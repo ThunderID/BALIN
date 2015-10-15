@@ -19,7 +19,7 @@ use \Illuminate\Support\MessageBag as MessageBag;
 
 use App\Libraries\JSend;
 
-class AddingPoint extends Job implements SelfHandling
+class AddRoyaltiPoint extends Job implements SelfHandling
 {
     /**
      * Create a new job instance.
