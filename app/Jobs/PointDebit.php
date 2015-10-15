@@ -42,6 +42,10 @@ class PointDebit extends Job implements SelfHandling
 
         //count point expired date
         $rslt                          = $this->dispatch(new CountPointExpirationDate($user));
+        if($rslt->getStatus() != 'success')
+        {
+            return $result;
+        }
         $this->inputs['expired_date']  = $rslt->getData()['expired_date'];
 
         //check transaction existance
@@ -50,6 +54,7 @@ class PointDebit extends Job implements SelfHandling
             $this->inputs['transaction_id'] = 0;
         }        
 
+        //save point log
         try
         {
             $data->fill([
