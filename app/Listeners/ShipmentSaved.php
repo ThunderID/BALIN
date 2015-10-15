@@ -31,9 +31,9 @@ class ShipmentSaved
      * @param  Session  $event
      * @return void
      */
-    public function handle(Shipment $payment)
+    public function handle(Shipment $Shipment)
     {
-        $result                         = $this->dispatch(new SwitchShipmentTransaction($payment));
+        $result                         = $this->dispatch(new SwitchShipmentTransaction($Shipment));
 
         return $result;
     }
