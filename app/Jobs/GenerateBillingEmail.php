@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\transaction;
+use App\Models\transactionDetail;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\MessageBag as MessageBag;
 
@@ -20,6 +21,8 @@ class GenerateBillingEmail extends Job implements SelfHandling
 
     public function handle()
     {
+        $errors                     = new MessageBag;
+
         // checking
         if(is_null($this->transaction->id))
         {
@@ -27,7 +30,7 @@ class GenerateBillingEmail extends Job implements SelfHandling
         }
 
          //get products
-        $products                   = $this->transaction->products;
+        $products                   = transactiondetail::where('transaction_id',$this->transaction->id);
 
         if(is_null($products))
         {
@@ -40,10 +43,10 @@ class GenerateBillingEmail extends Job implements SelfHandling
         }
         else
         {
-            $result                 = new Jsend('success', (array)$this->products);
+            $result                 = new Jsend('success', (array)$products);
         }
 
-        $errors                     = new MessageBag;
+        return $result; 
 
     }
 }
