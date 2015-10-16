@@ -19,6 +19,7 @@ class CreatePointLogTable extends Migration
             $table->double('debit');
             $table->double('credit');
             $table->datetime('expired_date');
+            $table->string('notes');
             $table->timestamps();
             $table->softDeletes();
         });

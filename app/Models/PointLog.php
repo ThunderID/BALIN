@@ -40,6 +40,7 @@ class PointLog extends Eloquent
 											'debit'							,
 											'credit'						,
 											'expired_date'					,
+											'notes'							,
 										];
 
 	/**
@@ -58,6 +59,7 @@ class PointLog extends Eloquent
 											'debit'							=> 'required|numeric',
 											'credit'						=> 'required|numeric',
 											'expired_date'					=> 'date',
+											'notes'							=> 'max:255',
 										];
 
 	/**
