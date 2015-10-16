@@ -42,13 +42,14 @@ class RecalculateUserPoints extends Job implements SelfHandling
 
         if(!$data->save())
         {
-            $result                         = new Jsend('error', (array)$data, (array)$data->getError());
+            return false;
+            // $result                         = new Jsend('error', (array)$data, (array)$data->getError());
         }
         else
         {
-            $result                         = new Jsend('success', ['message' => 'Points recalculated']);
+            return true;
+            // $result                         = new Jsend('success', ['message' => 'Points recalculated']);
         }
 
-        return $result;
     }
 }
