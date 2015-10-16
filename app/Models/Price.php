@@ -38,7 +38,9 @@ class Price extends Eloquent
 	protected $fillable				=	[
 											'product_id'					,
 											'price'							,
+											'promo_price'					,
 											'started_at'					,
+											'label'							,
 										];
 
 	/**
@@ -55,6 +57,7 @@ class Price extends Eloquent
 	 */
 	protected $rules				=	[
 											'price'							=> 'required|numeric',
+											'promo_price'					=> 'required|numeric',
 											'started_at'					=> 'required|date_format:"Y-m-d H:i:s"',
 										];
 
