@@ -35,19 +35,19 @@ class pointLogController extends baseController
 
 	public function credit()
 	{
-		// $this->inputs['id']					= Input::get('id');
-		// $this->inputs['user_id']			= Input::get('user_id');
-		// $this->inputs['transaction_id']		= Input::get('transaction_id');
-		// $this->inputs['debit']				= Input::get('debit');
-		// $this->inputs['notes']				= Input::get('notes');
+		$this->inputs['id']					= Input::get('id');
+		$this->inputs['user_id']			= Input::get('user_id');
+		$this->inputs['transaction_id']		= Input::get('transaction_id');
+		$this->inputs['debit']				= Input::get('debit');
+		$this->inputs['notes']				= Input::get('notes');
 
-		$this->inputs['credit']				= null;
-		$this->inputs['id']					= null;
-		$this->inputs['user_id']			= 1;
-		$this->inputs['transaction_id']		= null;
-		$this->inputs['debit']				= 0;
-		$this->inputs['credit']				= 1;	
-		$this->inputs['notes']				= 'asdag';
+		// $this->inputs['credit']				= null;
+		// $this->inputs['id']					= null;
+		// $this->inputs['user_id']			= 1;
+		// $this->inputs['transaction_id']		= null;
+		// $this->inputs['debit']				= 0;
+		// $this->inputs['credit']				= 1;	
+		// $this->inputs['notes']				= 'asdag';
 
  
 		$this->store();
