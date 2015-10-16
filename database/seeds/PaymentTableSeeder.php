@@ -18,8 +18,9 @@ class PaymentTableSeeder extends Seeder
 			
 			foreach($transactions as $key => $value)
 			{
-				$amount 							= App\Models\TransactionDetail::transactionid($value->id)->selectraw('(price - discount) * quantity as amount')->first();
+				$amount 							= App\Models\TransactionDetail::TransactionId($value->id)->selectraw('(price - discount) * quantity as amount')->first();
 				$data 								= new Payment;
+
 				$data->fill([
 					'transaction_id'				=> $value->id,
 					'method'						=> 'bank transfer',

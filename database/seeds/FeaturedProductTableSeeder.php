@@ -12,7 +12,7 @@ class FeaturedProductTableSeeder extends Seeder
 	{
 		DB::table('tmp_featured_products')->truncate();
 
-		factory(App\Models\FeaturedProduct::class, 100)->create()->each(function($q) {
+		factory(App\Models\FeaturedProduct::class, 20)->create()->each(function($q) {
 			$q->save();
 		});
 	}

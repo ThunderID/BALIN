@@ -12,7 +12,7 @@ class SupplierTableSeeder extends Seeder
 	{
 		DB::table('suppliers')->truncate();
 
-		factory(App\Models\Supplier::class, 50)->create()->each(function($q) {
+		factory(App\Models\Supplier::class, 10)->create()->each(function($q) {
 			$q->save();
 		});
 	}

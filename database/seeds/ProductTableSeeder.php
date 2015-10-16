@@ -28,8 +28,9 @@ class ProductTableSeeder extends Seeder
 		{
 			foreach($categories as $key => $value)
 			{
-				foreach (range(0, rand(3,9)) as $key2) 
+				foreach (range(0, 2) as $key2) 
 				{
+					print_r(1 .' ');
 					$clridx							= rand(0, count($colors)-1);
 					$color 							= $colors[$clridx];
 					$size 							= $sizes[rand(0, count($sizes)-1)];
@@ -109,20 +110,6 @@ class ProductTableSeeder extends Seeder
 						if (!$price->save())
 						{
 							print_r($price->getError());
-							exit;
-						}
-
-						//add discounts
-						$discount 					= new Discount;
-						$discount->fill([
-								'product_id'		=> $data->id,
-								'promo_price'		=> $price->price - ($price->price * (rand(0,100)/100)),
-								'started_at'		=> date('Y-m-d H:i:s'),
-								'ended_at'			=> date('Y-m-d H:i:s', strtotime('+ '.rand(2,30).' days')),
-						]);
-						if (!$discount->save())
-						{
-							print_r($discount->getError());
 							exit;
 						}
 					}				

@@ -12,7 +12,7 @@ class TransactionTableSeeder extends Seeder
 	{
 		DB::table('transactions')->truncate();
 		
-		factory(App\Models\Transaction::class, 500)->create()->each(function($q) {
+		factory(App\Models\Transaction::class, 20)->create()->each(function($q) {
 			$q->save();
 		});
 	}
