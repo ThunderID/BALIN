@@ -14,7 +14,7 @@ use Input, DB;
 class pointLogController extends baseController 
 {
 	protected $controller_name 				= 'Points';
-	protected $inputs						= ['id','user_id','transaction_id','debit','credit'];
+	protected $inputs						= ['id','user_id','transaction_id','debit','credit','notes'];
 
 	public function index()
 	{		
@@ -28,6 +28,7 @@ class pointLogController extends baseController
 		$this->inputs['transaction_id']		= Input::get('transaction_id');
 		$this->inputs['debit']				= Input::get('debit');
 		$this->inputs['credit']				= null;
+		$this->inputs['notes']				= Input::get('notes');
 
 		$this->store();
 	}
@@ -38,12 +39,15 @@ class pointLogController extends baseController
 		// $this->inputs['user_id']			= Input::get('user_id');
 		// $this->inputs['transaction_id']		= Input::get('transaction_id');
 		// $this->inputs['debit']				= Input::get('debit');
+		// $this->inputs['notes']				= Input::get('notes');
+
 		$this->inputs['credit']				= null;
 		$this->inputs['id']					= null;
 		$this->inputs['user_id']			= 1;
 		$this->inputs['transaction_id']		= null;
 		$this->inputs['debit']				= 0;
-		$this->inputs['credit']				= 500;		
+		$this->inputs['credit']				= 1;	
+		$this->inputs['notes']				= 'asdag';
 
  
 		$this->store();
@@ -82,7 +86,8 @@ class pointLogController extends baseController
 
 		$data->fill([
 			'debit'							=> $this->inputs['debit'],	
-			'credit'						=> $this->inputs['credit']	
+			'credit'						=> $this->inputs['credit'],	
+			'notes'							=> $this->inputs['notes'],	
 		]);
 
 		$data->user()->associate($user);
