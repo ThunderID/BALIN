@@ -11,6 +11,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class SendBillingEmail extends Job implements SelfHandling
 {
+    use DispatchesJobs;
+
     protected $transaction;
 
 	public function __construct(transaction $transaction)
