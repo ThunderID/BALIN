@@ -2,7 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Models\user;
 use App\Models\PointLog;
+use App\Models\Transaction;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -24,9 +26,33 @@ class RevertUserPoints extends Job implements SelfHandling
             throw new Exception('Sent variable must be object of a record.');
         }    
 
-        $debit                          = $this->pointlog->debit;
-        $credit                         = $this->pointlog->credit;
+        $data                           = new pointlog;
 
+        $user                           = user::find($this->pointlog->user_id);
+        $transaction                    = transaction::find($this->pointlog->transaction_id);
 
+        if(empty($user) && empty($transaction))
+        {
+            //return error
+            dd('user not found');
+        }
+
+        $data->fill([
+            'credit'                    => $this->pointlog->debit,  
+            'debit'                     => $this->pointlog->credit, 
+            'notes'                     => 'revert point',  
+        ]);
+
+        $data->user()->associate($user);
+        $data->transaction()->associate($transaction);
+
+        if(!$data->save())
+        {
+            dd('fail');
+        }
+        else
+        {
+            dd('success');
+        }
     }
 }
