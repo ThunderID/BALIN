@@ -19,6 +19,7 @@ class EventServiceProvider extends ServiceProvider
 		'eloquent.saved: App\\Models\\Payment'				=>	['App\Listeners\PaymentSaved'],
 		'eloquent.saved: App\\Models\\Shipment'				=>	['App\Listeners\ShipmentSaved'],
 		'eloquent.saving: App\\Models\\PointLog'			=>	['App\Listeners\PointLogSaving'],
+		'eloquent.saved: App\\Models\\PointLog'				=>	['App\Listeners\PointLogSaved'],
 	];
 
 	/**
