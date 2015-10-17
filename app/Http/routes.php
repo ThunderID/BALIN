@@ -157,3 +157,5 @@ Route::get('test/sendActivationEmail', ['uses' => 'testController@sendActivation
 Route::get('test/sendBillingEmail', ['uses' => 'testController@sendBillingEmail', 'as' => 'backend.test.sendBillingEmail']);
 Route::get('test/sendTransactionValidatedEmail', ['uses' => 'testController@sendTransactionValidatedEmail', 'as' => 'backend.test.sendTransactionValidatedEmail']);
 Route::get('test/sendShipmentEmail', ['uses' => 'testController@sendShipmentEmail', 'as' => 'backend.test.sendShipmentEmail']);
+Route::get('test/testlab', ['uses' => 'testController@testlab', 'as' => 'backend.test.testlab']);
+Route::get('test/testcontroller', ['uses' => 'backend\\data\\paymentController@store', 'as' => 'backend.test.testcontroller']);

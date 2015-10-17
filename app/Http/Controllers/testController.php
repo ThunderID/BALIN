@@ -3,10 +3,11 @@
 use App\Http\Controllers\Controller;
 use App\Models\user;
 use App\Models\transaction;
+use App\Models\pointlog;
 use App\Jobs\SendActivationEmail;
 use App\Jobs\sendBillingEmail;
 use App\Jobs\SendTransactionValidatedEmail;
-use App\Jobs\TransactionIsExpired;
+use App\Jobs\revertUserPoints;
 use App\Jobs\sendShipmentEmail;
 use Mail;
 
@@ -25,8 +26,11 @@ class testController extends Controller
 
 	public function testLab()
 	{		
-		$transaction = transaction::find(1);
-		$this->dispatch(new TransactionIsExpired($transaction));
+		$input = pointlog::find(1);
+		dd($input);
+		$result = $this->dispatch(new revertUserPoints($input));
+
+		dd($result);
 
 		exit;
 	}	
