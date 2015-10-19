@@ -71,7 +71,7 @@ class transactionController extends baseController
 
 		$this->inputs['id']					= Null;
 		$this->inputs['user_id']			= 1;
-		$this->inputs['ref_number']			= 'B00123';
+		$this->inputs['ref_number']			= 'B00124';
 		$this->inputs['refferal_code']		= Null;
 		$this->inputs['type']				= 'sell';
 		$this->inputs['status']				= 'waiting';
@@ -81,10 +81,10 @@ class transactionController extends baseController
 		$this->inputs['referral_discount']	= 0;
 		$this->inputs['amount']				= 4000;
 		$this->inputs['products']			= [
-												'0' => ['id' => '1', 'quantity' => '2'],
-												'1' => ['id' => '2', 'quantity' => '3'],
-												'2' => ['id' => '3', 'quantity' => '1'],
-												'3' => ['id' => '4', 'quantity' => '4'],
+												'0' => ['id' => '5', 'quantity' => '2'],
+												'1' => ['id' => '6', 'quantity' => '3'],
+												'2' => ['id' => '7', 'quantity' => '1'],
+												'3' => ['id' => '8', 'quantity' => '4'],
 												];
 
 

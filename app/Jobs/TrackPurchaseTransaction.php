@@ -16,6 +16,8 @@ use Illuminate\Support\MessageBag as MessageBag;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use Exception;
+
 use App\Libraries\JSend;
 
 class TrackPurchaseTransaction extends Job implements SelfHandling
