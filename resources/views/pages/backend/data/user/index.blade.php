@@ -1,5 +1,5 @@
 @inject('datas', 'App\Models\User')
-{!! $datas= $datas::Customer($id)->paginate() !!}
+{!! $datas= $datas::paginate() !!}
 
 @extends('template.backend.layout')
 
@@ -9,12 +9,12 @@
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-md-8 col-sm-4 hidden-xs">
-                    <a class="btn btn-default" href="{{ route('backend.customer.create') }}"> Data Baru </a>
+                    <a class="btn btn-default" href="{{ route('backend.user.create') }}"> Data Baru </a>
                 </div>
                 <div class="hidden-lg hidden-md hidden-sm col-xs-12">
                 </div>
                 <div class="col-md-4 col-sm-8 col-xs-12">
-                    {!! Form::open(array('route' => 'backend.customer.index', 'method' => 'get' )) !!}
+                    {!! Form::open(array('route' => 'backend.user.index', 'method' => 'get' )) !!}
                     <div class="row">
                         <div class="col-md-2 col-sm-3 hidden-xs">
                         </div>
@@ -28,7 +28,7 @@
                     {!! Form::close() !!}
                 </div>            
             </div>
-            @include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.customer.index') ])
+            @include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.user.index') ])
             </br> 
             <div class="row">
                 <div class="col-lg-12">
@@ -63,10 +63,10 @@
                                         <td>{{$data['address']}}</td>
                                         <td>
                                             <a href="">Detail</a>,
-                                            <a href="{{ route('backend.customer.edit', $data['id']) }}">Edit</a>, 
+                                            <a href="{{ route('backend.user.edit', $data['id']) }}">Edit</a>, 
                                             <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#cus_del"
                                                 data-id="{{$data['id']}}"
-                                                data-title="Hapus Data Customer {{$data['name']}}" 
+                                                data-title="Hapus Data user {{$data['name']}}" 
                                                 data-button="Hapus Data"
                                                 data-id="{{$data['id']}}"
                                                 href="#">
@@ -76,7 +76,7 @@
                                     </tr>       
                                     <?php $ctr += 1; ?>                     
                                     @endforeach 
-                                    @include('widgets.pageElements.formModal1', array('modal_id'=>'cus_del', 'modal_content' => 'pages.backend.customer.delete'))
+                                    @include('widgets.pageElements.formModal1', array('modal_id'=>'cus_del', 'modal_content' => 'pages.backend.data.user.delete'))
                                 @endif
                             </tbody>
                         </table> 

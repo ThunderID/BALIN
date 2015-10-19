@@ -1,4 +1,4 @@
-{!! Form::open(array('route' => 'backend.customer.destroy', 'class' => 'modal1')) !!}
+{!! Form::open(array('route' => 'backend.user.destroy', 'class' => 'modal1')) !!}
     {!!Form::input('hidden', 'id', NULL,  ['class' => 'mod_id']) !!}   
     <div class="form-group">
         <p>Isikan password Anda sebagai konfirmasi penghapusan data.</p>
