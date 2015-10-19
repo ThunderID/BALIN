@@ -106,7 +106,10 @@ class Product extends Eloquent
 
 	public function getDiscountAttribute($value)
 	{
-		return $this->price - $this->promo_price;
+		if($this->promo_price!=0)
+		{
+			return $this->price - $this->promo_price;
+		}
 
 		return 0;
 	}
