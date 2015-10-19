@@ -47,8 +47,8 @@ class productController extends baseController
 		}
 		else
 		{
-			$breadcrumb									= ['Produk' => 'backend.product.index',
-																'Data Baru' => 'backend.product.create'];
+			$breadcrumb									= ['Produk' => 'backend.data.product.index',
+																'Data Baru' => 'backend.data.product.create'];
 
 			$title 										= 'Create';
 		}
