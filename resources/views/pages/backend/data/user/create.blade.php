@@ -4,19 +4,19 @@
 @extends('template.backend.layout') 
 
 @section('content')
-	{!! Form::open(['route' => 'backend.user.store']) !!}
+	{!! Form::open(['route' => 'backend.data.customer.store']) !!}
 		{!! Form::input('hidden', 'id', $data['id']) !!}
 		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					<label for="name">Nama Lengkap</label>
-					{!! Form::text('name', $data['name'], ['class' => 'form-control mod_name', 'required' => 'required', 'tabindex' => '1'] ) !!}
+					{!! Form::text('name', $data['name'], ['class' => 'form-control mod_name', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nama lengkap customer'] ) !!}
 				</div>
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					<label for="email">Email</label>
-					{!! Form::text('email', $data['email'], ['class' => 'form-control mod_email', 'required' => 'required', 'tabindex' => '1'] ) !!}
+					{!! Form::text('email', $data['email'], ['class' => 'form-control mod_email', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan email']) !!}
 				</div>
 			</div>
 		</div>
@@ -30,7 +30,7 @@
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					<label for="gender">Jenis Kelamin</label>
-					{!! Form::select('gender', ['male' => 'Male', 'female' => 'Female'], null, ['class' => 'form-control', 'required' => 'required']) !!}
+					{!! Form::select('gender', ['male' => 'Male', 'female' => 'Female'], $data['gender'], ['class' => 'form-control', 'required' => 'required', 'tabindex' => '1']) !!}
 				</div>  
 			</div>
 		</div>
@@ -76,7 +76,7 @@
 			<div class="col-md-12">
 				</br>
 				<div class="form-group text-right">
-					<a href="{{ URL::route('backend.user.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
+					<a href="{{ URL::route('backend.data.customer.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
 					<button type="submit" class="btn btn-md btn-success" tabindex="7">Simpan</button>
 				</div>        
 			</div>        

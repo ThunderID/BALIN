@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Backend;
+<?php namespace App\Http\Controllers\Backend\Data;
 
 use App\Http\Controllers\baseController;
 use App\Models\Product;
@@ -9,25 +9,18 @@ use Input, Session, DB, Redirect, Response;
 
 class supplierController extends baseController 
 {
-	protected $view_name 						= 'Supplier';
+	protected $view_name 					= 'Supplier';
 
 	public function index()
 	{	
-		$breadcrumb								= array(
-													'Supplier' => 'backend.supplier.index',
-													);
+		$breadcrumb								= ['Supplier' => 'backend.data.supplier.index'];
 
-		if(Input::get('q'))
+		if (Input::get('q'))
 		{
-			$datas								= supplier::where('name','like', '%'.Input::get('q').'%')
-													->paginate();
-			$searchResult						= "Menampilkan data pencarian '" .Input::get('q')."'";
+			$searchResult						= Input::get('q');
 		}
 		else
 		{
-			$datas								= supplier::paginate()
-													;
-
 			$searchResult						= NUll;
 
 		}
@@ -37,7 +30,6 @@ class supplierController extends baseController
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
-													->with('datas', $datas)
 													->with('searchResult', $searchResult)
 													->with('nav_active', 'user')
 													;
@@ -56,17 +48,16 @@ class supplierController extends baseController
 	{
 		if (!$id)
 		{
-			$breadcrumb							= [	'Supplier' => 'backend.supplier.index',
-													'Supplier Baru' => 'backend.supplier.create' ];
+			$breadcrumb							= ['Supplier' => 'backend.data.supplier.index',
+														'Supplier Baru' => 'backend.data.supplier.create' ];
 			$title 								= 'Create';
 		}
 		else
 		{
-			$breadcrumb							= [ 'Supplier' => 'backend.supplier.index',
-													'Edit Data' => 'backend.supplier.create' ];
+			$breadcrumb							= ['Supplier' => 'backend.data.supplier.index',
+														'Edit Data' => 'backend.data.supplier.create' ];
 			$title 								= 'Edit';
 		}
-
 
 		$this->layout->page 					= view('pages.backend.data.supplier.create')
 													->with('WT_pageTitle', $this->view_name )
@@ -89,9 +80,9 @@ class supplierController extends baseController
 	{
 		$inputs 								= Input::only('id','name', 'phone', 'address');
 	
-		if ($id)
+		if ($inputs['id'])
 		{
-			$data								= supplier::find($id);
+			$data								= Supplier::find($inputs['id']);
 		}
 		else
 		{
@@ -99,25 +90,26 @@ class supplierController extends baseController
 		}
 
 		$data->fill([
-			'name' 								=> $inputs['name'],
+			'name' 							=> $inputs['name'],
 			'phone' 							=> $inputs['phone'],
-			'address' 							=> $inputs['address'],
+			'address' 						=> $inputs['address'],
 		]);
 
 		DB::beginTransaction();
 		if (!$data->save())
 		{
+
 			DB::rollback();
 			return Redirect::back()
-				->withInput()
-				->withErrors($data->getError())
-				->with('msg-type', 'danger');
+								->withInput()
+								->withErrors($data->getError())
+								->with('msg-type', 'danger');
 		}	
 		else
 		{
 			DB::commit();
 
-			if(Input::get('id'))
+			if ($id)
 			{
 				$msg = "Data sudah diperbarui";
 			}
@@ -126,9 +118,9 @@ class supplierController extends baseController
 				$msg = "Data sudah ditambahkan";
 			}
 
-			return Redirect::route('backend.supplier.index')
-				->with('msg',$msg)
-				->with('msg-type', 'success');
+			return Redirect::route('backend.data.supplier.index')
+								->with('msg', $msg)
+								->with('msg-type', 'success');
 		}
 	}
 
@@ -155,7 +147,7 @@ class supplierController extends baseController
 			else
 			{
 				DB::commit();
-				return Redirect::route('backend.supplier.index')
+				return Redirect::route('backend.data.supplier.index')
 					->with('msg', 'Data telah dihapus')
 					->with('msg-type','success');
 			}
