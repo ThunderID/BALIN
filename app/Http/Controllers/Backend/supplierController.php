@@ -1,89 +1,49 @@
 <?php namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\baseController;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\Supplier;
 use App\Models\policy;
-use App\Libraries\JSend;
-use App\jobs\TransactionIsExpired;
 use Input, Session, DB, Redirect, Response;
 
-class supplierController extends Controller 
+class supplierController extends baseController 
 {
 	protected $view_name 						= 'Supplier';
-	protected $transaction;
 
 	public function index()
 	{	
-		$this->transaction = transaction::find(1);
+		$breadcrumb								= array(
+													'Supplier' => 'backend.supplier.index',
+													);
 
-		// checking
-        if(is_null($this->transaction->id))
-        {
-            throw new Exception('Sent variable must be object of a record.');
-        }
+		if(Input::get('q'))
+		{
+			$datas								= supplier::where('name','like', '%'.Input::get('q').'%')
+													->paginate();
+			$searchResult						= "Menampilkan data pencarian '" .Input::get('q')."'";
+		}
+		else
+		{
+			$datas								= supplier::paginate()
+													;
 
-        //get case status transaction
-        $transac_date           = $this->transaction['transacted_at'];
+			$searchResult						= NUll;
 
-        switch ($this->transaction['status']) 
-        {
-            case 'waiting':
-                $exp_date       = $this->getExpiredFromSetting('expired_draft');
-                $result         = $this->checkIsExpired($exp_date['value'], $transac_date);
-                break;
-            case 'hold':
-                $exp_date       = $this->getExpiredFromSetting('expired_holded');
-                $result         = $this->checkIsExpired($exp_date['value'], $transac_date);
-                break;
-            case 'paid':
-                $exp_date       = $this->getExpiredFromSetting('expired_paid');
-                $result         = $this->checkIsExpired($exp_date['value'], $transac_date);
-                break;
-            case 'shipped':
-                $exp_date       = $this->getExpiredFromSetting('expired_shipped');
-                $result         = $this->checkIsExpired($exp_date['value'], $transac_date);
-                break;
-            case 'delivered':
-                $result         = new jsend('fail', (array)'Transaction has been completed');        
-                break;
-            case 'canceled':
-                $result         = new jsend('fail', (array)'Transaction has been cancelled');        
-                break;
-            default:
-                $result         = new jsend('fail', (array)'Transaction status not found');        
-                break;
-        }
-        return($result);
+		}
 
-		// $transaction = transaction::find(1);
-		// $this->dispatch(new TransactionIsExpired($transaction));
 
-		// $data = transaction::find(1);
-		// $data->save();
+		$this->layout->page 					= view('pages.backend.data.supplier.index')
+													->with('WT_pageTitle', $this->view_name )
+													->with('WT_pageSubTitle','Index')
+													->with('WB_breadcrumbs', $breadcrumb)
+													->with('datas', $datas)
+													->with('searchResult', $searchResult)
+													->with('nav_active', 'user')
+													;
 
-		// $breadcrumb										= ['Supllier' => 'backend.supplier.index'];
 
-		// if (Input::get('q'))
-		// {
-		// 	$datas 											= supplier::where('name','like','%'.Input::get('q').'%')
-		// 																				->where('deleted_at',null)
-		// 																				->paginate(); 
-		// 	$searchResult								= Input::get('q');
-		// }
-		// else
-		// {
-		// 	$searchResult								= NULL;
-		// }
-
-		$this->layout->page 					= view('pages.frontend.home');
-		// 																	->with('WT_pageTitle', $this->view_name )
-		// 																	->with('WT_pageSubTitle','Index')
-		// 																	->with('WB_breadcrumbs', $breadcrumb)
-		// 																	->with('searchResult', $searchResult)
-		// 																	->with('nav_active', 'supplier');
-		return $this->layout;		
+		return $this->layout;	
 	}
 
 	public function show($id)
@@ -98,19 +58,24 @@ class supplierController extends Controller
 		{
 			$breadcrumb							= [	'Supplier' => 'backend.supplier.index',
 													'Supplier Baru' => 'backend.supplier.create' ];
+			$title 								= 'Create';
 		}
 		else
 		{
 			$breadcrumb							= [ 'Supplier' => 'backend.supplier.index',
 													'Edit Data' => 'backend.supplier.create' ];
+			$title 								= 'Edit';
 		}
 
-		$this->layout->page 					= view('pages.backend.supplier.create')
+
+		$this->layout->page 					= view('pages.backend.data.supplier.create')
 													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle','Create')		
+													->with('WT_pageSubTitle', $title)		
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('id', $id)
-													->with('nav_active', 'supplier');
+													->with('nav_active', 'user')
+													;
+
 		return $this->layout;		
 	}
 
