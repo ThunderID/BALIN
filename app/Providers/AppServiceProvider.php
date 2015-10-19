@@ -21,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
 
         // \Models\supplier::observe(new \Models\Observers\supplierObserver);
 
+        \App\Models\Transaction::observe(new \App\Models\BaseObserver);
+
     }
 
     /**
@@ -37,5 +39,6 @@ class AppServiceProvider extends ServiceProvider
         // \Models\price::observe(new \Models\Observers\priceObserver);
 
         // \Models\supplier::observe(new \Models\Observers\supplierObserver);
+        \App\Models\Transaction::observe(new \App\Models\BaseObserver);
     }
 }
