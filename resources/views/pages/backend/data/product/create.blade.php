@@ -1,15 +1,16 @@
 @inject('data', 'App\Models\Product')
-{!! $data = $data::where('id', $id)
-			->first(); 
-!!}
+<?php 
+		$data = $data::where('id', $id)
+							->with('categories')
+							->first(); 
+?>
 @extends('template.backend.layout') 
 
 @section('content')
 	{!! Form::open(array('route' => 'backend.data.product.store')) !!}
 		{!! Form::input('hidden', 'id', $data['id'], [
 					'class' => 'mod_id'
-			]) 
-		!!}
+		]) !!}
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
@@ -26,8 +27,7 @@
 								'required'      => 'required', 
 								'tabindex'      => '1', 
 								'placeholder'   => 'Masukkan nama produk'
-						]) 
-					!!}
+					]) !!}
 				</div>  
 			</div> 
 			<div class="col-md-6">
@@ -38,8 +38,7 @@
 								'required'      => 'required', 
 								'placeholder'   => 'Masukkan kode SKU produk',
 								'tabindex'      => '2', 
-						]) 
-					!!}
+					]) !!}
 				</div>
 			</div>                                         
 		</div>
@@ -48,19 +47,17 @@
 				<div class="form-group">
 					<label for="description">Deskripsi Produk</label>
 					{!! Form::textarea('description', $data['description'], [
-								'class'         => 'form-control', 
+								'class'         => 'form-control summernote', 
 								'required'      => 'required', 
 								'placeholder'   => 'Masukkan deskripsi produk',
 								'rows'          => '3',
 								'tabindex'      => '3',
 								'style'         => 'resize:none;',
-						]) 
-					!!}
+					]) !!}
 				</div>            
 			</div>
 		</div>
-		</br>
-
+		<div class="clearfix">&nbsp;</div>
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
@@ -77,25 +74,18 @@
 								'tabindex'      => '3',
 								'id'            => 'find_category',
 								'style'         => 'width:100%',
-							]) 
-					!!}
+					]) !!}
 				</div>  
 			</div> 
 		</div>
-		</br>
-		<div class="row">
+		<div class="clearfix">&nbsp;</div>
+		<!-- <div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
 					Attribut Produk
 				</h4>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<a href="javascript:;" id="add" class="btn btn-default">Tambah Attribute</a>
-			</div>
-		</div>
-		</br>
 		<div class="hidden">
 			<div id="attributeTemplate">
 				<div class="row">
@@ -106,8 +96,7 @@
 										'class'         => 'form-control', 
 										'tabindex'      => '4', 
 										'placeholder'   => 'Masukkan nama produk'
-									]) 
-							!!}
+							]) !!}
 						</div>                 
 					</div>
 					<div class="col-md-5 col-sm-5 col-xs-12">
@@ -117,21 +106,21 @@
 										'class'         => 'form-control', 
 										'tabindex'      => '4', 
 										'placeholder'   => 'Masukkan nama produk'
-									]) 
-							!!}
+							]) !!}
 						</div>                 
 					</div> 
 					<div class="col-md-1 col-sm-1 col-xs-12" style="padding-top:24px;">
 						<button class="delete btn btn-default">Delete</button>                    
 					</div>
 					<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-						</br>
-						</br>
+						<div class="clearfix">&nbsp;</div>
+						<div class="clearfix">&nbsp;</div>
 					</div>           
 				</div>
 			</div>
-		</div>
-		<div id="items">
+		</div> -->
+
+		<!-- <div id="items">
 			@if(count($data['_attributes']) > 0 )
 				@for ($i = 0; $i < count($data['_attributes']); $i++)
 					<div class="row">
@@ -161,17 +150,21 @@
 							<button class="delete btn btn-default">Delete</button>                    
 						</div>  
 						<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-							</br>
-							</br>
+							<div class="clearfix">&nbsp;</div>
+							<div class="clearfix">&nbsp;</div>
 						</div>                                   
 					</div>
 				@endfor
 			@endif
 		</div>
-
 		<div class="row">
 			<div class="col-md-12">
-				</br>
+				<a href="javascript:;" id="add" class="btn btn-default">Tambah Attribute</a>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="clearfix">&nbsp;</div>
 				<div class="form-group text-right">
 					<a href="{{ URL::route('backend.data.product.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
 					<button type="submit" class="btn btn-md btn-success" tabindex="7">Simpan</button>
@@ -203,13 +196,13 @@
 	var preload_data = [];
 
 	selections = [
-		@if($data['_attributes'])
-		@foreach($data['categories'] as $category)
-			{ 
-				id:{{$category['id']}},
-				text:'{{$category['name']}}'
-			},
-		@endforeach
+		@if ($data['categories'])
+			@foreach($data['categories'] as $category)
+				{ 
+					id:{{$category['id']}},
+					text:'{{$category['name']}}'
+				},
+			@endforeach
 		@endif
 	];
 
@@ -222,4 +215,5 @@
 
 @section('script_plugin')
 	@include('plugins.select2')
+	@include('plugins.summernote')
 @stop

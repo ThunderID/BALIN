@@ -49,6 +49,9 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 
 	/*-----------DATA AJAX-[PRODUCT]----------*/
 	Route::any('ajax/get-product', 													['uses' => 'Data\\productController@getProductBySKU' ,						'as' => 'backend.product.ajax.getProduct']);
+	
+	/*--------------DATA CUSTOMER---------------*/
+	Route::resource('customer',  'Data\\customerController',							['names' => ['index' => 'backend.data.customer.index', 'create' => 'backend.data.customer.create', 'store' => 'backend.data.customer.store', 'show' => 'backend.data.customer.show', 'edit' => 'backend.data.customer.edit', 'update' => 'backend.data.customer.update', 'destroy' => 'backend.data.customer.destroy']]);
 
 	/*--------------PRICE---------------*/
 	Route::resource('price',  'priceController',						['names' => ['index' => 'backend.price.index', 'create' => 'backend.price.create', 'store' => 'backend.price.store', 'show' => 'backend.price.show', 'edit' => 'backend.price.edit', 'update' => 'backend.price.update', 'destroy' => 'backend.price.destroy']]);
@@ -59,8 +62,6 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 	/*--------------SUPPLIER---------------*/
 	Route::resource('supplier',  'supplierController',			['names' => ['index' => 'backend.supplier.index', 'create' => 'backend.supplier.create', 'store' => 'backend.supplier.store', 'show' => 'backend.supplier.show', 'edit' => 'backend.supplier.edit', 'update' => 'backend.supplier.update', 'destroy' => 'backend.supplier.destroy']]);
 
-	/*--------------CUSTOMER---------------*/
-	Route::resource('customer',  'customerController',							['names' => ['index' => 'backend.customer.index', 'create' => 'backend.customer.create', 'store' => 'backend.customer.store', 'show' => 'backend.customer.show', 'edit' => 'backend.customer.edit', 'update' => 'backend.customer.update', 'destroy' => 'backend.customer.destroy']]);
 
 	/*--------------SETTING STORE---------------*/
 	Route::resource('store',  'Setting\\storeController',						['names' => ['index' => 'backend.settings.store.index', 'create' => 'backend.settings.store.create', 'store' => 'backend.settings.store.store', 'show' => 'backend.settings.store.show', 'edit' => 'backend.settings.store.edit', 'update' => 'backend.settings.store.update', 'destroy' => 'backend.settings.store.destroy']]);

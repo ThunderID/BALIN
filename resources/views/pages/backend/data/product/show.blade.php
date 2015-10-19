@@ -1,9 +1,10 @@
 @inject('data', 'App\Models\Product')
 <?php $data = $data::where('id', $id)
 									->with('categories')
-									->with(['productattributes' => function($q){$q->orderBy('attribute', 'asc');}])
+									// ->with(['productattributes' => function($q){$q->orderBy('attribute', 'asc');}])
 									->with('productimages')
 									->first(); 
+
 ?>
 
 @extends('template.backend.layout') 
@@ -71,7 +72,7 @@
 		</div>
 	</div>
 
-	<div class="clearfix">&nbsp;</div>
+	<!-- <div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
 
 	<div class="row">
@@ -104,7 +105,7 @@
 			<?php $att_before = $att->attribute; ?>
 		@endforeach
 		</div>
-	</div>
+	</div> -->
 
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
