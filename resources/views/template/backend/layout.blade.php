@@ -28,12 +28,13 @@
 			<div class="row  border-bottom white-bg dashboard-header">
 				<div class="col-lg-10">
 					@include('widgets.backend.pageElements.pageTitle')
-		            @include('widgets.backend.pageElements.breadcrumb')
+	            @include('widgets.backend.pageElements.breadcrumb')
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="wrapper wrapper-content">
+						@include('widgets.backend.pageElements.alertBox')
 						@yield('content')
 					</div>
 				</div>

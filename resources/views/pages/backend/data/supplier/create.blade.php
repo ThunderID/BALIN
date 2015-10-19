@@ -1,14 +1,15 @@
 @inject('data', 'App\Models\Supplier')
-{!! $data = $data::find($id) !!}
+<?php 
+    $data = $data::find($id);
+?>
 
 @extends('template.backend.layout') 
 
 @section('content')
-    {!! Form::open(array('route' => 'backend.supplier.store')) !!}
+    {!! Form::open(['url' => route('backend.data.supplier.store', $id)]) !!}
         {!! Form::input('hidden', 'id', $data['id'],  [
                     'class' => 'mod_id'
-            ]) 
-        !!}    
+        ]) !!}    
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -18,8 +19,7 @@
                                 'tabindex'      => '1', 
                                 'required'      => 'required', 
                                 'placeholder'   => 'Masukkan nama supplier'
-                        ]) 
-                    !!}
+                    ]) !!}
                 </div>
             </div>
             <div class="col-md-6">
@@ -30,8 +30,7 @@
                                 'required'      => 'required', 
                                 'tabindex'      => '2',
                                 'placeholder'   => 'Masukkan nomor telepon'
-                        ]) 
-                    !!}
+                    ]) !!}
                 </div>
             </div>
         </div>
@@ -46,12 +45,11 @@
                                 'tabindex'      => '3',
                                 'style'         => 'resize:none;',
                                 'placeholder'   => 'Masukkan alamat lengkap'
-                        ]) 
-                    !!}                                          
+                    ]) !!}
                 </div>                 
-                </br>
+                <div class="clearfix">&nbsp;</div>
                 <div class="form-group text-right">
-                    <a href="{{ URL::route('backend.supplier.index') }}" class="btn btn-md btn-default" tabindex="4">Batal</a>
+                    <a href="{{ URL::route('backend.data.supplier.index') }}" class="btn btn-md btn-default" tabindex="4">Batal</a>
                     <button type="submit" class="btn btn-md btn-success" tabindex="5">Simpan</button>
                 </div>
             </div>                                          

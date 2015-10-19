@@ -49,9 +49,12 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 
 	/*-----------DATA AJAX-[PRODUCT]----------*/
 	Route::any('ajax/get-product', 													['uses' => 'Data\\productController@getProductBySKU' ,						'as' => 'backend.product.ajax.getProduct']);
-	
+
 	/*--------------DATA CUSTOMER---------------*/
-	Route::resource('customer',  'Data\\customerController',							['names' => ['index' => 'backend.data.customer.index', 'create' => 'backend.data.customer.create', 'store' => 'backend.data.customer.store', 'show' => 'backend.data.customer.show', 'edit' => 'backend.data.customer.edit', 'update' => 'backend.data.customer.update', 'destroy' => 'backend.data.customer.destroy']]);
+	Route::resource('customer',  'Data\\customerController',					['names' => ['index' => 'backend.data.customer.index', 'create' => 'backend.data.customer.create', 'store' => 'backend.data.customer.store', 'show' => 'backend.data.customer.show', 'edit' => 'backend.data.customer.edit', 'update' => 'backend.data.customer.update', 'destroy' => 'backend.data.customer.destroy']]);
+
+	/*--------------DATA SUPPLIER---------------*/
+	Route::resource('supplier',  'Data\\supplierController',					['names' => ['index' => 'backend.data.supplier.index', 'create' => 'backend.data.supplier.create', 'store' => 'backend.data.supplier.store', 'show' => 'backend.data.supplier.show', 'edit' => 'backend.data.supplier.edit', 'update' => 'backend.data.supplier.update', 'destroy' => 'backend.data.supplier.destroy']]);
 
 	/*--------------PRICE---------------*/
 	Route::resource('price',  'priceController',						['names' => ['index' => 'backend.price.index', 'create' => 'backend.price.create', 'store' => 'backend.price.store', 'show' => 'backend.price.show', 'edit' => 'backend.price.edit', 'update' => 'backend.price.update', 'destroy' => 'backend.price.destroy']]);
@@ -59,8 +62,6 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 	/*--------------DISCOUNT---------------*/
 	Route::resource('discount',  'discountController',			['names' => ['index' => 'backend.discount.index', 'create' => 'backend.discount.create', 'store' => 'backend.discount.store', 'show' => 'backend.discount.show', 'edit' => 'backend.discount.edit', 'update' => 'backend.discount.update', 'destroy' => 'backend.discount.destroy']]);
 
-	/*--------------SUPPLIER---------------*/
-	Route::resource('supplier',  'supplierController',			['names' => ['index' => 'backend.supplier.index', 'create' => 'backend.supplier.create', 'store' => 'backend.supplier.store', 'show' => 'backend.supplier.show', 'edit' => 'backend.supplier.edit', 'update' => 'backend.supplier.update', 'destroy' => 'backend.supplier.destroy']]);
 
 
 	/*--------------SETTING STORE---------------*/

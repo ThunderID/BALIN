@@ -18,7 +18,7 @@
                             <li><a href="{{ route('backend.data.product.index') }}">Products</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('backend.supplier.index') }}"><i class="fa fa-university"></i><span class="nav-label">Supplier</span></a></li>
+                    <li><a href="{{ route('backend.data.supplier.index') }}"><i class="fa fa-university"></i><span class="nav-label">Supplier</span></a></li>
                     <li>
                         <a href="#"><i class="fa fa-users"></i><span class="nav-label">Customer</span></a>
                         <ul class="nav nav-third-level">

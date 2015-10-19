@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Backend\Data;
 
 use App\Http\Controllers\baseController;
+use App\Models\User;
 use Input, Session, DB, Redirect, Response;
 
 class customerController extends baseController 
@@ -13,9 +14,6 @@ class customerController extends baseController
 
 		if (Input::get('q'))
 		{
-			$datas 								= user::where('name','like','%'.Input::get('q').'%')
-															->where('deleted_at',null)
-															->paginate(); 
 			$searchResult						= Input::get('q');
 		}
 		else
@@ -28,16 +26,9 @@ class customerController extends baseController
 														->with('WT_pageSubTitle','Index')
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('searchResult', $searchResult)
-														->with('id', null)
 														->with('nav_active', 'customer');
 		return $this->layout;		
 	}
-
-	public function show($id)
-	{
-		
-	}
-
 
 	public function create($id = null)
 	{
@@ -69,11 +60,11 @@ class customerController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 								= Input::only('id','name', 'phone', 'address');
+		$inputs 								= Input::only('id','name', 'phone', 'address', 'email', 'postal_code', 'role');
 	
-		if ($id)
+		if ($inputs['id'])
 		{
-			$data								= user::find($id);
+			$data								= user::find($inputs['id']);
 		}
 		else
 		{
@@ -81,9 +72,12 @@ class customerController extends baseController
 		}
 
 		$data->fill([
-			'name' 								=> $inputs['name'],
+			'name' 							=> $inputs['name'],
 			'phone' 							=> $inputs['phone'],
-			'address' 							=> $inputs['address'],
+			'address' 						=> $inputs['address'],
+			'email'							=> $inputs['email'],
+			'postal_code'					=> $inputs['postal_code'],
+			'role'							=> $inputs['role'],
 		]);
 
 		DB::beginTransaction();

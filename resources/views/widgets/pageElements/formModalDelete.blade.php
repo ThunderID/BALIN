@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <!-- <p class="danger text-center">Error apa gitu</p> -->
-                {!! Form::open(array('route' => $modal_route, 'class' => 'modal1')) !!}
+                {!! Form::open(['url' => $modal_route,'method' => 'delete', 'class' => 'modal1']) !!}
                     {!!
                         Form::input(
                             'hidden',
@@ -49,16 +49,17 @@
 
 @section('scriptDelete')
     $('#{{$modal_id}}').on('show.bs.modal', function (e) {
-        var id = $(e.relatedTarget).attr('data-id');
-        var title = $(e.relatedTarget).attr('data-title');
-        console.log(title);
+        var id      = $(e.relatedTarget).attr('data-id');
+        var title   = $(e.relatedTarget).attr('data-title');
+        var action  = $(e.relatedTarget).attr('data-action');
 
         $('.mod_pwd').val('');
         $('.mod_id').val(id);
         $('.modal_title').html(title);
-    }) 
+        $('.modal1').attr('action', action);
+    }); 
 
     $('#{{$modal_id}}').on('shown.bs.modal', function () {
         $('.mod_pwd').focus();
-    })    
+    });    
 @append

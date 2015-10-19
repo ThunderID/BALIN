@@ -1,5 +1,18 @@
 @inject('datas', 'App\Models\User')
-{!! $datas= $datas::paginate() !!}
+<?php
+    if ($searchResult)
+    {
+        $datas = $datas::where('name','like','%'.$searchResult.'%')
+                        ->where('deleted_at',null)
+                        ->OrderBy('name', 'asc')
+                        ->paginate(); 
+    }
+    else
+    {
+        $datas = $datas::OrderBy('name', 'asc')
+                    ->paginate(); 
+    }
+?>
 
 @extends('template.backend.layout')
 
@@ -62,13 +75,12 @@
                                         <td>{{$data['phone']}}</td>
                                         <td>{{$data['address']}}</td>
                                         <td>
-                                            <a href="">Detail</a>,
                                             <a href="{{ route('backend.data.customer.edit', $data['id']) }}">Edit</a>, 
                                             <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#cus_del"
                                                 data-id="{{$data['id']}}"
                                                 data-title="Hapus Data user {{$data['name']}}" 
                                                 data-button="Hapus Data"
-                                                data-id="{{$data['id']}}"
+                                                data-action="{{ route('backend.data.customer.destroy', $data->id) }}"
                                                 href="#">
                                                 Hapus
                                             </a>                                            
@@ -76,7 +88,10 @@
                                     </tr>       
                                     <?php $ctr += 1; ?>                     
                                     @endforeach 
-                                    @include('widgets.pageElements.formModal1', array('modal_id'=>'cus_del', 'modal_content' => 'pages.backend.data.user.delete'))
+                                    @include('widgets.pageElements.formModalDelete', [
+                                            'modal_id'      => 'cus_del', 
+                                            'modal_route'   => route('backend.data.customer.destroy', 0)
+                                    ])
                                 @endif
                             </tbody>
                         </table> 
