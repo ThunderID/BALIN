@@ -13,7 +13,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Libraries\JSend;
 
 
-class SendBillingEmail extends Job implements SelfHandling, ShouldQueue
+class SendBillingEmail extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
@@ -48,8 +48,8 @@ class SendBillingEmail extends Job implements SelfHandling, ShouldQueue
 
 	        // call email send job
 	        $this->dispatch(new Mailman($mail_data));
-
-	         return new Jsend('success', (array)$this->transaction);
+	        
+	        return new Jsend('success', (array)$this->transaction)  ;           
 		}
 		catch (Exception $e) 
 		{
