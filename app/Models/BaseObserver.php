@@ -23,8 +23,8 @@ class BaseObserver
 
 		if (class_exists($class)) 
 		{
-        $result                         = $this->dispatch(new $class($model));
-        dD($result);
+	        $result                         = $this->dispatch(new $class($model));
+	        dD($result);
 	    }
 	    else
 	    {

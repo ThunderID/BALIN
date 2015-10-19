@@ -15,14 +15,15 @@ class TransactionSaved extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
-    public function __construct()
+    public function __construct(Transaction $transaction)
     {
         //
+        $this->transaction          = $transaction;
     }
 
-    public function handle(Transaction $transaction)
+    public function handle()
     {
-        $result                 = $this->dispatch(new SwitchTransaction($transaction));
+        $result                 = $this->dispatch(new SwitchTransaction($this->transaction));
 
         return $result;
     }

@@ -86,7 +86,7 @@ class TransactionDetail extends Eloquent
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
 
-	public function scopeTransactionId($query, $variable)
+	public function scopeID($query, $variable)
 	{
 		if(is_array($variable))
 		{
