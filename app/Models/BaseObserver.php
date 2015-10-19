@@ -15,16 +15,26 @@ class BaseObserver
 
 	public function saved($model)
 	{
-		$class = get_class($model);
-		$class2 = explode( '\\', $class );
-		$lastnameclass = end( $class2 );
-		$class 	= str_replace('Models', 'Jobs', $class);
-		$class 	= str_replace($lastnameclass, $lastnameclass.'Saved', $class);
+		$class 			= get_class($model);
+		$class2 		= explode( '\\', $class );
+		$lastnameclass 	= end( $class2 );
+		$class 			= str_replace('Models', 'Jobs', $class);
+		$class 			= str_replace($lastnameclass, $lastnameclass.'Saved', $class);
 
-		if (class_exists($class)) 
+		if (class_exists($class) && get_parent_class($class) == 'App\Jobs\Job') 
 		{
 	        $result                         = $this->dispatch(new $class($model));
-	        dD($result);
+
+	        if($result->getStatus()=='error')
+	        {
+	        	$model['errors']			= $result->getErrorMessage();
+
+	        	return false;
+	        }
+	        else
+	        {
+	        	return true;
+	        }
 	    }
 	    else
 	    {
