@@ -17,6 +17,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Libraries\JSend;
+use Exception;
 
 class SwitchTransaction extends Job implements SelfHandling
 {

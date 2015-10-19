@@ -1,6 +1,5 @@
 @inject('data', 'App\Models\User')
-{!! $data = $data::Find($id); 
-!!}
+{!! $data = $data::find($id); !!}
 
 @extends('template.backend.layout') 
 
