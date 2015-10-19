@@ -49,7 +49,7 @@ class SendBillingEmail extends Job implements SelfHandling, ShouldQueue
 	        // call email send job
 	        $this->dispatch(new Mailman($mail_data));
 
-	         return new Jsend('success', (array)$transaction);
+	         return new Jsend('success', (array)$this->transaction);
 		}
 		catch (Exception $e) 
 		{
