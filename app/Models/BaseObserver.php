@@ -14,8 +14,9 @@ class BaseObserver
 	{
 		$class = get_class($model);
 		// $class = explode( '\\', $class );
-		// $class = end( $class );
+		$lastnameclass = end( $class );
 		$class 	= str_replace('Models', 'Jobs', $class);
+		$class 	= str_replace($lastnameclass, $lastnameclass.'Saved', $class);
 
 		if (!class_exists($class, false)) 
 		{
