@@ -17,7 +17,7 @@ class CreateUserTable extends Migration
             $table->string('name', 255);
             $table->string('email', 255)->unique();
             $table->string('password', 60);
-            $table->string('referral_code', 255)->unique();
+            $table->string('referral_code', 255);
             $table->double('balance');
             $table->string('avatar', 255);
             $table->string('role', 255);
