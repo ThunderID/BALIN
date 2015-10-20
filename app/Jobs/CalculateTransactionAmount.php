@@ -27,14 +27,12 @@ class CalculateTransactionAmount extends Job implements SelfHandling
             throw new Exception('Sent variable must be object of a record.');
         }
 
-        $uniq_number                        = 123;
-
         $product_prices                     = transactiondetail::where('transaction_id', $this->transaction->id)
                                                 ->selectraw('(price - discount) * quantity as total')
                                                 ->first()
                                                 ;
 
-        $amount                            = ($this->transaction->shipping_cost + $product_prices['total']) - ($this->transaction->uniq_number + $this->transaction->shipping_cost);
+        $amount                             = ($this->transaction->shipping_cost + $product_prices['total']) - ($this->transaction->uniq_number + $this->transaction->shipping_cost);
 
         $this->transaction->fill([
             'amount'         => $amount,
@@ -42,13 +40,12 @@ class CalculateTransactionAmount extends Job implements SelfHandling
 
         if($this->transaction->save())
         {
-            return true;
-            // dd('saved');
+            $result                         = new Jsend('success', (array)$this->transaction);
         }
         else
         {
-            return true;
-            // dd('error');
+            $result                         = new Jsend('error', (array)$this->transaction->getError() ,(array)$this->transaction);
         }
+        return $result;
     }
 }
