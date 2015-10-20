@@ -29,9 +29,8 @@ class productController extends baseController
 																		->with('WT_pageSubTitle','Index')
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', $searchResult)
-																		->with('nav_active', 'product')
-																		->with('subnav_active', 'product')
-																		;
+																		->with('nav_active', 'data')
+																		->with('subnav_active', 'products');
 
 		return $this->layout;		
 	}
@@ -58,8 +57,8 @@ class productController extends baseController
 																->with('WT_pageSubTitle', $title)		
 																->with('WB_breadcrumbs', $breadcrumb)
 																->with('id', $id)
-																->with('nav_active', 'product')
-																;
+																->with('nav_active', 'data')
+																->with('subnav_active', 'products');
 
 		return $this->layout;		
 	}
@@ -105,7 +104,7 @@ class productController extends baseController
 	{
 		$inputs 											= Input::only('id','category','name','sku','description','attribute','value');
 
-		if ($id)
+		if ($inputs['id'])
 		{
 			$data 										= product::find($id);
 		}
