@@ -22,7 +22,7 @@
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					<label for="name" class="text-capitalize">URL</label>
-					{!! Form::text('url', $data['name'], [
+					{!! Form::text('url', $data['url'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '2'
 					]) !!}
@@ -31,9 +31,15 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12">
-				<div class="summernote"></div>
+				<div class="form-group">
+					{!! Form::textarea('content', $data['content'], [
+								'class' 				=> 'summernote',
+								'style'         	=> 'resize:none;',
+					]) !!}
+				</div>
 			</div>
 		</div>
+		<div class="clearfix">&nbsp;</div>
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group text-right">

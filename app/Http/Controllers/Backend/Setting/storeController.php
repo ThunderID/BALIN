@@ -17,8 +17,8 @@ class storeController extends baseController
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('searchResult', $searchResult)
-													->with('nav_active', 'product')
-													->with('subnav_active', 'category')
+													->with('nav_active', 'settings')
+													->with('subnav_active', 'store')
 													;
 
 		return $this->layout;		
@@ -48,8 +48,8 @@ class storeController extends baseController
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('id', $id)
-													->with('nav_active', 'product')
-													->with('subnav_active', 'category')
+													->with('nav_active', 'settings')
+													->with('subnav_active', 'store')
 													;
 
 		return $this->layout;

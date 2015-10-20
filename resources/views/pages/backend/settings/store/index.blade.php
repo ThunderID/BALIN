@@ -1,5 +1,6 @@
 @inject('datas', 'App\Models\StoreSetting')
-{!! $datas = $datas::paginate() !!}
+
+<?php $datas = $datas::paginate(); ?>
 
 @extends('template.backend.layout') 
 
@@ -67,11 +68,12 @@
 											<td>{{ $data['url'] }}</td>
 											<td>{{ str_limit($data['content'], 160) }}</td>
 											<td>
-												<a href="{{ route('backend.settings.store.show', $data['id']) }}"> Detail </a>,
-												<a href="{{ url::route('backend.settings.store.edit', $data['id']) }}"> Edit </a>, 
+												<!-- <a href="{{ route('backend.settings.store.show', $data['id']) }}"> Detail </a>, -->
+												<a href="{{ route('backend.settings.store.edit', $data['id']) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
 													data-id="{{$data['id']}}"
-													data-title="Hapus Data Produk {{$data['name']}}">
+													data-title="Hapus Data Produk {{$data['name']}}"
+													data-action="{{ route('backend.settings.store.destroy', $data['id']) }}">
 													Hapus
 												</a>                                                                                      
 											</td>    
