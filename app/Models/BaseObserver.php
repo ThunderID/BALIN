@@ -28,6 +28,13 @@ class BaseObserver
 		return $this->after($class, $model);
 	}
 
+	public function Creating($model)
+	{
+		$class 			= $this->before($model);
+
+		return $this->after($class, $model);
+	}
+
 	public function before($model)
 	{
 		$class 			= get_class($model);
