@@ -12,6 +12,8 @@ use Input, DB;
 
 class transactionController extends baseController 
 {
+	protected $view_name 					= 'Transaksi';
+	
 	protected $controller_name 				= 'Points';
 	protected $inputs						= [
 												'id',
@@ -35,6 +37,30 @@ class transactionController extends baseController
 
 	}
 
+	public function createSell($id = null)
+	{
+		if(!$id)
+		{
+			$breadcrumb							= ['Transaksi' => 'backend.test.testcontroller',
+														'Transaksi Baru' => 'backend.test.testcontroller'];
+		}
+		else
+		{
+			$breadcrumb							= ['Transaksi' => 'backend.test.testcontroller',
+														'Edit Transaksi' => 'backend.test.testcontroller'];
+		}
+
+		$this->layout->page 					= view('pages.backend.data.transaction.create')
+													->with('WT_pageTitle', $this->view_name )
+													->with('WT_pageSubTitle','Create')		
+													->with('WB_breadcrumbs', $breadcrumb)
+													->with('id', $id)
+													->with('nav_active', 'transaction')
+													;
+		return $this->layout;
+	}
+
+
 	public function buy()
 	{		
 		$this->inputs['id']					= Input::get('id');
@@ -55,37 +81,39 @@ class transactionController extends baseController
 
 	public function sell()
 	{		
-	// 	$this->inputs['id']					= Input::get('id');
-	// 	$this->inputs['user_id']			= Input::get('user_id');
-	// 	$this->inputs['ref_number']			= Input::get('ref_number');
-	// 	$this->inputs['refferal_code']		= Input::get('refferal_code');
-	// 	$this->inputs['type']				= 'sell';
-	// 	$this->inputs['status']				= Input::get('status');
-	// 	$this->inputs['transacted_at']		= Input::get('transacted_at');
-	// 	$this->inputs['unique_number']		= Input::get('unique_number');
-	// 	$this->inputs['shipping_cost']		= Input::get('shipping_cost');
-	// 	$this->inputs['referral_discount']	= Input::get('referral_discount');
-	// 	$this->inputs['amount']				= Input::get('amount');
-	// 	$this->inputs['products']			= Input::get('products');
+		// dd(Input::all());
 
-
-		$this->inputs['id']					= Null;
-		$this->inputs['user_id']			= 1;
-		$this->inputs['ref_number']			= 'B00124';
-		$this->inputs['refferal_code']		= Null;
+		$this->inputs['id']					= Input::get('id');
+		$this->inputs['user_id']			= Input::get('user_id');
+		$this->inputs['ref_number']			= Input::get('ref_number');
+		$this->inputs['refferal_code']		= Input::get('refferal_code');
 		$this->inputs['type']				= 'sell';
-		$this->inputs['status']				= 'waiting';
-		$this->inputs['transacted_at']		= date('Y-m-d H:i:s', strtotime('now'));
-		$this->inputs['unique_number']		= 0;
-		$this->inputs['shipping_cost']		= 4000;
-		$this->inputs['referral_discount']	= 0;
-		$this->inputs['amount']				= 4000;
-		$this->inputs['products']			= [
-												'0' => ['id' => '5', 'quantity' => '2'],
-												'1' => ['id' => '6', 'quantity' => '3'],
-												'2' => ['id' => '7', 'quantity' => '1'],
-												'3' => ['id' => '8', 'quantity' => '4'],
-												];
+		$this->inputs['status']				= Input::get('status');
+		$this->inputs['transacted_at']		= Input::get('transacted_at');
+		$this->inputs['unique_number']		= Input::get('unique_number');
+		$this->inputs['shipping_cost']		= Input::get('shipping_cost');
+		$this->inputs['referral_discount']	= Input::get('referral_discount');
+		$this->inputs['amount']				= Input::get('amount');
+		$this->inputs['products']			= Input::get('products');
+
+
+		// $this->inputs['id']					= Null;
+		// $this->inputs['user_id']			= 1;
+		// $this->inputs['ref_number']			= 'B00124';
+		// $this->inputs['refferal_code']		= Null;
+		// $this->inputs['type']				= 'sell';
+		// $this->inputs['status']				= 'waiting';
+		// $this->inputs['transacted_at']		= date('Y-m-d H:i:s', strtotime('now'));
+		// $this->inputs['unique_number']		= 0;
+		// $this->inputs['shipping_cost']		= 4000;
+		// $this->inputs['referral_discount']	= 0;
+		// $this->inputs['amount']				= 4000;
+		// $this->inputs['products']			= [
+		// 										'0' => ['id' => '5', 'quantity' => '2'],
+		// 										'1' => ['id' => '6', 'quantity' => '3'],
+		// 										'2' => ['id' => '7', 'quantity' => '1'],
+		// 										'3' => ['id' => '8', 'quantity' => '4'],
+		// 										];
 
 
 
