@@ -117,7 +117,6 @@ class transactionController extends baseController
 			'amount'						=> $this->inputs['amount'],
 		]);
 
-
 		DB::beginTransaction();
 
 		if (!$data->save())
