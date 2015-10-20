@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\baseController;
+use App\Models\Category;
 use Input, Session, DB, Redirect, Response;
 
 class categoryController extends baseController 
@@ -9,15 +10,15 @@ class categoryController extends baseController
 
 	public function index()
 	{		
-		$breadcrumb								= ['Kategori' => 'backend.settings.category.index'];
+		$breadcrumb									= ['Kategori' => 'backend.settings.category.index'];
 
-		$this->layout->page 					= view('pages.backend.settings.category.index')
-														->with('WT_pageTitle', $this->view_name )
-														->with('WT_pageSubTitle','Index')
-														->with('WB_breadcrumbs', $breadcrumb)
-														->with('nav_active', 'product')
-														->with('subnav_active', 'category')
-													;
+		$this->layout->page 						= view('pages.backend.settings.category.index')
+															->with('WT_pageTitle', $this->view_name )
+															->with('WT_pageSubTitle','Index')
+															->with('WB_breadcrumbs', $breadcrumb)
+															->with('nav_active', 'settings')
+															->with('subnav_active', 'category')
+														;
 
 		return $this->layout;		
 	}
@@ -34,7 +35,7 @@ class categoryController extends baseController
 															->with('WT_pageSubTitle','Detail')		
 															->with('WB_breadcrumbs', $breadcrumb)
 															->with('id', $id)
-															->with('nav_active', 'product')
+															->with('nav_active', 'settings')
 															->with('subnav_active', 'category')
 														;
 
@@ -61,14 +62,13 @@ class categoryController extends baseController
 															'Data Baru' => 'backend.settings.category.create' ];
 		}
 
-		$this->layout->page 					= view('pages.backend.settings.category.create')
-													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle','Create')		
-													->with('WB_breadcrumbs', $breadcrumb)
-													->with('id', $id)
-													->with('nav_active', 'product')
-													->with('subnav_active', 'category')
-													;
+		$this->layout->page 						= view('pages.backend.settings.category.create')
+																->with('WT_pageTitle', $this->view_name )
+																->with('WT_pageSubTitle','Create')		
+																->with('WB_breadcrumbs', $breadcrumb)
+																->with('id', $id)
+																->with('nav_active', 'settings')
+																->with('subnav_active', 'category');
 
 		return $this->layout;		
 	}
@@ -80,22 +80,22 @@ class categoryController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 								= Input::only('id','name', 'parent');
+		$inputs 										= Input::only('id','name', 'parent');
 
-		if ($id)
+		if ($inputs['id'])
 		{
-			$data 								= Category::find($id);
+			$data 									= Category::find($inputs['id']);
 			$inputs['path']						= $data['path'];
 		}
 		else
 		{
-			$data 								= new Category;	
+			$data 									= new Category;	
 			$inputs['path']						= 0;
 		}
 
 		$data->fill([
-			'name' 								=> $inputs['name'],
-			'path'								=> $inputs['id']
+			'name' 									=> $inputs['name'],
+			'path'									=> $inputs['id'],
 		]);
 
 		if (Input::get('parent') != 0)
@@ -105,8 +105,8 @@ class categoryController extends baseController
 		else
 		{
 			$data->fill([
-				'parent_id' 					=> '0',
-				'path'							=> '0'
+				'parent_id' 						=> '0',
+				'path'								=> '0'
 			]);
 		}
 
@@ -184,11 +184,10 @@ class categoryController extends baseController
 	{
 		$data 									= new Category;	
 
-	    $name 									= Input::get('name');
+		$name 									= Input::get('name');
 
 		$tmps 									= Category::where('name', 'like', "%$name%")
-													->findCategory(0)
-									    			->get();
+																	->get();
 
 		// if(count($tmps) > 0)
 		// {
@@ -203,24 +202,23 @@ class categoryController extends baseController
 		// 	}
 		// }
 
-	    return json_decode(json_encode($tmps));
+		 return json_decode(json_encode($tmps));
 	}	
 
 	public function getCategoryParentByName()
 	{
-	    $inputs = Input::only('name','path');
-	    
-	    $tmp =  Category::select(array('id', 'name', 'path'))
-	    		->where('name', 'like', "%" . $inputs['name'] . "%");
-	    
-	    if(!empty($inputs['path']))
-	    {
-	    	$tmp = $tmp
-			    ->where('path','not like', $inputs['path'].'%')
-			    ;
-	    }
+		$inputs 	= Input::only('name','path');
+			
+		$tmp 		=  Category::select(array('id', 'name', 'path'))
+									->where('name', 'like', "%" . $inputs['name'] . "%");
+		 
+		if(!empty($inputs['path']))
+		{
+			$tmp = $tmp->where('path','not like', $inputs['path'].'%');
+		}
 
-	    $tmp = $tmp->get();
-	    return json_decode(json_encode($tmp));
+		$tmp = $tmp->get();
+
+		return json_decode(json_encode($tmp));
 	}		
 }

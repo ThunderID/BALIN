@@ -1,6 +1,7 @@
 .note-editor {
-    height: 300px;
+    height: 380px;
     border: 1px solid #e5e6e7;
+    overflow-y: auto;
 }
 
 .note-editor .note-dropzone {

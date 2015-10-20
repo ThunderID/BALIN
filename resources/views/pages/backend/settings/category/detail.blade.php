@@ -86,8 +86,8 @@
 							<td>{{ $product['sku'] }}</td>
 							<td>{{ $product['name'] }}</td>
 							<td> 
-								<a href="{{ route('backend.product.show', $product->id) }}"> Detail </a>,
-								<a href="{{ route('backend.product.edit', $product->id) }}"> Edit </a>,
+								<a href="{{ route('backend.data.product.show', $product->id) }}"> Detail </a>,
+								<a href="{{ route('backend.data.product.edit', $product->id) }}"> Edit </a>,
 								<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
 									data-id="{{$product['id']}}"
 									data-title="Hapus Data Produk {{$product['name']}}">
@@ -103,7 +103,7 @@
 		@include(
 			'widgets.pageElements.formModalDelete', [
 					'modal_id'      => 'product_del', 
-					'modal_route'   => 'backend.product.destroy'
+					'modal_route'   => 'backend.data.product.destroy'
 				]
 			)      
 	@endif         

@@ -31,7 +31,8 @@ class supplierController extends baseController
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('searchResult', $searchResult)
-													->with('nav_active', 'user')
+													->with('nav_active', 'data')
+													->with('subnav_active', 'supplier')
 													;
 
 
@@ -64,7 +65,8 @@ class supplierController extends baseController
 													->with('WT_pageSubTitle', $title)		
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('id', $id)
-													->with('nav_active', 'user')
+													->with('nav_active', 'data')
+													->with('subnav_active', 'supplier')
 													;
 
 		return $this->layout;		

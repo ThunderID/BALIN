@@ -26,7 +26,8 @@ class customerController extends baseController
 														->with('WT_pageSubTitle','Index')
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('searchResult', $searchResult)
-														->with('nav_active', 'customer');
+														->with('nav_active', 'data')
+														->with('subnav_active', 'customer');
 		return $this->layout;		
 	}
 
@@ -48,7 +49,8 @@ class customerController extends baseController
 															->with('WT_pageSubTitle','Create')		
 															->with('WB_breadcrumbs', $breadcrumb)
 															->with('id', $id)
-															->with('nav_active', 'customer');
+															->with('nav_active', 'data')
+															->with('subnav_active', 'customer');
 		return $this->layout;		
 	}
 

@@ -75,11 +75,12 @@
 												</p>
 											</td>
 											<td>
-												<a href="{{ route('backend.settings.category.show',  $data['id']) }}"> Detail </a>,
+												<!-- <a href="{{ route('backend.settings.category.show',  $data['id']) }}"> Detail </a>, -->
 												<a href="{{ route('backend.settings.category.edit', ['id' => $data['id']]) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#category_del"
 													data-id="{{$data['id']}}"
-													data-title="Hapus Data Kategori {{$data['name']}}">
+													data-title="Hapus Data Kategori {{$data['name']}}"
+													data-action="{{ route('backend.settings.category.destroy', $data['id']) }}">
 													Hapus
 												</a>                                                                                 
 											</td>    

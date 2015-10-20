@@ -10,29 +10,19 @@
             <div class="modal-body">
                 <!-- <p class="danger text-center">Error apa gitu</p> -->
                 {!! Form::open(['url' => $modal_route,'method' => 'delete', 'class' => 'modal1']) !!}
-                    {!!
-                        Form::input(
-                            'hidden',
-                            'id', 
-                            NULL,  
+                    {!! Form::input('hidden', 'id', NULL,  
                             ['class' => 'mod_id']
-                        ) 
-                    !!}   
+                    ) !!}   
                     <div class="form-group">
                         <p>Isikan password Anda sebagai konfirmasi penghapusan data.</p>
                     </div>                  
                     <div class="form-group">
                         <label for="pwd">Password</label>
-                        {!! 
-                            Form::Password(
-                                'password', 
-                                [
+                        {!! Form::Password('password', [
                                     'class'        => 'form-control mod_pwd',
                                     'required'     => 'required', 
                                     'tabindex'     => '1'
-                                ] 
-                            ) 
-                        !!}
+                        ]) !!}
                     </div>
                 	</br>
                     <div class="form-group">
