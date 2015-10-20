@@ -47,7 +47,7 @@ class ValidateEmail extends Job implements SelfHandling
         }
         else
         {
-            $result                         = $validate;
+            $result                         = new Jsend('error', (array)$this->user, (array)$validate);
         }
 
         return $result;
