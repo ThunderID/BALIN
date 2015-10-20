@@ -1,7 +1,7 @@
 @inject('data', 'App\Models\Category')
 
 @if ($id)
-    {!! $data = $data::with('category')->where('categories.id', $id)->first(); !!}
+    <?php $data = $data::with('category')->where('categories.id', $id)->first(); ?>
 @endif
 
 @extends('template.backend.layout') 
@@ -14,10 +14,11 @@
                 <div class="form-group">
                     <label for="parent" class="text-capitalize">Termasuk dalam Kategori</label>
                     {!! Form::text('parent', $data['parent_id'], [
-                                'class'         => 'form-control', 
+                                'class'         => 'select-category', 
                                 'tabindex'      => '1', 
                                 'id'            => 'find_category',
-                                'placeholder'   => 'Kosongkan bila tidak ada'
+                                'placeholder'   => 'Kosongkan bila tidak ada',
+                                'style'         => 'width:100%'
                     ]) !!}
                 </div>              
             </div>
@@ -42,14 +43,18 @@
 @stop
 
 @section('script')
-    @if($data['parent_id'])
-        var preload_data = [];
-        var id = {!! $data['parent_id'] !!};
-        var text = "{!! $data['category']['name'] !!}";
+    @if($data['category_id'])
+        var preload_data    = [];
+        var id              = {!! $data['category_id'] !!};
+        var text            = "{!! $data['category']['name'] !!}";
         preload_data.push({ id: id, text: text});
     @else
-        var preload_data = [];
+        var preload_data    = [];
     @endif
 
     
+@stop
+
+@section('script_plugin')
+    @include('plugins.select2')
 @stop
