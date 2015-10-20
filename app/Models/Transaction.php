@@ -94,18 +94,6 @@ class Transaction extends Eloquent
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
-	public function __construct()
-	{
-		$class 			= get_class($this);
-		$class2 		= explode( '\\', $class );
-		$lastnameclass 	= end( $class2 );
-		$class 			= str_replace('Models', 'Jobs', $class);
-		$class 			= str_replace($lastnameclass, $lastnameclass.'Saving', $class);
-
-		$this->savingjob 	= $class;
-		$class 			= str_replace($lastnameclass, $lastnameclass.'Saved', $class);
-		$this->savedjob 	= $class;
-	}
 
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 

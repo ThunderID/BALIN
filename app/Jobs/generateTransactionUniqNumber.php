@@ -2,10 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Libraries\JSend;
+
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
+use App\Models\policy;
 
 class generateTransactionUniqNumber extends Job implements SelfHandling
 {
@@ -21,14 +24,22 @@ class generateTransactionUniqNumber extends Job implements SelfHandling
     {
         try
         {
-            if(is_null($this->transaction->id))
+            if(!is_null($this->transaction->unique_number))
             {
-                throw new Exception('Sent variable must be object of a record.');
-            }
+                $prev_number            = transaction::orderBy('id', 'DESC')->first();
 
-            if(!empty($this->transaction->unique_number))
-            {
-                $this->transaction->unique_number    = 3333;
+                $limit                  = policy::type('limit_unique_number')->first();
+
+                if($prev_number['unique_number'] < $limit['value'])
+                {
+                    $unique_number      = $prev_number['unique_number'] + 1;
+                }
+                else
+                {
+                    $unique_number      = 1;
+                }
+
+                $this->transaction->unique_number    = $unique_number  ;
             }
 
             $result                     = new Jsend('success', ['message' => 'Expired date added']);
