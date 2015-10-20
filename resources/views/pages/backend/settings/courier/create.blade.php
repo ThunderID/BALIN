@@ -12,7 +12,9 @@
 		<div class="row">
 			<div class="col-md-3 col-sm-3 col-xs-12">
 				<div class="form-group">
-					{!! HTML::image('http://placehold.it/200x200/bababa/000000') !!}
+					{!! HTML::image('http://placehold.it/200x200/bababa/000000/?text=gambar') !!}
+					<input type="file" style="opacity:0" class="file-image">
+					<a href="#" class="btn btn-primary btn-upload">Upload Gambar</a>
 				</div>
 			</div>
 			<div class="col-md-9 col-sm-9 col-xs-12">
@@ -45,4 +47,12 @@
 			</div>                                     
 		</div>
 	{!! Form::close() !!}
+@stop
+
+@section('script')
+	$( document ).ready(function() {
+		$('.btn-upload').on('click', function() {
+			$('.file-image').trigger('click');
+		});
+	});
 @stop

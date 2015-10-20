@@ -1,6 +1,6 @@
 @inject('datas', 'App\Models\Courier')
 
-<?php $datas = $datas::paginate() ?>
+<?php $datas = $datas::OrderBy('name', 'asc')->paginate(); ?>
 
 @extends('template.backend.layout') 
 
@@ -25,7 +25,7 @@
 										'placeholder'   => 'Cari sesuatu',
 										'required'      => 'required',
 										'style'         =>'text-align:right'
-								]) !!}                                          
+							]) !!}                                          
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
 							<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
@@ -68,10 +68,11 @@
 											<td>{{ $data['name'] }}</td>
 											<td>{{ $data['address'] }}</td>
 											<td>
-												<a href="{{ url::route('backend.settings.courier.edit', $data['id']) }}"> Edit </a>, 
-												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
+												<a href="{{ route('backend.settings.courier.edit', $data['id']) }}"> Edit </a>, 
+												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#courier_del"
 													data-id="{{$data['id']}}"
-													data-title="Hapus Data Produk {{$data['name']}}">
+													data-title="Hapus Data Produk {{$data['name']}}"
+													data-action="{{ route('backend.settings.courier.destroy', $data['id']) }}">
 													Hapus
 												</a>                                                                                      
 											</td>    
@@ -80,7 +81,7 @@
 									@endforeach 
 									
 									@include('widgets.pageElements.formModalDelete', [
-											'modal_id'      => 'product_del', 
+											'modal_id'      => 'courier_del', 
 											'modal_route'   => 'backend.settings.courier.destroy'
 									])
 								@endif
