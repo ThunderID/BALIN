@@ -23,7 +23,7 @@ class TransactionSaved extends Job implements SelfHandling
 
     public function handle()
     {
-        $result                 = $this->dispatch(new SwitchTransaction($this->transaction));
+        $result                     = $this->dispatch(new SwitchTransaction($this->transaction));
 
         return $result;
     }

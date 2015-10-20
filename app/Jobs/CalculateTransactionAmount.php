@@ -32,11 +32,12 @@ class CalculateTransactionAmount extends Job implements SelfHandling
                                                 ->first()
                                                 ;
 
-        $amount                             = ($this->transaction->shipping_cost + $product_prices['total']) - ($this->transaction->uniq_number + $this->transaction->shipping_cost);
+        $amount                             = ($this->transaction->shipping_cost + $product_prices['total']) - ($this->transaction->unique_number + $this->transaction->referral_discount);
 
         $this->transaction->fill([
             'amount'         => $amount,
         ]);
+
 
         if($this->transaction->save())
         {

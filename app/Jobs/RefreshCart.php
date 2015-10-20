@@ -5,6 +5,8 @@ namespace App\Jobs;
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
+use App\Libraries\JSend;
+
 use App\models\product;
 use App\models\transaction;
 use App\models\transactionDetail;
@@ -26,20 +28,26 @@ class RefreshCart extends Job implements SelfHandling
             throw new Exception('Sent variable must be object of a record.');
         }
 
-        $details                           = transactionDetail::where('transaction_id', 1)->get();
+        $details                           = transactionDetail::where('transaction_id', $this->transaction->id)->get();
 
-        foreach ($details as $detail) 
+        if($this->transaction->status == 'draft')
         {
-            $product                       = Product::find($detail->product_id);
+            foreach ($details as $detail) 
+            {
+                $product                   = Product::find($detail->product_id);
 
-            $detail->fill([
-                'price'                    => $product->price,
-                'discount'                 => $product->discount,
-            ]);
+                $detail->fill([
+                    'price'                => $product->price,
+                    'discount'             => $product->discount,
+                ]);
 
-            $detail->save();
-
+                if(!$detail->save())
+                {
+                    return new Jsend('error', (array)$this->user, (array)$transaction);
+                }
+            }
         }
-        dd(1);
+
+         return new Jsend('success', (array)$this->transaction);
     }
 }
