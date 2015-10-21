@@ -34,10 +34,30 @@ class transactionController extends baseController
 
 	public function index()
 	{		
+		$breadcrumb								= ['Supplier' => 'backend.data.transaction.index'];
+
+		if (Input::get('q'))
+		{
+			$searchResult						= Input::get('q');
+		}
+		else
+		{
+			$searchResult						= NUll;
+		}
+
+		$this->layout->page 					= view('pages.backend.data.transaction.index')
+													->with('WT_pageTitle', $this->view_name )
+													->with('WT_pageSubTitle','Index')
+													->with('WB_breadcrumbs', $breadcrumb)
+													->with('searchResult', $searchResult)
+													->with('nav_active', 'data')
+													->with('subnav_active', 'transaction')
+													;
+		return $this->layout;	
 
 	}
 
-	public function createSell($id = null)
+	public function create($id = null)
 	{
 		if(!$id)
 		{
@@ -55,7 +75,8 @@ class transactionController extends baseController
 													->with('WT_pageSubTitle','Create')		
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('id', $id)
-													->with('nav_active', 'transaction')
+													->with('nav_active', 'data')
+													->with('subnav_active', 'transaction')
 													;
 		return $this->layout;
 	}

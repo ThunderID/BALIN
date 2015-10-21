@@ -1,4 +1,4 @@
-{!! Form::open(array('route' => 'backend.shipping.delete', 'class' => 'modal1')) !!}
+{!! Form::open(['class' => 'modal1']) !!}
     {!!Form::input('hidden', 'id', NULL,  ['class' => 'mod_id']) !!}   
     <div class="form-group">
         <p>Isikan password Anda sebagai konfirmasi penghapusan data.</p>
