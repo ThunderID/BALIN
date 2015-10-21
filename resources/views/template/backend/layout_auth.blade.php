@@ -21,11 +21,11 @@
 	<div class="middle-box text-center loginscreen animated fadeInDown">
 		<div>
 			<div>
-					{!! HTML::image('Balin/admin/image/logo.png') !!}
+				{!! HTML::image('Balin/admin/image/logo.png') !!}
 			</div>
-			<h3>A D M I N I S T R A T O R</h3>
+			<h4>A D M I N I S T R A T O R</h4>
 			<br><br>
-			<p>Login in. To see page admin.</p>
+			{{-- <p>Login in. To see page admin.</p> --}}
 			@yield('content')
 		</div>
 	</div>
