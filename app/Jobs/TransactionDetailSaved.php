@@ -27,7 +27,8 @@ class TransactionDetailSaved extends Job implements SelfHandling
         $transaction                        = transaction::find($this->transactiondetail->transaction_id);
     
         $result                             = $this->dispatch(new calculateTransactionAmount($transaction));
+        $result                             = $this->dispatch(new countReferralDiscount($transaction));
 
         return $result;
-    }
+    }    
 }

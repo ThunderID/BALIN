@@ -22,25 +22,13 @@ class TrackWaitingOrder extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
     public function __construct(Transaction $transaction)
     {
-        //
         $this->transaction          = $transaction;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
     public function handle()
     {
-        //
         if(is_null($this->transaction->id))
         {
             throw new Exception('Sent variable must be object of a record.');

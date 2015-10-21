@@ -17,7 +17,6 @@ class TransactionSaved extends Job implements SelfHandling
 
     public function __construct(Transaction $transaction)
     {
-        //
         $this->transaction          = $transaction;
     }
 

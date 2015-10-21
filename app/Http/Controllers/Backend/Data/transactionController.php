@@ -20,7 +20,7 @@ class transactionController extends baseController
 												'user_id',
 												'supplier_id',
 												'ref_number',
-												'refferal_code',
+												'referral_code',
 												'type',
 												'status',
 												'transacted_at',
@@ -56,6 +56,7 @@ class transactionController extends baseController
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('id', $id)
 													->with('nav_active', 'transaction')
+													->with('subnav_active', 'transaction')
 													;
 		return $this->layout;
 	}
@@ -64,9 +65,10 @@ class transactionController extends baseController
 	public function buy()
 	{		
 		$this->inputs['id']					= Input::get('id');
-		$this->inputs['user_id']			= Input::get('user_id');
+		$this->inputs['user_id']			= 0;
+		$this->inputs['supplier_id']		= Input::get('supplier_id');
 		$this->inputs['ref_number']			= Input::get('ref_number');
-		$this->inputs['refferal_code']		= Input::get('refferal_code');
+		$this->inputs['referral_code']		= Input::get('referral_code');
 		$this->inputs['type']				= 'buy';
 		$this->inputs['status']				= Input::get('status');
 		$this->inputs['transacted_at']		= Input::get('transacted_at');
@@ -81,12 +83,11 @@ class transactionController extends baseController
 
 	public function sell()
 	{		
-		// dd(Input::all());
-
-		$this->inputs['id']					= Input::get('id');
+		$this->inputs['id']					= 151;
 		$this->inputs['user_id']			= Input::get('user_id');
+		$this->inputs['supplier_id']		= 0;
 		$this->inputs['ref_number']			= Input::get('ref_number');
-		$this->inputs['refferal_code']		= Input::get('refferal_code');
+		$this->inputs['referral_code']		= Input::get('referral_code');
 		$this->inputs['type']				= 'sell';
 		$this->inputs['status']				= Input::get('status');
 		$this->inputs['transacted_at']		= Input::get('transacted_at');
@@ -100,7 +101,7 @@ class transactionController extends baseController
 		// $this->inputs['id']					= Null;
 		// $this->inputs['user_id']			= 1;
 		// $this->inputs['ref_number']			= 'B00124';
-		// $this->inputs['refferal_code']		= Null;
+		// $this->inputs['referral_code']		= Null;
 		// $this->inputs['type']				= 'sell';
 		// $this->inputs['status']				= 'waiting';
 		// $this->inputs['transacted_at']		= date('Y-m-d H:i:s', strtotime('now'));
@@ -133,16 +134,17 @@ class transactionController extends baseController
 
 		$data->fill([
 			'id'							=> $this->inputs['id'],
-			'user_id'						=> $this->inputs['user_id'],
+			'user_id'						=> (int)$this->inputs['user_id'],
+			'supplier_id'					=> (int)$this->inputs['supplier_id'],
 			'ref_number'					=> $this->inputs['ref_number'],
-			'refferal_code'					=> $this->inputs['refferal_code'],
+			'referral_code'					=> $this->inputs['referral_code'],
 			'status'						=> $this->inputs['status'],
 			'type'							=> $this->inputs['type'],
 			'transacted_at'					=> $this->inputs['transacted_at'],
-			'unique_number'					=> $this->inputs['unique_number'],
-			'shipping_cost'					=> $this->inputs['shipping_cost'],
-			'referral_discount'				=> $this->inputs['referral_discount'],
-			'amount'						=> $this->inputs['amount'],
+			'unique_number'					=> (int)$this->inputs['unique_number'],
+			'shipping_cost'					=> (float)$this->inputs['shipping_cost'],
+			'referral_discount'				=> (float)$this->inputs['referral_discount'],
+			'amount'						=> (float)$this->inputs['amount'],
 		]);
 
 		DB::beginTransaction();
@@ -173,6 +175,19 @@ class transactionController extends baseController
 					DB::rollback();
 					dd('error');
 				}	
+			}
+
+			if($this->inputs['status'] == 'draft' && $this->inputs['type'] == 'sell')
+			{
+				$data->fill([
+					'status'				=> 'waiting',
+				]);
+
+				if (!$data->save())
+				{
+					DB::rollback();
+					dd('error');
+				}
 			}
 
 			DB::commit();

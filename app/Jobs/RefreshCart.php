@@ -48,6 +48,6 @@ class RefreshCart extends Job implements SelfHandling
             }
         }
 
-         return new Jsend('success', (array)$this->transaction);
+        return new Jsend('success', (array)$this->transaction);
     }
 }

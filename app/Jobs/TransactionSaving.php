@@ -5,28 +5,29 @@ namespace App\Jobs;
 use App\Jobs\Job;
 use App\Libraries\JSend;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Contracts\Bus\SelfHandling;
+
+use App\Models\Transaction;
 
 class TransactionSaving extends Job implements SelfHandling
 {
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    use DispatchesJobs, ValidatesRequests;
+
+    public function __construct(transaction $transaction)
     {
-        //
+        $this->transaction          = $transaction;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
     public function handle()
     {
-        $result                     = new Jsend('success', ['message' => 'Success']);
+        //cek 
+
+        $result                     = $this->dispatch(new FillTransactionDate($this->transaction));
+
+        $result                     = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
+
         return $result;
     }
 }
