@@ -6,8 +6,8 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">	
-					<label for="user">User ID</label>
-					{!! Form::text('user', null, [
+					<label for="user_id">User ID</label>
+					{!! Form::text('user_id', null, [
 						'class'         => 'form-control', 
 						'required'      => 'required', 
 						'tabindex'      => '1', 
@@ -30,8 +30,8 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">	
-					<label for="refferal_code">Refferal Code</label>
-					{!! Form::text('refferal_code', null, [
+					<label for="referral_code">Refferal Code</label>
+					{!! Form::text('referral_code', null, [
 						'class'         => 'form-control', 
 						'tabindex'      => '1', 
 						'placeholder'   => ''
@@ -97,7 +97,31 @@
 					]) !!}
 				</div>
 			</div>
-		</div>		
+		</div>	
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">	
+					<label>Produk</label>
+					{!! Form::text('products[1][id]', null, [
+						'class'         => 'form-control', 
+						'required'      => 'required', 
+						'tabindex'      => '1', 
+						'placeholder'   => ''
+					]) !!}
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">	
+					<label>QTY</label>
+					{!! Form::text('products[1][quantity]', null, [
+						'class'         => 'form-control', 
+						'required'      => 'required', 
+						'tabindex'      => '1', 
+						'placeholder'   => ''
+					]) !!}
+				</div>
+			</div>
+		</div>			
 		<div class="row">
 			<div class="col-md-12">
 				<div class="clearfix">&nbsp;</div>

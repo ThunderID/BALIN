@@ -39,7 +39,7 @@ class CalculateTransactionAmount extends Job implements SelfHandling
         ]);
 
 
-        if($this->transaction->save())
+        if($this->transaction->update())
         {
             $result                         = new Jsend('success', (array)$this->transaction);
         }
