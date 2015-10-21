@@ -83,7 +83,7 @@ class transactionController extends baseController
 
 	public function sell()
 	{		
-		$this->inputs['id']					= 151;
+		$this->inputs['id']					= Input::get('id');
 		$this->inputs['user_id']			= Input::get('user_id');
 		$this->inputs['supplier_id']		= 0;
 		$this->inputs['ref_number']			= Input::get('ref_number');
