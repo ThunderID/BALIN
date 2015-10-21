@@ -447,9 +447,6 @@ body.fixed-sidebar.mini-navbar .navbar-default .nav li a span {
   margin: 0;
   padding: 7px 20px;
 }
-.navbar .dropdown-menu {
-  margin-top: 0px;
-}
 .top-navigation .navbar-brand {
   background: #1ab394;
   color: #fff;
@@ -1669,7 +1666,7 @@ table.dataTable thead .sorting:after {
   background-image: none;
   border: 1px solid #e5e6e7;
   border-radius: 1px;
-  color: inherit;
+  /*color: inherit;*/
   display: block;
   padding: 6px 12px;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
@@ -3467,6 +3464,9 @@ table.table-mail tr td {
 .m-t-md {
   margin-top: 20px;
 }
+.m-t-mds {
+  margin-top: 25px;
+}
 .m-t-lg {
   margin-top: 30px;
 }
@@ -3667,7 +3667,7 @@ body.modal-open {
 .loginscreen.middle-box {
   width: 300px;
   margin-left: -150px;
-  margin-top: -330px;
+  margin-top: -260px;
   color: #fff;
 }
 .loginscreen a {
@@ -5030,4 +5030,14 @@ body.skin-3 {
   .welcome-message {
     display: none;
   }
+}
+
+.nav.navbar-top-links .userme {
+  font-size: 10px;
+}
+.nav.navbar-top-links .userme a {
+  color: #999;
+}
+nav.navbar-top-links .userme > ul > li > a {
+  font-size: 10px;
 }

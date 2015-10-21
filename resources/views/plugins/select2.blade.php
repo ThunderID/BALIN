@@ -14,7 +14,7 @@
 			data: function (term, path) {
 				return {
 					name: term,
-					path : '{{$data['path']}}'
+					path : '{{ isset($data['path']) ? $data['path'] : '' }}'
 				};
 			},
 		   results: function (data) {

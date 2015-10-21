@@ -9,11 +9,11 @@
 	</div>
 	<div class="container-fluid">
 		<ul class="nav navbar-top-links navbar-right">
-			<li class="dropdown">
+			{{-- <li class="dropdown">
 				<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
 					<i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
-				</a>
-				<ul class="dropdown-menu dropdown-alerts">
+				</a> --}}
+				{{-- <ul class="dropdown-menu dropdown-alerts">
 					<li>
 						<a href="mailbox.html">
 							<div>
@@ -49,12 +49,17 @@
 							</a>
 						</div>
 					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="login.html">
-					<i class="fa fa-sign-out"></i> Log out
+				</ul> --}}
+			{{-- </li> --}}
+			<li class="dropdown userme">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+					<i class="fa fa-user"></i> {{ Auth::User()->name }}
+					<span class="caret"></span>
 				</a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Ganti Password</a></li>
+					<li><a href="{{ route('backend.dologout') }}">Log Out</a></li>
+				</ul>
 			</li>
 		</ul>
 	</nav>
