@@ -1,8 +1,93 @@
+
 @extends('template.backend.layout') 
-
-
 @section('content')
-	{!! Form::open(array('route' => 'backend.test.testcontroller.post')) !!}
+	<div class="row">
+		<div class="col-md-12">
+			{!! Form::open(['route' => 'backend.test.testcontroller.post', 'class' =>'wizard-big', 'id' => 'create-transaction']) !!}
+				<h1>Customer</h1>
+				<fieldset>
+					<h2>Informasi Customer</h2>
+					<div class="clearfix">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>Customer</label>
+								{!! Form::text('product', null, ['class' => 'form-control']) !!}
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<h1>Produk</h1>
+				<fieldset>
+					<h2>Informasi Produk</h2>
+					<div class="clearfix">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Produk</label>
+								{!! Form::text('product', null, ['class' => 'form-control']) !!}
+							</div>
+						</div>
+						<div class="col-md-1">
+							<div class="form-group">
+								<label>Qty</label>
+								{!! Form::input('text', 'qty', null, ['class' => 'form-control']) !!}
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label for="harga">Harga</label>
+								{!! Form::input('text', 'price', null, ['class' => 'form-control']) !!}
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label for="diskon">Diskon</label>
+								{!! Form::input('text', 'discount', null, ['class' => 'form-control']) !!}
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label for="harga">Jumlah Harga</label>
+								{!! Form::input('text', 'price', null, ['class' => 'form-control']) !!}
+							</div>
+						</div>
+						<div class="col-md-1">
+							<div class="form-group">
+								<a href="#" class="btn btn-sm btn-default m-t-mds">
+									<i class="fa fa-plus"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-2 col-md-offset-9">
+							<div class="form-group">
+								<label for="harga">Total Harga</label>
+								{!! Form::input('number', 'price', null, ['class' => 'form-control']) !!}
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<h1>Pembayaran</h1>
+				<fieldset>
+					<h2>Informasi Pembayaran</h2>
+					<div class="clearfix">&nbsp;</div>
+				</fieldset>
+				<h1>Pengiriman</h1>
+				<fieldset>
+					<h2>Informasi Pengiriman</h2>
+					<div class="clearfix">&nbsp;</div>
+				</fieldset>
+				<h1>Transaksi Detail</h1>
+				<fieldset>
+					<h2>Informasi Transaksi Detail</h2>
+					<div class="clearfix">&nbsp;</div>
+				</fieldset>
+			{!! Form::close() !!}
+		</div>
+	</div>
+	{{-- 
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">	
@@ -97,39 +182,23 @@
 					]) !!}
 				</div>
 			</div>
-		</div>	
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">	
-					<label>Produk</label>
-					{!! Form::text('products[1][id]', null, [
-						'class'         => 'form-control', 
-						'required'      => 'required', 
-						'tabindex'      => '1', 
-						'placeholder'   => ''
-					]) !!}
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">	
-					<label>QTY</label>
-					{!! Form::text('products[1][quantity]', null, [
-						'class'         => 'form-control', 
-						'required'      => 'required', 
-						'tabindex'      => '1', 
-						'placeholder'   => ''
-					]) !!}
-				</div>
-			</div>
-		</div>			
-		<div class="row">
+		</div>		 --}}
+		{{-- <div class="row">
 			<div class="col-md-12">
 				<div class="clearfix">&nbsp;</div>
 				<div class="form-group text-right">
-					<!-- <a href="{{ URL::route('backend.data.product.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a> -->
+					<a href="{{ URL::route('backend.data.transaction.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
 					<button type="submit" class="btn btn-md btn-success" tabindex="7">Simpan</button>
 				</div>        
 			</div>        
-		</div> 		
-	{!! Form::close() !!}
+		</div> 		 --}}
+	{{-- {!! Form::close() !!} --}}
 @stop   
+
+@section('script')
+	var preload_data = [];
+@stop
+
+@section('script_plugin')
+	@include('plugins.step')
+@stop
