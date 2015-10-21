@@ -50,6 +50,7 @@ class TrackOrderTransaction extends Job implements SelfHandling
 
         $errors                     = new MessageBag;
 
+        var_dump($this->transaction->status);
         switch ($this->transaction->status) 
         {
             case 'draft':

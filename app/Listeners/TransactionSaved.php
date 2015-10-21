@@ -16,22 +16,11 @@ class TransactionSaved
 {
     use DispatchesJobs, ValidatesRequests;
     
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
     public function __construct()
     {
         //
     }
 
-    /**
-     * Handle the event.
-     *
-     * @param  Session  $event
-     * @return void
-     */
     public function handle(Transaction $transaction)
     {
         $result					= $this->dispatch(new SwitchTransaction($transaction));
