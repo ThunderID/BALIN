@@ -18,8 +18,6 @@ class Product extends Eloquent
 
 	use \App\Models\Traits\hasMany\HasStocksTrait;
 	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
-	use \App\Models\Traits\hasMany\HasProductAttributesTrait;
-	use \App\Models\Traits\hasMany\HasProductImagesTrait;
 	use \App\Models\Traits\hasMany\HasPricesTrait;
 	use \App\Models\Traits\hasMany\HasDiscountsTrait;
 	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;

@@ -22,9 +22,9 @@ class ProductUpdating extends Job implements SelfHandling
     {
         if($this->product->transactiondetails->count())
         {
-            return new jsend('error', (array)$this->product, ['message' => 'Produk memiliki transaksi'])
+            return new JSend('error', (array)$this->product, ['message' => 'Produk memiliki transaksi']);
         }
 
-        return new jsend('success', (array)$this->product)
+        return new JSend('success', (array)$this->product);
     }
 }
