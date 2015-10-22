@@ -34,10 +34,10 @@
 				</ul>
 			</li>
 			<li class="@if($nav_active=='settings') active @endif">
-				<a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">Settings</span></a>
+				<a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">Pengaturan</span></a>
 				<ul class="nav nav-second-level">
 					<li class="@if($subnav_active=='category') active @endif">
-						<a href="{{ route('backend.settings.category.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Categories</span></a>
+						<a href="{{ route('backend.settings.category.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Kategori</span></a>
 					</li>
 					<li>
 						<a href=""><i class="fa fa-credit-card"></i> <span class="nav-label">Payment Methods</span></a>

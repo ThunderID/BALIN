@@ -20,18 +20,18 @@
 // ------------------------------------------------------------------------------------
 Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 {
-	Route::post('/login',											['uses' => 'AuthController@doLogin', 	'as' => 'backend.dologin']);
+	Route::post('/login',												['uses' => 'AuthController@doLogin', 	'as' => 'backend.dologin']);
 });
 
 Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'auth'], function()
 {
-	Route::get('/logout',											['uses' => 'AuthController@doLogout', 	'as' => 'backend.dologout']);
+	Route::get('/logout',												['uses' => 'AuthController@doLogout', 	'as' => 'backend.dologout']);
 
 	// ------------------------------------------------------------------------------------
 	// DASHBOARD
 	// ------------------------------------------------------------------------------------
 
-	Route::get('/', 												['uses' => 'HomeController@index', 		'as' => 'backend.home']);
+	Route::get('/', 													['uses' => 'HomeController@index', 		'as' => 'backend.home']);
 
 	// ------------------------------------------------------------------------------------
 	// DATA
@@ -39,49 +39,61 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 	Route::group(['namespace' => 'Data\\'], function()
 	{
 		// ------------------------------------------------------------------------------------
-		// PRODUCT
+		// PRODUCT (pending, show, delete)
 		// ------------------------------------------------------------------------------------
 
-		Route::resource('products',  'ProductController',			['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
+		Route::resource('products',  	'ProductController',			['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
 
-		Route::any('ajax/products', 								['uses' => 'ProductController@getProductBySKU', 'as' => 'backend.product.ajax.getProduct']);
+		Route::any('ajax/products', 									['uses' => 'ProductController@getProductBySKU', 'as' => 'backend.product.ajax.getProduct']);
 
 		// ------------------------------------------------------------------------------------
-		// SUPPLIER
+		// PRICE (pending crud)
+		// ------------------------------------------------------------------------------------
+	
+		Route::resource('prices',  		'PriceController',				['names' => ['index' => 'backend.price.index', 'create' => 'backend.price.create', 'store' => 'backend.price.store', 'show' => 'backend.price.show', 'edit' => 'backend.price.edit', 'update' => 'backend.price.update', 'destroy' => 'backend.price.destroy']]);
+
+		// ------------------------------------------------------------------------------------
+		// SUPPLIER (pending, show)
 		// ------------------------------------------------------------------------------------
 
-		Route::resource('suppliers',  'SupplierController',			['names' => ['index' => 'backend.data.supplier.index', 'create' => 'backend.data.supplier.create', 'store' => 'backend.data.supplier.store', 'show' => 'backend.data.supplier.show', 'edit' => 'backend.data.supplier.edit', 'update' => 'backend.data.supplier.update', 'destroy' => 'backend.data.supplier.destroy']]);
+		Route::resource('suppliers',  	'SupplierController',			['names' => ['index' => 'backend.data.supplier.index', 'create' => 'backend.data.supplier.create', 'store' => 'backend.data.supplier.store', 'show' => 'backend.data.supplier.show', 'edit' => 'backend.data.supplier.edit', 'update' => 'backend.data.supplier.update', 'destroy' => 'backend.data.supplier.destroy']]);
+
+		// ------------------------------------------------------------------------------------
+		// CUSTOMER (pending, crud)
+		// ------------------------------------------------------------------------------------
+
+		Route::resource('customers',  	'CustomerController',			['names' => ['index' => 'backend.data.customer.index', 'create' => 'backend.data.customer.create', 'store' => 'backend.data.customer.store', 'show' => 'backend.data.customer.show', 'edit' => 'backend.data.customer.edit', 'update' => 'backend.data.customer.update', 'destroy' => 'backend.data.customer.destroy']]);
+
+		// ------------------------------------------------------------------------------------
+		// TRANSACTION (pending, crud)
+		// ------------------------------------------------------------------------------------
+
+		Route::resource('transactions',	'TransactionController',		['names' => ['index' => 'backend.data.transaction.index', 'create' => 'backend.data.transaction.create', 'store' => 'backend.data.transaction.store', 'show' => 'backend.data.transaction.show', 'edit' => 'backend.data.transaction.edit', 'update' => 'backend.data.transaction.update', 'destroy' => 'backend.data.transaction.destroy']]);
 	});
 
-	/*--------------DATA CUSTOMER---------------*/
-	Route::resource('customer',  'Data\\customerController',		['names' => ['index' => 'backend.data.customer.index', 'create' => 'backend.data.customer.create', 'store' => 'backend.data.customer.store', 'show' => 'backend.data.customer.show', 'edit' => 'backend.data.customer.edit', 'update' => 'backend.data.customer.update', 'destroy' => 'backend.data.customer.destroy']]);
+	// ------------------------------------------------------------------------------------
+	// SETTING
+	// ------------------------------------------------------------------------------------
+	Route::group(['namespace' => 'Setting\\'], function()
+	{
+		// ------------------------------------------------------------------------------------
+		// CATEGORY
+		// ------------------------------------------------------------------------------------
+		
+		Route::resource('categories', 	'CategoryController', 			['names' => ['index' => 'backend.settings.category.index', 'create' => 'backend.settings.category.create', 'store' => 'backend.settings.category.store', 'show' => 'backend.settings.category.show', 'edit' => 'backend.settings.category.edit', 'update' => 'backend.settings.category.update', 'destroy' => 'backend.settings.category.destroy']]);
+		
+		/*--------------SETTING STORE---------------*/
+		Route::resource('store',  'Setting\\storeController',			['names' => ['index' => 'backend.settings.store.index', 'create' => 'backend.settings.store.create', 'store' => 'backend.settings.store.store', 'show' => 'backend.settings.store.show', 'edit' => 'backend.settings.store.edit', 'update' => 'backend.settings.store.update', 'destroy' => 'backend.settings.store.destroy']]);
 
-	/*--------------DATA SUPPLIER---------------*/
+		/*--------------SETTING COURIER---------------*/
+		Route::resource('courier',  'Setting\\courierController',		['names' => ['index' => 'backend.settings.courier.index', 'create' => 'backend.settings.courier.create', 'store' => 'backend.settings.courier.store', 'show' => 'backend.settings.courier.show', 'edit' => 'backend.settings.courier.edit', 'update' => 'backend.settings.courier.update', 'destroy' => 'backend.settings.courier.destroy']]);
 
-	/*--------------DATA TRANSACTION---------------*/
-	Route::resource('transaction',  'Data\\transactionController',	['names' => ['index' => 'backend.data.transaction.index', 'create' => 'backend.data.transaction.create', 'store' => 'backend.data.transaction.store', 'show' => 'backend.data.transaction.show', 'edit' => 'backend.data.transaction.edit', 'update' => 'backend.data.transaction.update', 'destroy' => 'backend.data.transaction.destroy']]);
+		/*--------------SETTING CATEGORY--------------*/
 
-	/*--------------PRICE---------------*/
-	Route::resource('price',  'priceController',					['names' => ['index' => 'backend.price.index', 'create' => 'backend.price.create', 'store' => 'backend.price.store', 'show' => 'backend.price.show', 'edit' => 'backend.price.edit', 'update' => 'backend.price.update', 'destroy' => 'backend.price.destroy']]);
-
-	/*--------------DISCOUNT---------------*/
-	Route::resource('discount',  'discountController',				['names' => ['index' => 'backend.discount.index', 'create' => 'backend.discount.create', 'store' => 'backend.discount.store', 'show' => 'backend.discount.show', 'edit' => 'backend.discount.edit', 'update' => 'backend.discount.update', 'destroy' => 'backend.discount.destroy']]);
-
-
-
-	/*--------------SETTING STORE---------------*/
-	Route::resource('store',  'Setting\\storeController',			['names' => ['index' => 'backend.settings.store.index', 'create' => 'backend.settings.store.create', 'store' => 'backend.settings.store.store', 'show' => 'backend.settings.store.show', 'edit' => 'backend.settings.store.edit', 'update' => 'backend.settings.store.update', 'destroy' => 'backend.settings.store.destroy']]);
-
-	/*--------------SETTING COURIER---------------*/
-	Route::resource('courier',  'Setting\\courierController',		['names' => ['index' => 'backend.settings.courier.index', 'create' => 'backend.settings.courier.create', 'store' => 'backend.settings.courier.store', 'show' => 'backend.settings.courier.show', 'edit' => 'backend.settings.courier.edit', 'update' => 'backend.settings.courier.update', 'destroy' => 'backend.settings.courier.destroy']]);
-
-	/*--------------SETTING CATEGORY--------------*/
-	Route::resource('category', 'Setting\\categoryController', 		['names' => ['index' => 'backend.settings.category.index', 'create' => 'backend.settings.category.create', 'store' => 'backend.settings.category.store', 'show' => 'backend.settings.category.show', 'edit' => 'backend.settings.category.edit', 'update' => 'backend.settings.category.update', 'destroy' => 'backend.settings.category.destroy']]);
-
-	/*-----------SETTING AJAX-[CATEGORY]----------*/
-	Route::any('ajax/get-category',									['uses' => 'Setting\\categoryController@getCategoryByName', 'as' => 'backend.category.ajax.getByName']);
-	Route::any('ajax/get-category-parent',							['uses' => 'Setting\\categoryController@getCategoryParentByName', 'as' => 'backend.category.ajax.getParent']);
-
+		/*-----------SETTING AJAX-[CATEGORY]----------*/
+		Route::any('ajax/get-category',									['uses' => 'Setting\\categoryController@getCategoryByName', 'as' => 'backend.category.ajax.getByName']);
+		Route::any('ajax/get-category-parent',							['uses' => 'Setting\\categoryController@getCategoryParentByName', 'as' => 'backend.category.ajax.getParent']);
+	});
 });
 
 /*Route::get('cms/category', ['uses' => 'Backend\\categoryController@index', 'as' => 'backend.category.index']);
