@@ -18,6 +18,7 @@ class Courier extends Eloquent
 
 	use \App\Models\Traits\hasMany\HasShipmentsTrait;
 	use \App\Models\Traits\hasMany\HasShippingCostsTrait;
+	use \App\Models\Traits\MorphMany\HasImagesTrait;
 
 	/**
 	 * The database table used by the model.
