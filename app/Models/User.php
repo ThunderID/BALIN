@@ -24,7 +24,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
 	use \App\Models\Traits\hasMany\HasTransactionsTrait;
 	use \App\Models\Traits\hasMany\HasPointLogsTrait;
-	use \App\Models\Traits\MorphMany\HasImagesTrait;
+	use \App\Models\Traits\morphMany\HasImagesTrait;
 
 	/**
 	 * The database table used by the model.

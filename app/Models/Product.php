@@ -25,7 +25,7 @@ class Product extends Eloquent
 	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
 	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
 	use \App\Models\Traits\belongsToMany\HasCategoriesTrait;
-	use \App\Models\Traits\MorphMany\HasImagesTrait;
+	use \App\Models\Traits\morphMany\HasImagesTrait;
 
 	/**
 	 * The database table used by the model.

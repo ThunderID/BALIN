@@ -1,4 +1,4 @@
-<?php namespace App\Models\Traits\MorphTo;
+<?php namespace App\Models\Traits\morphTo;
 
 trait HasImageableTrait 
 {
