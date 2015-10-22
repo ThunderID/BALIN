@@ -7,10 +7,11 @@
 @extends('template.backend.layout') 
 
 @section('content')
-	{!! Form::open(array('route' => 'backend.data.product.store')) !!}
-		{!! Form::input('hidden', 'id', $data['id'], [
-					'class' => 'mod_id'
-		]) !!}
+	@if(!is_null($id))
+		{!! Form::open(['url' => route('backend.data.product.update', $id), 'method' => 'PATCH']) !!}
+	@else
+		{!! Form::open(['url' => route('backend.data.product.store'), 'method' => 'POST']) !!}
+	@endif
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
@@ -79,89 +80,6 @@
 			</div> 
 		</div>
 		<div class="clearfix">&nbsp;</div>
-		<!-- <div class="row">
-			<div class="col-md-12">
-				<h4 class="sub-header">
-					Attribut Produk
-				</h4>
-			</div>
-		</div>
-		<div class="hidden">
-			<div id="attributeTemplate">
-				<div class="row">
-					<div class="col-md-6 col-sm-6 col-xs-12">
-						<div class="form-group">
-							<label for="attribute[]">Attribut</label>
-							{!! Form::text('attribute[]', null, [
-										'class'         => 'form-control', 
-										'tabindex'      => '4', 
-										'placeholder'   => 'Masukkan nama produk'
-							]) !!}
-						</div>                 
-					</div>
-					<div class="col-md-5 col-sm-5 col-xs-12">
-						<div class="form-group">
-							<label for="value[]">Nilai Attribut</label>
-							{!! Form::text('value[]', null, [
-										'class'         => 'form-control', 
-										'tabindex'      => '4', 
-										'placeholder'   => 'Masukkan nama produk'
-							]) !!}
-						</div>                 
-					</div> 
-					<div class="col-md-1 col-sm-1 col-xs-12" style="padding-top:24px;">
-						<button class="delete btn btn-default">Delete</button>                    
-					</div>
-					<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-						<div class="clearfix">&nbsp;</div>
-						<div class="clearfix">&nbsp;</div>
-					</div>           
-				</div>
-			</div>
-		</div> -->
-
-		<!-- <div id="items">
-			@if(count($data['_attributes']) > 0 )
-				@for ($i = 0; $i < count($data['_attributes']); $i++)
-					<div class="row">
-						<div class="col-md-5 col-sm-5 col-xs-12">
-							<div class="form-group">
-								<label for="attribute[]">Attribut</label>
-								{!! Form::text('attribute[]', $data['_attributes'][$i]['attribute'], [
-											'class'         => 'form-control', 
-											'tabindex'      => '4', 
-											'placeholder'   => 'Masukkan nama produk'
-										]) 
-								!!}
-							</div>                 
-						</div>
-						<div class="col-md-5 col-sm-5 col-xs-12">
-							<div class="form-group">
-								<label for="value[]">Nilai Attribut</label>
-								{!! Form::text('value[]', $data['_attributes'][$i]['value'], [
-											'class'         => 'form-control', 
-											'tabindex'      => '4', 
-											'placeholder'   => 'Masukkan nama produk'
-										]) 
-								!!}
-							</div>                 
-						</div> 
-						<div class="col-md-2 col-sm-2 col-xs-12" style="padding-top:24px;">
-							<button class="delete btn btn-default">Delete</button>                    
-						</div>  
-						<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-							<div class="clearfix">&nbsp;</div>
-							<div class="clearfix">&nbsp;</div>
-						</div>                                   
-					</div>
-				@endfor
-			@endif
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<a href="javascript:;" id="add" class="btn btn-default">Tambah Attribute</a>
-			</div>
-		</div> -->
 		<div class="row">
 			<div class="col-md-12">
 				<div class="clearfix">&nbsp;</div>

@@ -11,77 +11,89 @@
 |
 */
 
-// Route::get('/', function () {
-//     // return view('pages/Frontend/product');
-//     // return view('template/Frontend/index');
-//     // return view('template/Frontend/layout');
+// ------------------------------------------------------------------------------------
+// BACKEND
+// ------------------------------------------------------------------------------------
 
-//     //'shippings' => nama function di relations
-//  	// $tes = \Models\Courier::with(['Shippings'])->get();
-//   //   print_r($tes);
-// });
-
-// frontend
-Route::get('/', ['as' => 'frontend.index', function(){return Redirect::route('frontend.home.index');}]);
-Route::get('home', ['uses' => 'Frontend\\homeController@index', 'as' => 'frontend.home.index']);
-Route::get('products', ['uses' => 'Frontend\\productController@index', 'as' => 'frontend.product.index']);
-Route::get('join', ['uses' => 'Frontend\\joinController@index', 'as' => 'frontend.join.index']);
-Route::get('whyJoin', ['uses' => 'Frontend\\whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
-Route::get('cart', ['uses' => 'Frontend\\cartController@index', 'as' => 'frontend.cart.index']);
-Route::get('profile', ['uses' => 'Frontend\\profileController@index', 'as' => 'frontend.profile.index']);
-Route::get('profile/membershipDetail', ['uses' => 'Frontend\\profileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
-Route::get('profile/changePassword', ['uses' => 'Frontend\\profileController@changePassword', 'as' => 'frontend.profile.changePassword']);
-Route::get('profile/changeProfile', ['uses' => 'Frontend\\profileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
-
-Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error']);
-
-/*========================BACKEND-CMS=============================*/
+// ------------------------------------------------------------------------------------
+// LOGIN PAGE
+// ------------------------------------------------------------------------------------
 Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 {
-	/*--------------LOGIN--------------*/
-	Route::get('/', 												['uses' => 'authController@index', 'as' => 'backend.login']);
-	Route::post('/login',											['uses' => 'authController@doLogin', 'as' => 'backend.dologin']);
-	Route::get('/logout',											['uses' => 'authController@doLogout', 'as' => 'backend.dologout']);
+	Route::post('/login',												['uses' => 'AuthController@doLogin', 	'as' => 'backend.dologin']);
+});
 
-	/*--------------HOME--------------*/
-	Route::get('/dashboard', 										['uses' => 'homeController@index', 'as' => 'backend.home']);
+Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'auth'], function()
+{
+	Route::get('/logout',												['uses' => 'AuthController@doLogout', 	'as' => 'backend.dologout']);
 
-	/*--------------DATA PRODUCT---------------*/
-	Route::resource('product',  'Data\\productController',			['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
+	// ------------------------------------------------------------------------------------
+	// DASHBOARD
+	// ------------------------------------------------------------------------------------
 
-	/*-----------DATA AJAX-[PRODUCT]----------*/
-	Route::any('ajax/get-product', 									['uses' => 'Data\\productController@getProductBySKU', 'as' => 'backend.product.ajax.getProduct']);
+	Route::get('/', 													['uses' => 'HomeController@index', 		'as' => 'backend.home']);
 
-	/*--------------DATA CUSTOMER---------------*/
-	Route::resource('customer',  'Data\\customerController',		['names' => ['index' => 'backend.data.customer.index', 'create' => 'backend.data.customer.create', 'store' => 'backend.data.customer.store', 'show' => 'backend.data.customer.show', 'edit' => 'backend.data.customer.edit', 'update' => 'backend.data.customer.update', 'destroy' => 'backend.data.customer.destroy']]);
+	// ------------------------------------------------------------------------------------
+	// DATA
+	// ------------------------------------------------------------------------------------
+	Route::group(['namespace' => 'Data\\'], function()
+	{
+		// ------------------------------------------------------------------------------------
+		// PRODUCT (pending, show, delete)
+		// ------------------------------------------------------------------------------------
 
-	/*--------------DATA SUPPLIER---------------*/
-	Route::resource('supplier',  'Data\\supplierController',		['names' => ['index' => 'backend.data.supplier.index', 'create' => 'backend.data.supplier.create', 'store' => 'backend.data.supplier.store', 'show' => 'backend.data.supplier.show', 'edit' => 'backend.data.supplier.edit', 'update' => 'backend.data.supplier.update', 'destroy' => 'backend.data.supplier.destroy']]);
+		Route::resource('products',  	'ProductController',			['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
 
-	/*--------------DATA TRANSACTION---------------*/
-	Route::resource('transaction',  'Data\\transactionController',	['names' => ['index' => 'backend.data.transaction.index', 'create' => 'backend.data.transaction.create', 'store' => 'backend.data.transaction.store', 'show' => 'backend.data.transaction.show', 'edit' => 'backend.data.transaction.edit', 'update' => 'backend.data.transaction.update', 'destroy' => 'backend.data.transaction.destroy']]);
+		Route::any('ajax/products', 									['uses' => 'ProductController@getProductBySKU', 'as' => 'backend.product.ajax.getProduct']);
 
-	/*--------------PRICE---------------*/
-	Route::resource('price',  'priceController',					['names' => ['index' => 'backend.price.index', 'create' => 'backend.price.create', 'store' => 'backend.price.store', 'show' => 'backend.price.show', 'edit' => 'backend.price.edit', 'update' => 'backend.price.update', 'destroy' => 'backend.price.destroy']]);
+		// ------------------------------------------------------------------------------------
+		// PRICE (pending crud)
+		// ------------------------------------------------------------------------------------
+	
+		Route::resource('prices',  		'PriceController',				['names' => ['index' => 'backend.price.index', 'create' => 'backend.price.create', 'store' => 'backend.price.store', 'show' => 'backend.price.show', 'edit' => 'backend.price.edit', 'update' => 'backend.price.update', 'destroy' => 'backend.price.destroy']]);
 
-	/*--------------DISCOUNT---------------*/
-	Route::resource('discount',  'discountController',				['names' => ['index' => 'backend.discount.index', 'create' => 'backend.discount.create', 'store' => 'backend.discount.store', 'show' => 'backend.discount.show', 'edit' => 'backend.discount.edit', 'update' => 'backend.discount.update', 'destroy' => 'backend.discount.destroy']]);
+		// ------------------------------------------------------------------------------------
+		// SUPPLIER (pending, show)
+		// ------------------------------------------------------------------------------------
 
+		Route::resource('suppliers',  	'SupplierController',			['names' => ['index' => 'backend.data.supplier.index', 'create' => 'backend.data.supplier.create', 'store' => 'backend.data.supplier.store', 'show' => 'backend.data.supplier.show', 'edit' => 'backend.data.supplier.edit', 'update' => 'backend.data.supplier.update', 'destroy' => 'backend.data.supplier.destroy']]);
 
+		// ------------------------------------------------------------------------------------
+		// CUSTOMER (pending, crud)
+		// ------------------------------------------------------------------------------------
 
-	/*--------------SETTING STORE---------------*/
-	Route::resource('store',  'Setting\\storeController',			['names' => ['index' => 'backend.settings.store.index', 'create' => 'backend.settings.store.create', 'store' => 'backend.settings.store.store', 'show' => 'backend.settings.store.show', 'edit' => 'backend.settings.store.edit', 'update' => 'backend.settings.store.update', 'destroy' => 'backend.settings.store.destroy']]);
+		Route::resource('customers',  	'CustomerController',			['names' => ['index' => 'backend.data.customer.index', 'create' => 'backend.data.customer.create', 'store' => 'backend.data.customer.store', 'show' => 'backend.data.customer.show', 'edit' => 'backend.data.customer.edit', 'update' => 'backend.data.customer.update', 'destroy' => 'backend.data.customer.destroy']]);
 
-	/*--------------SETTING COURIER---------------*/
-	Route::resource('courier',  'Setting\\courierController',		['names' => ['index' => 'backend.settings.courier.index', 'create' => 'backend.settings.courier.create', 'store' => 'backend.settings.courier.store', 'show' => 'backend.settings.courier.show', 'edit' => 'backend.settings.courier.edit', 'update' => 'backend.settings.courier.update', 'destroy' => 'backend.settings.courier.destroy']]);
+		// ------------------------------------------------------------------------------------
+		// TRANSACTION (pending, crud)
+		// ------------------------------------------------------------------------------------
 
-	/*--------------SETTING CATEGORY--------------*/
-	Route::resource('category', 'Setting\\categoryController', 		['names' => ['index' => 'backend.settings.category.index', 'create' => 'backend.settings.category.create', 'store' => 'backend.settings.category.store', 'show' => 'backend.settings.category.show', 'edit' => 'backend.settings.category.edit', 'update' => 'backend.settings.category.update', 'destroy' => 'backend.settings.category.destroy']]);
+		Route::resource('transactions',	'TransactionController',		['names' => ['index' => 'backend.data.transaction.index', 'create' => 'backend.data.transaction.create', 'store' => 'backend.data.transaction.store', 'show' => 'backend.data.transaction.show', 'edit' => 'backend.data.transaction.edit', 'update' => 'backend.data.transaction.update', 'destroy' => 'backend.data.transaction.destroy']]);
+	});
 
-	/*-----------SETTING AJAX-[CATEGORY]----------*/
-	Route::any('ajax/get-category',									['uses' => 'Setting\\categoryController@getCategoryByName', 'as' => 'backend.category.ajax.getByName']);
-	Route::any('ajax/get-category-parent',							['uses' => 'Setting\\categoryController@getCategoryParentByName', 'as' => 'backend.category.ajax.getParent']);
+	// ------------------------------------------------------------------------------------
+	// SETTING
+	// ------------------------------------------------------------------------------------
+	Route::group(['namespace' => 'Setting\\'], function()
+	{
+		// ------------------------------------------------------------------------------------
+		// CATEGORY
+		// ------------------------------------------------------------------------------------
+		
+		Route::resource('categories', 	'CategoryController', 			['names' => ['index' => 'backend.settings.category.index', 'create' => 'backend.settings.category.create', 'store' => 'backend.settings.category.store', 'show' => 'backend.settings.category.show', 'edit' => 'backend.settings.category.edit', 'update' => 'backend.settings.category.update', 'destroy' => 'backend.settings.category.destroy']]);
+		
+		/*--------------SETTING STORE---------------*/
+		Route::resource('store',  'Setting\\storeController',			['names' => ['index' => 'backend.settings.store.index', 'create' => 'backend.settings.store.create', 'store' => 'backend.settings.store.store', 'show' => 'backend.settings.store.show', 'edit' => 'backend.settings.store.edit', 'update' => 'backend.settings.store.update', 'destroy' => 'backend.settings.store.destroy']]);
 
+		/*--------------SETTING COURIER---------------*/
+		Route::resource('courier',  'Setting\\courierController',		['names' => ['index' => 'backend.settings.courier.index', 'create' => 'backend.settings.courier.create', 'store' => 'backend.settings.courier.store', 'show' => 'backend.settings.courier.show', 'edit' => 'backend.settings.courier.edit', 'update' => 'backend.settings.courier.update', 'destroy' => 'backend.settings.courier.destroy']]);
+
+		/*--------------SETTING CATEGORY--------------*/
+
+		/*-----------SETTING AJAX-[CATEGORY]----------*/
+		Route::any('ajax/get-category',									['uses' => 'Setting\\categoryController@getCategoryByName', 'as' => 'backend.category.ajax.getByName']);
+		Route::any('ajax/get-category-parent',							['uses' => 'Setting\\categoryController@getCategoryParentByName', 'as' => 'backend.category.ajax.getParent']);
+	});
 });
 
 /*Route::get('cms/category', ['uses' => 'Backend\\categoryController@index', 'as' => 'backend.category.index']);
@@ -171,3 +183,29 @@ Route::get('test/generatePassword', function()
 {
 	echo Hash::make('admin');
 });
+
+
+
+// Route::get('/', function () {
+//     // return view('pages/Frontend/product');
+//     // return view('template/Frontend/index');
+//     // return view('template/Frontend/layout');
+
+//     //'shippings' => nama function di relations
+//  	// $tes = \Models\Courier::with(['Shippings'])->get();
+//   //   print_r($tes);
+// });
+
+// frontend
+Route::get('/', ['as' => 'frontend.index', function(){return Redirect::route('frontend.home.index');}]);
+Route::get('home', ['uses' => 'Frontend\\homeController@index', 'as' => 'frontend.home.index']);
+Route::get('products', ['uses' => 'Frontend\\productController@index', 'as' => 'frontend.product.index']);
+Route::get('join', ['uses' => 'Frontend\\joinController@index', 'as' => 'frontend.join.index']);
+Route::get('whyJoin', ['uses' => 'Frontend\\whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
+Route::get('cart', ['uses' => 'Frontend\\cartController@index', 'as' => 'frontend.cart.index']);
+Route::get('profile', ['uses' => 'Frontend\\profileController@index', 'as' => 'frontend.profile.index']);
+Route::get('profile/membershipDetail', ['uses' => 'Frontend\\profileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
+Route::get('profile/changePassword', ['uses' => 'Frontend\\profileController@changePassword', 'as' => 'frontend.profile.changePassword']);
+Route::get('profile/changeProfile', ['uses' => 'Frontend\\profileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
+
+Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error']);

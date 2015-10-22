@@ -79,7 +79,7 @@
 									
 									@include('widgets.pageElements.formModalDelete', [
 											'modal_id'      => 'product_del', 
-											'modal_route'   => 'backend.data.product.destroy'
+											'modal_route'   => route('backend.data.product.destroy')
 									])
 								@endif
 							</tbody>

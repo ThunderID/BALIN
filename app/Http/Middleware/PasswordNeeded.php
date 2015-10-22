@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Auth;
 
-class Authenticate
+class PasswordNeeded
 {
     /**
      * The Guard implementation.
@@ -34,7 +35,7 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->guest()) 
+        if (!is_null($request->input('password'))) 
         {
             if ($request->ajax()) 
             {
@@ -42,10 +43,20 @@ class Authenticate
             } 
             else 
             {
-                return view()->make('pages.backend.login.index');
+                $check                      = Auth::attempt(['email' => Auth::user()->email, 'password' => $request->input('password')]);
+
+                if ($check)
+                {
+                    return $next($request);
+                }
+        
+                return redirect()->back()->withErrors('Password tidak valid')->with('msg-type', 'danger');
             }
         }
+        else
+        {
+            return redirect()->back()->withErrors('Harus mengisi password')->with('msg-type', 'danger');
+        }
 
-        return $next($request);
     }
 }
