@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductAttribute;
-use App\Models\ProductImage;
+use App\Models\Image;
 use App\Models\Price;
 use App\Models\Discount;
 use Faker\Factory;
@@ -30,7 +30,6 @@ class ProductTableSeeder extends Seeder
 			{
 				foreach (range(0, 2) as $key2) 
 				{
-					print_r(1 .' ');
 					$clridx							= rand(0, count($colors)-1);
 					$color 							= $colors[$clridx];
 					$size 							= $sizes[rand(0, count($sizes)-1)];
@@ -64,29 +63,28 @@ class ProductTableSeeder extends Seeder
 
 						$data->categories()->sync($cats);
 
-						//add attributes
-						$attributes 				= ['color', 'brand', 'size'];
-						$values 					= [$color, $brand, $size];
+						// //add attributes
+						// $attributes 				= ['color', 'brand', 'size'];
+						// $values 					= [$color, $brand, $size];
 
-						foreach (range(0, count($attributes)-1) as $index2) 
-						{
-							$attribute 				= new ProductAttribute;
-							$attribute->fill([
-									'product_id'	=> $data->id,
-									'attribute'		=> $attributes[$index2],
-									'value'			=> $values[$index2],
-							]);
-							if (!$attribute->save())
-							{
-								print_r($attribute->getError());
-								exit;
-							}
-						}
+						// foreach (range(0, count($attributes)-1) as $index2) 
+						// {
+						// 	$attribute 				= new ProductAttribute;
+						// 	$attribute->fill([
+						// 			'product_id'	=> $data->id,
+						// 			'attribute'		=> $attributes[$index2],
+						// 			'value'			=> $values[$index2],
+						// 	]);
+						// 	if (!$attribute->save())
+						// 	{
+						// 		print_r($attribute->getError());
+						// 		exit;
+						// 	}
+						// }
 
 						//add images
-						$image 						= new ProductImage;
+						$image 						= new Image;
 						$image->fill([
-								'product_id'		=> $data->id,
 								'thumbnail'			=> 'http://placehold.it/75x100/'.$clridx.'/000000',
 								'image_xs'			=> 'http://placehold.it/150x200/'.$clridx.'/000000',
 								'image_sm'			=> 'http://placehold.it/300x400/'.$clridx.'/000000',
@@ -94,6 +92,14 @@ class ProductTableSeeder extends Seeder
 								'image_l'			=> 'http://placehold.it/600x800/'.$clridx.'/000000',
 								'published_at'		=> date('Y-m-d H:i:s'),
 						]);
+						if (!$image->save())
+						{
+							print_r($image->getError());
+							exit;
+						}
+
+						$image->imageable()->associate($data);
+						
 						if (!$image->save())
 						{
 							print_r($image->getError());
