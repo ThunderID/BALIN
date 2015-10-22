@@ -32,7 +32,7 @@ class transactionController extends baseController
 												];
 
 
-	public function index()
+	public function index($type = null)
 	{		
 		$breadcrumb								= ['Supplier' => 'backend.data.transaction.index'];
 
@@ -45,6 +45,20 @@ class transactionController extends baseController
 			$searchResult						= NUll;
 		}
 
+		$sub_subnav_active	 				= '';
+
+		if (Input::has('type'))
+		{
+			if (Input::get('type')=='sell')
+			{
+				$sub_subnav_active 				= 'sell';
+			}
+			else
+			{
+				$sub_subnav_active 				= 'buy';
+			}
+		}
+
 		$this->layout->page 					= view('pages.backend.data.transaction.index')
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
@@ -52,6 +66,7 @@ class transactionController extends baseController
 													->with('searchResult', $searchResult)
 													->with('nav_active', 'data')
 													->with('subnav_active', 'transaction')
+													->with('sub_subnav_active', $sub_subnav_active)
 													;
 		return $this->layout;	
 
