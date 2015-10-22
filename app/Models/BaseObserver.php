@@ -78,7 +78,7 @@ class BaseObserver
 		if (class_exists($class) && get_parent_class($class) == 'App\Jobs\Job') 
 		{
 	        $result                         = $this->dispatch(new $class($model));
-var_dump($class);
+
 	        if($result->getStatus()=='error')
 	        {
 	        	$model['errors']			= $result->getErrorMessage();

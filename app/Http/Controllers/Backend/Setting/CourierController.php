@@ -142,40 +142,33 @@ class CourierController extends baseController
 		}	
 	}
 
+	public function Update($id)
+	{
+		return $this->store($id);		
+	}
+
 	public function destroy($id)
 	{
-		if (Input::get('password'))
-		{		
-			$data									= Courier::find($id);
+		$data											= Courier::findorfail($id);
 
-			if (count($data) == 0)
-			{
-				App::abort(404);
-			}
+		DB::beginTransaction();
 
-			DB::beginTransaction();
+		if (!$data->delete())
+		{
+			DB::rollback();
 
-			if (!$data->delete())
-			{
-				DB::rollback();
-				return Redirect::back()
-					->withErrors($data->getError())
-					->with('msg-type','danger');
-			}
-			else
-			{
-				DB::commit();
-				return Redirect::route('backend.settings.courier.index')
-					->with('msg', 'Data telah dihapus')
-					->with('msg-type','success');
-			}
+			return Redirect::back()
+				->withErrors($data->getError())
+				->with('msg-type','danger');
 		}
 		else
 		{
-			return Redirect::back()
-					->withErrors('Password tidak valid')
-					->with('msg-type', 'danger');
-		}		
+			DB::commit();
+
+			return Redirect::route('backend.settings.courier.index')
+				->with('msg', 'Kurir sudah dihapus')
+				->with('msg-type','success');
+		}
 	}
 
 }

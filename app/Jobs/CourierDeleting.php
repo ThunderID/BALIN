@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Jobs;
+
+use App\Jobs\Job;
+use App\Libraries\JSend;
+
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Contracts\Bus\SelfHandling;
+
+use App\Models\Courier;
+
+class CourierDeleting extends Job implements SelfHandling
+{
+    use DispatchesJobs, ValidatesRequests;
+
+    public function __construct(Courier $courier)
+    {
+        $this->courier             = $courier;
+    }
+
+    public function handle()
+    {
+        if($this->courier->shipments()->count() || $this->courier->shippingcosts()->count())
+        {
+            $result                 = new Jsend('error', (array)$this->courier, ['Tidak dapat menghapus kurir yang pernah melakukan transaksi atau memiliki daftar biaya pengiriman']);
+        }
+        else
+        {
+            $result                 = new Jsend('success', (array)$this->courier);
+        }
+
+        return $result;
+    }
+}
