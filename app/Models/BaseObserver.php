@@ -41,6 +41,20 @@ class BaseObserver
 		return $this->after($class, $model);
 	}
 	
+	public function Updating($model)
+	{
+		$class 			= $this->before($model);
+
+		return $this->after($class, $model);
+	}
+
+	public function Updated($model)
+	{
+		$class 			= $this->before($model);
+
+		return $this->after($class, $model);
+	}
+
 	public function Deleting($model)
 	{
 		$class 			= $this->before($model);
@@ -64,7 +78,7 @@ class BaseObserver
 		if (class_exists($class) && get_parent_class($class) == 'App\Jobs\Job') 
 		{
 	        $result                         = $this->dispatch(new $class($model));
-
+var_dump($class);
 	        if($result->getStatus()=='error')
 	        {
 	        	$model['errors']			= $result->getErrorMessage();
@@ -75,6 +89,10 @@ class BaseObserver
 	        {
 	        	return true;
 	        }
+	    }
+	    elseif(!class_exists($class))
+	    {
+	    	return true;
 	    }
 	    else
 	    {

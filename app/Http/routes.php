@@ -82,17 +82,16 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		
 		Route::resource('categories', 	'CategoryController', 			['names' => ['index' => 'backend.settings.category.index', 'create' => 'backend.settings.category.create', 'store' => 'backend.settings.category.store', 'show' => 'backend.settings.category.show', 'edit' => 'backend.settings.category.edit', 'update' => 'backend.settings.category.update', 'destroy' => 'backend.settings.category.destroy']]);
 		
+		Route::any('ajax/get-category',									['uses' => 'CategoryController@getCategoryByName', 'as' => 'backend.category.ajax.getByName']);
+
+		Route::any('ajax/get-category-parent',							['uses' => 'CategoryController@getCategoryParentByName', 'as' => 'backend.category.ajax.getParent']);
+
 		/*--------------SETTING STORE---------------*/
 		Route::resource('store',  'Setting\\storeController',			['names' => ['index' => 'backend.settings.store.index', 'create' => 'backend.settings.store.create', 'store' => 'backend.settings.store.store', 'show' => 'backend.settings.store.show', 'edit' => 'backend.settings.store.edit', 'update' => 'backend.settings.store.update', 'destroy' => 'backend.settings.store.destroy']]);
 
 		/*--------------SETTING COURIER---------------*/
 		Route::resource('courier',  'Setting\\courierController',		['names' => ['index' => 'backend.settings.courier.index', 'create' => 'backend.settings.courier.create', 'store' => 'backend.settings.courier.store', 'show' => 'backend.settings.courier.show', 'edit' => 'backend.settings.courier.edit', 'update' => 'backend.settings.courier.update', 'destroy' => 'backend.settings.courier.destroy']]);
 
-		/*--------------SETTING CATEGORY--------------*/
-
-		/*-----------SETTING AJAX-[CATEGORY]----------*/
-		Route::any('ajax/get-category',									['uses' => 'Setting\\categoryController@getCategoryByName', 'as' => 'backend.category.ajax.getByName']);
-		Route::any('ajax/get-category-parent',							['uses' => 'Setting\\categoryController@getCategoryParentByName', 'as' => 'backend.category.ajax.getParent']);
 	});
 });
 

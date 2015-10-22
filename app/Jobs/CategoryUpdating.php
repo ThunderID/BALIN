@@ -6,6 +6,7 @@ use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\category;
+use App\Libraries\JSend;
 
 class CategoryUpdating extends Job implements SelfHandling
 {
@@ -37,12 +38,12 @@ class CategoryUpdating extends Job implements SelfHandling
                 foreach ($childs as $child) 
                 {
                     $child->update(['path' => preg_replace('/'. $this->category ->getOriginal()['path'].',/', $this->category ->path . ',', $child->path,1)]);  
-                    print_r($child->path);
                 }
             }
-            
-            $result                             = new Jsend('success', ['message' => 'Success']);
-            return $result;
         }
+
+        $result                             = new JSend('success', array($this->category));
+
+        return $result;
     }
 }

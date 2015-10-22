@@ -7,6 +7,8 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Category;
 
+use App\Libraries\JSend;
+
 class CategorySaving extends Job implements SelfHandling
 {
     protected $category;
@@ -18,7 +20,8 @@ class CategorySaving extends Job implements SelfHandling
 
     public function handle()
     {
-        $result                             = new Jsend('success', ['message' => 'Success']);
+        $result                             = new JSend('success', ['message' => 'Success']);
+
         return $result;
     }
 }
