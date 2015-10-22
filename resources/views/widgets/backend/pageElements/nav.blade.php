@@ -39,11 +39,11 @@
 					<li class="@if($subnav_active=='category') active @endif">
 						<a href="{{ route('backend.settings.category.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Kategori</span></a>
 					</li>
+					<li class="@if($subnav_active=='courier') active @endif">
+						<a href="{{ route('backend.settings.courier.index') }}"><i class="fa fa-truck"></i> <span class="nav-label">Kurir</span></a>
+					</li>
 					<li>
 						<a href=""><i class="fa fa-credit-card"></i> <span class="nav-label">Payment Methods</span></a>
-					</li>
-					<li class="@if($subnav_active=='courier') active @endif">
-						<a href="{{ route('backend.settings.courier.index') }}"><i class="fa fa-truck"></i> <span class="nav-label">Couriers</span></a>
 					</li>
 					<li class="@if($subnav_active=='store') active @endif">
 						<a href="{{ route('backend.settings.store.index') }}"><i class="fa fa-home"></i> <span class="nav-label">Store</span></a>

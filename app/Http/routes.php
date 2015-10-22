@@ -77,7 +77,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 	Route::group(['namespace' => 'Setting\\'], function()
 	{
 		// ------------------------------------------------------------------------------------
-		// CATEGORY
+		// CATEGORY (CHECK)
 		// ------------------------------------------------------------------------------------
 		
 		Route::resource('categories', 	'CategoryController', 			['names' => ['index' => 'backend.settings.category.index', 'create' => 'backend.settings.category.create', 'store' => 'backend.settings.category.store', 'show' => 'backend.settings.category.show', 'edit' => 'backend.settings.category.edit', 'update' => 'backend.settings.category.update', 'destroy' => 'backend.settings.category.destroy']]);
@@ -86,12 +86,17 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 
 		Route::any('ajax/get-category-parent',							['uses' => 'CategoryController@getCategoryParentByName', 'as' => 'backend.category.ajax.getParent']);
 
-		/*--------------SETTING STORE---------------*/
-		Route::resource('store',  'Setting\\storeController',			['names' => ['index' => 'backend.settings.store.index', 'create' => 'backend.settings.store.create', 'store' => 'backend.settings.store.store', 'show' => 'backend.settings.store.show', 'edit' => 'backend.settings.store.edit', 'update' => 'backend.settings.store.update', 'destroy' => 'backend.settings.store.destroy']]);
+		// ------------------------------------------------------------------------------------
+		// COURIER (Store, save image only if there were upload image. Need to sync with job)
+		// ------------------------------------------------------------------------------------
 
-		/*--------------SETTING COURIER---------------*/
-		Route::resource('courier',  'Setting\\courierController',		['names' => ['index' => 'backend.settings.courier.index', 'create' => 'backend.settings.courier.create', 'store' => 'backend.settings.courier.store', 'show' => 'backend.settings.courier.show', 'edit' => 'backend.settings.courier.edit', 'update' => 'backend.settings.courier.update', 'destroy' => 'backend.settings.courier.destroy']]);
+		Route::resource('couriers',  	'CourierController',			['names' => ['index' => 'backend.settings.courier.index', 'create' => 'backend.settings.courier.create', 'store' => 'backend.settings.courier.store', 'show' => 'backend.settings.courier.show', 'edit' => 'backend.settings.courier.edit', 'update' => 'backend.settings.courier.update', 'destroy' => 'backend.settings.courier.destroy']]);
 
+		// ------------------------------------------------------------------------------------
+		// STORE
+		// ------------------------------------------------------------------------------------
+
+		Route::resource('store',  		'StoreController',				['names' => ['index' => 'backend.settings.store.index', 'create' => 'backend.settings.store.create', 'store' => 'backend.settings.store.store', 'show' => 'backend.settings.store.show', 'edit' => 'backend.settings.store.edit', 'update' => 'backend.settings.store.update', 'destroy' => 'backend.settings.store.destroy']]);
 	});
 });
 
