@@ -6,10 +6,11 @@
 @extends('template.backend.layout') 
 
 @section('content')
-    {!! Form::open(['url' => route('backend.data.supplier.store', $id)]) !!}
-        {!! Form::input('hidden', 'id', $data['id'],  [
-                    'class' => 'mod_id'
-        ]) !!}    
+    @if(!is_null($id))
+        {!! Form::open(['url' => route('backend.data.supplier.update', $id), 'method' => 'PATCH']) !!}
+    @else
+        {!! Form::open(['url' => route('backend.data.supplier.store'), 'method' => 'POST']) !!}
+    @endif
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">

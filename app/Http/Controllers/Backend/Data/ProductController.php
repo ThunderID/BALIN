@@ -10,6 +10,7 @@ class ProductController extends baseController
     /**
      * Instantiate a new UserController instance.
      */
+    
     public function __construct()
     {
         $this->middleware('passwordneeded', ['only' => ['destroy']]);
