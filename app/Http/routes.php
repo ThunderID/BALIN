@@ -11,46 +11,41 @@
 |
 */
 
-// Route::get('/', function () {
-//     // return view('pages/Frontend/product');
-//     // return view('template/Frontend/index');
-//     // return view('template/Frontend/layout');
+// ------------------------------------------------------------------------------------
+// BACKEND
+// ------------------------------------------------------------------------------------
 
-//     //'shippings' => nama function di relations
-//  	// $tes = \Models\Courier::with(['Shippings'])->get();
-//   //   print_r($tes);
-// });
-
-// frontend
-Route::get('/', ['as' => 'frontend.index', function(){return Redirect::route('frontend.home.index');}]);
-Route::get('home', ['uses' => 'Frontend\\homeController@index', 'as' => 'frontend.home.index']);
-Route::get('products', ['uses' => 'Frontend\\productController@index', 'as' => 'frontend.product.index']);
-Route::get('join', ['uses' => 'Frontend\\joinController@index', 'as' => 'frontend.join.index']);
-Route::get('whyJoin', ['uses' => 'Frontend\\whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
-Route::get('cart', ['uses' => 'Frontend\\cartController@index', 'as' => 'frontend.cart.index']);
-Route::get('profile', ['uses' => 'Frontend\\profileController@index', 'as' => 'frontend.profile.index']);
-Route::get('profile/membershipDetail', ['uses' => 'Frontend\\profileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
-Route::get('profile/changePassword', ['uses' => 'Frontend\\profileController@changePassword', 'as' => 'frontend.profile.changePassword']);
-Route::get('profile/changeProfile', ['uses' => 'Frontend\\profileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
-
-Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error']);
-
-/*========================BACKEND-CMS=============================*/
+// ------------------------------------------------------------------------------------
+// LOGIN PAGE
+// ------------------------------------------------------------------------------------
 Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 {
-	/*--------------LOGIN--------------*/
-	Route::get('/', 												['uses' => 'authController@index', 'as' => 'backend.login']);
-	Route::post('/login',											['uses' => 'authController@doLogin', 'as' => 'backend.dologin']);
-	Route::get('/logout',											['uses' => 'authController@doLogout', 'as' => 'backend.dologout']);
+	Route::post('/login',											['uses' => 'AuthController@doLogin', 	'as' => 'backend.dologin']);
+});
 
-	/*--------------HOME--------------*/
-	Route::get('/dashboard', 										['uses' => 'homeController@index', 'as' => 'backend.home']);
+Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'auth'], function()
+{
+	Route::get('/logout',											['uses' => 'AuthController@doLogout', 	'as' => 'backend.dologout']);
 
-	/*--------------DATA PRODUCT---------------*/
-	Route::resource('product',  'Data\\productController',			['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
+	// ------------------------------------------------------------------------------------
+	// DASHBOARD
+	// ------------------------------------------------------------------------------------
 
-	/*-----------DATA AJAX-[PRODUCT]----------*/
-	Route::any('ajax/get-product', 									['uses' => 'Data\\productController@getProductBySKU', 'as' => 'backend.product.ajax.getProduct']);
+	Route::get('/', 												['uses' => 'HomeController@index', 		'as' => 'backend.home']);
+
+	// ------------------------------------------------------------------------------------
+	// DATA
+	// ------------------------------------------------------------------------------------
+	Route::group(['namespace' => 'Backend\\Data'], function()
+	{
+		// ------------------------------------------------------------------------------------
+		// PRODUCT
+		// ------------------------------------------------------------------------------------
+
+		Route::resource('product',  'productController',			['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
+
+		Route::any('ajax/get-product', 									['uses' => 'productController@getProductBySKU', 'as' => 'backend.product.ajax.getProduct']);
+	});
 
 	/*--------------DATA CUSTOMER---------------*/
 	Route::resource('customer',  'Data\\customerController',		['names' => ['index' => 'backend.data.customer.index', 'create' => 'backend.data.customer.create', 'store' => 'backend.data.customer.store', 'show' => 'backend.data.customer.show', 'edit' => 'backend.data.customer.edit', 'update' => 'backend.data.customer.update', 'destroy' => 'backend.data.customer.destroy']]);
@@ -171,3 +166,29 @@ Route::get('test/generatePassword', function()
 {
 	echo Hash::make('admin');
 });
+
+
+
+// Route::get('/', function () {
+//     // return view('pages/Frontend/product');
+//     // return view('template/Frontend/index');
+//     // return view('template/Frontend/layout');
+
+//     //'shippings' => nama function di relations
+//  	// $tes = \Models\Courier::with(['Shippings'])->get();
+//   //   print_r($tes);
+// });
+
+// frontend
+Route::get('/', ['as' => 'frontend.index', function(){return Redirect::route('frontend.home.index');}]);
+Route::get('home', ['uses' => 'Frontend\\homeController@index', 'as' => 'frontend.home.index']);
+Route::get('products', ['uses' => 'Frontend\\productController@index', 'as' => 'frontend.product.index']);
+Route::get('join', ['uses' => 'Frontend\\joinController@index', 'as' => 'frontend.join.index']);
+Route::get('whyJoin', ['uses' => 'Frontend\\whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
+Route::get('cart', ['uses' => 'Frontend\\cartController@index', 'as' => 'frontend.cart.index']);
+Route::get('profile', ['uses' => 'Frontend\\profileController@index', 'as' => 'frontend.profile.index']);
+Route::get('profile/membershipDetail', ['uses' => 'Frontend\\profileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
+Route::get('profile/changePassword', ['uses' => 'Frontend\\profileController@changePassword', 'as' => 'frontend.profile.changePassword']);
+Route::get('profile/changeProfile', ['uses' => 'Frontend\\profileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
+
+Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error']);

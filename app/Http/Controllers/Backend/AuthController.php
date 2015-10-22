@@ -4,23 +4,9 @@ use App\Http\Controllers\baseController;
 use App\Models\User;
 use Input, Session, DB, Redirect, Response, Auth;
 
-class authController extends baseController 
+class AuthController extends baseController 
 {
 	protected $view_name 			= 'Login';
-
-	public function index()
-	{		
-		if (!Auth::User())
-		{
-			$this->layout->page 	= view('pages.backend.login.index');
-		}
-		else
-		{
-			$this->layout->page 	= view('pages.backend.settings.category.index');
-		}
-
-		return $this->layout;		
-	}
 
 	public function doLogin()
 	{ 
@@ -30,7 +16,6 @@ class authController extends baseController
 
 		if ($check)
 		{
-			// Session::put('logged_user', $content->data->id);
 			return Redirect::intended(route('backend.settings.category.index'));
 		}
 		
@@ -39,8 +24,10 @@ class authController extends baseController
 
 	public function doLogout()
 	{
+		Auth::logout();
+		
 		Session::flush();
 
-		return Redirect::route('backend.login');
+		return Redirect::route('backend.home');
 	}
 }
