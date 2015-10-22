@@ -29,7 +29,10 @@ class TransactionSaving extends Job implements SelfHandling
         {
             $result                 = $this->dispatch(new FillTransactionDate($this->transaction));
 
-            $result                 = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
+            if($result->getStatus() == 'success')
+            {
+                $result             = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
+            }
         }
             
         return $result;
