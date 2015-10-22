@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Backend\Data;
 
 use App\Http\Controllers\baseController;
+use App\Models\Product;
 use Input, Session, DB, Redirect;
 
 class productController extends baseController 
@@ -250,4 +251,14 @@ class productController extends baseController
 	    		
 	    return json_decode(json_encode($tmp));
 	}	
+
+	public function getProductByName()
+	{
+		$inputs		= Input::only('name');
+		$tmp 		= Product::select(['id', 'name'])
+								->where('name', 'like', '%'. $inputs['name'].'%')
+								->get();
+
+		return json_decode(json_encode($tmp));
+	}
 }
