@@ -1,4 +1,4 @@
-<?php namespace App\Models\Traits\MorphMany;
+<?php namespace App\Models\Traits\morphMany;
 
 trait HasImagesTrait 
 {

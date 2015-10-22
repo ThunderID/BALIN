@@ -16,7 +16,7 @@ class Image extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\MorphTo\HasImageableTrait;
+	use \App\Models\Traits\morphTo\HasImageableTrait;
 
 	/**
 	 * The database table used by the model.
