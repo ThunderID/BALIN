@@ -36,15 +36,15 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 	// ------------------------------------------------------------------------------------
 	// DATA
 	// ------------------------------------------------------------------------------------
-	Route::group(['namespace' => 'Backend\\Data'], function()
+	Route::group(['namespace' => 'Data\\'], function()
 	{
 		// ------------------------------------------------------------------------------------
 		// PRODUCT
 		// ------------------------------------------------------------------------------------
 
-		Route::resource('product',  'productController',			['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
+		Route::resource('products',  'ProductController',			['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
 
-		Route::any('ajax/get-product', 									['uses' => 'productController@getProductBySKU', 'as' => 'backend.product.ajax.getProduct']);
+		Route::any('ajax/products', 								['uses' => 'ProductController@getProductBySKU', 'as' => 'backend.product.ajax.getProduct']);
 	});
 
 	/*--------------DATA CUSTOMER---------------*/
