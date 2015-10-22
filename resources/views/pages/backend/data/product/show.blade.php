@@ -2,7 +2,7 @@
 <?php $data = $data::where('id', $id)
 									->with('categories')
 									// ->with(['productattributes' => function($q){$q->orderBy('attribute', 'asc');}])
-									->with('productimages')
+									->with('images')
 									->first(); 
 
 ?>
@@ -72,41 +72,6 @@
 		</div>
 	</div>
 
-	<!-- <div class="clearfix">&nbsp;</div>
-	<div class="clearfix">&nbsp;</div>
-
-	<div class="row">
-		<div class="col-md-12">
-			<h4 class="sub-header">
-				Attribut
-			</h4>
-		</div>
-	</div>
-	<?php $att_before = ''; $flag = 1; ?>
-	<div class="row">
-		<div class="col-md-6 col-sm-6 col-xs-12">
-		@foreach ($data->productattributes as $k => $att)	
-			@if ($att_before!=$att->attribute)
-				@if ($flag==0)
-					</div>
-					<div class="col-md-6 col-sm-6 col-xs-12">
-				@endif
-				<div class="form-group">
-					<label for="">{{ $att->attribute }}</label>
-					{!! Form::text('value', $att->value, ['class' => 'form-control', 'tabindex' => '1', 'readonly' => 'readonly'] ) !!}
-				</div>
-				<?php $flag = 1; ?>
-			@else
-				<div class="form-group">
-					{!! Form::text('value', $att->value, ['class' => 'form-control', 'tabindex' => '1', 'readonly' => 'readonly'] ) !!}
-				</div>
-				<?php $flag = 0; ?>
-			@endif
-			<?php $att_before = $att->attribute; ?>
-		@endforeach
-		</div>
-	</div> -->
-
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
 
@@ -139,7 +104,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-xs-12 text-center">
-			@foreach ($data->productimages as $k => $img)
+			@foreach ($data->images as $k => $img)
 				@if ($k==5)
 						</div>
 					</div>

@@ -13,21 +13,6 @@ class BaseObserver
 {
     use DispatchesJobs;
 
-	public function saved($model)
-	{
-
-		$class 			= $this->before($model);
-
-		return $this->after($class, $model);
-	}
-	
-	public function Saving($model)
-	{
-		$class 			= $this->before($model);
-
-		return $this->after($class, $model);
-	}
-
 	public function Creating($model)
 	{
 		$class 			= $this->before($model);
@@ -41,6 +26,41 @@ class BaseObserver
 
 		return $this->after($class, $model);
 	}	
+
+	public function Saving($model)
+	{
+		$class 			= $this->before($model);
+
+		return $this->after($class, $model);
+	}
+
+	public function Saved($model)
+	{
+		$class 			= $this->before($model);
+
+		return $this->after($class, $model);
+	}
+	
+	public function Updating($model)
+	{
+		$class 			= $this->before($model);
+
+		return $this->after($class, $model);
+	}
+
+	public function Updated($model)
+	{
+		$class 			= $this->before($model);
+
+		return $this->after($class, $model);
+	}
+
+	public function Deleting($model)
+	{
+		$class 			= $this->before($model);
+
+		return $this->after($class, $model);
+	}
 
 	public function before($model)
 	{
@@ -69,6 +89,10 @@ class BaseObserver
 	        {
 	        	return true;
 	        }
+	    }
+	    elseif(!class_exists($class))
+	    {
+	    	return true;
 	    }
 	    else
 	    {

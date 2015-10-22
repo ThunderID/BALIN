@@ -4,9 +4,20 @@ use App\Http\Controllers\baseController;
 use App\Models\Category;
 use Input, Session, DB, Redirect, Response;
 
-class categoryController extends baseController 
+class CategoryController extends baseController 
 {
-	protected $view_name 						= 'Category';
+	protected $view_name 							= 'Category';
+
+    /**
+     * Instantiate a new UserController instance.
+     */
+    
+    public function __construct()
+    {
+        $this->middleware('passwordneeded', ['only' => ['destroy']]);
+
+    	parent::__construct();
+    }
 
 	public function index()
 	{		
@@ -27,8 +38,9 @@ class categoryController extends baseController
 	{
 		if($id)
 		{
-			$breadcrumb								= ['Kategori' => 'backend.settings.category.index',
-															'Detail' => 'backend.settings.category.show' ];
+			$breadcrumb								= 	[	'Kategori' => 'backend.settings.category.index',
+															'Detail' => 'backend.settings.category.show'
+														];
 
 			$this->layout->page 					= view('pages.backend.settings.category.detail')
 															->with('WT_pageTitle', $this->view_name )
@@ -51,15 +63,17 @@ class categoryController extends baseController
 	public function create($id = null)
 	{
 
-		if ($id)
+		if($id)
 		{
-			$breadcrumb								= ['Kategori' => 'backend.settings.category.index',
-															'Edit Data' => 'backend.settings.category.create' ];
+			$breadcrumb								= 	[	'Kategori' 	=> 'backend.settings.category.index',
+															'Edit Data' => 'backend.settings.category.create'
+														];
 		}
 		else
 		{
-			$breadcrumb								= ['Kategori' => 'backend.settings.category.index',
-															'Data Baru' => 'backend.settings.category.create' ];
+			$breadcrumb								= 	[	'Kategori' 	=> 'backend.settings.category.index',
+															'Data Baru' => 'backend.settings.category.create' 
+														];
 		}
 
 		$this->layout->page 						= view('pages.backend.settings.category.create')
@@ -80,40 +94,44 @@ class categoryController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 										= Input::only('id','name', 'parent');
+		$inputs 									= Input::only('name', 'parent');
 
-		if ($inputs['id'])
+		if ($id)
 		{
-			$data 									= Category::find($inputs['id']);
-			$inputs['path']						= $data['path'];
+			$data 									= Category::find($id);
+			$inputs['path']							= $data['path'];
 		}
 		else
 		{
 			$data 									= new Category;	
-			$inputs['path']						= 0;
+			$inputs['path']							= 0;
 		}
 
-		$data->fill([
-			'name' 									=> $inputs['name'],
-			'path'									=> $inputs['id'],
-		]);
+
 
 		if (Input::get('parent') != 0)
 		{
-			$data->category()->associate($inputs['parent']);
+			$data->fill([
+				'category_id' 						=> $inputs['parent'],
+				'name' 								=> $inputs['name'],
+				'path'								=> $inputs['parent'],
+			]);
 		}
 		else
 		{
 			$data->fill([
+				'name' 								=> $inputs['name'],
 				'parent_id' 						=> '0',
 				'path'								=> '0'
 			]);
 		}
 
 		DB::beginTransaction();
+
 		if (!$data->save())
 		{
 			DB::rollback();
+
 			return Redirect::back()
 					->withInput()
 					->withErrors($data->getError())
@@ -123,61 +141,38 @@ class categoryController extends baseController
 		else
 		{
 			DB::commit();
-			if (Input::get('id'))
-			{
-				return Redirect::route('backend.settings.category.index')
-					->with('msg','Data sudah diperbarui')
-					->with('msg-type', 'success')
-					;
-			}
-			else
-			{
-				return Redirect::route('backend.settings.category.index')
-						->with('msg','Data sudah ditambahkan')
-						->with('msg-type', 'success')
-						;
-			}
+
+			return Redirect::route('backend.settings.category.index')
+				->with('msg','Kategori sudah disimpan')
+				->with('msg-type', 'success')
+				;
 		}
 	}
 
 	public function destroy($id)
 	{
-		if (Input::get('password'))
+		$data 											= Category::findorfail($id);
+
+		DB::beginTransaction();
+
+		if (!$data->delete())
 		{
-			$data 								= Category::find($id);
+			DB::rollback();
 
-			if (count($data) == 0)
-			{
-				App::abort(404);
-			}
-
-			DB::beginTransaction();
-
-			if (!$data->delete())
-			{
-				DB::rollback();
-				return Redirect::back()
-					->withErrors($data->getError())
-					->with('msg-type','danger')
-					;
-			}
-			else
-			{
-				DB::commit();
-				return Redirect::route('backend.settings.category.index')
-					->with('msg', 'Data telah dihapus')
-					->with('msg-type','success')
-					;
-			}
+			return Redirect::back()
+				->withErrors($data->getError())
+				->with('msg-type','danger')
+				;
 		}
 		else
 		{
-			return Redirect::back()
-					->withErrors('Password tidak valid')
-					->with('msg-type', 'danger')
-					;
-		}
+			DB::commit();
 
+			return Redirect::route('backend.settings.category.index')
+				->with('msg', 'Kategori telah dihapus')
+				->with('msg-type','success')
+				;
+		}
 	}
 
 	public function getCategoryByName()
@@ -188,19 +183,6 @@ class categoryController extends baseController
 
 		$tmps 									= Category::where('name', 'like', "%$name%")
 																	->get();
-
-		// if(count($tmps) > 0)
-		// {
-			
-		// 	for ($i = 0; $i < count($tmps); $i++) 
-		// 	{
-		// 		$parent_id 						= $tmps[$i]['parent_id'];
-
-		// 		$name 							= category::findorfail($parent_id);
-				
-		// 		$tmps[$i]['name']				= $name['name'] . ' - ' . $tmps[$i]['name'];
-		// 	}
-		// }
 
 		 return json_decode(json_encode($tmps));
 	}	

@@ -23,11 +23,18 @@ class TransactionSaving extends Job implements SelfHandling
     public function handle()
     {
         //cek 
+        $result                     = $this->dispatch(new checkReferralCode($this->transaction));
 
-        $result                     = $this->dispatch(new FillTransactionDate($this->transaction));
+        if($result->getStatus() == 'success')
+        {
+            $result                 = $this->dispatch(new FillTransactionDate($this->transaction));
 
-        $result                     = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
-
+            if($result->getStatus() == 'success')
+            {
+                $result             = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
+            }
+        }
+            
         return $result;
     }
 }

@@ -7,7 +7,7 @@ use App\Models\pointlog;
 use App\Jobs\SendActivationEmail;
 use App\Jobs\sendBillingEmail;
 use App\Jobs\SendTransactionValidatedEmail;
-use App\Jobs\refreshCart;
+use App\Jobs\RefreshCart;
 use App\Jobs\sendShipmentEmail;
 use Mail;
 
@@ -28,7 +28,7 @@ class testController extends Controller
 	{		
 		$input = Transaction::find(1);
 		// dd($input->save());
-		$result = $this->dispatch(new refreshCart($input));
+		$result = $this->dispatch(new RefreshCart($input));
 
 		dd($result);
 

@@ -7,9 +7,20 @@ use App\Models\Supplier;
 use App\Models\policy;
 use Input, Session, DB, Redirect, Response;
 
-class supplierController extends baseController 
-{
-	protected $view_name 					= 'Supplier';
+class SupplierController extends baseController 
+{    
+	/**
+     * Instantiate a new UserController instance.
+     */
+    
+    public function __construct()
+    {
+        $this->middleware('passwordneeded', ['only' => ['destroy']]);
+
+    	parent::__construct();
+    }
+
+	protected $view_name 						= 'Supplier';
 
 	public function index()
 	{	
@@ -21,10 +32,9 @@ class supplierController extends baseController
 		}
 		else
 		{
-			$searchResult						= NUll;
+			$searchResult						= null;
 
 		}
-
 
 		$this->layout->page 					= view('pages.backend.data.supplier.index')
 													->with('WT_pageTitle', $this->view_name )
@@ -47,17 +57,21 @@ class supplierController extends baseController
 
 	public function create($id = null)
 	{
-		if (!$id)
+		if (is_null($id))
 		{
-			$breadcrumb							= ['Supplier' => 'backend.data.supplier.index',
-														'Supplier Baru' => 'backend.data.supplier.create' ];
+			$breadcrumb							= 	[	'Supplier' => 'backend.data.supplier.index',
+														'Supplier Baru' => 'backend.data.supplier.create'
+													];
+
 			$title 								= 'Create';
 		}
 		else
 		{
-			$breadcrumb							= ['Supplier' => 'backend.data.supplier.index',
-														'Edit Data' => 'backend.data.supplier.create' ];
-			$title 								= 'Edit';
+			$breadcrumb							= 	[	'Supplier' => 'backend.data.supplier.index',
+														'Edit Data' => 'backend.data.supplier.create' 
+													];
+
+			$title 								= 	'Edit';
 		}
 
 		$this->layout->page 					= view('pages.backend.data.supplier.create')
@@ -74,33 +88,32 @@ class supplierController extends baseController
 
 	public function edit($id)
 	{
-
 		return $this->create($id);
 	}
 
 	public function store($id = null)
 	{
-		$inputs 								= Input::only('id','name', 'phone', 'address');
+		$inputs 								= Input::only('name', 'phone', 'address');
 	
-		if ($inputs['id'])
+		if ($id)
 		{
-			$data								= Supplier::find($inputs['id']);
+			$data								= Supplier::find($id);
 		}
 		else
 		{
-			$data								= new supplier;
+			$data								= new Supplier;
 		}
 
 		$data->fill([
-			'name' 							=> $inputs['name'],
+			'name' 								=> $inputs['name'],
 			'phone' 							=> $inputs['phone'],
-			'address' 						=> $inputs['address'],
+			'address' 							=> $inputs['address'],
 		]);
 
 		DB::beginTransaction();
+
 		if (!$data->save())
 		{
-
 			DB::rollback();
 			return Redirect::back()
 								->withInput()
@@ -111,55 +124,39 @@ class supplierController extends baseController
 		{
 			DB::commit();
 
-			if ($id)
-			{
-				$msg = "Data sudah diperbarui";
-			}
-			else
-			{
-				$msg = "Data sudah ditambahkan";
-			}
-
 			return Redirect::route('backend.data.supplier.index')
-								->with('msg', $msg)
+								->with('msg', 'Supplier sudah disimpan')
 								->with('msg-type', 'success');
 		}
 	}
 
+	public function Update($id)
+	{
+		return $this->store($id);		
+	}
+
 	public function destroy($id)
 	{
-		if (Input::get('password'))
-		{		
-			$data									= supplier::find($id);
+		$data									= Supplier::findorfail($id);
 
-			if (count($data) == 0)
-			{
-				App::abort(404);
-			}
+		DB::beginTransaction();
 
-			DB::beginTransaction();
+		if (!$data->delete())
+		{
+			DB::rollback();
 
-			if (!$data->delete())
-			{
-				DB::rollback();
-				return Redirect::back()
-					->withErrors($data->getError())
-					->with('msg-type','danger');
-			}
-			else
-			{
-				DB::commit();
-				return Redirect::route('backend.data.supplier.index')
-					->with('msg', 'Data telah dihapus')
-					->with('msg-type','success');
-			}
+			return Redirect::back()
+				->withErrors($data->getError())
+				->with('msg-type','danger');
 		}
 		else
 		{
-			return Redirect::back()
-					->withErrors('Password tidak valid')
-					->with('msg-type', 'danger');
-		}		
+			DB::commit();
+
+			return Redirect::route('backend.data.supplier.index')
+				->with('msg', 'Supplier telah dihapus')
+				->with('msg-type','success');
+		}
 	}
     public function getExpiredFromSetting($type)
     {

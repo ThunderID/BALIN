@@ -2,11 +2,25 @@
 
 use App\Http\Controllers\baseController;
 use App\Models\Product;
+use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect;
+use App\Models\Product;
 
-class productController extends baseController 
+class ProductController extends baseController 
 {
+    /**
+     * Instantiate a new UserController instance.
+     */
+    
+    public function __construct()
+    {
+        $this->middleware('passwordneeded', ['only' => ['destroy']]);
+
+    	parent::__construct();
+    }
+
 	protected $view_name 							= 'Product';
+	
 
 	public function index()
 	{	
@@ -38,19 +52,21 @@ class productController extends baseController
 
 	public function create($id = null)
 	{
-		if ($id) 
+		if($id) 
 		{
-			$breadcrumb									= ['Produk' => 'backend.data.product.index',
-																'Edit Data' => 'backend.data.product.create'];
+			$breadcrumb									= 	[	'Produk' => 'backend.data.product.index',
+																'Edit Data' => 'backend.data.product.create'
+																];
 
-			$title 										= 'Edit';
+			$title 										= 	'Edit';
 		}
 		else
 		{
-			$breadcrumb									= ['Produk' => 'backend.data.product.index',
-																'Data Baru' => 'backend.data.product.create'];
+			$breadcrumb									= 	[	'Produk' => 'backend.data.product.index',
+																'Data Baru' => 'backend.data.product.create'
+															];
 
-			$title 										= 'Create';
+			$title 										= 	'Create';
 		}
 
 		$this->layout->page 							= view('pages.backend.data.product.create')
@@ -71,13 +87,13 @@ class productController extends baseController
 
 	public function show($id)
 	{
-		$breadcrumb										= ['Produk' => 'backend.data.product.index',
+		$breadcrumb										= 	[	'Produk' => 'backend.data.product.index',
 																'Detail' => 'backend.data.product.create',
 															];
 
 		if ($search = Input::get('q'))
 		{
-			$datas 										= product::where('deleted_at',null)
+			$datas 										= Product::where('deleted_at',null)
 																		->FindProduct(Input::get('q'))
 																		->paginate()
 																		; 
@@ -103,136 +119,89 @@ class productController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 											= Input::only('id','category','name','sku','description','attribute','value');
+		$inputs 										= Input::only('category','name','sku','description');
 
-		if ($inputs['id'])
+		if ($id)
 		{
-			$data 										= product::find($id);
+			$data 										= Product::find($id);
 		}
 		else
 		{
-			$data 										= new product;	
+			$data 										= new Product;	
 		}
 
 		$data->fill([
-			'name' 								=> $inputs['name'],
-			'sku' 								=> $inputs['sku'],
-			'slug' 								=> $this->generateSlug(),
-			'description' 						=> $inputs['description'],
+			'name' 										=> $inputs['name'],
+			'sku' 										=> $inputs['sku'],
+			'slug' 										=> $this->generateSlug(),
+			'description' 								=> $inputs['description'],
 		]);
+
+		$errors 										= new MessageBag();
 
 		DB::beginTransaction();
 		if (!$data->save())
 		{
-			DB::rollback();
-			return Redirect::back()
-				->withInput()
-				->withErrors($data->getError())
-				->with('msg-type', 'danger')
-				;
+			$errors->add('Product', $data->getError());
 		}
 		else
 		{
 			// category
 			$categories 						= explode(',', $inputs['category']);
 
-			$data->categories()->sync($categories);
-
-			// attributes
-			$attributes							= attribute::where('product_id',$data['id'])->get();
-
-			foreach ($attributes as $attribute) 
+			if(!$data->categories()->sync($categories))
 			{
-				if(!$attribute->delete())
-				{
-					DB::rollback();
-					return Redirect::back()
-						->withInput()
-						->withErrors($attributes->getError())
-						->with('msg-type', 'danger')
-						;
-				}
-			}
-
-
-			for ($i=0; $i < count($inputs['attribute']); $i++) { 
-				if($inputs['attribute'][$i] != "" && $inputs['value'][$i] != "" )
-				{
-					$attribute 				= new attribute;
-
-					$attribute->fill([
-						'attribute' 		=> $inputs['attribute'][$i],
-						'value' 			=> $inputs['value'][$i],
-					]);
-
-					$attribute->product()->associate($data['id']);
-
-					if(!$attribute->save())
-					{
-						DB::rollback();
-						return Redirect::back()
-							->withInput()
-							->withErrors($attribute->getError())
-							->with('msg-type', 'danger');
-					}
-				}
-			}						
-
-			DB::commit();
-			if ($id)
-			{
-				return Redirect::route('backend.data.product.index')
-					->with('msg','Data sudah diperbarui')
-					->with('msg-type', 'success')
-					;
-			}
-			else
-			{
-				return Redirect::route('backend.data.product.index')
-					->with('msg','Data sudah ditambahkan')
-					->with('msg-type', 'success')
-					;
+				$errors->add('Product', $data->getError());
 			}
 		}
+	
+		if (!$errors->count())
+		{
+			DB::commit();
+			
+			return Redirect::route('backend.data.product.index')
+					->withErrors($errors)
+					->with('msg-type', 'danger')
+					;
+		}
+		else
+		{
+			DB::rollback();
+
+			return Redirect::route('backend.data.product.index')
+					->with('msg','Produk sudah disimpan')
+					->with('msg-type', 'success')
+					;
+		}
+	}
+
+	public function Update($id)
+	{
+		return $this->store($id);		
 	}
 
 	public function destroy($id)
 	{
-		if (Input::get('password'))
+		$data 								= Product::findorfail($id);
+
+		DB::beginTransaction();
+
+		if (!$data->delete())
 		{
-			$data 								= product::find($id);
-
-			if (count($data) == 0)
-			{
-				return Redirect::back()
-					->withErrors('Data not exist')
-					->with('msg-type','danger');
-			}
-
-			DB::beginTransaction();
-
-			if (!$data->delete())
-			{
-				DB::rollback();
-				return Redirect::back()
-					->withErrors($data->getError())
-					->with('msg-type','danger');
-			}
-			else
-			{
-				DB::commit();
-				return Redirect::route('backend.data.product.index')
-					->with('msg', 'Data telah dihapus')
-					->with('msg-type','success');
-			}
+			DB::rollback();
+			
+			return Redirect::back()
+				->withErrors($data->getError())
+				->with('msg-type','danger');
 		}
 		else
 		{
-			return Redirect::back()
-					->withErrors('Password tidak valid')
-					->with('msg-type', 'danger');
-		}
+			DB::commit();
 
+			return Redirect::route('backend.data.product.index')
+				->with('msg', 'Produk telah dihapus')
+				->with('msg-type','success');
+		}
 	}
 
 	public function generateSlug()

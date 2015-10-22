@@ -11,7 +11,7 @@
 				<a href="#"><i class="fa fa-archive"></i> <span class="nav-label">Data</span></a>
 				<ul class="nav nav-second-level">
 					<li class="@if($subnav_active=='products') active @endif">
-						<a href="{{ route('backend.data.product.index') }}"><i class="fa fa-glass"></i> <span class="nav-label">Product</span></a>
+						<a href="{{ route('backend.data.product.index') }}"><i class="fa fa-glass"></i> <span class="nav-label">Produk</span></a>
 						{{-- <ul class="nav nav-third-level">
 							<li><a href="#">Stock</a></li>
 							<li><a href="{{ route('backend.price.index') }}">Price</a></li>
@@ -22,11 +22,16 @@
 						<a href="{{ route('backend.data.supplier.index') }}"><i class="fa fa-university"></i><span class="nav-label">Supplier</span></a>
 					</li>
 					<li class="@if($subnav_active=='customer') active @endif">
-						<a href="#"><i class="fa fa-users"></i><span class="nav-label">Customer</span></a>
-						<ul class="nav nav-third-level">
-							<li><a href="{{ route('backend.data.customer.index') }}">Customer</a></li>
-							<li><a href="#">Point Logs</a></li>
-						</ul>
+						<a href="#"><i class="fa fa-users"></i><span class="nav-label">Kostumer</span></a>
+					</li>
+					<li class="@if($subnav_active=='buy') active @endif">
+					 	<a href="{{ route('backend.data.transaction.index') }}"><i class="fa fa-briefcase"></i><span class="nav-label">Stok</span></a>
+					</li>
+					<li class="@if($subnav_active=='sell') active @endif">
+					 	<a href="{{ route('backend.data.transaction.index') }}"><i class="fa fa-briefcase"></i><span class="nav-label">Pesanan</span></a>
+					</li>
+					<li class="@if($subnav_active=='payment') active @endif">
+					 	<a href="{{ route('backend.data.transaction.index') }}"><i class="fa fa-briefcase"></i><span class="nav-label">Nota Bayar</span></a>
 					</li>
 					 <li class="@if($subnav_active=='transaction') active @endif">
 					 	<a href="#"><i class="fa fa-briefcase"></i><span class="nav-label">Transactions</span></a>
@@ -42,43 +47,38 @@
 				</ul>
 			</li>
 			<li class="@if($nav_active=='settings') active @endif">
-				<a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">Settings</span></a>
+				<a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">Pengaturan</span></a>
 				<ul class="nav nav-second-level">
 					<li class="@if($subnav_active=='category') active @endif">
-						<a href="{{ route('backend.settings.category.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Categories</span></a>
-					</li>
-					<li>
-						<a href=""><i class="fa fa-credit-card"></i> <span class="nav-label">Payment Methods</span></a>
+						<a href="{{ route('backend.settings.category.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Kategori</span></a>
 					</li>
 					<li class="@if($subnav_active=='courier') active @endif">
-						<a href="{{ route('backend.settings.courier.index') }}"><i class="fa fa-truck"></i> <span class="nav-label">Couriers</span></a>
+						<a href="{{ route('backend.settings.courier.index') }}"><i class="fa fa-truck"></i> <span class="nav-label">Kurir</span></a>
 					</li>
 					<li class="@if($subnav_active=='store') active @endif">
-						<a href="{{ route('backend.settings.store.index') }}"><i class="fa fa-home"></i> <span class="nav-label">Store</span></a>
+						<a href="{{ route('backend.settings.store.index') }}"><i class="fa fa-home"></i> <span class="nav-label">Toko Online</span></a>
 					</li>
 					<li>
-						<a href=""><i class="fa fa-life-ring"></i> <span class="nav-label">Policies</span></a>
+						<a href=""><i class="fa fa-life-ring"></i> <span class="nav-label">Policy</span></a>
 					</li>
 				</ul>
 			</li>
 			<li class="@if($nav_active=='storage') active @endif">
-				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Report</span></a>
+				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan</span></a>
 				<ul class="nav nav-second-level">
 					<li>
-						<a href=""><i class="fa fa-briefcase"></i> <span class="nav-label">Transactions</span></a>
+						<a href=""><i class="fa fa-briefcase"></i> <span class="nav-label">Transaksi</span></a>
 						<ul class="nav nav-third-level">
-							<li><a href="">New Orders</a></li>
-							<li><a href="">Awaiting Payments</a></li>
-							<li><a href="">Awaiting Shipping</a></li>
-							<li><a href="">Complete Orders (Delivered)</a></li>
-							<li><a href="">Purchasing Stocks</a></li>
+							<li><a href="">Pesanan Belum Dibayar</a></li>
+							<li><a href="">Pesanan Belum Dikirim</a></li>
+							<li><a href="">Pesanan Belum Tiba</a></li>
 						</ul>
 					</li>
 					<li>
-						<a href=""><i class="fa fa-line-chart"></i> <span class="nav-label">Stocks Movement</span></a>
+						<a href=""><i class="fa fa-line-chart"></i> <span class="nav-label">Perpindahan Stok</span></a>
 					</li>
 					 <li>
-						<a href=""><i class="fa fa-exclamation-circle"></i> <span class="nav-label">Critical Stocks</span></a>
+						<a href=""><i class="fa fa-exclamation-circle"></i> <span class="nav-label">Stok Kritis</span></a>
 					</li>
 				</ul>
 			</li>

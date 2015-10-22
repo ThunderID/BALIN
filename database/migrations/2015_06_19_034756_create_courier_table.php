@@ -15,7 +15,6 @@ class CreateCourierTable extends Migration
         Schema::create('couriers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 255);
-            $table->string('logo_url', 255);
             $table->text('address');
             $table->timestamps();
             $table->softDeletes();

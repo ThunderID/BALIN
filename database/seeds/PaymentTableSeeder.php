@@ -21,6 +21,15 @@ class PaymentTableSeeder extends Seeder
 				$amount 							= App\Models\TransactionDetail::TransactionId($value->id)->selectraw('(price - discount) * quantity as amount')->first();
 				$data 								= new Payment;
 
+				if($amount && !is_null($amount->amount))
+				{
+					$total 							= $amount->amount;
+				}
+				else
+				{
+					$total 							= 0;
+				}
+
 				$data->fill([
 					'transaction_id'				=> $value->id,
 					'method'						=> 'bank transfer',
@@ -28,7 +37,7 @@ class PaymentTableSeeder extends Seeder
 					'account_name'					=> $faker->creditCardType,
 					'account_number'				=> $faker->creditCardNumber,
 					'ondate'						=> date('Y-m-d'),
-					'amount'						=> $amount->amount,
+					'amount'						=> $total,
 				]);
 
 				if (!$data->save())

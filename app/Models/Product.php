@@ -18,13 +18,12 @@ class Product extends Eloquent
 
 	use \App\Models\Traits\hasMany\HasStocksTrait;
 	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
-	use \App\Models\Traits\hasMany\HasProductAttributesTrait;
-	use \App\Models\Traits\hasMany\HasProductImagesTrait;
 	use \App\Models\Traits\hasMany\HasPricesTrait;
 	use \App\Models\Traits\hasMany\HasDiscountsTrait;
 	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
 	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
 	use \App\Models\Traits\belongsToMany\HasCategoriesTrait;
+	use \App\Models\Traits\morphMany\HasImagesTrait;
 
 	/**
 	 * The database table used by the model.
@@ -140,6 +139,17 @@ class Product extends Eloquent
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 	
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	public function getError()
+	{
+		return $this->errors;
+	}
+
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
