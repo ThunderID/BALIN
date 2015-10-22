@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductAttribute extends Eloquent
+class Image extends Eloquent
 {
 
 	use SoftDeletes;
@@ -16,14 +16,14 @@ class ProductAttribute extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\belongsTo\HasProductTrait;
+	use \App\Models\Traits\MorphTo\HasImageableTrait;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'product_attributes';
+	protected $table				= 'images';
 
 	// protected $timestamps			= true;
 
@@ -34,9 +34,12 @@ class ProductAttribute extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'product_id'					,
-											'attribute'						,
-											'value'							,
+											'thumbnail'						,
+											'image_xs'						,
+											'image_sm'						,
+											'image_md'						,
+											'image_l'						,
+											'published_at'					,
 										];
 
 	/**
@@ -52,8 +55,12 @@ class ProductAttribute extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'attribute'						=> 'required|max:255',
-											'value'							=> 'required|max:255',
+											'thumbnail'						=> 'required|max:255',
+											'image_xs'						=> 'required|max:255',
+											'image_sm'						=> 'required|max:255',
+											'image_md'						=> 'required|max:255',
+											'image_l'						=> 'required|max:255',
+											'published_at'					=> 'required|date_format:"Y-m-d H:i:s"',
 										];
 
 	/**
@@ -77,7 +84,18 @@ class ProductAttribute extends Eloquent
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
-	
+
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	public function getError()
+	{
+		return $this->errors;
+	}
+
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
