@@ -43,7 +43,7 @@ $factory->define(App\Models\Courier::class, function ($faker) use ($colors)
 	return 
 	[
 		'name'							=> $faker->company.' '.$faker->companySuffix,
-		'logo_url' 						=> 'http://placehold.it/200x200/'.$colors[rand(0, count($colors)-1)].'/000000',
+		// 'logo_url' 						=> 'http://placehold.it/200x200/'.$colors[rand(0, count($colors)-1)].'/000000',
 		'address' 						=> $faker->address,
 	];
 });

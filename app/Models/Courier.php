@@ -37,7 +37,6 @@ class Courier extends Eloquent
 
 	protected $fillable				=	[
 											'name'							,
-											'logo_url'						,
 											'address'						,
 										];
 
@@ -55,7 +54,6 @@ class Courier extends Eloquent
 	 */
 	protected $rules				=	[
 											'name'							=> 'required|max:255',
-											'logo_url'						=> 'required|max:255|url',
 											'address'						=> 'required',
 										];
 
@@ -65,6 +63,7 @@ class Courier extends Eloquent
 	 * @var array
 	 */
 	protected $appends				=	[
+											'logo',
 										];
 
 	/**
@@ -79,8 +78,29 @@ class Courier extends Eloquent
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 
+	public function getLogoAttribute($value)
+	{
+		if($this->images()->count())
+		{
+			return $this->images[0]->thumbnail;
+		}
+
+		return 'https://browshot.com/static/images/not-found.png';
+	}
+
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
-	
+
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	public function getError()
+	{
+		return $this->errors;
+	}
+
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/

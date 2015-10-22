@@ -1,5 +1,5 @@
 @inject('datas', 'App\Models\Product')
-{!! $datas = $datas::paginate() !!}
+{!! $datas = $datas::orderby('name')->paginate() !!}
 
 @extends('template.backend.layout') 
 

@@ -64,7 +64,7 @@
 									@foreach($datas as $data)
 										<tr>
 											<td>{{ $ctr }}</td>
-											<td>{!! HTML::image($data->logo_url, 'logo', ['class' => 'img-responsive']) !!}</td>
+											<td>{!! HTML::image($data->logo, 'logo', ['class' => 'img-responsive', 'style' => 'max-width:200px;']) !!}</td>
 											<td>{{ $data['name'] }}</td>
 											<td>{{ $data['address'] }}</td>
 											<td>

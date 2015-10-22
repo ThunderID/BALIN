@@ -23,7 +23,7 @@ class SupplierSaving extends Job implements SelfHandling
     public function handle()
     {
         //cek 
-        if(isset($this->supplier->getDirty()['name']))
+        if(isset($this->supplier->getDirty()['name']) && $this->supplier->transactions()->count())
         {
             $result                 = new Jsend('error', (array)$this->supplier, ['Tidak dapat mengubah nama supplier yang pernah melakukan transaksi']);
         }

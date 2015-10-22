@@ -114,7 +114,7 @@ class CategoryController extends baseController
 			$data->fill([
 				'category_id' 						=> $inputs['parent'],
 				'name' 								=> $inputs['name'],
-				'path'								=> $inputs['id'],
+				'path'								=> $inputs['parent'],
 			]);
 		}
 		else

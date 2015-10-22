@@ -92,7 +92,7 @@ class ProductController extends baseController
 
 		if ($search = Input::get('q'))
 		{
-			$datas 										= product::where('deleted_at',null)
+			$datas 										= Product::where('deleted_at',null)
 																		->FindProduct(Input::get('q'))
 																		->paginate()
 																		; 

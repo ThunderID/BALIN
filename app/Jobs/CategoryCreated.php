@@ -6,11 +6,12 @@ use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Category;
+use App\Libraries\JSend;
 
 class CategoryCreated extends Job implements SelfHandling
 {
     
-    public function __construct(category $Category)
+    public function __construct(category $category)
     {
         $this->category                 = $category;
     }
@@ -18,9 +19,11 @@ class CategoryCreated extends Job implements SelfHandling
     public function handle()
     {
         $this->category->path           = $this->category->id;
+
         $this->category->save();
 
-        $result                         = new Jsend('success', ['message' => 'Success']);
+        $result                         = new JSend('success', array($this->category));
+
         return $result;
     }
 }
