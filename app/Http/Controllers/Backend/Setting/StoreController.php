@@ -3,7 +3,7 @@
 use App\Http\Controllers\baseController;
 use Input, Session, DB, Redirect, Response;
 
-class storeController extends baseController 
+class StoreController extends baseController 
 {
 	protected $view_name 					= 'Store';
 
