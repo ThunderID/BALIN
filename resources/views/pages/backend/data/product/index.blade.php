@@ -78,7 +78,8 @@ $datas 			= $datas->orderby('name')->paginate();
 												<a href="{{ url::route('backend.data.product.edit', $data['id']) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
 													data-id="{{$data['id']}}"
-													data-title="Hapus Data Produk {{$data['name']}}">
+													data-title="Hapus Data Produk {{$data['name']}}"
+													data-action="{{ route('backend.data.product.destroy', $data['id']) }}">
 													Hapus
 												</a>                                                                                      
 											</td>    
