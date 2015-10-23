@@ -25,6 +25,6 @@ class PriceSaved extends Job implements SelfHandling
             return new jsend('error', (array)$this->price, ['message' => 'Tidak bisa edit harga yang telah dimulai']);
         }
 
-        return new jsend('success', (array)$this->product);
+        return new jsend('success', (array)$this->price);
     }
 }

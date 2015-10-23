@@ -98,9 +98,14 @@ class Supplier extends Eloquent
 	{
 		if(is_array($variable))
 		{
-			return 	$query->whereIn('id', $variable);
+			return 	$query->whereIn('suppliers.id', $variable);
 		}
 
-		return 	$query->where('id', $variable);
+		return 	$query->where('suppliers.id', $variable);
+	}
+	
+	public function scopeName($query, $variable)
+	{
+		return 	$query->where('name', 'like', '%'.$variable.'%');
 	}
 }

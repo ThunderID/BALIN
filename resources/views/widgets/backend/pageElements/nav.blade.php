@@ -63,11 +63,14 @@
 							<li><a href="">Pesanan Belum Tiba</a></li>
 						</ul>
 					</li>
+					<li class="@if($subnav_active=='pointlog') active @endif">
+						<a href="{{ route('backend.report.pointlog') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Transaksi Pointlog</span></a>
+					</li>
 					<li>
 						<a href=""><i class="fa fa-line-chart"></i> <span class="nav-label">Perpindahan Stok</span></a>
 					</li>
-					 <li>
-						<a href=""><i class="fa fa-exclamation-circle"></i> <span class="nav-label">Stok Kritis</span></a>
+					<li class="@if($subnav_active=='criticalstock') active @endif">
+						<a href="{{ route('backend.report.criticalstock') }}"><i class="fa fa-exclamation-circle"></i> <span class="nav-label">Stok Kritis</span></a>
 					</li>
 				</ul>
 			</li>

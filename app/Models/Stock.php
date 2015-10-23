@@ -115,4 +115,12 @@ class Stock extends Eloquent
 
 		return 	$query->where('updated_at', '<=', $updated_at)->orderBy('updated_at', 'desc');
 	}
+
+	public function scopeOnCriticalStock($query, $variable)
+	{
+		return $query->where('current_stocks', '<=', '5')
+				->orderBy('ondate','DESC')
+				->groupby('product_id')
+				;
+	}
 }

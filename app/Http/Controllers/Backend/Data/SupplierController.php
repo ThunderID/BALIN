@@ -26,20 +26,23 @@ class SupplierController extends baseController
 	{	
 		$breadcrumb								= ['Supplier' => 'backend.data.supplier.index'];
 
-		if (Input::get('q'))
+		$filters 								= null;
+
+		if(Input::has('q'))
 		{
+			$filters 							= ['name' => Input::get('q')];
 			$searchResult						= Input::get('q');
 		}
 		else
 		{
 			$searchResult						= null;
-
 		}
 
 		$this->layout->page 					= view('pages.backend.data.supplier.index')
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
+													->with('filters', $filters)
 													->with('searchResult', $searchResult)
 													->with('nav_active', 'data')
 													->with('subnav_active', 'supplier')
@@ -51,7 +54,30 @@ class SupplierController extends baseController
 
 	public function show($id)
 	{
-		
+		$breadcrumb										= 	[	'Produk' => 'backend.data.supplier.index',
+																'Detail' => 'backend.data.supplier.create',
+															];
+
+		if ($search = Input::get('q'))
+		{
+			$searchResult								= $search;
+		}
+		else
+		{
+			$searchResult								= NULL;
+		}
+
+		$this->layout->page 							= view('pages.backend.data.supplier.show')
+																		->with('WT_pageTitle', $this->view_name )
+																		->with('WT_pageSubTitle','Show')
+																		->with('WB_breadcrumbs', $breadcrumb)
+																		->with('searchResult', $searchResult)
+																		->with('id', $id)
+																		->with('nav_active', 'supplier')
+																		->with('subnav_active', 'supplier')
+																		;
+
+		return $this->layout;
 	}
 
 

@@ -1,17 +1,13 @@
 @inject('datas', 'App\Models\Supplier')
-
 <?php 
-	if (isset($searchResult)&&($searchResult!=null))
+if(!is_null($filters) && is_array($filters))
+{
+	foreach ($filters as $key => $value) 
 	{
-		$datas = $datas::where('name','like', '%'.$searchResult.'%')
-						->OrderBy('name', 'asc')
-						->paginate();
+		$datas = call_user_func([$datas, $key], $value);
 	}
-	else 
-	{
-		$datas = $datas::OrderBy('name', 'asc')
-						->paginate();
-	}
+}
+$datas 			= $datas->orderby('name')->paginate();
 ?>
 
 @extends('template.backend.layout') 
@@ -80,6 +76,7 @@
 										<td>{{$data['phone']}}</td>                                                                               
 										<td>{{$data['address']}}</td>                                                                               
 										<td>
+											<a href="{{ URL::route('backend.data.supplier.show', ['id' => $data['id']]) }}"> Detail </a>, 
 											<a href="{{ URL::route('backend.data.supplier.edit', ['id' => $data['id']]) }}"> Edit </a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#supplier_del"
 												data-id="{{ $data['id'] }}"
