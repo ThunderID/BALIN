@@ -183,4 +183,15 @@ class SupplierController extends baseController
         }
         return $result;
     }
+
+   public function getSupplierByName()
+   {
+   	$inputs 	= Input::only('name');
+   	
+   	$tmp 		= Supplier::select(['id', 'name'])
+   					->where('name', 'like', "%" . $inputs['name'] . "%")
+   					->get();
+   			
+   	return json_decode(json_encode($tmp));
+   }
 }
