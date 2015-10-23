@@ -229,7 +229,10 @@ h5 {
   padding-left: 52px;
 }
 .nav-third-level li a {
-  padding-left: 62px;
+  padding-left: 72px;
+}
+.nav-third-level li.active {
+  border-left: none;
 }
 .nav-second-level li:last-child {
   margin-bottom: 10px;

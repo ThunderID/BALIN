@@ -33,6 +33,17 @@
 					<li class="@if($subnav_active=='payment') active @endif">
 					 	<a href="{{ route('backend.data.transaction.index') }}"><i class="fa fa-briefcase"></i><span class="nav-label">Nota Bayar</span></a>
 					</li>
+					 <li class="@if($subnav_active=='transaction') active @endif">
+					 	<a href="#"><i class="fa fa-briefcase"></i><span class="nav-label">Transactions</span></a>
+					 	<ul class="nav nav-third-level">
+					 		<li class="@if(isset($sub_subnav_active)&&($sub_subnav_active=='buy')) active @else @endif">
+					 			<a href="{{ route('backend.data.transaction.index', ['type' => 'buy']) }}">Order</a>
+					 		</li>
+					 		<li class="@if(isset($sub_subnav_active)&&($sub_subnav_active=='sell')) active @else @endif">
+					 			<a href="{{ route('backend.data.transaction.index', ['type' => 'sell']) }}">Sales</a>
+					 		</li>
+					 	</ul>
+					 </li>
 				</ul>
 			</li>
 			<li class="@if($nav_active=='settings') active @endif">

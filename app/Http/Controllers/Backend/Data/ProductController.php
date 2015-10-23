@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers\Backend\Data;
 
 use App\Http\Controllers\baseController;
+use App\Models\Product;
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect;
-use App\Models\Product;
 
 class ProductController extends baseController 
 {
@@ -18,31 +18,25 @@ class ProductController extends baseController
     	parent::__construct();
     }
 
-	protected $view_name 							= 'Product';
+	protected $view_name 								= 'Product';
 	
 
 	public function index()
 	{	
 		$breadcrumb										= ['Produk' => 'backend.data.product.index'];
+		
+		$filters 										= null;
 
-		if ($search = Input::get('q'))
+		if(Input::has('q'))
 		{
-			$datas 										= product::where('deleted_at',null)
-																		->FindProduct(Input::get('q'))
-																		->paginate()
-																		; 
-			$searchResult								= $search;
-		}
-		else
-		{
-			$searchResult								= NULL;
+			$filters 									= ['name' => Input::get('q')];
 		}
 
 		$this->layout->page 							= view('pages.backend.data.product.index')
 																		->with('WT_pageTitle', $this->view_name )
 																		->with('WT_pageSubTitle','Index')
 																		->with('WB_breadcrumbs', $breadcrumb)
-																		->with('searchResult', $searchResult)
+																		->with('filters', $filters)
 																		->with('nav_active', 'data')
 																		->with('subnav_active', 'products');
 
@@ -219,4 +213,14 @@ class ProductController extends baseController
 	    		
 	    return json_decode(json_encode($tmp));
 	}	
+
+	public function getProductByName()
+	{
+		$inputs		= Input::only('name');
+		$tmp 		= Product::select(['id', 'name'])
+								->where('name', 'like', '%'. $inputs['name'].'%')
+								->get();
+
+		return json_decode(json_encode($tmp));
+	}
 }

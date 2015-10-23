@@ -48,7 +48,7 @@
 				<div class="form-group">
 					<label for="description">Deskripsi Produk</label>
 					{!! Form::textarea('description', $data['description'], [
-								'class'         => 'form-control summernote', 
+								'class'         => 'summernote', 
 								'required'      => 'required', 
 								'placeholder'   => 'Masukkan deskripsi produk',
 								'rows'          => '3',

@@ -1,9 +1,22 @@
 @inject('datas', 'App\Models\Transaction')
 
 <?php
-	$datas = $datas::OrderBy('transacted_at', 'desc')
-					->with('User')
-					->paginate();
+	if ($sub_subnav_active == 'sell')
+	{
+		$datas 		= $datas::Where('type', '=', $sub_subnav_active)
+							->OrderBy('transacted_at', 'desc')
+							->with('User')
+							->paginate();
+		$type_user  = 'User';
+	}
+	else
+	{
+		$datas 		= $datas::Where('type', '=', $sub_subnav_active)
+							->OrderBy('transacted_at', 'desc')
+							->with('Supplier')
+							->paginate();	
+		$type_user  = 'Supplier';
+	}
 ?>
 
 @extends('template.backend.layout')
@@ -13,10 +26,10 @@
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-md-8 col-sm-4 hidden-xs">
-					<a class="btn btn-default" href="{{ URL::route('backend.data.transaction.create') }}"> Data Baru </a>
+					<a class="btn btn-default" href="{{ URL::route('backend.data.transaction.create', ['type' => $sub_subnav_active]) }}"> Data Baru </a>
 				</div>
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-					<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.transaction.create') }}"> Data Baru </a>
+					<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.transaction.create', ['type' => $sub_subnav_active]) }}"> Data Baru </a>
 				</div>
 				<div class="col-md-4 col-sm-8 col-xs-12">
 					{!! Form::open(array('route' => 'backend.data.transaction.index', 'method' => 'get' )) !!}
@@ -48,7 +61,7 @@
 								<tr>
 									<th class="text-center">No.</th>
 									<th class="col-md-2 text-center">Nota Transaksi</th>
-									<th class="col-md-4">Nama</th>
+									<th class="col-md-4">Nama {{ $type_user }}</th>
 									<th class="col-md-2 text-center">Tanggal Transaksi</th>
 									<th class="col-md-1 text-center">Status</th>
 									<th class="col-md-2">Kontrol</th>
@@ -70,11 +83,11 @@
 									<tr>
 										<td class="text-center">{{ $ctr }}</td>
 										<td class="text-center">{{ $data['ref_number'] }}</td>
-										<td>{{ $data['User']['name'] }}</td>
+										<td>{{ $data[$type_user]['name'] }}</td>
 										<td class="text-center">{{ $data['transacted_at'] }}</td>
 										<td class="text-center">{{ $data['status'] }} </td>
 										<td>
-											<a href="{{ route('backend.settings.transaction.show', ['courier_id' => $data['id']]) }}">Detail</a>,
+											<a href="#">Detail</a>,
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#trans" 
 												data-id="{{ $data['id'] }}" 
 												data-nota-transaksi="{{ $data['invoice_no'] }}" 

@@ -146,4 +146,14 @@ class customerController extends baseController
 		}		
 	}
 
+	public function getCustomerByName()
+	{
+		$inputs 	= Input::only('name');
+	    
+	    $tmp 		= User::select(['id', 'name'])
+	    						->where('name', 'like', "%" . $inputs['name'] . "%")
+	    						->get();
+	    		
+	    return json_decode(json_encode($tmp));
+	}
 }
