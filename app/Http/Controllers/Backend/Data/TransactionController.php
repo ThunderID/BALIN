@@ -51,11 +51,11 @@ class transactionController extends baseController
 		{
 			if (Input::get('type')=='sell')
 			{
-				$sub_subnav_active 				= 'sell';
+				$subnav_active 				= 'sell';
 			}
 			else
 			{
-				$sub_subnav_active 				= 'buy';
+				$subnav_active 				= 'buy';
 			}
 		}
 
@@ -65,8 +65,7 @@ class transactionController extends baseController
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('searchResult', $searchResult)
 													->with('nav_active', 'data')
-													->with('subnav_active', 'transaction')
-													->with('sub_subnav_active', $sub_subnav_active)
+													->with('subnav_active', $subnav_active)
 													;
 		return $this->layout;	
 
@@ -85,14 +84,26 @@ class transactionController extends baseController
 														'Edit Transaksi' => 'backend.test.testcontroller'];
 		}
 
+		if (Input::has('type'))
+		{
+			if (Input::get('type')=='sell')
+			{
+				$subnav_active 				= 'sell';
+			}
+			else
+			{
+				$subnav_active 				= 'buy';
+			}
+		}
+
 		$this->layout->page 					= view('pages.backend.data.transaction.create')
-													->with('WT_pageTitle', $this->view_name )
-													->with('WT_pageSubTitle','Create')		
-													->with('WB_breadcrumbs', $breadcrumb)
-													->with('id', $id)
-													->with('nav_active', 'data')
-													->with('subnav_active', 'transaction')
-													;
+														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pageSubTitle','Create')		
+														->with('WB_breadcrumbs', $breadcrumb)
+														->with('id', $id)
+														->with('nav_active', 'data')
+														->with('subnav_active', $subnav_active)
+														;
 		return $this->layout;
 	}
 

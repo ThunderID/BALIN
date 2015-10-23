@@ -4,102 +4,11 @@
 	<div class="row">
 		<div class="col-md-12">
 			{!! Form::open(['route' => 'backend.test.testcontroller.post', 'class' =>'wizard-big', 'id' => 'create-transaction']) !!}
-				<h1>Customer</h1>
-				<fieldset>
-					<h2>Informasi Customer</h2>
-					<div class="clearfix">&nbsp;</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>Customer</label>
-								{!! Form::text('product', null, [
-											'class' => 'select-customer',
-											'style'	=> 'width:100%'
-								]) !!}
-							</div>
-						</div>
-					</div>
-				</fieldset>
-				<h1>Produk</h1>
-				<fieldset>
-					<h2>Informasi Produk</h2>
-					<div class="clearfix">&nbsp;</div>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>Produk</label>
-								{!! Form::text('product', null, [
-											'class' 		=> 'select-product-by-name',
-											'style'			=> 'width:100%',
-											'data-price'	=> ''
-								]) !!}
-							</div>
-						</div>
-						<div class="col-md-1">
-							<div class="form-group">
-								<label>Qty</label>
-								{!! Form::input('text', 'qty', null, ['class' => 'form-control']) !!}
-							</div>
-						</div>
-						<div class="col-md-2">
-							<div class="form-group">
-								<label for="harga">Harga</label>
-								{!! Form::input('text', 'price', null, ['class' => 'form-control price']) !!}
-							</div>
-						</div>
-						<div class="col-md-2">
-							<div class="form-group">
-								<label for="diskon">Diskon</label>
-								{!! Form::input('text', 'discount', null, ['class' => 'form-control']) !!}
-							</div>
-						</div>
-						<div class="col-md-2">
-							<div class="form-group">
-								<label for="harga">Jumlah Harga</label>
-								{!! Form::input('text', 'price', null, ['class' => 'form-control']) !!}
-							</div>
-						</div>
-						<div class="col-md-1">
-							<div class="form-group">
-								<a href="javascript:;" class="btn btn-sm btn-default m-t-mds btn-add">
-									<i class="fa fa-plus"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-					<div id="template"></div>
-					<div class="row">
-						<div class="col-md-2 col-md-offset-9">
-							<div class="form-group">
-								<label for="harga">Total Harga</label>
-								{!! Form::input('number', 'price', null, ['class' => 'form-control', 'id' => 'total-price']) !!}
-							</div>
-						</div>
-					</div>
-				</fieldset>
-				<h1>Pembayaran</h1>
-				<fieldset>
-					<h2>Informasi Pembayaran</h2>
-					<div class="clearfix">&nbsp;</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="">Method</label>
-								{!! Form::select('payment', ['bank_transfer' => 'Bank Transfer', 'point_log' => 'Point Log'], null, ['class' => 'form-control']) !!}
-							</div>
-						</div>
-					</div>
-				</fieldset>
-				<h1>Pengiriman</h1>
-				<fieldset>
-					<h2>Informasi Pengiriman</h2>
-					<div class="clearfix">&nbsp;</div>
-				</fieldset>
-				<h1>Transaksi Detail</h1>
-				<fieldset>
-					<h2>Informasi Transaksi Detail</h2>
-					<div class="clearfix">&nbsp;</div>
-				</fieldset>
+				@if ($subnav_active=='sell')
+					@include('pages.backend.data.transaction.sell.create')
+				@else
+					@include('pages.backend.data.transaction.buy.create')
+				@endif
 			{!! Form::close() !!}
 		</div>
 	</div>
