@@ -46,6 +46,14 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
+					<label for="">Jenis</label>
+					{!! Form::select('is_new', ['0' => 'Biasa', '1' => 'Baru'], null, ['class' => 'form-control']) !!}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
 					<label for="description">Deskripsi Produk</label>
 					{!! Form::textarea('description', $data['description'], [
 								'class'         => 'summernote', 
@@ -144,14 +152,19 @@
 			<div class="col-md-3">
 				<div class="form-group">
 					<label for="">Thumbnail</label><br>
-					{!! HTML::image('http://placehold.it/200x200/bababa/000000/?text=gambar') !!}
+						{!! HTML::image('http://placehold.it/180x180/bababa/000000/?text=gambar', null, ['style' => 'background-color:#eee;padding:10px']) !!}
 					<input type="file" style="opacity:0" class="file-image">
 					<a href="#" class="btn btn-primary btn-upload">Upload Gambar</a>
 				</div>
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-8">
 				<div class="form-group">
-					<input type="file" name="gallery[]" class="gallery-upload" data-url="{{ route('backend.data.product.store') }}">
+					<label for="">Gallery</label>
+					<div class="gallery" style="width:100%;height:200px;background-color:#eee;padding:10px">
+						{!! HTML::image('http://placehold.it/180x180/bababa/000000/?text=gambar') !!}
+					</div>
+					<input type="file" name="gallery[]" class="gallery-upload hide" data-url="{{ route('backend.data.product.store') }}"><br>
+					<a href="#" class="btn btn-primary btn-upload">Upload Gambar</a>
 				</div>
 			</div>
 		</div>
@@ -160,7 +173,7 @@
 			<div class="col-md-12">
 				<div class="form-group text-right">
 					<a href="{{ URL::route('backend.data.product.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
-					<input type="submit" class="btn btn-md btn-primary" tabindex="9">Simpan</button>
+					<button type="submit" class="btn btn-md btn-primary" tabindex="9">Simpan</button>
 				</div>        
 			</div>        
 		</div>        
