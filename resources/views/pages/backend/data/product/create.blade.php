@@ -10,7 +10,7 @@
 	@if(!is_null($id))
 		{!! Form::open(['url' => route('backend.data.product.update', $id), 'method' => 'PATCH']) !!}
 	@else
-		{!! Form::open(['url' => route('backend.data.product.store'), 'method' => 'POST']) !!}
+		{!! Form::open(['url' => route('backend.data.product.store'), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
 	@endif
 		<div class="row">
 			<div class="col-md-12">
@@ -25,7 +25,7 @@
 					<label for="name">Nama Produk</label>
 					{!! Form::text('name', $data['name'], [
 								'class'         => 'form-control', 
-								'required'      => 'required', 
+								
 								'tabindex'      => '1', 
 								'placeholder'   => 'Masukkan nama produk'
 					]) !!}
@@ -36,7 +36,7 @@
 					<label for="sku">SKU Produk</label>
 					{!! Form::text('sku', $data['sku'], [
 								'class'         => 'form-control', 
-								'required'      => 'required', 
+								
 								'placeholder'   => 'Masukkan kode SKU produk',
 								'tabindex'      => '2', 
 					]) !!}
@@ -49,9 +49,9 @@
 					<label for="description">Deskripsi Produk</label>
 					{!! Form::textarea('description', $data['description'], [
 								'class'         => 'summernote', 
-								'required'      => 'required', 
+								
 								'placeholder'   => 'Masukkan deskripsi produk',
-								'rows'          => '3',
+								'rows'          => '2',
 								'tabindex'      => '3',
 								'style'         => 'resize:none;',
 					]) !!}
@@ -79,7 +79,7 @@
 				</div>  
 			</div> 
 		</div>
-
+		<div class="clearfix">&nbsp;</div>
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
@@ -93,7 +93,7 @@
 					<label for="category">Harga</label>
 					{!! Form::text('price', $data['price'], [
 								'class'         => 'form-control', 
-								'required'      => 'required', 
+								
 								'tabindex'      => '5', 
 								'placeholder'   => 'harga'
 					]) !!}
@@ -104,7 +104,7 @@
 					<label for="category">Harga Promo</label>
 					{!! Form::text('promo_price', $data['promo_price'], [
 								'class'         => 'form-control', 
-								'required'      => 'required', 
+								
 								'tabindex'      => '6', 
 								'placeholder'   => 'harga promo (kosongkan bila tidak ada harga promo)'
 					]) !!}
@@ -115,7 +115,7 @@
 					<label for="category">Mulai</label>
 					{!! Form::text('started_at', $data['started_at'], [
 								'class'         => 'form-control', 
-								'required'      => 'required', 
+								
 								'tabindex'      => '7', 
 								'placeholder'   => 'Y-m-d H:i:s'
 					]) !!}
@@ -135,9 +135,32 @@
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
 			<div class="col-md-12">
+				<h4 class="sub-header">
+					Gambar Produk
+				</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="">Thumbnail</label><br>
+					{!! HTML::image('http://placehold.it/200x200/bababa/000000/?text=gambar') !!}
+					<input type="file" style="opacity:0" class="file-image">
+					<a href="#" class="btn btn-primary btn-upload">Upload Gambar</a>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="form-group">
+					<input type="file" name="gallery[]" class="gallery-upload" data-url="{{ route('backend.data.product.store') }}">
+				</div>
+			</div>
+		</div>
+		<div class="clearfix">&nbsp;</div>
+		<div class="row">
+			<div class="col-md-12">
 				<div class="form-group text-right">
 					<a href="{{ URL::route('backend.data.product.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
-					<button type="submit" class="btn btn-md btn-success" tabindex="9">Simpan</button>
+					<input type="submit" class="btn btn-md btn-primary" tabindex="9">Simpan</button>
 				</div>        
 			</div>        
 		</div>        
@@ -180,10 +203,11 @@
 		preload_data.push(selections[i]);         
 	}
 
-	       
+			 
 @stop
 
 @section('script_plugin')
 	@include('plugins.select2')
 	@include('plugins.summernote')
+	@include('plugins.jquery-upload')
 @stop
