@@ -53,7 +53,19 @@ class SwitchPaymentTransaction extends Job implements SelfHandling
             case 'buy':
                 break;
             case 'sell':
-                    $result         = $this->dispatch(new TrackOrderPayment($this->payment));
+                    if($this->payment->transaction_id)
+                    {
+                        $result     = $this->dispatch(new validatePayment($this->payment));
+
+                        if($result->getStatus() == 'success')
+                        {
+                            $result = $this->dispatch(new TrackOrderPayment($this->payment));
+                        }
+                    }
+                    else
+                    {
+                        $result     = new jsend('success', (array)$this->payment);
+                    }
                 break;
             default:
                 throw new Exception('Transaction type must be one of buy or sell.');

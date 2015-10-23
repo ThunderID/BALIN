@@ -1,9 +1,9 @@
 @inject('datas', 'App\Models\Transaction')
 
 <?php
-	if ($sub_subnav_active == 'sell')
+	if ($subnav_active == 'sell')
 	{
-		$datas 		= $datas::Where('type', '=', $sub_subnav_active)
+		$datas 		= $datas::Where('type', '=', $subnav_active)
 							->OrderBy('transacted_at', 'desc')
 							->with('User')
 							->paginate();
@@ -11,7 +11,7 @@
 	}
 	else
 	{
-		$datas 		= $datas::Where('type', '=', $sub_subnav_active)
+		$datas 		= $datas::Where('type', '=', $subnav_active)
 							->OrderBy('transacted_at', 'desc')
 							->with('Supplier')
 							->paginate();	
@@ -26,10 +26,10 @@
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-md-8 col-sm-4 hidden-xs">
-					<a class="btn btn-default" href="{{ URL::route('backend.data.transaction.create', ['type' => $sub_subnav_active]) }}"> Data Baru </a>
+					<a class="btn btn-default" href="{{ URL::route('backend.data.transaction.create', ['type' => $subnav_active]) }}"> Data Baru </a>
 				</div>
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-					<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.transaction.create', ['type' => $sub_subnav_active]) }}"> Data Baru </a>
+					<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.transaction.create', ['type' => $subnav_active]) }}"> Data Baru </a>
 				</div>
 				<div class="col-md-4 col-sm-8 col-xs-12">
 					{!! Form::open(array('route' => 'backend.data.transaction.index', 'method' => 'get' )) !!}
