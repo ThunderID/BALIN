@@ -29,6 +29,15 @@ class BaseObserver
 
 	public function Saving($model)
 	{
+		$validator 				= Validator::make($model['attributes'], $model['rules']);
+
+		if (!$validator->passes())
+		{
+			$model['errors'] 	= $validator->errors();
+
+			return false;
+		}
+
 		$class 			= $this->before($model);
 
 		return $this->after($class, $model);
