@@ -54,7 +54,14 @@ class TrackOrderShipment extends Job implements SelfHandling
             case 'draft': case 'canceled': case 'shipped': case 'waiting': case 'delivered':
                 break;
             case 'paid':
-                $result             = $this->dispatch(new TrackShippedShipment($this->shipment->transaction));
+                if($this->shipment->receipt_number)
+                {
+                    $result         = $this->dispatch(new TrackShippedShipment($this->shipment->transaction));
+                }
+                else
+                {
+                    $result         = new jsend('success', (array)$this->transaction);
+                }
                 break;
             default:
                 throw new Exception('Transaction status invalid.');

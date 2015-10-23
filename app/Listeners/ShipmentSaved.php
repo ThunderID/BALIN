@@ -2,36 +2,29 @@
 
 namespace App\Listeners;
 
+use App\Jobs;
+
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Session;
-use App\Models\Shipment;
-use App\Jobs\SwitchShipmentTransaction;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+
+use App\Models\Shipment;
 
 class ShipmentSaved
 {
     use DispatchesJobs, ValidatesRequests;
 
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $shipment;
+
+    public function __construct(shipment $shipment)
     {
-        //
+        $this->shipment                 = $shipment;
     }
 
-    /**
-     * Handle the event.
-     *
-     * @param  Session  $event
-     * @return void
-     */
-    public function handle(Shipment $Shipment)
+    public function handle()
     {
         $result                         = $this->dispatch(new SwitchShipmentTransaction($Shipment));
 
