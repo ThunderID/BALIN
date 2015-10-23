@@ -76,8 +76,8 @@ class BaseObserver
 		$class 			= get_class($model);
 		$class2 		= explode( '\\', $class );
 		$lastnameclass 	= end( $class2 );
-		$class 			= str_replace('Models', 'Jobs', $class);
-		$class 			= str_replace($lastnameclass, $lastnameclass.debug_backtrace()[1]['function'], $class);
+		$class 			= str_replace('Models', 'Jobs\\Models', $class);
+		$class 			= str_replace($lastnameclass, $lastnameclass.'\\'.$lastnameclass.debug_backtrace()[1]['function'], $class);
 
 		return $class;	
 	}
@@ -101,7 +101,8 @@ class BaseObserver
 	    }
 	    elseif(!class_exists($class))
 	    {
-	    	return true;
+	        trigger_error("Unable to load class: $class", E_USER_WARNING);
+	    	// return true;
 	    }
 	    else
 	    {
