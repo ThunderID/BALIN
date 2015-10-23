@@ -76,6 +76,7 @@ $datas 			= $datas->orderby('name')->paginate();
 										<td>{{$data['phone']}}</td>                                                                               
 										<td>{{$data['address']}}</td>                                                                               
 										<td>
+											<a href="{{ URL::route('backend.data.supplier.show', ['id' => $data['id']]) }}"> Detail </a>, 
 											<a href="{{ URL::route('backend.data.supplier.edit', ['id' => $data['id']]) }}"> Edit </a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#supplier_del"
 												data-id="{{ $data['id'] }}"

@@ -106,4 +106,12 @@ class TransactionDetail extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+
+	public function scopeSupplier($query, $variable)
+	{
+		return 	$query
+				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipped','delivered'])->type('buy')->supplierid($variable);})
+				->groupBy('product_id')
+				;
+	}
 }
