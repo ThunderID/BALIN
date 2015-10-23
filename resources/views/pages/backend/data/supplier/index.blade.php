@@ -1,17 +1,13 @@
 @inject('datas', 'App\Models\Supplier')
-
 <?php 
-	if (isset($searchResult)&&($searchResult!=null))
+if(!is_null($filters) && is_array($filters))
+{
+	foreach ($filters as $key => $value) 
 	{
-		$datas = $datas::where('name','like', '%'.$searchResult.'%')
-						->OrderBy('name', 'asc')
-						->paginate();
+		$datas = call_user_func([$datas, $key], $value);
 	}
-	else 
-	{
-		$datas = $datas::OrderBy('name', 'asc')
-						->paginate();
-	}
+}
+$datas 			= $datas->orderby('name')->paginate();
 ?>
 
 @extends('template.backend.layout') 

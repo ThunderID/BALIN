@@ -31,6 +31,11 @@ class ProductController extends baseController
 		if(Input::has('q'))
 		{
 			$filters 									= ['name' => Input::get('q')];
+			$searchResult								= Input::get('q');
+		}
+		else
+		{
+			$searchResult								= null;
 		}
 
 		$this->layout->page 							= view('pages.backend.data.product.index')
@@ -38,6 +43,7 @@ class ProductController extends baseController
 																		->with('WT_pageSubTitle','Index')
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('filters', $filters)
+																		->with('searchResult', $searchResult)
 																		->with('nav_active', 'data')
 																		->with('subnav_active', 'products');
 

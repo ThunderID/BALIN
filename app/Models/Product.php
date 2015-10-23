@@ -234,4 +234,14 @@ class Product extends Eloquent
 					// ->first()
 					;
 	}
+
+	public function scopeSuppliers($query, $variable)
+	{
+		return 	$query
+					->select('products.*')
+					->wherehas('transactions', function($q){$q->status(['paid','shipped','delivered'])->type('buy');})
+					->with(['transactions' => function($q){$q->status(['paid','shipped','delivered'])->type('buy');}], 'transactions.supplier')
+					// ->first()
+					;
+	}
 }
