@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Supplier;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
