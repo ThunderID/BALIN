@@ -14,12 +14,14 @@ class ShipmentSaved extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
-    public function __construct()
+    protected $shipment;
+
+    public function __construct(shipment $shipment)
     {
-        //
+        $this->shipment                 = $shipment;
     }
 
-    public function handle(Shipment $Shipment)
+    public function handle()
     {
         $result                         = $this->dispatch(new SwitchShipmentTransaction($Shipment));
 
