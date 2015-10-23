@@ -72,9 +72,62 @@
 					<label for="category">Kategori</label>
 					{!! Form::text('category', null, [
 								'class'         => 'select-category', 
-								'tabindex'      => '3',
+								'tabindex'      => '4',
 								'id'            => 'find_category',
 								'style'         => 'width:100%',
+					]) !!}
+				</div>  
+			</div> 
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="sub-header">
+					Harga Produk
+				</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="category">Harga</label>
+					{!! Form::text('price', $data['price'], [
+								'class'         => 'form-control', 
+								'required'      => 'required', 
+								'tabindex'      => '5', 
+								'placeholder'   => 'harga'
+					]) !!}
+				</div>  
+			</div>  
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="category">Harga Promo</label>
+					{!! Form::text('promo_price', $data['promo_price'], [
+								'class'         => 'form-control', 
+								'required'      => 'required', 
+								'tabindex'      => '6', 
+								'placeholder'   => 'harga promo (kosongkan bila tidak ada harga promo)'
+					]) !!}
+				</div>  
+			</div> 
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="category">Mulai</label>
+					{!! Form::text('started_at', $data['started_at'], [
+								'class'         => 'form-control', 
+								'required'      => 'required', 
+								'tabindex'      => '7', 
+								'placeholder'   => 'Y-m-d H:i:s'
+					]) !!}
+				</div>  
+			</div> 
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="category">Label</label>
+					{!! Form::text('label', $data['label'], [
+								'class'         => 'form-control', 
+								'tabindex'      => '8', 
+								'placeholder'   => 'Label'
 					]) !!}
 				</div>  
 			</div> 
@@ -82,10 +135,9 @@
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="clearfix">&nbsp;</div>
 				<div class="form-group text-right">
 					<a href="{{ URL::route('backend.data.product.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
-					<button type="submit" class="btn btn-md btn-success" tabindex="7">Simpan</button>
+					<button type="submit" class="btn btn-md btn-success" tabindex="9">Simpan</button>
 				</div>        
 			</div>        
 		</div>        

@@ -26,20 +26,23 @@ class SupplierController extends baseController
 	{	
 		$breadcrumb								= ['Supplier' => 'backend.data.supplier.index'];
 
-		if (Input::get('q'))
+		$filters 								= null;
+
+		if(Input::has('q'))
 		{
+			$filters 							= ['name' => Input::get('q')];
 			$searchResult						= Input::get('q');
 		}
 		else
 		{
 			$searchResult						= null;
-
 		}
 
 		$this->layout->page 					= view('pages.backend.data.supplier.index')
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
+													->with('filters', $filters)
 													->with('searchResult', $searchResult)
 													->with('nav_active', 'data')
 													->with('subnav_active', 'supplier')

@@ -77,6 +77,8 @@ class Product extends Eloquent
 											'promo_price',
 											'discount',
 											'stock',
+											'started_at',
+											'label',
 										];
 
 	/**
@@ -123,6 +125,30 @@ class Product extends Eloquent
 		}
 
 		return 0;
+	}
+
+	public function getStartedAtAttribute($value)
+	{
+		$price 						= Price::productid($this->id)->ondate('now')->first();
+
+		if($price)
+		{
+			return date('Y-m-d H:i:s', strtotime($price->started_at));
+		}
+
+		return date('Y-m-d H:i:s');
+	}
+
+	public function getLabelAttribute($value)
+	{
+		$price 						= Price::productid($this->id)->ondate('now')->first();
+
+		if($price)
+		{
+			return $price->label;
+		}
+
+		return '';
 	}
 
 	public function getStockAttribute($value)
@@ -205,6 +231,16 @@ class Product extends Eloquent
 					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as selled_frequency')
 					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as selled_stock')
 					->wherehas('transactions', function($q){$q->status(['paid','shipped','delivered'])->type('sell');})
+					// ->first()
+					;
+	}
+
+	public function scopeSuppliers($query, $variable)
+	{
+		return 	$query
+					->select('products.*')
+					->wherehas('transactions', function($q){$q->status(['paid','shipped','delivered'])->type('buy');})
+					->with(['transactions' => function($q){$q->status(['paid','shipped','delivered'])->type('buy');}], 'transactions.supplier')
 					// ->first()
 					;
 	}

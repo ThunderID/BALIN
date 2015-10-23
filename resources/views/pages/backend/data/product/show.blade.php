@@ -1,9 +1,10 @@
 @inject('data', 'App\Models\Product')
 <?php 
-	$stat 	= $data->id($id)->totalsell(true)->first();
-	$data = $data::id($id)
-				->with(['categories', 'images', 'stocks'])
-				->first(); 
+	$stat 		= $data->id($id)->totalsell(true)->first();
+	$suppliers 	= $data->id($id)->suppliers(true)->first();
+	$data 		= $data::id($id)
+					->with(['categories', 'images', 'stocks'])
+					->first(); 
 ?>
 
 @extends('template.backend.layout') 
@@ -80,7 +81,6 @@
 			</div>
 		</div>
 		<div class="col-md-2">
-
 			<div class="panel panel-default">
 				<div class="panel-heading">Stok Dibayar</div>
 				<div class="panel-body">
@@ -104,8 +104,9 @@
 			</div>
 		</div>
 	</div>
+	
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-8">
 			<h2 style="margin-top:0px;">{!!$data->name!!}</h2>
 			<h5><strong>SKU</strong> {!!$data->sku!!}</h5>
 			<h5><strong>Harga</strong> @if($data->discount!=0)<strike> {!!$data->price!!} </strike> {!!$data->promo_price!!} @else {!!$data->price!!} @endif</h5>
@@ -113,6 +114,7 @@
 			@if($data->is_new)
 				<label class="label label-danger">New</label><br/>
 			@endif
+			<br/>
 			<i class = "fa fa-tags"></i>
 			@foreach($data->categories as $key => $value)
 				@if($key!=0)
@@ -120,7 +122,25 @@
 				@endif
 				{!! $value->name !!}
 			@endforeach
+			<br/>
+			<br/>
 			{!!$data->description!!}
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">Daftar Supplier</div>
+				<div class="panel-body">
+					@if(!is_null($suppliers))
+						<ul>
+						@foreach($suppliers->transactions as $key => $value)
+							<li>
+								{!! $value->supplier->name !!}
+							</li>
+						@endforeach
+						</ul>
+					@endif
+				</div>
+			</div>
 		</div>
 	</div>
 
