@@ -4,7 +4,6 @@ use App\Http\Controllers\baseController;
 use App\Models\Product;
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect;
-use App\Models\Product;
 
 class ProductController extends baseController 
 {
@@ -28,8 +27,7 @@ class ProductController extends baseController
 
 		if ($search = Input::get('q'))
 		{
-			$datas 										= product::where('deleted_at',null)
-																		->FindProduct(Input::get('q'))
+			$datas 										= Product::FindProduct(Input::get('q'))
 																		->paginate()
 																		; 
 			$searchResult								= $search;
