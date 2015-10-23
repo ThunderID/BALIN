@@ -113,6 +113,7 @@
 			@if($data->is_new)
 				<label class="label label-danger">New</label><br/>
 			@endif
+			<br/>
 			<i class = "fa fa-tags"></i>
 			@foreach($data->categories as $key => $value)
 				@if($key!=0)
@@ -120,6 +121,8 @@
 				@endif
 				{!! $value->name !!}
 			@endforeach
+			<br/>
+			<br/>
 			{!!$data->description!!}
 		</div>
 	</div>

@@ -77,6 +77,8 @@ class Product extends Eloquent
 											'promo_price',
 											'discount',
 											'stock',
+											'started_at',
+											'label',
 										];
 
 	/**
@@ -123,6 +125,30 @@ class Product extends Eloquent
 		}
 
 		return 0;
+	}
+
+	public function getStartedAtAttribute($value)
+	{
+		$price 						= Price::productid($this->id)->ondate('now')->first();
+
+		if($price)
+		{
+			return date('Y-m-d H:i:s', strtotime($price->started_at));
+		}
+
+		return date('Y-m-d H:i:s');
+	}
+
+	public function getLabelAttribute($value)
+	{
+		$price 						= Price::productid($this->id)->ondate('now')->first();
+
+		if($price)
+		{
+			return $price->label;
+		}
+
+		return '';
 	}
 
 	public function getStockAttribute($value)
