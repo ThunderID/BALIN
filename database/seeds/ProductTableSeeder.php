@@ -15,6 +15,7 @@ class ProductTableSeeder extends Seeder
 {
 	function run()
 	{
+		DB::table('images')->truncate();
 		DB::table('products')->truncate();
 		DB::table('categories_products')->truncate();
 		$faker 										= Factory::create();
@@ -83,27 +84,31 @@ class ProductTableSeeder extends Seeder
 						// }
 
 						//add images
-						$image 						= new Image;
-						$image->fill([
-								'thumbnail'			=> 'http://placehold.it/75x100/'.$clridx.'/000000',
-								'image_xs'			=> 'http://placehold.it/150x200/'.$clridx.'/000000',
-								'image_sm'			=> 'http://placehold.it/300x400/'.$clridx.'/000000',
-								'image_md'			=> 'http://placehold.it/450x600/'.$clridx.'/000000',
-								'image_l'			=> 'http://placehold.it/600x800/'.$clridx.'/000000',
-								'published_at'		=> date('Y-m-d H:i:s'),
-						]);
-						if (!$image->save())
+						$imagetotal 				= rand(1, 5);
+						foreach (range(0, $imagetotal) as $idxxx) 
 						{
-							print_r($image->getError());
-							exit;
-						}
+							$image 						= new Image;
+							$image->fill([
+									'thumbnail'			=> 'http://placehold.it/75x100/'.$hexs[$clridx].'/000000',
+									'image_xs'			=> 'http://placehold.it/150x200/'.$hexs[$clridx].'/000000',
+									'image_sm'			=> 'http://placehold.it/300x400/'.$hexs[$clridx].'/000000',
+									'image_md'			=> 'http://placehold.it/450x600/'.$hexs[$clridx].'/000000',
+									'image_l'			=> 'http://placehold.it/600x800/'.$hexs[$clridx].'/000000',
+									'published_at'		=> date('Y-m-d H:i:s'),
+							]);
+							if (!$image->save())
+							{
+								print_r($image->getError());
+								exit;
+							}
 
-						$image->imageable()->associate($data);
-						
-						if (!$image->save())
-						{
-							print_r($image->getError());
-							exit;
+							$image->imageable()->associate($data);
+							
+							if (!$image->save())
+							{
+								print_r($image->getError());
+								exit;
+							}
 						}
 
 						//add prices
