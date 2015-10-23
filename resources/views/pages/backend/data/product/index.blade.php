@@ -1,5 +1,14 @@
 @inject('datas', 'App\Models\Product')
-{!! $datas = $datas::orderby('name')->paginate() !!}
+<?php 
+if(!is_null($filters) && is_array($filters))
+{
+	foreach ($filters as $key => $value) 
+	{
+		$datas = call_user_func([$datas, $key], $value);
+	}
+}
+$datas 			= $datas->orderby('name')->paginate();
+?>
 
 @extends('template.backend.layout') 
 

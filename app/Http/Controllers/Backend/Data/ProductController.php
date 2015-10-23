@@ -18,30 +18,25 @@ class ProductController extends baseController
     	parent::__construct();
     }
 
-	protected $view_name 							= 'Product';
+	protected $view_name 								= 'Product';
 	
 
 	public function index()
 	{	
 		$breadcrumb										= ['Produk' => 'backend.data.product.index'];
+		
+		$filters 										= null;
 
-		if ($search = Input::get('q'))
+		if(Input::has('q'))
 		{
-			$datas 										= Product::FindProduct(Input::get('q'))
-																		->paginate()
-																		; 
-			$searchResult								= $search;
-		}
-		else
-		{
-			$searchResult								= NULL;
+			$filters 									= ['name' => Input::get('q')];
 		}
 
 		$this->layout->page 							= view('pages.backend.data.product.index')
 																		->with('WT_pageTitle', $this->view_name )
 																		->with('WT_pageSubTitle','Index')
 																		->with('WB_breadcrumbs', $breadcrumb)
-																		->with('searchResult', $searchResult)
+																		->with('filters', $filters)
 																		->with('nav_active', 'data')
 																		->with('subnav_active', 'products');
 
