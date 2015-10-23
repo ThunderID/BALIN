@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\baseController;
 use App\Models\Product;
+use App\Models\Price;
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect;
 
@@ -133,6 +134,7 @@ class ProductController extends baseController
 		$errors 										= new MessageBag();
 
 		DB::beginTransaction();
+
 		if (!$data->save())
 		{
 			$errors->add('Product', $data->getError());
@@ -140,11 +142,28 @@ class ProductController extends baseController
 		else
 		{
 			// category
-			$categories 						= explode(',', $inputs['category']);
+			$categories 								= explode(',', $inputs['category']);
 
 			if(!$data->categories()->sync($categories))
 			{
 				$errors->add('Product', $data->getError());
+			}
+
+			if($data->price != Input::get('price') || $data->promo_price != Input::get('promo_price'))
+			{
+				$price 									= new Price;
+				$price->fill([
+					'product_id'						=> $data->id,
+					'price'								=> Input::get('price'),
+					'promo_price'						=> Input::get('promo_price'),
+					'started_at'						=> date('Y-m-d H:i:s', strtotime(Input::get('started_at'))),
+					'label'								=> Input::get('label'),
+				]);
+
+				if(!$price->save())
+				{
+					$errors->add('Product', $price->getError());
+				}
 			}
 		}
 	
