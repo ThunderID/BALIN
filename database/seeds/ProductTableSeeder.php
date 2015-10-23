@@ -84,16 +84,25 @@ class ProductTableSeeder extends Seeder
 						// }
 
 						//add images
-						$imagetotal 				= rand(1, 5);
+						$imagetotal 				= rand(1, 2);
 						foreach (range(0, $imagetotal) as $idxxx) 
 						{
+							if($idxxx==0)
+							{
+								$hex 					= $hexs[$clridx];
+							}
+							else
+							{
+								$hex 					= $hexs[rand(0, count($hexs)-1)];
+							}
+							
 							$image 						= new Image;
 							$image->fill([
-									'thumbnail'			=> 'http://placehold.it/75x100/'.$hexs[$clridx].'/000000',
-									'image_xs'			=> 'http://placehold.it/150x200/'.$hexs[$clridx].'/000000',
-									'image_sm'			=> 'http://placehold.it/300x400/'.$hexs[$clridx].'/000000',
-									'image_md'			=> 'http://placehold.it/450x600/'.$hexs[$clridx].'/000000',
-									'image_l'			=> 'http://placehold.it/600x800/'.$hexs[$clridx].'/000000',
+									'thumbnail'			=> 'http://placehold.it/75x100/'.$hex.'/000000',
+									'image_xs'			=> 'http://placehold.it/150x200/'.$hex.'/000000',
+									'image_sm'			=> 'http://placehold.it/300x400/'.$hex.'/000000',
+									'image_md'			=> 'http://placehold.it/450x600/'.$hex.'/000000',
+									'image_l'			=> 'http://placehold.it/600x800/'.$hex.'/000000',
 									'published_at'		=> date('Y-m-d H:i:s'),
 							]);
 							if (!$image->save())
