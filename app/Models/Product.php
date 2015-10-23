@@ -196,6 +196,16 @@ class Product extends Eloquent
 					->wherehas('transactions', function($q){$q->status('delivered')->type('buy');})
 					->first()
 					;
-		;
+	}
+
+	public function scopeTotalSell($query, $variable)
+	{
+		return 	$query
+					->select('products.*')
+					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as selled_frequency')
+					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as selled_stock')
+					->wherehas('transactions', function($q){$q->status(['paid','shipped','delivered'])->type('sell');})
+					// ->first()
+					;
 	}
 }
