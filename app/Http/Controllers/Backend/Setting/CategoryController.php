@@ -56,7 +56,7 @@ class CategoryController extends baseController
 															'Detail' => 'backend.settings.category.show'
 														];
 
-			$this->layout->page 					= view('pages.backend.settings.category.detail')
+			$this->layout->page 					= view('pages.backend.settings.category.show')
 															->with('WT_pageTitle', $this->view_name )
 															->with('WT_pageSubTitle','Detail')		
 															->with('WB_breadcrumbs', $breadcrumb)

@@ -1,6 +1,6 @@
 @inject('data', 'App\Models\Category')
 
-<?php $data = $data::where('id', $id)->with('products')->first() ?>
+<?php $data = $data::id($id)->with(['products', 'category'])->first() ?>
 
 @extends('template.backend.layout')
 
@@ -15,7 +15,7 @@
 							<p class="text-capitalize">Parent<span class="pull-right">:</span></p>
 						</div>
 						<div class="col-md-8">
-							<p class="text-capitalize">{{ $data['name'] }}</p>
+							<p class="text-capitalize">{{ $data['category']['name'] }}</p>
 						</div>
 					</div>                
 					<div class="row">
@@ -34,7 +34,7 @@
 							<p>{{ count($data['products']) }}</p>
 						</div>
 					</div>                                                        
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-md-10 text-right">
 							<a href="{{ URL::route('backend.settings.category.edit', $data['id']) }}" >Edit</a> 
 							|                                                                                  
@@ -44,19 +44,12 @@
 								Hapus
 							</a>                                                                                                               
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
 	</div>
 	</br>
-
-	@include(
-		'widgets.pageElements.formModalDelete', [
-				'modal_id'      => 'category_del', 
-				'modal_route'   => 'backend.settings.category.destroy'
-			]
-		)
 
 	@if (count($data['products']) == 0)
 		<div class="row">

@@ -84,7 +84,7 @@ $datas 			= $datas->orderby('path')->paginate();
 												</p>
 											</td>
 											<td>
-												<!-- <a href="{{ route('backend.settings.category.show',  $data['id']) }}"> Detail </a>, -->
+												<a href="{{ route('backend.settings.category.show',  $data['id']) }}"> Detail </a>,
 												<a href="{{ route('backend.settings.category.edit', ['id' => $data['id']]) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#category_del"
 													data-id="{{$data['id']}}"
