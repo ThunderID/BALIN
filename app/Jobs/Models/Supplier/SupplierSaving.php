@@ -15,6 +15,8 @@ class SupplierSaving extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
+    protected $supplier;
+
     public function __construct(Supplier $supplier)
     {
         $this->supplier             = $supplier;

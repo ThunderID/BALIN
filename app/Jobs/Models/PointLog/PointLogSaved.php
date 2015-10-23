@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
+use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -15,9 +16,11 @@ class PointLogSaved extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
-    public function __construct()
+    protected $pointLog;
+
+    public function __construct(pointlog $pointlog)
     {
-        //
+        $this->pointLog                 = $pointLog;
     }
 
     public function handle(pointlog $pointlog)

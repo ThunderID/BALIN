@@ -5,11 +5,12 @@ namespace App\Jobs;
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use App\Models\Category;
+use App\Models\category;
 use App\Libraries\JSend;
 
 class CategoryDeleting extends Job implements SelfHandling
 {
+    protected $category;
 
     public function __construct(category $category)
     {

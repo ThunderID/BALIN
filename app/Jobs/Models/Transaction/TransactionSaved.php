@@ -2,18 +2,17 @@
 
 namespace App\Jobs;
 
+use App\Jobs\Job;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
-use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
 
 
-class TransactionCreating extends Job implements SelfHandling
+class TransactionSaved extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
@@ -26,7 +25,7 @@ class TransactionCreating extends Job implements SelfHandling
 
     public function handle()
     {
-        $result                             = $this->dispatch(new generateTransactionUniqNumber($this->transaction));
+        $result                     = $this->dispatch(new SwitchTransaction($this->transaction));
 
         return $result;
     }

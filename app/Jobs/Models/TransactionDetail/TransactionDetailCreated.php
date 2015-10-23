@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
+
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -22,9 +23,6 @@ class TransactionDetailCreated extends Job implements SelfHandling
 
     public function handle()
     {
-        $result                                 = new jsend('success', (array)'Sukses' );
-
-        return $result;
+        return new Jsend('success', (array)$this->transactiondetail );
     }
-
 }

@@ -15,12 +15,14 @@ class PointLogSaving extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
-    public function __construct()
+    protected $pointLog;
+
+    public function __construct(pointlog $pointlog)
     {
-        //
+        $this->pointLog                 = $pointLog;
     }
 
-    public function handle(pointlog $pointlog)
+    public function handle()
     {
         $result                         = $this->dispatch(new SetPointExpirationDate($pointlog));
 

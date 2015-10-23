@@ -11,9 +11,11 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Courier;
 
-class CourierDeleting extends Job implements SelfHandling
+class CourierSaving extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
+
+    protected $courier;
 
     public function __construct(Courier $courier)
     {
@@ -22,9 +24,10 @@ class CourierDeleting extends Job implements SelfHandling
 
     public function handle()
     {
-        if($this->courier->shipments()->count() || $this->courier->shippingcosts()->count())
+        //cek 
+        if(isset($this->courier->getDirty()['name']) && $this->courier->shipments()->count())
         {
-            $result                 = new Jsend('error', (array)$this->courier, ['Tidak dapat menghapus kurir yang pernah melakukan transaksi atau memiliki daftar biaya pengiriman']);
+            $result                 = new Jsend('error', (array)$this->courier, ['Tidak dapat mengubah nama courier yang pernah melakukan transaksi']);
         }
         else
         {

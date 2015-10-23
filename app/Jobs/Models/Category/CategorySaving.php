@@ -5,8 +5,7 @@ namespace App\Jobs;
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use App\Models\Category;
-
+use App\Models\category;
 use App\Libraries\JSend;
 
 class CategorySaving extends Job implements SelfHandling
