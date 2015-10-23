@@ -19,25 +19,62 @@ class CourierController extends baseController
     	parent::__construct();
     }
 
-	protected $view_name 								= 'Courier';
+	protected $view_name 							= 'Courier';
 
 	public function index()
 	{		
-		$breadcrumb										= ['Kurir' => 'backend.settings.courier.index'];
+		$breadcrumb									= ['Kurir' => 'backend.settings.courier.index'];
 
+		$filters 									= null;
+
+		if(Input::has('q'))
+		{
+			$filters 								= ['name' => Input::get('q')];
+			
+			$searchResult							= Input::get('q');
+		}
+		else
+		{
+			$searchResult							= null;
+		}
 
 		$this->layout->page 							= view('pages.backend.settings.courier.index')
 																	->with('WT_pageTitle', $this->view_name )
 																	->with('WT_pageSubTitle','Index')
 																	->with('WB_breadcrumbs', $breadcrumb)
 																	->with('nav_active', 'settings')
+																	->with('filters', $filters)
+																	->with('searchResult', $searchResult)
 																	->with('subnav_active', 'courier');
 		return $this->layout;		
 	}
 
 	public function show($id)
 	{
-		
+		$breadcrumb										= 	[	'Produk' => 'backend.settings.courier.index',
+																'Detail' => 'backend.settings.courier.create',
+															];
+
+		if ($search = Input::get('q'))
+		{
+			$searchResult								= $search;
+		}
+		else
+		{
+			$searchResult								= NULL;
+		}
+
+		$this->layout->page 							= view('pages.backend.settings.courier.show')
+																		->with('WT_pageTitle', $this->view_name )
+																		->with('WT_pageSubTitle','Show')
+																		->with('WB_breadcrumbs', $breadcrumb)
+																		->with('searchResult', $searchResult)
+																		->with('id', $id)
+																		->with('nav_active', 'courier')
+																		->with('subnav_active', 'courier')
+																		;
+
+		return $this->layout;
 	}
 
 

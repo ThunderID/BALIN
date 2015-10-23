@@ -1,6 +1,16 @@
 @inject('datas', 'App\Models\Courier')
 
-<?php $datas = $datas::OrderBy('name', 'asc')->paginate(); ?>
+<?php 
+if(!is_null($filters) && is_array($filters))
+{
+	foreach ($filters as $key => $value) 
+	{
+		$datas = call_user_func([$datas, $key], $value);
+	}
+}
+$datas 			= $datas->orderby('name')->paginate();
+?>
+
 
 @extends('template.backend.layout') 
 
@@ -68,6 +78,7 @@
 											<td>{{ $data['name'] }}</td>
 											<td>{{ $data['address'] }}</td>
 											<td>
+												<a href="{{ route('backend.settings.courier.show', $data['id']) }}"> Detail </a>, 
 												<a href="{{ route('backend.settings.courier.edit', $data['id']) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#courier_del"
 													data-id="{{$data['id']}}"

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Courier;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
@@ -20,6 +20,6 @@ class CourierCreating extends Job implements SelfHandling
 
     public function handle()
     {
-        return new Jsend('success', (array)$this->courier);
+        return new JSend('success', (array)$this->courier);
     }
 }

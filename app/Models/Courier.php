@@ -114,4 +114,9 @@ class Courier extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+	
+	public function scopeName($query, $variable)
+	{
+		return 	$query->where('name', 'like', '%'.$variable.'%');
+	}
 }

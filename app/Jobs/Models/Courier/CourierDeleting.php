@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Courier;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
@@ -27,11 +27,11 @@ class CourierDeleting extends Job implements SelfHandling
     {
         if($this->courier->shipments()->count() || $this->courier->shippingcosts()->count())
         {
-            $result                 = new Jsend('error', (array)$this->courier, ['Tidak dapat menghapus kurir yang pernah melakukan transaksi atau memiliki daftar biaya pengiriman']);
+            $result                 = new JSend('error', (array)$this->courier, ['Tidak dapat menghapus kurir yang pernah melakukan transaksi atau memiliki daftar biaya pengiriman']);
         }
         else
         {
-            $result                 = new Jsend('success', (array)$this->courier);
+            $result                 = new JSend('success', (array)$this->courier);
         }
 
         return $result;

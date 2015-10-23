@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Courier;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
@@ -27,11 +27,11 @@ class CourierSaving extends Job implements SelfHandling
         //cek 
         if(isset($this->courier->getDirty()['name']) && $this->courier->shipments()->count())
         {
-            $result                 = new Jsend('error', (array)$this->courier, ['Tidak dapat mengubah nama courier yang pernah melakukan transaksi']);
+            $result                 = new JSend('error', (array)$this->courier, ['Tidak dapat mengubah nama courier yang pernah melakukan transaksi']);
         }
         else
         {
-            $result                 = new Jsend('success', (array)$this->courier);
+            $result                 = new JSend('success', (array)$this->courier);
         }
 
         return $result;
