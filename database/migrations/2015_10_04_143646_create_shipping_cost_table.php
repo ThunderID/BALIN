@@ -18,7 +18,7 @@ class CreateShippingCostTable extends Migration
             $table->string('start_postal_code', 6);
             $table->string('end_postal_code', 6);
             $table->double('cost');
-            $table->datetime('start_date');
+            $table->datetime('started_at');
             $table->timestamps();
             $table->softDeletes();
         });

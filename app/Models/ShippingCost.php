@@ -37,7 +37,7 @@ class ShippingCost extends Eloquent
 											'courier_id'					,
 											'start_postal_code'				,
 											'end_postal_code'				,
-											'start_date'					,
+											'started_at'					,
 											'cost'							,
 										];
 
@@ -57,7 +57,7 @@ class ShippingCost extends Eloquent
 											'start_postal_code'				=> 'required|numeric',
 											'end_postal_code'				=> 'required|numeric',
 											'cost'							=> 'required|numeric',
-											'start_date'					=> 'required|date',
+											'started_at'					=> 'required|date_format:"Y-m-d H:i:s"',
 										];
 
 	/**
