@@ -1,5 +1,14 @@
 @inject('datas', 'App\Models\Category')
-{!! $datas = $datas::orderBy('path', 'asc')->paginate() !!}
+<?php 
+if(!is_null($filters) && is_array($filters))
+{
+	foreach ($filters as $key => $value) 
+	{
+		$datas = call_user_func([$datas, $key], $value);
+	}
+}
+$datas 			= $datas->orderby('path')->paginate();
+?>
 @extends('template.backend.layout') 
 
 @section('content')
@@ -12,7 +21,7 @@
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
 					<a class="btn btn-default btn-block" href="{{ URL::route('backend.settings.category.create') }}"> Data Baru </a>
 				</div>
-<!--                 <div class="col-md-4 col-sm-8 col-xs-12">
+                <div class="col-md-4 col-sm-8 col-xs-12">
 					{!! Form::open(array('route' => 'backend.settings.category.index', 'method' => 'get' )) !!}
 					<div class="row">
 						<div class="col-md-2 col-sm-3 hidden-xs">
@@ -37,7 +46,7 @@
 						</div>
 					</div>
 					{!! Form::close() !!}
-				</div>   -->          
+				</div>            
 			</div>
 			@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.settings.category.index') ])
 			</br> 

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Category;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use App\Models\category;
+use App\Models\Category;
 use App\Libraries\JSend;
 
 class CategoryDeleting extends Job implements SelfHandling
 {
     protected $category;
 
-    public function __construct(category $category)
+    public function __construct(Category $category)
     {
         $this->category                 = $category;
     }
@@ -22,7 +22,7 @@ class CategoryDeleting extends Job implements SelfHandling
     {
         if($this->category->products()->count())
         {
-            return new Jsend('error', (array)$this->category,  ['message' => 'Tidak bisa menghapus kategori yang memiliki produk']);
+            return new Jsend('error', (array)$this->category,  'Tidak bisa menghapus kategori yang memiliki produk');
         }
 
         $childs                         = Category::orderBy('path','desc')
@@ -33,7 +33,7 @@ class CategoryDeleting extends Job implements SelfHandling
         {
             if($child->products()->count())
             {
-                return new Jsend('error', (array)$this->category,  ['message' => 'Tidak bisa menghapus kategori yang memiliki produk']);
+                return new Jsend('error', (array)$this->category,  'Tidak bisa menghapus kategori yang memiliki produk');
             }
             else
             {

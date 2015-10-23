@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Category;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use App\Models\category;
+use App\Models\Category;
 use App\Libraries\JSend;
 
 class CategoryCreated extends Job implements SelfHandling
 {
     protected $category;
 
-    public function __construct(category $category)
+    public function __construct(Category $category)
     {
         $this->category                 = $category;
     }
@@ -23,8 +23,6 @@ class CategoryCreated extends Job implements SelfHandling
 
         $this->category->save();
 
-        $result                         = new JSend('success', array($this->category));
-
-        return $result;
+        return new JSend('success', (array)$this->category);
     }
 }

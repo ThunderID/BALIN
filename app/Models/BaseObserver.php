@@ -101,8 +101,8 @@ class BaseObserver
 	    }
 	    elseif(!class_exists($class))
 	    {
-	        trigger_error("Unable to load class: $class", E_USER_WARNING);
-	    	// return true;
+	        // trigger_error("Unable to load class: $class", E_USER_WARNING);
+	    	return true;
 	    }
 	    else
 	    {

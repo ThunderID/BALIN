@@ -167,6 +167,9 @@ class ProductController extends baseController
 					$errors->add('Product', $price->getError());
 				}
 			}
+
+			//save image
+			//ref. producttableseeder line 114
 		}
 	
 		if ($errors->count())

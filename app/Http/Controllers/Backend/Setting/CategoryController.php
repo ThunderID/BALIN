@@ -23,11 +23,25 @@ class CategoryController extends baseController
 	{		
 		$breadcrumb									= ['Kategori' => 'backend.settings.category.index'];
 
+		$filters 									= null;
+
+		if(Input::has('q'))
+		{
+			$filters 								= ['name' => Input::get('q')];
+			$searchResult							= Input::get('q');
+		}
+		else
+		{
+			$searchResult							= null;
+		}
+
 		$this->layout->page 						= view('pages.backend.settings.category.index')
 															->with('WT_pageTitle', $this->view_name )
 															->with('WT_pageSubTitle','Index')
 															->with('WB_breadcrumbs', $breadcrumb)
 															->with('nav_active', 'settings')
+															->with('filters', $filters)
+															->with('searchResult', $searchResult)
 															->with('subnav_active', 'category')
 														;
 
