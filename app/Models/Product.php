@@ -195,6 +195,26 @@ class Product extends Eloquent
 		return 	$query->where('name', 'like', '%'.$variable.'%');
 	}
 
+	public function scopeSlug($query, $variable)
+	{
+		return 	$query->where('slug', $variable);
+	}
+
+	public function scopeNotID($query, $variable)
+	{
+		if(is_null($variable))
+		{
+			return 	$query;
+		}
+
+		if(is_array($variable))
+		{
+			return 	$query->whereNotIn('id', $variable);
+		}
+
+		return 	$query->where('id', '<>', $variable);
+	}
+
 	public function scopeCountOnHoldStock($query, $variable)
 	{
 		return 	$query

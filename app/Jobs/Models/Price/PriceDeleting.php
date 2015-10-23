@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Price;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -13,7 +13,7 @@ class PriceDeleting extends Job implements SelfHandling
 {
     protected $price;
 
-    public function __construct(price $price)
+    public function __construct(Price $price)
     {
         $this->price                    = $price;
     }
@@ -22,9 +22,9 @@ class PriceDeleting extends Job implements SelfHandling
     {
         if(date('Y-m-d H:i:s', strtotime('now') >= $this->price->started_at)
         {
-            return new jsend('error', (array)$this->price, ['message' => 'Tidak bisa hapus harga yang telah dimulai']);
+            return new JSend('error', (array)$this->price, 'Tidak bisa hapus harga yang telah dimulai');
         }
 
-        return new jsend('success', (array)$this->product);
+        return new JSend('success', (array)$this->product);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Price;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -14,7 +14,7 @@ class PriceUpdating extends Job implements SelfHandling
     
     protected $price;
 
-    public function __construct(price $price)
+    public function __construct(Price $price)
     {
         $this->price                    = $price;
     }
@@ -22,6 +22,6 @@ class PriceUpdating extends Job implements SelfHandling
     
     public function handle()
     {
-        return new jsend('success', (array)$this->product);
+        return new JSend('success', (array)$this->product);
     }
 }

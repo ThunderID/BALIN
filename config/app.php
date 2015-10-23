@@ -193,6 +193,7 @@ return [
         'Storage'   => Illuminate\Support\Facades\Storage::class,
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
+        'Str'       => Illuminate\Support\Str::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Form'      => 'Illuminate\Html\FormFacade',
         'HTML'      => 'Illuminate\Html\HtmlFacade',
