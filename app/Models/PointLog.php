@@ -97,4 +97,16 @@ class PointLog extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+
+	public function scopeRangeDate($query, $start, $end)
+	{
+		if($start && $end)
+		{
+			return 	$query->where('created_at', '>=', $start)
+							->where('created_at', '<=', $end)
+							;
+		}
+
+		return 	$query;
+	}
 }

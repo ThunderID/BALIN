@@ -34,8 +34,35 @@ class reportController extends baseController
 														->with('WT_pageSubTitle','Stok Kritis')
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('searchResult', $searchResult)
-														->with('nav_active', 'data')
-														->with('subnav_active', 'customer');
+														->with('nav_active', 'storage')
+														->with('subnav_active', 'criticalstock');
 		return $this->layout;	
 	}
+
+	public function pointLog()
+	{	
+		$breadcrumb								= [
+													'Laporan Transaksi Poin' => 'backend.report.pointlog',
+													];
+
+		if (Input::get('start_date') && Input::get('end_date'))
+		{
+			$searchResult						= Input::get('start_date') . ' s/d ' . Input::get('end_date');
+		}
+		else
+		{
+			$searchResult						= NULL;
+		}
+
+		$this->layout->page 					= view('pages.backend.report.pointlog')
+														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pageSubTitle','Transaksi Poin')
+														->with('WB_breadcrumbs', $breadcrumb)
+														->with('searchResult', $searchResult)
+														->with('nav_active', 'storage')
+														->with('start', Input::get('start_date'))
+														->with('end', Input::get('end_date'))
+														->with('subnav_active', 'pointlog');
+		return $this->layout;	
+	}	
 }
