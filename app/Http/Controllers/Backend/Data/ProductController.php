@@ -169,7 +169,7 @@ class ProductController extends baseController
 			}
 		}
 	
-		if (!$errors->count())
+		if ($errors->count())
 		{
 			DB::commit();
 			
