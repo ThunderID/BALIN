@@ -35,7 +35,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="start_date" class="text-capitalize">Tanggal Mulai</label>
-					{!! Form::input('datetime','started_at', $data['started_at'], [
+					{!! Form::input('datetime-local','started_at', $data['started_at'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '3',
 								'placeholder'   => 'Tanggal berlaku harga'
