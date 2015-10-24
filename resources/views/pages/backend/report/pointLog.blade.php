@@ -102,7 +102,7 @@ $datas 			= $datas
 										<td>{{ $data['created_at'] }}</td>
 										<td>{{ $data['notes'] }}</td>
 										<td>
-											<a href=>Detail</a>                                          
+											<a href="{{ route('backend.data.product.show', $data['id']) }}">Detail</a>                                          
 										</td>    
 									</tr>       
 									<?php $ctr += 1; ?>                     
