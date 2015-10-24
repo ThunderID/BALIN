@@ -4,36 +4,21 @@ use App\Http\Controllers\baseController;
 use App\Models\User;
 use Input, Session, DB, Redirect, Response;
 
-class CustomerController extends baseController 
+class customerController extends baseController 
 {
-	/**
-     * Instantiate a new UserController instance.
-     */
-    
-    public function __construct()
-    {
-        $this->middleware('passwordneeded', ['only' => ['destroy']]);
-
-    	parent::__construct();
-    }
-
-	protected $view_name 						= 'Customer';
+	protected $view_name 					= 'Customer';
 
 	public function index()
 	{		
 		$breadcrumb								= ['Customer' => 'backend.data.customer.index'];
 
-		$filters 								= ['customer' => true];
-
-		if(Input::has('q'))
+		if (Input::get('q'))
 		{
-			$filters['name'] 					= Input::get('q');
-			
 			$searchResult						= Input::get('q');
 		}
 		else
 		{
-			$searchResult						= null;
+			$searchResult						= NULL;
 		}
 
 		$this->layout->page 					= view('pages.backend.data.user.index')
@@ -41,53 +26,22 @@ class CustomerController extends baseController
 														->with('WT_pageSubTitle','Index')
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('searchResult', $searchResult)
-														->with('filters', $filters)
 														->with('nav_active', 'data')
 														->with('subnav_active', 'customer');
 		return $this->layout;		
 	}
 
-	public function show($id)
-	{
-		$breadcrumb										= 	[	'Kostumer' => 'backend.data.customer.index',
-																'Detail' => 'backend.data.customer.create',
-															];
-
-		if ($search = Input::get('q'))
-		{
-			$searchResult								= $search;
-		}
-		else
-		{
-			$searchResult								= NULL;
-		}
-
-		$this->layout->page 							= view('pages.backend.data.user.show')
-																		->with('WT_pageTitle', $this->view_name )
-																		->with('WT_pageSubTitle','Show')
-																		->with('WB_breadcrumbs', $breadcrumb)
-																		->with('searchResult', $searchResult)
-																		->with('id', $id)
-																		->with('nav_active', 'data')
-																		->with('subnav_active', 'customer')
-																		;
-
-		return $this->layout;
-	}
-
 	public function create($id = null)
 	{
-		if (is_null($id))
+		if (!$id)
 		{
-			$breadcrumb							= 	[	'Customer' => 'backend.data.customer.index',
-														'Customer Baru' => 'backend.data.customer.create' 
-													];
+			$breadcrumb							= ['Customer' => 'backend.data.customer.index',
+														'Customer Baru' => 'backend.data.customer.create' ];
 		}
 		else
 		{
-			$breadcrumb							= 	[	'Customer' => 'backend.data.customer.index',
-														'Edit Data' => 'backend.data.customer.create' 
-													];
+			$breadcrumb							= ['Customer' => 'backend.data.customer.index',
+														'Edit Data' => 'backend.data.customer.create' ];
 		}
 
 		$this->layout->page 					= view('pages.backend.data.user.create')
@@ -108,28 +62,27 @@ class CustomerController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 								= Input::only('name', 'phone', 'address', 'email', 'postal_code');
+		$inputs 								= Input::only('id','name', 'phone', 'address', 'email', 'postal_code', 'role');
 	
-		if(!is_null($id))
+		if ($inputs['id'])
 		{
-			$data								= User::find($id);
+			$data								= user::find($inputs['id']);
 		}
 		else
 		{
-			$data								= new User;
+			$data								= new user;
 		}
 
 		$data->fill([
-			'name' 								=> $inputs['name'],
+			'name' 							=> $inputs['name'],
 			'phone' 							=> $inputs['phone'],
-			'address' 							=> $inputs['address'],
-			'email'								=> $inputs['email'],
-			'postal_code'						=> $inputs['postal_code'],
-			'role'								=>'customer',
+			'address' 						=> $inputs['address'],
+			'email'							=> $inputs['email'],
+			'postal_code'					=> $inputs['postal_code'],
+			'role'							=> $inputs['role'],
 		]);
 
 		DB::beginTransaction();
-		
 		if (!$data->save())
 		{
 			DB::rollback();
@@ -142,39 +95,55 @@ class CustomerController extends baseController
 		{
 			DB::commit();
 
+			if(Input::get('id'))
+			{
+				$msg = "Data sudah diperbarui";
+			}
+			else
+			{
+				$msg = "Data sudah ditambahkan";
+			}
+
 			return Redirect::route('backend.data.customer.index')
-				->with('msg','Kostumer sudah tersimpan')
+				->with('msg',$msg)
 				->with('msg-type', 'success');
 		}
 	}
 
-	public function Update($id)
-	{
-		return $this->store($id);		
-	}
-
 	public function destroy($id)
 	{
-		$data 						= User::findorfail($id);
-		
-		DB::beginTransaction();
+		if (Input::get('password'))
+		{		
+			$data									= user::find($id);
 
-		if (!$data->delete())
-		{
-			DB::rollback();
+			if (count($data) == 0)
+			{
+				App::abort(404);
+			}
 
-			return Redirect::back()
-				->withErrors($data->getError())
-				->with('msg-type','danger');
+			DB::beginTransaction();
+
+			if (!$data->delete())
+			{
+				DB::rollback();
+				return Redirect::back()
+					->withErrors($data->getError())
+					->with('msg-type','danger');
+			}
+			else
+			{
+				DB::commit();
+				return Redirect::route('backend.data.customer.index')
+					->with('msg', 'Data telah dihapus')
+					->with('msg-type','success');
+			}
 		}
 		else
 		{
-			DB::commit();
-
-			return Redirect::route('backend.data.customer.index')
-				->with('msg', 'Data telah dihapus')
-				->with('msg-type','success');
-		}
+			return Redirect::back()
+					->withErrors('Password tidak valid')
+					->with('msg-type', 'danger');
+		}		
 	}
 
 	public function getCustomerByName()
@@ -182,7 +151,7 @@ class CustomerController extends baseController
 		$inputs 	= Input::only('name');
 	    
 	    $tmp 		= User::select(['id', 'name'])
-	    						->name($inputs['name'])
+	    						->where('name', 'like', "%" . $inputs['name'] . "%")
 	    						->get();
 	    		
 	    return json_decode(json_encode($tmp));

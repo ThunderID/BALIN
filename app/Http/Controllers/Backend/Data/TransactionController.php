@@ -15,6 +15,7 @@ class transactionController extends baseController
 	protected $view_name 					= 'Transaksi';
 	
 	protected $controller_name 				= 'Points';
+	
 	protected $inputs						= [
 												'id',
 												'user_id',

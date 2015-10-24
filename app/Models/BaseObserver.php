@@ -71,6 +71,7 @@ class BaseObserver
 		return $this->after($class, $model);
 	}
 
+	//get class name
 	public function before($model)
 	{
 		$class 			= get_class($model);
@@ -82,6 +83,7 @@ class BaseObserver
 		return $class;	
 	}
 
+	//check if class exists
 	public function after($class, $model)
 	{
 		if (class_exists($class) && get_parent_class($class) == 'App\Jobs\Job') 

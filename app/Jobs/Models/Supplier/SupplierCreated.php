@@ -20,6 +20,8 @@ class SupplierCreated extends Job implements SelfHandling
     
     public function handle()
     {
-        $result                     = new Jsend('success', (array)$this->supplier);
+        $result                     = new JSend('success', (array)$this->supplier);
+
+        return $result;
     }
 }
