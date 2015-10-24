@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Transaction;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
@@ -20,7 +20,7 @@ class TransactionCreated extends Job implements SelfHandling
 
     public function handle()
     {
-        $result                          = new jsend('success', (array)$this->transaction );
+        $result                          = new JSend('success', (array)$this->transaction );
 
         return $result;
     }
