@@ -57,7 +57,7 @@ class Price extends Eloquent
 	 */
 	protected $rules				=	[
 											'price'							=> 'required|numeric',
-											'promo_price'					=> 'required|numeric',
+											'promo_price'					=> 'numeric',
 											'started_at'					=> 'required|date_format:"Y-m-d H:i:s"',
 										];
 
