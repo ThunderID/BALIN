@@ -1,0 +1,9 @@
+@inject('datas', 'App\Models\Supplier')
+<?php
+$datas 			= $datas
+					->paginate()
+					;
+?>
+
+@extends('template.backend.layout')
+@stop
