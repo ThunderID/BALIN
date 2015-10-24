@@ -3,7 +3,7 @@
 use App\Http\Controllers\baseController;
 use App\Models\Price;
 use App\Models\Product;
-use Input, Session, DB, Redirect, Response;
+use Input, Session, DB, Redirect, Response, Carbon;
 
 class PriceController extends baseController 
 {
@@ -91,14 +91,23 @@ class PriceController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 								= Input::only('product_id','price', 'promo_price', 'started_at', 'label');
-	
-		$data 									= new price;
+		$inputs 								= Input::only('product_id','price', 'promo_price', 'date', 'time', 'label');
+		
+		if ($id)
+		{
+			$data								= Price::find($id);
+		}
+		else
+		{
+			$data 							= new Price;
+		}
+
+		$started_at 						= $inputs['date'].' '.Carbon::createFromFormat('H:i', $inputs['time'])->format('H:i:s');
 
 		$data->fill([
 			'price' 							=> $inputs['price'],
 			'promo_price'					=> $inputs['promo_price'],
-			'started_at' 					=> $inputs['started_at'],
+			'started_at' 					=> $started_at,
 			'label'							=> $inputs['label'],
 		]);
 
@@ -116,7 +125,7 @@ class PriceController extends baseController
 		else
 		{
 			DB::commit();
-			return Redirect::route('backend.data.product.price.index')
+			return Redirect::route('backend.data.product.price.index', ['product_id' => $inputs['product_id']])
 				->with('msg','Data sudah ditambahkan')
 				->with('msg-type', 'success');
 		}
