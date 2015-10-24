@@ -22,7 +22,7 @@ class PriceSaving extends Job implements SelfHandling
     {
         if($this->price->started_at)
         {
-            if(date('Y-m-d H:i:s', strtotime('now') >= $this->price->started_at))
+            if(date('Y-m-d H:i:s', strtotime('now')) >=  date('Y-m-d H:i:s', strtotime($this->price->started_at)))
             {
                 return new JSend('error', (array)$this->price, 'Tidak bisa menyimpan harga tertanggal sebelum hari ini');
             }
