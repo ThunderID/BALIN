@@ -7,7 +7,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->where('product_id', $product_id)->orderby('created_at')->paginate();
+$datas 			= $datas->where('product_id', $product_id)->orderby('started_at', 'desc')->paginate();
 ?>
 
 @extends('template.backend.layout') 
@@ -17,28 +17,28 @@ $datas 			= $datas->where('product_id', $product_id)->orderby('created_at')->pag
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-md-8 col-sm-4 hidden-xs">
-					<a class="btn btn-default" href=""> Data Baru </a>
+					<a class="btn btn-default" href="{{ route('backend.data.product.price.create', ['product_id' => $product_id]) }}"> Data Baru </a>
 				</div>
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-					<a class="btn btn-default btn-block" href=""> Data Baru </a>
+					<a class="btn btn-default btn-block" href="{{ route('backend.data.product.price.create', ['product_id' => $product_id]) }}"> Data Baru </a>
 				</div>
 				<div class="col-md-4 col-sm-8 col-xs-12">
-					{!! Form::open(array('route' => 'backend.data.product.price.store', 'method' => 'get' )) !!}
-					<div class="row">
-						<div class="col-md-2 col-sm-3 hidden-xs">
+					{!! Form::open(['url' => route('backend.data.product.price.index', ['product_id' => $product_id]), 'method' => 'get' ]) !!}
+						<div class="row">
+							<div class="col-md-2 col-sm-3 hidden-xs">
+							</div>
+							<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
+								{!! Form::input('text', 'q', Null , [
+											'class'         => 'form-control',
+											'placeholder'   => 'Cari sesuatu',
+											'required'      => 'required',
+											'style'         =>'text-align:right'
+									]) !!}                                          
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
+								<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
+							</div>
 						</div>
-						<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
-							{!! Form::input('text', 'q', Null , [
-										'class'         => 'form-control',
-										'placeholder'   => 'Cari sesuatu',
-										'required'      => 'required',
-										'style'         =>'text-align:right'
-								]) !!}                                          
-						</div>
-						<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
-							<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
-						</div>
-					</div>
 					{!! Form::close() !!}
 				</div>            
 			</div>
@@ -79,13 +79,13 @@ $datas 			= $datas->where('product_id', $product_id)->orderby('created_at')->pag
 											<td>{{ $data['label'] }}</td>
 											<td>
 												{{-- <a href="{{ route('backend.data.product.show', $data['id']) }}"> Detail </a>, --}}
-												{{-- <a href="{{ url::route('backend.data.product.p.edit', $data['id']) }}"> Edit </a>,  --}}
-												{{-- <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
+												<a href="{{ route('backend.data.product.price.edit', [$data['id'], 'product_id' => $product_id]) }}"> Edit </a>,
+												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
 													data-id="{{$data['id']}}"
 													data-title="Hapus Data Produk {{$data['name']}}"
-													data-action="{{ route('backend.data.product.destroy', $data['id']) }}">
+													data-action="{{ route('backend.data.product.price.destroy', [$data['id'], 'product_id' => $product_id]) }}">
 													Hapus
-												</a> --}}                                                                                      
+												</a>
 											</td>    
 										</tr>       
 										<?php $ctr += 1; ?>                     
@@ -93,7 +93,7 @@ $datas 			= $datas->where('product_id', $product_id)->orderby('created_at')->pag
 									
 									@include('widgets.pageElements.formModalDelete', [
 											'modal_id'      => 'product_del', 
-											'modal_route'   => route('backend.data.product.destroy')
+											'modal_route'   => route('backend.data.product.price.destroy', $data['id'])
 									])
 								@endif
 							</tbody>

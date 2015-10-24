@@ -52,7 +52,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 			// PRICE (pending crud)
 			// ------------------------------------------------------------------------------------
 		
-			Route::resource('prices',  		'PriceController',			['names' => ['index' => 'backend.data.product.price.index', 'create' => 'backend.price.create', 'store' => 'backend.data.product.price.store', 'show' => 'backend.data.product.price.show', 'edit' => 'backend.data.product.price.edit', 'update' => 'backend.data.product.price.update', 'destroy' => 'backend.data.product.price.destroy']]);
+			Route::resource('prices',  		'PriceController',				['names' => ['index' => 'backend.data.product.price.index', 'create' => 'backend.data.product.price.create', 'store' => 'backend.data.product.price.store', 'show' => 'backend.data.product.price.show', 'edit' => 'backend.data.product.price.edit', 'update' => 'backend.data.product.price.update', 'destroy' => 'backend.data.product.price.destroy']]);
 
 		});
 		// ------------------------------------------------------------------------------------
