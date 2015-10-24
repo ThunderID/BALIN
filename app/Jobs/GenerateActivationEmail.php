@@ -3,16 +3,17 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
-use App\Models\user;
-use App\Models\policy;
+use App\Models\User;
+use App\Models\Policy;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\MessageBag as MessageBag;
+use App\Libraries\JSend;
 
 class GenerateActivationEmail extends Job implements SelfHandling
 {
  protected $user;
 
-    public function __construct(user $user)
+    public function __construct(User $user)
     {
         $this->user           = $user;
     }
@@ -27,23 +28,16 @@ class GenerateActivationEmail extends Job implements SelfHandling
 
         //generate link
         $activation                 = md5(uniqid(rand(), TRUE));
-        $ttl                        = policy::GetTTL('now')->first();
+        $ttl                        = Policy::GetTTL('now')->first();
 
-        $data                       = $this->user;
+        $data[
+                'activation_link'  => $activation,
+                'expired_at'       => date('Y-m-d H:i:s', strtotime($ttl)),
+            ];
 
-        $data->fill([
-                'activation_link'  => $activation;
-                'expired_at'       => date('Y-m-d H:i:s', strtotime($ttl));
-            ]);
+        ]
 
-        if($data->save())
-        {
-            $result                 = new Jsend('success', (array)$data);
-        }
-        else
-        {
-            $result                 = new Jsend('error', (array)$this->user, (array)$data->getError());
-        }
+        $result                     = new JSend('success', (array)$data);
 
         return $result;
     }

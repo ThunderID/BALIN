@@ -72,6 +72,9 @@
 					<li class="@if($subnav_active=='pointlog') active @endif">
 						<a href="{{ route('backend.report.pointlog') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Transaksi Pointlog</span></a>
 					</li>
+					<li class="@if($subnav_active=='suppliedby') active @endif">
+						<a href="{{ route('backend.report.suppliedby') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Suply Produk</span></a>
+					</li>					
 					<li>
 						<a href=""><i class="fa fa-line-chart"></i> <span class="nav-label">Perpindahan Stok</span></a>
 					</li>
