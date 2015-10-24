@@ -94,10 +94,10 @@ class reportController extends baseController
 	}	
 
 
-	public function productSuppliedBy()
+	public function suppliedBy()
 	{	
 		$breadcrumb								= [
-													'Suply Produk' => 'backend.report.productSuppliedBy',
+													'Suply Produk' => 'backend.report.SuppliedBy',
 													];
 
 		if (Input::get('start_date') && Input::get('end_date'))
@@ -109,7 +109,7 @@ class reportController extends baseController
 			$searchResult						= NULL;
 		}
 
-		$this->layout->page 					= view('pages.backend.report.productSuppliedBy')
+		$this->layout->page 					= view('pages.backend.report.SuppliedBy')
 														->with('WT_pageTitle', $this->view_name )
 														->with('WT_pageSubTitle','Suply Produk')
 														->with('WB_breadcrumbs', $breadcrumb)
