@@ -46,12 +46,15 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		
 		Route::any('ajax/get-product-by-name',							['uses' => 'ProductController@getProductByName', 'as' => 'backend.product.ajax.getProductByName']);
 
-		// ------------------------------------------------------------------------------------
-		// PRICE (pending crud)
-		// ------------------------------------------------------------------------------------
-	
-		Route::resource('prices',  		'PriceController',				['names' => ['index' => 'backend.price.index', 'create' => 'backend.price.create', 'store' => 'backend.price.store', 'show' => 'backend.price.show', 'edit' => 'backend.price.edit', 'update' => 'backend.price.update', 'destroy' => 'backend.price.destroy']]);
+		Route::group(['namespace' => 'Product\\'], function()
+		{
+			// ------------------------------------------------------------------------------------
+			// PRICE (pending crud)
+			// ------------------------------------------------------------------------------------
+		
+			Route::resource('prices',  		'PriceController',				['names' => ['index' => 'backend.data.product.price.index', 'create' => 'backend.price.create', 'store' => 'backend.data.product.price.store', 'show' => 'backend.data.product.price.show', 'edit' => 'backend.data.product.price.edit', 'update' => 'backend.data.product.price.update', 'destroy' => 'backend.data.product.price.destroy']]);
 
+		});
 		// ------------------------------------------------------------------------------------
 		// SUPPLIER (pending, show)
 		// ------------------------------------------------------------------------------------
