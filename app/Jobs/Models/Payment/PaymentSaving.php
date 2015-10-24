@@ -20,6 +20,8 @@ class PaymentSaving extends Job implements SelfHandling
     
     public function handle()
     {
-        $result                          = new JSend('success', (array)$this->transaction );
+        $result                          = new JSend('success', (array)$this->payment);
+        
+        return $result;
     }
 }

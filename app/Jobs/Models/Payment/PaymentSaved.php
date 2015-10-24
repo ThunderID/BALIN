@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Models\Payment;
+use App\Libraries\JSend;
 
 class PaymentSaved extends Job implements SelfHandling
 {
@@ -18,12 +19,19 @@ class PaymentSaved extends Job implements SelfHandling
 
     public function __construct(Payment $payment)
     {
-        $this->payment                  = $payment;
+        $this->payment                      = $payment;
     }
 
     public function handle()
     {
-        $result                         = $this->dispatch(new SwitchPaymentTransaction($payment));
+        if($this->payment->transaction_id!=0)
+        {
+            $result                         = $this->dispatch(new SwitchPaymentTransaction($this->payment));
+        }
+        else
+        {
+            $result                         = new JSend('success', (array)$this->payment);
+        }
 
         return $result;
     }

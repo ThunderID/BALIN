@@ -87,7 +87,7 @@ class PaymentController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 										= Input::only('account_name', 'account_number', 'amount', 'destination', 'transaction_id');
+		$inputs 										= Input::only('account_name', 'account_number', 'amount', 'destination', 'ondate', 'transaction_id');
 
 		if(!is_null($id))
 		{
@@ -103,6 +103,7 @@ class PaymentController extends baseController
 			'account_name' 								=> $inputs['account_name'],
 			'account_number' 							=> $inputs['account_number'],
 			'amount' 									=> $inputs['amount'],
+			'ondate' 									=> date('Y-m-d', strtotime($inputs['ondate'])),
 			'destination' 								=> $inputs['destination'],
 			'method' 									=> 'Bank Transfer',
 		]);
