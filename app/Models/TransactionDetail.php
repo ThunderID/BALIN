@@ -136,4 +136,15 @@ class TransactionDetail extends Eloquent
 				->groupBy('transaction_id')
 				;
 	}
+
+	public function scopeMostBuy($query, $variable, $start, $end)
+	{
+		return 	$query
+				->selectraw('transaction_details.*')
+				->selectraw('sum(quantity) as total_buy')
+				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipped','delivered'])->type('sell')->where('transacted_at','>=',$start)->where('transacted_at','<=',$end);})
+				->orderby('total_buy', 'desc')
+				->groupBy('product_id')
+				;
+	}	
 }
