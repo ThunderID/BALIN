@@ -68,7 +68,7 @@ class CustomerController extends baseController
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', $searchResult)
 																		->with('id', $id)
-																		->with('nav_active', 'customer')
+																		->with('nav_active', 'data')
 																		->with('subnav_active', 'customer')
 																		;
 
