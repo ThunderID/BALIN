@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Blade::directive('date_indo', function($expression) 
+        {
+            return "<?php echo with{$expression}->format('d-m-Y H:i'); ?>";
+        });
+
         \App\Models\Transaction::observe(new \App\Models\BaseObserver);
         \App\Models\TransactionDetail::observe(new \App\Models\BaseObserver);
         \App\Models\Supplier::observe(new \App\Models\BaseObserver);
@@ -20,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Category::observe(new \App\Models\BaseObserver);
         \App\Models\Product::observe(new \App\Models\BaseObserver);
         \App\Models\Price::observe(new \App\Models\BaseObserver);
+        \App\Models\User::observe(new \App\Models\BaseObserver);
 
 
     }
@@ -38,5 +45,6 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Category::observe(new \App\Models\BaseObserver);
         \App\Models\Product::observe(new \App\Models\BaseObserver);
         \App\Models\Price::observe(new \App\Models\BaseObserver);
+        \App\Models\User::observe(new \App\Models\BaseObserver);
     }
 }

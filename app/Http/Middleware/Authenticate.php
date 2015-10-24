@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Session, Route;
 
 class Authenticate
 {
@@ -42,6 +43,8 @@ class Authenticate
             } 
             else 
             {
+                Session::put('login_redirect', Route::currentRouteName());
+
                 return view()->make('pages.backend.login.index');
             }
         }

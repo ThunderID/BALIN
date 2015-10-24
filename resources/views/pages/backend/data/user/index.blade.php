@@ -1,17 +1,14 @@
 @inject('datas', 'App\Models\User')
-<?php
-    if ($searchResult)
+
+<?php 
+if(!is_null($filters) && is_array($filters))
+{
+    foreach ($filters as $key => $value) 
     {
-        $datas = $datas::where('name','like','%'.$searchResult.'%')
-                        ->where('deleted_at',null)
-                        ->OrderBy('name', 'asc')
-                        ->paginate(); 
+        $datas = call_user_func([$datas, $key], $value);
     }
-    else
-    {
-        $datas = $datas::OrderBy('name', 'asc')
-                    ->paginate(); 
-    }
+}
+$datas          = $datas->orderby('name')->paginate();
 ?>
 
 @extends('template.backend.layout')
@@ -51,8 +48,8 @@
                                 <tr>
                                     <th>No.</th>
                                     <th class="col-md-3">Nama</th>
-                                    <th class="col-md-3">Nomor Telepon</th>
-                                    <th class="col-md-4">Alamat</th>
+                                    <th class="col-md-2">Nomor Telepon</th>
+                                    <th class="col-md-4">Email</th>
                                     <th>Kontrol</th>
                                 </tr>
                             </thead>
@@ -73,8 +70,9 @@
                                         <td>{{$ctr}}</td>
                                         <td>{{$data['name']}}</td>
                                         <td>{{$data['phone']}}</td>
-                                        <td>{{$data['address']}}</td>
+                                        <td>{{$data['email']}}</td>
                                         <td>
+                                            <a href="{{ route('backend.data.customer.show', $data['id']) }}">Detail</a>, 
                                             <a href="{{ route('backend.data.customer.edit', $data['id']) }}">Edit</a>, 
                                             <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#cus_del"
                                                 data-id="{{$data['id']}}"

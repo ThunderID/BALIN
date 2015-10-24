@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\User;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
@@ -12,13 +12,13 @@ class UserSaving extends Job implements SelfHandling
 {
     protected $user;
 
-    public function __construct(user $user)
+    public function __construct(User $user)
     {
         $this->user                 = $user;
     }
 
     public function handle()
     {
-        return new json('success', (array)$this->user);
+        return new JSend('success', (array)$this->user);
     }
 }

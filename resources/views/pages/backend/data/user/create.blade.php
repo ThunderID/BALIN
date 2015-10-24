@@ -4,8 +4,11 @@
 @extends('template.backend.layout') 
 
 @section('content')
-	{!! Form::open(['route' => 'backend.data.customer.store']) !!}
-		{!! Form::input('hidden', 'id', $data['id']) !!}
+    @if(!is_null($id))
+        {!! Form::open(['url' => route('backend.data.customer.update', $id), 'method' => 'PATCH']) !!}
+    @else
+        {!! Form::open(['url' => route('backend.data.customer.store'), 'method' => 'POST']) !!}
+    @endif
 		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
@@ -57,12 +60,12 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 col-sm-6 col-xs-12">
+			<!-- <div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					<label for="role">Role</label>
 					{!! Form::select('role', ['cashier' => 'Cashier', 'customer' => 'Customer', 'admin' => 'Admin'], $data['role'], ['class' => 'form-control', 'required' => 'required']) !!}
 				</div>
-			</div>
+			</div> -->
 			@if($data['is_active'])
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">

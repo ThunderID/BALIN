@@ -22,7 +22,7 @@
 						<a href="{{ route('backend.data.supplier.index') }}"><i class="fa fa-university"></i><span class="nav-label">Supplier</span></a>
 					</li>
 					<li class="@if($subnav_active=='customer') active @endif">
-						<a href="#"><i class="fa fa-users"></i><span class="nav-label">Kostumer</span></a>
+						<a href="{{ route('backend.data.customer.index') }}"><i class="fa fa-users"></i><span class="nav-label">Kostumer</span></a>
 					</li>
 					<li class="@if($subnav_active=='buy') active @endif">
 					 	<a href="{{ route('backend.data.transaction.index', ['type' => 'buy']) }}"><i class="fa fa-inbox"></i><span class="nav-label">Pembelian Produk</span></a>
