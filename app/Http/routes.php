@@ -198,6 +198,7 @@ Route::get('test/generatePassword', function()
 
 Route::get('report/criticalStock', ['uses' => 'backend\\reportController@criticalStock', 'as' => 'backend.report.criticalstock']);
 Route::get('report/pointlog', ['uses' => 'backend\\reportController@pointlog', 'as' => 'backend.report.pointlog']);
+Route::get('report/topSellingProduct', ['uses' => 'backend\\reportController@topSellingProduct', 'as' => 'backend.report.topSellingProduct']);
 Route::get('report', ['uses' => 'backend\\reportController@index', 'as' => 'backend.report.index']);
 
 

@@ -64,5 +64,32 @@ class reportController extends baseController
 														->with('end', Input::get('end_date'))
 														->with('subnav_active', 'pointlog');
 		return $this->layout;	
-	}	
+	}
+
+	public function TopSellingProduct()
+	{	
+		$breadcrumb								= [
+													'Laporan Produk terlaris' => 'backend.report.topSellingProduct',
+													];
+
+		if (Input::get('start_date') && Input::get('end_date'))
+		{
+			$searchResult						= Input::get('start_date') . ' s/d ' . Input::get('end_date');
+		}
+		else
+		{
+			$searchResult						= NULL;
+		}
+
+		$this->layout->page 					= view('pages.backend.report.topSellingProduct')
+														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pageSubTitle','Produk Terlaris')
+														->with('WB_breadcrumbs', $breadcrumb)
+														->with('searchResult', $searchResult)
+														->with('nav_active', 'storage')
+														->with('start', Input::get('start_date'))
+														->with('end', Input::get('end_date'))
+														->with('subnav_active', 'topSellingProduct');
+		return $this->layout;	
+	}		
 }
