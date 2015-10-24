@@ -46,7 +46,7 @@ $datas 			= $datas
 										<td class="text-center">{{ $data['current_stocks'] }} </td>
 										<td class="text-center">{{ $data['on_hold_stocks'] }} </td>
 										<td>
-											<a href=>Detail</a>                                          
+											<a href="{{ route('backend.data.product.show', $data['id']) }}">Detail</a>                                          
 										</td>    
 									</tr>       
 									<?php $ctr += 1; ?>                     
