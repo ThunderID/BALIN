@@ -50,6 +50,9 @@
 					<li>
 						<a href=""><i class="fa fa-life-ring"></i> <span class="nav-label">Policy</span></a>
 					</li>
+					<li class="@if($subnav_active=='admin') active @endif">
+						<a href=""><i class="fa fa-user"></i> <span class="nav-label">Admin</span></a>
+					</li>
 				</ul>
 			</li>
 			<li class="@if($nav_active=='storage') active @endif">
