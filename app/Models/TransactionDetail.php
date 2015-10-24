@@ -121,7 +121,7 @@ class TransactionDetail extends Eloquent
 				->selectraw('transaction_details.*')
 				->selectraw('sum(quantity) as total_buy')
 				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipped','delivered'])->type('sell')->userid($variable);})
-				->orderbyraw('sum(quantity) desc')
+				->orderby('total_buy', 'desc')
 				->groupBy('product_id')
 				;
 	}
@@ -132,7 +132,7 @@ class TransactionDetail extends Eloquent
 				->selectraw('transaction_details.*')
 				->selectraw('count(transaction_id) as frequent_buy')
 				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipped','delivered'])->type('sell')->userid($variable);})
-				->orderbyraw('count(transaction_id) desc')
+				->orderby('frequent_buy', 'desc')
 				->groupBy('transaction_id')
 				;
 	}
