@@ -20,7 +20,7 @@ class PriceSaved extends Job implements SelfHandling
 
     public function handle()
     {
-        if(date('Y-m-d H:i:s', strtotime('now')) >=  date('Y-m-d H:i:s', strtotime($this->price->started_at)))
+        if(date('Y-m-d H:i:s') >= $this->price->started_at)
         {
             return new JSend('error', (array)$this->price, 'Tidak bisa edit harga yang telah dimulai');
         }

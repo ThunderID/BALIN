@@ -76,6 +76,12 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// ------------------------------------------------------------------------------------
 
 		Route::resource('transactions',	'TransactionController',		['names' => ['index' => 'backend.data.transaction.index', 'create' => 'backend.data.transaction.create', 'store' => 'backend.data.transaction.store', 'show' => 'backend.data.transaction.show', 'edit' => 'backend.data.transaction.edit', 'update' => 'backend.data.transaction.update', 'destroy' => 'backend.data.transaction.destroy']]);
+		
+		// ------------------------------------------------------------------------------------
+		// PAYMENT
+		// ------------------------------------------------------------------------------------
+		
+		Route::resource('payments',		'PaymentController',			['names' => ['index' => 'backend.data.payment.index', 'create' => 'backend.data.payment.create', 'store' => 'backend.data.payment.store', 'show' => 'backend.data.payment.show', 'edit' => 'backend.data.payment.edit', 'update' => 'backend.data.payment.update', 'destroy' => 'backend.data.payment.destroy']]);
 	});
 
 	// ------------------------------------------------------------------------------------
@@ -98,6 +104,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// ------------------------------------------------------------------------------------
 
 		Route::resource('couriers',  	'CourierController',			['names' => ['index' => 'backend.settings.courier.index', 'create' => 'backend.settings.courier.create', 'store' => 'backend.settings.courier.store', 'show' => 'backend.settings.courier.show', 'edit' => 'backend.settings.courier.edit', 'update' => 'backend.settings.courier.update', 'destroy' => 'backend.settings.courier.destroy']]);
+		
 		Route::any('ajax/get-courier-by-name',							['uses' => 'CourierController@getCourierByName', 'as' => 'backend.courier.ajax.getCourierByName']);
 
 		// ------------------------------------------------------------------------------------
@@ -174,7 +181,7 @@ Route::get('cms/ajax/get-categoryParent', 'Backend\\categoryController@getCatego
 
 // Route::get('cms/payment', ['uses' => 'Backend\\paymentController@index', 'as' => 'backend.payment.index']);
 
-// Route::get('cms/transaction', ['uses' => 'Backend\\transactionController@index', 'as' => 'backend.transaction.index']);
+// Route::get('cms/payment', ['uses' => 'Backend\\transactionController@index', 'as' => 'backend.transaction.index']);
 
 
 // ajax
@@ -198,6 +205,7 @@ Route::get('test/generatePassword', function()
 
 Route::get('report/criticalStock', ['uses' => 'backend\\reportController@criticalStock', 'as' => 'backend.report.criticalstock']);
 Route::get('report/pointlog', ['uses' => 'backend\\reportController@pointlog', 'as' => 'backend.report.pointlog']);
+Route::get('report/topSellingProduct', ['uses' => 'backend\\reportController@topSellingProduct', 'as' => 'backend.report.topSellingProduct']);
 Route::get('report', ['uses' => 'backend\\reportController@index', 'as' => 'backend.report.index']);
 
 

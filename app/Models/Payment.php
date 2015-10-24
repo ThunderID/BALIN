@@ -48,7 +48,7 @@ class Payment extends Eloquent
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'ondate'];
 
 	/**
 	 * Basic rule of database
@@ -60,7 +60,7 @@ class Payment extends Eloquent
 											'destination'					=> 'required|max:255',
 											'account_name'					=> 'required|max:255',
 											'account_number'				=> 'required|max:255',
-											'ondate'						=> 'required|date_format:"Y-m-d"',
+											'ondate'						=> 'required',
 											'amount'						=> 'required|numeric',
 										];
 
@@ -86,6 +86,17 @@ class Payment extends Eloquent
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 	
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	public function getError()
+	{
+		return $this->errors;
+	}
+
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/

@@ -5,4 +5,5 @@
 3. Sell Transaction Shipment
 4. Courier Image
 5. Product Image
-6. all search kasih select buat filter cari
+6. Customer Point
+7. all search kasih select buat filter cari

@@ -27,11 +27,11 @@ class SupplierDeleting extends Job implements SelfHandling
         //cek 
         if($this->supplier->transactions()->count())
         {
-            $result                 = new Jsend('error', (array)$this->supplier, ['Tidak dapat menghapus supplier yang pernah melakukan transaksi']);
+            $result                 = new JSend('error', (array)$this->supplier, 'Tidak dapat menghapus supplier yang pernah melakukan transaksi');
         }
         else
         {
-            $result                 = new Jsend('success', (array)$this->supplier);
+            $result                 = new JSend('success', (array)$this->supplier);
         }
 
         return $result;

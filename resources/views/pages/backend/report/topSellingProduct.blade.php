@@ -1,9 +1,8 @@
-@inject('datas', 'App\Models\pointlog')
+@inject('datas', 'App\Models\transactiondetail')
 <?php
 $datas 			= $datas
-					->RangeDate($start, $end)
-					->orderby('id', 'desc')
-					->with('user')
+					->MostBuy($start,$end)
+					->with('product')
 					->paginate()
 					;
 ?>
@@ -14,7 +13,7 @@ $datas 			= $datas
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="col-md-6 hidden-sm hidden-xs"></div>
-			{!! Form::open(array('route' => 'backend.report.pointlog', 'method' => 'get' )) !!}
+			{!! Form::open(array('route' => 'backend.report.topSellingProduct', 'method' => 'get' )) !!}
 			<div class="col-md-6 col-sm-12 col-xs12">
 				<div class"row">
 					<div class="col-md-5 col-sm-5 col-xs-12">
@@ -27,7 +26,6 @@ $datas 			= $datas
 	                                'class'         => 'form-control', 
 	                                'required'      => 'required', 
 	                                'tabindex'      => '1',
-	                                'placeholder'   => 'Tanggal berlaku harga'
 	                            ] 
 	                        ) 
 	                    !!}
@@ -48,7 +46,6 @@ $datas 			= $datas
 	                                'class'         => 'form-control', 
 	                                'required'      => 'required', 
 	                                'tabindex'      => '1',
-	                                'placeholder'   => 'Tanggal berlaku harga'
 	                            ] 
 	                        ) 
 	                    !!}
@@ -62,7 +59,7 @@ $datas 			= $datas
 		</div> 				
 	</div>
 	</br>
-	@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.report.pointlog') ])
+	@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.report.topSellingProduct') ])
 	</br>
 	<div class="row">
 		<div class="col-lg-12">
@@ -73,10 +70,9 @@ $datas 			= $datas
 							<thead>
 								<tr>
 									<th class="text-center">No.</th>
-									<th class="col-md-3">Nama</th>
-									<th class="col-md-2">Kredit</th>
+									<th class="col-md-7">Nama</th>
+									<th class="col-md-1 text-center">Quantity</th>
 									<th class="col-md-2">Tanggal</th>
-									<th class="col-md-4">Catatan</th>
 									<th class="col-md-1">Kontrol</th>
 								</tr>
 							</thead>
@@ -95,12 +91,9 @@ $datas 			= $datas
 									@foreach ($datas as $data)
 									<tr>
 										<td class="text-center">{{ $ctr }}</td>
-										<td>{{ $data['user']['name'] }}</td>
-										<td>
-											{{$data['debit'] - $data['credit']}}
-										</td>
+										<td>{{ $data['product']['name'] }}</td>
+										<td class="col-md-1 text-center">{{ $data['quantity'] }}</td>
 										<td>{{ $data['created_at'] }}</td>
-										<td>{{ $data['notes'] }}</td>
 										<td>
 											<a href="{{ route('backend.data.product.show', $data['id']) }}">Detail</a>                                          
 										</td>    
@@ -109,11 +102,11 @@ $datas 			= $datas
 									@endforeach 
 									@include('widgets.pageElements.formModal1', array('modal_id'=>'trans_del', 'modal_content' => 'pages.backend.data.transaction.delete'))
 								@endif
-							</tbody>							
-						<table>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-@stop
+@stop				

@@ -31,7 +31,7 @@
 					 	<a href="{{ route('backend.data.transaction.index', ['type' => 'sell']) }}"><i class="fa fa-briefcase"></i><span class="nav-label">Penjualan</span></a>
 					</li>
 					<li class="@if($subnav_active=='payment') active @endif">
-					 	<a href="{{ route('backend.data.transaction.index') }}"><i class="fa fa-file-o"></i><span class="nav-label">Nota Bayar</span></a>
+					 	<a href="{{ route('backend.data.payment.index') }}"><i class="fa fa-file-o"></i><span class="nav-label">Nota Bayar</span></a>
 					</li>
 				</ul>
 			</li>
@@ -63,6 +63,9 @@
 							<li><a href="">Pesanan Belum Tiba</a></li>
 						</ul>
 					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Produk Terlaris</span></a>
+					</li>					
 					<li class="@if($subnav_active=='pointlog') active @endif">
 						<a href="{{ route('backend.report.pointlog') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Transaksi Pointlog</span></a>
 					</li>

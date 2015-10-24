@@ -10,42 +10,38 @@ use App\Models\transactionDetail;
 
 use Input, DB;
 
-class transactionController extends baseController 
+class TransactionController extends baseController 
 {
-	protected $view_name 					= 'Transaksi';
-	
-	protected $controller_name 				= 'Points';
-	protected $inputs						= [
-												'id',
-												'user_id',
-												'supplier_id',
-												'ref_number',
-												'referral_code',
-												'type',
-												'status',
-												'transacted_at',
-												'unique_number',
-												'shipping_cost',
-												'referral_discount',
-												'amount',	
-												'products',	
-												];
+	/**
+     * Instantiate a new UserController instance.
+     */
+    
+    public function __construct()
+    {
+        $this->middleware('passwordneeded', ['only' => ['destroy']]);
 
+    	parent::__construct();
+    }
+
+	protected $view_name 						= 'Transaksi';
 
 	public function index($type = null)
 	{		
-		$breadcrumb								= ['Supplier' => 'backend.data.transaction.index'];
+		$breadcrumb								= [	'Transaksi' => 'backend.data.transaction.index'];
 
-		if (Input::get('q'))
+		$filters 								= null;
+
+		if(Input::has('q'))
 		{
+			$filters 							= ['status' => Input::get('q')];
 			$searchResult						= Input::get('q');
 		}
 		else
 		{
-			$searchResult						= NUll;
+			$searchResult						= null;
 		}
 
-		$sub_subnav_active	 				= '';
+		$sub_subnav_active	 					= '';
 
 		if (Input::has('type'))
 		{
@@ -64,6 +60,7 @@ class transactionController extends baseController
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('searchResult', $searchResult)
+													->with('filters', $filters)
 													->with('nav_active', 'data')
 													->with('subnav_active', $subnav_active)
 													;
@@ -105,66 +102,6 @@ class transactionController extends baseController
 														->with('subnav_active', $subnav_active)
 														;
 		return $this->layout;
-	}
-
-
-	public function buy()
-	{		
-		$this->inputs['id']					= Input::get('id');
-		$this->inputs['user_id']			= 0;
-		$this->inputs['supplier_id']		= Input::get('supplier_id');
-		$this->inputs['ref_number']			= Input::get('ref_number');
-		$this->inputs['referral_code']		= Input::get('referral_code');
-		$this->inputs['type']				= 'buy';
-		$this->inputs['status']				= Input::get('status');
-		$this->inputs['transacted_at']		= Input::get('transacted_at');
-		$this->inputs['unique_number']		= Input::get('unique_number');
-		$this->inputs['shipping_cost']		= Input::get('shipping_cost');
-		$this->inputs['referral_discount']	= Input::get('referral_discount');
-		$this->inputs['amount']				= Input::get('amount');
-		$this->inputs['products']			= Input::get('products');
-
-		$this->store();
-	}
-
-	public function sell()
-	{		
-		$this->inputs['id']					= Input::get('id');
-		$this->inputs['user_id']			= Input::get('user_id');
-		$this->inputs['supplier_id']		= 0;
-		$this->inputs['ref_number']			= Input::get('ref_number');
-		$this->inputs['referral_code']		= Input::get('referral_code');
-		$this->inputs['type']				= 'sell';
-		$this->inputs['status']				= Input::get('status');
-		$this->inputs['transacted_at']		= Input::get('transacted_at');
-		$this->inputs['unique_number']		= Input::get('unique_number');
-		$this->inputs['shipping_cost']		= Input::get('shipping_cost');
-		$this->inputs['referral_discount']	= Input::get('referral_discount');
-		$this->inputs['amount']				= Input::get('amount');
-		$this->inputs['products']			= Input::get('products');
-
-
-		// $this->inputs['id']					= Null;
-		// $this->inputs['user_id']			= 1;
-		// $this->inputs['ref_number']			= 'B00124';
-		// $this->inputs['referral_code']		= Null;
-		// $this->inputs['type']				= 'sell';
-		// $this->inputs['status']				= 'waiting';
-		// $this->inputs['transacted_at']		= date('Y-m-d H:i:s', strtotime('now'));
-		// $this->inputs['unique_number']		= 0;
-		// $this->inputs['shipping_cost']		= 4000;
-		// $this->inputs['referral_discount']	= 0;
-		// $this->inputs['amount']				= 4000;
-		// $this->inputs['products']			= [
-		// 										'0' => ['id' => '5', 'quantity' => '2'],
-		// 										'1' => ['id' => '6', 'quantity' => '3'],
-		// 										'2' => ['id' => '7', 'quantity' => '1'],
-		// 										'3' => ['id' => '8', 'quantity' => '4'],
-		// 										];
-
-
-
-		$this->store();
 	}
 
 	public function store()

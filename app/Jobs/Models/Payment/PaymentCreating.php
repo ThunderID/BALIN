@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Payment;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -20,6 +20,8 @@ class PaymentCreating extends Job implements SelfHandling
     
     public function handle()
     {
-        $result                          = new jsend('success', (array)$this->transaction );
+        $result                          = new JSend('success', (array)$this->payment);
+       
+        return $result;
     }
 }

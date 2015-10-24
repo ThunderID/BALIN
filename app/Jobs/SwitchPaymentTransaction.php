@@ -79,7 +79,7 @@ class SwitchPaymentTransaction extends Job implements SelfHandling
 
         if($errors->count())
         {
-            $result                 = new Jsend('error', (array)$this->payment, (array)$errors);
+            $result                 = new JSend('error', (array)$this->payment, (array)$errors);
         }
 
         return $result;
