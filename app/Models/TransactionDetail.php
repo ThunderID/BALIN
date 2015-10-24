@@ -114,4 +114,26 @@ class TransactionDetail extends Eloquent
 				->groupBy('product_id')
 				;
 	}
+
+	public function scopeMostBuyByCustomer($query, $variable)
+	{
+		return 	$query
+				->selectraw('transaction_details.*')
+				->selectraw('sum(quantity) as total_buy')
+				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipped','delivered'])->type('sell')->userid($variable);})
+				->orderbyraw('sum(quantity) desc')
+				->groupBy('product_id')
+				;
+	}
+
+	public function scopeFrequentBuyByCustomer($query, $variable)
+	{
+		return 	$query
+				->selectraw('transaction_details.*')
+				->selectraw('count(transaction_id) as frequent_buy')
+				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipped','delivered'])->type('sell')->userid($variable);})
+				->orderbyraw('count(transaction_id) desc')
+				->groupBy('transaction_id')
+				;
+	}
 }

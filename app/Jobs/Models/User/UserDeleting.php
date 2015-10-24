@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\User;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
@@ -12,7 +12,7 @@ class UserDeleting extends Job implements SelfHandling
 {
     protected $user;
 
-    public function __construct(user $user)
+    public function __construct(User $user)
     {
         $this->user                 = $user;
     }
@@ -21,9 +21,9 @@ class UserDeleting extends Job implements SelfHandling
     {
         if($this->user->transactions->count())
         {
-            return new json('error', (array)$this->user, ['message' => 'Tidak bisa menghapus User yang telah bertransaksi']);
+            return new JSend('error', (array)$this->user, 'Tidak bisa menghapus User yang telah bertransaksi');
         }
 
-        return new json('success', (array)$this->user);
+        return new JSend('success', (array)$this->user);
     }
 }

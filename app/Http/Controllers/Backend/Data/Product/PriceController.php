@@ -12,7 +12,9 @@ class PriceController extends baseController
 	public function index()
 	{		
 		$breadcrumb								= ['Harga' => 'backend.data.product.price.index'];
+
 		$filters 								= Null;
+		
 		if (Input::has('q'))
 		{
 		// 	$datas 								= product::FindProduct(Input::get('q'))

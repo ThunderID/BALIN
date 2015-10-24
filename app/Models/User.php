@@ -69,7 +69,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'joined_at', 'expired_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'joined_at', 'expired_at', 'date_of_birth'];
 
 	/**
 	 * Basic rule of database
@@ -104,6 +104,17 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 	
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	public function getError()
+	{
+		return $this->errors;
+	}
+
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/

@@ -16,7 +16,10 @@ class AuthController extends baseController
 
 		if ($check)
 		{
-			return Redirect::intended(route('backend.settings.category.index'));
+			$redirect 				= Session::get('login_redirect');
+			Session::forget('login_redirect');
+
+			return Redirect::intended(route($redirect));
 		}
 		
 		return Redirect::back()->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami. Harap anda memeriksa data masukkan dan mencoba lagi.']);
