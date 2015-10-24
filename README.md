@@ -5,3 +5,4 @@
 3. Sell Transaction Shipment
 4. Courier Image
 5. Product Image
+5. Customer Point

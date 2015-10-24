@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Payment;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;

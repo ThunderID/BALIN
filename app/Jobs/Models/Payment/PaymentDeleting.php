@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Payment;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -20,11 +20,13 @@ class PaymentDeleting extends Job implements SelfHandling
     
     public function handle()
     {
-        if($this->payment->transaction_id)
+        if($this->payment->transaction)
         {
-            $result                      = new jsend('error', (array)$this->transaction, ['message' => 'Tidak bisa menghapus data payment yang sudah divalidasi'] );
+            $result                      = new JSend('error', (array)$this->payment, 'Tidak bisa menghapus data payment yang sudah divalidasi');
         }
 
-        $result                          = new jsend('success', (array)$this->transaction );
+        $result                          = new JSend('success', (array)$this->payment);
+
+        return $result;
     }
 }
