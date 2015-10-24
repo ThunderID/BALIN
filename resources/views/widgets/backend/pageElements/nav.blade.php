@@ -25,10 +25,10 @@
 						<a href="#"><i class="fa fa-users"></i><span class="nav-label">Kostumer</span></a>
 					</li>
 					<li class="@if($subnav_active=='buy') active @endif">
-					 	<a href="{{ route('backend.data.transaction.index', ['type' => 'buy']) }}"><i class="fa fa-archive"></i><span class="nav-label">Stok</span></a>
+					 	<a href="{{ route('backend.data.transaction.index', ['type' => 'buy']) }}"><i class="fa fa-inbox"></i><span class="nav-label">Pembelian Produk</span></a>
 					</li>
 					<li class="@if($subnav_active=='sell') active @endif">
-					 	<a href="{{ route('backend.data.transaction.index', ['type' => 'sell']) }}"><i class="fa fa-briefcase"></i><span class="nav-label">Pesanan</span></a>
+					 	<a href="{{ route('backend.data.transaction.index', ['type' => 'sell']) }}"><i class="fa fa-briefcase"></i><span class="nav-label">Penjualan Produk</span></a>
 					</li>
 					<li class="@if($subnav_active=='payment') active @endif">
 					 	<a href="{{ route('backend.data.transaction.index') }}"><i class="fa fa-file-o"></i><span class="nav-label">Nota Bayar</span></a>
