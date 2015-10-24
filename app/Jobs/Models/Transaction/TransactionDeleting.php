@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Transaction;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
@@ -15,11 +15,13 @@ class TransactionDeleting extends Job implements SelfHandling
 
     public function __construct(transaction $transaction)
     {
-        $this->transaction                  = $transaction;
+        $this->transaction				= $transaction;
     }
     
     public function handle()
     {
-        $result                          = new jsend('success', (array)$this->transaction );
+        $result                          = new JSend('success', (array)$this->transaction );
+        
+        return $result;
     }
 }

@@ -1,22 +1,22 @@
 @inject('datas', 'App\Models\Transaction')
+<?php 
+if(!is_null($filters) && is_array($filters))
+{
+	foreach ($filters as $key => $value) 
+	{
+		$datas = call_user_func([$datas, $key], $value);
+	}
+}
+$datas 			= $datas->type($subnav_active)->orderby('transacted_at')->with(['user', 'supplier'])->paginate();
 
-<?php
-	if ($subnav_active == 'sell')
-	{
-		$datas 		= $datas::Where('type', '=', $subnav_active)
-							->OrderBy('transacted_at', 'desc')
-							->with('User')
-							->paginate();
-		$type_user  = 'User';
-	}
-	else
-	{
-		$datas 		= $datas::Where('type', '=', $subnav_active)
-							->OrderBy('transacted_at', 'desc')
-							->with('Supplier')
-							->paginate();	
-		$type_user  = 'Supplier';
-	}
+if ($subnav_active == 'sell')
+{
+	$type_user  = 'Kostumer';
+}
+else
+{
+	$type_user  = 'Supplier';
+}
 ?>
 
 @extends('template.backend.layout')
@@ -43,6 +43,7 @@
 											'required'      => 'required',
 											'style'         =>'text-align:right'
 								]) !!}
+								{!! Form::hidden('type', Input::get('type')) !!}
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
 								<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
@@ -60,11 +61,12 @@
 							<thead>
 								<tr>
 									<th class="text-center">No.</th>
-									<th class="col-md-2 text-center">Nota Transaksi</th>
-									<th class="col-md-4">Nama {{ $type_user }}</th>
-									<th class="col-md-2 text-center">Tanggal Transaksi</th>
-									<th class="col-md-1 text-center">Status</th>
-									<th class="col-md-2">Kontrol</th>
+									<th class=" text-left">#</th>
+									<th class="">{{ $type_user }}</th>
+									<th class=" text-center">Tanggal Transaksi</th>
+									<th class=" text-center">Status</th>
+									<th class=" text-center">Total</th>
+									<th class="">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -82,10 +84,15 @@
 									@foreach ($datas as $data)
 									<tr>
 										<td class="text-center">{{ $ctr }}</td>
-										<td class="text-center">{{ $data['ref_number'] }}</td>
-										<td>{{ $data[$type_user]['name'] }}</td>
+										<td class="text-left">{{ $data['ref_number'] }}</td>
+										@if($type_user=='Kostumer')
+											<td>{{ $data['user']['name'] }}</td>
+										@else
+											<td>{{ $data[$type_user]['name'] }}</td>
+										@endif
 										<td class="text-center">{{ $data['transacted_at'] }}</td>
 										<td class="text-center">{{ $data['status'] }} </td>
+										<td class="text-center">{{ $data['amount'] }} </td>
 										<td>
 											<a href="#">Detail</a>,
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#trans" 
