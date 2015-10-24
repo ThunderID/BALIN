@@ -32,13 +32,15 @@ trait HasTransactionTrait
 		return $query->whereHas('transaction', function($q)use($variable){$q->id($variable);});
 	}
 
+	public function scopeTransactionUser($query, $variable)
+	{
+		return $query->whereHas('transaction', function($q)use($variable){$q->userid($variable);});
+	}
+	
 	public function scopeDoesntHaveTransaction($query, $variable)
 	{
 		return $query->whereDoesntHave('transaction', function($q)use($variable){$q;});
 	}
 
-	public function scopeUserID($query, $variable)
-	{
-		return $query->whereHas('transaction', function($q)use($variable){$q->userid($variable);});
-	}
+	
 }
