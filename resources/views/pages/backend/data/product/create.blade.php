@@ -153,18 +153,18 @@
 				<div class="form-group">
 					<label for="">Thumbnail</label><br>
 						{!! HTML::image('http://placehold.it/180x180/bababa/000000/?text=gambar', null, ['style' => 'background-color:#eee;padding:10px']) !!}
-					<input type="file" style="opacity:0" class="file-image">
-					<a href="#" class="btn btn-primary btn-upload">Upload Gambar</a>
+					<input type="file" style="opacity:0" class="file-upload">
+					<a class="btn btn-sm btn-primary btn-file-upload m-t-n-md">Upload Thumbnail</a>
 				</div>
 			</div>
 			<div class="col-md-8">
 				<div class="form-group">
-					<label for="">Gallery</label>
+					<label for="">Galeri</label>
 					<div class="gallery" style="width:100%;height:200px;background-color:#eee;padding:10px">
 						{!! HTML::image('http://placehold.it/180x180/bababa/000000/?text=gambar') !!}
 					</div>
 					<input type="file" name="gallery[]" class="gallery-upload hide" data-url="{{ route('backend.data.product.store') }}"><br>
-					<a href="#" class="btn btn-primary btn-upload">Upload Gambar</a>
+					<a class="btn btn-sm btn-primary btn-gallery-upload m-t-n-md">Upload Galeri</a>
 				</div>
 			</div>
 		</div>

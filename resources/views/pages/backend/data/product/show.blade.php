@@ -109,7 +109,10 @@
 		<div class="col-md-8">
 			<h2 style="margin-top:0px;">{!!$data->name!!}</h2>
 			<h5><strong>SKU</strong> {!!$data->sku!!}</h5>
-			<h5><strong>Harga</strong> @if($data->discount!=0)<strike> {!!$data->price!!} </strike> {!!$data->promo_price!!} @else {!!$data->price!!} @endif</h5>
+			<h5>
+				<strong>Harga</strong> @if($data->discount!=0)<strike> {!!$data->price!!} </strike> {!!$data->promo_price!!} @else {!!$data->price!!} @endif 
+				<span>[ <a href="{{ route('backend.data.product.price.index', ['product_id' => $data['id']]) }}">Histori Harga</a> ]</span>
+			</h5> 
 			<h5><strong>Diskon</strong> {!!$data->discount!!}</h5>
 			@if($data->is_new)
 				<label class="label label-danger">New</label><br/>
