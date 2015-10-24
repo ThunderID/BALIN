@@ -3,7 +3,11 @@
 $datas 			= $datas
 					->paginate()
 					;
+
+dd($datas);
 ?>
+
+
 
 @extends('template.backend.layout')
 @stop
