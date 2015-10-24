@@ -1,39 +1,51 @@
-<?php namespace App\Http\Controllers\Backend;
+<?php namespace App\Http\Controllers\Backend\Data\Product;
 
 use App\Http\Controllers\baseController;
 use App\Models\Price;
 use App\Models\Product;
 use Input, Session, DB, Redirect, Response;
 
-class priceController extends baseController 
+class PriceController extends baseController 
 {
 	protected $view_name 						= 'Price';
 
 	public function index()
 	{		
-		$breadcrumb								= ['Harga' => 'backend.price.index'];
-
-		if (Input::get('q'))
+		$breadcrumb								= ['Harga' => 'backend.data.product.price.index'];
+		$filters 								= Null;
+		if (Input::has('q'))
 		{
-			$datas 								= product::FindProduct(Input::get('q'))
-													->where('deleted_at',null)
-													->with(['price'=> function($q){$q->LatestPrice();}])
-													->paginate(); 
+		// 	$datas 								= product::FindProduct(Input::get('q'))
+		// 											->where('deleted_at',null)
+		// 											->with(['price'=> function($q){$q->LatestPrice();}])
+		// 											->paginate(); 
 			$searchResult						= Input::get('q');
 		}
 		else
 		{
-			$datas								= product::with(['price'=> function($q){$q->LatestPrice();}])
-													->paginate(); 
+		// 	$datas								= product::with(['price'=> function($q){$q->LatestPrice();}])
+		// 											->paginate(); 
 			$searchResult						= NULL;
 		}
 
-		$this->layout->page 					= view('pages.backend.price.index')
+		if (Input::has('product_id'))
+		{
+			$product_id 						= Input::get('product_id');
+		}
+		else
+		{
+			$product_id							= Null;
+		}
+
+		$this->layout->page 					= view('pages.backend.data.product.price.index')
 													->with('WT_pageTitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
-													->with('datas', $datas)
-													->with('searchResult', $searchResult);
+													->with('filters', $filters)
+													->with('searchResult', $searchResult)
+													->with('product_id', $product_id)
+													->with('nav_active', 'data')
+													->with('subnav_active', 'products');
 
 		return $this->layout;
 	}
