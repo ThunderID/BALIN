@@ -63,6 +63,9 @@
 							<li><a href="">Pesanan Belum Tiba</a></li>
 						</ul>
 					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Produk Terlaris</span></a>
+					</li>					
 					<li class="@if($subnav_active=='pointlog') active @endif">
 						<a href="{{ route('backend.report.pointlog') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Transaksi Pointlog</span></a>
 					</li>
