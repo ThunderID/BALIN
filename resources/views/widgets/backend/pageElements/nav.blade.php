@@ -33,9 +33,6 @@
 					<li class="@if($subnav_active=='payment') active @endif">
 					 	<a href="{{ route('backend.data.payment.index') }}"><i class="fa fa-file-o"></i><span class="nav-label">Nota Bayar</span></a>
 					</li>
-					<li class="@if($subnav_active=='shippingcost') active @endif">
-						<a href="{{ route('backend.data.shippingCost.index') }}"><i class="fa fa-truck"></i><span class="nav-label">Ongkos Kirim</span></a>
-					</li>					
 				</ul>
 			</li>
 			<li class="@if($nav_active=='settings') active @endif">
