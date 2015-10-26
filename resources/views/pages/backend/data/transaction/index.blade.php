@@ -106,19 +106,21 @@ else
 												href="#">
 												Edit
 											</a>,  
-											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#trans_del"
+											<a data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#trans_del"
 												data-id="{{$data['id']}}"
 												data-title="Hapus Data Transaksi {{$data['invoice_no']}}" 
 												data-button="Hapus Data"
-												data-id="{{$data['id']}}"
-												href="#">
+												data-action="{{ route('backend.data.transaction.destroy', [$data['id'], 'type' => $subnav_active]) }}">
 												Hapus
 											</a>                                            
 										</td>    
 									</tr>       
 									<?php $ctr += 1; ?>                     
 									@endforeach 
-									@include('widgets.pageElements.formModal1', array('modal_id'=>'trans_del', 'modal_content' => 'pages.backend.data.transaction.delete'))
+									@include('widgets.pageElements.formModalDelete', [
+											'modal_id'      => 'trans_del', 
+											'modal_route'   => route('backend.data.transaction.destroy', 0)
+									])
 								@endif
 							</tbody>
 						</table> 
