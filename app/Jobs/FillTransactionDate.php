@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use App\Models\transaction;
+use App\Models\Transaction;
 
 use App\Libraries\JSend;
 
@@ -13,7 +13,7 @@ class FillTransactionDate extends Job implements SelfHandling
 {
     protected $transaction;
 
-    public function __construct(transaction $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction                  = $transaction;
     }
@@ -25,6 +25,6 @@ class FillTransactionDate extends Job implements SelfHandling
             $this->transaction->transacted_at  = date('Y-m-d H:i:s', strtotime('now'));
         }
 
-        return new jsend('success', (array)$this->transaction);
+        return new JSend('success', (array)$this->transaction);
     }
 }

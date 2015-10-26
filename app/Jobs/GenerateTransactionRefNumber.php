@@ -19,35 +19,38 @@ class GenerateTransactionRefNumber extends Job implements SelfHandling
 
     public function handle()
     {
-        switch ($this->transaction->status) 
+        if(is_null($this->transaction->id) || $this->transaction->ref_number=='0000000000')
         {
-            case 'draft':
-                $this->transaction->ref_number  = '0000000000';
-            break;
-
-            default:
-                $prefix                         = $this->transaction->type[0].date("ymd");
-
-                $latest_transaction             = Transaction::select('ref_number')
-                                                    ->where('ref_number','like', $prefix . '%')
-                                                    ->orderBy('ref_number', 'DESC')
-                                                    ->first();
-
-
-                if(empty($latest_transaction))
-                {
-                    $number                     = 1;
-                }
-                else
-                {
-                    $number                     = 1 + (int)substr($latest_transaction['ref_number'],6);
-                }
-
-                $ref_number                     = str_pad($number,4,"0",STR_PAD_LEFT);
-
-                $this->transaction->ref_number  = $prefix . $ref_number;
-                
+            switch ($this->transaction->status) 
+            {
+                case 'draft':
+                    $this->transaction->ref_number  = '0000000000';
                 break;
+
+                default:
+                    $prefix                         = $this->transaction->type[0].date("ymd");
+
+                    $latest_transaction             = Transaction::select('ref_number')
+                                                        ->where('ref_number','like', $prefix . '%')
+                                                        ->orderBy('ref_number', 'DESC')
+                                                        ->first();
+
+
+                    if(empty($latest_transaction))
+                    {
+                        $number                     = 1;
+                    }
+                    else
+                    {
+                        $number                     = 1 + (int)substr($latest_transaction['ref_number'],6);
+                    }
+
+                    $ref_number                     = str_pad($number,4,"0",STR_PAD_LEFT);
+
+                    $this->transaction->ref_number  = $prefix . $ref_number;
+                    
+                    break;
+            }
         }
 
         return new JSend('success', (array)$this->transaction);
