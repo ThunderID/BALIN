@@ -213,6 +213,7 @@ Route::get('report/criticalStock', ['uses' => 'backend\\reportController@critica
 Route::get('report/pointlog', ['uses' => 'backend\\reportController@pointlog', 'as' => 'backend.report.pointlog']);
 Route::get('report/topsellingproduct', ['uses' => 'backend\\reportController@topSellingProduct', 'as' => 'backend.report.topSellingProduct']);
 Route::get('report/suppliedby', ['uses' => 'backend\\reportController@suppliedby', 'as' => 'backend.report.suppliedby']);
+Route::get('report/deadstock', ['uses' => 'backend\\reportController@deadstock', 'as' => 'backend.report.deadstock']);
 Route::get('report', ['uses' => 'backend\\reportController@index', 'as' => 'backend.report.index']);
 
 
