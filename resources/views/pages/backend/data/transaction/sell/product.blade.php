@@ -20,7 +20,7 @@
 	<div class="col-md-2">
 		<div class="form-group">
 			<label for="harga">Harga</label>
-			{!! Form::input('text', 'price', null, ['class' => 'form-control price']) !!}
+			{!! Form::input('text', 'price', null, ['class' => 'form-control transaction-input-price']) !!}
 		</div>
 	</div>
 	<div class="col-md-2">

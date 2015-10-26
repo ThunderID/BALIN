@@ -14,6 +14,18 @@
 		},
 		onStepChanged: function (event, currentIndex, priorIndex) {
 			resizeJquerySteps();
+		},
+		onFinished: function (event, currentIndex) {
+			$(this).submit();
+		},
+		onCanceled: function (event) {
+
+		},
+		labels: {
+			finish: "Simpan",
+			cancel: "Batal",
+			next: "Lanjut",
+			previous: "Sebelum"
 		}
 	});
 
