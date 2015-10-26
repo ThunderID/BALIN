@@ -33,7 +33,10 @@ class SendActivationEmail extends Job implements SelfHandling
         //send email
         $mail_data      = [
                             'view'          => 'emails.activation', 
-                            'datas'         => ['activation_link' => $this->user->activation_link], 
+                            'datas'         =>  [
+                                                    'name' => $this->user->name,
+                                                    'activation_link' => $this->user->activation_link
+                                                ], 
                             'dest_email'    => $this->user->email, 
                             'dest_name'     => $this->user->name, 
                             'subject'       => '[BALIN] Email Activation', 
