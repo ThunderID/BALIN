@@ -26,7 +26,7 @@ class GenerateActivationEmail extends Job implements SelfHandling
 
         $data                       =   [
                                             'activation_link'  => $activation,
-                                            'expired_at'       => date('Y-m-d H:i:s', strtotime($ttl)),
+                                            'expired_at'       => date('Y-m-d H:i:s', strtotime($ttl['value'])),
                                         ];
 
         $result                     = new JSend('success', (array)$data);

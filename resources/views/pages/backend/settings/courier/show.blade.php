@@ -1,6 +1,11 @@
 @inject('data', 'App\Models\Courier')
+@inject('shippingcosts', 'App\Models\shippingcost')
 
-<?php $data = $data::id($id)->with(['shipments', 'shipments.transaction', 'shipments.transaction.user'])->with('shippingCosts')->first() ?>
+<?php 
+	$data = $data::id($id)->with(['shipments', 'shipments.transaction', 'shipments.transaction.user'])->first();
+
+	$shippingcosts = $shippingcosts::where('courier_id', '=' ,$data['id'])->paginate();
+?>
 
 @extends('template.backend.layout')
 
@@ -80,14 +85,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				@if (count($data['shippingcosts']) == 0)
+				@if (count($shippingcosts) == 0)
 					<tr>
 						<td colspan="5">
 							<p class="text-center">Tidak ada data</p>
 						</td>
 					</tr>
 				@else
-					@foreach($data['shippingcosts'] as $ctr => $shippingcost)
+					@foreach($shippingcosts as $ctr => $shippingcost)
 						<tr>
 							<td>{{ $ctr+1 }}</td>
 							<td>{{ $shippingcost['start_postal_code'] }}</td>
@@ -108,6 +113,14 @@
 			</tbody>
 		</table>
 	</div>  
+
+	@if(count($shippingcosts) > 0)
+		<div class="row">
+			<div class="col-md-12" style="text-align:right;">
+                {!! $shippingcosts->appends(Input::all())->render() !!}
+			</div>
+		</div>
+	@endif
 
 	@include(
 		'widgets.pageElements.formModalDelete', [

@@ -3,8 +3,8 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
-use App\Models\transaction;
-use App\Models\transactionDetail;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\MessageBag as MessageBag;
 
@@ -14,7 +14,7 @@ class GenerateBillingEmail extends Job implements SelfHandling
 {
     protected $transaction;
 
-    public function __construct(transaction $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction           = $transaction;
     }
@@ -30,7 +30,7 @@ class GenerateBillingEmail extends Job implements SelfHandling
         }
 
          //get products
-        $products                   = transactiondetail::where('transaction_id',$this->transaction->id);
+        $products                   = TransactionDetail::where('transaction_id',$this->transaction->id);
 
         if(is_null($products))
         {

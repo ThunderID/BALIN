@@ -3,6 +3,7 @@
 namespace App\Jobs\Models\TransactionDetail;
 
 use App\Jobs\Models\TransactionDetail\Buy\TransactionDetailBuySaved;
+use App\Jobs\Models\TransactionDetail\Sell\TransactionDetailSellSaved;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
@@ -34,7 +35,7 @@ class TransactionDetailSaved extends Job implements SelfHandling
                 break;
             
             default:
-                # code...
+                $result                     = $this->dispatch(new TransactionDetailSellSaved($this->transactiondetail));
                 break;
         }
 
