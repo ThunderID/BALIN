@@ -20,22 +20,14 @@ class GenerateActivationEmail extends Job implements SelfHandling
 
     public function handle()
     {
-        // checking
-        if(is_null($this->user->id))
-        {
-            throw new Exception('Sent variable must be object of a record.');
-        }
-
         //generate link
         $activation                 = md5(uniqid(rand(), TRUE));
         $ttl                        = Policy::GetTTL('now')->first();
 
-        $data[
-                'activation_link'  => $activation,
-                'expired_at'       => date('Y-m-d H:i:s', strtotime($ttl)),
-            ];
-
-        ]
+        $data                       =   [
+                                            'activation_link'  => $activation,
+                                            'expired_at'       => date('Y-m-d H:i:s', strtotime($ttl)),
+                                        ];
 
         $result                     = new JSend('success', (array)$data);
 

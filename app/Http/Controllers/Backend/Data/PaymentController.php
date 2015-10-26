@@ -1,76 +1,162 @@
 <?php namespace App\Http\Controllers\Backend\Data;
+
 use App\Http\Controllers\baseController;
-
 use App\Models\User;
-use App\Models\payment;
-use App\Models\pointlog;
-use App\Models\transaction;
-
+use App\Models\Payment;
+use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect;
 
-class paymentController extends baseController 
+class PaymentController extends baseController
 {
-	protected $controller_name 				= 'Pembayaran';
-
-	public function store()
+	/**
+	* Instantiate a new UserController instance.
+	*/
+	public function __construct()
 	{
-		$inputs 							= input::only('id','transaction_id','method','destination','account_name','account_number','ondate','ammount');
+		$this->middleware('passwordneeded', ['only' => ['destroy']]);
 
-		if($inputs['id'])
+		parent::__construct();
+	}
+
+	protected $view_name 		= 'Nota Bayar';
+	public function index()
+	{
+		$breadcrumb				= ['Nota Bayar' => 'backend.data.payment.index'];
+
+		$filters 				= ['doesnthavetransaction' => true];
+		
+		if(Input::has('q'))
 		{
-			$data 							= payment::find($inputs['id']);
+			$filters['amount'] 	= Input::get('q');
+			$searchResult		= Input::get('q');
 		}
 		else
 		{
-			$data 							= new payment;
+			$searchResult		= null;
 		}
 
-		// $data->fill([
-		// 	'method'						=> $inputs['method'],
-		// 	'destination'					=> $inputs['destination'],
-		// 	'account_name'					=> $inputs['account_name'],
-		// 	'account_number'				=> $inputs['account_number'],
-		// 	'ondate'						=> $inputs['ondate'],
-		// 	'ammount'						=> $inputs['account_number'],
-		// ])
+		$this->layout->page 	= view('pages.backend.data.payment.index')
+									->with('WT_pageTitle', $this->view_name )
+									->with('WT_pageSubTitle','Index')
+									->with('WB_breadcrumbs', $breadcrumb)
+									->with('searchResult', $searchResult)
+									->with('filters', $filters)
+									->with('nav_active', 'data')
+									->with('subnav_active', 'payment');
+		return $this->layout;
+	}
 
-		// $transaction 						= transaction::find($inputs['transaction']);
+	public function show($id)
+	{
+		return Redirect::back();
+	}
 
-		$transaction 						= transaction::find(23);
-
-		if(empty($transaction))
+	public function create($id = null)
+	{
+		if (is_null($id))
 		{
-			dd('transaction not found');
+			$breadcrumb			= 	[ 	'Nota Bayar' => 'backend.data.payment.index',
+										'Nota Bayar Baru' => 'backend.data.payment.create'
+									];
+		}
+		else
+		{
+		$breadcrumb				= 	[ 	'Nota Bayar' => 'backend.data.payment.index',
+										'Edit Data' => 'backend.data.payment.create'
+									];
+		}
+
+		$this->layout->page 	= view('pages.backend.data.payment.create')
+									->with('WT_pageTitle', $this->view_name )
+									->with('WT_pageSubTitle','Create')
+									->with('WB_breadcrumbs', $breadcrumb)
+									->with('id', $id)
+									->with('nav_active', 'data')
+									->with('subnav_active', 'payment');
+		return $this->layout;
+	}
+
+	public function edit($id)
+	{
+		return $this->create($id);
+	}
+	
+	public function store($id = null)
+	{
+		$inputs 				= Input::only('account_name', 'account_number', 'amount', 'destination', 'ondate', 'transaction_id');
+		
+		if(!is_null($id))
+		{
+			$data				= Payment::find($id);
+		}
+		else
+		{
+			$data				= new Payment;
 		}
 
 		$data->fill([
-			'method'						=> 'Bank Transfer',
-			'destination'					=> 'BCA',
-			'account_name'					=> 'BUDI',
-			'account_number'				=> 'gdsahgdadsya6ydgbjbaj87',
-			'ondate'						=> date('Y-m-d H:i:s', strtotime('now')),
-			'ammount'						=> 120000,
+			'transaction_id' 	=> 0,
+			'account_name' 		=> $inputs['account_name'],
+			'account_number' 	=> $inputs['account_number'],
+			'amount' 			=> $inputs['amount'],
+			'ondate' 			=> date('Y-m-d', strtotime($inputs['ondate'])),
+			'destination' 		=> $inputs['destination'],
+			'method' 			=> 'Bank Transfer',
 		]);
 
-		$data->transaction()->associate($transaction);
-
 		DB::beginTransaction();
-		if (!$data->save())
+
+		$errors 				= new MessageBag();
+
+		if(!$data->save())
+		{
+			$errors->add('Payment', $data->gerError());
+		}
+
+		if ($errors->count())
 		{
 			DB::rollback();
-			// return Redirect::back()
-			// 	->withInput()
-			// 	->withErrors($data->getError())
-			// 	->with('msg-type', 'danger');
-			dd('error');
-		}	
+			
+			return Redirect::back()
+							->withInput()
+							->withErrors($errors)
+							->with('msg-type', 'danger');
+		}
 		else
 		{
 			DB::commit();
-			// return Redirect::route('backend.price.index')
-			// 	->with('msg','Data sudah ditambahkan')
-			// 	->with('msg-type', 'success');
-			dd('saved');
+		
+			return Redirect::route('backend.data.payment.index')
+							->with('msg', 'Nota Bayar sudah disimpan')
+							->with('msg-type', 'success');
+		}
+	}
+
+	public function Update($id)
+	{
+		return $this->store($id);
+	}
+
+	public function destroy($id)
+	{
+		$data					= Payment::findorfail($id);
+		
+		DB::beginTransaction();
+		if (!$data->delete())
+		{
+			DB::rollback();
+		
+			return Redirect::back()
+							->withErrors($data->getError())
+							->with('msg-type','danger');
+		}
+		else
+		{
+			DB::commit();
+			
+			return Redirect::route('backend.data.payment.index')
+							->with('msg', 'Nota bayar sudah dihapus')
+							->with('msg-type','success');
 		}
 	}
 }

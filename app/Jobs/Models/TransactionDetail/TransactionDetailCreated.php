@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\TransactionDetail;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
@@ -10,19 +10,19 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Models\transaction;
-use App\Models\transactiondetail;
+use App\Models\TransactionDetail;
 
 class TransactionDetailCreated extends Job implements SelfHandling
 {
-    protected $transaction_detail; 
+    protected $transactiondetail; 
 
-    public function __construct(transactiondetail $transactiondetail)
+    public function __construct(TransactionDetail $transactiondetail)
     {
         $this->transaction_detail               = $transactiondetail;
     }
 
     public function handle()
     {
-        return new Jsend('success', (array)$this->transactiondetail );
+        return new JSend('success', (array)$this->transactiondetail );
     }
 }

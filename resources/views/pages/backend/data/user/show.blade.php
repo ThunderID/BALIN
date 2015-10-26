@@ -7,7 +7,7 @@
 						->with(['images'])
 						->first(); 
 	$transaction 	= $transaction->userid($id)->status(['paid', 'delivered', 'shipped'])->type('sell')->count();
-	$payment 		= $payment->userid($id)->sum('amount');
+	$payment 		= $payment->transactionuserid($id)->sum('amount');
 	$mostbuy		= $td->mostbuybycustomer($id)->with(['product'])->get();
 	$frequentbuy	= $td->frequentbuybycustomer($id)->with(['product'])->get();
 ?>

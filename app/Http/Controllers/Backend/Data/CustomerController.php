@@ -12,7 +12,7 @@ class CustomerController extends baseController
 	*/
 	public function __construct()
 	{
-		$this->middleware('passwordneeded', ['only' => ['destroy']]);.
+		$this->middleware('passwordneeded', ['only' => ['destroy']]);
 
 		parent::__construct();
 	}

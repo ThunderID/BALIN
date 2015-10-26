@@ -5,9 +5,9 @@ namespace App\Jobs;
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use App\models\transaction;
-use App\models\transactionDetail;
-use App\models\Policy;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
+use App\Models\Policy;
 
 use App\Libraries\JSend;
 
@@ -17,19 +17,19 @@ class CountReferralDiscount extends Job implements SelfHandling
 
     Protected $transaction;
 
-    public function __construct(transaction $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction              = $transaction;
     }
 
     public function handle()
     {
-        $product_prices                 = transactiondetail::where('transaction_id', $this->transaction->id)
+        $product_prices                 = TransactionDetail::transactionid($this->transaction->id)
                                                 ->selectraw('(price - discount) * quantity as total')
                                                 ->first()
                                                 ;
 
-        $disc                           = policy::type('referral_discount')->first();
+        $disc                           = Policy::type('referral_discount')->first();
 
         $referral_discount              = ($product_prices['total'] * $disc['value'])/100;
 
@@ -41,10 +41,10 @@ class CountReferralDiscount extends Job implements SelfHandling
 
             if(!$this->transaction->save())
             {
-                return new jsend('error', (array)$this->transaction->geterror(), (array)$this->transaction);
+                return new JSend('error', (array)$this->transaction->geterror(), (array)$this->transaction);
             }
         }
 
-        return new jsend('success', (array)$this->transaction);
+        return new JSend('success', (array)$this->transaction);
     }
 }
