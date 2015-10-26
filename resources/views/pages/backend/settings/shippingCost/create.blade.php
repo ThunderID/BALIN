@@ -1,5 +1,5 @@
-@inject('data', 'App\Models\shippingcost')
-@inject('courier', 'App\Models\courier')
+@inject('data', 'App\Models\ShippingCost')
+@inject('courier', 'App\Models\Courier')
 <?php 
 		$data = $data::where('id', $id)
 							->first(); 

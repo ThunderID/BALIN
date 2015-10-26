@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Shipment;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -13,7 +13,7 @@ class ShipmentDeleting extends Job implements SelfHandling
 {
     protected $shipment;
 
-    public function __construct()
+    public function __construct(Shipment $shipment)
     {
         $this->shipment             = $shipment;
     }
@@ -22,9 +22,9 @@ class ShipmentDeleting extends Job implements SelfHandling
     {
     	if($this->shipment->receipt_number)
     	{
-    		return new jsend('error', (array)$this->shipment, ['message' => 'Tidak dapat menghapus data barang yang telah dikirm']);
+    		return new JSend('error', (array)$this->shipment, 'Tidak dapat menghapus data barang yang telah dikirm');
     	}
 
-        return new jsend('success', (array)$this->shipment);
+        return new JSend('success', (array)$this->shipment);
     }
 }

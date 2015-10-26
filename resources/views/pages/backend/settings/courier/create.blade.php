@@ -17,7 +17,7 @@
 				<div class="form-group">
 					{!! HTML::image('http://placehold.it/200x200/bababa/000000/?text=gambar') !!}
 					<input type="file" style="opacity:0" class="file-image">
-					<a href="#" class="btn btn-primary btn-upload">Upload Gambar</a>
+					<a href="#" class="btn btn-sm btn-primary btn-upload m-t-n-md">Upload Gambar</a>
 				</div>
 			</div>
 			<div class="col-md-9 col-sm-9 col-xs-12">
@@ -25,7 +25,8 @@
 					<label for="parent" class="text-capitalize">Nama</label>
 					{!! Form::text('name', $data->name, [
 								'class'         => 'form-control', 
-								'tabindex'      => '1'
+								'tabindex'      => '1',
+								'placeholder'   => 'Masukkan nama',
 					]) !!}
 				</div>              
 				<div class="form-group">
@@ -36,6 +37,7 @@
 								'rows'          => '3',
 								'tabindex'      => '3',
 								'style'         => 'resize:none;',
+								'placeholder'   => 'Masukkan alamat'
 						]) 
 					!!}
 				</div> 

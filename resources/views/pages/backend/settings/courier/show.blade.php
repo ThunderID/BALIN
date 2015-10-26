@@ -1,5 +1,5 @@
 @inject('data', 'App\Models\Courier')
-@inject('shippingcosts', 'App\Models\shippingcost')
+@inject('shippingcosts', 'App\Models\ShippingCost')
 
 <?php 
 	$data = $data::id($id)->with(['shipments', 'shipments.transaction', 'shipments.transaction.user'])->first();
@@ -35,8 +35,9 @@
 			</div>
 		</div>
 	</div>
-	</br>
 
+	<div class="clearfix">&nbsp;</div>
+	<div class="clearfix">&nbsp;</div>
 	<div class="row">
 		<div class="col-md-12">
 			<h3 class="text-capitalize">Data Ongkos Kirim</h3>
@@ -122,14 +123,13 @@
 		</div>
 	@endif
 
-	@include(
-		'widgets.pageElements.formModalDelete', [
+	@include('widgets.pageElements.formModalDelete', [
 				'modal_id'      => 'sc_del', 
 				'modal_route'   => 'backend.settings.shippingcost.destroy'
-			]
-		)      
+	])      
 
-
+	<div class="clearfix">&nbsp;</div>
+	<div class="clearfix">&nbsp;</div>
 	<div class="row">
 		<div class="col-md-12">
 			<h3 class="text-capitalize">Data pengiriman dalam kategori ini</h3>

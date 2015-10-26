@@ -70,7 +70,7 @@ class CourierController extends baseController
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', $searchResult)
 																		->with('id', $id)
-																		->with('nav_active', 'courier')
+																		->with('nav_active', 'settings')
 																		->with('subnav_active', 'courier')
 																		;
 

@@ -9,6 +9,8 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use App\Libraries\JSend;
+
 class SendShipmentEmail extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
@@ -36,14 +38,14 @@ class SendShipmentEmail extends Job implements SelfHandling
         $mail_data      = [
                             'view'          => 'emails.test', 
                             'datas'         => (array)$datas, 
-                            'dest_email'    => 'budi-purnomo@outlook.com', 
-                            'dest_name'     => 'budi purnomo', 
+                            'dest_email'    => $this->transaction->user->email, 
+                            'dest_name'     => $this->transaction->user->name, 
                             'subject'       => 'Shipping Information', 
                         ];
 
         // call email send job
         $this->dispatch(new Mailman($mail_data));
 
-        return true;
+        return new JSend('success', (array)$this->transaction);           
     }
 }
