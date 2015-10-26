@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Jobs\Models\Transaction;
+namespace App\Jobs\Models\Transaction\Buy;
 
 use App\Jobs\Job;
+use App\Jobs\GenerateTransactionRefNumber;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -11,8 +12,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
 
-
-class TransactionSaved extends Job implements SelfHandling
+class TransactionBuyCreating extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
@@ -25,8 +25,7 @@ class TransactionSaved extends Job implements SelfHandling
 
     public function handle()
     {
-        $result                              = new JSend('success', (array)$this->transaction);
-        // $result                     = $this->dispatch(new SwitchTransaction($this->transaction));
+        $result                             = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
 
         return $result;
     }

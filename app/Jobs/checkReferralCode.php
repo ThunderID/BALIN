@@ -26,11 +26,11 @@ class checkReferralCode extends Job implements SelfHandling
 
         if(!empty($user))
         {
-            $result                    = new jsend('success', (array)$user);
+            $result                    = new JSend('success', (array)$user);
         }
         else
         {
-            $result                    = new jsend('error',  (array)$user, ['message' => 'refferal not found']);
+            $result                    = new JSend('error',  (array)$user, ['message' => 'refferal not found']);
         }
 
         return $result;
