@@ -79,6 +79,7 @@ class Product extends Eloquent
 											'stock',
 											'started_at',
 											'label',
+											'default_image'
 										];
 
 	/**
@@ -161,6 +162,16 @@ class Product extends Eloquent
 		}
 
 		return 0;
+	}
+
+	public function getDefaultImageAttribute($value)
+	{
+		if($this->images()->count())
+		{
+			return $this->images[0]->thumbnail;
+		}
+
+		return 'https://browshot.com/static/images/not-found.png';
 	}
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
