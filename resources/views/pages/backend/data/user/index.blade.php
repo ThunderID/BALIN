@@ -46,7 +46,7 @@ $datas          = $datas->orderby('name')->paginate();
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
+                                    <th class="text-center">No.</th>
                                     <th class="col-md-3">Nama</th>
                                     <th class="col-md-2">Nomor Telepon</th>
                                     <th class="col-md-4">Email</th>
@@ -67,13 +67,13 @@ $datas          = $datas->orderby('name')->paginate();
                                 @else                                                                 
                                     @foreach($datas as $data)
                                     <tr>
-                                        <td>{{$ctr}}</td>
+                                        <td class="text-center">{{$ctr}}</td>
                                         <td>
                                             {{$data['name']}}
                                             @if($data->is_active)
-                                                <label class="label label-success">active</label><br/>
+                                                <label class="label label-success pull-right">active</label><br/>
                                             @else
-                                                <label class="label label-danger">inactive</label><br/>
+                                                <label class="label label-danger pull-right">inactive</label><br/>
                                             @endif
                                         </td>
                                         <td>{{$data['phone']}}</td>

@@ -57,7 +57,7 @@
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#">Ganti Password</a></li>
+					<li><a href="{{ route('backend.changePassword') }}">Ganti Password</a></li>
 					<li><a href="{{ route('backend.dologout') }}">Log Out</a></li>
 				</ul>
 			</li>

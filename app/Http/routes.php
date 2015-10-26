@@ -25,6 +25,8 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 
 Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'auth'], function()
 {
+	Route::get('/change-password',									['uses' => 'PasswordController@create', 'as' => 'backend.changePassword']);
+	Route::post('/update-password',									['uses' => 'PasswordController@store', 'as' => 'backend.updatePassword']);
 	Route::get('/logout',												['uses' => 'AuthController@doLogout', 	'as' => 'backend.dologout']);
 
 	// ------------------------------------------------------------------------------------
@@ -118,7 +120,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 	});
 });
 
-Route::get('/mail/activation/{activation_link}', 						['as' => 'balin.email.activation', function(){return Redirect::route('frontend.home.index');}]);
+Route::get('/mail/activation/{activation_link}', 						['uses' => 'accountcontroller@activateAccount' ,'as' => 'balin.email.activation']);
 
 /*Route::get('cms/category', ['uses' => 'Backend\\categoryController@index', 'as' => 'backend.category.index']);
 Route::get('cms/category/detail', ['uses' => 'Backend\\categoryController@detail', 'as' => 'backend.category.detail']);
