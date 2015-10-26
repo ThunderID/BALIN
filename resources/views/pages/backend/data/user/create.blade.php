@@ -24,6 +24,21 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="">Password</label>
+					{!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Masukkan password', 'tabindex' => '1']) !!}
+					<span class="help-block m-b-none">* Biarkan kosong jika tidak ingin mengubah password</span>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="">Konfirmasi Passowrd</label>
+					{!! Form::password('confirm_password', ['class' => 'form-control', 'placeholder' => 'Masukkan konfirmasi password', 'tabindex' => '1']) !!}
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					<label for="date_of_birth">Tanggal Lahir</label>
@@ -41,13 +56,13 @@
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					<label for="postal_code">Kode Pos</label>
-					{!! Form::text('postal_code', $data['postal_code'], ['class' => 'form-control mod_zip', 'required' => 'required', 'tabindex' => '1'] ) !!}
+					{!! Form::text('postal_code', $data['postal_code'], ['class' => 'form-control mod_zip', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan kode pos']) !!}
 				</div>
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					<label for="phone">Nomor Telepon</label>
-					{!! Form::text('phone', $data['phone'], ['class' => 'form-control mod_phone', 'required' => 'required', 'tabindex' => '1'] ) !!}
+					{!! Form::text('phone', $data['phone'], ['class' => 'form-control mod_phone', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nomor telepon'] ) !!}
 				</div>    
 			</div>
 		</div>
@@ -55,7 +70,7 @@
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group">
 					<label for="address">Alamat lengkap</label>
-					{!! Form::textarea('address', $data['address'], ['class' => 'form-control mod_address', 'rows' => '3', 'tabindex' => '1', 'style' => 'resize:none;'] ) !!}
+					{!! Form::textarea('address', $data['address'], ['class' => 'form-control mod_address', 'rows' => '3', 'tabindex' => '1', 'style' => 'resize:none;', 'placeholder' => 'Masukkan alamat'] ) !!}
 				</div>
 			</div>
 		</div>
@@ -80,7 +95,7 @@
 				</br>
 				<div class="form-group text-right">
 					<a href="{{ URL::route('backend.data.customer.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
-					<button type="submit" class="btn btn-md btn-success" tabindex="7">Simpan</button>
+					<button type="submit" class="btn btn-md btn-primary" tabindex="7">Simpan</button>
 				</div>        
 			</div>        
 		</div>    
