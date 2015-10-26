@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\baseController;
 use App\Models\user;
 use App\Models\Transaction;
 use App\Models\pointlog;
@@ -11,9 +11,23 @@ use App\Jobs\RefreshCart;
 use App\Jobs\sendShipmentEmail;
 use Mail;
 
-class testController extends Controller 
+class testController extends baseController 
 {
 	protected $controller_name 					= 'test';
+
+	public function testEmail()
+	{	
+		$data 									= 	[
+														'name' 		=> 'budi',
+														'activation_link' => 'aaaa'
+													];
+
+		$this->layout->page 					= view('emails.activation')
+													->with('data',$data);
+		$this->layout->controller_name			= $this->controller_name;
+
+		return $this->layout;
+	}
 
 	public function error()
 	{		
