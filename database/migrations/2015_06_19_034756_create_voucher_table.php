@@ -18,6 +18,7 @@ class CreateVoucherTable extends Migration
             $table->string('code', 255);
             $table->string('type', 255);
             $table->text('value');
+            $table->datetime('expired_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -2,6 +2,8 @@
 
 namespace App\Jobs\Models\Transaction;
 
+use App\Jobs\Models\Transaction\Sell\TransactionSellSaving;
+
 use App\Jobs\Job;
 use App\Libraries\JSend;
 
@@ -25,7 +27,15 @@ class TransactionSaving extends Job implements SelfHandling
     public function handle()
     {
         //cek 
-        $result                              = new JSend('success', (array)$this->transaction);
+         switch($this->transaction->type)
+        {
+            case 'sell' :
+                $result                     = $this->dispatch(new TransactionSellSaving($this->transaction));
+            break;
+            default :
+                $result                     = new JSend('success', (array)$this->transaction );
+            break;
+        }
             
         return $result;
     }

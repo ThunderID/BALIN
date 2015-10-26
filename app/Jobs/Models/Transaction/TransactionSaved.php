@@ -3,6 +3,7 @@
 namespace App\Jobs\Models\Transaction;
 
 use App\Jobs\Job;
+use App\Jobs\SendBillingEmail;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -25,8 +26,15 @@ class TransactionSaved extends Job implements SelfHandling
 
     public function handle()
     {
-        $result                              = new JSend('success', (array)$this->transaction);
-        // $result                     = $this->dispatch(new SwitchTransaction($this->transaction));
+        switch($this->transaction->status)
+        {
+            case 'waiting' :
+                $result                     = $this->dispatch(new SendBillingEmail($this->transaction));
+            break;
+            default :
+                $result                     = new JSend('success', (array)$this->transaction );
+            break;
+        }
 
         return $result;
     }

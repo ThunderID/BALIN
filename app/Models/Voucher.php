@@ -38,6 +38,7 @@ class Voucher extends Eloquent
 											'code'							,
 											'type'							,
 											'value'							,
+											'expired_at'					,
 										];
 
 	/**
@@ -45,7 +46,7 @@ class Voucher extends Eloquent
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'expired_at'];
 
 	/**
 	 * Basic rule of database

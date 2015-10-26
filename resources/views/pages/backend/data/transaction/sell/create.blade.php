@@ -16,6 +16,5 @@
 </fieldset>
 <h1>Transaksi Detail</h1>
 <fieldset>
-	<h2>Informasi Transaksi Detail</h2>
-	<div class="clearfix">&nbsp;</div>
+	@include('pages.backend.data.transaction.sell.info_transaction_detail')
 </fieldset>

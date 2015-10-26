@@ -104,7 +104,7 @@
 							id: item.id +' ',
 							path: item.path
 						}
-						$('.price').val(item.price);
+						// $('.transaction-input-price').val(item.price);
 						// $(this).attr('data-price', item.price);
 					})
 				};
@@ -127,17 +127,15 @@
 	$('.select-method-transaction').on('change', function() {
 		var value = $(this).val();
 		if (value==='point_log') {
-			console.log('yes');
 			$('div.no-rek').hide();
 			$('div.point').show();
 		}
 		else 
 		{
-			console.log('no');
 			$('div.point').hide();
 			$('div.no-rek').show();
 		}
-
+		$('.wizard .content').animate({ height: $('.body.current').outerHeight() }, "slow");
 	});
 
 	$('.select-courier-by-name').select2({

@@ -33,7 +33,7 @@ class TransactionCreating extends Job implements SelfHandling
                 $result                     = $this->dispatch(new TransactionBuyCreating($this->transaction));
             break;
             default :
-                // $result                     = $this->dispatch(new generateTransactionUniqNumber($this->transaction));
+                $result                          = new JSend('success', (array)$this->transaction );
             break;
         }
 

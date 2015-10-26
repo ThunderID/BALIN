@@ -19,7 +19,7 @@ class SendBillingEmail extends Job implements SelfHandling
 
     protected $transaction;
 
-	public function __construct(transaction $transaction)
+	public function __construct(Transaction $transaction)
 	{
 	    $this->transaction				= $transaction;
 	}
@@ -41,15 +41,15 @@ class SendBillingEmail extends Job implements SelfHandling
 	        $mail_data      = [
 	                            'view'          => 'emails.test', 
 	                            'datas'         => (array)$datas, 
-	                            'dest_email'    => 'budi-purnomo@outlook.com', 
-	                            'dest_name'     => 'budi purnomo', 
+	                            'dest_email'    => $this->transaction->user->email, 
+	                            'dest_name'     => $this->transaction->user->name, 
 	                            'subject'       => 'Billing Information', 
 	                        ];
 
 	        // call email send job
 	        $this->dispatch(new Mailman($mail_data));
 	        
-	        return new Jsend('success', (array)$this->transaction)  ;           
+	        return new JSend('success', (array)$this->transaction)  ;           
 		}
 		catch (Exception $e) 
 		{

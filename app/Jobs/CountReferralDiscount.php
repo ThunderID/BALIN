@@ -24,25 +24,41 @@ class CountReferralDiscount extends Job implements SelfHandling
 
     public function handle()
     {
-        $product_prices                 = TransactionDetail::transactionid($this->transaction->id)
+        if(!is_null($this->transaction->referral_code))
+        {
+
+            $voucher                    = Voucher::code($this->transaction->referral_code)->first();
+            //if there is no voucher
+            if(is_null($voucher))
+            {
+                return new JSend('error', (array)$this->transaction, 'Nomor kupon tidak valid');
+            }
+
+            //if there is referral code
+            if($voucher->type=='referral')
+            {
+                $policy                 = Policy::type('referral_discount')->first();
+
+                $product_prices         = TransactionDetail::transactionid($this->transaction->id)
                                                 ->selectraw('(price - discount) * quantity as total')
                                                 ->first()
-                                                ;
+                                            ;
+                $disc                   = ($product_prices['total'] * $disc['value'])/100;
 
-        $disc                           = Policy::type('referral_discount')->first();
-
-        $referral_discount              = ($product_prices['total'] * $disc['value'])/100;
-
-        if(empty($this->transaction->referral_discount))
-        {
-            $this->transaction->fill([
-                'referral_discount'     => $referral_discount,
-            ]);
-
-            if(!$this->transaction->save())
-            {
-                return new JSend('error', (array)$this->transaction->geterror(), (array)$this->transaction);
+                //give point for referral owner
             }
+            elseif($voucher->type=='shipping')
+            {
+                //call job shipping
+                $disc                   = $this->transaction->shipping_cost;
+            }
+
+            if(!isset($disc) && is_null($disc))
+            {
+                return new JSend('error', (array)$this->transaction, 'Tidak ada diskon');
+            }
+
+            $this->transaction->referral_discount       = $disc;
         }
 
         return new JSend('success', (array)$this->transaction);
