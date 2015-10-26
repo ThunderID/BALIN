@@ -82,6 +82,12 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// ------------------------------------------------------------------------------------
 		
 		Route::resource('payments',		'PaymentController',			['names' => ['index' => 'backend.data.payment.index', 'create' => 'backend.data.payment.create', 'store' => 'backend.data.payment.store', 'show' => 'backend.data.payment.show', 'edit' => 'backend.data.payment.edit', 'update' => 'backend.data.payment.update', 'destroy' => 'backend.data.payment.destroy']]);
+		
+		// ------------------------------------------------------------------------------------
+		// Shipping Cost
+		// ------------------------------------------------------------------------------------
+		
+		Route::resource('shippingCost',		'shippingCostController',			['names' => ['index' => 'backend.data.shippingCost.index', 'create' => 'backend.data.shippingCost.create', 'store' => 'backend.data.shippingCost.store', 'show' => 'backend.data.shippingCost.show', 'edit' => 'backend.data.shippingCost.edit', 'update' => 'backend.data.shippingCost.update', 'destroy' => 'backend.data.shippingCost.destroy']]);
 	});
 
 	// ------------------------------------------------------------------------------------
