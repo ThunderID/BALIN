@@ -118,7 +118,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 	});
 });
 
-Route::get('/mail/activation/{activation_link}', 						['as' => 'balin.email.activation', function(){return Redirect::route('frontend.home.index');}]);
+Route::get('/mail/activation/{activation_link}', 						['uses' => 'accountcontroller@activateAccount' ,'as' => 'balin.email.activation']);
 
 /*Route::get('cms/category', ['uses' => 'Backend\\categoryController@index', 'as' => 'backend.category.index']);
 Route::get('cms/category/detail', ['uses' => 'Backend\\categoryController@detail', 'as' => 'backend.category.detail']);

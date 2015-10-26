@@ -27,7 +27,7 @@ class CheckValidationLink extends Job implements SelfHandling
         //validate
         if($this->user['activation_link'] && $this->user['expired_at'])
         {
-            if(date('Y-m-d H:i:s', strtotime('now')) <= $this->user['expired_at'])
+            if(date('Y-m-d H:i:s', strtotime('now')) <= date('Y-m-d H:i:s', strtotime($this->user['expired_at'])) )
             {
                 $result                     = new Jsend('success', (array)$this->user);
             }

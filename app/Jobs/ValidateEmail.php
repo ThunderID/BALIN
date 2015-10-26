@@ -6,9 +6,13 @@ use App\Libraries\JSend;
 use App\Jobs\Job;
 use App\Models\user;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class ValidateEmail extends Job implements SelfHandling
 {
+    use DispatchesJobs, ValidatesRequests;
+
     protected $user;
 
     public function __construct(user $user)
@@ -27,13 +31,14 @@ class ValidateEmail extends Job implements SelfHandling
         //validate
         $validate                            = $this->dispatch(new CheckValidationLink($this->user));
 
-        if($validate->getstatus == 'success')
+        if($validate->getstatus() == 'success')
         {
             $data                           = $this->user;
 
             $data->fill([
                     'activation_link'       => null,
-                    'expired_at'            => null
+                    'expired_at'            => null,
+                    'is_active'             => 1
                 ]);
 
             if($data->save())
