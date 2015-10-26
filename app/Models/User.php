@@ -23,6 +23,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 */
 
 	use \App\Models\Traits\hasMany\HasTransactionsTrait;
+	use \App\Models\Traits\hasOne\HasVoucherTrait;
 	use \App\Models\Traits\hasMany\HasPointLogsTrait;
 	use \App\Models\Traits\morphMany\HasImagesTrait;
 
@@ -45,7 +46,6 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'name'							,
 											'email'							,
 											'password'						,
-											'referral_code'					,
 											'balance'						,
 											'avatar'						,
 											'role'							,
@@ -137,11 +137,6 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	public function scopeName($query, $variable)
 	{
 		return 	$query->where('name', 'like', '%'.$variable.'%');
-	}
-	
-	public function scopeReferralCode($query, $variable)
-	{
-		return 	$query->where('referral_code', $variable);
 	}
 
 	public function scopeActive($query, $variable)

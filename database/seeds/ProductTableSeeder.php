@@ -125,7 +125,7 @@ class ProductTableSeeder extends Seeder
 						$price->fill([
 								'product_id'		=> $data->id,
 								'price'				=> (date('i')*10000) + (date('s')*500),
-								'started_at'		=> date('Y-m-d H:i:s'),
+								'started_at'		=> date('Y-m-d H:i:s', strtotime('+ 5 minutes')),
 						]);
 						if (!$price->save())
 						{
