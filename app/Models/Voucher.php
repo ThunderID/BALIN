@@ -23,7 +23,7 @@ class Voucher extends Eloquent
 	 *
 	 * @var string
 	 */
-	protected $table				= 'point_logs';
+	protected $table				= 'tmp_vouchers';
 
 	// protected $timestamps			= true;
 
