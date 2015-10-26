@@ -1,7 +1,6 @@
 @inject('datas', 'App\Models\Product')
 <?php 
     $datas          = $datas->orderby('name')
-                        ->price()
                         ->paginate(9);
 ?>
 

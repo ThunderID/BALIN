@@ -15,13 +15,11 @@
 @extends('template.backend.layout') 
 
 @section('content')
-	<div class="row">
-		<div class="col-md-12">
-			<h4 class="sub-header">
-				Kostumer
-			</h4>
-		</div>
-	</div>
+		@if($data->is_active)
+			<label class="label label-success">active</label><br/>
+		@else
+			<label class="label label-danger">inactive</label><br/>
+		@endif
 	<div class="row">
 		<div class="col-md-4">
 			<div class="row">
@@ -43,7 +41,7 @@
 
 		<div class="col-md-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">Balance</div>
+				<div class="panel-heading">My Point</div>
 				<div class="panel-body">
 					{!! $data->balance !!}
 				</div>
@@ -81,15 +79,7 @@
 	
 	<div class="row">
 		<div class="col-md-4">
-			<h2 style="margin-top:0px;">
-				{!!$data->name!!}
-				@if($data->is_active)
-					<label class="label label-success">active</label><br/>
-				@else
-					<label class="label label-danger">inactive</label><br/>
-				@endif
-			</h2>
-
+			<h2 class="m-t-none">{!!$data->name!!}</h2>
 			<h5><strong>Referral Code</strong> {!!$data->referral_code!!}</h5>
 			<h5><strong>Tanggal Join</strong> @date_indo($data->joined_at)</h5>
 			<h5><strong>Gender</strong> {!!$data->gender!!}</h5>
@@ -98,9 +88,6 @@
 			<h5><strong>Email</strong> {!!$data->phone!!}</h5>
 			<h5><strong>Kode Pos</strong> {!!$data->postal_code!!}</h5>
 			<h5><strong>Alamat</strong> {!!$data->address!!}</h5>
-			
-			<br/>
-			
 		</div>
 		<div class="col-md-4">
 			<div class="panel panel-default">
