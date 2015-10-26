@@ -35,7 +35,7 @@
                 </br>
                 <div class="form-group text-right">
                     <a href="{{ URL::route('backend.settings.category.index') }}" class="btn btn-md btn-default" tabindex="3">Batal</a>
-                    <button type="submit" class="btn btn-md btn-success" tabindex="4">Simpan</button>
+                    <button type="submit" class="btn btn-md btn-primary" tabindex="4">Simpan</button>
                 </div>
             </div>                                          
         </div>

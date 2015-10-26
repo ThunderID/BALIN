@@ -44,7 +44,7 @@
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group text-right">
 					<a href="{{ URL::route('backend.settings.store.index') }}" class="btn btn-md btn-default" tabindex="3">Batal</a>
-					<button type="submit" class="btn btn-md btn-success" tabindex="4">Simpan</button>
+					<button type="submit" class="btn btn-md btn-primary" tabindex="4">Simpan</button>
 				</div>
 			</div>                                     
 		</div>
