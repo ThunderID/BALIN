@@ -4,6 +4,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			{!! Form::open(['route' => 'backend.data.transaction.store', 'class' =>'wizard-big', 'id' => 'create-transaction']) !!}
+				{!! Form::hidden('type', Input::get('type')) !!}
 				@if ($subnav_active=='sell')
 					@include('pages.backend.data.transaction.sell.create')
 				@else

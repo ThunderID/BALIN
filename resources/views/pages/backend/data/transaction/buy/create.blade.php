@@ -6,7 +6,3 @@
 <fieldset>
 	@include('pages.backend.data.transaction.buy.product')
 </fieldset>
-<h1>Pengiriman</h1>
-<fieldset>
-	@include('pages.backend.data.transaction.buy.shipment')
-</fieldset>
