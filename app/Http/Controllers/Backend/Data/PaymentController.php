@@ -19,6 +19,7 @@ class PaymentController extends baseController
 	}
 
 	protected $view_name 		= 'Nota Bayar';
+
 	public function index()
 	{
 		$breadcrumb				= ['Nota Bayar' => 'backend.data.payment.index'];
@@ -61,7 +62,7 @@ class PaymentController extends baseController
 		}
 		else
 		{
-		$breadcrumb				= 	[ 	'Nota Bayar' => 'backend.data.payment.index',
+			$breadcrumb			= 	[ 	'Nota Bayar' => 'backend.data.payment.index',
 										'Edit Data' => 'backend.data.payment.create'
 									];
 		}
@@ -110,7 +111,7 @@ class PaymentController extends baseController
 
 		if(!$data->save())
 		{
-			$errors->add('Payment', $data->gerError());
+			$errors->add('Payment', $data->getError());
 		}
 
 		if ($errors->count())
