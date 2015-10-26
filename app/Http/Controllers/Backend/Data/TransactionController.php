@@ -5,10 +5,9 @@ use App\Models\User;
 use App\Models\product;
 use App\Models\transaction;
 use App\Models\transactionDetail;
-
 // use App\Jobs\PointIsAvailable;
 
-use Input, DB;
+use Input, DB, Redirect, Response;
 
 class TransactionController extends baseController 
 {
@@ -175,6 +174,30 @@ class TransactionController extends baseController
 
 			DB::commit();
 			dd('saved');
+		}
+	}
+
+	public function destroy($id)
+	{
+		$data 						= Transaction::findorfail($id);
+
+		DB::beginTransaction();
+
+		if (!$data->delete())
+		{
+			DB::rollback();
+			
+			return Redirect::back()
+				->withErrors($data->getError())
+				->with('msg-type','danger');
+		}
+		else
+		{
+			DB::commit();
+
+			return Redirect::route('backend.data.transaction.index', ['type' => Input::get('type')])
+				->with('msg', 'Transaction telah dihapus')
+				->with('msg-type','success');
 		}
 	}
 }
