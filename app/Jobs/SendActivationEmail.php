@@ -9,6 +9,8 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use App\Libraries\JSend;
+
 class SendActivationEmail extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
