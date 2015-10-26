@@ -24,3 +24,11 @@
 		</div>
 	</div>
 </div>
+<div class="row point" style="display:none;">
+	<div class="col-md-12">
+		<div class="form-group">
+			<label for="">No. Rekening</label>
+			{!! Form::text('no_rek', null, ['class' => 'form-control edit-no-rek']) !!}
+		</div>
+	</div>
+</div>

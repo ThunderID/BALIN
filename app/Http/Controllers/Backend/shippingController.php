@@ -11,7 +11,7 @@ class shippingController extends Controller
 {
 	protected $view_name 						= 'Pengiriman';
 
-	public function index()
+	public function index($cou_id = null)
 	{	
 		$breadcrumb								= array(
 													'Pengriman Barang' => 'backend.shipping.index',

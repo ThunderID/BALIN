@@ -3,7 +3,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
-			{!! Form::open(['route' => 'backend.test.testcontroller.post', 'class' =>'wizard-big', 'id' => 'create-transaction']) !!}
+			{!! Form::open(['route' => 'backend.data.transaction.store', 'class' =>'wizard-big', 'id' => 'create-transaction']) !!}
 				@if ($subnav_active=='sell')
 					@include('pages.backend.data.transaction.sell.create')
 				@else

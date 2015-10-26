@@ -83,11 +83,6 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		
 		Route::resource('payments',		'PaymentController',			['names' => ['index' => 'backend.data.payment.index', 'create' => 'backend.data.payment.create', 'store' => 'backend.data.payment.store', 'show' => 'backend.data.payment.show', 'edit' => 'backend.data.payment.edit', 'update' => 'backend.data.payment.update', 'destroy' => 'backend.data.payment.destroy']]);
 		
-		// ------------------------------------------------------------------------------------
-		// Shipping Cost
-		// ------------------------------------------------------------------------------------
-		
-		Route::resource('shippingCost',		'shippingCostController',			['names' => ['index' => 'backend.data.shippingCost.index', 'create' => 'backend.data.shippingCost.create', 'store' => 'backend.data.shippingCost.store', 'show' => 'backend.data.shippingCost.show', 'edit' => 'backend.data.shippingCost.edit', 'update' => 'backend.data.shippingCost.update', 'destroy' => 'backend.data.shippingCost.destroy']]);
 	});
 
 	// ------------------------------------------------------------------------------------
@@ -111,6 +106,8 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 
 		Route::resource('couriers',  	'CourierController',			['names' => ['index' => 'backend.settings.courier.index', 'create' => 'backend.settings.courier.create', 'store' => 'backend.settings.courier.store', 'show' => 'backend.settings.courier.show', 'edit' => 'backend.settings.courier.edit', 'update' => 'backend.settings.courier.update', 'destroy' => 'backend.settings.courier.destroy']]);
 		
+		Route::resource('couriers/{cou_id?}/shippingCost',				'shippingCostController',			['names' => ['index' => 'backend.settings.shippingCost.index', 'create' => 'backend.settings.shippingCost.create', 'store' => 'backend.settings.shippingCost.store', 'show' => 'backend.settings.shippingCost.show', 'edit' => 'backend.settings.shippingCost.edit', 'update' => 'backend.settings.shippingCost.update', 'destroy' => 'backend.settings.shippingCost.destroy']]);
+
 		Route::any('ajax/get-courier-by-name',							['uses' => 'CourierController@getCourierByName', 'as' => 'backend.courier.ajax.getCourierByName']);
 
 		// ------------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Backend\Data;
+<?php namespace App\Http\Controllers\Backend\Setting;
 use App\Http\Controllers\baseController;
 
 use App\Models\shippingCost;
@@ -13,7 +13,7 @@ class shippingCostController extends baseController
 	public function index()
 	{
 		$breadcrumb								= [
-													'Ongkos Kirim' => 'backend.data.shippingCost.index',
+													'Ongkos Kirim' => 'backend.settings.shippingCost.index',
 													];
 
 		if (Input::get('q'))
@@ -25,7 +25,7 @@ class shippingCostController extends baseController
 			$searchResult						= NULL;
 		}
 
-		$this->layout->page 					= view('pages.backend.data.shippingCost.index')
+		$this->layout->page 					= view('pages.backend.settings.shippingCost.index')
 														->with('WT_pageTitle', $this->view_name )
 														->with('WT_pageSubTitle','Ongkos Kirim')
 														->with('WB_breadcrumbs', $breadcrumb)
@@ -35,43 +35,45 @@ class shippingCostController extends baseController
 		return $this->layout;	
 	}
 
-	public function create($id = null)
+	public function create($cou_id = null, $id = null)
 	{
 		if($id) 
 		{
-		$breadcrumb										= 	[	'Ongkos Kirim' => 'backend.data.shippingCost.index',
-																'Edit Data' => 'backend.data.shippingCost.index'
+			$breadcrumb									= 	[	'Ongkos Kirim' => 'backend.settings.shippingCost.index',
+																'Edit Data' => 'backend.settings.shippingCost.index'
 															];
 
 			$title 										= 	'Edit';
 		}
 		else
 		{
-			$breadcrumb									= 	[	'Ongkos Kirim' => 'backend.data.shippingCost.index',
-																'Data Baru' => 'backend.data.shippingCost.index'
+			$breadcrumb									= 	[	'Ongkos Kirim' => 'backend.settings.shippingCost.index',
+																'Data Baru' => 'backend.settings.shippingCost.index'
 															];
 
 			$title 										= 	'Create';
 		}
 
-		$this->layout->page 							= view('pages.backend.data.shippingCost.create')
+		$this->layout->page 							= view('pages.backend.settings.shippingCost.create')
 																->with('WT_pageTitle', $this->view_name )
 																->with('WT_pageSubTitle', $title)		
 																->with('WB_breadcrumbs', $breadcrumb)
 																->with('id', $id)
+																->with('cou_id', $cou_id)
 																->with('nav_active', 'data')
 																->with('subnav_active', 'shippingcost');
 
 		return $this->layout;		
 	}
 
-	public function edit($id)
+	public function edit($cou_id, $id)
 	{
-		return $this->create($id);		
+		return $this->create($cou_id, $id);
 	}	
 
-	public function store($id = null)
+	public function store($cou_id = null, $id = null)
 	{
+		$cou_id 										= Input::get('courier_id');
 		$inputs 										= Input::only('courier_id','start_postal_code','end_postal_code','cost');
 
 		if ($id)
@@ -98,7 +100,7 @@ class shippingCostController extends baseController
 		{
 			DB::rollback();
 			
-			return Redirect::route('backend.data.shippingCost.index')
+			return Redirect::back()
 					->withErrors($errors)
 					->with('msg-type', 'danger')
 					;
@@ -107,8 +109,8 @@ class shippingCostController extends baseController
 		{
 			DB::commit();
 
-			return Redirect::route('backend.data.shippingCost.index')
-					->with('msg','Produk sudah disimpan')
+			return Redirect::route('backend.settings.courier.show', $cou_id)
+					->with('msg','Data sudah disimpan')
 					->with('msg-type', 'success')
 					;
 		}
@@ -117,6 +119,8 @@ class shippingCostController extends baseController
 	public function destroy($id)
 	{
 		$data 								= shippingCost::findorfail($id);
+
+		$cou_id 							= input::get('cou_id');
 
 		DB::beginTransaction();
 
@@ -132,7 +136,7 @@ class shippingCostController extends baseController
 		{
 			DB::commit();
 
-			return Redirect::route('backend.data.shippingCost.index')
+			return Redirect::route('backend.settings.shippingCost.index', $cou_id)
 				->with('msg', 'Produk telah dihapus')
 				->with('msg-type','success');
 		}
