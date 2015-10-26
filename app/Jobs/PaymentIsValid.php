@@ -11,6 +11,7 @@ namespace App\Jobs;
 use App\Jobs\Job;
 
 use App\Models\Transaction;
+use App\Models\Payment;
 
 use App\Libraries\JSend;
 
@@ -25,10 +26,11 @@ class PaymentIsValid extends Job implements SelfHandling
      *
      * @return void
      */
-    public function __construct(Transaction $transaction)
+    public function __construct(Transaction $transaction, Payment $payment)
     {
         //
         $this->transaction          = $transaction;
+        $this->payment              = $payment;
     }
 
     /**
@@ -58,6 +60,11 @@ class PaymentIsValid extends Job implements SelfHandling
             }
         }
 
+        if($this->payment)
+        {
+            $paid                   = $paid + $this->payment->amount;
+        }
+
          if($points)
         {
             foreach ($points as $key => $value) 
@@ -67,17 +74,27 @@ class PaymentIsValid extends Job implements SelfHandling
         }
        
         $achieved                   = $paid - $amount;
-        if($achieved = 0)
+
+        if($achieved == 0)
         {
-            $result                 = new Jsend('success', (array)$this->transaction);
+            $this->transaction->fill(['status' => 'paid']);
+            
+            if($this->transaction->save())
+            {
+                $result             = new JSend('success', (array)$this->transaction);
+            }
+            else
+            {
+                $result             = new JSend('error', (array)$this->transaction->getError());
+            }
         }
         elseif($achieved > 0)
         {
-            $result                 = new Jsend('error', (array)$this->transaction, ['more' => 'Pembayaran berlebih, sebesar '.$achieved]);
+            $result                 = new JSend('error', (array)$this->transaction, 'Pembayaran berlebih, sebesar '.$achieved);
         }
         else
         {
-            $result                 = new Jsend('error', (array)$this->transaction, ['more' => 'Pembayaran kurang, sebesar '.(0 - $achieved)]);
+            $result                 = new JSend('error', (array)$this->transaction, 'Pembayaran kurang, sebesar '.abs($achieved));
         }
 
         return $result;

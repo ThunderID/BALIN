@@ -4,7 +4,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\User;
-use App\Models\policy;
+use App\Models\Policy;
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
 
@@ -12,7 +12,7 @@ class CountPointExpirationDate extends Job implements SelfHandling
 {
     protected $user;
 
-    public function __construct(user $user)
+    public function __construct(User $user)
     {
         $this->user                 = $user;
     }
@@ -33,16 +33,19 @@ class CountPointExpirationDate extends Job implements SelfHandling
 
             $expired_date               = date('Y-m-d H:i:s', strtotime($join_date . $expired_range['value']));
 
-            do {
+            do 
+            {
                 $expired_date           = date('Y-m-d H:i:s', strtotime($expired_date . $expired_range['value']));
-            } while ($expired_date < date('Y-m-d H:i:s'));
+            } 
 
-            $result                     = new Jsend('success', ['expired_date' => $expired_date]);
+            while ($expired_date < date('Y-m-d H:i:s'));
+
+            $result                     = new JSend('success', ['expired_date' => $expired_date] );
 
         } 
         catch (Exception $e) 
         {
-            $result                     = new Jsend('error', (array)$user, (array)$e);
+            $result                     = new JSend('error', (array)$this->user, (array)$e);
         }
 
         return $result;

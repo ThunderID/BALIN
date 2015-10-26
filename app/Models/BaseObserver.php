@@ -38,6 +38,7 @@ class BaseObserver
 			return false;
 		}
 
+
 		$class 			= $this->before($model);
 
 		return $this->after($class, $model);

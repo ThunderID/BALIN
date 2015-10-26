@@ -3,17 +3,17 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
-use App\Models\transaction;
+use App\Models\Transaction;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\MessageBag as MessageBag;
 
 use App\Libraries\JSend;
 
-class GenerateTransactionValidatedEmail extends Job implements SelfHandling
+class GeneratePaymentEmail extends Job implements SelfHandling
 {
     protected $transaction;
 
-    public function __construct(transaction $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction           = $transaction;
     }
@@ -35,18 +35,14 @@ class GenerateTransactionValidatedEmail extends Job implements SelfHandling
         {
             $errors->add($this->transaction->user->name, 'Pesanan '.$this->transaction->user->name.' belum dibayar'); 
         }
-        elseif(is_null($payments->receipt_number))
-        {
-            $errors->add($payments->transaction->user->name, 'Pesanan '.$payments->transaction->user->name.' belum dibayar'); 
-        }
 
         if($errors->count()) 
         {
-            $result                 = new Jsend('error', (array)$this->transaction, (array)$errors);
+            $result                 = new JSend('error', (array)$this->transaction, (array)$errors);
         }
         else
         {
-            $result                 = new Jsend('success', (array)$this->payments);
+            $result                 = new JSend('success', (array)$this->transaction);
         }
 
         return $result;    
