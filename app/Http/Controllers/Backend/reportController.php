@@ -117,5 +117,30 @@ class reportController extends baseController
 														->with('nav_active', 'storage')
 														->with('subnav_active', 'suppliedby');
 		return $this->layout;	
+	}
+
+	public function deadStock()
+	{	
+		$breadcrumb								= [
+													'Stok Mengendap' => 'backend.report.deadstock',
+													];
+
+		if (Input::get('start_date') && Input::get('end_date'))
+		{
+			$searchResult						= Input::get('start_date') . ' s/d ' . Input::get('end_date');
+		}
+		else
+		{
+			$searchResult						= NULL;
+		}
+
+		$this->layout->page 					= view('pages.backend.report.deadstock')
+														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pageSubTitle','Stok Mengendap')
+														->with('WB_breadcrumbs', $breadcrumb)
+														->with('searchResult', $searchResult)
+														->with('nav_active', 'storage')
+														->with('subnav_active', 'deadstock');
+		return $this->layout;	
 	}		
 }

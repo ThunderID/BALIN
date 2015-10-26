@@ -81,6 +81,9 @@
 					<li class="@if($subnav_active=='criticalstock') active @endif">
 						<a href="{{ route('backend.report.criticalstock') }}"><i class="fa fa-exclamation-circle"></i> <span class="nav-label">Stok Kritis</span></a>
 					</li>
+					<li class="@if($subnav_active=='deadstock') active @endif">
+						<a href="{{ route('backend.report.deadstock') }}"><i class="fa fa-exclamation-circle"></i> <span class="nav-label">Stok Mengendap</span></a>
+					</li>					
 				</ul>
 			</li>
 		</ul>
