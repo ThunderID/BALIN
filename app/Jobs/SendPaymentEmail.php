@@ -9,11 +9,15 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-class SendTransactionValidatedEmail extends Job implements SelfHandling
+use App\Libraries\JSend;
+
+class SendPaymentEmail extends Job implements SelfHandling
 {
+    use DispatchesJobs;
+    
     protected $transaction;
 
-    public function __construct(transaction $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction             = $transaction;
     }
@@ -27,23 +31,21 @@ class SendTransactionValidatedEmail extends Job implements SelfHandling
         }
         
         //get Payment
-        $datas                              = $this->dispatch(new GenerateShipmentEmail($this->transaction));        
+        $datas                              = $this->dispatch(new GeneratePaymentEmail($this->transaction));        
 
 
         //send email
         $mail_data      = [
                             'view'          => 'emails.test', 
                             'datas'         => (array)$datas, 
-                            'dest_email'    => 'budi-purnomo@outlook.com', 
-                            'dest_name'     => 'budi purnomo', 
+                            'dest_email'    => $this->transaction->user->email, 
+                            'dest_name'     => $this->transaction->user->name, 
                             'subject'       => 'Payment Validation Information', 
                         ];
 
         // call email send job
         $this->dispatch(new Mailman($mail_data));
 
-        return true;
-
-        return true;
+        return new JSend('success', (array)$this->transaction)  ;           
     } 
 }

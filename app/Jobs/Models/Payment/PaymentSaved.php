@@ -3,6 +3,9 @@
 namespace App\Jobs\Models\Payment;
 
 use App\Jobs\Job;
+use App\Jobs\PaymentIsValid;
+use App\Jobs\ReferralPointIsGiven;
+use App\Jobs\SendPaymentEmail;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -24,14 +27,20 @@ class PaymentSaved extends Job implements SelfHandling
 
     public function handle()
     {
-        if($this->payment->transaction_id!=0)
+        if($this->payment->transaction)
         {
-            $result                         = $this->dispatch(new SwitchPaymentTransaction($this->payment));
+            $result                     = $this->dispatch(new ReferralPointIsGiven($this->payment->transaction));
+
+            if($result->getStatus()=='success')
+            {
+                $result                     = $this->dispatch(new SendPaymentEmail($this->payment->transaction));
+            }
         }
         else
         {
             $result                         = new JSend('success', (array)$this->payment);
         }
+            $result                         = new JSend('error', (array)$this->payment, 'invalid payment1');
 
         return $result;
     }

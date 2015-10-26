@@ -37,12 +37,18 @@ class CountReferralDiscount extends Job implements SelfHandling
             //if there is referral code
             if($voucher->type=='referral')
             {
+                if($voucher->user_id==$transaction->user_id)
+                {
+                    return new JSend('error', (array)$this->transaction, 'Tidak dapat memakai referral code anda');
+                }
+
                 $policy                 = Policy::type('referral_discount')->first();
 
                 $product_prices         = TransactionDetail::transactionid($this->transaction->id)
                                                 ->selectraw('(price - discount) * quantity as total')
                                                 ->first()
                                             ;
+                                            
                 $disc                   = ($product_prices['total'] * $disc['value'])/100;
 
                 //give point for referral owner
