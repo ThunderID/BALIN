@@ -13,6 +13,8 @@ use App\Models\User;
 
 class UserCreating extends Job implements SelfHandling
 {
+    use DispatchesJobs, ValidatesRequests;
+    
     protected $user;
 
     public function __construct(User $user)

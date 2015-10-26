@@ -160,4 +160,15 @@ class TransactionDetail extends Eloquent
 					;
 		}
 	}	
+
+	public function scopeLeastBuy($query, $date)
+	{
+		return 	$query
+				->selectraw('transaction_details.*')
+				->selectraw('sum(quantity) as total_buy')
+				->whereDoesntHave('transaction', function($q)use($date){$q->status(['paid','shipped','delivered'])->type('sell')->where('transacted_at','>=',$date);})
+				->orderby('total_buy', 'desc')
+				->groupBy('product_id')
+				;
+	}		
 }

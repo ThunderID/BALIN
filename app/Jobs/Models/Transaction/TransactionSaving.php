@@ -17,7 +17,7 @@ class TransactionSaving extends Job implements SelfHandling
 
     protected $transaction;
 
-    public function __construct(transaction $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction                  = $transaction;
     }
@@ -25,17 +25,7 @@ class TransactionSaving extends Job implements SelfHandling
     public function handle()
     {
         //cek 
-        $result                     = $this->dispatch(new checkReferralCode($this->transaction));
-
-        if($result->getStatus() == 'success')
-        {
-            $result                 = $this->dispatch(new FillTransactionDate($this->transaction));
-
-            if($result->getStatus() == 'success')
-            {
-                $result             = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
-            }
-        }
+        $result                              = new JSend('success', (array)$this->transaction);
             
         return $result;
     }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Jobs\Models\TransactionDetail;
-
-use App\Jobs\Models\TransactionDetail\Buy\TransactionDetailBuySaved;
+namespace App\Jobs\Models\TransactionDetail\Buy;
 
 use App\Jobs\Job;
+use App\Jobs\CountReferralDiscount;
+use App\Jobs\CalculateTransactionAmount;
 use App\Libraries\JSend;
 
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -14,7 +14,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 
-class TransactionDetailSaved extends Job implements SelfHandling
+class TransactionDetailBuySaved extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
@@ -27,17 +27,8 @@ class TransactionDetailSaved extends Job implements SelfHandling
 
     public function handle()
     {
-        switch ($this->transactiondetail->transaction->type) 
-        {
-            case 'buy':
-                $result                     = $this->dispatch(new TransactionDetailBuySaved($this->transactiondetail));
-                break;
-            
-            default:
-                # code...
-                break;
-        }
-
+        $result                     = $this->dispatch(new CalculateTransactionAmount($this->transactiondetail->transaction));
+         
         return $result;
     }    
 }

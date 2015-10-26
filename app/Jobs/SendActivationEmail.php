@@ -9,8 +9,12 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use App\Libraries\JSend;
+
 class SendActivationEmail extends Job implements SelfHandling
 {
+    use DispatchesJobs, ValidatesRequests;
+    
     protected $user;
 
     public function __construct(User $user)
@@ -29,7 +33,7 @@ class SendActivationEmail extends Job implements SelfHandling
         //send email
         $mail_data      = [
                             'view'          => 'emails.activation', 
-                            'datas'         => (array)$this->user->activation_link, 
+                            'datas'         => ['activation_link' => $this->user->activation_link], 
                             'dest_email'    => $this->user->email, 
                             'dest_name'     => $this->user->name, 
                             'subject'       => '[BALIN] Email Activation', 

@@ -26,11 +26,11 @@ class Mailman extends Job implements SelfHandling
                 $message->to($this->mail_data['dest_email'], $this->mail_data['dest_name'])->subject($this->mail_data['subject']);
             }); 
         
-            $result                 = new Jsend('success', null);
+            $result                 = new JSend('success', null);
         }
         catch (Exception $e) 
         {
-            $result                 = new Jsend('error', null, $e);
+            $result                 = new JSend('error', null, $e);
         }       
         
         return $result;        

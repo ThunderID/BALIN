@@ -1,15 +1,18 @@
 @inject('data', 'App\Models\shippingcost')
+@inject('courier', 'App\Models\courier')
 <?php 
 		$data = $data::where('id', $id)
 							->first(); 
+
+		$courier = $courier::find($cou_id);
 ?>
 @extends('template.backend.layout') 
 
 @section('content')
 	@if(!is_null($id))
-		{!! Form::open(['url' => route('backend.data.shippingCost.update', $id), 'method' => 'PATCH']) !!}
+		{!! Form::open(['url' => route('backend.settings.shippingCost.update', ['cou_id' => $cou_id, 'id' => $id]), 'method' => 'PATCH']) !!}
 	@else
-		{!! Form::open(['url' => route('backend.data.shippingCost.store'), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
+		{!! Form::open(['url' => route('backend.settings.shippingCost.store', ['cou_id' => $cou_id, 'id' => $id]), 'method' => 'POST']) !!}
 	@endif
 		<div class="row">
 			<div class="col-md-12">
@@ -21,11 +24,10 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="courier_id">Nama Kurir</label>
-					{!! Form::text('courier_id', $data['courier']['name'], [
+					<label for="courier_id">{{$courier['name']}}</label>
+					{!! Form::hidden('courier_id', $cou_id, [
 								'class'         => 'form-control', 
 								'tabindex'      => '1', 
-								'placeholder'   => 'Masukkan nama Kurir'
 					]) !!}
 				</div>  
 			</div>                                        
@@ -84,7 +86,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group text-right">
-					<a href="{{ URL::route('backend.data.shippingCost.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
+					<a href="{{ URL::route('backend.settings.courier.show', ['id' => $cou_id ]) }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
 					<button type="submit" class="btn btn-md btn-primary" tabindex="9">Simpan</button>
 				</div>        
 			</div>        

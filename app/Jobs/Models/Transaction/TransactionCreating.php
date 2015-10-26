@@ -2,7 +2,10 @@
 
 namespace App\Jobs\Models\Transaction;
 
+use App\Jobs\Models\Transaction\Buy\TransactionBuyCreating;
+
 use App\Jobs\Job;
+use App\Jobs\GenerateTransactionRefNumber;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -17,14 +20,22 @@ class TransactionCreating extends Job implements SelfHandling
 
     protected $transaction;
 
-    public function __construct(transaction $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction                  = $transaction;
     }
 
     public function handle()
     {
-        $result                             = $this->dispatch(new generateTransactionUniqNumber($this->transaction));
+        switch($this->transaction->type)
+        {
+            case 'buy' :
+                $result                     = $this->dispatch(new TransactionBuyCreating($this->transaction));
+            break;
+            default :
+                // $result                     = $this->dispatch(new generateTransactionUniqNumber($this->transaction));
+            break;
+        }
 
         return $result;
     }
