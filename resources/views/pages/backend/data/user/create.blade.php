@@ -82,14 +82,26 @@
 				</div>
 			</div> -->
 			@if($data['is_active'])
-			<div class="col-md-6 col-sm-6 col-xs-12">
-				<div class="form-group">
-					<label for="is_active">Status</label>
-					{!! Form::select('is_active', [0 => 'Active', 1 => 'Non-Active'], $data['is_active'], ['class' => 'form-control', 'required' => 'required']) !!}
-				</div>    
-			</div>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="form-group">
+						<label for="is_active">Status</label>
+						{!! Form::select('is_active', [0 => 'Active', 1 => 'Non-Active'], $data['is_active'], ['class' => 'form-control', 'required' => 'required']) !!}
+					</div>    
+				</div>
 			@endif
 		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>Avatar</label><br>
+					{!! HTML::image('http://placehold.it/200x200/bababa/000000/?text=gambar') !!}
+					<input type="file" style="opacity:0" class="file-image">
+					<a href="#" class="btn btn-sm btn-primary btn-upload m-t-n-md">Upload Gambar</a>
+				</div>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col-md-12">
 				</br>
