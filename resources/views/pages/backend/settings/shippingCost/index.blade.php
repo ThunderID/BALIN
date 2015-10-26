@@ -1,4 +1,4 @@
-@inject('datas', 'App\Models\shippingCost')
+@inject('datas', 'App\Models\ShippingCost')
 <?php 
 $datas 			= $datas
 					->with('courier')
