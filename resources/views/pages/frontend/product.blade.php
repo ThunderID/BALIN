@@ -1,3 +1,10 @@
+@inject('datas', 'App\Models\Product')
+<?php 
+    $datas          = $datas->orderby('name')
+                        ->price()
+                        ->paginate(9);
+?>
+
 @extends('template.frontend.layout')
 
 @section('content')
@@ -22,13 +29,17 @@
                 </div>
 
                 <div class="row">
-
-                	@for ($i = 0; $i < 9; $i++)
+                	@foreach($datas as $data)
                 	    <div class="col-sm-4 col-lg-4 col-md-4">
 		                	@include('widgets.productCard')
 		                </div>
-					@endfor
+					@endforeach
+                </div>
 
+                <div class="row">
+                    <div class="col-md-12" style="text-align:right;">
+                        {!! $datas->appends(Input::all())->render() !!}
+                    </div>
                 </div>
 
             </div>
