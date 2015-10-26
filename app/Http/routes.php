@@ -25,6 +25,8 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 
 Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'auth'], function()
 {
+	Route::get('/change-password',									['uses' => 'PasswordController@create', 'as' => 'backend.changePassword']);
+	Route::post('/update-password',									['uses' => 'PasswordController@store', 'as' => 'backend.updatePassword']);
 	Route::get('/logout',												['uses' => 'AuthController@doLogout', 	'as' => 'backend.dologout']);
 
 	// ------------------------------------------------------------------------------------
