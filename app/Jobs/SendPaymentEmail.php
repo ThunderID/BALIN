@@ -46,6 +46,6 @@ class SendPaymentEmail extends Job implements SelfHandling
         // call email send job
         $this->dispatch(new Mailman($mail_data));
 
-        return new JSend('success', (array)$this->transaction)  ;           
+        return new JSend('success', (array)$this->transaction);           
     } 
 }

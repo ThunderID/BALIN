@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
-use App\Models\transaction;
+use App\Models\Transaction;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\MessageBag as MessageBag;
 
@@ -13,7 +13,7 @@ class GenerateShipmentEmail extends Job implements SelfHandling
 {
     protected $transaction;
 
-    public function __construct(transaction $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction           = $transaction;
     }
@@ -42,11 +42,11 @@ class GenerateShipmentEmail extends Job implements SelfHandling
 
         if($errors->count()) 
         {
-            $result                 = new Jsend('error', (array)$this->transaction, (array)$errors);
+            $result                 = new JSend('error', (array)$this->transaction, (array)$errors);
         }
         else
         {
-            $result                 = new Jsend('success', (array)$this->shipment);
+            $result                 = new JSend('success', (array)$this->shipment);
         }
 
         return $result;        
