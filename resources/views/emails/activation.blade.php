@@ -20,7 +20,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-offset-4 col-sm-4">
-		    	<p> Please Klik<a href="{!!route('balin.email.activation', $datas)!!}"> Here </a></p>
+		    	<p> Please Klik<a href="{!!route('balin.email.activation', $activation_link)!!}"> Here </a></p>
 			</div>
 		</div>
 	</body>
