@@ -22,7 +22,6 @@ $factory->define(App\Models\User::class, function ($faker) use ($gender, $role)
 		'password' 						=> bcrypt('admin'),
 		'role' 							=> $role[rand(0,2)],
 		'gender' 						=> $gender[rand(0,1)],
-		'referral_code' 				=> bin2hex(openssl_random_pseudo_bytes(4)),
 		'remember_token' 				=> str_random(10),
 	];
 });
