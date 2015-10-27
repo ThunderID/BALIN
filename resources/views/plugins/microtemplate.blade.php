@@ -1,11 +1,4 @@
 <script>
-	$('.btn-add').click(function () {
-		
-
-		
-
-
-	});
 	$('.btn-add').click(function() {template_add_product($(this))});
 	function template_add_product(e)
 	{
@@ -20,25 +13,25 @@
 						<div class="col-md-1"> \
 							<div class="form-group"> \
 								<label>Qty</label> \
-								<input type="text" name="qty" class="form-control" /> \
+								<input type="text" name="qty" class="form-control text-center transaction-input-qty" /> \
 							</div> \
 						</div> \
 						<div class="col-md-2"> \
 							<div class="form-group"> \
 								<label for="harga">Harga</label> \
-								<input type="text" name="price" class="form-control price" /> \
+								<input type="text" name="price" class="form-control text-right transaction-input-price" readonly/> \
 							</div> \
 						</div> \
 						<div class="col-md-2"> \
 							<div class="form-group"> \
 								<label for="diskon">Diskon</label> \
-								<input type="text" name="discount" class="form-control" /> \
+								<input type="text" name="discount" class="form-control text-right transaction-input-discount" readonly/> \
 							</div> \
 						</div> \
 						<div class="col-md-2"> \
 							<div class="form-group"> \
 								<label for="harga">Jumlah Harga</label> \
-								<input type="text" name="tot_price" class="form-control" /> \
+								<input type="text" name="tot_price" class="form-control text-right transaction-input-jum-price" /> \
 							</div> \
 						</div> \
 						<div class="col-md-1"> \
@@ -56,7 +49,7 @@
 
 		$('.select-product-by-name').select2({
 			placeholder: 'Masukkan nama product',
-			minimumInputLength: 2,
+			minimumInputLength: 4,
 			maximumSelectionSize: 1,
 			tags: false,
 			ajax : {
@@ -64,8 +57,7 @@
 				dataType: 'json',
 				data: function (term, path) {
 					return {
-						name: term,
-						path : '{{ isset($data['path']) ? $data['path'] : '' }}'
+						name: term
 					};
 				},
 			   results: function (data) {
@@ -74,10 +66,9 @@
 							return {
 								text: item.name +' ',
 								id: item.id +' ',
-								path: item.path
+								price: item.price,
+								discount: item.discount,
 							}
-							$('.price').val(item.price);
-							// $(this).attr('data-price', item.price);
 						})
 					};
 				},
@@ -93,9 +84,25 @@
 					query.callback(data);
 				}	
 			}
+		}).on("select2-selecting", function(e) {
+			$(this).parent().parent().parent().find('.transaction-input-price').val(e.object.price);
+			$(this).parent().parent().parent().find('.transaction-input-discount').val(e.object.discount);
 		});
-		$('.select-product-by-name').select2('data', preload_data );
+
 		change_button_add(e);
+
+		$('.transaction-input-qty').on('change', function()
+		{
+			var qty = $(this).val();
+			var price_jum = 0;
+			var price = parseInt($(this).parent().parent().parent().find('.transaction-input-price').val());
+			var discount = parseInt($(this).parent().parent().parent().find('.transaction-input-discount').val());
+
+			price_jum = (price-discount)*qty;
+
+			$(this).parent().parent().parent().find('.transaction-input-jum-price').val(price_jum);
+
+		});
 	}
 
 	function change_button_add(e)
