@@ -47,8 +47,8 @@
 					<li class="@if($subnav_active=='store') active @endif">
 						<a href="{{ route('backend.settings.store.index') }}"><i class="fa fa-home"></i> <span class="nav-label">Toko Online</span></a>
 					</li>
-					<li>
-						<a href=""><i class="fa fa-life-ring"></i> <span class="nav-label">Policy</span></a>
+					<li class="@if($subnav_active=='policy') active @endif">
+						<a href="{{ route('backend.settings.policies.index') }}"><i class="fa fa-life-ring"></i> <span class="nav-label">Policy</span></a>
 					</li>					
 				</ul>
 			</li>
