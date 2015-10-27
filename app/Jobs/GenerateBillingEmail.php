@@ -30,11 +30,7 @@ class GenerateBillingEmail extends Job implements SelfHandling
         }
 
          //get products
-        $transaction                = transaction::find($transaction)
-                                        ->with(array('TransactionDetail'=>function($query){
-                                                $query->with('product');
-                                            }))
-                                        ->get();
+        $transaction                = Transaction::id($this->transaction->id)->with(['transactiondetails', 'transactiondetails.product'])->first();
 
         if(is_null($products))
         {
