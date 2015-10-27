@@ -109,6 +109,16 @@ class PointLog extends Eloquent
 		return 	$query->where('id', $variable);
 	}
 
+	public  function scopeOndate($query, $variable)
+	{
+		if(!is_array($variable))
+		{
+			return $query->where('created_at', date('Y-m-d H:i:s', strtotime($variable)));
+		}
+
+		return $query->where('created_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('created_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
+	}
+
 	public function scopeRangeDate($query, $start, $end)
 	{
 		if($start && $end)

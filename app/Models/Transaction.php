@@ -138,6 +138,17 @@ class Transaction extends Eloquent
 		return 	$query->where('type', $variable);
 	}
 
+	public  function scopeOndate($query, $variable)
+	{
+		if(!is_array($variable))
+		{
+			return $query->where('transacted_at', date('Y-m-d H:i:s', strtotime($variable)));
+		}
+
+		return $query->where('transacted_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('transacted_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
+	}
+
+
 	public  function scopeTransactionProcessed($query)
 	{
 		return $query

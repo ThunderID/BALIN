@@ -5,7 +5,7 @@
 				{!! HTML::image('Balin/admin/image/logo.png') !!}
 			</li>
 			<li class="@if($nav_active=='dashboard') active @endif">
-				<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+				<a href="{{ route('backend.home') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
 			</li>
 			<li class="@if($nav_active=='data') active @endif }}">
 				<a href="#"><i class="fa fa-archive"></i> <span class="nav-label">Data</span></a>
