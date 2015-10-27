@@ -4,6 +4,7 @@ namespace App\Jobs\Models\Transaction;
 
 use App\Jobs\Job;
 use App\Jobs\SendBillingEmail;
+use App\Jobs\StockRecalculate;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -29,7 +30,15 @@ class TransactionSaved extends Job implements SelfHandling
         switch($this->transaction->status)
         {
             case 'waiting' :
-                $result                     = $this->dispatch(new SendBillingEmail($this->transaction));
+                $result                     = $this->dispatch(new StockRecalculate($this->transaction));
+                if($result->getStatus()=='success')
+                {
+                    $result                 = $this->dispatch(new SendBillingEmail($this->transaction));
+                }
+            break;
+            case 'paid' :
+            case 'shipped' :
+                $result                     = $this->dispatch(new StockRecalculate($this->transaction));
             break;
             default :
                 $result                     = new JSend('success', (array)$this->transaction );
