@@ -1,24 +1,23 @@
 <?php
 
-// ===================================
-// referral code must be saved first.
-// ===================================
-
-
 namespace App\Jobs;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Models\User;
+use App\Models\Voucher;
+use Exception;
+use App\Libraries\JSend;
 
-class sendReferralCodeEmail extends Job implements SelfHandling
+class SendReferralCodeEmail extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    public function __construct(user $user)
+    public function __construct(User $user, $voucher)
     {
-        $this->user()               => $user;
+        $this->user         = $user;
+        $this->voucher      = $voucher;
     }
 
 
@@ -27,7 +26,7 @@ class sendReferralCodeEmail extends Job implements SelfHandling
         try
         {
              // checking
-            if(is_null($this->transaction->id))
+            if(is_null($this->user->id))
             {
                 throw new Exception('Sent variable must be object of a record.');
             }
@@ -35,20 +34,20 @@ class sendReferralCodeEmail extends Job implements SelfHandling
             //send email
             $mail_data      = [
                                 'view'          => 'emails.test', 
-                                'datas'         => $this->user->referral_code, 
+                                'datas'         => (array)$this->voucher['code'], 
                                 'dest_email'    => $this->user->email, 
                                 'dest_name'     => $this->user->name, 
-                                'subject'       => 'Billing Information', 
+                                'subject'       => 'Referral Code', 
                             ];   
 
             // call email send job
             $this->dispatch(new Mailman($mail_data));
             
-            return new JSend('success', (array)$this->transaction)  ;           
+            return new JSend('success', (array)$this->user);           
         }
         catch (Exception $e) 
         {
             $this->release(10);
-        }                             
+        }
     }
 }

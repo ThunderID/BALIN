@@ -3,20 +3,20 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
-use App\Models\user;
+use App\Models\User;
+use App\Models\Voucher;
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 
 
 class GenerateRefferalCode extends Job implements SelfHandling
 {
-    use DispatchesJobs, ValidatesRequests;
+    use DispatchesJobs;
 
     protected $user;
 
-    public function __construct(user $user)
+    public function __construct(User $user)
     {
         $this->user             = $user;
     }
@@ -30,42 +30,36 @@ class GenerateRefferalCode extends Job implements SelfHandling
         }
 
         //check is user doesnt have refferal code yet
-        if($this->user['referral_code'])
+        if(!is_null($this->user->voucher))
         {
-            $result                 = Jsend('error', (array)$this->user, 'Referral code allready exist');
+            $result             = new JSend('error', (array)$this->user, $this->user->name.' sudah memiliki referral code');
         }
         else
         {
-            $transac_data           = $this->dispatch(new CheckIsCustomerHasProcessedTransaction($this->user));
+            $name               = preg_split('/\s+/', $this->user->name);
 
-            if($transac_data->getstatus() == 'success')
+            $uid                = $this->user->id;
+
+            $ref_code           = $name[0] . $uid;
+
+            $data               = new Voucher;
+
+            $data->fill
+            ([
+                'user_id'       => $uid,
+                'code'          => $ref_code,
+                'type'          => 'referral',
+                'expired_at'    => null,
+            ]);
+
+            if($data->save())
             {
-                //generate refferal code
-                $name               = preg_split('/\s+/', $this->user['name']);
-                $uid                = $this->user['id'];
-
-                $ref_code           = $name[0] . $uid;
-
-                $data               = $this->user;
-
-                $data->fill([
-                    'referral_code' => $ref_code
-                ]);
-
-                if($data->save())
-                {
-                    $result         = new Jsend('success', (array)$data);
-                }
-                else
-                {
-                    $result         = new Jsend('error', (array)$this->user, (array)$data->getError());
-                }
-
+                $result         = new JSend('success', (array)$data['attributes']);
             }
             else
             {
-                $result             = $transac_data;
-            }            
+                $result         = new JSend('error', (array)$this->user, (array)$data->getError());
+            }
         }
 
         return $result;

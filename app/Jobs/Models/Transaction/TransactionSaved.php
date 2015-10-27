@@ -5,6 +5,8 @@ namespace App\Jobs\Models\Transaction;
 use App\Jobs\Job;
 use App\Jobs\SendBillingEmail;
 use App\Jobs\StockRecalculate;
+use App\Jobs\GenerateRefferalCode;
+use App\Jobs\SendReferralCodeEmail;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -37,6 +39,16 @@ class TransactionSaved extends Job implements SelfHandling
                 }
             break;
             case 'paid' :
+                $result                     = $this->dispatch(new StockRecalculate($this->transaction));
+                if($result->getStatus()=='success' && is_null($this->transaction->user->voucher))
+                {
+                    $result                 = $this->dispatch(new GenerateRefferalCode($this->transaction->user));
+                    
+                    if($result->getStatus()=='success')
+                    {
+                        $result             = $this->dispatch(new SendReferralCodeEmail($this->transaction->user, $result->getData()));
+                    }
+                }
             case 'shipped' :
             case 'canceled' :
                 $result                     = $this->dispatch(new StockRecalculate($this->transaction));
