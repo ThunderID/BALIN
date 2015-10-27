@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ URL::route('frontend.home.index') }}">{!! HTML::image('Balin/web/image/logo.png') !!}</a>
+            <a class="navbar-brand" href="{{ URL::route('frontend.home.index') }}">{!! HTML::image('Balin/admin/image/logo.png') !!}</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">

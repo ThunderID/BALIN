@@ -1,5 +1,5 @@
     <div class="thumbnail">
-        <img class="imageCard" src="{{$data['default_image']}}" alt="">
+        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
 
         <div class="caption">
             <h4 class="text-center">{{$data['name']}}</h4>

@@ -168,7 +168,8 @@ class Product extends Eloquent
 	{
 		if($this->images()->count())
 		{
-			return $this->images[0]->thumbnail;
+			return 'http://localhost:8000/Balin/web/balin/'.rand(1,30).'.jpg';
+			return $this->images[0]->image_md;
 		}
 
 		return 'https://browshot.com/static/images/not-found.png';
