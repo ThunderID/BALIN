@@ -4,8 +4,8 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 
-use App\Models\transaction;
-use App\Models\transactiondetail;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
 
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -15,7 +15,7 @@ class CalculateTransactionAmount extends Job implements SelfHandling
     
     Protected $transaction;
 
-    public function __construct(transaction $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction                  = $transaction;
     }
@@ -27,7 +27,7 @@ class CalculateTransactionAmount extends Job implements SelfHandling
             throw new Exception('Sent variable must be object of a record.');
         }
 
-        $product_prices                     = transactiondetail::where('transaction_id', $this->transaction->id)
+        $product_prices                     = TransactionDetail::where('transaction_id', $this->transaction->id)
                                                 ->selectraw('(price - discount) * quantity as total')
                                                 ->first()
                                                 ;
@@ -39,13 +39,13 @@ class CalculateTransactionAmount extends Job implements SelfHandling
         ]);
 
 
-        if($this->transaction->update())
+        if($this->transaction->save())
         {
-            $result                         = new Jsend('success', (array)$this->transaction);
+            $result                         = new JSend('success', (array)$this->transaction);
         }
         else
         {
-            $result                         = new Jsend('error', (array)$this->transaction->getError() ,(array)$this->transaction);
+            $result                         = new JSend('error', (array)$this->transaction, (array)$this->transaction->getError());
         }
         return $result;
     }
