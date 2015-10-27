@@ -15,7 +15,7 @@ use App\Libraries\JSend;
 
 class SendBillingEmail extends Job implements SelfHandling
 {
-    use DispatchesJobs;
+    use DispatchesJobs, ValidatesRequests;
 
     protected $transaction;
 
@@ -37,19 +37,32 @@ class SendBillingEmail extends Job implements SelfHandling
 		    //get Billing
 			$datas 								= $this->dispatch(new GenerateBillingEmail($this->transaction));        
 
-	        //send email
-	        $mail_data      = [
-	                            'view'          => 'emails.test', 
-	                            'datas'         => (array)$datas, 
-	                            'dest_email'    => $this->transaction->user->email, 
-	                            'dest_name'     => $this->transaction->user->name, 
-	                            'subject'       => 'Billing Information', 
-	                        ];
+			if($datas->getStatus() != 'success')
+			{
+		        return $datas;           
+			}
+			else
+			{
+		        //send email
+		        $name 			=  $this->transaction->user->name;
+		        $mail_data      = [
+		                            'view'          => 'emails.test', 
+		                            'datas'         => 	[
+		                            						'name'	=> $name,
+		                            						'products' => (array)$datas->getData(),
+		                            						'transaction'	=> $this->transaction,
+		                            					],
+		                            , 
+		                            'dest_email'    => $this->transaction->user->email, 
+		                            'dest_name'     => $name, 
+		                            'subject'       => 'Billing Information', 
+		                        ];
 
-	        // call email send job
-	        $this->dispatch(new Mailman($mail_data));
-	        
-	        return new JSend('success', (array)$this->transaction)  ;           
+		        // call email send job
+		        $this->dispatch(new Mailman($mail_data));
+		        
+		        return new JSend('success', (array)$this->transaction)  ;           
+			}
 		}
 		catch (Exception $e) 
 		{
