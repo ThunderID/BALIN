@@ -36,7 +36,6 @@ class GenerateBillingEmail extends Job implements SelfHandling
                                             }))
                                         ->get();
 
-
         if(is_null($products))
         {
             $errors->add($this->transaction->user->name, 'Tidak ada barang untuk transaksi '.$this->transaction->user->name); 

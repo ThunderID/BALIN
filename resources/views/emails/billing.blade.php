@@ -1,49 +1,6 @@
 @extends('template.email.layout')
 
 @section('content')
-	<?php
-// dd($data)
-	// <table class="row">
-	//   <tr>
-	//     <td class="wrapper last">
-
-	//       <table class="twelve columns">
-	//         <tr>
-	//           <td>
-
-	//             <h1>Hi, {{$data['name']}}</h1>
-	//             <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-	//             // <img  src="/Balin/web/Image/3.jpg">
-	//           </td>
-	//           <td class="expander"></td>
-	//         </tr>
-	//       </table>
-
-	//     </td>
-	//   </tr>
-	// </table>
-
-	// <table class="row callout">
-	//   <tr>
-	//     <td class="wrapper last">
-
-	//       <table class="twelve columns">
-	//         <tr>
-	//           <td class="panel">
-
-	//             <p>Phasellus dictum sapien a neque luctus cursus. Pellentesque sem dolor, fringilla et pharetra vitae. <a href="#">Click it! »</a></p>
-
-	//           </td>
-	//           <td class="expander"></td>
-	//         </tr>
-	//       </table>
-
-	//     </td>
-	//   </tr>
-	// </table>
-	?>
-
-
 	<table class="row">
 	  <tr>
 	    <td class="wrapper last">
@@ -75,53 +32,28 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>{{$data['products'][0]['product']['name']}}</td>
-				<td>{{$data['products'][0]['quantity']}}</td>
-				<td>{{$data['products'][0]['price'] * $data['products'][0]['quantity']}}</td>
-			</tr>
+			@foreach($transactions as $transaction)
+				<tr>
+					<td>1</td>
+					<td>{{$data['transaction']['transaction_detail']['product']['name']}}</td>
+					<td>{{$data['transaction']['transaction_detail']['quantity']}}</td>
+					<td>{{$data['transaction']['transaction_detail']['price'] * $data['transaction']['transaction_detail']['quantity']}}</td>
+				</tr>
+			@endforeach
 			<tr>
 				<td colspan="3">Ongkos Kirim</td>
-				<td>1</td>
+				<td>{{ $data['transaction']['shipping_cost'] }}</td>
 			</tr>
 			<tr>
-				<td colspan="3">Voucher</td>
-				<td>1</td>
+				<td colspan="3">Diskon Referral</td>
+				<td>{{ $data['transaction']['referral_discount'] }}</td>
 			</tr>
 			<tr>
 				<td colspan="3">Grand Total</td>
-				<td>1</td>
+				<td>{{ $data['transaction']['amount'] }}</td>
 			</tr>										
 		</tbody>
 	</table>
-
-	<?php
-	// <table class="row">
-	//   <tr>
-	//     <td class="wrapper last">
-
-	//       <table class="three columns">
-	//         <tr>
-	//           <td>
-
-	//             <table class="button">
-	//               <tr>
-	//                 <td>
-	//                   <a href="{!!route('balin.email.activation', $data['activation_link'] )!!}">Activate</a>
-	//                 </td>
-	//               </tr>
-	//             </table>
-
-	//           </td>
-	//           <td class="expander"></td>
-	//         </tr>
-	//       </table>
-
-	//     </td>
-	//   </tr>
-	// </table>
-	?>
 
 	</br>
 
