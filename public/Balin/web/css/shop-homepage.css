@@ -554,3 +554,17 @@ input.text-holow:focus {
 	color: #000;
 	font-weight: bold;
 }
+.panel-hollow {
+	margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    /*-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);*/
+}
+.panel-hollow input {
+	outline: none;
+	border: 1px solid #ddd;
+	border-radius: 0;
+	box-shadow: none;
+}

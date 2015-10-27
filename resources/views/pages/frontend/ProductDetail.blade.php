@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                @include('widgets.pageElements.pageTitle', array('pageTitle' => 'Products'))                                                                                                              
+                @include('widgets.pageElements.pageTitle', array('pageTitle' => 'Product Details'))                                                                                                              
             </div>
         </div>
         <div class="row">
@@ -64,11 +64,11 @@
 	        				</br>
 	        				<?php $discount = $data->discount; ?> 
 	        				@if($discount == 0)
-		        				<h4>Price : {{$data->price}}</h4>
+		        				<h4>Price : Rp {{ number_format($data->price, 2, ',', '.') }}</h4>
 	        				@else
-		        				<h4>Price : {{$data->price}}</h4>
-		        				<h4>Promo Price: {{$data->promo_price}}</h4>
-		        				<p>Discount : {{$data->discount}}	</p>
+		        				<h4>Price : Rp {{ number_format($data->price, 2, ',', '.') }}</h4>
+		        				<h4>Promo Price: Rp {{ number_format($data->promo_price, 2, ',', '.') }}</h4>
+		        				<p>Discount : Rp {{ number_format($data->discount, 2, ',', '.') }}</p>
 	        				@endif
         				<div class="row">
         				</div>
@@ -78,7 +78,7 @@
         			</div>        			
         			<div class="col-md-1"></div>
         			<div class="col-md-3">
-    					<div class="row panel panel-default">
+    					<div class="row panel-hollow panel-default">
         					<div class="col-md-12" style="padding:7px;">
 		    					@if($data->stock == 0)
 			        				<div class="row">
@@ -104,13 +104,13 @@
 									      	<div class="modal-body">
 											    <div class="form-group">
 											        <label for="name">Qty</label>
-											        <input type="name" class="form-control" id="name" tabindex="1" required>
+											        <input type="number" class="form-control" max="10" id="name" tabindex="1" required>
 											    </div>	
 										    </div>	
 				        				</div>
 				        				<div class="row">
 				        					<div class="col-md-12">
-				        						<a href="#" class="btn btn-md btn-default">
+				        						<a href="#" class="btn-hollow hollow-black">
 				        							Beli Sekarang
 				        						</a>
 				        					</div>
