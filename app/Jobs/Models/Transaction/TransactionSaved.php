@@ -7,6 +7,7 @@ use App\Jobs\SendBillingEmail;
 use App\Jobs\StockRecalculate;
 use App\Jobs\GenerateRefferalCode;
 use App\Jobs\SendReferralCodeEmail;
+use App\Jobs\RevertUserPoints;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -33,14 +34,15 @@ class TransactionSaved extends Job implements SelfHandling
         {
             case 'waiting' :
                 $result                     = $this->dispatch(new StockRecalculate($this->transaction));
-                if($result->getStatus()=='success')
+                if($result->getStatus()=='success' && !is_null($this->transaction->user) )
                 {
                     $result                 = $this->dispatch(new SendBillingEmail($this->transaction));
                 }
             break;
             case 'paid' :
                 $result                     = $this->dispatch(new StockRecalculate($this->transaction));
-                if($result->getStatus()=='success' && is_null($this->transaction->user->voucher))
+                
+                if($result->getStatus()=='success' && !is_null($this->transaction->user) && is_null($this->transaction->user->voucher))
                 {
                     $result                 = $this->dispatch(new GenerateRefferalCode($this->transaction->user));
                     
@@ -52,6 +54,10 @@ class TransactionSaved extends Job implements SelfHandling
             case 'shipped' :
             case 'canceled' :
                 $result                     = $this->dispatch(new StockRecalculate($this->transaction));
+                 if($result->getStatus()=='success' && $this->transaction->pointlogs->count())
+                {
+                    $result                 = $this->dispatch(new RevertUserPoints($this->transaction));
+                }
             break;
             default :
                 $result                     = new JSend('success', (array)$this->transaction );

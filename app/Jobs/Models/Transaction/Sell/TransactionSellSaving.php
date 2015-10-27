@@ -6,6 +6,7 @@ use App\Jobs\Job;
 use App\Jobs\GenerateTransactionRefNumber;
 use App\Jobs\CountReferralDiscount;
 use App\Jobs\FillTransactionDate;
+use App\Jobs\GenerateTransactionUniqNumber;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -38,6 +39,11 @@ class TransactionSellSaving extends Job implements SelfHandling
         if($result->getStatus()=='success')
         {
             $result                         = $this->dispatch(new FillTransactionDate($this->transaction));
+        }
+
+        if($result->getStatus()=='success')
+        {
+            $result                         = $this->dispatch(new GenerateTransactionUniqNumber($this->transaction));
         }
 
         return $result;

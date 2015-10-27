@@ -10,11 +10,11 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use App\Models\Transaction;
 use App\Models\Policy;
 
-class generateTransactionUniqNumber extends Job implements SelfHandling
+class GenerateTransactionUniqNumber extends Job implements SelfHandling
 {
     protected $transaction; 
 
-    public function __construct(transaction $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction              = $transaction;
     }
@@ -26,7 +26,7 @@ class generateTransactionUniqNumber extends Job implements SelfHandling
         {
             if(!is_null($this->transaction->unique_number))
             {
-                $prev_number            = transaction::orderBy('id', 'DESC')->first();
+                $prev_number            = Transaction::orderBy('id', 'DESC')->first();
 
                 $limit                  = Policy::type('limit_unique_number')->first();
 
@@ -42,11 +42,11 @@ class generateTransactionUniqNumber extends Job implements SelfHandling
                 $this->transaction->unique_number    = $unique_number  ;
             }
 
-            $result                     = new Jsend('success', ['message' => 'Expired date added']);
+            $result                     = new JSend('success', (array)$this->transaction);
         } 
         catch (Exception $e) 
         {
-            $result                     = new Jsend('fail', (array)$e);
+            $result                     = new JSend('fail', (array)$this->transaction, (array)$e);
         }  
 
         return $result;
