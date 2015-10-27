@@ -1,4 +1,4 @@
-<h2>Informasi Customer</h2>
+<h2>Pilih Customer</h2>
 <div class="clearfix">&nbsp;</div>
 <div class="row">
 	<div class="col-md-12">

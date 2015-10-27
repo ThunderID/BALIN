@@ -14,7 +14,7 @@
 <fieldset>
 	@include('pages.backend.data.transaction.sell.shipment')
 </fieldset>
-<h1>Transaksi Detail</h1>
-<fieldset>
-	@include('pages.backend.data.transaction.sell.info_transaction_detail')
-</fieldset>
+{{-- <h1>Transaksi Detail</h1> --}}
+{{-- <fieldset> --}}
+	{{-- @include('pages.backend.data.transaction.sell.info_transaction_detail') --}}
+{{-- </fieldset> --}}

@@ -1,4 +1,4 @@
-<h2>Informasi Produk</h2>
+<h2>Pilih Produk</h2>
 <div class="clearfix">&nbsp;</div>
 <div class="row">
 	<div class="col-md-4">
