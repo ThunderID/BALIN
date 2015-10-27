@@ -30,20 +30,25 @@ class GenerateBillingEmail extends Job implements SelfHandling
         }
 
          //get products
-        $products                   = TransactionDetail::where('transaction_id',$this->transaction->id);
+        $transaction                = transaction::find($transaction)
+                                        ->with(array('TransactionDetail'=>function($query){
+                                                $query->with('product');
+                                            }))
+                                        ->get();
+
 
         if(is_null($products))
         {
             $errors->add($this->transaction->user->name, 'Tidak ada barang untuk transaksi '.$this->transaction->user->name); 
         }
 
-        if($errors->count()) 
+        if(empty($product)) 
         {
             $result                 = new Jsend('error', (array)$this->transaction, (array)$errors);
         }
         else
         {
-            $result                 = new Jsend('success', (array)$products);
+            $result                 = new Jsend('success', (array)$transaction);
         }
 
         return $result; 
