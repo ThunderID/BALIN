@@ -38,6 +38,7 @@ class TransactionSaved extends Job implements SelfHandling
             break;
             case 'paid' :
             case 'shipped' :
+            case 'canceled' :
                 $result                     = $this->dispatch(new StockRecalculate($this->transaction));
             break;
             default :
