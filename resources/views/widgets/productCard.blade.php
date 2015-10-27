@@ -4,10 +4,10 @@
 	<div class="caption m-b-md">
 		<h4 class="text-center">{{$data['name']}}</h4>
 		@if($data->promo_price!=0)
-			<p class="text-center normal-price"><strike>Rp {{$data->price}}</strike></p>
-			<p class="text-center promo-price t-md">Rp {{$data->promo_price}}</p>
+			<p class="text-center normal-price"><strike>Rp {{ number_format($data->price, 2, ',', '.') }}</strike></p>
+			<p class="text-center promo-price t-md">Rp {{ number_format($data->promo_price, 2, ',', '.') }}</p>
 		@else
-			<p class="text-center promo-price t-md">Rp {{$data->price}}</p>
+			<p class="text-center promo-price t-md">Rp {{ number_format($data->price, 2, ',', '.') }}</p>
 		@endif
 	</div>
 

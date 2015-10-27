@@ -16,20 +16,29 @@
 				@include('widgets.pageElements.pageTitle', ['pageTitle' => 'Products'])                  
 
 				<div class="row">
-					<div class="col-md-2 col-sm-6 col-xs-12 pull-right">
-						<p class="pull-right">Search</p>
+					<div class="col-md-3 col-sm-6 col-xs-12 pull-right">
+						<a href="#" class="pull-right"><i class="fa fa-search"></i></a>
+						{!! Form::text('q', null, ['class' => 'text-hollow pull-right', 'placeholder' => 'Search', 'style' => 'width:80%']) !!}
 					</div>                	                	
-					<div class="col-md-2 col-sm-4 col-xs-12 pull-right">
-						<p class="pull-right">Sort by</p>
+					<div class="col-md-1 col-sm-4 col-xs-12 pull-right">
+						<div class="dropdown">
+							<a href="#" id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+								<p class="pull-right">Sort by</p>
+							</a>
+							<ul class="dropdown-menu category-list" aria-labelledby="dLabel">
+								<li><a href="#">A-Z</a></li>
+								<li><a href="#">Z-A</a></li>
+							</ul>
+						</div>
 					</div>
 					<div class="col-md-1 col-sm-2 col-xs-12 pull-right">
 						<div class="dropdown">
 							<a href="#" id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
 								<p class="pull-right">Kategori</p>
 							</a>
-							<ul class="dropdown-menu" aria-labelledby="dLabel">
+							<ul class="dropdown-menu category-list" aria-labelledby="dLabel">
 								@foreach ($category as $cat)
-									<li>{{ $cat->name }}</li>
+									<li><a href="#">{{ $cat->name }}</a></li>
 								@endforeach
 							</ul>
 						</div>
@@ -47,7 +56,7 @@
 				</div>
 
 				<div class="row">
-					<div class="col-md-12" style="text-align:right;">
+					<div class="col-md-12 hollow-pagination" style="text-align:right;">
 						{!! $datas->appends(Input::all())->render() !!}
 					</div>
 				</div>

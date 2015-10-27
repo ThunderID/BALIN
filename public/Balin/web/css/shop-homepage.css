@@ -501,3 +501,56 @@ footer {
 .container a{
 	color: black;
 }
+
+h3.page-title {
+	
+}
+.dropdown-menu.category-list {
+	margin-top: 30px;
+	width: 180px;
+	background-color: #000;
+}
+.dropdown-menu.category-list li {
+	padding: 8px;
+	padding-left: 10px;
+	font-size: 12px;
+	border-bottom: 1px solid #666;
+}
+.dropdown-menu.category-list li:last-child {
+	border-bottom: none;
+}
+.dropdown-menu.category-list li a {
+	background-color: #000;
+	color: #bbb;
+}
+.dropdown-menu.category-list li a:hover {
+	background-color: #000;
+	color: #fff;
+}
+input.text-hollow {
+	border: none;
+	border-bottom: 1px solid #333;
+	margin-right: 18px;
+	outline: none;
+}
+input.text-holow:focus {
+	outline: none;
+	box-shadow: none;
+}
+.hollow-pagination ul.pagination {
+	border-radius: 0px;
+}
+.hollow-pagination ul.pagination li span, .hollow-pagination ul.pagination li a {
+	border: none;
+	color: #aaa;
+}
+.hollow-pagination ul.pagination li a:hover {
+	background-color: inherit;
+	color: #000;
+}
+.hollow-pagination ul.pagination li.active span {
+	background-color: inherit;
+	border-color: inherit;
+	color: #000;
+	font-weight: bold;
+}

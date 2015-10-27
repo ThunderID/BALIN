@@ -1,4 +1,4 @@
-<ul class="dropdown-menu dropdown-menu-right chart-dropdown" aria-labelledby="dLabel">
+<ul class="dropdown-menu dropdown-menu-right chart-dropdown m-t-md" aria-labelledby="dLabel" style="margin-top:3px">
     <li class="chart-dropdown-item-grid">
         @include('widgets.frontend.cart.cartItem', array(
             'labelName'             => 'Batik Andong Cap Jagung',
