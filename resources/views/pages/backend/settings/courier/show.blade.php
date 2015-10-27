@@ -2,9 +2,16 @@
 @inject('shippingcosts', 'App\Models\ShippingCost')
 
 <?php 
-	$data = $data::id($id)->with(['shipments', 'shipments.transaction', 'shipments.transaction.user'])->first();
+$data = $data::id($id)->with(['shipments', 'shipments.transaction', 'shipments.transaction.user'])->first();
 
-	$shippingcosts = $shippingcosts::where('courier_id', '=' ,$data['id'])->paginate();
+if(!is_null($filters) && is_array($filters))
+{
+	foreach ($filters as $key => $value) 
+	{
+		$shippingcosts = call_user_func([$shippingcosts, $key], $value);
+	}
+}
+$shippingcosts = $shippingcosts->courierid($data['id'])->paginate();
 ?>
 
 @extends('template.backend.layout')
@@ -51,7 +58,7 @@
 			<a class="btn btn-default btn-block" href="{{ URL::route('backend.settings.shippingCost.create', ['id' => $data['id'] ]) }}"> Data Baru </a>
 		</div>
 		<div class="col-md-4 col-sm-8 col-xs-12">
-			{!! Form::open(array('route' => 'backend.data.product.index', 'method' => 'get' )) !!}
+			{!! Form::open(array('method' => 'get' )) !!}
 			<div class="row">
 				<div class="col-md-2 col-sm-3 hidden-xs">
 				</div>

@@ -6,33 +6,25 @@ use App\Models\shippingCost;
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect;
 
-class shippingCostController extends baseController 
+class ShippingCostController extends baseController 
 {
+
+    /**
+     * Instantiate a new UserController instance.
+     */
+    
+    public function __construct()
+    {
+        $this->middleware('passwordneeded', ['only' => ['destroy']]);
+
+    	parent::__construct();
+    }
+
 	protected $view_name 						= 'Ongkos Kirim';
 
 	public function index()
 	{
-		$breadcrumb								= [
-													'Ongkos Kirim' => 'backend.settings.shippingCost.index',
-													];
-
-		if (Input::get('q'))
-		{
-			$searchResult						= Input::get('q');
-		}
-		else
-		{
-			$searchResult						= NULL;
-		}
-
-		$this->layout->page 					= view('pages.backend.settings.shippingCost.index')
-														->with('WT_pageTitle', $this->view_name )
-														->with('WT_pageSubTitle','Ongkos Kirim')
-														->with('WB_breadcrumbs', $breadcrumb)
-														->with('searchResult', $searchResult)
-														->with('nav_active', 'data')
-														->with('subnav_active', 'shippingcost');
-		return $this->layout;	
+		return Redirect::back();
 	}
 
 	public function create($cou_id = null, $id = null)
@@ -61,10 +53,16 @@ class shippingCostController extends baseController
 																->with('id', $id)
 																->with('cou_id', $cou_id)
 																->with('nav_active', 'data')
-																->with('subnav_active', 'shippingcost');
+																->with('subnav_active', 'courier');
 
 		return $this->layout;		
 	}
+
+
+	public function show($cou_id, $id)
+	{
+		return Redirect::back();
+	}	
 
 	public function edit($cou_id, $id)
 	{
@@ -74,15 +72,16 @@ class shippingCostController extends baseController
 	public function store($cou_id = null, $id = null)
 	{
 		$cou_id 										= Input::get('courier_id');
+
 		$inputs 										= Input::only('courier_id','start_postal_code','end_postal_code','cost');
 
 		if ($id)
 		{
-			$data 										= shippingcost::find($id);
+			$data 										= ShippingCost::find($id);
 		}
 		else
 		{
-			$data 										= new shippingcost;	
+			$data 										= new ShippingCost;	
 		}
 
 		$data->fill([
@@ -90,9 +89,8 @@ class shippingCostController extends baseController
 			'start_postal_code' 						=> $inputs['start_postal_code'],
 			'end_postal_code' 							=> $inputs['end_postal_code'],
 			'cost' 										=> $inputs['cost'],
+			'started_at'								=> date('Y-m-d H:i:s'),
 		]);
-
-		$errors 										= new MessageBag();
 
 		DB::beginTransaction();
 
@@ -101,7 +99,7 @@ class shippingCostController extends baseController
 			DB::rollback();
 			
 			return Redirect::back()
-					->withErrors($errors)
+					->withErrors($data->getError())
 					->with('msg-type', 'danger')
 					;
 		}
@@ -118,9 +116,9 @@ class shippingCostController extends baseController
 
 	public function destroy($id)
 	{
-		$data 								= shippingCost::findorfail($id);
+		$data 								= ShippingCost::findorfail($id);
 
-		$cou_id 							= input::get('cou_id');
+		$cou_id 							= Input::get('cou_id');
 
 		DB::beginTransaction();
 
