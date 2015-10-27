@@ -84,7 +84,7 @@ $factory->define(App\Models\Transaction::class, function ($faker) use ($types, $
 			'referral_code' 			=> App\Models\User::all()->random()->referral_code,
 			'ref_number' 				=> bin2hex(openssl_random_pseudo_bytes(8)),
 			'type' 						=> $types[$rand],
-			'status' 					=> $status[rand(0, count($status)-1)],
+			'status' 					=> 'draft',//$status[rand(0, count($status)-1)],
 			'transacted_at' 			=> $faker->dateTimeThisYear,
 			'unique_number' 			=> str_pad(date('is'), 3, '0', STR_PAD_LEFT),
 			'shipping_cost' 			=> date('h')*1000,

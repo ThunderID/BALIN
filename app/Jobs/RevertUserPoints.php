@@ -8,51 +8,43 @@ use App\Models\Transaction;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
+use App\Libraries\JSend;
 
 class RevertUserPoints extends Job implements SelfHandling
 {
-    protected $pointLog;
+    protected $transaction;
 
-    public function __construct(PointLog $pointLog)
+    public function __construct(Transaction $transaction)
     {
-        $this->pointlog                 = $pointLog;
+        $this->transaction                  = $transaction;
     }
 
     public function handle()
     {
         // checking
-        if(is_null($this->pointlog->id))
+        if(is_null($this->transaction->id))
         {
             throw new Exception('Sent variable must be object of a record.');
         }    
 
-        $data                           = new pointlog;
-
-        $user                           = User::find($this->pointlog->user_id);
-        $transaction                    = transaction::find($this->pointlog->transaction_id);
-
-        if(empty($user) && empty($transaction))
+        foreach ($this->transaction->pointlogs as $key => $value) 
         {
-            //return error
-            dd('user not found');
+            $data                           = new PointLog;
+
+            $data->fill([
+                'user_id'                   => $value->user_id,  
+                'transaction_id'            => $value->transaction_id,  
+                'credit'                    => $value->debit,  
+                'debit'                     => $value->credit, 
+                'notes'                    => 'Revert '.$value->notes,  
+            ]);
+
+            if(!$data->save())
+            {
+                return new JSend('error', (array)$this->transaction, (array)$data->getError());
+            }
         }
 
-        $data->fill([
-            'credit'                    => $this->pointlog->debit,  
-            'debit'                     => $this->pointlog->credit, 
-            'notes'                     => 'revert point',  
-        ]);
-
-        $data->user()->associate($user);
-        $data->transaction()->associate($transaction);
-
-        if(!$data->save())
-        {
-            dd('fail');
-        }
-        else
-        {
-            dd('success');
-        }
+        return new JSend('success', (array)$this->transaction);
     }
 }

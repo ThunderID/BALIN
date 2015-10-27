@@ -14,7 +14,7 @@ class ShipmentTableSeeder extends Seeder
 		$faker 										= Factory::create();
 		try
 		{
-			$transactions 							= App\Models\Transaction::type('sell')->status(['shipping','delivered'])->get();
+			$transactions 							= App\Models\Transaction::type('sell')->status(['paid'])->take((App\Models\Transaction::type('sell')->status(['paid'])->count() * 0.7));
 			
 			foreach($transactions as $key => $value)
 			{
@@ -34,6 +34,19 @@ class ShipmentTableSeeder extends Seeder
 				{
 					print_r($data->getError());
 					exit;
+				}
+
+				$check 								= rand(0,1);
+				if($check)
+				{
+					$trs 								= App\Models\Transaction::find($value->id);
+					$trs->fill(['status' => 'delivered']);
+
+					if (!$trs->save())
+					{
+						print_r($trs->getError());
+						exit;
+					}
 				}
 			}	
 		}
