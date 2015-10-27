@@ -18,7 +18,7 @@
    {!! HTML::style('Balin/web/css/bootstrap.min.css') !!}
    {!! HTML::style('Balin/web/css/shop-homepage.css') !!}
    {!! HTML::style('Balin/web/plugin/fontawesome/css/font-awesome.min.css') !!}
-   {!! HTML::style('http://fonts.googleapis.com/css?family=Roboto:400,300,700') !!}
+   {!! HTML::style('http://fonts.googleapis.com/css?family=Lato:400,300,700') !!}
 
 </head>
 
