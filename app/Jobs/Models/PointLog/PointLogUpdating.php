@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\PointLog;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Libraries\JSend;
 
-use App\Models\pointlog;
+use App\Models\PointLog;
 
 class PointLogUpdating extends Job implements SelfHandling
 {
-    protected $pointLog;
+    protected $pointlog;
 
-    public function __construct(pointlog $pointlog)
+    public function __construct(PointLog $pointlog)
     {
-        $this->pointLog                 = $pointLog;
+        $this->pointlog                 = $pointlog;
     }
 
     public function handle()
     {
-        return new Jsend('success', (array)$this->pointLog);
+        return new JSend('success', (array)$this->pointlog);
     }
 }

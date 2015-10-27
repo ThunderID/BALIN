@@ -1,38 +1,31 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\PointLog;
 
 use App\Jobs\Job;
+use App\Jobs\SetPointExpirationDate;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests
 
-use App\Models\user;
-use App\Models\pointlog;
+use App\Models\PointLog;
+use App\Libraries\JSend;
 
 class PointLogSaving extends Job implements SelfHandling
 {
-    use DispatchesJobs, ValidatesRequests;
+    use DispatchesJobs;
 
-    protected $pointLog;
+    protected $pointlog;
 
-    public function __construct(pointlog $pointlog)
+    public function __construct(PointLog $pointlog)
     {
-        $this->pointLog                 = $pointLog;
+        $this->pointlog                 = $pointlog;
     }
 
     public function handle()
     {
-        $result                         = $this->dispatch(new SetPointExpirationDate($pointlog));
+        $result                        = new JSend('success', (array)$this->pointlog);
 
-        if($result->getStatus() != 'success')
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return $result;
     }
 }
