@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\user;
+use App\Models\User;
 use App\Models\PointLog;
 use App\Models\Transaction;
 
@@ -28,7 +28,7 @@ class RevertUserPoints extends Job implements SelfHandling
 
         $data                           = new pointlog;
 
-        $user                           = user::find($this->pointlog->user_id);
+        $user                           = User::find($this->pointlog->user_id);
         $transaction                    = transaction::find($this->pointlog->transaction_id);
 
         if(empty($user) && empty($transaction))

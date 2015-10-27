@@ -27,7 +27,7 @@ class TransactionDetailSellSaved extends Job implements SelfHandling
 
     public function handle()
     {
-        $result                     = $this->dispatch(new CalculateTransactionAmount($this->transactiondetail->transaction));
+        $result                             = $this->dispatch(new CalculateTransactionAmount($this->transactiondetail->transaction));
          
         return $result;
     }    

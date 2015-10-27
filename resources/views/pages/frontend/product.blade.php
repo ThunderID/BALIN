@@ -1,7 +1,7 @@
 @inject('datas', 'App\Models\Product')
 <?php 
     $datas          = $datas->orderby('name')
-                        ->paginate(9);
+                        ->paginate(12);
 ?>
 
 @extends('template.frontend.layout')
@@ -29,7 +29,7 @@
 
                 <div class="row">
                 	@foreach($datas as $data)
-                	    <div class="col-sm-4 col-lg-4 col-md-4">
+                	    <div class="col-sm-4 col-md-3">
 		                	@include('widgets.productCard')
 		                </div>
 					@endforeach

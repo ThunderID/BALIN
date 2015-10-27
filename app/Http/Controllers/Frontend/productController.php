@@ -14,4 +14,16 @@ class productController extends baseController
 
 		return $this->layout;
 	}
+
+
+	public function show($id = null)
+	{
+		$this->layout->page 					= view('pages.frontend.productDetail')
+														->with('controller_name', $this->controller_name)
+														->with('id', $id)
+														;
+		$this->layout->controller_name			= $this->controller_name;
+
+		return $this->layout;
+	}
 }

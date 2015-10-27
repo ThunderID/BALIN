@@ -9,14 +9,13 @@ use App\Jobs\SendPaymentEmail;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Models\Payment;
 use App\Libraries\JSend;
 
 class PaymentSaved extends Job implements SelfHandling
 {
-    use DispatchesJobs, ValidatesRequests;
+    use DispatchesJobs;
 
     protected $payment;
 

@@ -1,32 +1,34 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\PointLog;
 
 use App\Jobs\Job;
+use App\Jobs\RecalculateUserPoints;
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-use App\Models\user;
-use App\Models\pointlog;
+use App\Models\User;
+use App\Models\PointLog;
 
 class PointLogSaved extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
-    protected $pointLog;
+    protected $pointlog;
 
-    public function __construct(pointlog $pointlog)
+    public function __construct(PointLog $pointlog)
     {
-        $this->pointLog                 = $pointLog;
+        $this->pointlog                 = $pointlog;
     }
 
-    public function handle(pointlog $pointlog)
+    public function handle()
     {
-        $user                           = User::find($pointlog['user_id']);
-        $result                         = $this->dispatch(new recalculateUserPoints($user));
+        $user                           = User::findorfail($this->pointlog->user_id);
+
+        $result                         = $this->dispatch(new RecalculateUserPoints($user));
 
         return $result;
     }

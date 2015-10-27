@@ -170,5 +170,41 @@ class TransactionDetail extends Eloquent
 				->orderby('total_buy', 'desc')
 				->groupBy('product_id')
 				;
-	}		
+	}
+
+	public function scopeCountOnHoldStock($query, $variable)
+	{
+		return 	$query
+					->selectraw('IFNULL(SUM(quantity),0) on_hold_stock')
+					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
+					->whereIn('transactions.status', ['waiting'])
+					->where('transactions.type', 'sell')
+					->first()
+					;
+		;
+	}
+
+	public function scopeCountReservedStock($query, $variable)
+	{
+		return 	$query
+					->selectraw('IFNULL(SUM(quantity),0) reserved_stock')
+					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
+					->whereIn('transactions.status', ['paid'])
+					->where('transactions.type', 'sell')
+					->first()
+					;
+		;
+	}
+
+	public function scopeCountBoughtStock($query, $variable)
+	{
+		return 	$query
+					->selectraw('IFNULL(SUM(quantity),0) bought_stock')
+					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
+					->whereIn('transactions.status', ['delivered'])
+					->where('transactions.type', 'buy')
+					->first()
+					;
+	}
+		
 }

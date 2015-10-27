@@ -168,7 +168,8 @@ class Product extends Eloquent
 	{
 		if($this->images()->count())
 		{
-			return $this->images[0]->thumbnail;
+			return 'http://localhost:8000/Balin/web/balin/'.rand(1,30).'.jpg';
+			return $this->images[0]->image_md;
 		}
 
 		return 'https://browshot.com/static/images/not-found.png';
@@ -230,7 +231,7 @@ class Product extends Eloquent
 	{
 		return 	$query
 					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as on_hold_stock')
-					->wherehas('transactions', function($q){$q->status(['draft', 'waiting'])->type('sell');})
+					->wherehas('transactions', function($q){$q->status(['waiting'])->type('sell');})
 					->first()
 					;
 		;

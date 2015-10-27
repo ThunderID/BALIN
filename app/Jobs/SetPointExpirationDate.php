@@ -37,7 +37,7 @@ class SetPointExpirationDate extends Job implements SelfHandling
 
             $this->pointlog->expired_date  = $expired_date->getData()['expired_date'];
 
-            $result                        = new Jsend('success', ['message' => 'Expired date added']);
+            $result                        = new Jsend('success', 'Expired date added');
         } 
         catch (Exception $e) 
         {
