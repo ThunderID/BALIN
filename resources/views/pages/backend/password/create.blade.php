@@ -6,7 +6,7 @@
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group">
 					<label for="parent" class="text-capitalize">Password Lama</label>
-					{!! Form::password('password_old', [
+					{!! Form::password('password', [
 								'class'         => 'form-control',
 								'tabindex'      => '1',
 								'placeholder'   => 'Masukkan password lama',
@@ -18,7 +18,7 @@
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group">
 					<label for="name" class="text-capitalize">Password Baru</label>
-					{!! Form::password('password_baru', [
+					{!! Form::password('new_password', [
 								'class'         => 'form-control',
 								'tabindex'      => '2',
 								'placeholder'   => 'Masukkan password lama'
@@ -30,7 +30,7 @@
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group">
 					<label for="name" class="text-capitalize">Konfirmasi Password</label>
-					{!! Form::password('confirm_password', [
+					{!! Form::password('new_password_confirmation', [
 								'class'         => 'form-control',
 								'tabindex'      => '3',
 								'placeholder'   => 'Masukkan konfirmasi password'
