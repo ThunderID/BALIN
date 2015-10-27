@@ -5,27 +5,21 @@
 	<div class="col-md-5">
 		<div class="form-group">
 			<label>Nama</label><br>
-			<label class="font-normal">Prof. Arvilla Kozey V</label>
+			<label class="font-normal label-name"></label>
 		</div>
-		<div class="form-group">
-			<label for="">Alamat</label><br>
-			<label class="font-normal">Perum Ruko Puri Niaga no 10, Araya, Malang, Jawa Timur</label>
-		</div>
-	</div>
-	<div class="col-md-3">
 		<div class="form-group">
 			<label for="">No Tlp</label><br>
-			<label class="font-normal">0341-95699801</label>
+			<label class="font-normal label-phone"></label>
+		</div>
+	</div>
+	<div class="col-md-5">
+		<div class="form-group">
+			<label for="">Alamat</label><br>
+			<label class="font-normal label-address"></label>
 		</div>
 		<div class="form-group">
 			<label for="">Kode Pos</label><br>
-			<label class="font-normal">65461</label>
-		</div>
-	</div>
-	<div class="col-md-4">
-		<div class="form-group">
-			<label for="">No Rekening</label><br>
-			<label class="font-normal">100870345</label>
+			<label class="font-normal label-postal-code"></label>
 		</div>
 	</div>
 </div>
