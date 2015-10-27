@@ -52,8 +52,7 @@
 			dataType: 'json',
 			data: function (term, path) {
 				return {
-					name: term,
-					path : '{{ isset($data['path']) ? $data['path'] : '' }}'
+					name: term
 				};
 			},
 		   results: function (data) {
@@ -62,7 +61,9 @@
 						return {
 							text: item.name +' ',
 							id: item.id +' ',
-							path: item.path
+							address: item.address,
+							phone: item.phone,
+							postalcode: item.postal_code
 						}
 					})
 				};
@@ -79,12 +80,18 @@
 				query.callback(data);
 			}	
 		}
+	}).on("select2-selecting", function(e) {
+		$('.transaction-input-address').val(e.object.address);
+		$('.transaction-input-postal-code').val(e.object.postalcode);
+		$('.transaction-input-phone').val(e.object.phone);
+		$('.label-name').text(e.object.text);
 	});
+
 	$('.select-customer').select2('data', preload_data );
 
 	$('.select-product-by-name').select2({
 		placeholder: 'Masukkan nama product',
-		minimumInputLength: 2,
+		minimumInputLength: 4,
 		maximumSelectionSize: 1,
 		tags: false,
 		ajax : {
@@ -92,8 +99,7 @@
 			dataType: 'json',
 			data: function (term, path) {
 				return {
-					name: term,
-					path : '{{ isset($data['path']) ? $data['path'] : '' }}'
+					name: term
 				};
 			},
 		   results: function (data) {
@@ -102,10 +108,9 @@
 						return {
 							text: item.name +' ',
 							id: item.id +' ',
-							path: item.path
+							price: item.price,
+							discount: item.discount,
 						}
-						// $('.transaction-input-price').val(item.price);
-						// $(this).attr('data-price', item.price);
 					})
 				};
 			},
@@ -121,6 +126,9 @@
 				query.callback(data);
 			}	
 		}
+	}).on("select2-selecting", function(e) {
+		$(this).parent().parent().parent().find('.transaction-input-price').val(e.object.price);
+		$(this).parent().parent().parent().find('.transaction-input-discount').val(e.object.discount);
 	});
 	$('.select-product-by-name').select2('data', preload_data );
 
