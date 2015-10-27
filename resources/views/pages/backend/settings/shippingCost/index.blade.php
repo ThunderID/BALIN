@@ -19,11 +19,12 @@ $datas 			= $datas
 					<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.shippingCost.create') }}"> Data Baru </a>
 				</div>
 				<div class="col-md-4 col-sm-8 col-xs-12">
-					{!! Form::open(array('route' => 'backend.settings.shippingCost.index', 'method' => 'get' )) !!}
+					{!! Form::open(array('route' => 'backend.settings.couriers.show', 'method' => 'get' )) !!}
 						<div class="row">
 							<div class="col-md-2 col-sm-3 hidden-xs">
 							</div>
 							<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
+								{!!Form::hidden('cou_id', Input::get('cou_id'))!!}
 								{!! Form::input('text', 'q', Null ,[
 											'class'         => 'form-control',
 											'placeholder'   => 'Cari sesuatu',

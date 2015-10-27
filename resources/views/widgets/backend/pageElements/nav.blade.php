@@ -5,7 +5,7 @@
 				{!! HTML::image('Balin/admin/image/logo.png') !!}
 			</li>
 			<li class="@if($nav_active=='dashboard') active @endif">
-				<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+				<a href="{{ route('backend.home') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
 			</li>
 			<li class="@if($nav_active=='data') active @endif }}">
 				<a href="#"><i class="fa fa-archive"></i> <span class="nav-label">Data</span></a>
@@ -47,8 +47,8 @@
 					<li class="@if($subnav_active=='store') active @endif">
 						<a href="{{ route('backend.settings.store.index') }}"><i class="fa fa-home"></i> <span class="nav-label">Toko Online</span></a>
 					</li>
-					<li>
-						<a href=""><i class="fa fa-life-ring"></i> <span class="nav-label">Policy</span></a>
+					<li class="@if($subnav_active=='policy') active @endif">
+						<a href="{{ route('backend.settings.policies.index') }}"><i class="fa fa-life-ring"></i> <span class="nav-label">Policy</span></a>
 					</li>					
 				</ul>
 			</li>

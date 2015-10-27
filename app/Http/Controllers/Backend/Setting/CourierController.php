@@ -51,17 +51,19 @@ class CourierController extends baseController
 
 	public function show($id)
 	{
-		$breadcrumb										= 	[	'Produk' => 'backend.settings.courier.index',
-																'Detail' => 'backend.settings.courier.create',
+		$breadcrumb										= 	[	'Kurir' 	=> 'backend.settings.courier.index',
+																'Detail' 	=> 'backend.settings.courier.create',
 															];
 
-		if ($search = Input::get('q'))
+		if(Input::has('q'))
 		{
-			$searchResult								= $search;
+			$filters 								= ['postalcode' => Input::get('q')];
+			
+			$searchResult							= Input::get('q');
 		}
 		else
 		{
-			$searchResult								= NULL;
+			$searchResult							= null;
 		}
 
 		$this->layout->page 							= view('pages.backend.settings.courier.show')
@@ -70,6 +72,7 @@ class CourierController extends baseController
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', $searchResult)
 																		->with('id', $id)
+																		->with('filters', $filters)
 																		->with('nav_active', 'settings')
 																		->with('subnav_active', 'courier')
 																		;
