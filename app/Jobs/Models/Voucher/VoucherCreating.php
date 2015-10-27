@@ -8,12 +8,11 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Voucher;
 
-
-class voucherDeleting extends Job implements SelfHandling
+class VoucherCreating extends Job implements SelfHandling
 {
     protected $voucher;
 
-    public function __construct(voucher $voucher)
+    public function __construct(Voucher $voucher)
     {
         $this->voucher                 = $voucher;
     }
