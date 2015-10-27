@@ -11,15 +11,21 @@ namespace App\Jobs;
 use App\Jobs\Job;
 
 use App\Models\Transaction;
+use App\Models\Voucher;
+use App\Models\Policy;
+use App\Models\PointLog;
 
 use App\Libraries\JSend;
 
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use Exception;
 
 class ReferralPointIsGiven extends Job implements SelfHandling
 {
+    use DispatchesJobs;
+
     /**
      * Create a new job instance.
      *
@@ -57,7 +63,7 @@ class ReferralPointIsGiven extends Job implements SelfHandling
             //if there is referral code
             if($voucher->type=='referral')
             {
-                if($voucher->user_id==$transaction->user_id)
+                if($voucher->user_id==$this->transaction->user_id)
                 {
                     return new JSend('error', (array)$this->transaction, 'Tidak dapat memakai referral code anda');
                 }
@@ -96,6 +102,7 @@ class ReferralPointIsGiven extends Job implements SelfHandling
                     }
                     else
                     {
+                        dd($point->getError());
                         $result         = new JSend('error', (array)$this->transaction, $point->getError());
                     }
                 }

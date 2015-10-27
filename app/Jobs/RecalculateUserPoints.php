@@ -7,7 +7,7 @@ use DB;
 use App\Jobs\Job;
 
 use App\Models\user;
-use App\Models\pointlog;
+use App\Models\PointLog;
 use App\Libraries\JSend;
 
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -29,27 +29,27 @@ class RecalculateUserPoints extends Job implements SelfHandling
         }
 
         //calculate valid points
-        $points                             = pointlog::where('user_id',$this->user->id)
-                                                        ->where('expired_date','>=', date('Y-m-d H:i:s', strtotime('now') ))
-                                                        ->select(DB::raw('sum(debit) - sum(credit) AS total_points'))
+        $points                             = PointLog::userid($this->user->id)
+                                                        ->where('expired_date','>=', date('Y-m-d H:i:s', strtotime('now')))
+                                                        ->selectraw('sum(debit) - sum(credit) as total_points')
                                                         ->first();
 
         //update user's points
         $data                               = $this->user;
+
         $data->fill([
                 'balance'                  => $points['total_points']
             ]);
 
         if(!$data->save())
         {
-            return false;
-            // $result                         = new Jsend('error', (array)$data, (array)$data->getError());
+            $result                         = new JSend('error', (array)$data, (array)$data->getError());
         }
         else
         {
-            return true;
-            // $result                         = new Jsend('success', ['message' => 'Points recalculated']);
+            $result                         = new JSend('success', (array)$data);
         }
 
+        return $result;
     }
 }

@@ -93,4 +93,9 @@ class Voucher extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+
+	public function scopeCode($query, $variable)
+	{
+		return 	$query->where('code', $variable);
+	}
 }
