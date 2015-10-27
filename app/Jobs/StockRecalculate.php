@@ -10,6 +10,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use App\Models\Product;
 use App\Models\Stock;
 
@@ -50,9 +51,9 @@ class StockRecalculate extends Job implements SelfHandling
 
         foreach ($details as $key => $value) 
         {
-            $onhold                 = Product::id($value->product_id)->countOnHoldStock(true);
-            $reserved               = Product::id($value->product_id)->countReservedStock(true);
-            $physical               = Product::id($value->product_id)->CountBoughtStock(true);
+            $onhold                 = TransactionDetail::productid($value->product_id)->countOnHoldStock(true);
+            $reserved               = TransactionDetail::productid($value->product_id)->countReservedStock(true);
+            $physical               = TransactionDetail::productid($value->product_id)->CountBoughtStock(true);
             $current                = 0;
 
             if(isset($physical->bought_stock))
@@ -109,11 +110,11 @@ class StockRecalculate extends Job implements SelfHandling
 
         if($errors->count())
         {
-            $result                 = new Jsend('error', (array)$this->transaction, (array)$errors);
+            $result                 = new JSend('error', (array)$this->transaction, (array)$errors);
         }
         else
         {
-            $result                 = new Jsend('success', (array)$this->transaction);
+            $result                 = new JSend('success', (array)$this->transaction);
         }
 
         return $result;

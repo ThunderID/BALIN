@@ -230,7 +230,7 @@ class Product extends Eloquent
 	{
 		return 	$query
 					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as on_hold_stock')
-					->wherehas('transactions', function($q){$q->status(['draft', 'waiting'])->type('sell');})
+					->wherehas('transactions', function($q){$q->status(['waiting'])->type('sell');})
 					->first()
 					;
 		;
