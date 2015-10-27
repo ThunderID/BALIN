@@ -17,9 +17,37 @@
         		<div class="row">
         			<div class="col-md-3">
 			            </br>
-					    <div class="thumbnail">
-					        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
-					    </div>
+        				<div class="row">
+        					<div class="col-md-12">
+							    <div class="thumbnail">
+							        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
+							    </div>
+						    </div>
+        				</div>
+        				<div class="row">
+        					<div class="col-md-12">
+								<div class="owl-carousel">
+								    <div class="item">
+								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
+								    </div>					    
+								    <div class="item">
+								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
+								    </div>					    
+								    <div class="item">
+								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
+								    </div> 
+								    <div class="item">
+								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
+								    </div>					    
+								    <div class="item">
+								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
+								    </div>					    
+								    <div class="item">
+								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
+								    </div>  			     
+								</div>      
+	        				</div>
+        				</div>
         			</div>
         			<div class="col-md-5">
         				<div class="row">
@@ -95,6 +123,10 @@
         			</div>
         		</div>
         	</div>
-        </div>      
+        </div> 
     </div>
+@stop
+
+@section('script_plugin')
+	@include('plugins.owlCarousel')
 @stop

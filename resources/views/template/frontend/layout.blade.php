@@ -51,6 +51,7 @@
     });
 
     </script>
+    @yield('script_plugin')
 </body>
 
 </html>
