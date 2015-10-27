@@ -49,8 +49,7 @@ class SendBillingEmail extends Job implements SelfHandling
 		                            'view'          => 'emails.test', 
 		                            'datas'         => 	[
 		                            						'name'	=> $name,
-		                            						'products' => (array)$datas->getData(),
-		                            						'transaction'	=> $this->transaction,
+		                            						'transactions' => (array)$datas->getData()
 		                            					],
 		                            'dest_email'    => $this->transaction->user->email, 
 		                            'dest_name'     => $name, 
