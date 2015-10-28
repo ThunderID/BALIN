@@ -21,19 +21,19 @@
 						</div> \
 						<div class="col-md-2"> \
 							<div class="form-group"> \
-								<label for="harga">Harga</label> \
+								<label for="harga[]">Harga</label> \
 								<input type="text" name="price[]" class="form-control text-right transaction-input-price" @if(Input::get("type")!="buy") readonly @endif/> \
 							</div> \
 						</div> \
 						<div class="col-md-2"> \
 							<div class="form-group"> \
-								<label for="diskon">Diskon</label> \
+								<label for="diskon[]">Diskon</label> \
 								<input type="text" name="discount[]" class="form-control text-right transaction-input-discount" @if(Input::get("type")!="buy") readonly @endif/> \
 							</div> \
 						</div> \
 						<div class="col-md-2"> \
 							<div class="form-group"> \
-								<label for="harga">Jumlah Harga</label> \
+								<label for="harga[]">Jumlah Harga</label> \
 								<input type="text" name="tot_price[]" class="form-control text-right transaction-input-jum-price" /> \
 							</div> \
 						</div> \
