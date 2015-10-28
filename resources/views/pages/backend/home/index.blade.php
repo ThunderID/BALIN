@@ -1,6 +1,7 @@
 @inject('product', 'App\Models\Product')
 @inject('transaction', 'App\Models\Transaction')
 @inject('point', 'App\Models\PointLog')
+
 <?php 
 $total_product          = $product->HasStocks(true)->count();
 $total_trans            = $transaction->type('sell')->status(['paid', 'shipped', 'delivered'])->ondate(['first day of this month', 'last day of this month'])->sum('amount');

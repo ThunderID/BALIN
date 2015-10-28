@@ -2,9 +2,9 @@
 <?php 
 	$stat 		= $data->id($id)->totalsell(true)->first();
 	$suppliers 	= $data->id($id)->suppliers(true)->first();
-	$data 		= $data::id($id)
-					->with(['categories', 'images', 'stocks'])
-					->first(); 
+	// $product 		= $product::id($id)
+	// 				->with(['categories', 'images', 'stocks'])
+	// 				->first(); 
 ?>
 
 @extends('template.backend.layout') 
@@ -21,7 +21,7 @@
 		<div class="col-md-6">
 			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12 text-center">
-					@foreach ($data->images as $k => $img)
+					@foreach ($product->images as $k => $img)
 						@if ($k==5)
 								</div>
 							</div>
@@ -61,8 +61,8 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Stok Display</div>
 				<div class="panel-body">
-					@if(isset($data->stocks[0]))
-						{!! $data->stocks[0]->current_stock !!}
+					@if(isset($product->stocks[0]))
+						{!! $product->stocks[0]->current_stock !!}
 					@else
 						0
 					@endif
@@ -72,8 +72,8 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Stok Gudang</div>
 				<div class="panel-body">
-					@if(isset($data->stocks[0]))
-						{!! $data->stocks[0]->current_stock + $data->stocks[0]->reserved_stock + $data->stocks[0]->on_hold_stock !!}
+					@if(isset($product->stocks[0]))
+						{!! $product->stocks[0]->current_stock + $product->stocks[0]->reserved_stock + $product->stocks[0]->on_hold_stock !!}
 					@else
 						0
 					@endif
@@ -84,8 +84,8 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Stok Dibayar</div>
 				<div class="panel-body">
-					@if(isset($data->stocks[0]))
-						{!! $data->stocks[0]->reserved_stock !!}
+					@if(isset($product->stocks[0]))
+						{!! $product->stocks[0]->reserved_stock !!}
 					@else
 						0
 					@endif
@@ -95,8 +95,8 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Stok Dipesan</div>
 				<div class="panel-body">
-					@if(isset($data->stocks[0]))
-						{!! $data->stocks[0]->on_hold_stock !!}
+					@if(isset($product->stocks[0]))
+						{!! $product->stocks[0]->on_hold_stock !!}
 					@else
 						0
 					@endif
@@ -107,19 +107,19 @@
 	
 	<div class="row">
 		<div class="col-md-8">
-			<h2 style="margin-top:0px;">{!!$data->name!!}</h2>
-			<h5><strong>SKU</strong> {!!$data->sku!!}</h5>
+			<h2 style="margin-top:0px;">{!!$product->name!!}</h2>
+			<h5><strong>SKU</strong> {!!$product->sku!!}</h5>
 			<h5>
-				<strong>Harga</strong> @if($data->discount!=0)<strike> {!!$data->price!!} </strike> {!!$data->promo_price!!} @else {!!$data->price!!} @endif 
-				<span>[ <a href="{{ route('backend.data.product.price.index', ['product_id' => $data['id']]) }}">Histori Harga</a> ]</span>
+				<strong>Harga</strong> @if($product->discount!=0)<strike> {!!$product->price!!} </strike> {!!$product->promo_price!!} @else {!!$product->price!!} @endif 
+				<span>[ <a href="{{ route('backend.data.product.price.index', ['product_id' => $product['id']]) }}">Histori Harga</a> ]</span>
 			</h5> 
-			<h5><strong>Diskon</strong> {!!$data->discount!!}</h5>
-			@if($data->is_new)
+			<h5><strong>Diskon</strong> {!!$product->discount!!}</h5>
+			@if($product->is_new)
 				<label class="label label-danger">New</label><br/>
 			@endif
 			<br/>
 			<i class = "fa fa-tags"></i>
-			@foreach($data->categories as $key => $value)
+			@foreach($product->categories as $key => $value)
 				@if($key!=0)
 					,
 				@endif
@@ -127,7 +127,7 @@
 			@endforeach
 			<br/>
 			<br/>
-			{!!$data->description!!}
+			{!!$product->description!!}
 		</div>
 		<div class="col-md-4">
 			<div class="panel panel-default">

@@ -3,9 +3,9 @@
 @section('content')
 <div class="container-fluid">
 
-    @include('widgets.backend.pageElements.pageTitle')
-    @include('widgets.backend.pageElements.breadcrumb')
-    @include('widgets.backend.pageElements.alertBox')
+    @include('widgets.backend.pageelements.pageTitle')
+    @include('widgets.backend.pageelements.breadcrumb')
+    @include('widgets.backend.pageelements.alertBox')
 
 
     <div class="row">

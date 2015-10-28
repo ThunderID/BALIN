@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container-fluid">
-	@include('widgets.backend.pageElements.pageTitle')
-    @include('widgets.backend.pageElements.breadcrumb')
-    @include('widgets.backend.pageElements.alertBox')
+	@include('widgets.backend.pageelements.pageTitle')
+    @include('widgets.backend.pageelements.breadcrumb')
+    @include('widgets.backend.pageelements.alertBox')
 
     <div class="row">
         <div class="col-lg-12">
@@ -67,6 +67,6 @@
 	</br>
 	@include('pages.backend.menu-shipping.courier.courierBranch.index')
 </div>
-@include('widgets.pageElements.formModal1', array('modal_id'=>'cou_del', 'modal_content' => 'pages.backend.menu-shipping.courier.delete', 'mod_btn_type' => 'danger'))
-@include('widgets.pageElements.formModal1', array('modal_id'=>'cou', 'modal_content' => 'pages.backend.menu-shipping.courier.create', 'mod_btn_type' => 'success'))
+@include('widgets.pageelements.formModal1', array('modal_id'=>'cou_del', 'modal_content' => 'pages.backend.menu-shipping.courier.delete', 'mod_btn_type' => 'danger'))
+@include('widgets.pageelements.formModal1', array('modal_id'=>'cou', 'modal_content' => 'pages.backend.menu-shipping.courier.create', 'mod_btn_type' => 'success'))
 @stop

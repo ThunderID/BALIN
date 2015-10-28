@@ -26,7 +26,7 @@
         {!! Form::close() !!}
     </div>            
 </div>
-@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.courier.detail', ['courier_id' => $data['id']] )])
+@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.courier.detail', ['courier_id' => $data['id']] )])
 </br> 
 <div class="row">
     <div class="col-lg-12">
@@ -108,8 +108,8 @@
 </div>
 
 
-@include('widgets.pageElements.formModal1', array('modal_id'=>'cou_branch', 'modal_content' => 'pages.backend.menu-shipping.courier.courierBranch.create' ))
-@include('widgets.pageElements.formModal1', array('modal_id'=>'cou_branch_del', 'modal_content' => 'pages.backend.menu-shipping.courier.courierBranch.delete' ))
+@include('widgets.pageelements.formModal1', array('modal_id'=>'cou_branch', 'modal_content' => 'pages.backend.menu-shipping.courier.courierBranch.create' ))
+@include('widgets.pageelements.formModal1', array('modal_id'=>'cou_branch_del', 'modal_content' => 'pages.backend.menu-shipping.courier.courierBranch.delete' ))
 
 
 @section('script')

@@ -46,8 +46,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="">Jenis</label>
-					{!! Form::select('is_new', ['0' => 'Biasa', '1' => 'Baru'], null, ['class' => 'form-control']) !!}
+					<label for="">Baru</label>
+					{!! Form::select('is_new', ['1' => 'Ya', '0' => 'Tidak'], null, ['class' => 'form-control']) !!}
 				</div>
 			</div>
 		</div>

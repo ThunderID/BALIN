@@ -42,7 +42,7 @@ $datas 			= $datas->orderby('account_name')->paginate();
 					{!! Form::close() !!}
 				</div>            
 			</div>
-			@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.data.payment.index') ])
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.payment.index') ])
 			</br> 
 			<div class="row">
 				<div class="col-lg-12">
@@ -90,7 +90,7 @@ $datas 			= $datas->orderby('account_name')->paginate();
 									</tr>       
 									<?php $ctr += 1; ?>                     
 									@endforeach 
-									@include('widgets.pageElements.formModalDelete', [
+									@include('widgets.pageelements.formmodaldelete', [
 											'modal_id'      => 'payment_del', 
 											'modal_route'   => route('backend.data.payment.destroy', 0)
 									])

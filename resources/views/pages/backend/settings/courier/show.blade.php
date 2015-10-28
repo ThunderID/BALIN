@@ -77,7 +77,7 @@ $shippingcosts = $shippingcosts->courierid($data['id'])->paginate();
 			{!! Form::close() !!}
 		</div>            
 	</div>
-	@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.data.product.index') ])
+	@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.product.index') ])
 
 
 	<div class="table-responsive">
@@ -130,7 +130,7 @@ $shippingcosts = $shippingcosts->courierid($data['id'])->paginate();
 		</div>
 	@endif
 
-	@include('widgets.pageElements.formModalDelete', [
+	@include('widgets.pageelements.formmodaldelete', [
 				'modal_id'      => 'sc_del', 
 				'modal_route'   => 'backend.settings.shippingcost.destroy'
 	])      
@@ -187,7 +187,7 @@ $shippingcosts = $shippingcosts->courierid($data['id'])->paginate();
 
 	<?php /*
 	@include(
-		'widgets.pageElements.formModalDelete', [
+		'widgets.pageelements.formmodaldelete', [
 				'modal_id'      => 'product_del', 
 				'modal_route'   => 'backend.settings.shipment.destroy'
 			]

@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container-fluid">
-	@include('widgets.backend.pageElements.pageTitle')
-    @include('widgets.backend.pageElements.breadcrumb')
-    @include('widgets.backend.pageElements.alertBox')
+	@include('widgets.backend.pageelements.pageTitle')
+    @include('widgets.backend.pageelements.breadcrumb')
+    @include('widgets.backend.pageelements.alertBox')
 	<div class="row">
         <div class="col-lg-12">
             <div class="row">
@@ -28,7 +28,7 @@
                     {!! Form::close() !!}
                 </div>            
             </div>
-            @include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.selling.index') ])
+            @include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.selling.index') ])
             </br> 
             <div class="row">
                 <div class="col-lg-12">
@@ -104,7 +104,7 @@
                                     </tr>       
                                     <?php $ctr += 1; ?>                     
                                     @endforeach 
-                                    @include('widgets.pageElements.formModal1', array('modal_id'=>'trans_del', 'modal_content' => 'pages.backend.selling.delete'))
+                                    @include('widgets.pageelements.formModal1', array('modal_id'=>'trans_del', 'modal_content' => 'pages.backend.selling.delete'))
                                 @endif
                             </tbody>
                         </table> 
@@ -119,7 +119,7 @@
         </div>
     </div>
 </div>
-@include('widgets.pageElements.formModal2', array('modal_id'=>'trans', 'modal_content' => 'pages.backend.selling.create'))                                    
+@include('widgets.pageelements.formModal2', array('modal_id'=>'trans', 'modal_content' => 'pages.backend.selling.create'))                                    
 @stop
 
 @section('script')

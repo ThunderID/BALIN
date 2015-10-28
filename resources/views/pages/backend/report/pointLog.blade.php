@@ -62,7 +62,7 @@ $datas 			= $datas
 		</div> 				
 	</div>
 	</br>
-	@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.report.pointlog') ])
+	@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.report.pointlog') ])
 	</br>
 	<div class="row">
 		<div class="col-lg-12">
@@ -107,7 +107,7 @@ $datas 			= $datas
 									</tr>       
 									<?php $ctr += 1; ?>                     
 									@endforeach 
-									@include('widgets.pageElements.formModal1', array('modal_id'=>'trans_del', 'modal_content' => 'pages.backend.data.transaction.delete'))
+									@include('widgets.pageelements.formModal1', array('modal_id'=>'trans_del', 'modal_content' => 'pages.backend.data.transaction.delete'))
 								@endif
 							</tbody>							
 						<table>

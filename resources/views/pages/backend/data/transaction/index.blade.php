@@ -52,7 +52,7 @@ else
 					{!! Form::close() !!}
 				</div>            
 			</div>
-			@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.data.supplier.index') ])
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.supplier.index') ])
 			<div class="clearfix">&nbsp;</div>
 			<div class="row">
 				<div class="col-lg-12">
@@ -117,7 +117,7 @@ else
 									</tr>       
 									<?php $ctr += 1; ?>                     
 									@endforeach 
-									@include('widgets.pageElements.formModalDelete', [
+									@include('widgets.pageelements.formmodaldelete', [
 											'modal_id'      => 'trans_del', 
 											'modal_route'   => route('backend.data.transaction.destroy', 0)
 									])

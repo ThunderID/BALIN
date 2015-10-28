@@ -94,7 +94,7 @@
 		</div>  
 
 		@include(
-			'widgets.pageElements.formModalDelete', [
+			'widgets.pageelements.formmodaldelete', [
 					'modal_id'      => 'product_del', 
 					'modal_route'   => 'backend.data.product.destroy'
 				]

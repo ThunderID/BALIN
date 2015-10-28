@@ -37,7 +37,7 @@
                     {!! Form::close() !!}
                 </div>            
             </div>
-            @include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.discount.index') ])
+            @include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.discount.index') ])
             </br> 
             <div class="row">
                 <div class="col-lg-12">
@@ -98,7 +98,7 @@
                                     <?php $ctr += 1; ?>                     
                                     @endforeach 
                                     @include(
-                                        'widgets.pageElements.formModalDelete', 
+                                        'widgets.pageelements.formmodaldelete', 
                                         array(
                                             'modal_id'      => 'discount_del', 
                                             'modal_route'   => 'backend.discount.delete'

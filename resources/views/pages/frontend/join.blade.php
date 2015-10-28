@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-5 col-xs-12">
-		                @include('widgets.pageElements.pageTitle', array('pageTitle' => 'Sign In'))                                                                                                              
+		                @include('widgets.pageelements.pageTitle', array('pageTitle' => 'Sign In'))                                                                                                              
 
                         <div class="row carousel-holder">
 		                </div>
@@ -24,7 +24,7 @@
                     <div class="col-md-2"></div>
 
                     <div class="col-md-5 col-xs-12">
-		                @include('widgets.pageElements.pageTitle', array('pageTitle' => 'Sign Up'))                                                                                                              
+		                @include('widgets.pageelements.pageTitle', array('pageTitle' => 'Sign Up'))                                                                                                              
 
 
                         <div class="row carousel-holder">

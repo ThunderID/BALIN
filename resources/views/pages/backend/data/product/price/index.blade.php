@@ -42,7 +42,7 @@ $datas 			= $datas->where('product_id', $product_id)->orderby('started_at', 'des
 					{!! Form::close() !!}
 				</div>            
 			</div>
-			@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.data.product.price.index') ])
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.product.price.index') ])
 			</br> 
 			<div class="row">
 				<div class="col-lg-12">
@@ -91,7 +91,7 @@ $datas 			= $datas->where('product_id', $product_id)->orderby('started_at', 'des
 										<?php $ctr += 1; ?>                     
 									@endforeach 
 									
-									@include('widgets.pageElements.formModalDelete', [
+									@include('widgets.pageelements.formmodaldelete', [
 											'modal_id'      => 'product_del', 
 											'modal_route'   => route('backend.data.product.price.destroy', $data['id'])
 									])

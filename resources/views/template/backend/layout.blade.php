@@ -19,22 +19,22 @@
 
 <body>
 	<div id="wrapper">
-		@include('widgets.backend.pageElements.nav')
+		@include('widgets.backend.pageelements.nav')
 		
 		<div id="page-wrapper" class="white-bg dashbard-1">
 			<div class="row border-bottom">
-				@include('widgets.backend.pageElements.topbar')
+				@include('widgets.backend.pageelements.topbar')
 			</div>
 			<div class="row  border-bottom white-bg dashboard-header">
 				<div class="col-lg-10">
-					@include('widgets.backend.pageElements.pageTitle')
-	            @include('widgets.backend.pageElements.breadcrumb')
+					@include('widgets.backend.pageelements.pagetitle')
+	            @include('widgets.backend.pageelements.breadcrumb')
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="wrapper wrapper-content">
-						@include('widgets.backend.pageElements.alertBox')
+						@include('widgets.backend.pageelements.alertbox')
 						@yield('content')
 					</div>
 				</div>

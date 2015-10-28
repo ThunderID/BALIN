@@ -48,7 +48,7 @@ $datas 			= $datas->orderby('path')->paginate();
 					{!! Form::close() !!}
 				</div>            
 			</div>
-			@include('widgets.backend.pageElements.headerSearchResult', ['closeSearchLink' => route('backend.settings.category.index') ])
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.settings.category.index') ])
 			</br> 
 			<div class="row">
 				<div class="col-lg-12">
@@ -95,7 +95,7 @@ $datas 			= $datas->orderby('path')->paginate();
 											</td>    
 										</tr>
 									@endforeach 
-									@include('widgets.pageElements.formModalDelete', [
+									@include('widgets.pageelements.formmodaldelete', [
 										'modal_id'      => 'category_del', 
 										'modal_route'   => 'backend.settings.category.destroy'
 									])                                    

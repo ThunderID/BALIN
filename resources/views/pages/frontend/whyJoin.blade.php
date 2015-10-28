@@ -5,7 +5,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                @include('widgets.pageElements.pageTitle', array('pageTitle' => 'Why Join'))                                                                                                              
+                @include('widgets.pageelements.pageTitle', array('pageTitle' => 'Why Join'))                                                                                                              
 
                 <div class="row carousel-holder">
                 </div>

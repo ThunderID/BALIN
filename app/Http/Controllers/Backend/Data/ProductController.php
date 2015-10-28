@@ -19,12 +19,12 @@ class ProductController extends baseController
     	parent::__construct();
     }
 
-	protected $view_name 								= 'Product';
+	protected $view_name 								= 'Produk';
 	
 
 	public function index()
 	{	
-		$breadcrumb										= ['Produk' => 'backend.data.product.index'];
+		$breadcrumb										= ['Data Produk' => route('backend.data.product.index')];
 		
 		$filters 										= null;
 
@@ -54,19 +54,23 @@ class ProductController extends baseController
 	{
 		if($id) 
 		{
-			$breadcrumb									= 	[	'Produk' => 'backend.data.product.index',
-																'Edit Data' => 'backend.data.product.create'
-																];
+			$product 									= Product::findorfail($id);
 
-			$title 										= 	'Edit';
+			$breadcrumb									= 	[	'Data Produk' 			=> route('backend.data.product.index'),
+																'Edit '	.$product->name	=> route('backend.data.product.edit', $id),
+															];
+
+			$title 										= 	'Edit '.$product->name;
 		}
 		else
 		{
-			$breadcrumb									= 	[	'Produk' => 'backend.data.product.index',
-																'Data Baru' => 'backend.data.product.create'
+			$product 									= new Product;
+
+			$breadcrumb									= 	[	'Data Produk' 	=> route('backend.data.product.index'),
+																'Baru' 			=> route('backend.data.product.create'),
 															];
 
-			$title 										= 	'Create';
+			$title 										= 	'Baru';
 		}
 
 		$this->layout->page 							= view('pages.backend.data.product.create')
@@ -75,6 +79,7 @@ class ProductController extends baseController
 																->with('WB_breadcrumbs', $breadcrumb)
 																->with('id', $id)
 																->with('nav_active', 'data')
+																->with('product', $product)
 																->with('subnav_active', 'products');
 
 		return $this->layout;		
@@ -87,8 +92,10 @@ class ProductController extends baseController
 
 	public function show($id)
 	{
-		$breadcrumb										= 	[	'Produk' => 'backend.data.product.index',
-																'Detail' => 'backend.data.product.create',
+		$product 										= Product::findorfail($id);
+
+		$breadcrumb										= 	[	'Data Produk' 	=> route('backend.data.product.index'),
+																$product->name	=> route('backend.data.product.show', $id),
 															];
 
 		if ($search = Input::get('q'))
@@ -102,12 +109,13 @@ class ProductController extends baseController
 
 		$this->layout->page 							= view('pages.backend.data.product.show')
 																		->with('WT_pageTitle', $this->view_name )
-																		->with('WT_pageSubTitle','Show')
+																		->with('WT_pageSubTitle', $product->name)
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', $searchResult)
 																		->with('id', $id)
-																		->with('nav_active', 'product')
-																		->with('subnav_active', 'product')
+																		->with('nav_active', 'data')
+																		->with('subnav_active', 'products')
+																		->with('product', $product)
 																		;
 
 		return $this->layout;

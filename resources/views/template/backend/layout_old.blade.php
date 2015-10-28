@@ -26,13 +26,13 @@
 <body>
     <div id="wrapper">
 
-        @include('widgets.backend.pageElements.nav')
+        @include('widgets.backend.pageelements.nav')
 
         <div id="page-wrapper">
             <div class="container-fluid">
-                @include('widgets.backend.pageElements.pageTitle')
-                @include('widgets.backend.pageElements.breadcrumb')
-                @include('widgets.backend.pageElements.alertBox')
+                @include('widgets.backend.pageelements.pageTitle')
+                @include('widgets.backend.pageelements.breadcrumb')
+                @include('widgets.backend.pageelements.alertBox')
                 @yield('content')
             </div>
         </div>
