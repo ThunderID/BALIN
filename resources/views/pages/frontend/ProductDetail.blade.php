@@ -18,83 +18,72 @@
         			<div class="col-md-3">
 			            </br>
         				<div class="row">
-        					<div class="col-md-12">
+        					<div class="col-md-12 hidden-xs">
 							    <div class="thumbnail">
-							        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
+							        <img class="img img-responsive myCanvas"  src="{{$data['default_image']}}" alt="">
 							    </div>
 						    </div>
         				</div>
         				<div class="row">
         					<div class="col-md-12">
 								<div class="owl-carousel">
-								    <div class="item">
-								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
-								    </div>					    
-								    <div class="item">
-								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
-								    </div>					    
-								    <div class="item">
-								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
-								    </div> 
-								    <div class="item">
-								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
-								    </div>					    
-								    <div class="item">
-								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
-								    </div>					    
-								    <div class="item">
-								        <img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
-								    </div>  			     
+									@for ($i = 0; $i < 7; $i++)
+									    <div class="item">
+									        <img class="img img-responsive canvasSource" id="canvasSource{{$i}}" src="{{$data['default_image']}}" alt="">
+									    </div>					    
+									@endfor							    	     
 								</div>      
-	        				</div>
+	        				</div>        				
         				</div>
         			</div>
         			<div class="col-md-5">
-        				<div class="row">
-        					<h3>{{$data['name']}}</h3>
-        					<p>
-			        			<i class = "fa fa-tags"></i>
-								@foreach($data->categories as $key => $value)
-									@if($key!=0)
-										,
-									@endif
-									{!! $value->name !!}
-								@endforeach
-			        		</p>
-	        				</br>
-	        				<?php $discount = $data->discount; ?> 
-	        				@if($discount == 0)
-		        				<h4>Price : Rp {{ number_format($data->price, 2, ',', '.') }}</h4>
-	        				@else
-		        				<h4>Price : Rp {{ number_format($data->price, 2, ',', '.') }}</h4>
-		        				<h4>Promo Price: Rp {{ number_format($data->promo_price, 2, ',', '.') }}</h4>
-		        				<p>Discount : Rp {{ number_format($data->discount, 2, ',', '.') }}</p>
-	        				@endif
-        				<div class="row">
-        				</div>
-	        				<h4>Deskripsi</h4>
-	        				<p>{{$data->description}}</p>      					        				
+    					<div class="col-xs-12 col-md-12 col-sm-12">
+	        				<div class="row">
+	        					<h3>{{$data['name']}}</h3>
+	        					<p>
+				        			<i class = "fa fa-tags"></i>
+									@foreach($data->categories as $key => $value)
+										@if($key!=0)
+											,
+										@endif
+										{!! $value->name !!}
+									@endforeach
+				        		</p>
+		        				</br>
+		        				<?php $discount = $data->discount; ?> 
+		        				@if($discount == 0)
+			        				<h4>Price : Rp {{ number_format($data->price, 2, ',', '.') }}</h4>
+		        				@else
+			        				<h4>Price : Rp {{ number_format($data->price, 2, ',', '.') }}</h4>
+			        				<h4>Promo Price: Rp {{ number_format($data->promo_price, 2, ',', '.') }}</h4>
+			        				<p>Discount : Rp {{ number_format($data->discount, 2, ',', '.') }}</p>
+		        				@endif
+		        			</div>
+	        				<div class="row">
+		        				<h4>Deskripsi</h4>
+		        				<p>{{$data->description}}</p>     
+	        				</div> 					        				
         				</div>
         			</div>        			
-        			<div class="col-md-1"></div>
-        			<div class="col-md-3">
+        			<div class="col-md-1 col-sm-12 col-xs-12"></br></div>
+        			<div class="col-md-3 col-sm-12 col-xs-12">
     					<div class="row panel-hollow panel-default">
-        					<div class="col-md-12" style="padding:7px;">
-		    					@if($data->stock == 0)
-			        				<div class="row">
-			        					<div class="col-md-12">
-					        				</br>
-					        				</br>
-			        						<h4 class="text-center">
-		        								Sorry,</br>
-		        								Out of Stock
-		        							</h4>
-					        				</br>
-					        				</br>
-			        					</div>
-				        			</div>
-		        				@else
-									<form role="form" style="padding-right:inherit;padding-left:inherit;">
+        					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:7px;">
+								<form role="form" style="padding-right:inherit;padding-left:inherit;">
+			    					@if($data->stock == 0)
+				        				<div class="row">
+				        					<div class="col-md-12">
+						        				</br>
+						        				</br>
+				        						<h4 class="text-center">
+			        								Sorry,</br>
+			        								Out of Stock
+			        							</h4>
+						        				</br>
+						        				</br>
+				        					</div>
+					        			</div>
+			        				@else
 				        				<div class="row">
 				        					<div class="col-md-12">
 				        						<h4>Beli</h4>
@@ -116,8 +105,8 @@
 				        					</div>
 				        				</div>
 					        			</br>
-			        				</form>
-		        				@endif
+			        				@endif
+		        				</form>
         					</div>
     					</div>
         			</div>
@@ -125,6 +114,17 @@
         	</div>
         </div> 
     </div>
+
+
+@stop
+
+@section('script')
+	$(document).ready(function() {
+     	$('.canvasSource').click(function() {
+           var image = $(this).attr('src');
+           $('img.myCanvas').attr('src', image);
+    	 });    
+   	});  
 @stop
 
 @section('script_plugin')
