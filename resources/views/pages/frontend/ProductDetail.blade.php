@@ -26,7 +26,7 @@
         				</div>
         				<div class="row">
         					<div class="col-md-12">
-								<div class="owl-carousel">
+								<div class="owl-carousel gallery-product">
 									@for ($i = 0; $i < 7; $i++)
 									    <div class="item">
 									        <img class="img img-responsive canvasSource" id="canvasSource{{$i}}" src="{{$data['default_image']}}" alt="">

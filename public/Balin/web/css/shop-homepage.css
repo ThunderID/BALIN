@@ -568,3 +568,27 @@ input.text-holow:focus {
 	border-radius: 0;
 	box-shadow: none;
 }
+.gallery-product .owl-controls .owl-nav .owl-prev {
+	position: absolute;
+	right: 0;
+	top: 25px;
+	background-color: rgba(0, 0, 0, 0.65);
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.gallery-product .owl-controls .owl-nav .owl-prev i {
+	color: #eee;
+	margin-left: 4px;
+}
+.gallery-product .owl-controls .owl-nav .owl-next {
+	position: absolute;
+	left: 0;
+	top: 25px;
+	background-color: rgba(0, 0, 0, 0.65);
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.gallery-product .owl-controls .owl-nav .owl-next i {
+	color: #eee;
+	margin-right: 4px;
+}
