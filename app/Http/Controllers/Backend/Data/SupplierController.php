@@ -24,13 +24,15 @@ class SupplierController extends baseController
 
 	public function index()
 	{	
-		$breadcrumb								= ['Supplier' => 'backend.data.supplier.index'];
+		$breadcrumb								= 	[	'Data Supplier' 	=> route('backend.data.supplier.index')
+													];
 
 		$filters 								= null;
 
 		if(Input::has('q'))
 		{
 			$filters 							= ['name' => Input::get('q')];
+			
 			$searchResult						= Input::get('q');
 		}
 		else
@@ -54,26 +56,20 @@ class SupplierController extends baseController
 
 	public function show($id)
 	{
-		$breadcrumb										= 	[	'Produk' => 'backend.data.supplier.index',
-																'Detail' => 'backend.data.supplier.create',
-															];
+		$supplier 								= Supplier::findorfail($id);
 
-		if ($search = Input::get('q'))
-		{
-			$searchResult								= $search;
-		}
-		else
-		{
-			$searchResult								= NULL;
-		}
+		$breadcrumb								= 	[	'Data Supplier' 	=> route('backend.data.supplier.index'),
+														$supplier->name 	=> route('backend.data.supplier.show', $supplier),
+													];
 
 		$this->layout->page 							= view('pages.backend.data.supplier.show')
 																		->with('WT_pageTitle', $this->view_name )
-																		->with('WT_pageSubTitle','Show')
+																		->with('WT_pageSubTitle',$supplier->name)
 																		->with('WB_breadcrumbs', $breadcrumb)
-																		->with('searchResult', $searchResult)
+																		->with('searchResult', null)
 																		->with('id', $id)
-																		->with('nav_active', 'supplier')
+																		->with('supplier', $supplier)
+																		->with('nav_active', 'data')
 																		->with('subnav_active', 'supplier')
 																		;
 
@@ -85,19 +81,23 @@ class SupplierController extends baseController
 	{
 		if (is_null($id))
 		{
-			$breadcrumb							= 	[	'Supplier' => 'backend.data.supplier.index',
-														'Supplier Baru' => 'backend.data.supplier.create'
+			$supplier 							= new Supplier;
+
+			$breadcrumb							= 	[	'Data Supplier' 		=> route('backend.data.supplier.index'),
+														'Baru' 					=> route('backend.data.supplier.create') 
 													];
 
-			$title 								= 'Create';
+			$title 								= 'Baru';
 		}
 		else
 		{
-			$breadcrumb							= 	[	'Supplier' => 'backend.data.supplier.index',
-														'Edit Data' => 'backend.data.supplier.create' 
+			$supplier 							= Supplier::findorfail($id);
+
+			$breadcrumb							= 	[	'Data Supplier' 		=> route('backend.data.supplier.index'),
+														'Edit '.$supplier->name	=> route('backend.data.supplier.edit', $id) 
 													];
 
-			$title 								= 	'Edit';
+			$title 								= 'Edit';
 		}
 
 		$this->layout->page 					= view('pages.backend.data.supplier.create')
@@ -105,6 +105,7 @@ class SupplierController extends baseController
 													->with('WT_pageSubTitle', $title)		
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('id', $id)
+													->with('supplier', $supplier)
 													->with('nav_active', 'data')
 													->with('subnav_active', 'supplier')
 													;
@@ -184,6 +185,7 @@ class SupplierController extends baseController
 				->with('msg-type','success');
 		}
 	}
+
     public function getExpiredFromSetting($type)
     {
         $exp_date       = policy::GetExpired(['type' => $type, 'date' => 'now'])->first();
@@ -201,11 +203,11 @@ class SupplierController extends baseController
     {
         if(date('Y-m-d H:i:s') >= date('Y-m-d H:i:s', strtotime($transac_date . $exp_date)) )
         {
-            $result         = new jsend('success', (array)'Expired');        
+            $result         = new JSend('success', (array)'Expired');        
         }
         else
         {
-            $result         = new jsend('success', (array)'Live');        
+            $result         = new JSend('success', (array)'Live');        
         }
         return $result;
     }
@@ -215,7 +217,7 @@ class SupplierController extends baseController
    	$inputs 	= Input::only('name');
    	
    	$tmp 		= Supplier::select(['id', 'name'])
-   					->where('name', 'like', "%" . $inputs['name'] . "%")
+   					->name($inputs['name'])
    					->get();
    			
    	return json_decode(json_encode($tmp));
