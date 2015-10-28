@@ -7,7 +7,11 @@
 @extends('template.backend.layout') 
 
 @section('content')
-	{!! Form::open(['route' => 'backend.data.product.price.store']) !!}
+	@if(!is_null($id))
+		{!! Form::open(['url' => route('backend.data.product.price.update', $id), 'method' => 'PATCH']) !!}
+	@else
+		{!! Form::open(['url' => route('backend.data.product.price.store'), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
+	@endif
 		<div class="row">
 			<div class="col-md-6">
 				{!! Form::hidden('product_id', $product_id) !!}
@@ -16,7 +20,7 @@
 					{!! Form::text('price', $data['price'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '2',
-								'placeholder'   => 'Masukkan harga'
+								'placeholder'   => 'Harga'
 					]) !!}
 				</div>
 			</div>
@@ -26,7 +30,7 @@
 					{!! Form::text('promo_price', $data['promo_price'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '2',
-								'placeholder'   => 'Masukkan harga promo'
+								'placeholder'   => 'Harga promo (setelah di diskon). Kosongkan bila tidak ada diskon'
 					]) !!}
 				</div>
 			</div>
@@ -36,20 +40,20 @@
 			$time = Null;
 			if (isset($data['started_at']))
 			{
-				$date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('Y-m-d');
+				$date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('d-m-Y');
 				$time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('H:i');
 			}
 		?>
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label for="start_date" class="text-capitalize">Tanggal Mulai</label>
+					<label for="start_date" class="text-capitalize">Mulai</label>
 					{!! Form::input('date','date', $date, [
 								'class'         		=> 'form-control input-date', 
 								'tabindex'      		=> '3',
-								'placeholder'   		=> 'Tanggal berlaku harga',
+								'placeholder'   		=> 'dd-mm-yyyy',
 								'data-date'		 		=> '',
-								'data-date-format'	=> 'DD-MM-YYYY',
+								'data-date-format'		=> 'dd-mm-yyyy',
 					]) !!}
 				</div>
 			</div>
@@ -58,7 +62,7 @@
 					{!! Form::input('time','time', $time, [
 								'class'         => 'form-control', 
 								'tabindex'      => '3',
-								'placeholder'   => 'Time berlaku harga',
+								'placeholder'   => 'hh:ii',
 								'style'			 => 'margin-top:23px'
 					]) !!}
 				</div>

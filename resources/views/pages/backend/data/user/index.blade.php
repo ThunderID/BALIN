@@ -14,7 +14,6 @@ $datas          = $datas->orderby('name')->paginate();
 @extends('template.backend.layout')
 
 @section('content')
-<div class="container-fluid">
 	<div class="row">
         <div class="col-lg-12">
             <div class="row">
@@ -110,7 +109,6 @@ $datas          = $datas->orderby('name')->paginate();
             </div>
         </div>
     </div>
-</div>                                    
 @stop
 
 @section('script')

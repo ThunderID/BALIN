@@ -39,7 +39,7 @@ class ProductController extends baseController
 		}
 
 		$this->layout->page 							= view('pages.backend.data.product.index')
-																		->with('WT_pageTitle', $this->view_name )
+																		->with('WT_pagetitle', $this->view_name )
 																		->with('WT_pageSubTitle','Index')
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('filters', $filters)
@@ -74,7 +74,7 @@ class ProductController extends baseController
 		}
 
 		$this->layout->page 							= view('pages.backend.data.product.create')
-																->with('WT_pageTitle', $this->view_name )
+																->with('WT_pagetitle', $this->view_name )
 																->with('WT_pageSubTitle', $title)		
 																->with('WB_breadcrumbs', $breadcrumb)
 																->with('id', $id)
@@ -108,7 +108,7 @@ class ProductController extends baseController
 		}
 
 		$this->layout->page 							= view('pages.backend.data.product.show')
-																		->with('WT_pageTitle', $this->view_name )
+																		->with('WT_pagetitle', $this->view_name )
 																		->with('WT_pageSubTitle', $product->name)
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', $searchResult)

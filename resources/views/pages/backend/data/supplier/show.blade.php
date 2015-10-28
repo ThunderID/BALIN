@@ -1,8 +1,8 @@
 @inject('data', 'App\Models\Supplier')
 @inject('products', 'App\Models\TransactionDetail')
 <?php 
-	$data 		= $data::id($id)
-					->first(); 
+	// $data 		= $data::id($id)
+	// 				->first(); 
 	$products 	= $products->supplier($id)->with(['product'])->get();
 ?>
 
@@ -18,9 +18,9 @@
 	</div>
 	<div class="row">
 		<div class="col-md-6">
-			<h2 style="margin-top:0px;">{!!$data->name!!}</h2>
-			<h5><strong>No. Telp</strong> {!!$data->phone!!}</h5>
-			<h5><strong>Alamat</strong> {!!$data->address!!}</h5>
+			<h2 style="margin-top:0px;">{!!$supplier->name!!}</h2>
+			<h5><strong>No. Telp</strong> {!!$supplier->phone!!}</h5>
+			<h5><strong>Alamat</strong> {!!$supplier->address!!}</h5>
 		</div>
 		<div class="col-md-6">
 			<div class="panel panel-default">

@@ -35,22 +35,18 @@ class SendBillingEmail extends Job implements SelfHandling
 		    }
 		    
 		    //get Billing
-			$datas 								= $this->dispatch(new GenerateBillingEmail($this->transaction));        
-
-			if($datas->getStatus() != 'success')
-			{
-		        return $datas;           
-			}
-			else
-			{
+			// $datas 								= $this->dispatch(new GenerateBillingEmail($this->transaction));        
+			$datas 									= Transaction::id($this->transaction->id)->with(['transactiondetails', 'transactiondetails.product', 'shipments', 'user']);
+			// if($datas->getStatus() != 'success')
+			// {
+		 //        return $datas;           
+			// }
+			// else
+			// {
 		        //send email
-		        $name 			=  $this->transaction->user->name;
 		        $mail_data      = [
 		                            'view'          => 'emails.test', 
-		                            'datas'         => 	[
-		                            						'name'	=> $name,
-		                            						'transactions' => (array)$datas->getData()
-		                            					],
+		                            'datas'         => $datas,
 		                            'dest_email'    => $this->transaction->user->email, 
 		                            'dest_name'     => $name, 
 		                            'subject'       => 'Billing Information', 
@@ -60,7 +56,7 @@ class SendBillingEmail extends Job implements SelfHandling
 		        $this->dispatch(new Mailman($mail_data));
 		        
 		        return new JSend('success', (array)$this->transaction)  ;           
-			}
+			// }
 		}
 		catch (Exception $e) 
 		{

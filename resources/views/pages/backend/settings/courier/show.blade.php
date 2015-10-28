@@ -132,7 +132,7 @@ $shippingcosts = $shippingcosts->courierid($data['id'])->paginate();
 
 	@include('widgets.pageelements.formmodaldelete', [
 				'modal_id'      => 'sc_del', 
-				'modal_route'   => 'backend.settings.shippingcost.destroy'
+				'modal_route'   => route('backend.settings.shippingCost.destroy')
 	])      
 
 	<div class="clearfix">&nbsp;</div>

@@ -1,7 +1,8 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
 use App\Http\Controllers\baseController;
 
-use App\Models\shippingCost;
+use App\Models\ShippingCost;
+use App\Models\Courier;
 
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect;
@@ -20,7 +21,7 @@ class ShippingCostController extends baseController
     	parent::__construct();
     }
 
-	protected $view_name 						= 'Ongkos Kirim';
+	protected $view_name 								= 'Ongkos Kirim';
 
 	public function index()
 	{
@@ -29,30 +30,35 @@ class ShippingCostController extends baseController
 
 	public function create($cou_id = null, $id = null)
 	{
-		if($id) 
-		{
-			$breadcrumb									= 	[	'Ongkos Kirim' => 'backend.settings.shippingCost.index',
-																'Edit Data' => 'backend.settings.shippingCost.index'
+		$courier 										= Courier::findorfail($cou_id);
+
+		
+		$breadcrumb										= 	[	
+																$courier->name 	=> route('backend.settings.courier.show', $cou_id),
+																'Ongkos Kirim' 	=> route('backend.settings.shippingCost.index', ['cou_id', $cou_id])
 															];
+
+		if($id) 
+		{	
+			$breadcrumb['Edit'] 						= route('backend.settings.shippingCost.edit', [$id, 'cou_id' => $cou_id]);
 
 			$title 										= 	'Edit';
 		}
 		else
 		{
-			$breadcrumb									= 	[	'Ongkos Kirim' => 'backend.settings.shippingCost.index',
-																'Data Baru' => 'backend.settings.shippingCost.index'
-															];
+			$breadcrumb['Baru'] 						= route('backend.settings.shippingCost.create', [$id, 'cou_id' => $cou_id]);
 
-			$title 										= 	'Create';
+			$title 										= 	'Baru';
 		}
 
 		$this->layout->page 							= view('pages.backend.settings.shippingCost.create')
-																->with('WT_pageTitle', $this->view_name )
+																->with('WT_pagetitle', $this->view_name )
 																->with('WT_pageSubTitle', $title)		
 																->with('WB_breadcrumbs', $breadcrumb)
 																->with('id', $id)
+																->with('courier', $courier)
 																->with('cou_id', $cou_id)
-																->with('nav_active', 'data')
+																->with('nav_active', 'settings')
 																->with('subnav_active', 'courier');
 
 		return $this->layout;		

@@ -32,7 +32,8 @@ class SendShipmentEmail extends Job implements SelfHandling
 
         //get shipment
         // call job get shipment
-		$datas 								= $this->dispatch(new GenerateShipmentEmail($this->transaction));        
+		// $datas 								= $this->dispatch(new GenerateShipmentEmail($this->transaction));        
+        $datas                              = Transaction::id($this->transaction->id)->with(['shipments', 'user']);
 
         //send email
         $mail_data      = [

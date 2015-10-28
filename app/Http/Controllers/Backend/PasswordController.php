@@ -24,7 +24,7 @@ class PasswordController extends baseController
 		$breadcrumb					= ['Ganti Password' => 'backend.changePassword'];
 
 		$this->layout->page 		= view('pages.backend.password.create')
-										->with('WT_pageTitle', $this->view_name )
+										->with('WT_pagetitle', $this->view_name )
 										->with('WT_pageSubTitle','Index')
 										->with('WB_breadcrumbs', $breadcrumb)
 										->with('nav_active', null)
