@@ -11,7 +11,7 @@
 	    margin:10,
 	    responsiveClass:true,
 	    nav: true,
-	    navText: ['<i class="fa fa-angle-double-right"></i>', '<i class="fa fa-angle-double-left"></i>' ],
+	    navText: ['<i class="fa fa-angle-right"></i>', '<i class="fa fa-angle-left"></i>' ],
 	    responsive:{
 	        0:{
 	            items:1,
