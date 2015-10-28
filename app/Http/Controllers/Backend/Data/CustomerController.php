@@ -17,11 +17,12 @@ class CustomerController extends baseController
 		parent::__construct();
 	}
 
-	protected $view_name = 'Customer';
+	protected $view_name = 'Kostumer';
 	
 	public function index()
 	{
-		$breadcrumb				= ['Customer' => 'backend.data.customer.index'];
+		$breadcrumb				= 	[	'Data Kostumer' 	=> route('backend.data.customer.index')
+									];
 
 		$filters 				= ['customer' => true];
 
@@ -49,8 +50,15 @@ class CustomerController extends baseController
 
 	public function show($id)
 	{
-		$breadcrumb				= 	[ 	'Kostumer' => 'backend.data.customer.index',
-										'Detail' => 'backend.data.customer.create',
+		$customer 				= User::customer(true)->id($id)->first();
+
+		if(!$customer)
+		{
+			App::abort(404);
+		}
+
+		$breadcrumb				= 	[ 	'Kostumer' 			=> route('backend.data.customer.index'),
+										$customer->name 	=> route('backend.data.customer.show', $id),
 									];
 
 		if(Input::has('q'))
@@ -64,9 +72,10 @@ class CustomerController extends baseController
 
 		$this->layout->page 		= view('pages.backend.data.user.show')
 									->with('WT_pageTitle', $this->view_name )
-									->with('WT_pageSubTitle','Show')
+									->with('WT_pageSubTitle',$customer->name)
 									->with('WB_breadcrumbs', $breadcrumb)
 									->with('searchResult', $searchResult)
+									->with('customer', $customer)
 									->with('id', $id)
 									->with('nav_active', 'data')
 									->with('subnav_active', 'customer')
@@ -79,22 +88,36 @@ class CustomerController extends baseController
 	{
 		if (is_null($id))
 		{
-			$breadcrumb				= 	[ 	'Customer' => 'backend.data.customer.index',
-											'Customer Baru' => 'backend.data.customer.create'
-			];
+			$customer 				= new User;
+
+			$breadcrumb				= 	[ 	'Kostumer' 		=> route('backend.data.customer.index'),
+											'Baru' 			=> route('backend.data.customer.create')
+										];
+										
+			$title 					= 'Baru';
 		}
 		else
 		{
-			$breadcrumb				= 	[ 	'Customer' => 'backend.data.customer.index',
-											'Edit Data' => 'backend.data.customer.create'
+			$customer 				= User::customer(true)->id($id)->first();
+
+			if(!$customer)
+			{
+				App::abort(404);
+			}
+			
+			$title 					= $customer->name;
+
+			$breadcrumb				= 	[ 	'Kostumer' 				=> route('backend.data.customer.index'),
+											'Edit '.$customer->name => route('backend.data.customer.edit', $id)
 										];
 		}
 		
 		$this->layout->page 		= view('pages.backend.data.user.create')
 										->with('WT_pageTitle', $this->view_name )
-										->with('WT_pageSubTitle','Create')
+										->with('WT_pageSubTitle', $title)
 										->with('WB_breadcrumbs', $breadcrumb)
 										->with('id', $id)
+										->with('customer', $customer)
 										->with('nav_active', 'data')
 										->with('subnav_active', 'customer');
 		return $this->layout;
