@@ -104,7 +104,9 @@ class TransactionController extends baseController
 	}
 
 	public function store($id = null)
-	{		
+	{
+		$inputs 							= input::only('type','supplier','customer','product','qty','price','discount','tot_price');
+
 		if($id)
 		{
 			$data							= Transaction::find($id);
@@ -113,6 +115,18 @@ class TransactionController extends baseController
 		{
 			$data 							= new Transaction;
 		}
+
+		$data->fill([
+			'supplier_id'					=> $inputs['supplier'],
+			'customer'						=> $inputs['customer'],
+			'type'							=> $inputs['type'],
+			'amount'						=> $inputs['price'],
+		]);
+
+		$data->save();
+
+		dd($data->geterror());
+
 		dd(Input::all());
 	}
 
