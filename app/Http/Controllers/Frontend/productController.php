@@ -18,7 +18,7 @@ class productController extends baseController
 
 	public function show($id = null)
 	{
-		$this->layout->page 					= view('pages.frontend.productDetail')
+		$this->layout->page 					= view('pages.frontend.ProductDetail')
 														->with('controller_name', $this->controller_name)
 														->with('id', $id)
 														;
