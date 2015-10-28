@@ -98,7 +98,7 @@
 		{
 			var qty = $(this).val();
 			var price_jum = 0;
-			var price = parseInt($(this).parent().parent().parent().find('.transaction-input-price').val());
+			var price = parseInt($(this).parent().parent().parent().find('.transaction-input-price').val()) ;
 			var discount = parseInt($(this).parent().parent().parent().find('.transaction-input-discount').val());
 
 			price_jum = (price-discount)*qty;
@@ -139,7 +139,7 @@
 		var total = 0;
 
 		$(".transaction-input-jum-price").each(function() {
-		    total += parseInt(($(this).val()));
+		    total += parseInt(($(this).val())) || 0;;
 		});
 
 		$('#total_price').val(total);
