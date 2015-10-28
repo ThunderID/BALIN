@@ -41,7 +41,7 @@ class CourierController extends baseController
 		}
 
 		$this->layout->page 							= view('pages.backend.settings.courier.index')
-																	->with('WT_pageTitle', $this->view_name )
+																	->with('WT_pagetitle', $this->view_name )
 																	->with('WT_pageSubTitle','Index')
 																	->with('WB_breadcrumbs', $breadcrumb)
 																	->with('nav_active', 'settings')
@@ -74,7 +74,7 @@ class CourierController extends baseController
 		}
 
 		$this->layout->page 							= view('pages.backend.settings.courier.show')
-																		->with('WT_pageTitle', $this->view_name )
+																		->with('WT_pagetitle', $this->view_name )
 																		->with('WT_pageSubTitle',$courier->name)
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', $searchResult)
@@ -115,7 +115,7 @@ class CourierController extends baseController
 		}
 
 		$this->layout->page 						= view('pages.backend.settings.courier.create')
-																	->with('WT_pageTitle', $this->view_name )
+																	->with('WT_pagetitle', $this->view_name )
 																	->with('WT_pageSubTitle',$title)		
 																	->with('WB_breadcrumbs', $breadcrumb)
 																	->with('id', $id)

@@ -4,7 +4,7 @@
 	<div class="container">
         <div class="row">
             <div class="col-lg-12">
-                @include('widgets.pageelements.pageTitle', array('pageTitle' => 'Profile'))                                                                                                              
+                @include('widgets.pageelements.pagetitle', array('pagetitle' => 'Profile'))                                                                                                              
 		    </div>         
 	    </div> 
 	    </br>     

@@ -56,7 +56,7 @@ class PriceController extends baseController
 
 
 		$this->layout->page 					= view('pages.backend.data.product.price.index')
-														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pagetitle', $this->view_name )
 														->with('WT_pageSubTitle',$product->name)
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('filters', $filters)
@@ -106,7 +106,7 @@ class PriceController extends baseController
 		}
 
 		$this->layout->page 					= view('pages.backend.data.product.price.create')
-														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pagetitle', $this->view_name )
 														->with('WT_pageSubTitle',$title)		
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('id', $id)

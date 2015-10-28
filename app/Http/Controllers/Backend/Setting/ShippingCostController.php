@@ -52,13 +52,13 @@ class ShippingCostController extends baseController
 		}
 
 		$this->layout->page 							= view('pages.backend.settings.shippingCost.create')
-																->with('WT_pageTitle', $this->view_name )
+																->with('WT_pagetitle', $this->view_name )
 																->with('WT_pageSubTitle', $title)		
 																->with('WB_breadcrumbs', $breadcrumb)
 																->with('id', $id)
 																->with('courier', $courier)
 																->with('cou_id', $cou_id)
-																->with('nav_active', 'data')
+																->with('nav_active', 'settings')
 																->with('subnav_active', 'courier');
 
 		return $this->layout;		

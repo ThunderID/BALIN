@@ -1,1 +1,1 @@
-<h2>{{$WT_pageTitle}} <small> {{$WT_pageSubTitle}} </small></h2>
+<h2>{{$WT_pagetitle}} <small> {{$WT_pageSubTitle}} </small></h2>

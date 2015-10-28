@@ -22,7 +22,7 @@ class HomeController extends baseController
 		$breadcrumb				= [];
 
 		$this->layout->page 	= view('pages.backend.home.index')
-									->with('WT_pageTitle', $this->view_name)
+									->with('WT_pagetitle', $this->view_name)
 									->with('WT_pageSubTitle','')
 									->with('WB_breadcrumbs', $breadcrumb)
 									->with('nav_active', 'dashboard')

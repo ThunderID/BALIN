@@ -41,7 +41,7 @@ class SupplierController extends baseController
 		}
 
 		$this->layout->page 					= view('pages.backend.data.supplier.index')
-													->with('WT_pageTitle', $this->view_name )
+													->with('WT_pagetitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('filters', $filters)
@@ -63,7 +63,7 @@ class SupplierController extends baseController
 													];
 
 		$this->layout->page 							= view('pages.backend.data.supplier.show')
-																		->with('WT_pageTitle', $this->view_name )
+																		->with('WT_pagetitle', $this->view_name )
 																		->with('WT_pageSubTitle',$supplier->name)
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', null)
@@ -101,7 +101,7 @@ class SupplierController extends baseController
 		}
 
 		$this->layout->page 					= view('pages.backend.data.supplier.create')
-													->with('WT_pageTitle', $this->view_name )
+													->with('WT_pagetitle', $this->view_name )
 													->with('WT_pageSubTitle', $title)		
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('id', $id)

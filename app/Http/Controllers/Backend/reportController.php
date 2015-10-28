@@ -30,7 +30,7 @@ class reportController extends baseController
 		}
 
 		$this->layout->page 					= view('pages.backend.report.criticalStock')
-														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pagetitle', $this->view_name )
 														->with('WT_pageSubTitle','Stok Kritis')
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('searchResult', $searchResult)
@@ -55,7 +55,7 @@ class reportController extends baseController
 		}
 
 		$this->layout->page 					= view('pages.backend.report.pointlog')
-														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pagetitle', $this->view_name )
 														->with('WT_pageSubTitle','Transaksi Poin')
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('searchResult', $searchResult)
@@ -82,7 +82,7 @@ class reportController extends baseController
 		}
 
 		$this->layout->page 					= view('pages.backend.report.topSellingProduct')
-														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pagetitle', $this->view_name )
 														->with('WT_pageSubTitle','Produk Terlaris')
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('searchResult', $searchResult)
@@ -110,7 +110,7 @@ class reportController extends baseController
 		}
 
 		$this->layout->page 					= view('pages.backend.report.suppliedBy')
-														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pagetitle', $this->view_name )
 														->with('WT_pageSubTitle','Suply Produk')
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('searchResult', $searchResult)
@@ -128,7 +128,7 @@ class reportController extends baseController
 		$date 									= date("Y-m-d H:i:s",strtotime("-3 month"));;
 
 		$this->layout->page 					= view('pages.backend.report.deadstock')
-														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pagetitle', $this->view_name )
 														->with('WT_pageSubTitle','Stok Mengendap')
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('date', $date)

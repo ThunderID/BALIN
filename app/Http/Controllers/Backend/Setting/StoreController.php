@@ -13,7 +13,7 @@ class StoreController extends baseController
 		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.settings.store.index')
-													->with('WT_pageTitle', $this->view_name )
+													->with('WT_pagetitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('searchResult', $searchResult)
@@ -44,7 +44,7 @@ class StoreController extends baseController
 		}
 
 		$this->layout->page 					= view('pages.backend.settings.store.create')
-													->with('WT_pageTitle', $this->view_name )
+													->with('WT_pagetitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('id', $id)

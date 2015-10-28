@@ -39,7 +39,7 @@ class CategoryController extends baseController
 		}
 
 		$this->layout->page 						= view('pages.backend.settings.category.index')
-															->with('WT_pageTitle', $this->view_name )
+															->with('WT_pagetitle', $this->view_name )
 															->with('WT_pageSubTitle','Index')
 															->with('WB_breadcrumbs', $breadcrumb)
 															->with('nav_active', 'settings')
@@ -61,7 +61,7 @@ class CategoryController extends baseController
 														];
 
 		$this->layout->page 						= view('pages.backend.settings.category.show')
-														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pagetitle', $this->view_name )
 														->with('WT_pageSubTitle', $category->name)		
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('id', $id)
@@ -99,7 +99,7 @@ class CategoryController extends baseController
 		}
 
 		$this->layout->page 						= view('pages.backend.settings.category.create')
-																->with('WT_pageTitle', $this->view_name )
+																->with('WT_pagetitle', $this->view_name )
 																->with('WT_pageSubTitle',$title)		
 																->with('WB_breadcrumbs', $breadcrumb)
 																->with('id', $id)

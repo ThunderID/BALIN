@@ -30,7 +30,7 @@
 
         <div id="page-wrapper">
             <div class="container-fluid">
-                @include('widgets.backend.pageelements.pageTitle')
+                @include('widgets.backend.pageelements.pagetitle')
                 @include('widgets.backend.pageelements.breadcrumb')
                 @include('widgets.backend.pageelements.alertBox')
                 @yield('content')
