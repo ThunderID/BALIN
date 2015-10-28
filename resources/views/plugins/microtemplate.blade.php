@@ -1,8 +1,11 @@
 <script>
+	$(document).ready(function() {template_add_product($('.base'))});
+
 	$('.btn-add').click(function() {template_add_product($(this))});
 	function template_add_product(e)
 	{
 		var tmp = '';
+
 		tmp 	+= '<div class="row"> \
 						<div class="col-md-4"> \
 							<div class="form-group"> \
@@ -18,19 +21,19 @@
 						</div> \
 						<div class="col-md-2"> \
 							<div class="form-group"> \
-								<label for="harga">Harga</label> \
+								<label for="harga[]">Harga</label> \
 								<input type="text" name="price[]" class="form-control text-right transaction-input-price" @if(Input::get("type")!="buy") readonly @endif/> \
 							</div> \
 						</div> \
 						<div class="col-md-2"> \
 							<div class="form-group"> \
-								<label for="diskon">Diskon</label> \
+								<label for="diskon[]">Diskon</label> \
 								<input type="text" name="discount[]" class="form-control text-right transaction-input-discount" @if(Input::get("type")!="buy") readonly @endif/> \
 							</div> \
 						</div> \
 						<div class="col-md-2"> \
 							<div class="form-group"> \
-								<label for="harga">Jumlah Harga</label> \
+								<label for="harga[]">Jumlah Harga</label> \
 								<input type="text" name="tot_price[]" class="form-control text-right transaction-input-jum-price" /> \
 							</div> \
 						</div> \
@@ -95,14 +98,19 @@
 		{
 			var qty = $(this).val();
 			var price_jum = 0;
-			var price = parseInt($(this).parent().parent().parent().find('.transaction-input-price').val());
+			var price = parseInt($(this).parent().parent().parent().find('.transaction-input-price').val()) ;
 			var discount = parseInt($(this).parent().parent().parent().find('.transaction-input-discount').val());
 
 			price_jum = (price-discount)*qty;
 
-			$(this).parent().parent().parent().find('.transaction-input-jum-price').val(price_jum);
+			$(this).parent().parent().parent().find('.transaction-input-jum-price').val(price_jum).trigger('change');
 
 		});
+
+		$('.transaction-input-jum-price').on('change', function()
+		{
+			calculate_total_transaction();
+		});		
 	}
 
 	function change_button_add(e)
@@ -123,5 +131,17 @@
 		e.parent().parent().parent().remove();
 		$('.wizard .content').animate({ height: $('.body.current').outerHeight() }, "slow");
 		$('.btn-del').click(function() {template_del_product($(this))});
+		calculate_total_transaction();
+	}
+
+	function calculate_total_transaction()
+	{
+		var total = 0;
+
+		$(".transaction-input-jum-price").each(function() {
+		    total += parseInt(($(this).val())) || 0;;
+		});
+
+		$('#total_price').val(total);
 	}
 </script>
