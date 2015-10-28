@@ -1,8 +1,11 @@
 <script>
+	$(document).ready(function() {template_add_product($('.base'))});
+
 	$('.btn-add').click(function() {template_add_product($(this))});
 	function template_add_product(e)
 	{
 		var tmp = '';
+
 		tmp 	+= '<div class="row"> \
 						<div class="col-md-4"> \
 							<div class="form-group"> \
