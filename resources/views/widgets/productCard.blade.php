@@ -4,10 +4,10 @@
 	<div class="caption m-b-md">
 		<h4 class="text-center">{{$data['name']}}</h4>
 		@if($data->promo_price!=0)
-			<p class="text-center normal-price"><strike>Rp {{ number_format($data->price, 2, ',', '.') }}</strike></p>
-			<p class="text-center promo-price t-md">Rp {{ number_format($data->promo_price, 2, ',', '.') }}</p>
+			<p class="text-center normal-price"><strike> @money_indo($data->price) </strike></p>
+			<p class="text-center promo-price t-md"> @money_indo($data->promo_price) </p>
 		@else
-			<p class="text-center promo-price t-md">Rp {{ number_format($data->price, 2, ',', '.') }}</p>
+			<p class="text-center promo-price t-md"> @money_indo($data->price) </p>
 		@endif
 	</div>
 
