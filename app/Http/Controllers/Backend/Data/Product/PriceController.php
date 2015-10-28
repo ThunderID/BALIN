@@ -3,45 +3,61 @@
 use App\Http\Controllers\baseController;
 use App\Models\Price;
 use App\Models\Product;
-use Input, Session, DB, Redirect, Response, Carbon;
+use Input, Session, DB, Redirect, Response, Carbon, App;
 
 class PriceController extends baseController 
 {
-	protected $view_name 						= 'Price';
+	/**
+     * Instantiate a new UserController instance.
+     */
+    
+    public function __construct()
+    {
+        $this->middleware('passwordneeded', ['only' => ['destroy']]);
+
+    	parent::__construct();
+    }
+
+	protected $view_name 						= 'Histori Harga';
 
 	public function index()
-	{		
-		$breadcrumb								= ['Harga' => 'backend.data.product.price.index'];
+	{
+		if(Input::has('product_id'))
+		{
+			$product_id 						= Input::get('product_id');
+
+			$product 							= Product::findorfail(Input::get('product_id'));
+		}
+		else
+		{
+			App::abort(404);
+		}
+
+		$breadcrumb								= 	[	
+														$product->name	=> route('backend.data.product.show', $product_id),
+														'Histori Harga' => route('backend.data.product.price.index', ['product_id', $product_id])
+													];
 
 		$filters 								= Null;
 		
 		if (Input::has('q'))
 		{
-		// 	$datas 								= product::FindProduct(Input::get('q'))
-		// 											->where('deleted_at',null)
-		// 											->with(['price'=> function($q){$q->LatestPrice();}])
-		// 											->paginate(); 
+			$filters							= ['ondate' => Input::get('q')];
+
 			$searchResult						= Input::get('q');
 		}
 		else
 		{
-		// 	$datas								= product::with(['price'=> function($q){$q->LatestPrice();}])
-		// 											->paginate(); 
+			$filters							= NULL;
+
 			$searchResult						= NULL;
 		}
 
-		if (Input::has('product_id'))
-		{
-			$product_id 						= Input::get('product_id');
-		}
-		else
-		{
-			$product_id							= Null;
-		}
+
 
 		$this->layout->page 					= view('pages.backend.data.product.price.index')
 														->with('WT_pageTitle', $this->view_name )
-														->with('WT_pageSubTitle','Index')
+														->with('WT_pageSubTitle',$product->name)
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('filters', $filters)
 														->with('searchResult', $searchResult)
@@ -52,35 +68,51 @@ class PriceController extends baseController
 		return $this->layout;
 	}
 
+	public function show($id)
+	{
+		return Redirect::back();
+	}
+
 	public function create($id = null)
 	{
 
-		if ($id)
+		if(Input::has('product_id'))
 		{
-			$breadcrumb							= ['Harga' => 'backend.data.product.price.index',
-														'Edit Harga' => 'backend.data.product.price.create'];
+			$product_id 						= Input::get('product_id');
+
+			$product 							= Product::findorfail(Input::get('product_id'));
 		}
 		else
 		{
-			$breadcrumb							= ['Harga' => 'backend.data.product.price.index',
-														'Harga Baru' => 'backend.data.product.price.create'];
+			App::abort(404);
 		}
 
-		$product_id								= Null;
+		$breadcrumb								= 	[	
+														$product->name	=> route('backend.data.product.show', $product_id),
+													];
 
-		if (Input::has('product_id'))
+
+		if ($id)
 		{
-			$product_id 						= Input::get('product_id');
+			$breadcrumb['Edit Harga'] 			= route('backend.data.product.price.edit', $id);
+
+			$title 								= 'Edit';
+		}
+		else
+		{
+			$breadcrumb['Harga Baru'] 			= route('backend.data.product.price.create');
+		
+			$title 								= 'Baru';
 		}
 
 		$this->layout->page 					= view('pages.backend.data.product.price.create')
 														->with('WT_pageTitle', $this->view_name )
-														->with('WT_pageSubTitle','Create')		
+														->with('WT_pageSubTitle',$title)		
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('id', $id)
 														->with('product_id', $product_id)
 														->with('nav_active', 'data')
-														->with('subnav_active', 'product');
+														->with('subnav_active', 'products');
 		return $this->layout;		
 	}
 
@@ -99,24 +131,25 @@ class PriceController extends baseController
 		}
 		else
 		{
-			$data 							= new Price;
+			$data 								= new Price;
 		}
 
-		$started_at 						= $inputs['date'].' '.Carbon::createFromFormat('H:i', $inputs['time'])->format('H:i:s');
+		$started_at 							= Carbon::createFromFormat('d-m-Y', $inputs['date'])->format('Y-m-d').' '.Carbon::createFromFormat('H:i', $inputs['time'])->format('H:i:s');
 
 		$data->fill([
+			'product_id'						=> $inputs['product_id'],
 			'price' 							=> $inputs['price'],
-			'promo_price'					=> $inputs['promo_price'],
-			'started_at' 					=> $started_at,
-			'label'							=> $inputs['label'],
+			'promo_price'						=> $inputs['promo_price'],
+			'started_at' 						=> $started_at,
+			'label'								=> $inputs['label'],
 		]);
 
-		$data->product()->associate($inputs['product_id']);
-
 		DB::beginTransaction();
+
 		if (!$data->save())
 		{
 			DB::rollback();
+
 			return Redirect::back()
 				->withInput()
 				->withErrors($data->getError())
@@ -125,48 +158,39 @@ class PriceController extends baseController
 		else
 		{
 			DB::commit();
+
 			return Redirect::route('backend.data.product.price.index', ['product_id' => $inputs['product_id']])
-				->with('msg','Data sudah ditambahkan')
+				->with('msg','Histori harga sudah disimpan')
 				->with('msg-type', 'success');
 		}
 	}
 
+	public function Update($id)
+	{
+		return $this->store($id);		
+	}
+
 	public function destroy($id)
 	{
-		if (Input::get('password'))
+		$data 					= Price::findorfail($id);
+
+		DB::beginTransaction();
+
+		if (!$data->delete())
 		{
-			$data 					= Price::find($id);
+			DB::rollback();
 
-			if (count($data) == 0)
-			{
-				return Redirect::back()
-					->withErrors('Data not exist')
-					->with('msg-type','danger');
-			}
-
-			DB::beginTransaction();
-
-			if (!$data->delete())
-			{
-				DB::rollback();
-				return Redirect::back()
-					->withErrors($data->getError())
-					->with('msg-type','danger');
-			}
-			else
-			{
-				DB::commit();
-				return Redirect::route('backend.data.product.price.index')
-					->with('msg', 'Data telah dihapus')
-					->with('msg-type','success');
-			}
+			return Redirect::back()
+				->withErrors($data->getError())
+				->with('msg-type','danger');
 		}
 		else
 		{
-			return Redirect::back()
-					->withErrors('Password tidak valid')
-					->with('msg-type', 'danger');
+			DB::commit();
+
+			return Redirect::route('backend.data.product.price.index', ['product_id' => $data->product_id])
+				->with('msg', 'Harga telah dihapus')
+				->with('msg-type','success');
 		}
 	}
-
 }

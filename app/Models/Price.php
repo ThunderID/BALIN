@@ -38,7 +38,7 @@ class Price extends Eloquent
 	protected $fillable				=	[
 											'product_id'					,
 											'price'							,
-											'promo_price'						,
+											'promo_price'					,
 											'started_at'					,
 											'label'							,
 										];

@@ -22,9 +22,9 @@ class PriceDeleting extends Job implements SelfHandling
     {
         if(date('Y-m-d H:i:s') >= $this->price->started_at)
         {
-            return new JSend('error', (array)$this->price, 'Tidak bisa hapus harga yang telah dimulai');
+            return new JSend('error', (array)$this->price, 'Tidak dapat menghapus harga yang hari sebelumnya');
         }
 
-        return new JSend('success', (array)$this->product);
+        return new JSend('success', (array)$this->price);
     }
 }
