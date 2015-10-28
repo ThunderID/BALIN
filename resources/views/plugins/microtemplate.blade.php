@@ -103,9 +103,14 @@
 
 			price_jum = (price-discount)*qty;
 
-			$(this).parent().parent().parent().find('.transaction-input-jum-price').val(price_jum);
+			$(this).parent().parent().parent().find('.transaction-input-jum-price').val(price_jum).trigger('change');
 
 		});
+
+		$('.transaction-input-jum-price').on('change', function()
+		{
+			calculate_total_transaction();
+		});		
 	}
 
 	function change_button_add(e)
@@ -126,5 +131,17 @@
 		e.parent().parent().parent().remove();
 		$('.wizard .content').animate({ height: $('.body.current').outerHeight() }, "slow");
 		$('.btn-del').click(function() {template_del_product($(this))});
+		calculate_total_transaction();
+	}
+
+	function calculate_total_transaction()
+	{
+		var total = 0;
+
+		$(".transaction-input-jum-price").each(function() {
+		    total += parseInt(($(this).val()));
+		});
+
+		$('#total_price').val(total);
 	}
 </script>

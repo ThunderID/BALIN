@@ -46,7 +46,7 @@
 	<div class="col-md-2 col-md-offset-9">
 		<div class="form-group">
 			<label for="harga">Total Harga</label>
-			{!! Form::input('number', 'price', null, ['class' => 'form-control', 'id' => 'total-price']) !!}
+			{!! Form::text('price', null, ['class' => 'form-control', 'id' => 'total_price']) !!}
 		</div>
 	</div>
 </div>
