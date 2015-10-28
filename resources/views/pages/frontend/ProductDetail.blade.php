@@ -52,11 +52,11 @@
 		        				</br>
 		        				<?php $discount = $data->discount; ?> 
 		        				@if($discount == 0)
-			        				<h4>Price : Rp {{ number_format($data->price, 2, ',', '.') }}</h4>
+			        				<h4>Price : @money_indo($data->price) </h4>
 		        				@else
-			        				<h4>Price : Rp {{ number_format($data->price, 2, ',', '.') }}</h4>
-			        				<h4>Promo Price: Rp {{ number_format($data->promo_price, 2, ',', '.') }}</h4>
-			        				<p>Discount : Rp {{ number_format($data->discount, 2, ',', '.') }}</p>
+			        				<h4>Price : @money_indo($data->price) </h4>
+			        				<h4>Promo Price: @money_indo($data->promo_price) </h4>
+			        				<p>Discount : @money_indo($data->discount) </p>
 		        				@endif
 		        			</div>
 	        				<div class="row">
