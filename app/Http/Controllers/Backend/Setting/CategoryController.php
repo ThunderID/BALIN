@@ -6,7 +6,7 @@ use Input, Session, DB, Redirect, Response;
 
 class CategoryController extends baseController 
 {
-	protected $view_name 							= 'Category';
+	protected $view_name 							= 'Kategori';
 
     /**
      * Instantiate a new UserController instance.
@@ -21,13 +21,16 @@ class CategoryController extends baseController
 
 	public function index()
 	{		
-		$breadcrumb									= ['Kategori' => 'backend.settings.category.index'];
+		$breadcrumb									= 	[
+															'Pengaturan Kategori' 	=> route('backend.settings.category.index')
+														];
 
 		$filters 									= null;
 
 		if(Input::has('q'))
 		{
 			$filters 								= ['name' => Input::get('q')];
+
 			$searchResult							= Input::get('q');
 		}
 		else
@@ -50,27 +53,24 @@ class CategoryController extends baseController
 
 	public function show($id)
 	{
-		if($id)
-		{
-			$breadcrumb								= 	[	'Kategori' => 'backend.settings.category.index',
-															'Detail' => 'backend.settings.category.show'
+		$category 									= Category::findorfail($id);
+
+		$breadcrumb									= 	[
+															'Pengaturan Kategori' 	=> route('backend.settings.category.index'),
+															$category->name 		=> route('backend.settings.category.show', $id)
 														];
 
-			$this->layout->page 					= view('pages.backend.settings.category.show')
-															->with('WT_pageTitle', $this->view_name )
-															->with('WT_pageSubTitle','Detail')		
-															->with('WB_breadcrumbs', $breadcrumb)
-															->with('id', $id)
-															->with('nav_active', 'settings')
-															->with('subnav_active', 'category')
-														;
+		$this->layout->page 						= view('pages.backend.settings.category.show')
+														->with('WT_pageTitle', $this->view_name )
+														->with('WT_pageSubTitle', $category->name)		
+														->with('WB_breadcrumbs', $breadcrumb)
+														->with('id', $id)
+														->with('category', $category)
+														->with('nav_active', 'settings')
+														->with('subnav_active', 'category')
+													;
 
-			return $this->layout;
-		}
-		else
-		{
-			App::abort(404);
-		}
+		return $this->layout;
 	}
 
 
@@ -79,22 +79,31 @@ class CategoryController extends baseController
 
 		if($id)
 		{
-			$breadcrumb								= 	[	'Kategori' 	=> 'backend.settings.category.index',
-															'Edit Data' => 'backend.settings.category.create'
+			$category 								= Category::findorfail($id);
+			$title 									= $category->name;
+
+			$breadcrumb								= 	[
+															'Pengaturan Kategori' 	=> route('backend.settings.category.index'),
+															$category->name 		=> route('backend.settings.category.edit', $id)
 														];
 		}
 		else
 		{
-			$breadcrumb								= 	[	'Kategori' 	=> 'backend.settings.category.index',
-															'Data Baru' => 'backend.settings.category.create' 
+			$category 								= new Category;
+			$title 									= 'Baru';
+
+			$breadcrumb								= 	[
+															'Pengaturan Kategori' 	=> route('backend.settings.category.index'),
+															'Baru' 					=> route('backend.settings.category.create')
 														];
 		}
 
 		$this->layout->page 						= view('pages.backend.settings.category.create')
 																->with('WT_pageTitle', $this->view_name )
-																->with('WT_pageSubTitle','Create')		
+																->with('WT_pageSubTitle',$title)		
 																->with('WB_breadcrumbs', $breadcrumb)
 																->with('id', $id)
+																->with('category', $category)
 																->with('nav_active', 'settings')
 																->with('subnav_active', 'category');
 
