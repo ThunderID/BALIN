@@ -1,10 +1,8 @@
 @inject('data', 'App\Models\ShippingCost')
-@inject('courier', 'App\Models\Courier')
 <?php 
 		$data = $data::where('id', $id)
 							->first(); 
 
-		$courier = $courier::find($cou_id);
 ?>
 @extends('template.backend.layout') 
 

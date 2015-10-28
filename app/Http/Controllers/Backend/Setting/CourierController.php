@@ -19,11 +19,13 @@ class CourierController extends baseController
     	parent::__construct();
     }
 
-	protected $view_name 							= 'Courier';
+	protected $view_name 							= 'Kurir';
 
 	public function index()
 	{		
-		$breadcrumb									= ['Kurir' => 'backend.settings.courier.index'];
+		$breadcrumb									= 	[
+															'Pengaturan Kurir' => route('backend.settings.courier.index')
+														];
 
 		$filters 									= null;
 
@@ -51,9 +53,14 @@ class CourierController extends baseController
 
 	public function show($id)
 	{
-		$breadcrumb										= 	[	'Kurir' 	=> 'backend.settings.courier.index',
-																'Detail' 	=> 'backend.settings.courier.create',
-															];
+		$courier 									= Courier::findorfail($id);
+
+		$breadcrumb									= 	[
+															'Pengaturan Kurir' 	=> route('backend.settings.courier.index'),
+															$courier->name 		=> route('backend.settings.courier.show', $id),
+														];
+
+		$filters 									= null;
 
 		if(Input::has('q'))
 		{
@@ -68,10 +75,11 @@ class CourierController extends baseController
 
 		$this->layout->page 							= view('pages.backend.settings.courier.show')
 																		->with('WT_pageTitle', $this->view_name )
-																		->with('WT_pageSubTitle','Show')
+																		->with('WT_pageSubTitle',$courier->name)
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', $searchResult)
 																		->with('id', $id)
+																		->with('courier', $courier)
 																		->with('filters', $filters)
 																		->with('nav_active', 'settings')
 																		->with('subnav_active', 'courier')
@@ -85,22 +93,33 @@ class CourierController extends baseController
 	{
 		if (is_null($id))
 		{
-			$breadcrumb									= 	[	'Kurir' => 'backend.settings.courier.index',
-																'Kurir Baru' => 'backend.settings.courier.create'
-															];
+			$courier 								= new Courier;
+
+			$breadcrumb								= 	[
+															'Pengaturan Kurir' 			=> route('backend.settings.courier.index'),
+															'Baru'						=> route('backend.settings.courier.create'),
+														];
+
+			$title 									= 'Baru';
 		}
 		else
 		{
-			$breadcrumb									= 	[	'Kurir' => 'backend.settings.courier.index',
-																'Edit Data' => 'backend.settings.courier.create'
-															];
+			$courier 								= Courier::findorfail($id);
+
+			$breadcrumb								= 	[
+															'Pengaturan Kurir' 			=> route('backend.settings.courier.index'),
+															'Edit '.$courier->name 		=> route('backend.settings.courier.edit', $id),
+														];
+
+			$title 									= $courier->name;
 		}
 
-		$this->layout->page 							= view('pages.backend.settings.courier.create')
+		$this->layout->page 						= view('pages.backend.settings.courier.create')
 																	->with('WT_pageTitle', $this->view_name )
-																	->with('WT_pageSubTitle','Create')		
+																	->with('WT_pageSubTitle',$title)		
 																	->with('WB_breadcrumbs', $breadcrumb)
 																	->with('id', $id)
+																	->with('courier', $courier)
 																	->with('nav_active', 'settings')
 																	->with('subnav_active', 'courier');
 		return $this->layout;		
