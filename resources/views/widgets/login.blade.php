@@ -11,6 +11,11 @@
 	    <label><input type="checkbox" tabindex="1"> Remember me</label>
 	</div>
 	<div class="form-group">
-	    <button type="submit" class="btn btn-default" tabindex="1">Submit</button>
+	    <button type="submit" class="btn-hollow hollow-black" tabindex="1">Sign In</button>
 	</div>
+	<div class="clearfix">&nbsp;</div>
+	<div class="clearfix">&nbsp;</div>
+	<p class="t-xs" style="color:#666">If you don't have account? Please <a href="#">Sign Up</a> or login from,</p>
+	<a href="#" class="btn-hollow hollow-social hollow-black"><i class="fa fa-facebook"></i></a>
+	<a href="#" class="btn-hollow hollow-social hollow-black"><i class="fa fa-twitter"></i></a>
 </form>

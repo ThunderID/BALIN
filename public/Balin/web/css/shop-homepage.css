@@ -490,8 +490,14 @@ footer {
 	border-color: #000;
 	text-decoration: none;
 }
+.hollow-social {
+	width: 38px;
+	height: 35px;
+}
 
-
+.t-xs {
+	font-size: 13px;
+}
 .t-sm {
 	font-size: 15px;
 }
@@ -568,19 +574,10 @@ input.text-holow:focus {
 	border-radius: 0;
 	box-shadow: none;
 }
+.panel-hollow h1, h2, h3, h4, h5 {
+	color: #333;
+}
 .gallery-product .owl-controls .owl-nav .owl-prev {
-	position: absolute;
-	right: 0;
-	top: 25px;
-	background-color: rgba(0, 0, 0, 0.65);
-	padding-left: 5px;
-	padding-right: 5px;
-}
-.gallery-product .owl-controls .owl-nav .owl-prev i {
-	color: #eee;
-	margin-left: 4px;
-}
-.gallery-product .owl-controls .owl-nav .owl-next {
 	position: absolute;
 	left: 0;
 	top: 25px;
@@ -588,7 +585,23 @@ input.text-holow:focus {
 	padding-left: 5px;
 	padding-right: 5px;
 }
-.gallery-product .owl-controls .owl-nav .owl-next i {
+.gallery-product .owl-controls .owl-nav .owl-prev i {
 	color: #eee;
 	margin-right: 4px;
+}
+.gallery-product .owl-controls .owl-nav .owl-next {
+	position: absolute;
+	right: 0;
+	top: 25px;
+	background-color: rgba(0, 0, 0, 0.65);
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.gallery-product .owl-controls .owl-nav .owl-next i {
+	color: #eee;
+	margin-left: 4px;
+}
+
+.info-corporate {
+	color: #fff;
 }
