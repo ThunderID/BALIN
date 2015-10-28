@@ -1,10 +1,10 @@
-<h2>Informasi Produk</h2>
+<h2>Pilih Produk</h2>
 <div class="clearfix">&nbsp;</div>
 <div class="row">
 	<div class="col-md-4">
 		<div class="form-group">
 			<label>Produk</label>
-			{!! Form::text('product', null, [
+			{!! Form::text('product[]', null, [
 						'class' 		=> 'select-product-by-name',
 						'style'			=> 'width:100%',
 						'data-price'	=> ''
@@ -14,25 +14,25 @@
 	<div class="col-md-1">
 		<div class="form-group">
 			<label>Qty</label>
-			{!! Form::input('text', 'qty', null, ['class' => 'form-control']) !!}
+			{!! Form::input('text', 'qty[]', null, ['class' => 'form-control']) !!}
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
 			<label for="harga">Harga</label>
-			{!! Form::input('text', 'price', null, ['class' => 'form-control price']) !!}
+			{!! Form::input('text', 'price[]', null, ['class' => 'form-control price']) !!}
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
 			<label for="diskon">Diskon</label>
-			{!! Form::input('text', 'discount', null, ['class' => 'form-control']) !!}
+			{!! Form::input('text', 'discount[]', null, ['class' => 'form-control']) !!}
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
 			<label for="harga">Jumlah Harga</label>
-			{!! Form::input('text', 'price', null, ['class' => 'form-control']) !!}
+			{!! Form::input('text', 'tot_price[]', null, ['class' => 'form-control']) !!}
 		</div>
 	</div>
 	<div class="col-md-1">
