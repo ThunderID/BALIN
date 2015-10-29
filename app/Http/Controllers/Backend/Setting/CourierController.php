@@ -157,7 +157,7 @@ class CourierController extends baseController
 
 		if(!$data->save())
 		{
-			$errors->add('Courier', $data->gerError());
+			$errors->add('Courier', $data->getError());
 		}
 
 		$image 											= new Image;
@@ -172,14 +172,14 @@ class CourierController extends baseController
 
 		if (!$image->save())
 		{
-			$errors->add('Courier', $image->gerError());
+			$errors->add('Courier', $image->getError());
 		}
 
 		$image->imageable()->associate($data);
 		
 		if (!$image->save())
 		{
-			$errors->add('Courier', $image->gerError());
+			$errors->add('Courier', $image->getError());
 		}
 
 		if ($errors->count())

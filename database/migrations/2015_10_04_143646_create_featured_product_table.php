@@ -14,7 +14,8 @@ class CreateFeaturedProductTable extends Migration
     {
         Schema::create('tmp_featured_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id')->unsigned()->index();
+            $table->string('title', 255);
+            $table->text('description');
             $table->datetime('started_at');
             $table->datetime('ended_at');
             $table->timestamps();

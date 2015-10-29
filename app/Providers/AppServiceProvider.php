@@ -42,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\PointLog::observe(new \App\Models\BaseObserver);
         \App\Models\Transaction::observe(new \App\Models\BaseObserver);
         \App\Models\ShippingCost::observe(new \App\Models\BaseObserver);
+        \App\Models\FeaturedProduct::observe(new \App\Models\BaseObserver);
     }
 
     /**
@@ -64,5 +65,6 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Transaction::observe(new \App\Models\BaseObserver);
         \App\Models\PointLog::observe(new \App\Models\BaseObserver);
         \App\Models\ShippingCost::observe(new \App\Models\BaseObserver);
+        \App\Models\FeaturedProduct::observe(new \App\Models\BaseObserver);
     }
 }
