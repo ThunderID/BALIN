@@ -472,13 +472,14 @@ footer {
 	-ms-touch-action: manipulation;
 	touch-action: manipulation;
 	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 	background-image: none;
 	border: 1px solid transparent;
 	/* border-radius: 4px; */
+	box-shadow: none;
+	outline: none;
+}
+.btn-hollow:focus {
+	outline: none;
 }
 .btn-hollow.hollow-black {
 	background-color: #000;
