@@ -5044,3 +5044,52 @@ body.skin-3 {
 nav.navbar-top-links .userme > ul > li > a {
   font-size: 10px;
 }
+
+.panel.panel-widget {
+  border-radius: 0;
+}
+.panel.panel-widget .panel-heading {
+  font-weight: bold;
+  border-radius: 0;
+  border-top: 1px solid transparent;
+}
+.panel.panel-widget .panel-body {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: right;
+}
+.panel-widget.panel-default {
+  border-color: ;
+}
+.panel-widget.panel-default .panel-heading {
+  background-color: #ddd;
+  color: #555;
+}
+.panel-widget.panel-default .panel-body {
+  color: #555;
+}
+.panel-widget.panel-default {
+  border-color: ;
+}
+.panel-widget.panel-default .panel-heading {
+  background-color: #ddd;
+  color: #555;
+}
+.panel-widget.panel-default .panel-body {
+  color: #555;
+}
+.panel-widget.panel-primary .panel-body {
+  color: #1ab394;
+}
+.panel-widget.panel-success .panel-body {
+  color: #1c84c6;
+}
+.panel-widget.panel-info .panel-body {
+  color: #23c6c8;
+}
+.panel-widget.panel-warning .panel-body {
+  color: #f8ac59;
+}
+.panel-widget.panel-danger .panel-body {
+  color: #ed5565;
+}

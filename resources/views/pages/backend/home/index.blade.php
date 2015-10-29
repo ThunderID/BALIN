@@ -18,46 +18,46 @@ $shippedtrs             = $transaction->type('sell')->ondate(['first day of this
 @section('content')
 	<div class="row">
         <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Total Produk</div>
+            <div class="panel panel-default panel-widget">
                 <div class="panel-body">
                     {{$total_product}}
                 </div>
+                <div class="panel-heading">Total Produk</div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Total Poin (Bulan Ini)</div>
+            <div class="panel panel-default panel-widget">
                 <div class="panel-body">
                     {{$total_point}}
                 </div>
+                <div class="panel-heading">Total Poin (Bulan Ini)</div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Total Pembelian (Bulan Ini)</div>
+            <div class="panel panel-default panel-widget">
                 <div class="panel-body">
                     {{$freq_trans}}
                 </div>
+                <div class="panel-heading">Total Pembelian (Bulan Ini)</div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Jumlah Pembelian (Bulan Ini)</div>
+            <div class="panel panel-default panel-widget">
                 <div class="panel-body">
                     {{$total_trans}}
                 </div>
+                <div class="panel-heading">Jumlah Pembelian (Bulan Ini)</div>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-md-6">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th class=" text-left">#Waiting</th>
+                            <th class="col-sm-3 text-left">#Waiting</th>
                             <th class="">Kostumer</th>
                             <th class=" text-center">Total</th>
                         </tr>
@@ -82,12 +82,12 @@ $shippedtrs             = $transaction->type('sell')->ondate(['first day of this
                 </table> 
             </div>                 
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-md-6">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th class=" text-left">#Paid</th>
+                            <th class="col-sm-3 text-left">#Paid</th>
                             <th class="">Kostumer</th>
                             <th class=" text-center">Total</th>
                         </tr>
@@ -112,12 +112,12 @@ $shippedtrs             = $transaction->type('sell')->ondate(['first day of this
                 </table> 
             </div>                 
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-md-6">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th class=" text-left">#Shipped</th>
+                            <th class="col-sm-3 text-left">#Shipped</th>
                             <th class="">Kostumer</th>
                             <th class=" text-center">Total</th>
                         </tr>
