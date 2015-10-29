@@ -105,7 +105,7 @@ class TransactionController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 							= input::only('type','supplier','customer','product','qty','price','discount','tot_price');
+		$inputs 							= input::only('type','status','supplier','customer','product','qty','price','total_price','discount','tot_price');
 
 		if($id)
 		{
@@ -114,20 +114,97 @@ class TransactionController extends baseController
 		else
 		{
 			$data 							= new Transaction;
+
+			if($inputs['type'] == 'buy')
+			{
+				$inputs['status'] = 'delivered';
+			}
+			else
+			{
+				$inputs['status'] = 'waiting';
+			}
 		}
 
 		$data->fill([
 			'supplier_id'					=> $inputs['supplier'],
 			'customer'						=> $inputs['customer'],
 			'type'							=> $inputs['type'],
-			'amount'						=> $inputs['price'],
+			'amount'						=> $inputs['total_price'],
+			'status'						=> $inputs['status'],
 		]);
 
+		// error
+		// ga bisa save transac detail -> Tidak dapat menambahkan item baru. Silahkan membuat nota baru
+		// ref-> transaction detail creating
+
+		//simpan data transaksi
+		DB::beginTransaction();
 		$data->save();
 
-		dd($data->geterror());
+		//cek apa punya error
+		if($data->getError())
+		{
+			DB::rollback();
 
-		dd(Input::all());
+			return Redirect::back()
+				->withErrors($data->getError())
+				->with('msg-type','danger');					
+		}
+
+		//empty prev transaksi detail
+		if($id)
+		{
+			$olds							= transactionDetail::where('transaction_id', $data['id']);
+
+			foreach ($olds as $old) 
+			{
+				$old->delete();
+
+				if($old->getError())
+				{
+					DB::rollback();
+
+					return Redirect::back()
+						->withErrors($old->getError())
+						->with('msg-type','danger');
+				}
+			}
+		}
+
+
+		//foreach data transaksi detail
+		foreach ($inputs['product'] as $key => $value) 
+		{
+			$datatd							= new transactionDetail;
+
+			$datatd->fill([
+				'transaction_id'			=> $data['id'],
+				'product_id'				=> $value,
+				'quantity'					=> $inputs['qty'][$key],
+				'price'						=> $inputs['price'][$key],
+				'discount'					=> $inputs['discount'][$key],
+			]);
+
+			//simpan data transaksi detail
+			$datatd->save();
+
+			//cek apa punya error
+			if($datatd->getError())
+			{
+				DB::rollback();
+
+				return Redirect::back()
+					->withErrors($datatd->getError())
+					->with('msg-type','danger');
+			}
+		}
+
+		//sukses
+		DB::commit();
+
+		return Redirect::route('backend.data.transaction.index', ['type' => Input::get('type')])
+			->with('msg', 'Transaction telah disimpan')
+			->with('msg-type','success');
 	}
 
 	public function destroy($id)
