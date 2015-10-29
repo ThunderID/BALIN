@@ -203,7 +203,7 @@ class TransactionController extends baseController
 		DB::commit();
 
 		return Redirect::route('backend.data.transaction.index', ['type' => Input::get('type')])
-			->with('msg', 'Transaction telah disimpan')
+			->with('msg', 'Transaksi telah disimpan')
 			->with('msg-type','success');
 	}
 
