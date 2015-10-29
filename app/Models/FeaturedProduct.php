@@ -16,7 +16,7 @@ class FeaturedProduct extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\belongsTo\HasProductTrait;
+	use \App\Models\Traits\morphMany\HasImagesTrait;
 
 	/**
 	 * The database table used by the model.
@@ -34,7 +34,8 @@ class FeaturedProduct extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'product_id'						,
+											'title'								,
+											'description'						,
 											'started_at'						,
 											'ended_at'							,
 										];
@@ -44,7 +45,7 @@ class FeaturedProduct extends Eloquent
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'started_at', 'ended_at'];
 
 	/**
 	 * Basic rule of database
@@ -52,8 +53,10 @@ class FeaturedProduct extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'started_at'						=> 'required|date_format:"Y-m-d H:i:s"',
-											'ended_at'							=> 'required|date_format:"Y-m-d H:i:s"',
+											'title'								=> 'required|max:255',
+											'description'						=> 'required',
+											'started_at'						=> 'required|date_format:"Y-m-d H:i:s"|after:now',
+											'ended_at'							=> 'required|date_format:"Y-m-d H:i:s"|after:now',
 										];
 
 	/**
@@ -62,6 +65,7 @@ class FeaturedProduct extends Eloquent
 	 * @var array
 	 */
 	protected $appends				=	[
+											'default_image',
 										];
 
 	/**
@@ -76,7 +80,29 @@ class FeaturedProduct extends Eloquent
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 
+	public function getDefaultImageAttribute($value)
+	{
+		if($this->images()->count())
+		{
+			return 'http://localhost:8000/Balin/web/balin/'.rand(1,30).'.jpg';
+			return $this->images[0]->image_md;
+		}
+
+		return 'https://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/32/325/325468/pat_east38-1cm-f.jpg?1422485502';
+	}
+
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
+	
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	public function getError()
+	{
+		return $this->errors;
+	}
 	
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
@@ -90,5 +116,10 @@ class FeaturedProduct extends Eloquent
 		}
 
 		return 	$query->where('id', $variable);
+	}
+
+	public function scopeTitle($query, $variable)
+	{
+		return 	$query->where('title', 'like', '%'.$variable.'%');
 	}
 }

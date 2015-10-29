@@ -7,7 +7,7 @@ use Illuminate\Support\MessageBag;
 
 class StoreController extends baseController 
 {
-	protected $view_name 					= 'Toko Online';
+	protected $view_name 						= 'Toko Online';
 
 	public function index()
 	{		
@@ -19,7 +19,7 @@ class StoreController extends baseController
 
 		$this->layout->page 					= view('pages.backend.settings.store.index')
 													->with('WT_pagetitle', $this->view_name )
-													->with('WT_pageSubTitle','Edit')
+													->with('WT_pageSubTitle','Toko')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('searchResult', $searchResult)
 													->with('nav_active', 'settings')

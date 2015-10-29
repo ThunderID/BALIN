@@ -31,4 +31,9 @@ trait HasProductTrait
 	{
 		return $query->whereHas('product', function($q)use($variable){$q->id($variable);});
 	}
+
+	public function scopeProductName($query, $variable)
+	{
+		return $query->whereHas('product', function($q)use($variable){$q->name($variable);});
+	}
 }
