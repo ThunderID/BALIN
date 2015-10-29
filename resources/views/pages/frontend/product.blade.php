@@ -13,14 +13,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				@include('widgets.pageelements.pagetitle', ['pagetitle' => 'Products'])                  
-
 				<div class="row">
-					<div class="col-md-3 col-sm-6 col-xs-12 pull-right">
+					</br>
+					<div class="col-md-7">
+				        <h3 class="page-title m-t-lg">Product</h3>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12 pull-right m-t-lg">
 						<a href="#" class="pull-right"><i class="fa fa-search"></i></a>
 						{!! Form::text('q', null, ['class' => 'text-hollow pull-right', 'placeholder' => 'Search', 'style' => 'width:80%']) !!}
 					</div>                	                	
-					<div class="col-md-1 col-sm-4 col-xs-12 pull-right">
+					<div class="col-md-1 col-sm-4 col-xs-12 pull-right m-t-lg">
 						<div class="dropdown">
 							<a href="#" id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
 								<p class="pull-right">Sort by</p>
@@ -31,7 +33,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-1 col-sm-2 col-xs-12 pull-right">
+					<div class="col-md-1 col-sm-2 col-xs-12 pull-right m-t-lg">
 						<div class="dropdown">
 							<a href="#" id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
 								<p class="pull-right">Kategori</p>
