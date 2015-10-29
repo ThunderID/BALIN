@@ -20,7 +20,7 @@ class TransactionDetailCreating extends Job implements SelfHandling
 
     public function handle()
     {
-    	if($this->transactiondetail->transaction->status=='draft')
+        if($this->transactiondetail->transaction->status=='draft' || $this->transactiondetail->transaction->type=='buy')
     	{
 	        return new JSend('success', (array)$this->transactiondetail );
     	}
