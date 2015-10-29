@@ -1,6 +1,6 @@
 @inject('datas', 'App\Models\Policy')
 
-<?php $datas = $datas::paginate(); ?>
+<?php $datas = $datas::newest(true)->paginate(); ?>
 
 @extends('template.backend.layout') 
 
@@ -9,13 +9,13 @@
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-md-8 col-sm-4 hidden-xs">
-					<a class="btn btn-default" href="{{ URL::route('backend.settings.store.create') }}"> Data Baru </a>
+					<a class="btn btn-default" href="{{ URL::route('backend.settings.policies.create') }}"> Ubah </a>
 				</div>
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-					<a class="btn btn-default btn-block" href="{{ URL::route('backend.settings.store.create') }}"> Data Baru </a>
+					<a class="btn btn-default btn-block" href="{{ URL::route('backend.settings.policies.create') }}"> Ubah </a>
 				</div>
 				<div class="col-md-4 col-sm-8 col-xs-12">
-					{!! Form::open(array('route' => 'backend.settings.store.index', 'method' => 'get' )) !!}
+					{!! Form::open(array('route' => 'backend.settings.policies.index', 'method' => 'get' )) !!}
 					<div class="row">
 						<div class="col-md-2 col-sm-3 hidden-xs">
 						</div>
@@ -34,7 +34,7 @@
 					{!! Form::close() !!}
 				</div>            
 			</div>
-			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.settings.store.index') ])
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.settings.policies.index') ])
 			</br> 
 			<div class="row">
 				<div class="col-lg-12">
@@ -43,10 +43,9 @@
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th class="col-md-2">Type</th>
-									<th class="col-md-3">Value</th>
-									<th class="col-md-5"></th>
-									<th>Kontrol</th>
+									<th>Policy</th>
+									<th></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -64,26 +63,16 @@
 									@foreach($datas as $data)
 										<tr>
 											<td>{{ $ctr }}</td>
-											<td>{{ $data['type'] }}</td>
+											<td>{{str_replace('_', ' ', $data['type'])}}</td>
 											<td>{{ $data['value'] }}</td>
 											<td>@datetime_indo($data['started_at'])</td>
-											<td>
-												<!-- <a href="{{ route('backend.settings.store.show', $data['id']) }}"> Detail </a>, -->
-												<a href="{{ route('backend.settings.policies.edit', $data['id']) }}"> Edit </a>, 
-												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
-													data-id="{{$data['id']}}"
-													data-title="Hapus Data Produk {{$data['name']}}"
-													data-action="{{ route('backend.settings.policies.destroy', $data['id']) }}">
-													Hapus
-												</a>                                                                                      
-											</td>    
 										</tr>       
 										<?php $ctr += 1; ?>                     
 									@endforeach 
 									
 									@include('widgets.pageelements.formmodaldelete', [
 											'modal_id'      => 'product_del', 
-											'modal_route'   => 'backend.settings.store.destroy'
+											'modal_route'   => 'backend.settings.policies.destroy'
 									])
 								@endif
 							</tbody>
