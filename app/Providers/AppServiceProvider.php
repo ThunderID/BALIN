@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::directive('money_indo', function($expression)
         {
-            return "<?php echo 'Rp '.number_format($expression, 2, ',', '.'); ?>";
+            return "<?php echo 'Rp '.number_format($expression, 0, '.', '.') ?>";
         });
 
         \App\Models\Transaction::observe(new \App\Models\BaseObserver);
