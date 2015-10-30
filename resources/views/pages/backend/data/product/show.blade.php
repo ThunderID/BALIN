@@ -110,10 +110,16 @@
 			<h2 style="margin-top:0px;">{!!$product->name!!}</h2>
 			<h5><strong>SKU</strong> {!!$product->sku!!}</h5>
 			<h5>
-				<strong>Harga</strong> @if($product->discount!=0)<strike> {!!$product->price!!} </strike> {!!$product->promo_price!!} @else {!!$product->price!!} @endif 
+				<strong>Harga</strong> 
+				@if($product->discount!=0)
+					<strike> @money_inod($product->price) </strike> 
+					@money_indo($product->promo_price)
+				@else 
+					@money_indo($product->price)
+				@endif 
 				<span>[ <a href="{{ route('backend.data.product.price.index', ['product_id' => $product['id']]) }}">Histori Harga</a> ]</span>
 			</h5> 
-			<h5><strong>Diskon</strong> {!!$product->discount!!}</h5>
+			<h5><strong>Diskon</strong> @money_indo($product->discount)</h5>
 			@if($product->is_new)
 				<label class="label label-danger">New</label><br/>
 			@endif
@@ -142,11 +148,7 @@
 						@endforeach
 						</ul>
 					@else
-						<ul>
-							<li>haaljlajf</li>
-							<li>kafjlasdjfla</li>
-							<li>alkjfdlkasjflk</li>
-						</ul>
+						<p class="m-l-sm m-t-sm">Tidak ada supplier</p>
 					@endif
 				</div>
 			</div>
