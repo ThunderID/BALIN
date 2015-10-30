@@ -17,6 +17,8 @@ class Supplier extends Eloquent
 	 */
 
 	use \App\Models\Traits\hasMany\HasTransactionsTrait;
+	use \App\Models\Traits\morphMany\HasAddressTrait;
+
 
 	/**
 	 * The database table used by the model.
