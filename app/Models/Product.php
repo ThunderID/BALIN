@@ -16,7 +16,6 @@ class Product extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\hasMany\HasStocksTrait;
 	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
 	use \App\Models\Traits\hasMany\HasPricesTrait;
 	use \App\Models\Traits\hasMany\HasDiscountsTrait;
