@@ -100,10 +100,9 @@
 				<div class="form-group">
 					<label for="category">Harga</label>
 					{!! Form::text('price', $data['price'], [
-								'class'         => 'form-control', 
-								
-								'tabindex'      => '5', 
-								'placeholder'   => 'harga'
+								'class'        		=> 'form-control money', 
+								'tabindex'     		=> '5', 
+								'placeholder'  		=> 'harga',
 					]) !!}
 				</div>  
 			</div>  
@@ -111,8 +110,7 @@
 				<div class="form-group">
 					<label for="category">Harga Promo</label>
 					{!! Form::text('promo_price', $data['promo_price'], [
-								'class'         => 'form-control', 
-								
+								'class'         => 'form-control money', 
 								'tabindex'      => '6', 
 								'placeholder'   => 'harga promo (kosongkan bila tidak ada harga promo)'
 					]) !!}
@@ -122,8 +120,7 @@
 				<div class="form-group">
 					<label for="category">Mulai</label>
 					{!! Form::text('started_at', $data['started_at'], [
-								'class'         => 'form-control', 
-								
+								'class'         => 'form-control',
 								'tabindex'      => '7', 
 								'placeholder'   => 'Y-m-d H:i:s'
 					]) !!}
@@ -222,5 +219,5 @@
 @section('script_plugin')
 	@include('plugins.select2')
 	@include('plugins.summernote')
-	@include('plugins.jquery-upload')
+	@include('plugins.input-mask')
 @stop

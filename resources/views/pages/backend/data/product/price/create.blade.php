@@ -18,7 +18,7 @@
 				<div class="form-group">
 					<label for="price" class="text-capitalize">Harga</label>
 					{!! Form::text('price', $data['price'], [
-								'class'         => 'form-control', 
+								'class'         => 'form-control money', 
 								'tabindex'      => '2',
 								'placeholder'   => 'Harga'
 					]) !!}
@@ -28,7 +28,7 @@
 				<div class="form-group">
 					<label for="price" class="text-capitalize">Harga Promo</label>
 					{!! Form::text('promo_price', $data['promo_price'], [
-								'class'         => 'form-control', 
+								'class'         => 'form-control money', 
 								'tabindex'      => '2',
 								'placeholder'   => 'Harga promo (setelah di diskon). Kosongkan bila tidak ada diskon'
 					]) !!}
@@ -88,4 +88,8 @@
 			</div>                                          
 		</div>
 	{!! Form::close() !!}
+@stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
 @stop
