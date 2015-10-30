@@ -27,6 +27,10 @@
 
     @yield('content')
 
+    @if($controller_name != 'home')
+        @include('widgets.footer')
+    @endif
+
 
     <!-- /.container -->
 
