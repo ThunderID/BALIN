@@ -28,12 +28,7 @@ class PaymentSaved extends Job implements SelfHandling
     {
         if($this->payment->transaction)
         {
-            $result                     = $this->dispatch(new ReferralPointIsGiven($this->payment->transaction));
-
-            if($result->getStatus()=='success')
-            {
-                $result                     = $this->dispatch(new SendPaymentEmail($this->payment->transaction));
-            }
+            $result                        = $this->dispatch(new SendPaymentEmail($this->payment->transaction));
         }
         else
         {
