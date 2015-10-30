@@ -5045,7 +5045,7 @@ nav.navbar-top-links .userme > ul > li > a {
   font-size: 10px;
 }
 
-.panel.panel-widget {
+.panel.panel-widget, .panel.panel-list {
   border-radius: 0;
 }
 .panel.panel-widget .panel-heading {
@@ -5058,20 +5058,32 @@ nav.navbar-top-links .userme > ul > li > a {
   font-weight: bold;
   text-align: right;
 }
-.panel-widget.panel-default {
-  border-color: ;
+.panel.panel-list .panel-heading {
+  font-weight: bold;
+  border-radius: 0;
+  border-bottom: 1px solid transparent; 
 }
-.panel-widget.panel-default .panel-heading {
-  background-color: #ddd;
-  color: #555;
+.panel.panel-list .panel-body {
+  padding: 0;
+  margin-top: 3px;
 }
-.panel-widget.panel-default .panel-body {
-  color: #555;
+.panel.panel-list .panel-body ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
 }
-.panel-widget.panel-default {
-  border-color: ;
+.panel.panel-list .panel-body ul li {
+  padding: 8px;
+  padding-left: 18px;
+  border-bottom: 1px solid #ccc;
 }
-.panel-widget.panel-default .panel-heading {
+.panel.panel-list .panel-body ul li:last-child {
+  border-bottom: none;
+}
+.panel.panel-list .panel-body {
+  font-weight: 400;
+}
+.panel-widget.panel-default .panel-heading, .panel-list.panel-default .panel-heading  {
   background-color: #ddd;
   color: #555;
 }

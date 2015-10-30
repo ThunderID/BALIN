@@ -35,8 +35,7 @@
 			</div>
 		</div>
 		<div class="col-md-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Jumlah Dibeli</div>
+			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
 					@if(isset($stat))
 						{!! $stat->selled_stock !!}
@@ -44,10 +43,10 @@
 						0
 					@endif
 				</div>
+				<div class="panel-heading">Jumlah Dibeli</div>
 			</div>
 
-			<div class="panel panel-default">
-				<div class="panel-heading">Total Pembelian</div>
+			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
 					@if(isset($stat))
 						{!! $stat->selled_frequency !!}
@@ -55,11 +54,11 @@
 						0
 					@endif
 				</div>
+				<div class="panel-heading">Total Pembelian</div>
 			</div>
 		</div>
 		<div class="col-md-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Stok Display</div>
+			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
 					@if(isset($product->stocks[0]))
 						{!! $product->stocks[0]->current_stock !!}
@@ -67,10 +66,10 @@
 						0
 					@endif
 				</div>
+				<div class="panel-heading">Stok Display</div>
 			</div>
 
-			<div class="panel panel-default">
-				<div class="panel-heading">Stok Gudang</div>
+			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
 					@if(isset($product->stocks[0]))
 						{!! $product->stocks[0]->current_stock + $product->stocks[0]->reserved_stock + $product->stocks[0]->on_hold_stock !!}
@@ -78,11 +77,11 @@
 						0
 					@endif
 				</div>
+				<div class="panel-heading">Stok Gudang</div>
 			</div>
 		</div>
 		<div class="col-md-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Stok Dibayar</div>
+			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
 					@if(isset($product->stocks[0]))
 						{!! $product->stocks[0]->reserved_stock !!}
@@ -90,10 +89,10 @@
 						0
 					@endif
 				</div>
+				<div class="panel-heading">Stok Dibayar</div>
 			</div>
 
-			<div class="panel panel-default">
-				<div class="panel-heading">Stok Dipesan</div>
+			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
 					@if(isset($product->stocks[0]))
 						{!! $product->stocks[0]->on_hold_stock !!}
@@ -101,6 +100,7 @@
 						0
 					@endif
 				</div>
+				<div class="panel-heading">Stok Dipesan</div>
 			</div>
 		</div>
 	</div>
@@ -130,7 +130,7 @@
 			{!!$product->description!!}
 		</div>
 		<div class="col-md-4">
-			<div class="panel panel-default">
+			<div class="panel panel-list panel-default">
 				<div class="panel-heading">Daftar Supplier</div>
 				<div class="panel-body">
 					@if(!is_null($suppliers))
@@ -140,6 +140,12 @@
 								{!! $value->supplier->name !!}
 							</li>
 						@endforeach
+						</ul>
+					@else
+						<ul>
+							<li>haaljlajf</li>
+							<li>kafjlasdjfla</li>
+							<li>alkjfdlkasjflk</li>
 						</ul>
 					@endif
 				</div>
