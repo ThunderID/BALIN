@@ -12,11 +12,6 @@
 				<ul class="nav nav-second-level">
 					<li class="@if($subnav_active=='products') active @endif">
 						<a href="{{ route('backend.data.product.index') }}"><i class="fa fa-glass"></i> <span class="nav-label">Produk</span></a>
-						{{-- <ul class="nav nav-third-level">
-							<li><a href="#">Stock</a></li>
-							<li><a href="{{ route('backend.price.index') }}">Price</a></li>
-							<li><a href="{{ route('backend.data.product.index') }}">Products</a></li>
-						</ul> --}}
 					</li>
 					<li class="@if($subnav_active=='supplier') active @endif">
 						<a href="{{ route('backend.data.supplier.index') }}"><i class="fa fa-university"></i><span class="nav-label">Supplier</span></a>
@@ -45,8 +40,16 @@
 						<a href="{{ route('backend.settings.courier.index') }}"><i class="fa fa-truck"></i> <span class="nav-label">Kurir</span></a>
 					</li>
 					<li class="@if($subnav_active=='store') active @endif">
-						<a href="{{ route('backend.settings.store.index') }}"><i class="fa fa-home"></i> <span class="nav-label">Toko Online</span></a>
+						<a href=""><i class="fa fa-home"></i> <span class="nav-label">Toko Online</span></a>
+						<ul class="nav nav-third-level">
+							<li><a href="{{ route('backend.settings.store.index') }}">Toko</a></li>
+							<li><a href="{{ route('backend.settings.feature.index') }}">Etalase</a></li>
+							<li><a href="{{ route('backend.settings.store.edit', 8) }}">Tentang Kami</a></li>
+							<li><a href="{{ route('backend.settings.store.edit', 10) }}">Syarat & Ketentuan</a></li>
+							<li><a href="{{ route('backend.settings.store.edit', 9) }}">Mengapa bergabung</a></li>
+						</ul>
 					</li>
+
 					<li class="@if($subnav_active=='policy') active @endif">
 						<a href="{{ route('backend.settings.policies.index') }}"><i class="fa fa-life-ring"></i> <span class="nav-label">Policy</span></a>
 					</li>					

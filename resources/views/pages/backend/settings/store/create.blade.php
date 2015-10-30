@@ -1,40 +1,13 @@
-@inject('data', 'App\Models\StoreSetting')
-
-@if ($id)
-	<?php $data = $data::find($id); ?>
-@endif
-
 @extends('template.backend.layout') 
 
 @section('content')
-	{!! Form::open(array('route' => 'backend.settings.store.store')) !!}
-		{!! Form::input('hidden', 'id', $data['id'], ['class' => 'mod_id']) !!}
-		<div class="row">
-			<div class="col-md-6 col-sm-6 col-xs-12">
-				<div class="form-group">
-					<label for="parent" class="text-capitalize">Type</label>
-					{!! Form::text('type', $data->type, [
-								'class'         => 'form-control', 
-								'tabindex'      => '1'
-					]) !!}
-				</div>              
-			</div>
-			<div class="col-md-6 col-sm-6 col-xs-12">
-				<div class="form-group">
-					<label for="name" class="text-capitalize">URL</label>
-					{!! Form::text('url', $data['url'], [
-								'class'         => 'form-control', 
-								'tabindex'      => '2'
-					]) !!}
-				</div> 
-			</div>
-		</div>
+	{!! Form::open(array('url' => route('backend.settings.store.update', $id), 'method' => 'PATCH')) !!}
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group">
-					{!! Form::textarea('content', $data['content'], [
+					{!! Form::textarea('content', $page['content'], [
 								'class' 				=> 'summernote',
-								'style'         	=> 'resize:none;',
+								'style'         		=> 'resize:none;',
 					]) !!}
 				</div>
 			</div>
@@ -46,7 +19,7 @@
 					<a href="{{ URL::route('backend.settings.store.index') }}" class="btn btn-md btn-default" tabindex="3">Batal</a>
 					<button type="submit" class="btn btn-md btn-primary" tabindex="4">Simpan</button>
 				</div>
-			</div>                                     
+			</div>
 		</div>
 	{!! Form::close() !!}
 @stop

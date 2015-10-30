@@ -76,6 +76,17 @@ class StoreSetting extends Eloquent
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 	
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	public function getError()
+	{
+		return $this->errors;
+	}
+	
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
@@ -88,5 +99,15 @@ class StoreSetting extends Eloquent
 		}
 
 		return 	$query->where('id', $variable);
+	}
+
+	public function scopeType($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('type', $variable);
+		}
+
+		return 	$query->where('type', $variable);
 	}
 }

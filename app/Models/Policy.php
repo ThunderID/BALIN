@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class Policy extends Eloquent
 {
@@ -52,7 +53,7 @@ class Policy extends Eloquent
 	protected $rules				=	[
 											'type'								=> 'required|max:255',
 											'value'								=> 'required|max:255',
-											'started_at'						=> 'required|date_format:"Y-m-d H:i:s"',
+											'started_at'						=> 'required|date_format:"Y-m-d H:i:s"|after:now',
 										];
 
 	/**
@@ -124,4 +125,10 @@ class Policy extends Eloquent
 
 		return 	$query->where('started_at', '<=', $started_at)->orderBy('started_at', 'asc');
 	}
+
+	public function scopeNewest($query, $variable)
+	{
+		return $query->orderByRaw(DB::raw('started_at, type'));
+	}
+
 }

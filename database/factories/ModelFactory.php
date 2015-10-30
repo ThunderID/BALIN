@@ -11,16 +11,28 @@
 |
 */
 $gender 								= ['male', 'female'];
-$role 									= ['customer', 'cashier', 'admin'];
+$role 									= ['customer', 'cashier', 'admin', 'owner', 'developer'];
 
 $factory->define(App\Models\User::class, function ($faker) use ($gender, $role)
 {
+	if(!App\Models\User::all())
+	{
+		return 
+		[
+			'name'						=> 'developer',
+			'email'						=> 'dev@balin.id',
+			'password' 					=> bcrypt('admin'),
+			'role' 						=> 'developer',
+			'gender' 					=> $gender[rand(0,1)],
+			'remember_token' 			=> str_random(10),
+		];		
+	}
 	return 
 	[
 		'name'							=> $faker->name,
 		'email'							=> $faker->email,
 		'password' 						=> bcrypt('admin'),
-		'role' 							=> $role[rand(0,2)],
+		'role' 							=> $role[rand(0,4)],
 		'gender' 						=> $gender[rand(0,1)],
 		'remember_token' 				=> str_random(10),
 	];
@@ -129,7 +141,8 @@ $factory->define(App\Models\FeaturedProduct::class, function ($faker)
 {
 	return 
 	[
-		'product_id'					=> App\Models\Product::all()->random()->id,
+		'title'							=> App\Models\Product::all()->random()->name,
+		'description'					=> $faker->word,
 		'started_at' 					=> $faker->dateTimeBetween($startDate = '- 3 months', $endDate = 'now'),
 		'ended_at' 						=> $faker->dateTimeBetween($startDate = '+ 3 months', $endDate = '+ 12 months'),
 	];

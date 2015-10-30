@@ -5044,3 +5044,64 @@ body.skin-3 {
 nav.navbar-top-links .userme > ul > li > a {
   font-size: 10px;
 }
+
+.panel.panel-widget, .panel.panel-list {
+  border-radius: 0;
+}
+.panel.panel-widget .panel-heading {
+  font-weight: bold;
+  border-radius: 0;
+  border-top: 1px solid transparent;
+}
+.panel.panel-widget .panel-body {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: right;
+}
+.panel.panel-list .panel-heading {
+  font-weight: bold;
+  border-radius: 0;
+  border-bottom: 1px solid transparent; 
+}
+.panel.panel-list .panel-body {
+  padding: 0;
+  margin-top: 3px;
+}
+.panel.panel-list .panel-body ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.panel.panel-list .panel-body ul li {
+  padding: 8px;
+  padding-left: 18px;
+  border-bottom: 1px solid #ccc;
+}
+.panel.panel-list .panel-body ul li:last-child {
+  border-bottom: none;
+}
+.panel.panel-list .panel-body {
+  font-weight: 400;
+}
+.panel-widget.panel-default .panel-heading, .panel-list.panel-default .panel-heading  {
+  background-color: #ddd;
+  color: #555;
+}
+.panel-widget.panel-default .panel-body {
+  color: #555;
+}
+.panel-widget.panel-primary .panel-body {
+  color: #1ab394;
+}
+.panel-widget.panel-success .panel-body {
+  color: #1c84c6;
+}
+.panel-widget.panel-info .panel-body {
+  color: #23c6c8;
+}
+.panel-widget.panel-warning .panel-body {
+  color: #f8ac59;
+}
+.panel-widget.panel-danger .panel-body {
+  color: #ed5565;
+}
