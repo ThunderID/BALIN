@@ -39,7 +39,6 @@ class Image extends Eloquent
 											'image_sm'						,
 											'image_md'						,
 											'image_l'						,
-											'published_at'					,
 										];
 
 	/**
@@ -55,12 +54,11 @@ class Image extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'thumbnail'						=> 'required|max:255',
-											'image_xs'						=> 'required|max:255',
-											'image_sm'						=> 'required|max:255',
-											'image_md'						=> 'required|max:255',
-											'image_l'						=> 'required|max:255',
-											'published_at'					=> 'required|date_format:"Y-m-d H:i:s"',
+											'thumbnail'						=> 'required|max:255|url',
+											'image_xs'						=> 'required|max:255|url',
+											'image_sm'						=> 'required|max:255|url',
+											'image_md'						=> 'required|max:255|url',
+											'image_l'						=> 'required|max:255|url',
 										];
 
 	/**

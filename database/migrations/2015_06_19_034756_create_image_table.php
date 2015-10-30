@@ -16,16 +16,11 @@ class CreateImageTable extends Migration
             $table->increments('id');
             $table->integer('imageable_id')->unsigned()->index();
             $table->string('imageable_type', 255);
-            // $table->integer('user_id')->unsigned()->index();
-            // $table->string('user_type', 255);
-            // $table->integer('courier_id')->unsigned()->index();
-            // $table->string('courier_type', 255);
             $table->string('thumbnail', 255);
             $table->string('image_xs', 255);
             $table->string('image_sm', 255);
             $table->string('image_md', 255);
             $table->string('image_l', 255);
-            $table->datetime('published_at');
             $table->timestamps();
             $table->softDeletes();
         });
