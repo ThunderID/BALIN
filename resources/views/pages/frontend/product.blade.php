@@ -49,18 +49,26 @@
 							</ul>
 						</div>
 					</div>
-					<!-- bikin modal  -->
 					<div clas="hidden-lg hidden-sm hidden-md col-xs-12">
-							<div class="hidden-lg hidden-sm hidden-md col-xs-6 pull-right m-t-lg">
-								<a href="#" id="dLabel" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target=".modal_cat">
-									<p class="pull-right">Kategori</p>
-								</a>
-							</div>
-							<div class="hidden-lg hidden-sm hidden-md col-xs-6 pull-left m-t-lg">
-								<a href="#" id="dLabel" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target=".modal_sort">
-									<p class="pull-left">Sort by</p>
-								</a>
-							</div>							
+						<div class="hidden-lg hidden-sm hidden-md col-xs-6 pull-right m-t-lg">
+							<a href="#" id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+								<p class="pull-right">Kategori</p>
+							</a>
+							<ul class="dropdown-menu category-list" aria-labelledby="dLabel">
+								@foreach ($category as $cat)
+									<li><a href="#">{{ $cat->name }}</a></li>
+								@endforeach
+							</ul>							
+						</div>
+						<div class="hidden-lg hidden-sm hidden-md col-xs-6 pull-left m-t-lg">
+							<a href="#" id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+								<p class="pull-left">Sort by</p>
+							</a>							
+							<ul class="dropdown-menu category-list" aria-labelledby="dLabel">
+								<li><a href="#">A-Z</a></li>
+								<li><a href="#">Z-A</a></li>
+							</ul>							
+						</div>							
 					</div>
 				</div>
 
@@ -86,16 +94,4 @@
 		</div>
 
 	</div>
-
-	<div class="modal fade modal_cat" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-	  	<div class="modal-dialog modal-sm">
-	   		<div class="modal-content">
-				<ul class="" aria-labelledby="dLabel">
-					<li><a href="#">A-Z</a></li>
-					<li><a href="#">Z-A</a></li>
-				</ul>
-	    	</div>
-	  	</div>
-	</div>
-
 @stop
