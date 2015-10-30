@@ -72,6 +72,27 @@ class BaseObserver
 		return $this->after($class, $model);
 	}
 
+	public function Deleted($model)
+	{
+		$class 			= $this->before($model);
+
+		return $this->after($class, $model);
+	}
+
+	public function Restoring($model)
+	{
+		$class 			= $this->before($model);
+
+		return $this->after($class, $model);
+	}
+
+	public function Restored($model)
+	{
+		$class 			= $this->before($model);
+
+		return $this->after($class, $model);
+	}
+
 	//get class name
 	public function before($model)
 	{
