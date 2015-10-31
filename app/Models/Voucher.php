@@ -34,10 +34,10 @@ class Voucher extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'user_id'						,
 											'code'							,
 											'type'							,
 											'value'							,
+											'started_at'					,
 											'expired_at'					,
 										];
 
