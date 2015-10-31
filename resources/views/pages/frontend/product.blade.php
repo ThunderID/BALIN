@@ -88,10 +88,7 @@
 						{!! $datas->appends(Input::all())->render() !!}
 					</div>
 				</div>
-
 			</div>
-
 		</div>
-
 	</div>
 @stop

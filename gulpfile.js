@@ -12,5 +12,6 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('app.less');
+    mix.less('style-web.less', 'public/Balin/web/css/style-web.css')
+    	.version('public/Balin/web/css/style-web.css');
 });

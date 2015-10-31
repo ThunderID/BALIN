@@ -16,7 +16,7 @@
 
     <!-- Custom CSS -->
    {!! HTML::style('Balin/web/css/bootstrap.min.css') !!}
-   {!! HTML::style('Balin/web/css/shop-homepage.css') !!}
+   <link rel="stylesheet" href="{{ elixir('Balin/web/css/style-web.css') }}">
    {!! HTML::style('Balin/web/plugin/fontawesome/css/font-awesome.min.css') !!}
    {!! HTML::style('http://fonts.googleapis.com/css?family=Lato:400,300,700') !!}
 

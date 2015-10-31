@@ -1,5 +1,5 @@
 <nav class="navbar navbar-inverse m-b-none" role="navigation">
-    <div class="container-fluid">
+    <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" aria-expanded="false" data-toggle="collapse" aria-controls="#bs-example-navbar-collapse-1" data-target="#bs-example-navbar-collapse-1">

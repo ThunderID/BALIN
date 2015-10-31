@@ -1,7 +1,7 @@
 @extends('template.frontend.layout')
 
 @section('content')
-	<div class="container-fluid page-join" style="background-color: rgba(0, 0, 0, 0.62);height:100%">
+	<div class="container-fluid page-join" style="background-color: rgba(0, 0, 0, 0.62);">
 		<div class="row" style="margin-top:60px">
 			<div class="col-md-12">
 				<div class="container">
@@ -52,6 +52,7 @@
 @section('script')
 	$('document').ready(function() {
 		$('body').attr('style', 'background-image: url("http://localhost:8000/Balin/web/Image/2.jpg")');
+		$('.page-join').height(($(window).height())+$('footer.footer').height());
 	});
 	$('.btn-signup').click( function() {
 		$('.sign-up').show();

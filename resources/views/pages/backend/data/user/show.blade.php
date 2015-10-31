@@ -40,32 +40,31 @@
 		</div>
 
 		<div class="col-md-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">My Point</div>
+			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
 					{!! $customer->balance !!}
 				</div>
+				<div class="panel-heading">My Point</div>
 			</div>
 		</div>
 		<div class="col-md-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Total Transaksi</div>
+			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
 					{!! $transaction !!}
 				</div>
+				<div class="panel-heading">Total Transaksi</div>
 			</div>
 		</div>
 		<div class="col-md-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Total Belanja</div>
+			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
 					{!! $payment !!}
 				</div>
+				<div class="panel-heading">Total Belanja</div>
 			</div>
 		</div>
 		<div class="col-md-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Rerata Belanja</div>
+			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
 					@if(!is_null($payment) && !is_null($transaction) && $transaction!=0)
 						{!! $payment/$transaction !!}
@@ -73,6 +72,7 @@
 						0
 					@endif
 				</div>
+				<div class="panel-heading">Rerata Belanja</div>
 			</div>
 		</div>
 	</div>
@@ -90,7 +90,7 @@
 			<h5><strong>Alamat</strong> {!!$customer->address!!}</h5>
 		</div>
 		<div class="col-md-4">
-			<div class="panel panel-default">
+			<div class="panel panel-list panel-default">
 				<div class="panel-heading">Daftar Barang banyak dibeli</div>
 				<div class="panel-body">
 					@if(!is_null($mostbuy))
@@ -107,7 +107,7 @@
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="panel panel-default">
+			<div class="panel panel-list panel-default">
 				<div class="panel-heading">Daftar Barang sering dibeli</div>
 				<div class="panel-body">
 					@if(!is_null($frequentbuy))
