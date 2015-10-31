@@ -112,10 +112,10 @@
 				</br>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-				        <button style="margin-right:10px;"type="button" class="btn btn-success pull-right">
+				        <button style="margin-right:10px;"type="button" class="btn-hollow hollow-black pull-right">
 				        	Checkout
 				        </button>
-				        <button style="margin-right:10px;"type="button" class="btn btn-info pull-right">
+				        <button style="margin-right:10px;"type="button" class="btn-hollow hollow-black pull-right">
 				        	Update Cart
 				        </button>
 					</div>

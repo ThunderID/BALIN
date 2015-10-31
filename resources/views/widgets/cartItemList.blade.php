@@ -79,15 +79,15 @@
 		<h4 class="text-right">{{$itemListTotalPrice}}</h4>
 	</div>
 	<div class="col-md-1 col-sm-1 hidden-xs">
-        <button style="margin-top:7px;" type="button" class="btn btn-xs btn-default pull-right">
-            <span class="glyphicon glyphicon-remove" style="padding-top:4px;"></span>
+        <button style="margin-top:7px;" type="button" class="btn-hollow btn-hollow-xs hollow-black pull-right">
+            <span class="glyphicon glyphicon-remove" style="padding-top:2px;"></span>
         </button></td>	
 	</div>
 	<div class="hidden-lg hidden-md hidden-sm col-xs-12">
 		<div class="row">
 			</br>			
 			<div class="col-xs-12">
-		        <button type="button" class="btn btn-default btn-block">
+		        <button type="button" class="btn-hollow hollow-black btn-block">
 		            <span class="glyphicon glyphicon-remove" style="padding-top:4px;"></span> Remove from Cart
 		        </button>						
 			</div>

@@ -1,40 +1,42 @@
 <div class="row">
 	<div class="col-md-12">
-		<h3>Orders</h3>
+		<h3 class="caption-info m-t-xxs">Orders</h3>
 	</div>
 </div>
-
-
-@include('widgets.particle.linkLabelBlue', array('linkText' => 'Shopping Chart', 'linkDirection' => '#'))
-
-@include('widgets.particle.linkLabelBlue', array('linkText' => 'Processed Order', 'linkDirection' => '#'))
-
-@include('widgets.particle.linkLabelBlue', array('linkText' => 'View Order History', 'linkDirection' => '#'))
 <div class="row">
 	<div class="col-md-12">
-    	<h3>Account</h3>
+		<ul class="list-unstyled menu-info">
+			<li><a href="#">Shopping Cart</a></li>
+			<li><a href="#">Procesed Order</a></li>
+			<li><a href="#">View Order History</a></li>
+		</ul>
 	</div>
 </div>
-
-@include('widgets.particle.linkLabelBlue', array('linkText' => 'Profile Details', 'linkDirection' =>  route('frontend.profile.index') ))
-
-@include('widgets.particle.linkLabelBlue', array('linkText' => 'Change Profile', 'linkDirection' =>  route('frontend.profile.changeProfile') ))
-
-@include('widgets.particle.linkLabelBlue', array('linkText' => 'Change Password', 'linkDirection' =>  route('frontend.profile.changePassword') ))
-  
 <div class="row">
 	<div class="col-md-12">
-    	<h3>Membership</h3>
+    	<h3 class="caption-info">Account</h3>
 	</div>
 </div>
-
-@include('widgets.particle.linkLabelBlue', array('linkText' => 'Membership Details', 'linkDirection' => route('frontend.profile.membershipDetail')  ))
-
-@include('widgets.particle.linkLabelBlue', array('linkText' => 'Coupon Transactions', 'linkDirection' => '#'  ))
-
-</br>  
-
-@include('widgets.particle.linkLabelBlue', array('linkText' => 'Logout', 'linkDirection' => '#'  ))
-
-
-
+<div class="row">
+	<div class="col-md-12">
+		<ul class="list-unstyled menu-info">
+			<li><a href="{{ route('frontend.profile.index') }}">Profile Details</a></li>
+			<li><a href="{{ route('frontend.profile.changeProfile') }}">Change Profile</a></li>
+			<li><a href="{{ route('frontend.profile.changePassword') }}">Change Password</a></li>
+		</ul>
+	</div>
+</div>  
+<div class="row">
+	<div class="col-md-12">
+    	<h3 class="caption-info">Membership</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<ul class="list-unstyled menu-info">
+			<li><a href="{{ route('frontend.profile.membershipDetail') }}">Membership Details</a></li>
+			<li><a href="#">Coupon Transaction</a></li>
+			<li class="last-child"><a href="#">Logout</a></li>
+		</ul>
+	</div>
+</div>

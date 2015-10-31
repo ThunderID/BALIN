@@ -7,7 +7,7 @@
 
 body {
 	height: 100%;
-	padding-top: 50px;
+	/*padding-top: 50px;*/
 	font-family: 'Lato', sans-serif;
 }
 
@@ -296,6 +296,17 @@ html {
   margin: 30px 0;
 }
 
+.navbar {
+	border-radius: 0;
+}
+.navbar-nav.navbar-hollow {
+	float: right;
+}
+@media (max-width: 992px) {
+	.navbar-nav.navbar-hollow {
+		float: left;
+	}	
+}
 .slide-image {
 	width: 100%;
 }
@@ -382,10 +393,10 @@ footer {
 
 .aaaa {
 	margin-top: 0px;
-    background: black !important;
-    color: white;
-    padding-top: 30px;
-    padding-bottom: 45px;
+	background: black !important;
+	color: white;
+	padding-top: 30px;
+	padding-bottom: 45px;
 }
 
 .promo-price{
@@ -545,6 +556,14 @@ footer {
 	width: 38px;
 	height: 35px;
 }
+.btn-hollow.btn-hollow-sm {
+	padding: 5px 10px;
+	font-size: 12px;
+}
+.btn-hollow.btn-hollow-xs {
+	padding: 3px 6px;
+	font-size: 10px;
+}
 
 .t-xs {
 	font-size: 13px;
@@ -613,11 +632,11 @@ input.text-holow:focus {
 }
 .panel-hollow {
 	margin-bottom: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 0;
-    /*-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);*/
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 0;
+	/*-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);*/
 }
 .panel-hollow input {
 	outline: none;
@@ -655,4 +674,49 @@ input.text-holow:focus {
 
 .info-corporate {
 	color: #fff;
+}
+
+.caption-info {
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	padding: 7px;
+	text-align: center;
+	font-weight: 300;
+}
+.menu-info li a {
+	color: #999;
+	text-decoration: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.menu-info li a:hover, .menu-info li a.active {
+	color: #222;
+}
+.menu-info li.last-child {
+	margin-top: 30px;
+	margin-bottom: 50px;
+}
+label.text {
+	color: #999;
+	font-weight: 300;
+}
+.form-control.hollow {
+	border-radius: 0;
+	outline: none;
+	box-shadow: none;
+	border-color: #999;
+}
+select.form-control.hollow {
+	border-radius: 0;
+	outline: none;
+	box-shadow: none;
+	overflow: hidden;
+	background: #fff url("select2x2.png") no-repeat 128% 16%;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+span.info {
+	color: #888;
+	font-size: 12px;
+	padding-bottom: 10px;
 }

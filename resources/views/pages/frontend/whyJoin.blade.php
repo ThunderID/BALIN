@@ -32,7 +32,7 @@
 
                     <div class="col-md-4 text-center">
                         <H2 class="text-center">What are you waiting for?</H2>
-                        <a class="btn btn-default btn-lg btn-block" href="{{ URL::route('frontend.join.index') }}">JOIN NOW</a>
+                        <a class="btn-hollow hollow-black btn-block" href="{{ URL::route('frontend.join.index') }}">JOIN NOW</a>
                     </div>
 
                     <div class="col-md-4"></div>
