@@ -8,7 +8,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Voucher;
 
-class VoucherCreated extends Job implements SelfHandling
+class VoucherRestoring extends Job implements SelfHandling
 {
     protected $voucher;
 
