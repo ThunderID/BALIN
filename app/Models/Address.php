@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PointLog extends Eloquent
+class Address extends Eloquent
 {
 
 	use SoftDeletes;
@@ -16,15 +16,14 @@ class PointLog extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\belongsTo\HasUserTrait;
-	use \App\Models\Traits\belongsTo\HasTransactionTrait;
+	use \App\Models\Traits\morphMany\HasAddressTest;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'point_logs';
+	protected $table				= 'addresses';
 
 	// protected $timestamps			= true;
 
@@ -35,13 +34,11 @@ class PointLog extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'user_id'						,
-											'point_log_id'					,
-											'reference_id'					,
-											'reference_type'				,
-											'amount'						,
-											'expired_at'					,
-											'notes'							,
+											'owner_id'						,
+											'owner_type'					,
+											'phone'							,
+											'address'						,
+											'zipcode'						,
 										];
 
 	/**
@@ -57,11 +54,11 @@ class PointLog extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'user_id'						=> 'required',
-											'point_log_id'					=> 'required',
-											'reference_id'					=> 'required',
-											'amount'						=> 'numeric|required',
-											'expired_at'					=> 'date|required',
+											'owner_id'						=> 'required',
+											'owner_type'					=> 'required',
+											'phone'							=> 'required',
+											'address'						=> 'required',
+											'zipcode'						=> 'required',
 										];
 
 	/**
@@ -70,6 +67,7 @@ class PointLog extends Eloquent
 	 * @var array
 	 */
 	protected $appends				=	[
+											'Address',
 										];
 
 	/**
@@ -84,8 +82,18 @@ class PointLog extends Eloquent
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 
+	public function getAddressAttribute($value)
+	{
+		if($this->address()->count())
+		{
+			return $this->address;
+		}
+
+		return false;
+	}
+
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
-		
+
 	/**
 	 * return errors
 	 *
@@ -101,35 +109,4 @@ class PointLog extends Eloquent
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
 
-	public function scopeID($query, $variable)
-	{
-		if(is_array($variable))
-		{
-			return 	$query->whereIn('id', $variable);
-		}
-
-		return 	$query->where('id', $variable);
-	}
-
-	public  function scopeOndate($query, $variable)
-	{
-		if(!is_array($variable))
-		{
-			return $query->where('created_at', date('Y-m-d H:i:s', strtotime($variable)));
-		}
-
-		return $query->where('created_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('created_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
-	}
-
-	public function scopeRangeDate($query, $start, $end)
-	{
-		if($start && $end)
-		{
-			return 	$query->where('created_at', '>=', $start)
-							->where('created_at', '<=', $end)
-							;
-		}
-
-		return 	$query;
-	}
 }

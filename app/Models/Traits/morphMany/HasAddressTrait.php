@@ -10,7 +10,7 @@ trait HasAddressTrait
 	 * @author 
 	 **/
 
-	function HassAddressTraitConstructor()
+	function HasAddressTraitConstructor()
 	{
 		//
 	}

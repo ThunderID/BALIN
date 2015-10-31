@@ -255,5 +255,27 @@ Route::get('profile/membershipDetail', ['uses' => 'Frontend\\profileController@m
 Route::get('profile/changePassword', ['uses' => 'Frontend\\profileController@changePassword', 'as' => 'frontend.profile.changePassword']);
 Route::get('profile/changeProfile', ['uses' => 'Frontend\\profileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
 
+
+Route::get('testgetcookie', ['uses' => 'Frontend\\productController@detail', 'as' => 'frontend.home.test']);
+Route::get('testcookie', ['uses' => 'Frontend\\productController@removeFromCart', 'as' => 'frontend.home.test2']);
+
+
 Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error']);
 Route::get('test/email', ['uses' => 'testController@testEmail', 'as' => 'test.email']);
+
+
+// Route::get('cookieset', function()
+// {
+//     $foreverCookie = Cookie::forever('forever', 'Success');
+//     $tempCookie = Cookie::make('temporary', 'Victory', 5);
+//     return Response::make()->withCookie($foreverCookie)->withCookie($tempCookie);
+// });
+
+
+// Route::get('cookietest', function()
+// {
+//      $forever = Cookie::get('forever');
+//      $temporary = Cookie::get('temporary');
+//      dd($forever);
+//      return View::make('cookietest', array('forever' => $forever, 'temporary' => $temporary, 'variableTest' => 'works'));
+// });
