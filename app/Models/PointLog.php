@@ -35,11 +35,12 @@ class PointLog extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'transaction_id'				,
 											'user_id'						,
-											'debit'							,
-											'credit'						,
-											'expired_date'					,
+											'point_log_id'					,
+											'reference_id'					,
+											'reference_type'				,
+											'amount'						,
+											'expired_at'					,
 											'notes'							,
 										];
 
@@ -56,10 +57,11 @@ class PointLog extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'debit'							=> 'numeric',
-											'credit'						=> 'numeric',
-											'expired_date'					=> 'date',
-											'notes'							=> 'max:255',
+											'user_id'						=> 'required',
+											'point_log_id'					=> 'required',
+											'reference_id'					=> 'required',
+											'amount'						=> 'numeric|required',
+											'expired_at'					=> 'date|required',
 										];
 
 	/**
