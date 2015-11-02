@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePolicyTable extends Migration
+class CreateProductLableTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,13 @@ class CreatePolicyTable extends Migration
      */
     public function up()
     {
-        Schema::create('tmp_policies', function (Blueprint $table) {
+        Schema::create('product_lables', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type', 255);
-            $table->string('value');
+            $table->integer('product_id')->unsigned()->index();
+            $table->string('name', 255);
+            $table->text('value');
             $table->datetime('started_at');
+            $table->datetime('ended_at');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +31,6 @@ class CreatePolicyTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tmp_policies');
+        Schema::drop('product_lables');
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFeaturedProductTable extends Migration
+class CreateAuditorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,13 @@ class CreateFeaturedProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('tmp_featured_products', function (Blueprint $table) {
+        Schema::create('auditors', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 255);
-            $table->text('description');
-            $table->datetime('started_at');
-            $table->datetime('ended_at');
+            $table->integer('table_id')->unsigned()->index();
+            $table->string('table_type', 255);
+            $table->date('ondate');
+            $table->string('event', 255);
+            $table->text('action');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +31,6 @@ class CreateFeaturedProductTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tmp_featured_products');
+        Schema::drop('auditors');
     }
 }

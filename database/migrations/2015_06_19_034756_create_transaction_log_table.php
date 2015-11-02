@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreteTableAddress extends Migration
+class CreateTransactionLogTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,11 @@ class CreteTableAddress extends Migration
      */
     public function up()
     {
-        Schema::create('address', function (Blueprint $table) {
+        Schema::create('transaction_logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('owner_id');
-            $table->integer('owner_type');
-            $table->string('phone');
-            $table->text('address');
-            $table->string('zipcode');
+            $table->integer('transaction_id')->unsigned()->index();
+            $table->enum('status', ['cart', 'wait', 'paid', 'shipping', 'delivered']);
+            $table->datetime('changed_at');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +29,6 @@ class CreteTableAddress extends Migration
      */
     public function down()
     {
-        Schema::drop('address');
+        Schema::drop('transaction_logs');
     }
 }
