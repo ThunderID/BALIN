@@ -23,11 +23,9 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 */
 
 	use \App\Models\Traits\hasMany\HasTransactionsTrait;
-	use \App\Models\Traits\hasOne\HasVoucherTrait;
 	use \App\Models\Traits\hasMany\HasPointLogsTrait;
 	use \App\Models\Traits\morphMany\HasImagesTrait;
 	use \App\Models\Traits\morphMany\HasAddressesTrait;
-	
 
 	/**
 	 * The database table used by the model.
@@ -75,7 +73,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	protected $rules				=	[
 											'name'							=> 'required|max:255',
 											'email'							=> 'max:255|email',
-											// 'password'						=> 'required|max:255',
+											'role'							=> 'required|max:255',
 										];
 
 	/**

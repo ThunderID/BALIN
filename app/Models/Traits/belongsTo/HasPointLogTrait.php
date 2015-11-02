@@ -26,9 +26,4 @@ trait HasPointLogTrait
 	{
 		return $query->whereHas('pointlog', function($q)use($variable){$q;});
 	}
-
-	public function scopePointLogID($query, $variable)
-	{
-		return $query->whereHas('pointlog', function($q)use($variable){$q->id($variable);});
-	}
 }
