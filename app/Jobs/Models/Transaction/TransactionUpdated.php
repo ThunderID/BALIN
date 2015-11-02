@@ -17,10 +17,18 @@ class TransactionUpdated extends Job implements SelfHandling
     {
         $this->transaction                  = $transaction;
     }
-    
+
     public function handle()
     {
-        $result                          	= new JSend('success', (array)$this->transaction );
+        switch($this->transaction->type)
+        {
+            case 'buy' :
+                $result                     = $this->dispatch(new TransactionBuyUpdated($this->transaction));
+            break;
+            default :
+                $result                     = $this->dispatch(new TransactionSellUpdated($this->transaction));
+            break;
+        }
         
         return $result;
     }

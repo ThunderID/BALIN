@@ -2,20 +2,18 @@
 
 namespace App\Jobs\Models\Transaction;
 
-use App\Jobs\Models\Transaction\Sell\TransactionSellSaving;
-
 use App\Jobs\Job;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
 
-class TransactionSaving extends Job implements SelfHandling
+
+class TransactionDeleted extends Job implements SelfHandling
 {
-    use DispatchesJobs, ValidatesRequests;
+    use DispatchesJobs;
 
     protected $transaction;
 
@@ -29,10 +27,10 @@ class TransactionSaving extends Job implements SelfHandling
         switch($this->transaction->type)
         {
             case 'buy' :
-                $result                     = $this->dispatch(new TransactionBuySaving($this->transaction));
+                $result                     = $this->dispatch(new TransactionBuyDeleted($this->transaction));
             break;
             default :
-                $result                     = $this->dispatch(new TransactionSellSaving($this->transaction));
+                $result                     = $this->dispatch(new TransactionSellDeleted($this->transaction));
             break;
         }
         

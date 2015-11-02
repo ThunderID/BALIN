@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Jobs\Models\Transaction;
-
-use App\Jobs\Models\Transaction\Buy\TransactionBuyCreating;
+namespace App\Jobs\Models\Transaction\Buy;
 
 use App\Jobs\Job;
 use App\Jobs\GenerateTransactionRefNumber;
+use App\Jobs\CountReferralDiscount;
+use App\Jobs\FillTransactionDate;
+use App\Jobs\GenerateTransactionUniqNumber;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -14,7 +15,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
 
-class TransactionCreating extends Job implements SelfHandling
+class TransactionBuySaving extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
@@ -27,16 +28,9 @@ class TransactionCreating extends Job implements SelfHandling
 
     public function handle()
     {
-        switch($this->transaction->type)
-        {
-            case 'buy' :
-                $result                     = $this->dispatch(new TransactionBuyCreating($this->transaction));
-            break;
-            default :
-                $result                     = $this->dispatch(new TransactionSellCreating($this->transaction));
-            break;
-        }
-        
+        //need to check user active or not
+        $result                         = new JSend('success', (array)$this->transaction );
+
         return $result;
     }
 }
