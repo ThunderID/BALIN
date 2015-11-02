@@ -16,7 +16,7 @@ class Voucher extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
+	use \App\Models\Traits\hasMany\HasTransactionsTrait;
 
 	/**
 	 * The database table used by the model.
@@ -46,7 +46,7 @@ class Voucher extends Eloquent
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'expired_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'expired_at', 'started_at'];
 
 	/**
 	 * Basic rule of database
@@ -56,6 +56,8 @@ class Voucher extends Eloquent
 	protected $rules				=	[
 											'code'							=> 'required|max:255',
 											'type'							=> 'required|max:255',
+											'started_at'					=> 'date_format:"Y-m-d H:i:s"|after:now',
+											'expired_at'					=> 'date_format:"Y-m-d H:i:s"|after:now',
 										];
 
 	/**

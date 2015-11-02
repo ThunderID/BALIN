@@ -8,7 +8,6 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Voucher;
 
-
 class VoucherDeleting extends Job implements SelfHandling
 {
     protected $voucher;
@@ -20,6 +19,11 @@ class VoucherDeleting extends Job implements SelfHandling
 
     public function handle()
     {
-        return new JSend('success', (array)$this->voucher);
+		if($this->voucher->transactions->count())
+		{
+			return new JSend('error', (array)$this->voucher, 'Tidak dapat menghapus voucher yang telah digunakan dalam transaksi.');
+		}
+
+		return new JSend('success', (array)$this->voucher);
     }
 }
