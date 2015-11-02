@@ -3,6 +3,7 @@
 use App\Http\Controllers\baseController;
 use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\Address;
 use App\Models\Supplier;
 use App\Models\policy;
 use Input, Session, DB, Redirect, Response;
@@ -120,7 +121,7 @@ class SupplierController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 								= Input::only('name', 'phone', 'address');
+		$inputs 								= Input::only('address_id','name','phone', 'address', 'zipcode');
 	
 		if ($id)
 		{
@@ -133,8 +134,6 @@ class SupplierController extends baseController
 
 		$data->fill([
 			'name' 								=> $inputs['name'],
-			'phone' 							=> $inputs['phone'],
-			'address' 							=> $inputs['address'],
 		]);
 
 		DB::beginTransaction();
@@ -149,11 +148,39 @@ class SupplierController extends baseController
 		}	
 		else
 		{
-			DB::commit();
+			// if($inputs['address_id'])
+			// {
+			// 	$address						= Address::find($inputs['address_id']);			
+			// }
+			// else
+			// {
+				$address						= new Address;			
+			// }
 
-			return Redirect::route('backend.data.supplier.index')
-								->with('msg', 'Supplier sudah disimpan')
-								->with('msg-type', 'success');
+			$address->fill([
+				'phone' 						=> $inputs['phone'],
+				'zipcode' 						=> $inputs['zipcode'],
+				'address' 						=> $inputs['address'],
+			]);
+
+			$address->owner()->associate($data);
+
+			if(!$address->save())
+			{
+				DB::rollback();
+				return Redirect::back()
+									->withInput()
+									->withErrors($address->getError())
+									->with('msg-type', 'danger');
+			}
+			else
+			{
+				DB::commit();
+
+				return Redirect::route('backend.data.supplier.index')
+									->with('msg', 'Supplier sudah disimpan')
+									->with('msg-type', 'success');
+			}
 		}
 	}
 

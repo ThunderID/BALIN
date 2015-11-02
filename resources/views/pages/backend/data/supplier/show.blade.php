@@ -3,7 +3,7 @@
 <?php 
 	// $data 		= $data::id($id)
 	// 				->first(); 
-	$products 	= $products->supplier($id)->with(['product'])->get();
+	// $products 	= $products->supplier($id)->with(['product'])->get();
 ?>
 
 @extends('template.backend.layout') 
@@ -19,19 +19,22 @@
 	<div class="row">
 		<div class="col-md-6">
 			<h2 style="margin-top:0px;">{!!$supplier->name!!}</h2>
-			<h5><strong>No. Telp</strong> {!!$supplier->phone!!}</h5>
-			<h5><strong>Alamat</strong> {!!$supplier->address!!}</h5>
+			<h5><strong>Phone</strong> {!!$supplier->address['phone']!!}</h5>
+			<h5><strong>Kode Pos</strong> {!!$supplier->address['zipcode']!!}</h5>
+			<h5><strong>Alamat</strong> {!!$supplier->address['address']!!}</h5>
 		</div>
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">Daftar Produk</div>
 				<div class="panel-body">
-					<ul>
-					@foreach($products as $key => $value)
-						<li>
-							{!! $value->product->name !!}
-						</li>
-					@endforeach
+					<?php
+					// <ul>a href=""></a>
+					// @foreach($products as $key => $value)
+					// 	<li>
+					// 		{!! $value->product->name !!}
+					// 	</li>
+					// @endforeach
+					?>
 					</ul>
 				</div>
 			</div>

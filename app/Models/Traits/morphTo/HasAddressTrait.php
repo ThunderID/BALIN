@@ -15,7 +15,7 @@ trait HasAddressTrait
 		//
 	}
 
-    public function address()
+    public function owner()
     {
         return $this->morphTo();
     }
