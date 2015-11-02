@@ -17,7 +17,9 @@ class PointLog extends Eloquent
 	 */
 
 	use \App\Models\Traits\belongsTo\HasUserTrait;
-	use \App\Models\Traits\belongsTo\HasTransactionTrait;
+	use \App\Models\Traits\morphTo\HasUserTrait;
+	use \App\Models\Traits\morphTo\HasTransactionTrait;
+	use \App\Models\Traits\hasMany\HasPointLogTrait;
 
 	/**
 	 * The database table used by the model.
