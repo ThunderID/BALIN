@@ -18,7 +18,6 @@ class CreatePriceTable extends Migration
             $table->double('price');
             $table->double('promo_price');
             $table->datetime('started_at');
-            $table->text('label');
             $table->timestamps();
             $table->softDeletes();
         });

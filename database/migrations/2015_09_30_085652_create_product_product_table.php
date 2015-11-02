@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStoreSettingTable extends Migration
+class CreateProductProductTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,10 @@ class CreateStoreSettingTable extends Migration
      */
     public function up()
     {
-        Schema::create('tmp_store_settings', function (Blueprint $table) {
+        Schema::create('products_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type', 255);
-            $table->text('value');
-            $table->datetime('started_at');
+            $table->integer('product_id')->unsigned()->index();
+            $table->integer('product_universal_id')->unsigned()->index();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +28,6 @@ class CreateStoreSettingTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tmp_store_settings');
+        Schema::drop('products_products');
     }
 }

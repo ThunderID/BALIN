@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStoreSettingTable extends Migration
+class CreateAddressTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,13 @@ class CreateStoreSettingTable extends Migration
      */
     public function up()
     {
-        Schema::create('tmp_store_settings', function (Blueprint $table) {
+        Schema::create('address', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type', 255);
-            $table->text('value');
-            $table->datetime('started_at');
+            $table->integer('owner_id')->unsigned()->index();
+            $table->string('owner_type', 255);
+            $table->string('phone', 20);
+            $table->text('address');
+            $table->string('zipcode', 10);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +31,6 @@ class CreateStoreSettingTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tmp_store_settings');
+        Schema::drop('address');
     }
 }

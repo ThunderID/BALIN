@@ -16,15 +16,13 @@ class CreateTransactionTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->integer('supplier_id')->unsigned()->index();
+            $table->integer('voucher_id')->unsigned()->index();
             $table->string('ref_number', 255);
-            $table->string('referral_code', 255)->nullable();
             $table->enum('type', ['sell', 'buy']);
-            $table->enum('status', ['waiting', 'paid', 'shipped', 'delivered', 'canceled','draft']);
-            $table->datetime('transacted_at');
+            $table->datetime('transact_at');
             $table->integer('unique_number');
             $table->double('shipping_cost');
-            $table->double('referral_discount');
-            $table->double('amount');
+            $table->double('voucher_discount');
             $table->timestamps();
             $table->softDeletes();
         });
