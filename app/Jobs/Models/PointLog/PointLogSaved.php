@@ -26,10 +26,6 @@ class PointLogSaved extends Job implements SelfHandling
 
     public function handle()
     {
-        $user                           = User::findorfail($this->pointlog->user_id);
-
-        $result                         = $this->dispatch(new RecalculateUserPoints($user));
-
-        return $result;
+        return new JSend('success', (array)$this->pointlog);
     }
 }

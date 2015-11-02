@@ -16,7 +16,7 @@ class Voucher extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\belongsTo\HasUserTrait;
+	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
 
 	/**
 	 * The database table used by the model.
