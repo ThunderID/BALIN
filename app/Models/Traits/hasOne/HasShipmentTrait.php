@@ -17,7 +17,7 @@ trait HasShipmentTrait
 
 	/* ------------------------------------------------------------------- RELATIONSHIP TO SERVICE -------------------------------------------------------------------*/
 
-	public function Shipments()
+	public function Shipment()
 	{
 		return $this->hasOne('App\Models\Shipment');
 	}

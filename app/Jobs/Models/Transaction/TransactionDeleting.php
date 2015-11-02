@@ -20,7 +20,15 @@ class TransactionDeleting extends Job implements SelfHandling
     
     public function handle()
     {
-        $result                          = new JSend('success', (array)$this->transaction );
+        switch($this->transaction->type)
+        {
+            case 'buy' :
+                $result                     = $this->dispatch(new TransactionBuyDeleting($this->transaction));
+            break;
+            default :
+                $result                     = $this->dispatch(new TransactionSellDeleting($this->transaction));
+            break;
+        }
         
         return $result;
     }

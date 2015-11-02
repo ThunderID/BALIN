@@ -16,13 +16,15 @@ class Transaction extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\belongsTo\HasUserTrait;
 	use \App\Models\Traits\belongsTo\HasSupplierTrait;
+	use \App\Models\Traits\belongsTo\HasUserTrait;
+	use \App\Models\Traits\belongsTo\HasVoucherTrait;
 	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
-	use \App\Models\Traits\hasMany\HasPaymentsTrait;
-	use \App\Models\Traits\hasMany\HasShipmentsTrait;
-	use \App\Models\Traits\hasMany\HasPointLogsTrait;
+	use \App\Models\Traits\hasMany\HasTransactionLogsTrait;
+	use \App\Models\Traits\hasOne\HasPaymentTrait;
+	use \App\Models\Traits\hasOne\HasShipmentTrait;
 	use \App\Models\Traits\belongsToMany\HasTransactionProductsTrait;
+	use \App\Models\Traits\morphMany\HasPointLogsTrait;
 
 	/**
 	 * The database table used by the model.
@@ -42,22 +44,20 @@ class Transaction extends Eloquent
 	protected $fillable				=	[
 											'user_id'						,
 											'supplier_id'					,
+											'voucher_id'					,
 											'ref_number'					,
-											'referral_code'					,
 											'type'							,
-											'status'						,
-											'transacted_at'					,
+											'transact_at'					,
 											'unique_number'					,
 											'shipping_cost'					,
-											'referral_discount'				,
-											'amount'						,
+											'voucher_discount'				,
 										];
 	/**
 	 * Timestamp field
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'transact_at'];
 
 	/**
 	 * Basic rule of database
@@ -65,10 +65,12 @@ class Transaction extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
+											'ref_number'					=> 'required',
 											'type'							=> 'required|in:buy,sell',
-											'status'						=> 'required|in:draft,waiting,paid,shipped,delivered,canceled',
-											// 'transacted_at'					=> 'required|date_format:"Y-m-d H:i:s"',
-											'amount'						=> 'numeric',
+											'transact_at'					=> 'required|date_format:"Y-m-d H:i:s"',
+											'unique_number'					=> 'numeric',
+											'shipping_cost'					=> 'numeric',
+											'voucher_discount'				=> 'numeric',
 										];
 
 	/**
@@ -118,16 +120,6 @@ class Transaction extends Eloquent
 		return 	$query->where('id', $variable);
 	}
 
-	public function scopeStatus($query, $variable)
-	{
-		if(is_array($variable))
-		{
-			return 	$query->whereIn('status', $variable);
-		}
-
-		return 	$query->where('status', $variable);
-	}
-
 	public function scopeType($query, $variable)
 	{
 		if(is_array($variable))
@@ -142,12 +134,11 @@ class Transaction extends Eloquent
 	{
 		if(!is_array($variable))
 		{
-			return $query->where('transacted_at', date('Y-m-d H:i:s', strtotime($variable)));
+			return $query->where('transact_at', date('Y-m-d H:i:s', strtotime($variable)));
 		}
 
-		return $query->where('transacted_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('transacted_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
+		return $query->where('transact_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('transact_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
 	}
-
 
 	public  function scopeTransactionProcessed($query)
 	{
