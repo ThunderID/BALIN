@@ -17,9 +17,9 @@ class PointLog extends Eloquent
 	 */
 
 	use \App\Models\Traits\belongsTo\HasUserTrait;
-	// use \App\Models\Traits\morphTo\HasUserTrait;
-	use \App\Models\Traits\morphTo\HasTransactionTrait;
-	// use \App\Models\Traits\hasMany\HasPointLogTrait;
+	use \App\Models\Traits\morphTo\HasReferenceTrait;
+	use \App\Models\Traits\hasMany\HasPointLogsTrait;
+	use \App\Models\Traits\belongsTo\HasPointLogTrait;
 
 	/**
 	 * The database table used by the model.
@@ -51,7 +51,7 @@ class PointLog extends Eloquent
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'expired_at'];
 
 	/**
 	 * Basic rule of database
@@ -59,11 +59,8 @@ class PointLog extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'user_id'						=> 'required',
-											'point_log_id'					=> 'required',
-											'reference_id'					=> 'required',
-											'amount'						=> 'numeric|required',
-											'expired_at'					=> 'date|required',
+											'amount'						=> 'required|numeric',
+											'expired_at'					=> 'required|date_format:"Y-m-d H:i:s"',
 										];
 
 	/**
