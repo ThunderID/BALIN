@@ -148,14 +148,14 @@ class SupplierController extends baseController
 		}	
 		else
 		{
-			if($inputs['address_id'])
-			{
-				$address						= Address::find($inputs['address_id']);			
-			}
-			else
-			{
+			// if($inputs['address_id'])
+			// {
+			// 	$address						= Address::find($inputs['address_id']);			
+			// }
+			// else
+			// {
 				$address						= new Address;			
-			}
+			// }
 
 			$address->fill([
 				'phone' 						=> $inputs['phone'],
