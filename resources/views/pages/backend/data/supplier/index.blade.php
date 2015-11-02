@@ -7,7 +7,10 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->orderby('name')->paginate();
+
+$datas 			= $datas
+					->orderby('name')
+					->paginate();
 ?>
 
 @extends('template.backend.layout') 
@@ -53,6 +56,7 @@ $datas 			= $datas->orderby('name')->paginate();
 									<th>No.</th>
 									<th>Nama</th>
 									<th>Telepon</th>
+									<th>Zip Code</th>
 									<th>Alamat</th>
 									<th>Kontrol</th>
 								</tr>
@@ -70,17 +74,20 @@ $datas 			= $datas->orderby('name')->paginate();
 										$ctr = 1 + $nop;
 									?> 
 									@foreach($datas as $data)
+									<?php $address =  $data['address'];?>
 									<tr>
 										<td>{{$ctr}}</td>
 										<td>{{$data['name']}}</td>
-										<td>{{$data['phone']}}</td>                                                                               
-										<td>{{$data['address']}}</td>                                                                               
+										<td>{{$address['phone']}}</td>
+										<td>{{$address['zipcode']}}</td>
+										<td>{{$address['address']}}</td>
 										<td>
 											<a href="{{ URL::route('backend.data.supplier.show', ['id' => $data['id']]) }}"> Detail </a>, 
 											<a href="{{ URL::route('backend.data.supplier.edit', ['id' => $data['id']]) }}"> Edit </a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#supplier_del"
 												data-id="{{ $data['id'] }}"
-												data-title="Hapus Data Supplier {{$data['name']}}"
+												data-ti
+												tle="Hapus Data Supplier {{$data['name']}}"
 												data-action="{{ route('backend.data.supplier.destroy', $data->id) }}">
 												Hapus
 											</a>  

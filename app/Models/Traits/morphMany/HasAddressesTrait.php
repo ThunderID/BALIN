@@ -15,8 +15,10 @@ trait HasAddressesTrait
 		//
 	}
 
-	public function Addreses()
+	public function Addresses()
 	{
-		return $this->morphMany('App\Models\Address', 'address');
+		return $this->morphMany('App\Models\Address', 'owner');
 	}
+
+
 }

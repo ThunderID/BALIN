@@ -16,7 +16,7 @@ class Address extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\morphTo\HasAddressTest;
+	use \App\Models\Traits\morphTo\HasAddressTrait;
 
 	/**
 	 * The database table used by the model.
