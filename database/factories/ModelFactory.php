@@ -51,8 +51,19 @@ $factory->define(App\Models\Voucher::class, function ($faker)
 		'code' 							=> bin2hex(openssl_random_pseudo_bytes(4)),
 		'type' 							=> $types[$type],
 		'value' 						=> $values[$type],
-		'started_at' 					=> $faker->dateTimeBetween($startDate = '- 3 months', $endDate = 'now'),
+        'started_at'                    => $faker->dateTimeBetween($startDate = 'now', $endDate = '+ 3 months'),
 		'expired_at' 					=> $faker->dateTimeBetween($startDate = '+ 3 months', $endDate = '+ 12 months'),
+	];
+});
+
+$factory->define(App\Models\PointLog::class, function ($faker)
+{
+	return 
+	[
+		'user_id'					=> App\Models\User::all()->random()->id,
+		'reference_id'				=> App\Models\User::all()->random()->id,
+		'reference_type'			=> 'App\Models\User',
+		'expired_at'				=> $faker->dateTimeBetween($startDate = '+ 3 months', $endDate = '+ 12 months'),
 	];
 });
 

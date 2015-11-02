@@ -38,9 +38,9 @@ class ProductTableSeeder extends Seeder
 					$data 							= new Product;
 					$data->fill([
 						'name'						=> $value->name.' '.$brand.' '.$color.' '.$size,
-						'sku'						=> $faker->ean8,
+						'code'						=> $faker->ean8,
 						'slug'						=> $faker->slug($nbWords = 3),			
-						'is_new'					=> rand(0,1),			
+						// 'is_new'					=> rand(0,1),			
 						'description'				=> $faker->sentence($nbWords = 6),			
 					]);
 
@@ -103,7 +103,7 @@ class ProductTableSeeder extends Seeder
 									'image_sm'			=> 'http://placehold.it/300x400/'.$hex.'/000000',
 									'image_md'			=> 'http://placehold.it/450x600/'.$hex.'/000000',
 									'image_l'			=> 'http://placehold.it/600x800/'.$hex.'/000000',
-									'published_at'		=> date('Y-m-d H:i:s'),
+									// 'published_at'		=> date('Y-m-d H:i:s'),
 							]);
 							if (!$image->save())
 							{
