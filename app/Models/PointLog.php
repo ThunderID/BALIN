@@ -110,6 +110,21 @@ class PointLog extends Eloquent
 		return 	$query->where('id', $variable);
 	}
 
+	public function scopeDebit($query, $variable)
+	{
+		return 	$query->where('amount', '>', '0');
+	}
+
+	public  function scopeOnActive($query, $variable)
+	{
+		if(!is_array($variable))
+		{
+			return $query->where('expired_at', '>=', date('Y-m-d H:i:s', strtotime($variable)));
+		}
+
+		return $query->where('expired_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('expired_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
+	}
+
 	public  function scopeOndate($query, $variable)
 	{
 		if(!is_array($variable))

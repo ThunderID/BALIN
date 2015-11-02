@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
 use App\Models\Voucher;
 
 class VoucherTableSeeder extends Seeder
@@ -16,22 +15,9 @@ class VoucherTableSeeder extends Seeder
     {
         DB::table('tmp_vouchers')->truncate();
 
-		$users                         = User::all();
-        foreach ($users as $key => $value) 
+        factory(App\Models\Voucher::class, 100)->create()->each(function($q) 
         {
-            $voucher                      = new Voucher;
-            $voucher->fill([
-                    'user_id'           => $value->id,
-                    'code'              => bin2hex(openssl_random_pseudo_bytes(4)),
-                    'type'              => 'referral',
-            ]);
-
-            if (!$voucher->save())
-            {
-                print_r($voucher->getError());
-                exit;
-            }
-        }
-
+            $q->save();
+        });
     }
 }
