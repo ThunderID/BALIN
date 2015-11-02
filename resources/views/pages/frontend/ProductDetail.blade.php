@@ -70,7 +70,7 @@
     					<div class="row panel-hollow panel-default">
         					<div class="col-md-12 col-sm-12 col-xs-12" style="padding:7px;">
 								<form role="form" style="padding-right:inherit;padding-left:inherit;">
-			    					@if($data->stock == 0)
+			    					@if($data)
 				        				<div class="row">
 				        					<div class="col-md-12">
 						        				</br>
