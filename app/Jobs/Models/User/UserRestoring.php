@@ -24,8 +24,6 @@ class UserRestoring extends Job implements SelfHandling
 
     public function handle()
     {
-        $activationlink             = $this->dispatch(new SendActivationEmail($this->user));
-
-        return $activationlink;
+        return new JSend('success', (array)$this->user);
     }
 }

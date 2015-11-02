@@ -24,21 +24,6 @@ class UserCreating extends Job implements SelfHandling
 
     public function handle()
     {
-     //    $this->user->is_active      = false;
-    	// $this->user->joined_at 		= date('Y-m-d H:i:s');
-
-     //    $activationlink             = $this->dispatch(new GenerateActivationEmail($this->user));
-
-     //    if($activationlink->getStatus()=='success')
-     //    {
-     //        $this->user->activation_link    = $activationlink->getData()['activation_link'];
-     //        $this->user->expired_at         = $activationlink->getData()['expired_at'];
-     //    }
-     //    else
-     //    {
-     //        return $activationlink;
-     //    }
-    	
         return new JSend('success', (array)$this->user);
     }
 }
