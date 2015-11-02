@@ -40,7 +40,6 @@ class Price extends Eloquent
 											'price'							,
 											'promo_price'					,
 											'started_at'					,
-											'label'							,
 										];
 
 	/**
