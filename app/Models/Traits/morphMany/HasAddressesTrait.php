@@ -1,6 +1,6 @@
 <?php namespace App\Models\Traits\morphMany;
 
-trait HasAddressTrait 
+trait HasAddressesTrait 
 {
 
 	/**
