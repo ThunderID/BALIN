@@ -38,6 +38,24 @@ $factory->define(App\Models\User::class, function ($faker) use ($gender, $role)
 	];
 });
 
+$factory->define(App\Models\Voucher::class, function ($faker)
+{
+	$types 								= ['free_shipping_cost', 'debit_point'];
+
+	$values 							= [0, (date('s')*1000)];
+
+	$type 								= rand(0, 1);
+
+	return 
+	[
+		'code' 							=> bin2hex(openssl_random_pseudo_bytes(4)),
+		'type' 							=> $types[$type],
+		'value' 						=> $values[$type],
+		'started_at' 					=> $faker->dateTimeBetween($startDate = '- 3 months', $endDate = 'now'),
+		'expired_at' 					=> $faker->dateTimeBetween($startDate = '+ 3 months', $endDate = '+ 12 months'),
+	];
+});
+
 $factory->define(App\Models\Supplier::class, function ($faker)
 {
 	return 
@@ -82,8 +100,7 @@ $factory->define(App\Models\Transaction::class, function ($faker) use ($types, $
 			'supplier_id' 				=> App\Models\Supplier::all()->random()->id,
 			'ref_number' 				=> bin2hex(openssl_random_pseudo_bytes(8)),
 			'type' 						=> $types[$rand],
-			'status' 					=> $status[rand(0, count($status)-1)],
-			'transacted_at' 			=> $faker->dateTimeThisYear,
+			'transact_at' 				=> $faker->dateTimeThisYear,
 			'unique_number' 			=> str_pad(date('is'), 3, '0', STR_PAD_LEFT),
 			'shipping_cost' 			=> date('h')*1000,
 		];
@@ -93,10 +110,9 @@ $factory->define(App\Models\Transaction::class, function ($faker) use ($types, $
 		return 
 		[
 			'user_id' 					=> App\Models\User::all()->random()->id,
-			'referral_code' 			=> App\Models\User::all()->random()->referral_code,
+			'voucher_id' 				=> App\Models\Voucher::all()->random()->id,
 			'ref_number' 				=> bin2hex(openssl_random_pseudo_bytes(8)),
 			'type' 						=> $types[$rand],
-			'status' 					=> 'draft',//$status[rand(0, count($status)-1)],
 			'transacted_at' 			=> $faker->dateTimeThisYear,
 			'unique_number' 			=> str_pad(date('is'), 3, '0', STR_PAD_LEFT),
 			'shipping_cost' 			=> date('h')*1000,

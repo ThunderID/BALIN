@@ -6,7 +6,6 @@ use App\Jobs\Job;
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use App\Models\User;
 use App\Models\Voucher;
 
 class VoucherSaving extends Job implements SelfHandling

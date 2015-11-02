@@ -3,7 +3,6 @@
 namespace App\Jobs\Models\PointLog;
 
 use App\Jobs\Job;
-use App\Jobs\SetPointExpirationDate;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;

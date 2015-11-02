@@ -5,14 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-
-class User extends Eloquent implements AuthenticatableContract, CanResetPasswordContract 
+class TransactionLog extends Eloquent
 {
-    use Authenticatable, CanResetPassword;
 
 	use SoftDeletes;
 
@@ -22,19 +16,16 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 * @var string
 	 */
 
-	use \App\Models\Traits\hasMany\HasTransactionsTrait;
-	use \App\Models\Traits\hasMany\HasPointLogsTrait;
-	use \App\Models\Traits\morphMany\HasImagesTrait;
-	use \App\Models\Traits\morphMany\HasAddressesTrait;
+	use \App\Models\Traits\belongsTo\HasTransactionTrait;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'users';
+	protected $table				= 'transaction_logs';
 
-	// public $timestamps				= true;
+	// protected $timestamps			= true;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -43,19 +34,9 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 */
 
 	protected $fillable				=	[
-											'name'							,
-											'email'							,
-											'password'						,
-											'referral_code'					,
-											'role'							,
-											'is_active'						,
-											'sso_id'						,
-											'sso_media'						,
-											'sso_data'						,
-											'gender'						,
-											'date_of_birth'					,
-											'reset_password_link'			,
-											'expired_at'					,
+											'transaction_id'				,
+											'status'						,
+											'changed_at'					,
 										];
 
 	/**
@@ -63,7 +44,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'joined_at', 'expired_at', 'date_of_birth'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'changed_at'];
 
 	/**
 	 * Basic rule of database
@@ -71,9 +52,8 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:255',
-											'email'							=> 'max:255|email',
-											'role'							=> 'required|max:255',
+											'status'						=> 'required|in:cart,wait,paid,shipping,delivered',
+											'changed_at'					=> 'required|date_format:"Y-m-d H:i:s"',
 										];
 
 	/**
@@ -89,7 +69,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 *
 	 * @var array
 	 */
-	protected $hidden 				= ['password', 'remember_token'];
+	protected $hidden 				= [];
 
 	
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
@@ -97,7 +77,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
-	
+
 	/**
 	 * return errors
 	 *
@@ -121,20 +101,5 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 		}
 
 		return 	$query->where('id', $variable);
-	}
-
-	public function scopeCustomer($query, $variable)
-	{
-		return 	$query->where('role', 'customer');
-	}
-	
-	public function scopeName($query, $variable)
-	{
-		return 	$query->where('name', 'like', '%'.$variable.'%');
-	}
-
-	public function scopeActive($query, $variable)
-	{
-		return 	$query->ReferralCode($variable)->where('is_active', true);
 	}
 }

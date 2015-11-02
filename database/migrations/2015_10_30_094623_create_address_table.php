@@ -12,7 +12,7 @@ class CreateAddressTable extends Migration
      */
     public function up()
     {
-        Schema::create('address', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('owner_id')->unsigned()->index();
             $table->string('owner_type', 255);
@@ -31,6 +31,6 @@ class CreateAddressTable extends Migration
      */
     public function down()
     {
-        Schema::drop('address');
+        Schema::drop('addresses');
     }
 }

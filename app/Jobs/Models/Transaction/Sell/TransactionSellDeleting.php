@@ -23,7 +23,7 @@ class TransactionSellDeleting extends Job implements SelfHandling
     public function handle()
     {
         //need to check user active or not
-        $result                             = new JSend('success', (array)$this->transaction );
+        $result                             = new JSend('error', (array)$this->transaction, 'Tidak dapat menghapus transaksi.');
 
         return $result;
     }

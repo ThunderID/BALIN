@@ -22,8 +22,14 @@ class UserSaving extends Job implements SelfHandling
     {
     	if (Hash::needsRehash($this->user->password))
 		{
-			$this->user->password 	= bcrypt($this->user->password);
+			$this->user->password            = bcrypt($this->user->password);
 		}
+
+        if($this->user->email!='' && $this->user->referral_code=='')
+        {
+            $this->user->referral_code      = bin2hex(openssl_random_pseudo_bytes(4));
+            $this->user->is_active          = true;
+        }
 
         return new JSend('success', (array)$this->user);
     }
