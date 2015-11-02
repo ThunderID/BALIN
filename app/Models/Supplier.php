@@ -37,8 +37,6 @@ class Supplier extends Eloquent
 
 	protected $fillable				=	[
 											'name'							,
-											'phone'							,
-											'address'						,
 										];
 
 	/**
@@ -55,8 +53,6 @@ class Supplier extends Eloquent
 	 */
 	protected $rules				=	[
 											'name'							=> 'required|max:255',
-											'phone'							=> 'required|max:255',
-											'address'						=> 'required',
 										];
 
 	/**
