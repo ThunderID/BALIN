@@ -1,6 +1,6 @@
 <?php namespace App\Models\Traits\morphMany;
 
-trait HasAddressTrait 
+trait HasAddressesTrait 
 {
 
 	/**
@@ -10,7 +10,7 @@ trait HasAddressTrait
 	 * @author 
 	 **/
 
-	function HasAddressTraitConstructor()
+	function HasAddressesTraitConstructor()
 	{
 		//
 	}

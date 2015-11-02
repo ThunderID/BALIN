@@ -3,7 +3,8 @@
 @inject('point', 'App\Models\PointLog')
 
 <?php 
-$total_product          = $product->HasStocks(true)->count();
+// $total_product          = $product->HasStocks(true)->count();
+$total_product          = 0;
 $total_trans            = $transaction->type('sell')->status(['paid', 'shipped', 'delivered'])->ondate(['first day of this month', 'last day of this month'])->sum('amount');
 $freq_trans             = $transaction->type('sell')->status(['paid', 'shipped', 'delivered'])->ondate(['first day of this month', 'last day of this month'])->count();
 $total_point            = $point->ondate(['first day of this month', 'last day of this month'])->sum('debit');
