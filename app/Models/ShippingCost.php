@@ -46,7 +46,7 @@ class ShippingCost extends Eloquent
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
+	protected $dates				=	['started_at','created_at', 'updated_at', 'deleted_at'];
 
 	/**
 	 * Basic rule of database

@@ -81,9 +81,9 @@ class ShippingCostController extends baseController
 
 		$inputs 										= Input::only('courier_id','start_postal_code','end_postal_code','cost');
 
-		if ($id)
+		if (Input::get('id'))
 		{
-			$data 										= ShippingCost::find($id);
+			$data 										= ShippingCost::find(Input::get('id'));
 		}
 		else
 		{
@@ -95,7 +95,7 @@ class ShippingCostController extends baseController
 			'start_postal_code' 						=> $inputs['start_postal_code'],
 			'end_postal_code' 							=> $inputs['end_postal_code'],
 			'cost' 										=> $inputs['cost'],
-			'started_at'								=> date('Y-m-d H:i:s'),
+			'started_at'								=> $inputs['started_at'],
 		]);
 
 		DB::beginTransaction();
@@ -146,9 +146,9 @@ class ShippingCostController extends baseController
 		}
 	}	
 
-	public function Update($id)
+	public function Update($cou_id, $id)
 	{
-		return $this->store($id);		
+		return $this->store($cou_id, $id);		
 	}
 
 }

@@ -3,7 +3,7 @@
 <?php 
 	// $data 		= $data::id($id)
 	// 				->first(); 
-	// $products 	= $products->supplier($id)->with(['product'])->get();
+	$products 	= $products->supplier($id)->with(['product'])->get();
 ?>
 
 @extends('template.backend.layout') 

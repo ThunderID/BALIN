@@ -106,8 +106,7 @@ $shippingcosts = $shippingcosts->courierid($data['id'])->paginate();
 			{!! Form::close() !!}
 		</div>            
 	</div>
-	@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.product.index') ])
-
+	@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.settings.courier.show', ['id' => $data['id']]) ])
 
 	<div class="table-responsive">
 		</br>
