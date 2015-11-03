@@ -102,4 +102,14 @@ class TransactionLog extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+
+	public function scopeStatus($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('status', $variable);
+		}
+
+		return 	$query->where('status', $variable);
+	}
 }

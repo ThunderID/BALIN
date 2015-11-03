@@ -80,6 +80,7 @@ class Transaction extends Eloquent
 	 */
 	protected $appends				=	[
 											'amount',
+											'status',
 										];
 
 	/**
@@ -93,6 +94,46 @@ class Transaction extends Eloquent
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
+
+	public function getAmountAttribute($value)
+	{
+		$amount 						= 0;
+		foreach ($this->transactiondetails as $key => $value) 
+		{
+			$amount 					= $amount + (($value->price - $value->discount) * $value->quantity); 
+		}
+
+		foreach ($this->pointlogs as $key => $value) 
+		{
+			if($value->amount < 0)
+			{
+				$amount 				= $amount + $value->amount; 
+			}
+		}
+
+		$amount 						= $amount + $this->shipping_cost - $this->voucher_discount
+		
+		if($amount!=0)
+		{
+			$amount 					= $amount - $this->unique_number;
+		}
+
+		return $amount;
+	}
+
+	public function getStatusAttribute($value)
+	{
+		if($this->transactionlogs->count())
+		{
+			$status						= $this->transactionlogs[count($this->transactionlogs)-1]->status;
+		}
+		else
+		{
+			$status 					= 'cart';
+		}
+
+		return $status;
+	}
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 
@@ -108,24 +149,6 @@ class Transaction extends Eloquent
 	}
 
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
-
-	public function getAmountAttribute($value)
-	{
-		$amount 						= 0;
-		foreach ($this->transactiondetails as $key => $value) 
-		{
-			$amount 					= $amount + (($value->price - $value->discount) * $value->quantity); 
-		}
-
-		foreach ($this->pointlogs as $key => $value) 
-		{
-			$amount 					= $amount + $value->amount; 
-		}
-
-		$amount 						= $amount + $this->shipping_cost - $this->voucher_discount - $this->unique_number;
-
-		return $amount;
-	}
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
 
@@ -157,6 +180,11 @@ class Transaction extends Eloquent
 		}
 
 		return $query->where('transact_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('transact_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
+	}
+	
+	public function scopeRefNumber($query, $variable)
+	{
+		return 	$query->where('ref_number', 'like', $variable.'%');
 	}
 
 	public  function scopeTransactionProcessed($query)

@@ -5,12 +5,18 @@ namespace App\Jobs\Models\Transaction;
 use App\Jobs\Job;
 use App\Libraries\JSend;
 
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Contracts\Bus\SelfHandling;
+
+use App\Jobs\Models\Transaction\Sell\TransactionSellUpdating;
+use App\Jobs\Models\Transaction\Buy\TransactionBuyUpdating;
 
 use App\Models\Transaction;
 
 class TransactionUpdating extends Job implements SelfHandling
 {
+    use DispatchesJobs;
+
     protected $transaction;
 
     public function __construct(Transaction $transaction)

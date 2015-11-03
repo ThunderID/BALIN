@@ -19,25 +19,29 @@ class TransactionLogSaving extends Job implements SelfHandling
 
     public function __construct(TransactionLog $transactionlog)
     {
-        $this->transactionlog            = $transactionlog;
+        $this->transactionlog               = $transactionlog;
     }
 
     public function handle()
     {
+        $result                             = new JSend('success', (array)$this->transactionlog );
+
         if($this->transactionlog->transaction->type=='sell')
         {
             switch($this->transactionlog->status)
             {
                 case 'wait' :
-                    $result                     = $this->dispatch(new CheckStock($this->transactionlog->transaction));
-                default :
-                    $result                     = new JSend('success', (array)$this->transactionlog );
+                    $result                 = $this->dispatch(new CheckStock($this->transactionlog->transaction));
+                    
+                    if($result->getStatus()=='success')
+                    {
+                        if($this->transactionlog->transaction->amount==0)
+                        {
+                            $this->transactionlog->status   = 'paid';
+                        }
+                    }
                 break;
             }
-        }
-        else
-        {
-            $result                             = new JSend('success', (array)$this->transactionlog );
         }
 
         return $result;

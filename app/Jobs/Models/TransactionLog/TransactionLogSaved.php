@@ -9,6 +9,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use App\Models\TransactionLog;
+use App\Models\Transaction;
 
 use App\Jobs\CreditPoint;
 use App\Jobs\RevertPoint;
@@ -30,13 +31,20 @@ class TransactionLogSaved extends Job implements SelfHandling
 
     public function handle()
     {
+        $transaction            =  Transaction::findorfail($this->transactionlog->transaction->id);
+
+        if(!$transaction->save())
+        {
+            return new JSend('error', (array)$this->transactionlog, $transaction->getError() );
+        }
+
         if($this->transactionlog->transaction->type=='sell')
         {
+
             switch($this->transactionlog->status)
             {
                 case 'wait' :
                     $result                     = $this->dispatch(new CreditPoint($this->transactionlog->transaction));
-                    
                     // if($result->getStatus()=='success')
                     // {
                     //     $result                 = $this->dispatch(new SendBillingEmail($this->transactionlog->transaction));
@@ -51,13 +59,13 @@ class TransactionLogSaved extends Job implements SelfHandling
                 // case 'delivered' :
                 //     $result                     = $this->dispatch(new SendDeliveredEmail($this->transactionlog->transaction));
                 // break;
-                // case 'canceled' :
-                    // $result                     = $this->dispatch(new RevertPoint($this->transactionlog->transaction));
+                case 'canceled' :
+                    $result                     = $this->dispatch(new RevertPoint($this->transactionlog->transaction));
                     // if($result->getStatus()=='success')
                     // {
                     //     $result                 = $this->dispatch(new SendCanceledEmail($this->transactionlog->transaction));
                     // }
-                // break;
+                break;
                 default :
                     $result                     = new JSend('success', (array)$this->transactionlog );
                 break;

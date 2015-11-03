@@ -31,4 +31,9 @@ trait HasTransactionLogsTrait
 	{
 		return $query->whereHas('transactionlogs', function($q)use($variable){$q->id($variable);});
 	}
+
+	public function scopeStatus($query, $variable)
+	{
+		return $query->whereHas('transactionlogs', function($q)use($variable){$q->status($variable);});
+	}
 }

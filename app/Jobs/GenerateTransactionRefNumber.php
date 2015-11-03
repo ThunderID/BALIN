@@ -23,7 +23,7 @@ class GenerateTransactionRefNumber extends Job implements SelfHandling
         {
             switch ($this->transaction->status) 
             {
-                case 'draft':
+                case 'cart':
                     $this->transaction->ref_number  = '0000000000';
                 break;
 
@@ -31,7 +31,7 @@ class GenerateTransactionRefNumber extends Job implements SelfHandling
                     $prefix                         = $this->transaction->type[0].date("ymd");
 
                     $latest_transaction             = Transaction::select('ref_number')
-                                                        ->where('ref_number','like', $prefix . '%')
+                                                        ->refnumber($prefix)
                                                         ->orderBy('ref_number', 'DESC')
                                                         ->first();
 
