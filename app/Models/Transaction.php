@@ -111,7 +111,7 @@ class Transaction extends Eloquent
 			}
 		}
 
-		$amount 						= $amount + $this->shipping_cost - $this->voucher_discount
+		$amount 						= $amount + $this->shipping_cost - $this->voucher_discount;
 		
 		if($amount!=0)
 		{
