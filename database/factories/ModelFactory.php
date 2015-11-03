@@ -124,7 +124,7 @@ $factory->define(App\Models\Transaction::class, function ($faker) use ($types, $
 			'voucher_id' 				=> App\Models\Voucher::all()->random()->id,
 			'ref_number' 				=> bin2hex(openssl_random_pseudo_bytes(8)),
 			'type' 						=> $types[$rand],
-			'transacted_at' 			=> $faker->dateTimeThisYear,
+			'transact_at' 				=> $faker->dateTimeThisYear,
 			'unique_number' 			=> str_pad(date('is'), 3, '0', STR_PAD_LEFT),
 			'shipping_cost' 			=> date('h')*1000,
 		];
