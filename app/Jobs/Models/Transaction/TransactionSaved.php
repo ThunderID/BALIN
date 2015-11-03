@@ -2,6 +2,9 @@
 
 namespace App\Jobs\Models\Transaction;
 
+use App\Jobs\Models\Transaction\Buy\TransactionBuySaved;
+use App\Jobs\Models\Transaction\Sell\TransactionSellSaved;
+
 use App\Jobs\Job;
 use App\Libraries\JSend;
 

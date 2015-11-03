@@ -15,7 +15,7 @@ class CreateTransactionLogTable extends Migration
         Schema::create('transaction_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('transaction_id')->unsigned()->index();
-            $table->enum('status', ['cart', 'wait', 'paid', 'shipping', 'delivered']);
+            $table->enum('status', ['cart', 'wait', 'paid', 'shipping', 'delivered', 'canceled']);
             $table->datetime('changed_at');
             $table->timestamps();
             $table->softDeletes();
