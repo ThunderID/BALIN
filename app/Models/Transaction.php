@@ -79,6 +79,7 @@ class Transaction extends Eloquent
 	 * @var array
 	 */
 	protected $appends				=	[
+											'amount',
 										];
 
 	/**
@@ -107,6 +108,24 @@ class Transaction extends Eloquent
 	}
 
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
+
+	public function getAmountAttribute($value)
+	{
+		$amount 						= 0;
+		foreach ($this->transactiondetails as $key => $value) 
+		{
+			$amount 					= $amount + (($value->price - $value->discount) * $value->quantity); 
+		}
+
+		foreach ($this->pointlogs as $key => $value) 
+		{
+			$amount 					= $amount + $value->amount; 
+		}
+
+		$amount 						= $amount + $this->shipping_cost - $this->voucher_discount - $this->unique_number;
+
+		return $amount;
+	}
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
 

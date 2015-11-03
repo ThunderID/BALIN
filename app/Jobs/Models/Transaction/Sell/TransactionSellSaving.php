@@ -9,14 +9,13 @@ use App\Jobs\FillTransactionDate;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
 
 class TransactionSellSaving extends Job implements SelfHandling
 {
-    use DispatchesJobs, ValidatesRequests;
+    use DispatchesJobs;
 
     protected $transaction;
 

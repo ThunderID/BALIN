@@ -29,13 +29,13 @@ class CreditPoint extends Job implements SelfHandling
 
         //cek all  in debit active point
         $points                             = PointLog::userid($this->transaction->user_id)->onactive('now')->debit(true)->get();
-        
+
         //count leftover active point
         $sumpoints                          = PointLog::userid($this->transaction->user_id)->onactive('now')->sum('amount');
 
         $idx                                = 0;
 
-        while($sumpoints < $total->transaction->amount && isset($points[$idx]));
+        while($sumpoints < $this->transaction->amount && $points && isset($points[$idx]))
         {
             //count left over point per debit to credit
             $currentamount                  = $points[$idx]['amount'];

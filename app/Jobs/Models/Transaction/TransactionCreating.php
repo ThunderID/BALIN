@@ -3,9 +3,9 @@
 namespace App\Jobs\Models\Transaction;
 
 use App\Jobs\Models\Transaction\Buy\TransactionBuyCreating;
+use App\Jobs\Models\Transaction\Sell\TransactionSellCreating;
 
 use App\Jobs\Job;
-use App\Jobs\GenerateTransactionRefNumber;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;

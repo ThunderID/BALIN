@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Models\TransactionLog;
 
 use App\Jobs\CreditPoint;
+use App\Jobs\RevertPoint;
 use App\Jobs\SendBillingEmail;
 use App\Jobs\SendPaymentEmail;
 use App\Jobs\SendShipmentEmail;
@@ -36,23 +37,27 @@ class TransactionLogSaved extends Job implements SelfHandling
                 case 'wait' :
                     $result                     = $this->dispatch(new CreditPoint($this->transactionlog->transaction));
                     
-                    if($result->getStatus()=='success')
-                    {
-                        $result                 = $this->dispatch(new SendBillingEmail($this->transactionlog->transaction));
-                    }
+                    // if($result->getStatus()=='success')
+                    // {
+                    //     $result                 = $this->dispatch(new SendBillingEmail($this->transactionlog->transaction));
+                    // }
                 break;
-                case 'paid' :
-                    $result                     = $this->dispatch(new SendPaymentEmail($this->transactionlog->transaction));
-                break;
-                case 'shipping' :
-                    $result                     = $this->dispatch(new SendShipmentEmail($this->transactionlog->transaction));
-                break;
-                case 'delivered' :
-                    $result                     = $this->dispatch(new SendDeliveredEmail($this->transactionlog->transaction));
-                break;
-                case 'canceled' :
-                    $result                     = $this->dispatch(new RevertPoint($this->transactionlog->transaction));
-                break;
+                // case 'paid' :
+                //     $result                     = $this->dispatch(new SendPaymentEmail($this->transactionlog->transaction));
+                // break;
+                // case 'shipping' :
+                //     $result                     = $this->dispatch(new SendShipmentEmail($this->transactionlog->transaction));
+                // break;
+                // case 'delivered' :
+                //     $result                     = $this->dispatch(new SendDeliveredEmail($this->transactionlog->transaction));
+                // break;
+                // case 'canceled' :
+                    // $result                     = $this->dispatch(new RevertPoint($this->transactionlog->transaction));
+                    // if($result->getStatus()=='success')
+                    // {
+                    //     $result                 = $this->dispatch(new SendCanceledEmail($this->transactionlog->transaction));
+                    // }
+                // break;
                 default :
                     $result                     = new JSend('success', (array)$this->transactionlog );
                 break;
