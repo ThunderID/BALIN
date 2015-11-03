@@ -40,6 +40,35 @@ $shippingcosts = $shippingcosts->courierid($data['id'])->paginate();
 					</div>                                                        
 				</div>
 			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<h3 class="text-capitalize">Alamat Kurir</h3>
+					<div class="row">
+						<div class="col-md-4 text-left">
+							<p class="text-capitalize">Nomor Telepon<span class="pull-right">:</span></p>
+						</div>
+						<div class="col-md-8">
+							<p class="text-capitalize">{{ $data['address']['phone'] }}</p>
+						</div>
+					</div> 
+					<div class="row">
+						<div class="col-md-4 text-left">
+							<p class="text-capitalize">Kode Pos<span class="pull-right">:</span></p>
+						</div>
+						<div class="col-md-8">
+							<p>{{ $data['address']['zipcode'] }}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 text-left">
+							<p class="text-capitalize">Alamat<span class="pull-right">:</span></p>
+						</div>
+						<div class="col-md-8">
+							<p>{{ $data['address']['address'] }}</p>
+						</div>
+					</div> 					                                                    
+				</div>
+			</div>			
 		</div>
 	</div>
 
