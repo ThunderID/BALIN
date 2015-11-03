@@ -8,9 +8,7 @@ if(!is_null($filters) && is_array($filters))
 	}
 }
 
-$datas 			= $datas
-					->orderby('name')
-					->paginate();
+$datas 			= $datas->orderby('name')->paginate();
 ?>
 
 @extends('template.backend.layout') 

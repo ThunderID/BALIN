@@ -12,6 +12,7 @@
     @else
         {!! Form::open(['url' => route('backend.settings.courier.store'), 'method' => 'POST']) !!}
     @endif
+        {!! Form::hidden('address_id',$data['address']['id']) !!}    
 		<div class="row">
 			<div class="col-md-3 col-sm-3 col-xs-12">
 				<div class="form-group">
@@ -21,33 +22,64 @@
 				</div>
 			</div>
 			<div class="col-md-9 col-sm-9 col-xs-12">
-				<div class="form-group">
-					<label for="parent" class="text-capitalize">Nama</label>
-					{!! Form::text('name', $data->name, [
-								'class'         => 'form-control', 
-								'tabindex'      => '1',
-								'placeholder'   => 'Masukkan nama',
-					]) !!}
-				</div>              
-				<div class="form-group">
-					<label for="name" class="text-capitalize">Alamat</label>
-					{!! Form::textarea('address', $data->address, [
-								'class'         => 'form-control', 
-								'required'      => 'required', 
-								'rows'          => '3',
-								'tabindex'      => '3',
-								'style'         => 'resize:none;',
-								'placeholder'   => 'Masukkan alamat'
-						]) 
-					!!}
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="parent" class="text-capitalize">Nama</label>
+							{!! Form::text('name', $data->name, [
+										'class'         => 'form-control', 
+										'tabindex'      => '1',
+										'placeholder'   => 'Masukkan nama',
+							]) !!}
+						</div>              
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="parent" class="text-capitalize">Phone</label>
+							{!! Form::text('phone', $data['address']['phone'], [
+										'class'         => 'form-control', 
+										'tabindex'      => '2',
+										'placeholder'   => 'Masukkan nomor telepon',
+							]) !!}
+						</div>              
+					</div>					
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="parent" class="text-capitalize">Kode Pos</label>
+							{!! Form::text('zipcode', $data['address']['zipcode'], [
+										'class'         => 'form-control', 
+										'tabindex'      => '3',
+										'placeholder'   => 'Masukkan kode pos',
+							]) !!}
+						</div>              
+					</div>						
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="name" class="text-capitalize">Alamat</label>
+							{!! Form::textarea('address', $data['address']['address'], [
+										'class'         => 'form-control', 
+										'required'      => 'required', 
+										'rows'          => '3',
+										'tabindex'      => '4',
+										'style'         => 'resize:none;',
+										'placeholder'   => 'Masukkan alamat'
+								]) 
+							!!}
+						</div> 
+					</div> 
 				</div> 
 			</div>
 		</div>
+		</br>
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group text-right">
-					<a href="{{ URL::route('backend.settings.courier.index') }}" class="btn btn-md btn-default" tabindex="3">Batal</a>
-					<button type="submit" class="btn btn-md btn-primary" tabindex="4">Simpan</button>
+					<a href="{{ URL::route('backend.settings.courier.index') }}" class="btn btn-md btn-default" tabindex="5">Batal</a>
+					<button type="submit" class="btn btn-md btn-primary" tabindex="6">Simpan</button>
 				</div>
 			</div>                                     
 		</div>
