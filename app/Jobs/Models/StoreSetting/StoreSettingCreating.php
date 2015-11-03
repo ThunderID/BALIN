@@ -20,6 +20,6 @@ class StoreSettingCreating extends Job implements SelfHandling
 
     public function handle()
     {
-        return new JSend('error', (array)$this->store, 'Tidak dapat menambahkan pengaturan toko.');
+        return new JSend('success', (array)$this->store);
     }
 }

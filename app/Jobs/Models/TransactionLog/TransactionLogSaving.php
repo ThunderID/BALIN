@@ -32,14 +32,9 @@ class TransactionLogSaving extends Job implements SelfHandling
             {
                 case 'wait' :
                     $result                 = $this->dispatch(new CheckStock($this->transactionlog->transaction));
-                    
-                    if($result->getStatus()=='success')
-                    {
-                        if($this->transactionlog->transaction->amount==0)
-                        {
-                            $this->transactionlog->status   = 'paid';
-                        }
-                    }
+                break;
+                case 'paid' :
+                    $result                 = $this->dispatch(new CheckPaid($this->transactionlog->transaction));
                 break;
             }
         }

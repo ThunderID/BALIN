@@ -7,7 +7,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->type($subnav_active)->orderby('transacted_at')->with(['user', 'supplier'])->paginate();
+$datas 			= $datas->type($subnav_active)->orderby('transact_at')->with(['user', 'supplier'])->paginate();
 
 if ($subnav_active == 'sell')
 {
@@ -90,7 +90,7 @@ else
 										@else
 											<td>{{ $data[$type_user]['name'] }}</td>
 										@endif
-										<td class="text-center">{{ $data['transacted_at'] }}</td>
+										<td class="text-center">{{ $data['transact_at'] }}</td>
 										<td class="text-center">{{ $data['status'] }} </td>
 										<td class="text-center">{{ $data['amount'] }} </td>
 										<td>

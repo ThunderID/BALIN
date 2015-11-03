@@ -26,15 +26,7 @@ class PaymentSaved extends Job implements SelfHandling
 
     public function handle()
     {
-        if($this->payment->transaction)
-        {
-            $result                        = $this->dispatch(new SendPaymentEmail($this->payment->transaction));
-        }
-        else
-        {
-            $result                         = new JSend('success', (array)$this->payment);
-        }
-            $result                         = new JSend('error', (array)$this->payment, 'invalid payment1');
+        $result                             = new JSend('success', (array)$this->payment);
 
         return $result;
     }

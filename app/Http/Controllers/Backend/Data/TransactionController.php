@@ -32,7 +32,7 @@ class TransactionController extends baseController
 
 		if(Input::has('q'))
 		{
-			$filters 							= ['status' => Input::get('q')];
+			$filters 							= ['refnumber' => Input::get('q')];
 			$searchResult						= Input::get('q');
 		}
 		else

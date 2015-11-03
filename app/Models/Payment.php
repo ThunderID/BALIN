@@ -60,7 +60,7 @@ class Payment extends Eloquent
 											'destination'					=> 'required|max:255',
 											'account_name'					=> 'required|max:255',
 											'account_number'				=> 'required|max:255',
-											'ondate'						=> 'required',
+											'ondate'						=> 'required|date_format:"Y-m-d H:i:s"',
 											'amount'						=> 'required|numeric',
 										];
 

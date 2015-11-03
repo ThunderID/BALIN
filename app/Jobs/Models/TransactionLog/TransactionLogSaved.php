@@ -45,26 +45,44 @@ class TransactionLogSaved extends Job implements SelfHandling
             {
                 case 'wait' :
                     $result                     = $this->dispatch(new CreditPoint($this->transactionlog->transaction));
-                    // if($result->getStatus()=='success')
-                    // {
-                    //     $result                 = $this->dispatch(new SendBillingEmail($this->transactionlog->transaction));
-                    // }
+                    if($result->getStatus()=='success')
+                    {
+                        $result                 = $this->dispatch(new SendBillingEmail($this->transactionlog->transaction));
+                    }
+
+                    if($result->getStatus()=='success')
+                    {
+                        if($this->transactionlog->transaction->amount==0)
+                        {
+                            $tlog               = new TransactionLog;
+                            $tlog->fill([
+                                        'transaction_id'                => $this->transactionlog->transaction_id,
+                                        'status'                        => 'paid',
+                                        'changed_at'                    => date('Y-m-d H:i:s'),
+                                ]);
+
+                            if(!$tlog->save())
+                            {
+                                $result         = new JSend('error', (array)$this->transactionlog->save(), $tlog->getError());
+                            }
+                        }
+                    }
                 break;
-                // case 'paid' :
-                //     $result                     = $this->dispatch(new SendPaymentEmail($this->transactionlog->transaction));
-                // break;
-                // case 'shipping' :
-                //     $result                     = $this->dispatch(new SendShipmentEmail($this->transactionlog->transaction));
-                // break;
-                // case 'delivered' :
-                //     $result                     = $this->dispatch(new SendDeliveredEmail($this->transactionlog->transaction));
-                // break;
+                case 'paid' :
+                    $result                     = $this->dispatch(new SendPaymentEmail($this->transactionlog->transaction));
+                break;
+                case 'shipping' :
+                    $result                     = $this->dispatch(new SendShipmentEmail($this->transactionlog->transaction));
+                break;
+                case 'delivered' :
+                    $result                     = $this->dispatch(new SendDeliveredEmail($this->transactionlog->transaction));
+                break;
                 case 'canceled' :
                     $result                     = $this->dispatch(new RevertPoint($this->transactionlog->transaction));
-                    // if($result->getStatus()=='success')
-                    // {
-                    //     $result                 = $this->dispatch(new SendCanceledEmail($this->transactionlog->transaction));
-                    // }
+                    if($result->getStatus()=='success')
+                    {
+                        $result                 = $this->dispatch(new SendCanceledEmail($this->transactionlog->transaction));
+                    }
                 break;
                 default :
                     $result                     = new JSend('success', (array)$this->transactionlog );
