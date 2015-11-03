@@ -31,7 +31,7 @@ class GenerateTransactionRefNumber extends Job implements SelfHandling
                     $prefix                         = $this->transaction->type[0].date("ymd");
 
                     $latest_transaction             = Transaction::select('ref_number')
-                                                        ->ref_number($prefix)
+                                                        ->refnumber($prefix)
                                                         ->orderBy('ref_number', 'DESC')
                                                         ->first();
 

@@ -39,15 +39,16 @@ class RevertPoint extends Job implements SelfHandling
                         'expired_at'        => $value->expired_at,
                         'notes'             => 'Revert Point Belanja ',
                     ]);
+        
+                $point->reference()->associate($this->transaction);
+
+                if(!$point->save())
+                {
+                    return new JSend('error', (array)$this->transaction, $point->getError());
+                }
             }
         }
 
-        $point->reference()->associate($this->transaction);
-
-        if(!$point->save())
-        {
-            return new JSend('error', (array)$this->transaction, $point->getError());
-        }
 
         $result                         = new JSend('success', (array)$this->transaction);
         

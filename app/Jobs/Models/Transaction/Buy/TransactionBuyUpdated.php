@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
+use App\Libraries\JSend;
 
 class TransactionBuyUpdated extends Job implements SelfHandling
 {

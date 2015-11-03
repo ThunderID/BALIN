@@ -10,14 +10,13 @@ use App\Jobs\GenerateTransactionUniqNumber;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
 
 class TransactionBuySaving extends Job implements SelfHandling
 {
-    use DispatchesJobs, ValidatesRequests;
+    use DispatchesJobs;
 
     protected $transaction;
 
@@ -28,8 +27,7 @@ class TransactionBuySaving extends Job implements SelfHandling
 
     public function handle()
     {
-        //need to check user active or not
-        $result                         = new JSend('success', (array)$this->transaction );
+        $result                             = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
 
         return $result;
     }

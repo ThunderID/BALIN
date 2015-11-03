@@ -80,6 +80,7 @@ class Transaction extends Eloquent
 	 */
 	protected $appends				=	[
 											'amount',
+											'status',
 										];
 
 	/**
@@ -93,21 +94,6 @@ class Transaction extends Eloquent
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
-
-	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
-
-	/**
-	 * return errors
-	 *
-	 * @return MessageBag
-	 * @author 
-	 **/
-	public function getError()
-	{
-		return $this->errors;
-	}
-
-	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
 	public function getAmountAttribute($value)
 	{
@@ -126,6 +112,35 @@ class Transaction extends Eloquent
 
 		return $amount;
 	}
+
+	public function getStatusAttribute($value)
+	{
+		if($this->transactionlogs->count())
+		{
+			$status						= $this->transactionlogs[count($this->transactionlogs)-1]->status;
+		}
+		else
+		{
+			$status 					= 'cart';
+		}
+
+		return $status;
+	}
+
+	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
+
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	public function getError()
+	{
+		return $this->errors;
+	}
+
+	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
 
@@ -157,6 +172,11 @@ class Transaction extends Eloquent
 		}
 
 		return $query->where('transact_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('transact_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
+	}
+	
+	public function scopeRefNumber($query, $variable)
+	{
+		return 	$query->where('ref_number', 'like', $variable.'%');
 	}
 
 	public  function scopeTransactionProcessed($query)

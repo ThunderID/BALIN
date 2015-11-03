@@ -1,17 +1,18 @@
 @inject('product', 'App\Models\Product')
 @inject('transaction', 'App\Models\Transaction')
+@inject('payment', 'App\Models\Payment')
 @inject('point', 'App\Models\PointLog')
 
 <?php 
 // $total_product          = $product->HasStocks(true)->count();
 $total_product          = 0;
-$total_trans            = $transaction->type('sell')->status(['paid', 'shipped', 'delivered'])->ondate(['first day of this month', 'last day of this month'])->sum('amount');
-$freq_trans             = $transaction->type('sell')->status(['paid', 'shipped', 'delivered'])->ondate(['first day of this month', 'last day of this month'])->count();
-$total_point            = $point->ondate(['first day of this month', 'last day of this month'])->sum('debit');
+$total_trans            = $payment->transactiontype('sell')->transactionstatus(['paid', 'shipping', 'delivered'])->transactionondate(['first day of this month', 'last day of this month'])->sum('amount');
+$freq_trans             = $transaction->type('sell')->status(['paid', 'shshippingipped', 'delivered'])->ondate(['first day of this month', 'last day of this month'])->count();
+$total_point            = $point->ondate(['first day of this month', 'last day of this month'])->debit(true)->sum('amount');
 $total_product          = $product->count();
-$waitingtrs             = $transaction->type('sell')->ondate(['first day of this week', 'today'])->status('waiting')->get();
+$waitingtrs             = $transaction->type('sell')->ondate(['first day of this week', 'today'])->status('wait')->get();
 $paidtrs                = $transaction->type('sell')->ondate(['first day of this week', 'today'])->status('paid')->get();
-$shippedtrs             = $transaction->type('sell')->ondate(['first day of this week', 'today'])->status('shipped')->get();
+$shippedtrs             = $transaction->type('sell')->ondate(['first day of this week', 'today'])->status('shipping')->get();
 ?>
 
 @extends('template.backend.layout') 
