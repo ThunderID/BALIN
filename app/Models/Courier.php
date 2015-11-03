@@ -19,6 +19,8 @@ class Courier extends Eloquent
 	use \App\Models\Traits\hasMany\HasShipmentsTrait;
 	use \App\Models\Traits\hasMany\HasShippingCostsTrait;
 	use \App\Models\Traits\morphMany\HasImagesTrait;
+	use \App\Models\Traits\morphMany\HasAddressesTrait;
+
 
 	/**
 	 * The database table used by the model.
@@ -37,7 +39,6 @@ class Courier extends Eloquent
 
 	protected $fillable				=	[
 											'name'							,
-											'address'						,
 										];
 
 	/**
@@ -54,7 +55,6 @@ class Courier extends Eloquent
 	 */
 	protected $rules				=	[
 											'name'							=> 'required|max:255',
-											'address'						=> 'required',
 										];
 
 	/**
@@ -64,6 +64,7 @@ class Courier extends Eloquent
 	 */
 	protected $appends				=	[
 											'logo',
+											'address'
 										];
 
 	/**
@@ -87,6 +88,21 @@ class Courier extends Eloquent
 
 		return 'https://browshot.com/static/images/not-found.png';
 	}
+
+	public function getAddressAttribute()
+	{
+
+		if($this->addresses()->count())
+		{
+			$address 					= $this->addresses[0]['attributes'];
+		}
+		else
+		{
+			$address 					= '';
+		}
+
+		return $address;
+	}	
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 
