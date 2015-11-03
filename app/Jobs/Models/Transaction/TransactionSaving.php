@@ -3,19 +3,19 @@
 namespace App\Jobs\Models\Transaction;
 
 use App\Jobs\Models\Transaction\Sell\TransactionSellSaving;
+use App\Jobs\Models\Transaction\Buy\TransactionBuySaving;
 
 use App\Jobs\Job;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
 
 class TransactionSaving extends Job implements SelfHandling
 {
-    use DispatchesJobs, ValidatesRequests;
+    use DispatchesJobs;
 
     protected $transaction;
 

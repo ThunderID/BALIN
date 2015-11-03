@@ -24,6 +24,34 @@ class PointLogSaved extends Job implements SelfHandling
 
     public function handle()
     {
-        return new JSend('success', (array)$this->pointlog);
+         //jika save referee dari user
+        if($this->pointlog->reference_type=='App\Models\User')
+        {
+            $referee                    = new PointLog;
+
+            $referee->fill([
+                    'user_id'           => $this->pointlog->reference_id,
+                    'amount'            => 20000,
+                    'expired_at'        => $this->pointlog->expired_at,
+                    'notes'             => 'Mereferensikan '.$this->pointlog->user->name,
+                ]);
+
+            $referee->reference()->associate($this->pointlog);
+
+            if(!$referee->save())
+            {
+                $result                 = new JSend('error', (array)$this->pointlog, $referee->getError());
+            }
+            else
+            {
+                $result                 = new JSend('success', (array)$this->pointlog);
+            }
+        }
+        else
+        {
+            $result                     = new JSend('success', (array)$this->pointlog);
+        }
+
+        return $result;
     }
 }

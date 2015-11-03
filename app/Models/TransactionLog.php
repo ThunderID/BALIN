@@ -52,7 +52,7 @@ class TransactionLog extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'status'						=> 'required|in:cart,wait,paid,shipping,delivered',
+											'status'						=> 'required|in:cart,wait,paid,shipping,delivered,canceled',
 											'changed_at'					=> 'required|date_format:"Y-m-d H:i:s"',
 										];
 

@@ -19,4 +19,9 @@ trait HasReferenceTrait
     {
         return $this->morphTo();
     }
+
+    public function scopeReferenceID($query, $variable)
+    {
+		return $query->whereHas('reference', function($q)use($variable){$q->id($variable);});
+    }
 }

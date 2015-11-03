@@ -27,8 +27,8 @@ class TransactionLogTableSeeder extends Seeder
 				{
 					$data 							= new TransactionLog;
 					$data->fill([
-						'transaction_id'			=> $value->name.' '.$brand.' '.$color.' '.$size,
-						'status'					=> $faker->ean8,
+						'transaction_id'			=> $value->id,
+						'status'					=> $status[$key2],
 						'changed_at'				=> date('Y-m-d H:i:s', strtotime($value->transact_at->format('y-m-d H:i:s').' + '.($key2+3).' hours')),
 					]);
 
