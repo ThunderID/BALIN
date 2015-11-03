@@ -84,7 +84,7 @@ class Supplier extends Eloquent
 		}
 		else
 		{
-			$address 					= '';
+			$address 					= NULL;
 		}
 
 		return $address;

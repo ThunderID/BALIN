@@ -98,7 +98,7 @@ class Courier extends Eloquent
 		}
 		else
 		{
-			$address 					= '';
+			$address 					= NULL;
 		}
 
 		return $address;

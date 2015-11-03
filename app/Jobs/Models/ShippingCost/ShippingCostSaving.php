@@ -20,8 +20,28 @@ class ShippingCostSaving extends Job implements SelfHandling
     
     public function handle()
     {
-        $result                         = new JSend('success', (array)$this->shippingcost);
-        
-        return $result;
+        if(!$this->shippingcost->id)
+        {
+            $id = 0;
+        }
+        else
+        {
+            $id = $this->shippingcost->id;
+        }
+
+        $shippingCost                   = shippingCost::ShippingCost(
+                                                    $this->shippingcost->start_postal_code,
+                                                    $this->shippingcost->end_postal_code,
+                                                    $this->shippingcost->started_at
+                                                )
+                                             ->notid($id)
+                                             ->count();
+
+        if($shippingCost)
+        {
+            return new JSend('error', (array)$this->shippingcost, 'Tidak dapat menyimpan data yang tanggal berlakunya telah berlalu');
+        }
+
+        return new JSend('success', (array)$this->shippingcost);
     }
 }

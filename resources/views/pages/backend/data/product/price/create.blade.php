@@ -40,7 +40,7 @@
 			$time = Null;
 			if (isset($data['started_at']))
 			{
-				$date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('d-m-Y');
+				$date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('Y-m-d');
 				$time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('H:i');
 			}
 		?>
