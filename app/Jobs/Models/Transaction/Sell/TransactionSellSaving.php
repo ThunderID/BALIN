@@ -36,6 +36,11 @@ class TransactionSellSaving extends Job implements SelfHandling
 
         if($result->getStatus()=='success')
         {
+            $result                         = $this->dispatch(new GenerateTransactionUniqNumber($this->transaction));
+        }
+
+        if($result->getStatus()=='success')
+        {
             $result                         = $this->dispatch(new CountVoucherDiscount($this->transaction));
         }
 

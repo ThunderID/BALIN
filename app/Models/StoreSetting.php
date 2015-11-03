@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StoreSetting extends Eloquent
 {
-
 	use SoftDeletes;
 
 	/**
@@ -15,6 +14,7 @@ class StoreSetting extends Eloquent
 	 *
 	 * @var string
 	 */
+	use \App\Models\Traits\morphMany\HasImagesTrait;
 
 	/**
 	 * The database table used by the model.
@@ -33,8 +33,8 @@ class StoreSetting extends Eloquent
 
 	protected $fillable				=	[
 											'type'								,
-											'url'								,
-											'content'							,
+											'value'								,
+											'started_at'						,
 										];
 
 	/**
@@ -42,7 +42,7 @@ class StoreSetting extends Eloquent
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'started_at'];
 
 	/**
 	 * Basic rule of database
@@ -51,7 +51,8 @@ class StoreSetting extends Eloquent
 	 */
 	protected $rules				=	[
 											'type'								=> 'required|max:255',
-											'url'								=> 'max:255',
+											'value'								=> 'required',
+											'started_at'						=> 'date_format:"Y-m-d H:i:s"|after:now',
 										];
 
 	/**
@@ -109,5 +110,16 @@ class StoreSetting extends Eloquent
 		}
 
 		return 	$query->where('type', $variable);
+	}
+
+
+	public  function scopeOndate($query, $variable)
+	{
+		if(!is_array($variable))
+		{
+			return $query->where('started_at', '>=', date('Y-m-d H:i:s', strtotime($variable)))->orderBy('started_at', 'asc');
+		}
+
+		return $query->where('started_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('started_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])))->orderBy('started_at', 'asc');
 	}
 }

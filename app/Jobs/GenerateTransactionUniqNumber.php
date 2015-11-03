@@ -8,7 +8,7 @@ use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
-use App\Models\Policy;
+use App\Models\StoreSetting;
 
 class GenerateTransactionUniqNumber extends Job implements SelfHandling
 {
@@ -28,7 +28,7 @@ class GenerateTransactionUniqNumber extends Job implements SelfHandling
             {
                 $prev_number            = Transaction::orderBy('id', 'DESC')->first();
 
-                $limit                  = Policy::type('limit_unique_number')->first();
+                $limit                  = StoreSetting::type('limit_unique_number')->ondate('now')->first();
 
                 if($prev_number['unique_number'] < $limit['value'])
                 {

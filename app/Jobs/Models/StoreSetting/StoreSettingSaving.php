@@ -28,16 +28,6 @@ class StoreSettingSaving extends Job implements SelfHandling
         //cek 
         $result                     = new JSend('success', (array)$this->store);
         
-        if(isset($this->store->getDirty()['type']))
-        {
-            $result                 = new JSend('error', (array)$this->store, 'Tidak dapat mengubah tipe pengaturan.');
-        }
-
-        if(strtolower($this->store->type)=='pages' && isset($this->store->getDirty()['url']))
-        {
-            $result                 = new JSend('error', (array)$this->store, 'Tidak dapat mengubah url laman.');
-        }
-
         return $result;
     }
 }

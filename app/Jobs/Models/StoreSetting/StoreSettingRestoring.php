@@ -9,7 +9,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\StoreSetting;
 
-class StoreSettingUpdating extends Job implements SelfHandling
+class StoreSettingRestoring extends Job implements SelfHandling
 {
     protected $store;
 
@@ -20,11 +20,6 @@ class StoreSettingUpdating extends Job implements SelfHandling
 
     public function handle()
     {
-		if(isset($this->store->getDirty()['type']))
-        {
-            return new JSend('error', (array)$this->store, 'Tidak dapat mengubah tipe pengaturan.');
-        }
-
         return new JSend('success', (array)$this->store);
     }
 }
