@@ -106,27 +106,26 @@ class ShippingCost extends Eloquent
 		return 	$query->where('id','<>', $variable);
 	}
 
-	public function scopeShippingCost($query, $start, $end, $started_at)
+	public function scopeShippingCost($query, $start, $end)
 	{
-		return $query->where(function($query) use($start, $end, $started_at) {
+		return $query->where(function($query) use($start, $end) {
 			$query->where(function($query) use($start, $end) {
 				$query->where('start_postal_code','<=',$start)
 					->where('end_postal_code','>=',$end);
 				})
-			->orwhere(function($query) use($start, $end, $started_at) {
+			->orwhere(function($query) use($start, $end) {
 				$query->where('end_postal_code','>=', $start)
 					->where('end_postal_code','<=',$end);
 				})
-			->orwhere(function($query) use($start, $end, $started_at) {
+			->orwhere(function($query) use($start, $end) {
 				$query->where('start_postal_code','>=', $start)
 					->where('start_postal_code','<=',$end);
 				})
-			->orwhere(function($query) use($start, $end, $started_at) {
+			->orwhere(function($query) use($start, $end) {
 				$query->where('start_postal_code','<=', $start)
 					->where('end_postal_code','>=',$end);
 				})
-		;})
-		->where('started_at','=',date('Y-m-d h:i:s', strtotime($started_at)));
+		;});
 	}	
 
 	public function scopePostalCode($query, $variable)
