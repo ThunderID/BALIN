@@ -105,10 +105,18 @@ class Transaction extends Eloquent
 
 		foreach ($this->pointlogs as $key => $value) 
 		{
-			$amount 					= $amount + $value->amount; 
+			if($value->amount < 0)
+			{
+				$amount 				= $amount + $value->amount; 
+			}
 		}
 
-		$amount 						= $amount + $this->shipping_cost - $this->voucher_discount - $this->unique_number;
+		$amount 						= $amount + $this->shipping_cost - $this->voucher_discount
+		
+		if($amount!=0)
+		{
+			$amount 					= $amount - $this->unique_number;
+		}
 
 		return $amount;
 	}
