@@ -8,7 +8,9 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
+
 $datas 			= $datas->orderby('name')->paginate();
+
 ?>
 
 
@@ -76,7 +78,11 @@ $datas 			= $datas->orderby('name')->paginate();
 											<td>{{ $ctr }}</td>
 											<td>{!! HTML::image($data->logo, 'logo', ['class' => 'img-responsive', 'style' => 'max-width:200px;']) !!}</td>
 											<td>{{ $data['name'] }}</td>
-											<td>{{ $data['address'] }}</td>
+											<td>
+												{{ $data['address']['address'] }}
+												</br>
+												<i class="fa fa-phone"></i> {{ $data['address']['phone'] }}
+											</td>
 											<td>
 												<a href="{{ route('backend.settings.courier.show', $data['id']) }}"> Detail </a>, 
 												<a href="{{ route('backend.settings.courier.edit', $data['id']) }}"> Edit </a>, 

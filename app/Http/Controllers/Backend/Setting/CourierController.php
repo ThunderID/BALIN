@@ -3,6 +3,7 @@
 use App\Http\Controllers\baseController;
 use Illuminate\Support\MessageBag;
 use App\Models\Courier;
+use App\Models\Address;
 use App\Models\Image;
 use Input, Session, DB, Redirect, Response;
 
@@ -132,7 +133,7 @@ class CourierController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 										= Input::only('name', 'address');
+		$inputs 										= Input::only('address_id', 'name', 'address', 'phone', 'zipcode');
 
 		$colors 										= ['ffcccc', 'ccccff', 'fffdcc', 'ddffcc', 'ffccfc', '000000', 'bababa', '00ffae', 'a0000a', '00fff0'];
 		$inputs['logo_url']								= 'http://placehold.it/200x200/'.$colors[rand(0, count($colors)-1)].'/000000';
@@ -148,8 +149,8 @@ class CourierController extends baseController
 
 		$data->fill([
 			'name' 										=> $inputs['name'],
-			'address' 									=> $inputs['address'],
 		]);
+
 
 		DB::beginTransaction();
 		
@@ -181,6 +182,28 @@ class CourierController extends baseController
 		{
 			$errors->add('Courier', $image->getError());
 		}
+
+		if($inputs['address_id'])
+		{
+			$address						= Address::find($inputs['address_id']);			
+		}
+		else
+		{
+			$address						= new Address;			
+		}
+
+		$address->fill([
+			'phone' 						=> $inputs['phone'],
+			'zipcode' 						=> $inputs['zipcode'],
+			'address' 						=> $inputs['address'],
+		]);
+
+		$address->owner()->associate($data);
+
+		if(!$address->save())
+		{
+			$errors->add('Address', $address->getError());
+		}		
 
 		if ($errors->count())
 		{

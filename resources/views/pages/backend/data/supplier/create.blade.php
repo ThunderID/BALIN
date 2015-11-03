@@ -1,7 +1,7 @@
 @inject('data', 'App\Models\Supplier')
-<?php 
-    $data = $data::find($id);
-?>
+@if ($id)
+    <?php $data = $data::find($id); ?>
+@endif
 
 @extends('template.backend.layout') 
 
