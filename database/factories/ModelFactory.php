@@ -15,7 +15,7 @@ $role 									= ['customer', 'cashier', 'admin', 'owner', 'developer'];
 
 $factory->define(App\Models\User::class, function ($faker) use ($gender, $role)
 {
-	if(App\Models\User::count()==0)
+	if(!App\Models\User::count()==0)
 	{
 		return 
 		[

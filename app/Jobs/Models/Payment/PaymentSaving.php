@@ -3,8 +3,7 @@
 namespace App\Jobs\Models\Payment;
 
 use App\Jobs\Job;
-use App\Jobs\PaymentIsValid;
-use App\Jobs\ReferralPointIsGiven;
+use App\Jobs\CheckPaid;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Libraries\JSend;
@@ -26,7 +25,7 @@ class PaymentSaving extends Job implements SelfHandling
     {
         if($this->payment->transaction)
         {
-            $result                         = $this->dispatch(new PaymentIsValid($this->payment->transaction, $this->payment));
+            $result                         = $this->dispatch(new CheckPaid($this->payment->transaction, $this->payment));
         }
         else
         {

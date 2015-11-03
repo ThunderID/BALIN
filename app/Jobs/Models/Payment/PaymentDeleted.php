@@ -23,4 +23,5 @@ class PaymentDeleted extends Job implements SelfHandling
         $result                          = new JSend('success', (array)$this->payment);
        
         return $result;
-    }}
+    }
+}

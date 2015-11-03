@@ -112,4 +112,14 @@ class TransactionLog extends Eloquent
 
 		return 	$query->where('status', $variable);
 	}
+
+	public function scopeCurrentStatus($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('status', $variable)->groupBy('transaction_id')->orderby('created_at', 'desc');
+		}
+
+		return 	$query->where('status', $variable)->groupBy('transaction_id')->orderby('created_at', 'desc');
+	}
 }

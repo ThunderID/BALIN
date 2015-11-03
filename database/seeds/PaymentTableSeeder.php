@@ -14,31 +14,13 @@ class PaymentTableSeeder extends Seeder
 		$faker 										= Factory::create();
 		try
 		{
-			$transactions 							= App\Models\Transaction::type('sell')->status(['draft'])->take((App\Models\Transaction::type('sell')->status(['draft'])->count() * 0.8));
-			
+			$transactions 							= App\Models\Transaction::type('sell')->status(['wait'])->take((App\Models\Transaction::type('sell')->status(['wait'])->count() * 0.8))->get();
+
 			foreach($transactions as $key => $value)
 			{
-				$trs 								= App\Models\Transaction::find($value->id);
-				$trs->fill(['status' => 'waiting']);
+				$total 								= $value->amount;
 
-				if (!$trs->save())
-				{
-					print_r($trs->getError());
-					exit;
-				}
-
-				$amount 							= App\Models\TransactionDetail::TransactionId($value->id)->selectraw('(price - discount) * quantity as amount')->first();
 				$data 								= new Payment;
-
-				if($amount && !is_null($amount->amount))
-				{
-					$total 							= $amount->amount;
-				}
-				else
-				{
-					$total 							= 0;
-				}
-
 				$data->fill([
 					'transaction_id'				=> $value->id,
 					'method'						=> 'bank transfer',
