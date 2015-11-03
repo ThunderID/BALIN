@@ -5,7 +5,7 @@ use App\Models\ShippingCost;
 use App\Models\Courier;
 
 use Illuminate\Support\MessageBag;
-use Input, Session, DB, Redirect;
+use Input, Session, DB, Redirect, Carbon;
 
 class ShippingCostController extends baseController 
 {
@@ -79,7 +79,7 @@ class ShippingCostController extends baseController
 	{
 		$cou_id 										= Input::get('courier_id');
 
-		$inputs 										= Input::only('courier_id','start_postal_code','end_postal_code','cost');
+		$inputs 										= Input::only('courier_id','start_postal_code','end_postal_code','cost','date','time');
 
 		if (Input::get('id'))
 		{
@@ -90,12 +90,15 @@ class ShippingCostController extends baseController
 			$data 										= new ShippingCost;	
 		}
 
+		$started_at 									= Carbon::createFromFormat('Y-m-d', $inputs['date'])->format('Y-m-d').' '.Carbon::createFromFormat('H:i', $inputs['time'])->format('H:i:s');
+
+
 		$data->fill([
 			'courier_id' 								=> $inputs['courier_id'],
 			'start_postal_code' 						=> $inputs['start_postal_code'],
 			'end_postal_code' 							=> $inputs['end_postal_code'],
 			'cost' 										=> $inputs['cost'],
-			'started_at'								=> $inputs['started_at'],
+			'started_at'								=> $started_at,
 		]);
 
 		DB::beginTransaction();

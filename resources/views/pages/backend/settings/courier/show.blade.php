@@ -117,6 +117,7 @@ $shippingcosts = $shippingcosts->courierid($data['id'])->paginate();
 					<th>Awal kode Pos</th>
 					<th>Akhir kode Pos</th>
 					<th>Biaya</th>
+					<th>Tanggal berlaku</th>
 					<th>Kontrol</th>
 				</tr>
 			</thead>
@@ -134,6 +135,7 @@ $shippingcosts = $shippingcosts->courierid($data['id'])->paginate();
 							<td>{{ $shippingcost['start_postal_code'] }}</td>
 							<td>{{ $shippingcost['end_postal_code']  }}</td>
 							<td>{{ $shippingcost['cost'] }}</td>
+							<td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $shippingcost['started_at'])->format('d-m-Y h:i')}}</td>
 							<td> 
 								<a href="{{ route('backend.settings.shippingCost.edit', ['cou_id' => $data['id'], 'id' => $shippingcost['id']]) }}"> Edit </a>,
 								

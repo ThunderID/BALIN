@@ -12,6 +12,7 @@
 	@else
 		{!! Form::open(['url' => route('backend.settings.shippingCost.store', ['cou_id' => $cou_id, 'id' => $id]), 'method' => 'POST']) !!}
 	@endif
+        {!! Form::hidden('id',$data['id']) !!}    
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
@@ -69,7 +70,7 @@
 			</div>
 		</div>		
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="form-group">
 					<label for="cost">Biaya Kirim</label>
 					{!! Form::text('cost', $data['cost'], [
@@ -79,6 +80,39 @@
 					]) !!}	
 				</div>  
 			</div> 
+
+		<?php
+			$date = Null;
+			$time = Null;
+			if (isset($data['started_at']))
+			{
+				$date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('Y-m-d');
+				$time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('H:i');
+			}
+		?>
+
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="start_date" class="text-capitalize">Waktu Berlaku</label>
+					{!! Form::input('date','date', $date, [
+								'class'         		=> 'form-control input-date', 
+								'tabindex'      		=> '1',
+								'placeholder'   		=> 'dd-mm-yyyy',
+								'data-date'		 		=> '',
+								'data-date-format'		=> 'dd-mm-yyyy',
+					]) !!}
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					{!! Form::input('time','time', $time, [
+								'class'         => 'form-control', 
+								'tabindex'      => '1',
+								'placeholder'   => 'hh:ii',
+								'style'			 => 'margin-top:23px'
+					]) !!}
+				</div>
+			</div>
 		</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">

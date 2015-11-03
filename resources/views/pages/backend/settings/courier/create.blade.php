@@ -26,7 +26,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="parent" class="text-capitalize">Nama</label>
-							{!! Form::text('name', $data->name, [
+							{!! Form::text('name', $data['name'], [
 										'class'         => 'form-control', 
 										'tabindex'      => '1',
 										'placeholder'   => 'Masukkan nama',
