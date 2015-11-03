@@ -263,6 +263,8 @@ Route::get('testcookie', ['uses' => 'Frontend\\productController@removeFromCart'
 Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error']);
 Route::get('test/email', ['uses' => 'testController@testEmail', 'as' => 'test.email']);
 
+Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
+Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
 
 // Route::get('cookieset', function()
 // {

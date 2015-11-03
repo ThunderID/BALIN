@@ -9,7 +9,6 @@ use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-
 class GenerateRefferalCode extends Job implements SelfHandling
 {
     use DispatchesJobs;
@@ -18,48 +17,78 @@ class GenerateRefferalCode extends Job implements SelfHandling
 
     public function __construct(User $user)
     {
-        $this->user             = $user;
+        $this->user             			= $user;
     }
 
     public function handle()
     {
         // checking
-        if(is_null($this->user->id))
-        {
-            throw new Exception('Sent variable must be object of a record.');
-        }
+		$letters 							= 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
 
         //check is user doesnt have refferal code yet
-        if(!is_null($this->user->voucher))
+        if(!is_null($this->user->referral_code))
         {
-            $result             = new JSend('error', (array)$this->user, $this->user->name.' sudah memiliki referral code');
+            $result							= new JSend('error', (array)$this->user, $this->user->name.' sudah memiliki referral code');
         }
         else
         {
-            $name               = preg_split('/\s+/', $this->user->name);
+			$names							= explode(' ', $this->user->name);
+			$fnames 						= [];
+			$lnames 						= [];
+			$lostcode 						= [];
+        	if(isset($names[0]))
+        	{
+				$fname 						= preg_split('/\s+/', $names[0]);
+dd($fname[0]);
+				foreach ($fname as $key => $value) 
+				{
+					if($key <= 2)
+					{
+						$fnames[$key]		= $value;
+					}
+				}
+        	}
 
-            $uid                = $this->user->id;
+        	if(count($fnames) < 3)
+        	{
+        		foreach (range((count($fnames)-1), 2) as $key) 
+        		{
+        			$fnames[$key] 			= substr(str_shuffle($letters), 0, 1);
+        		}
+        	}
 
-            $ref_code           = $name[0] . $uid;
+        	if(isset($names[count($names)-1]))
+        	{
+				$lname 						= preg_split('/\s+/', $names[count($names)-1]);
+				foreach ($lname as $key => $value) 
+				{
+					if($key <= 2)
+					{
+						$lnames[$key]		= $value;
+					}
+				}
+        	}
 
-            $data               = new Voucher;
+        	if(count($lnames) < 3)
+        	{
+        		foreach (range((count($lnames)-1), 2) as $key) 
+        		{
+        			$lnames[$key] 			= substr(str_shuffle($letters), 0, 1);
+        		}
+        	}
 
-            $data->fill
-            ([
-                'user_id'       => $uid,
-                'code'          => $ref_code,
-                'type'          => 'referral',
-                'expired_at'    => null,
-            ]);
+        	foreach (range(0, 1) as $key) 
+    		{
+    			$lostcode[$key] 			= substr(str_shuffle($letters), 0, 1);
+    		}
 
-            if($data->save())
-            {
-                $result         = new JSend('success', (array)$data['attributes']);
-            }
-            else
-            {
-                $result         = new JSend('error', (array)$this->user, (array)$data->getError());
-            }
+    		$lcode 							= implode('', $lnames);
+    		$fcode 							= implode('', $fnames);
+    		$locode 						= implode('', $lostcode);
+
+			$this->user->referral_code 		= $lcode.$fcode.$locode;
+
+			$result         				= new JSend('success', (array)$this->user);
         }
 
         return $result;

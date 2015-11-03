@@ -1,6 +1,3 @@
-@extends('template.layout')
-
-@section('content_layout')
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -816,7 +813,7 @@ body.outlook p {
           <table class="container">
             <tr>
               <td>
-                <!-- content start -->          
+                <!-- content start -->
                   @yield('content')
                 <!-- container end below -->
               </td>
@@ -828,4 +825,3 @@ body.outlook p {
   </table>  
 </body>
 </html>
-@stop

@@ -74,6 +74,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'name'							=> 'required|max:255',
 											'email'							=> 'max:255|email',
 											'role'							=> 'required|max:255',
+											'referral_code'					=> 'max:8',
 										];
 
 	/**
