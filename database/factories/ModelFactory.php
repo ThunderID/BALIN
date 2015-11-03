@@ -67,26 +67,26 @@ $factory->define(App\Models\PointLog::class, function ($faker)
 	];
 });
 
-$factory->define(App\Models\Supplier::class, function ($faker)
-{
-	return 
-	[
-		'name'							=> $faker->company.' '.$faker->companySuffix,
-		'phone'							=> $faker->phoneNumber,
-		'address' 						=> $faker->address,
-	];
-});
+// $factory->define(App\Models\Supplier::class, function ($faker)
+// {
+// 	return 
+// 	[
+// 		'name'							=> $faker->company.' '.$faker->companySuffix,
+// 		'phone'							=> $faker->phoneNumber,
+// 		'address' 						=> $faker->address,
+// 	];
+// });
 
 $colors 								= ['ffcccc', 'ccccff', 'fffdcc', 'ddffcc', 'ffccfc', '000000', 'bababa', '00ffae', 'a0000a', '00fff0'];
-$factory->define(App\Models\Courier::class, function ($faker) use ($colors)
-{
-	return 
-	[
-		'name'							=> $faker->company.' '.$faker->companySuffix,
-		// 'logo_url' 						=> 'http://placehold.it/200x200/'.$colors[rand(0, count($colors)-1)].'/000000',
-		'address' 						=> $faker->address,
-	];
-});
+// $factory->define(App\Models\Courier::class, function ($faker) use ($colors)
+// {
+// 	return 
+// 	[
+// 		'name'							=> $faker->company.' '.$faker->companySuffix,
+// 		// 'logo_url' 						=> 'http://placehold.it/200x200/'.$colors[rand(0, count($colors)-1)].'/000000',
+// 		'address' 						=> $faker->address,
+// 	];
+// });
 
 $factory->define(App\Models\ShippingCost::class, function ($faker)
 {
