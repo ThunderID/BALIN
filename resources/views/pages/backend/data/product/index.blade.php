@@ -51,9 +51,10 @@ $datas 			= $datas->orderby('name')->paginate();
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th class="col-md-2">SKU</th>
-									<th class="col-md-7">Nama Produk</th>
-									<th>Kontrol</th>
+									<th class="col-md-5">Nama Produk</th>
+									<th class="col-md-2 text-center">Tipe</th>
+									<th class="col-md-2 text-center">Kode</th>
+									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -71,9 +72,10 @@ $datas 			= $datas->orderby('name')->paginate();
 									@foreach($datas as $data)
 										<tr>
 											<td>{{ $ctr }}</td>
-											<td>{{ $data['sku'] }}</td>
 											<td>{{ $data['name'] }}</td>
-											<td>
+											<td class="text-uppercase text-center">{{ $data['tag'] }}</td>
+											<td class="text-center">{{ $data['code'] }}</td>
+											<td class="text-center">
 												<a href="{{ route('backend.data.product.show', $data['id']) }}"> Detail </a>,
 												<a href="{{ url::route('backend.data.product.edit', $data['id']) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
