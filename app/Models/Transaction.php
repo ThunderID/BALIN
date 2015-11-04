@@ -187,6 +187,27 @@ class Transaction extends Eloquent
 		return 	$query->where('ref_number', 'like', $variable.'%');
 	}
 
+	public function scopeAmount($query, $variable)
+	{
+
+		return 	$query
+					->selectraw('transactions.*')
+					->selectraw("
+						sum((SELECT sum((price - discount) * quantity) FROM transaction_details WHERE transaction_details.transaction_id = transactions.id and transaction_details.deleted_at is null)
+						+ (SELECT amount FROM point_logs WHERE point_logs.reference_id = transactions.id and point_logs.deleted_at is null and point_logs.reference_type like '%Transaction%' and point_logs.amount < 0)
+						+ transactions.shipping_cost - transactions.voucher_discount - transactions.unique_number
+						) as total_paid
+					")
+					->havingraw("
+						sum((SELECT sum((price - discount) * quantity) FROM transaction_details WHERE transaction_details.transaction_id = transactions.id and transaction_details.deleted_at is null)
+						+ (SELECT amount FROM point_logs WHERE point_logs.reference_id = transactions.id and point_logs.deleted_at is null and point_logs.reference_type like '%Transaction%' and point_logs.amount < 0)
+						+ transactions.shipping_cost - transactions.voucher_discount - transactions.unique_number
+						)  = 
+					 ".$variable)
+					->groupby('transactions.id')
+					;
+	}
+
 	public  function scopeTransactionProcessed($query)
 	{
 		return $query

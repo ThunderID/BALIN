@@ -81,6 +81,8 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 
 		Route::resource('transactions',	'TransactionController',		['names' => ['index' => 'backend.data.transaction.index', 'create' => 'backend.data.transaction.create', 'store' => 'backend.data.transaction.store', 'show' => 'backend.data.transaction.show', 'edit' => 'backend.data.transaction.edit', 'update' => 'backend.data.transaction.update', 'destroy' => 'backend.data.transaction.destroy']]);
 		
+		Route::any('ajax/get-transaction-by-amount',					['uses' => 'TransactionController@getTransactionByAmount', 'as' => 'backend.transaction.ajax.getByAmount']);
+		
 		// ------------------------------------------------------------------------------------
 		// PAYMENT
 		// ------------------------------------------------------------------------------------

@@ -229,4 +229,41 @@
 		}
 	});
 	$('.select-supplier-by-name').select2('data', preload_data );
+
+	$('.select-transaction').select2({
+		placeholder: 'Masukkan jumlah transaksi',
+		minimumInputLength: 3,
+		tags: false,
+		ajax: {
+			url: "{{ route('backend.transaction.ajax.getByAmount') }}",
+			dataType: 'json',
+			data: function (term, path) {
+				return {
+					name: term,
+				};
+			},
+		   results: function (data) {
+				return {
+					results: $.map(data, function (item) {
+						return {
+							text: item.user.name+' '+item.total_paid,
+							id: item.id +' ',
+						}
+					})
+				};
+			},
+			query: function (query){
+				var data = {results: []};
+				 
+				$.each(preload_data, function(){
+					if(query.term.length == 0 || this.text.toUpperCase().indexOf(query.term.toUpperCase()) >= 0 ){
+						data.results.push({id: this.id, text: this.text });
+					}
+				});
+	
+				query.callback(data);
+			}
+		}
+	});
+	$('.select-transaction').select2('data', preload_data );
 </script>

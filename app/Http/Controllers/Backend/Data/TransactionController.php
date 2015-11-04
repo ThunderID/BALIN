@@ -30,10 +30,6 @@ class TransactionController extends baseController
 
 	public function index($type = null)
 	{		
-		$transaction 							= Transaction::findorfail(5010);
-
-        $result                             = $this->dispatch(new ChangeStatus($transaction, 'wait'));
-		dd($result);
 		$breadcrumb								= [	'Transaksi' => 'backend.data.transaction.index'];
 
 		$filters 								= null;
@@ -268,5 +264,16 @@ class TransactionController extends baseController
 				->with('msg', 'Transaction telah dihapus')
 				->with('msg-type','success');
 		}
+	}
+
+	public function getTransactionByAmount()
+	{
+		$inputs 			= Input::only('name');
+		$tmp 				= Transaction::amount($inputs['name'])
+								->status('wait')
+								->type('sell')
+								->with(['user'])
+								->get();
+		return json_decode(json_encode($tmp));
 	}
 }

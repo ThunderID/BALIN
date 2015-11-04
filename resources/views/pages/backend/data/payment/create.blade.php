@@ -39,12 +39,14 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="amount" class="text-capitalize">Jumlah Transfer</label>
+                    <label for="amount" class="text-capitalize">Jumlah Transfer</label><br/>
                     {!! Form::text('amount', $data['amount'], [
-                                'class'         => 'form-control', 
+                                'class'         => 'select-transaction', 
                                 'required'      => 'required', 
+                                'id'            => 'find_transaction',
                                 'tabindex'      => '3',
-                                'placeholder'   => 'Masukkan jumlah transfer'
+                                'placeholder'   => 'Masukkan jumlah transfer',
+                                'style'         => 'width:100%',
                     ]) !!}
                 </div>
             </div>                                          
@@ -79,4 +81,12 @@
             </div>                                          
         </div>
     {!! Form::close() !!}
+@stop
+
+@section('script')
+    var preload_data = [];
+@stop
+
+@section('script_plugin')
+    @include('plugins.select2')
 @stop
