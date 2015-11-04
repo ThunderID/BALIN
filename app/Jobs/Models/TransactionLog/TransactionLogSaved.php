@@ -13,6 +13,8 @@ use App\Models\Transaction;
 
 use App\Jobs\CreditPoint;
 use App\Jobs\RevertPoint;
+use App\Jobs\AddQuotaForUpline;
+use App\Jobs\AddPointForUpline;
 use App\Jobs\SendBillingEmail;
 use App\Jobs\SendPaymentEmail;
 use App\Jobs\SendShipmentEmail;
@@ -59,7 +61,15 @@ class TransactionLogSaved extends Job implements SelfHandling
                     }
                 break;
                 case 'paid' :
-                    $result                     = $this->dispatch(new SendPaymentEmail($this->transactionlog->transaction));
+                    $result                     = $this->dispatch(new AddQuotaForUpline($this->transactionlog->transaction));
+                    if($result->getStatus()=='success')
+                    {
+                        $result                 = $this->dispatch(new AddPointForUpline($this->transactionlog->transaction));
+                    }
+                    if($result->getStatus()=='success')
+                    {
+                        $result                 = $this->dispatch(new SendPaymentEmail($this->transactionlog->transaction));
+                    }
                 break;
                 case 'shipping' :
                     $result                     = $this->dispatch(new SendShipmentEmail($this->transactionlog->transaction));
