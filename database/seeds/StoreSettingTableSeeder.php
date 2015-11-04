@@ -43,8 +43,8 @@ class StoreSettingTableSeeder extends Seeder
 		$slidevalues								= ['http://localhost:8000/Balin/web/Image/1.jpg', 'http://localhost:8000/Balin/web/Image/2.jpg', 'http://localhost:8000/Balin/web/Image/3.jpg'];
 		
 		//store setting related to policy
-		$policies 									= ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration'];
-		$polvals 									= [' + 1 day', ' + 2 day', '+ 5 days', '+ 1 year', '20000', '15000', '100', '+ 2 hours'];
+		$policies 									= ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota'];
+		$polvals 									= [' + 1 day', ' + 2 day', '+ 5 days', '+ 1 year', '20000', '15000', '100', '+ 2 hours', '10'];
 
 		try
 		{

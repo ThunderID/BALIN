@@ -21,7 +21,22 @@ class UserDeleting extends Job implements SelfHandling
     {
         if($this->user->transactions->count())
         {
-            return new JSend('error', (array)$this->user, 'Tidak bisa menghapus User yang telah bertransaksi');
+            return new JSend('error', (array)$this->user, 'Tidak bisa menghapus User yang telah bertransaksi.');
+        }
+
+        if($this->user->pointlogs->count())
+        {
+            return new JSend('error', (array)$this->user, 'Tidak bisa menghapus User yang memiliki point.');
+        }
+
+        if($this->user->quotalogs->count())
+        {
+            return new JSend('error', (array)$this->user, 'Tidak bisa menghapus User yang memiliki quota.');
+        }
+
+        if($this->user->auditors->count())
+        {
+            return new JSend('error', (array)$this->user, 'Tidak bisa menghapus User yang terlibat dalam sistem.');
         }
 
         return new JSend('success', (array)$this->user);

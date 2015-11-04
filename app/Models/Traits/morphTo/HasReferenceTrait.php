@@ -22,6 +22,11 @@ trait HasReferenceTrait
 
     public function scopeReferenceID($query, $variable)
     {
-		return $query->whereHas('reference', function($q)use($variable){$q->id($variable);});
+		return $query->where('reference_id', $variable);
+    }
+
+    public function scopeReferenceType($query, $variable)
+    {
+		return $query->where('reference_type', $variable);
     }
 }

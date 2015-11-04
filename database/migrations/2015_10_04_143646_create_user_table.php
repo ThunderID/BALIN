@@ -25,6 +25,7 @@ class CreateUserTable extends Migration
             $table->text('sso_data');
             $table->enum('gender', ['male', 'female']);
             $table->date('date_of_birth');
+            $table->string('activation_link', 255);
             $table->string('reset_password_link', 255);
             $table->datetime('expired_at')->nullable();
             $table->rememberToken();

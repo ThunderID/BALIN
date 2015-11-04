@@ -1,9 +1,10 @@
 <?php 
+
 namespace App\Http\Controllers\Backend\Data;
 
 use App\Http\Controllers\baseController;
 use App\Models\User;
-use Input, Session, DB, Redirect, Response;
+use Input, Session, DB, Redirect, Response, App, Validator, Carbon;
 
 class CustomerController extends baseController
 {
@@ -21,7 +22,8 @@ class CustomerController extends baseController
 	
 	public function index()
 	{
-		$breadcrumb				= 	[	'Data Kostumer' 	=> route('backend.data.customer.index')
+		$breadcrumb				= 	[	
+										'Data Kostumer' 	=> route('backend.data.customer.index')
 									];
 
 		$filters 				= ['customer' => true];
@@ -50,27 +52,28 @@ class CustomerController extends baseController
 
 	public function show($id)
 	{
-		$customer 				= User::customer(true)->id($id)->first();
+		$customer 				= User::id($id)->with(['pointlogs' => function($q){$q->onactive('now');}])->first();
 
 		if(!$customer)
 		{
 			App::abort(404);
 		}
 
-		$breadcrumb				= 	[ 	'Kostumer' 			=> route('backend.data.customer.index'),
+		$breadcrumb				= 	[ 	
+										'Data Kostumer' 	=> route('backend.data.customer.index'),
 										$customer->name 	=> route('backend.data.customer.show', $id),
 									];
 
 		if(Input::has('q'))
 		{
-			$searchResult			= $search;
+			$searchResult		= $search;
 		}
 		else
 		{
-			$searchResult			= NULL;
+			$searchResult		= NULL;
 		}
 
-		$this->layout->page 		= view('pages.backend.data.user.show')
+		$this->layout->page 	= view('pages.backend.data.user.show')
 									->with('WT_pagetitle', $this->view_name )
 									->with('WT_pageSubTitle',$customer->name)
 									->with('WB_breadcrumbs', $breadcrumb)
@@ -88,31 +91,33 @@ class CustomerController extends baseController
 	{
 		if (is_null($id))
 		{
-			$customer 				= new User;
+			$customer 			= new User;
 
-			$breadcrumb				= 	[ 	'Kostumer' 		=> route('backend.data.customer.index'),
-											'Baru' 			=> route('backend.data.customer.create')
+			$breadcrumb			= 	[ 	
+											'Data Kostumer' 	=> route('backend.data.customer.index'),
+											'Baru' 				=> route('backend.data.customer.create')
 										];
 										
-			$title 					= 'Baru';
+			$title 				= 'Baru';
 		}
 		else
 		{
-			$customer 				= User::customer(true)->id($id)->first();
+			$customer 			= User::customer(true)->id($id)->first();
 
 			if(!$customer)
 			{
 				App::abort(404);
 			}
 			
-			$title 					= $customer->name;
+			$title 				= $customer->name;
 
-			$breadcrumb				= 	[ 	'Kostumer' 				=> route('backend.data.customer.index'),
+			$breadcrumb			= 	[ 	
+											'Data Kostumer' 		=> route('backend.data.customer.index'),
 											'Edit '.$customer->name => route('backend.data.customer.edit', $id)
 										];
 		}
 		
-		$this->layout->page 		= view('pages.backend.data.user.create')
+		$this->layout->page 	= view('pages.backend.data.user.create')
 										->with('WT_pagetitle', $this->view_name )
 										->with('WT_pageSubTitle', $title)
 										->with('WB_breadcrumbs', $breadcrumb)
@@ -130,24 +135,39 @@ class CustomerController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 					= Input::only('name', 'phone', 'address', 'email', 'postal_code');
+		$inputs 				= Input::only('name', 'email', 'date_of_birth', 'role', 'gender');
 		
 		if(!is_null($id))
 		{
-			$data					= User::find($id);
+			$data				= User::find($id);
 		}
 		else
 		{
-			$data					= new User;
+			$data				= new User;
+		}
+
+		$dob 					= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+
+		if(Input::has('password') || is_null($id))
+		{
+			$validator 			= Validator::make(Input::only('password', 'password_confirmation'), ['password' => 'required|min:8|confirmed']);
+
+			if (!$validator->passes())
+			{
+				return Redirect::back()
+					->withInput()
+					->withErrors($validator->errors())
+					->with('msg-type', 'danger');
+			}
+
 		}
 
 		$data->fill([
-				'name' 				=> $inputs['name'],
-				'phone' 			=> $inputs['phone'],
-				'address' 			=> $inputs['address'],
-				'email'				=> $inputs['email'],
-				'postal_code'		=> $inputs['postal_code'],
-				'role'				=>'customer',
+				'name' 			=> $inputs['name'],
+				'email'			=> $inputs['email'],
+				'date_of_birth'	=> $dob,
+				'role'			=> $inputs['role'],
+				'gender'		=> $inputs['gender'],
 		]);
 
 		DB::beginTransaction();
@@ -178,13 +198,14 @@ class CustomerController extends baseController
 
 	public function destroy($id)
 	{
-		$data = User::findorfail($id);
+		$data 					= User::findorfail($id);
 		
 		DB::beginTransaction();
 		
 		if (!$data->delete())
 		{
 			DB::rollback();
+
 			return Redirect::back()
 					->withErrors($data->getError())
 					->with('msg-type','danger');
@@ -192,8 +213,9 @@ class CustomerController extends baseController
 		else
 		{
 			DB::commit();
+
 			return Redirect::route('backend.data.customer.index')
-					->with('msg', 'Data telah dihapus')
+					->with('msg', 'Data '.$data->name.' telah dihapus')
 					->with('msg-type','success');
 		}
 	}

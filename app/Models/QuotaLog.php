@@ -24,7 +24,7 @@ class QuotaLog extends Eloquent
 	 *
 	 * @var string
 	 */
-	protected $table				= 'point_logs';
+	protected $table				= 'quota_logs';
 
 	// protected $timestamps			= true;
 

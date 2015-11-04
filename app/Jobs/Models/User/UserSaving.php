@@ -32,11 +32,6 @@ class UserSaving extends Job implements SelfHandling
 			$this->user->password			= bcrypt($this->user->password);
 		}
 
-		if($this->user->email!='' && $this->user->referral_code=='')
-		{
-			$result							= $this->dispatch(new GenerateRefferalCode($this->user));;
-		}
-
 	    return $result;
 	}
 }

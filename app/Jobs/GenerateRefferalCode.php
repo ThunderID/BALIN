@@ -38,8 +38,8 @@ class GenerateRefferalCode extends Job implements SelfHandling
 			$lostcode 						= [];
         	if(isset($names[0]))
         	{
-				$fname 						= preg_split('/\s+/', $names[0]);
-dd($fname[0]);
+				$fname 						= str_split($names[0]);
+
 				foreach ($fname as $key => $value) 
 				{
 					if($key <= 2)
@@ -59,7 +59,7 @@ dd($fname[0]);
 
         	if(isset($names[count($names)-1]))
         	{
-				$lname 						= preg_split('/\s+/', $names[count($names)-1]);
+				$lname 						= str_split($names[count($names)-1]);
 				foreach ($lname as $key => $value) 
 				{
 					if($key <= 2)
@@ -86,7 +86,7 @@ dd($fname[0]);
     		$fcode 							= implode('', $fnames);
     		$locode 						= implode('', $lostcode);
 
-			$this->user->referral_code 		= $lcode.$fcode.$locode;
+			$this->user->referral_code 		= $fcode.$lcode.$locode;
 
 			$result         				= new JSend('success', (array)$this->user);
         }
