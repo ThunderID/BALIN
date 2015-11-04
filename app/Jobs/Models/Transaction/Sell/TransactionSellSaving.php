@@ -5,7 +5,7 @@ namespace App\Jobs\Models\Transaction\Sell;
 use App\Jobs\Job;
 use App\Jobs\GenerateTransactionRefNumber;
 use App\Jobs\CountVoucherDiscount;
-use App\Jobs\FillTransactionDate;
+use App\Jobs\GenerateTransactionDate;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -31,7 +31,7 @@ class TransactionSellSaving extends Job implements SelfHandling
 
         if($result->getStatus()=='success')
         {
-            $result                         = $this->dispatch(new FillTransactionDate($this->transaction));
+            $result                         = $this->dispatch(new GenerateTransactionDate($this->transaction));
         }
 
         if($result->getStatus()=='success')

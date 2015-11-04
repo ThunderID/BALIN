@@ -106,7 +106,7 @@ class PolicyController extends baseController
 			}
 		}
 
-		if (!$errors->count())
+		if ($errors->count())
 		{
 			DB::rollback();
 

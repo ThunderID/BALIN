@@ -65,9 +65,9 @@ class Transaction extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'ref_number'					=> 'required',
+											'ref_number'					=> 'max:255',
 											'type'							=> 'required|in:buy,sell',
-											'transact_at'					=> 'required|date_format:"Y-m-d H:i:s"',
+											'transact_at'					=> 'date_format:"Y-m-d H:i:s"',
 											'unique_number'					=> 'numeric',
 											'shipping_cost'					=> 'numeric',
 											'voucher_discount'				=> 'numeric',
@@ -129,7 +129,7 @@ class Transaction extends Eloquent
 		}
 		else
 		{
-			$status 					= 'cart';
+			$status 					= 'na';
 		}
 
 		return $status;

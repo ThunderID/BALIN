@@ -23,7 +23,6 @@ class TransactionBuySaved extends Job implements SelfHandling
 
     public function handle()
     {
-        //need to check user active or not
         $result                          = new JSend('success', (array)$this->transaction );
 
         return $result;

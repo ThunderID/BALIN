@@ -3,6 +3,7 @@
 namespace App\Jobs\Models\Transaction\Buy;
 
 use App\Jobs\Job;
+use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Contracts\Bus\SelfHandling;

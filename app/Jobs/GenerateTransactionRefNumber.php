@@ -49,7 +49,7 @@ class GenerateTransactionRefNumber extends Job implements SelfHandling
 
                     $this->transaction->ref_number  = $prefix . $ref_number;
                     
-                    break;
+                break;
             }
         }
 

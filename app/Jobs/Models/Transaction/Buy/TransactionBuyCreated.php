@@ -3,6 +3,7 @@
 namespace App\Jobs\Models\Transaction\Buy;
 
 use App\Jobs\Job;
+use App\Jobs\ChangeStatus;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -23,8 +24,8 @@ class TransactionBuyCreated extends Job implements SelfHandling
 
     public function handle()
     {
-        //need to check user active or not
-        $result                             = new JSend('success', (array)$this->transaction );
+        //save transaction log
+        $result                             = $this->dispatch(new ChangeStatus($this->transaction, 'delivered'));
 
         return $result;
     }

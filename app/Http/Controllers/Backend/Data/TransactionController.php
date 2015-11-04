@@ -2,10 +2,11 @@
 use App\Http\Controllers\baseController;
 
 use App\Models\User;
-use App\Models\product;
-use App\Models\transaction;
-use App\Models\transactionDetail;
-// use App\Jobs\PointIsAvailable;
+use App\Models\Product;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
+
+use Illuminate\Support\MessageBag;
 
 use Input, DB, Redirect, Response;
 
@@ -105,98 +106,87 @@ class TransactionController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 							= input::only('type','status','supplier','customer','product','qty','price','total_price','discount','tot_price');
+		$inputs 							= Input::only('type','status','supplier','customer','product','qty','price','discount');
 
 		if($id)
 		{
-			$data							= Transaction::find($id);
+			$data							= Transaction::findornew($id);
 		}
 		else
 		{
 			$data 							= new Transaction;
-
-			if($inputs['type'] == 'buy')
-			{
-				$inputs['status'] = 'delivered';
-			}
-			else
-			{
-				$inputs['status'] = 'waiting';
-			}
 		}
 
-		$data->fill([
-			'supplier_id'					=> $inputs['supplier'],
-			'customer'						=> $inputs['customer'],
-			'type'							=> $inputs['type'],
-			'amount'						=> $inputs['total_price'],
-			'status'						=> $inputs['status'],
-		]);
-
-		// error
-		// ga bisa save transac detail -> Tidak dapat menambahkan item baru. Silahkan membuat nota baru
-		// ref-> transaction detail creating
-
-		//simpan data transaksi
-		DB::beginTransaction();
-		$data->save();
-
-		//cek apa punya error
-		if($data->getError())
+		switch (strtolower($inputs['type'])) 
 		{
-			DB::rollback();
-
-			return Redirect::back()
-				->withErrors($data->getError())
-				->with('msg-type','danger');					
+			case 'buy':
+				$data->fill([
+					'supplier_id'			=> $inputs['supplier'],
+					'type'					=> 'buy',
+					]);
+				break;
+			default:
+				$data->fill([
+					'customer_id'			=> $inputs['customer'],
+					'type'					=> 'sell',
+					]);
+				break;
 		}
 
-		//empty prev transaksi detail
+		DB::beginTransaction();
+
+		$errors 							= new MessageBag();
+
+		//Clean Prev Transaction
 		if($id)
 		{
-			$olds							= transactionDetail::where('transaction_id', $data['id']);
+			$prev							= TransactionDetail::transactionid($data['id'])->get();
 
-			foreach ($olds as $old) 
+			foreach ($prev as $old) 
 			{
-				$old->delete();
-
-				if($old->getError())
+				if(!$old->delete())
 				{
-					DB::rollback();
-
-					return Redirect::back()
-						->withErrors($old->getError())
-						->with('msg-type','danger');
+					$errors->add('Transaction', $old->getError());
 				}
 			}
 		}
 
-
-		//foreach data transaksi detail
-		foreach ($inputs['product'] as $key => $value) 
+		//cek apa punya error
+		if(!$errors->count() && !$data->save())
 		{
-			$datatd							= new transactionDetail;
+			$errors->add('Transaction', $data->getError());
+		}
 
-			$datatd->fill([
-				'transaction_id'			=> $data['id'],
-				'product_id'				=> $value,
-				'quantity'					=> $inputs['qty'][$key],
-				'price'						=> $inputs['price'][$key],
-				'discount'					=> $inputs['discount'][$key],
-			]);
-
-			//simpan data transaksi detail
-			$datatd->save();
-
-			//cek apa punya error
-			if($datatd->getError())
+		if(!$errors->count())
+		{
+			//foreach data transaksi detail
+			foreach ($inputs['product'] as $key => $value) 
 			{
-				DB::rollback();
+				$datatd							= new TransactionDetail;
 
-				return Redirect::back()
-					->withErrors($datatd->getError())
-					->with('msg-type','danger');
+				$datatd->fill([
+					'transaction_id'			=> $data['id'],
+					'product_id'				=> $value,
+					'quantity'					=> $inputs['qty'][$key],
+					'price'						=> $inputs['price'][$key],
+					'discount'					=> $inputs['discount'][$key],
+				]);
+
+				//cek apa punya error
+				if(!$datatd->save())
+				{
+					$errors->add('Transaction', $datatd->getError());
+				}
 			}
+		}
+
+		if($errors->count())
+		{
+			DB::rollback();
+
+			return Redirect::route('backend.data.transaction.index', ['type' => Input::get('type')])
+				->with('msg', $errors)
+				->with('msg-type','danger');
 		}
 
 		//sukses
