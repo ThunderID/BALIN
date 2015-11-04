@@ -3,7 +3,7 @@
 use App\Http\Controllers\baseController;
 use Input, Session, DB, Redirect, Response;
 use Illuminate\Support\MessageBag;
-use App\Models\Policy;
+use App\Models\StoreSetting;
 
 class PolicyController extends baseController 
 {
@@ -91,7 +91,7 @@ class PolicyController extends baseController
 		{
 			if($inputs['value'][$key]!='')
 			{
-				$policy 						= new Policy;
+				$policy 						= new StoreSetting;
 
 				$policy->fill([
 					'type'						=> $value,

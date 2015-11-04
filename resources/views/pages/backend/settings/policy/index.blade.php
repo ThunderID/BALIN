@@ -43,8 +43,9 @@
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th class="col-md-9">Policy</th>
-									<th>Kontrol</th>
+									<th>Policy</th>
+									<th>Value</th>
+									<th>Tangal Mulai</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -64,7 +65,9 @@
 											<td>{{ $ctr }}</td>
 											<td>{{str_replace('_', ' ', $data['type'])}}</td>
 											<td>{{ $data['value'] }}</td>
-											<td>@datetime_indo($data['started_at'])</td>
+											<td>
+												{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('Y-m-d H:i A') }}
+											</td>
 										</tr>       
 										<?php $ctr += 1; ?>                     
 									@endforeach 
