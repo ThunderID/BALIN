@@ -1,6 +1,6 @@
-@inject('datas', 'App\Models\Policy')
+@inject('datas', 'App\Models\StoreSetting')
 
-<?php $datas = $datas::newest(true)->paginate(); ?>
+<?php $datas = $datas::policies()->orderBy('started_at','desc')->paginate(); ?>
 
 @extends('template.backend.layout') 
 
@@ -43,9 +43,8 @@
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th>Policy</th>
-									<th></th>
-									<th></th>
+									<th class="col-md-9">Policy</th>
+									<th>Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
