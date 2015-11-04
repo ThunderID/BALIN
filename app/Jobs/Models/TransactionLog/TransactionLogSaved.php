@@ -54,17 +54,7 @@ class TransactionLogSaved extends Job implements SelfHandling
                     {
                         if($this->transactionlog->transaction->amount==0)
                         {
-                            $tlog               = new TransactionLog;
-                            $tlog->fill([
-                                        'transaction_id'                => $this->transactionlog->transaction_id,
-                                        'status'                        => 'paid',
-                                        'changed_at'                    => date('Y-m-d H:i:s'),
-                                ]);
-
-                            if(!$tlog->save())
-                            {
-                                $result         = new JSend('error', (array)$this->transactionlog->save(), $tlog->getError());
-                            }
+                            $result             = $this->dispatch(new ChangeStatus($this->transactionlog->transaction, 'paid'));
                         }
                     }
                 break;

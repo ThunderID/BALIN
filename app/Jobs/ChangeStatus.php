@@ -41,7 +41,7 @@ class ChangeStatus extends Job implements SelfHandling
 
         if(!$translog->save())
         {
-            $result                         = new JSend('error', (array)$this->transaction, $this->getError());
+            $result                         = new JSend('error', (array)$this->transaction, $translog->getError());
         }
 
         return $result;

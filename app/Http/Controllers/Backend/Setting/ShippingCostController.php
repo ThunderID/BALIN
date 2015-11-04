@@ -83,7 +83,7 @@ class ShippingCostController extends baseController
 
 		if (Input::get('id'))
 		{
-			$data 										= ShippingCost::find(Input::get('id'));
+			$data 										= ShippingCost::findorfail(Input::get('id'));
 		}
 		else
 		{

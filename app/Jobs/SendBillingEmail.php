@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\Transaction;
+use App\Models\StoreSetting;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,41 +27,35 @@ class SendBillingEmail extends Job implements SelfHandling
 
 	public function handle()
 	{
-		try
-		{
-		    // checking
-		    if(is_null($this->transaction->id))
-		    {
-		        throw new Exception('Sent variable must be object of a record.');
-		    }
-		    
-		    //get Billing
-			// $datas 								= $this->dispatch(new GenerateBillingEmail($this->transaction));        
-			$datas 									= Transaction::id($this->transaction->id)->with(['transactiondetails', 'transactiondetails.product', 'shipments', 'user']);
-			// if($datas->getStatus() != 'success')
-			// {
-		 //        return $datas;           
-			// }
-			// else
-			// {
-		        //send email
-		        $mail_data      = [
-		                            'view'          => 'emails.test', 
-		                            'datas'         => $datas,
-		                            'dest_email'    => $this->transaction->user->email, 
-		                            'dest_name'     => $name, 
-		                            'subject'       => 'Billing Information', 
-		                        ];
+	    // checking
+	    if(is_null($this->transaction->id))
+	    {
+	        throw new Exception('Sent variable must be object of a record.');
+	    }
+	    
+		$transaction 	= Transaction::id($this->transaction->id)->with(['transactiondetails', 'transactiondetails.product', 'shipment', 'shipment.address', 'user'])->first();
 
-		        // call email send job
-		        $this->dispatch(new Mailman($mail_data));
-		        
-		        return new JSend('success', (array)$this->transaction)  ;           
-			// }
-		}
-		catch (Exception $e) 
-		{
-		    $this->release(10);
-		}		
+        $info           = StoreSetting::storeinfo(true)->take(8)->get();
+        $infos          = [];
+
+        foreach ($info as $key => $value) 
+        {
+            $infos[$value->type]    = $value->value;
+        }
+
+        $datas          = ['bill' => $transaction, 'balin' => $infos];
+
+        $mail_data      = [
+                            'view'          => 'emails.billing', 
+                            'datas'         => $datas,
+                            'dest_email'    => $transaction['user']['email'], 
+                            'dest_name'     => $transaction['user']['name'], 
+                            'subject'       => 'BALIN - Billing Information', 
+                        ];
+
+        // call email send job
+        $this->dispatch(new Mailman($mail_data));
+	        
+	    return new JSend('success', (array)$this->transaction)  ;
 	}	
 }

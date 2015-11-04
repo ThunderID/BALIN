@@ -44,7 +44,7 @@ class SendWelcomeEmail extends Job implements SelfHandling
                             'datas'         => $datas, 
                             'dest_email'    => $this->user->email, 
                             'dest_name'     => $this->user->name, 
-                            'subject'       => 'Welcome Email', 
+                            'subject'       => 'BALIN - Welcome Email', 
                         ];   
 
         // call email send job

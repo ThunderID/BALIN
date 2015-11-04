@@ -3,9 +3,10 @@
 namespace App\Jobs\Models\Transaction\Sell;
 
 use App\Jobs\Job;
-use App\Jobs\GenerateTransactionRefNumber;
 use App\Jobs\CountVoucherDiscount;
 use App\Jobs\GenerateTransactionDate;
+use App\Jobs\GenerateTransactionRefNumber;
+use App\Jobs\GenerateTransactionUniqNumber;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;

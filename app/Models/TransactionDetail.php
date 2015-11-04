@@ -187,7 +187,7 @@ class TransactionDetail extends Eloquent
 	public function scopeCountCurrentStock($query, $variable)
 	{
 		return 	$query
-					->selectraw('IFNULL(SUM(if(transactions.type ="sell", quantity, 0-quantity)),0) current_stock')
+					->selectraw('IFNULL(SUM(if(transactions.type ="sell", 0-quantity, quantity)),0) current_stock')
 					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
 					->wherehas('transaction', function($q){$q->status(['paid', 'shipping', 'delivered']);})
 					->whereIn('transactions.type', ['sell', 'buy'])

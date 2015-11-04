@@ -18,6 +18,7 @@ class Shipment extends Eloquent
 
 	use \App\Models\Traits\belongsTo\HasTransactionTrait;
 	use \App\Models\Traits\belongsTo\HasCourierTrait;
+	use \App\Models\Traits\belongsTo\HasAddressTrait;
 
 	/**
 	 * The database table used by the model.
