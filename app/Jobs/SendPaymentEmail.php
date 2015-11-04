@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\Transaction;
+use App\Models\StoreSetting;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -29,25 +30,30 @@ class SendPaymentEmail extends Job implements SelfHandling
         {
             throw new Exception('Sent variable must be object of a record.');
         }
-        
-        //get Payment
-        // $datas                              = $this->dispatch(new GeneratePaymentEmail($this->transaction));        
-        if($this->transaction->payments->count())
+
+        $transaction    = Transaction::id($this->transaction->id)->with(['payment', 'user'])->first();
+
+        $info           = StoreSetting::storeinfo(true)->take(8)->get();
+        $infos          = [];
+
+        foreach ($info as $key => $value) 
         {
-            $datas                              = Transaction::id($this->transaction->id)->with(['payments', 'user']);
-
-            //send email
-            $mail_data      = [
-                                'view'          => 'emails.test', 
-                                'datas'         => (array)$datas, 
-                                'dest_email'    => $this->transaction->user->email, 
-                                'dest_name'     => $this->transaction->user->name, 
-                                'subject'       => 'Payment Validation Information', 
-                            ];
-
-            // call email send job
-            $this->dispatch(new Mailman($mail_data));
+            $infos[$value->type]    = $value->value;
         }
+
+        $datas          = ['paid' => $transaction, 'balin' => $infos];
+
+        $mail_data      = [
+                            'view'          => 'emails.paid', 
+                            'datas'         => $datas,
+                            'dest_email'    => $transaction['user']['email'], 
+                            'dest_name'     => $transaction['user']['name'], 
+                            'subject'       => 'BALIN - Payment Validation', 
+                        ];
+
+        // call email send job
+        $this->dispatch(new Mailman($mail_data));
+
         return new JSend('success', (array)$this->transaction);           
     } 
 }

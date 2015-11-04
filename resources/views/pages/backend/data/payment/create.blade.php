@@ -1,6 +1,6 @@
 @inject('data', 'App\Models\Payment')
 <?php 
-    $data = $data::find($id);
+    $data = $data::findornew($id);
 ?>
 
 @extends('template.backend.layout') 
@@ -39,44 +39,59 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="amount" class="text-capitalize">Jumlah Transfer</label><br/>
-                    {!! Form::text('amount', $data['amount'], [
+                    <label for="transaction" class="text-capitalize">Pembayaran Transaksi</label><br/>
+                    {!! Form::text('transaction', $data['transaction_id'], [
                                 'class'         => 'select-transaction', 
-                                'required'      => 'required', 
                                 'id'            => 'find_transaction',
                                 'tabindex'      => '3',
                                 'placeholder'   => 'Masukkan jumlah transfer',
                                 'style'         => 'width:100%',
                     ]) !!}
                 </div>
-            </div>                                          
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="amount" class="text-capitalize">Jumlah Transfer</label>
+                    {!! Form::text('amount', $data['amount'], [
+                                'class'         => 'form-control', 
+                                'required'      => 'required', 
+                                'tabindex'      => '4',
+                                'placeholder'   => 'Masukkan jumlah transfer',
+                    ]) !!}
+                </div>
+            </div>
+            
+        </div>                        
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="destination" class="text-capitalize">Dikirim ke (Nama Bank)</label>
                     {!! Form::text('destination', $data['destination'], [
                                 'class'         => 'form-control', 
                                 'required'      => 'required', 
-                                'tabindex'      => '4',
+                                'tabindex'      => '5',
                                 'placeholder'   => 'Masukkan nama bank'
                     ]) !!}
                 </div>
             </div>
-        </div>                        
-        <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="ondate" class="text-capitalize">Tanggal Bayar</label>
-                    {!! Form::text('ondate', $data['ondate'], [
+                    {!! Form::text('ondate', (!is_null($data['ondate']) ? $data['ondate']->format('Y-m-d') : ''), [
                                 'class'         => 'form-control', 
                                 'required'      => 'required', 
-                                'tabindex'      => '5',
+                                'tabindex'      => '6',
                                 'placeholder'   => 'yyyy-mm-dd'
                     ]) !!}
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="clearfix">&nbsp;</div>
                 <div class="form-group text-right">
-                    <a href="{{ URL::route('backend.data.payment.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
-                    <button type="submit" class="btn btn-md btn-primary" tabindex="5">Simpan</button>
+                    <a href="{{ URL::route('backend.data.payment.index') }}" class="btn btn-md btn-default" tabindex="7">Batal</a>
+                    <button type="submit" class="btn btn-md btn-primary" tabindex="8">Simpan</button>
                 </div>
             </div>                                          
         </div>
@@ -84,7 +99,11 @@
 @stop
 
 @section('script')
-    var preload_data = [];
+    @if(is_null($id))
+        var preload_data = [];
+    @else
+        var preload_data = [{"id": {{$data['transaction_id']}}, "text":"{{$data['transaction']['user']['name'].' #'.$data['transaction']['ref_number'].' ('.$data['amount'].')'}}"}];
+    @endif
 @stop
 
 @section('script_plugin')

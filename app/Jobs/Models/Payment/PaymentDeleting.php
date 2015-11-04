@@ -20,12 +20,12 @@ class PaymentDeleting extends Job implements SelfHandling
     
     public function handle()
     {
+        $result                          = new JSend('success', (array)$this->payment);
+
         if($this->payment->transaction)
         {
-            $result                      = new JSend('error', (array)$this->payment, 'Tidak bisa menghapus data payment yang sudah divalidasi');
+            $result                      = new JSend('error', (array)$this->payment, 'Tidak bisa menghapus data payment yang sudah divalidasi.');
         }
-
-        $result                          = new JSend('success', (array)$this->payment);
 
         return $result;
     }

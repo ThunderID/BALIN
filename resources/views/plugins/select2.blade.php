@@ -246,7 +246,7 @@
 				return {
 					results: $.map(data, function (item) {
 						return {
-							text: item.user.name+' '+item.total_paid,
+							text: item.user.name+' #'+item.ref_number+' ('+item.total_paid+')',
 							id: item.id +' ',
 						}
 					})

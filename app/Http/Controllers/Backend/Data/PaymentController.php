@@ -4,7 +4,7 @@ use App\Http\Controllers\baseController;
 use App\Models\User;
 use App\Models\Payment;
 use Illuminate\Support\MessageBag;
-use Input, Session, DB, Redirect;
+use Input, Session, DB, Redirect, Carbon;
 
 class PaymentController extends baseController
 {
@@ -22,10 +22,13 @@ class PaymentController extends baseController
 
 	public function index()
 	{
-		$breadcrumb				= ['Nota Bayar' => 'backend.data.payment.index'];
+		$breadcrumb				= 	[
+										'Nota Bayar' 	=> route('backend.data.payment.index'),
+									];
 
-		$filters 				= ['doesnthavetransaction' => true];
-		
+		// $filters 				= ['doesnthavetransaction' => true];
+		$filters 				= null;
+
 		if(Input::has('q'))
 		{
 			$filters['amount'] 	= Input::get('q');
@@ -56,14 +59,20 @@ class PaymentController extends baseController
 	{
 		if (is_null($id))
 		{
-			$breadcrumb			= 	[ 	'Nota Bayar' => 'backend.data.payment.index',
-										'Nota Bayar Baru' => 'backend.data.payment.create'
+			$payment 			= new Payment;
+			
+			$breadcrumb			= 	[ 	
+										'Nota Bayar' 					=> route('backend.data.payment.index'),
+										'Baru' 							=> route('backend.data.payment.create'),
 									];
 		}
 		else
 		{
-			$breadcrumb			= 	[ 	'Nota Bayar' => 'backend.data.payment.index',
-										'Edit Data' => 'backend.data.payment.create'
+			$payment 			= Payment::findorfail($id);
+
+			$breadcrumb			= 	[ 	
+										'Nota Bayar' 					=> route('backend.data.payment.index'),
+										'Edit '.$payment->account_name 	=> route('backend.data.payment.edit', $id),
 									];
 		}
 
@@ -72,6 +81,7 @@ class PaymentController extends baseController
 									->with('WT_pageSubTitle','Create')
 									->with('WB_breadcrumbs', $breadcrumb)
 									->with('id', $id)
+									->with('payment', $payment)
 									->with('nav_active', 'data')
 									->with('subnav_active', 'payment');
 		return $this->layout;
@@ -84,7 +94,7 @@ class PaymentController extends baseController
 	
 	public function store($id = null)
 	{
-		$inputs 				= Input::only('account_name', 'account_number', 'amount', 'destination', 'ondate', 'transaction_id');
+		$inputs 				= Input::only('account_name', 'account_number', 'amount', 'destination', 'ondate');
 		
 		if(!is_null($id))
 		{
@@ -95,12 +105,23 @@ class PaymentController extends baseController
 			$data				= new Payment;
 		}
 
+		if(Input::has('transaction'))
+		{
+			$trs 				= Input::get('transaction');
+		}
+		else
+		{
+			$trs 				= 0;
+		}
+
+		$ondate					= Carbon::createFromFormat('Y-m-d', $inputs['ondate'])->format('Y-m-d H:i:s');
+
 		$data->fill([
-			'transaction_id' 	=> 0,
+			'transaction_id' 	=> $trs,
 			'account_name' 		=> $inputs['account_name'],
 			'account_number' 	=> $inputs['account_number'],
 			'amount' 			=> $inputs['amount'],
-			'ondate' 			=> date('Y-m-d', strtotime($inputs['ondate'])),
+			'ondate' 			=> $ondate,
 			'destination' 		=> $inputs['destination'],
 			'method' 			=> 'Bank Transfer',
 		]);
@@ -143,6 +164,7 @@ class PaymentController extends baseController
 		$data					= Payment::findorfail($id);
 		
 		DB::beginTransaction();
+
 		if (!$data->delete())
 		{
 			DB::rollback();

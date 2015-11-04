@@ -110,4 +110,9 @@ class Payment extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+
+	public function scopeAmount($query, $variable)
+	{
+		return 	$query->where('amount', $variable);
+	}
 }

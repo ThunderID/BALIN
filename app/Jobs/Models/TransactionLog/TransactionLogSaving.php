@@ -4,12 +4,14 @@ namespace App\Jobs\Models\TransactionLog;
 
 use App\Jobs\Job;
 use App\Jobs\CheckStock;
+use App\Jobs\CheckPaid;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\TransactionLog;
+use App\Models\Payment;
 
 class TransactionLogSaving extends Job implements SelfHandling
 {
@@ -34,7 +36,7 @@ class TransactionLogSaving extends Job implements SelfHandling
                     $result                 = $this->dispatch(new CheckStock($this->transactionlog->transaction));
                 break;
                 case 'paid' :
-                    $result                 = $this->dispatch(new CheckPaid($this->transactionlog->transaction));
+                    $result                 = $this->dispatch(new CheckPaid($this->transactionlog->transaction, new Payment));
                 break;
             }
         }

@@ -7,7 +7,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->orderby('account_name')->paginate();
+$datas 			= $datas->orderby('account_name')->with(['transaction'])->paginate();
 ?>
 
 @extends('template.backend.layout') 
@@ -51,7 +51,7 @@ $datas 			= $datas->orderby('account_name')->paginate();
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th>Nama Akun</th>
+									<th>#</th>
 									<th>Nomor Akun</th>
 									<th>Jumlah</th>
 									<th>Tanggal Bayar</th>
@@ -73,12 +73,12 @@ $datas 			= $datas->orderby('account_name')->paginate();
 									@foreach($datas as $data)
 									<tr>
 										<td>{{$ctr}}</td>
-										<td>{{$data['account_name']}}</td>
+										<td><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['transaction']['ref_number']}}</a></td>
 										<td>{{$data['account_number']}}</td>                                                                               
-										<td>{{$data['amount']}}</td>                                                                               
+										<td>@money_indo($data['amount'])</td>                                                                               
 										<td>@date_indo($data['ondate'])</td>                                                                               
 										<td>
-											<a href="{{ URL::route('backend.data.payment.show', ['id' => $data['id']]) }}"> Detail </a>, 
+											<!-- <a href="{{ URL::route('backend.data.payment.show', ['id' => $data['id']]) }}"> Detail </a>,  -->
 											<a href="{{ URL::route('backend.data.payment.edit', ['id' => $data['id']]) }}"> Edit </a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#payment_del"
 												data-id="{{ $data['id'] }}"

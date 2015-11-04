@@ -4,6 +4,7 @@ namespace App\Jobs\Models\Payment;
 
 use App\Jobs\Job;
 use App\Jobs\CheckPaid;
+use App\Jobs\ChangeStatus;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Libraries\JSend;

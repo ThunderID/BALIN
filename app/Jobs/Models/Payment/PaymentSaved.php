@@ -3,9 +3,7 @@
 namespace App\Jobs\Models\Payment;
 
 use App\Jobs\Job;
-use App\Jobs\PaymentIsValid;
-use App\Jobs\ReferralPointIsGiven;
-use App\Jobs\SendPaymentEmail;
+use App\Jobs\ChangeStatus;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -27,6 +25,11 @@ class PaymentSaved extends Job implements SelfHandling
     public function handle()
     {
         $result                             = new JSend('success', (array)$this->payment);
+
+        if($this->payment->transaction)
+        {
+            $result                         = $this->dispatch(new ChangeStatus($this->payment->transaction, 'paid'));
+        }
 
         return $result;
     }
