@@ -1,9 +1,7 @@
 @extends('template.backend.layout') 
-@inject('datas', 'App\Models\Policy')
+@inject('datas', 'App\Models\StoreSetting')
 
-<?php 
-$datas = $datas::newest(true)->take(10)->get(); 
-?>
+<?php $datas = $datas::policies()->orderBy('started_at','desc')->paginate(); ?>
 
 @section('content')
 	{!! Form::open(array('url' => route('backend.settings.policies.store'), 'method' => 'POST')) !!}
