@@ -12,7 +12,8 @@ class ShippingCostTableSeeder extends Seeder
 	{
 		DB::table('shipping_costs')->truncate();
 
-		factory(App\Models\ShippingCost::class, 20)->create()->each(function($q) {
+		factory(App\Models\ShippingCost::class, 20)->create()->each(function($q) 
+		{
 			$q->save();
 		});
 	}

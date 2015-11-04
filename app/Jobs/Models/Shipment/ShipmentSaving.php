@@ -23,8 +23,8 @@ class ShipmentSaving extends Job implements SelfHandling
     public function handle()
     {
     	//recalculate shipping_cost
-    	$shippingcost 				= ShippingCost::courierid($this->shipment->courier_id)->postalcode($this->shipment->postal_code)->first();
-    	
+    	$shippingcost 				= ShippingCost::courierid($this->shipment->courier_id)->postalcode($this->shipment->address->zipcode)->first();
+
     	if($shippingcost)
     	{
     		$transaction 			= Transaction::findorfail($this->shipment->transaction_id);
