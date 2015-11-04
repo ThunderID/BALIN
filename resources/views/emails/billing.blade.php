@@ -49,7 +49,11 @@
 			</tr>
 			<tr>
 				<td colspan="5">Diskon Referral</td>
-				<td>{{ $data['bill']['referral_discount'] }}</td>
+				<td>{{ ($data['bill']['referral_discount'] ? $data['bill']['referral_discount'] : 0) }}</td>
+			</tr>
+			<tr>
+				<td colspan="5">Potongan Point</td>
+				<td>{{ $data['bill']['discount_point'] }}</td>
 			</tr>
 			@if($data['bill']['amount']>0)
 			<tr>
