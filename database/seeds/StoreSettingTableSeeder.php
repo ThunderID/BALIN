@@ -87,7 +87,7 @@ class StoreSettingTableSeeder extends Seeder
 						'image_xs'			=> $slidevalues[$key],
 						'image_sm'			=> $slidevalues[$key],
 						'image_md'			=> $slidevalues[$key],
-						'image_l'			=> $slidevalues[$key],
+						'image_lg'			=> $slidevalues[$key],
 				]);
 				if (!$image->save())
 				{
