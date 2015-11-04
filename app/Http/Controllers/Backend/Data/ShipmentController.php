@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\baseController;
 use App\Models\User;
-use App\Models\Payment;
+use App\Models\Shipment;
 use Illuminate\Support\MessageBag;
-use Input, Session, DB, Redirect, Carbon;
+use Input, Session, DB, Redirect, Carbon, App;
 
-class PaymentController extends baseController
+class ShipmentController extends baseController
 {
 	/**
 	* Instantiate a new UserController instance.
@@ -18,12 +18,12 @@ class PaymentController extends baseController
 		parent::__construct();
 	}
 
-	protected $view_name 		= 'Nota Bayar';
+	protected $view_name 		= 'Resi Pengiriman';
 
 	public function index()
 	{
 		$breadcrumb				= 	[
-										'Nota Bayar' 	=> route('backend.data.payment.index'),
+										'Resi Pengiriman' 		=> route('backend.data.shipment.index'),
 									];
 
 		// $filters 				= ['doesnthavetransaction' => true];
@@ -39,14 +39,14 @@ class PaymentController extends baseController
 			$searchResult		= null;
 		}
 
-		$this->layout->page 	= view('pages.backend.data.payment.index')
+		$this->layout->page 	= view('pages.backend.data.shipment.index')
 									->with('WT_pagetitle', $this->view_name )
 									->with('WT_pageSubTitle','Index')
 									->with('WB_breadcrumbs', $breadcrumb)
 									->with('searchResult', $searchResult)
 									->with('filters', $filters)
 									->with('nav_active', 'data')
-									->with('subnav_active', 'payment');
+									->with('subnav_active', 'shipment');
 		return $this->layout;
 	}
 
@@ -59,34 +59,36 @@ class PaymentController extends baseController
 	{
 		if (is_null($id))
 		{
-			$payment 			= new Payment;
+			App::abort(404);
+			$shipment 			= new Shipment;
 			
 			$breadcrumb			= 	[ 	
-										'Nota Bayar' 					=> route('backend.data.payment.index'),
-										'Baru' 							=> route('backend.data.payment.create'),
+										'Resi Pengiriman' 				=> route('backend.data.shipment.index'),
+										'Baru' 							=> route('backend.data.shipment.create'),
 									];
+
 			$title 				= 'Baru';
 		}
 		else
 		{
-			$payment 			= Payment::findorfail($id);
+			$shipment 			= Shipment::findorfail($id);
 
 			$breadcrumb			= 	[ 	
-										'Nota Bayar' 					=> route('backend.data.payment.index'),
-										'Edit '.$payment->account_name 	=> route('backend.data.payment.edit', $id),
+										'Resi Pengiriman' 					=> route('backend.data.shipment.index'),
+										'Edit '.$shipment->receipt_number 	=> route('backend.data.shipment.edit', $id),
 									];
-									
-			$title 				= $payment->account_name;
+
+			$title 				= $shipment->receipt_number;
 		}
 
-		$this->layout->page 	= view('pages.backend.data.payment.create')
+		$this->layout->page 	= view('pages.backend.data.shipment.create')
 									->with('WT_pagetitle', $this->view_name )
 									->with('WT_pageSubTitle',$title)
 									->with('WB_breadcrumbs', $breadcrumb)
 									->with('id', $id)
-									->with('payment', $payment)
+									->with('shipment', $shipment)
 									->with('nav_active', 'data')
-									->with('subnav_active', 'payment');
+									->with('subnav_active', 'shipment');
 		return $this->layout;
 	}
 
@@ -97,36 +99,19 @@ class PaymentController extends baseController
 	
 	public function store($id = null)
 	{
-		$inputs 				= Input::only('account_name', 'account_number', 'amount', 'destination', 'ondate');
+		$inputs 				= Input::only('receipt_number');
 		
 		if(!is_null($id))
 		{
-			$data				= Payment::find($id);
+			$data				= Shipment::find($id);
 		}
 		else
 		{
-			$data				= new Payment;
+			$data				= new Shipment;
 		}
-
-		if(Input::has('transaction'))
-		{
-			$trs 				= Input::get('transaction');
-		}
-		else
-		{
-			$trs 				= 0;
-		}
-
-		$ondate					= Carbon::createFromFormat('Y-m-d', $inputs['ondate'])->format('Y-m-d H:i:s');
 
 		$data->fill([
-			'transaction_id' 	=> $trs,
-			'account_name' 		=> $inputs['account_name'],
-			'account_number' 	=> $inputs['account_number'],
-			'amount' 			=> $inputs['amount'],
-			'ondate' 			=> $ondate,
-			'destination' 		=> $inputs['destination'],
-			'method' 			=> 'Bank Transfer',
+			'receipt_number' 	=> $inputs['receipt_number'],
 		]);
 
 		DB::beginTransaction();
@@ -135,7 +120,7 @@ class PaymentController extends baseController
 
 		if(!$data->save())
 		{
-			$errors->add('Payment', $data->getError());
+			$errors->add('Shipment', $data->getError());
 		}
 
 		if ($errors->count())
@@ -151,8 +136,8 @@ class PaymentController extends baseController
 		{
 			DB::commit();
 		
-			return Redirect::route('backend.data.payment.index')
-							->with('msg', 'Nota Bayar sudah disimpan')
+			return Redirect::route('backend.data.shipment.index')
+							->with('msg', 'Resi Pengiriman sudah disimpan')
 							->with('msg-type', 'success');
 		}
 	}
@@ -164,7 +149,7 @@ class PaymentController extends baseController
 
 	public function destroy($id)
 	{
-		$data					= Payment::findorfail($id);
+		$data					= Shipment::findorfail($id);
 		
 		DB::beginTransaction();
 
@@ -180,8 +165,8 @@ class PaymentController extends baseController
 		{
 			DB::commit();
 			
-			return Redirect::route('backend.data.payment.index')
-							->with('msg', 'Nota bayar sudah dihapus')
+			return Redirect::route('backend.data.shipment.index')
+							->with('msg', 'Resi Pengiriman sudah dihapus')
 							->with('msg-type','success');
 		}
 	}

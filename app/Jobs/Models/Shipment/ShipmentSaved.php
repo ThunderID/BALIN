@@ -27,13 +27,6 @@ class ShipmentSaved extends Job implements SelfHandling
     public function handle()
     {
         $result                         = new JSend('success', (array)$this->shipment);
-        
-        $transaction                    = Transaction::findorfail($this->shipment->transaction_id);
-
-        if(!$transaction->save())
-        {
-            $result                     = new JSend('success', (array)$this->shipment, $transaction->getError());
-        }
 
         return $result;
     }

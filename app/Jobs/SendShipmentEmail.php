@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\Transaction;
+use App\Models\StoreSetting;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -13,13 +14,13 @@ use App\Libraries\JSend;
 
 class SendShipmentEmail extends Job implements SelfHandling
 {
-    use DispatchesJobs, ValidatesRequests;
-
+    use DispatchesJobs;
+    
     protected $transaction;
 
     public function __construct(Transaction $transaction)
     {
-        $this->transaction 					= $transaction;
+        $this->transaction             = $transaction;
     }
 
     public function handle()
@@ -30,23 +31,29 @@ class SendShipmentEmail extends Job implements SelfHandling
             throw new Exception('Sent variable must be object of a record.');
         }
 
-        //get shipment
-        // call job get shipment
-		// $datas 								= $this->dispatch(new GenerateShipmentEmail($this->transaction));        
-        $datas                              = Transaction::id($this->transaction->id)->with(['shipments', 'user']);
+        $transaction    = Transaction::id($this->transaction->id)->with(['shipment', 'user', 'shipment.address', 'shipment.courier'])->first();
 
-        //send email
+        $info           = StoreSetting::storeinfo(true)->take(8)->get();
+        $infos          = [];
+
+        foreach ($info as $key => $value) 
+        {
+            $infos[$value->type]    = $value->value;
+        }
+
+        $datas          = ['ship' => $transaction, 'balin' => $infos];
+
         $mail_data      = [
-                            'view'          => 'emails.test', 
-                            'datas'         => (array)$datas, 
-                            'dest_email'    => $this->transaction->user->email, 
-                            'dest_name'     => $this->transaction->user->name, 
-                            'subject'       => 'Shipping Information', 
+                            'view'          => 'emails.shipped', 
+                            'datas'         => $datas,
+                            'dest_email'    => $transaction['user']['email'], 
+                            'dest_name'     => $transaction['user']['name'], 
+                            'subject'       => 'BALIN - Shipping Receipt', 
                         ];
 
         // call email send job
         $this->dispatch(new Mailman($mail_data));
 
-        return new JSend('success', (array)$this->transaction);           
-    }
+        return new JSend('success', (array)$this->transaction);
+    } 
 }
