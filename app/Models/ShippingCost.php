@@ -130,9 +130,8 @@ class ShippingCost extends Eloquent
 
 	public function scopePostalCode($query, $variable)
 	{
-		return 	$query->where('start_postal_code','<=',$variable)
-					->where('end_postal_code','>=',$variable)
-						;
+		return 	$query->whereraw('start_postal_code <= ' . $variable . '<= end_postal_code')
+						->orderby('started_at', 'desc');
 	}
 
 	public function getError()
