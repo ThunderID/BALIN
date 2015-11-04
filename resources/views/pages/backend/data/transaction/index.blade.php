@@ -94,7 +94,7 @@ else
 										<td class="text-center">{{ $data['status'] }} </td>
 										<td class="text-center">{{ $data['amount'] }} </td>
 										<td>
-											<a href="#">Detail</a>,
+											<a href="{{route('backend.data.transaction.show', ['id' => $data['id'], 'type' => $data['type']])}}">Detail</a>,
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#trans" 
 												data-id="{{ $data['id'] }}" 
 												data-nota-transaksi="{{ $data['invoice_no'] }}" 

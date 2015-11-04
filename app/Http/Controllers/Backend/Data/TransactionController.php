@@ -11,7 +11,7 @@ use App\Jobs\ChangeStatus;
 
 use Illuminate\Support\MessageBag;
 
-use Input, DB, Redirect, Response;
+use Input, DB, Redirect, Response, App;
 
 class TransactionController extends baseController 
 {
@@ -30,7 +30,9 @@ class TransactionController extends baseController
 
 	public function index($type = null)
 	{		
-		$breadcrumb								= [	'Transaksi' => 'backend.data.transaction.index'];
+		$breadcrumb								= 	[	
+														'Transaksi' 	=> route('backend.data.transaction.index'),
+													];
 
 		$filters 								= null;
 
@@ -45,21 +47,31 @@ class TransactionController extends baseController
 		}
 
 		$sub_subnav_active	 					= '';
+		$title	 								= $this->view_name;
 
 		if (Input::has('type'))
 		{
 			if (Input::get('type')=='sell')
 			{
 				$subnav_active 				= 'sell';
+				$title 						= 'Penjualan';
+				$breadcrumb					= 	[	
+													'Data Penjualan' 	=> route('backend.data.transaction.index', ['type' => 'sell']),
+												];
+
 			}
 			else
 			{
 				$subnav_active 				= 'buy';
+				$title 						= 'Pembelian';
+				$breadcrumb					= 	[	
+													'Data Pembelian' 	=> route('backend.data.transaction.index', ['type' => 'buy']),
+												];
 			}
 		}
 
 		$this->layout->page 					= view('pages.backend.data.transaction.index')
-													->with('WT_pagetitle', $this->view_name )
+													->with('WT_pagetitle', $title)
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('searchResult', $searchResult)
@@ -75,13 +87,22 @@ class TransactionController extends baseController
 	{
 		if(!$id)
 		{
-			$breadcrumb							= ['Transaksi' => 'backend.test.testcontroller',
-														'Transaksi Baru' => 'backend.test.testcontroller'];
+			$transaction 						= new Transaction;
+			$breadcrumb							= 	[
+														'Transaksi' 			=> route('backend.data.transaction.index'),
+														'Baru' 					=> route('backend.data.transaction.create'),
+													];
+			$subtitle 							= 'Baru';
 		}
 		else
 		{
-			$breadcrumb							= ['Transaksi' => 'backend.test.testcontroller',
-														'Edit Transaksi' => 'backend.test.testcontroller'];
+			$transaction 						= Transaction::findorfail($id);
+			$breadcrumb							= 	[
+														'Transaksi' 						=> route('backend.data.transaction.index'),
+														'Edit '.$transaction->ref_number 	=> route('backend.data.transaction.edit', $id),
+													];
+		
+			$subtitle 							= $transaction->ref_number;
 		}
 
 		if (Input::has('type'))
@@ -89,16 +110,50 @@ class TransactionController extends baseController
 			if (Input::get('type')=='sell')
 			{
 				$subnav_active 				= 'sell';
+				$title 						= 'Penjualan';
+				if(!$id)
+				{
+					$transaction 			= new Transaction;
+					$breadcrumb				= 	[
+													'Data Penjualan' 		=> route('backend.data.transaction.index'),
+													'Baru' 					=> route('backend.data.transaction.create'),
+												];
+				}
+				else
+				{
+					$transaction 			= Transaction::findorfail($id);
+					$breadcrumb				= 	[
+													'Data Penjualan' 					=> route('backend.data.transaction.index'),
+													'Edit '.$transaction->ref_number 	=> route('backend.data.transaction.edit', ['id' => $id, 'type' => 'sell']),
+												];
+				}
 			}
 			else
 			{
 				$subnav_active 				= 'buy';
+				$title 						= 'Pembelian';
+				if(!$id)
+				{
+					$transaction 			= new Transaction;
+					$breadcrumb				= 	[
+													'Data Pembelian' 		=> route('backend.data.transaction.index'),
+													'Baru' 					=> route('backend.data.transaction.create'),
+												];
+				}
+				else
+				{
+					$transaction 			= Transaction::findorfail($id);
+					$breadcrumb				= 	[
+													'Data Pembelian' 					=> route('backend.data.transaction.index'),
+													'Edit '.$transaction->ref_number 	=> route('backend.data.transaction.edit', ['id' => $id, 'type' => 'buy']),
+												];
+				}
 			}
 		}
 
 		$this->layout->page 					= view('pages.backend.data.transaction.create')
-														->with('WT_pagetitle', $this->view_name )
-														->with('WT_pageSubTitle','Create')		
+														->with('WT_pagetitle', $title )
+														->with('WT_pageSubTitle',$subtitle)		
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('id', $id)
 														->with('nav_active', 'data')
@@ -241,6 +296,50 @@ class TransactionController extends baseController
 			->with('msg', 'Transaksi telah disimpan')
 			->with('msg-type','success');
 	}
+
+	public function show($id)
+	{		
+		if (Input::get('type')=='sell')
+		{
+			$subnav_active 				= 'sell';
+			$title 						= 'Penjualan';
+			$breadcrumb					= 	[	
+												'Data Penjualan' 	=> route('backend.data.transaction.index', ['type' => 'sell']),
+											];
+
+		}
+		else
+		{
+			$subnav_active 				= 'buy';
+			$title 						= 'Pembelian';
+			$breadcrumb					= 	[	
+												'Data Pembelian' 	=> route('backend.data.transaction.index', ['type' => 'buy']),
+											];
+		}
+
+		$transaction 					= Transaction::type($subnav_active)->id($id)->first();
+		
+		if(!$transaction)
+		{
+			App::abort(404);
+		}
+
+		$breadcrumb[$transaction->ref_number] = route('backend.data.transaction.show', ['id' => $id,'type' => $subnav_active]);
+
+		$this->layout->page 					= view('pages.backend.data.transaction.'.$subnav_active.'show')
+													->with('WT_pagetitle', $title)
+													->with('WT_pageSubTitle','Index')
+													->with('WB_breadcrumbs', $breadcrumb)
+													->with('searchResult', $searchResult)
+													->with('transaction', $transaction)
+													->with('filters', $filters)
+													->with('nav_active', 'data')
+													->with('subnav_active', $subnav_active)
+													;
+		return $this->layout;	
+
+	}
+
 
 	public function destroy($id)
 	{
