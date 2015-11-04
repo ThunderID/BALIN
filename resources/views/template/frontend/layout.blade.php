@@ -23,7 +23,9 @@
 </head>
 
 <body>
-    @include('widgets.topMenu')
+    <header class="page-header">
+        @include('widgets.top_menu')
+    </header>
 
     @yield('content')
 
