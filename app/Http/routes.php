@@ -265,6 +265,7 @@ Route::get('test/email', ['uses' => 'testController@testEmail', 'as' => 'test.em
 
 Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
 Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
+Route::get('/c', 													['uses' => 'HomeController@index', 		'as' => 'balin.claim.voucher']);
 
 // Route::get('cookieset', function()
 // {

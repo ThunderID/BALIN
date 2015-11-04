@@ -12,7 +12,8 @@ class TransactionDetailTableSeeder extends Seeder
 	{
 		DB::table('transaction_details')->truncate();
 		
-		factory(App\Models\TransactionDetail::class, 50)->create()->each(function($q) {
+		factory(App\Models\TransactionDetail::class, 10000)->create()->each(function($q) 
+		{
 			$q->save();
 		});
 	}

@@ -117,7 +117,7 @@ class StoreSetting extends Eloquent
 	{
 		if(!is_array($variable))
 		{
-			return $query->where('started_at', '>=', date('Y-m-d H:i:s', strtotime($variable)))->orderBy('started_at', 'asc');
+			return $query->where('started_at', '<=', date('Y-m-d H:i:s', strtotime($variable)))->orderBy('started_at', 'desc');
 		}
 
 		return $query->where('started_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('started_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])))->orderBy('started_at', 'asc');

@@ -24,6 +24,8 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
 	use \App\Models\Traits\hasMany\HasTransactionsTrait;
 	use \App\Models\Traits\hasMany\HasPointLogsTrait;
+	use \App\Models\Traits\hasMany\HasQuotaLogsTrait;
+	use \App\Models\Traits\hasMany\HasAuditorsTrait;
 	use \App\Models\Traits\morphMany\HasImagesTrait;
 	use \App\Models\Traits\morphMany\HasAddressesTrait;
 
@@ -54,6 +56,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'sso_data'						,
 											'gender'						,
 											'date_of_birth'					,
+											'activation_link'				,
 											'reset_password_link'			,
 											'expired_at'					,
 										];
@@ -75,6 +78,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'email'							=> 'max:255|email',
 											'role'							=> 'required|max:255',
 											'referral_code'					=> 'max:8',
+											'date_of_birth'					=> 'date_format:"Y-m-d H:i:s"|before:now'
 										];
 
 	/**
@@ -83,6 +87,12 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 * @var array
 	 */
 	protected $appends				=	[
+											'balance',
+											'quota',
+											'avatar',
+											'phone',
+											'address',
+											'zipcode',
 										];
 
 	/**
@@ -96,6 +106,68 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
+
+	public function getQuotaAttribute($value)
+	{
+		$quota 							= QuotaLog::userid($this->id)->sum('amount');
+
+		return $quota;
+	}
+
+	public function getBalanceAttribute($value)
+	{
+		$balance 						= PointLog::userid($this->id)->onactive('now')->sum('amount');
+
+		return $balance;
+	}
+
+	public function getPhoneAttribute($value)
+	{
+		$phone 							= '';
+
+		if($this->addresses->count())
+		{
+			$phone 						= $this->addresses[0]->phone;
+		}
+
+		return $phone;
+	}
+
+	public function getAddressAttribute($value)
+	{
+		$address 						= '';
+
+		if($this->addresses->count())
+		{
+			$address 					= $this->addresses[0]->address;
+		}
+
+		return $address;
+	}
+
+	public function getZipcodeAttribute($value)
+	{
+		$zipcode 						= '';
+
+		if($this->addresses->count())
+		{
+			$zipcode 					= $this->addresses[0]->zipcode;
+		}
+
+		return $zipcode;
+	}
+
+	public function getAvatarAttribute($value)
+	{
+		$avatar 						= 'https://browshot.com/static/images/not-found.png';
+
+		if($this->images->count())
+		{
+			$avatar 					= $this->images[0]->image_xs;
+		}
+
+		return $avatar;
+	}
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 	
