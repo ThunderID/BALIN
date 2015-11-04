@@ -9,7 +9,7 @@ class homeController extends baseController
 
 	public function index()
 	{		
-		$this->layout->page 					= view('pages.frontend.home')
+		$this->layout->page 					= view('pages.frontend.home.index')
 													->with('controller_name', $this->controller_name);
 		$this->layout->controller_name			= $this->controller_name;
 

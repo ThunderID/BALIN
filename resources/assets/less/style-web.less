@@ -301,57 +301,97 @@ html {
 	font-size: 20px
 }
 
-.navbar {
-	border-radius: 0;
-}
-.navbar-nav.navbar-hollow {
-	float: right;
-	@media (max-width: 992px) {
-		float: left;
+.page-header {
+	padding: 0;
+	margin: 0;
+	.navbar {
+		border-radius: 0;
+		border-color: none;
+		.navbar-header img {
+			height: 40px;
+		}
+	}
+	.navbar-nav.navbar-hollow {
+		float: right;
+		ul li {
+			a {
+				color: #bbb;
+				&:hover {
+					color: #fff;
+				}
+			}
+			&.active a {
+				color: #fff;
+			}
+		}
+		@media (max-width: 767px) {
+			float: left;
+		}
 	}
 }
 
-.navbar {
-	border-radius: 0;
-}
-.navbar-nav.navbar-hollow {
-	float: right;
-}
-@media (max-width: 992px) {
-	.navbar-nav.navbar-hollow {
-		float: left;
-	}	
-}
 .container a{
 	color: black;
 }
-.slide-image {
-	width: 100%;
+
+#intro .carousel {
+	height: 100%;
+	.carousel-inner {
+		height: 100%;
+		.item {
+			height: 100%;
+			&.active {
+				height: 100%;
+				display: block;
+					min-height: 650px;
+				.fill {
+					min-height: 650px;
+				}
+			}
+			.carousel-caption {
+				width: 100%;
+				background-color: rgba(0, 0, 0, 0.62);
+				left: 0;
+				right: 0;
+				.carousel-caption-one {
+					top: 25%;
+				}
+				.carousel-caption-two {
+					top: 45%;
+				}
+				p {
+					margin-left: 20%;
+					margin-right: 20%;
+				}
+			}
+		}
+	}
 }
+
 
 .carousel-holder {
 	margin-bottom: 30px;
 }
 
-.carousel,
-.item,
-.active {
-	height: 100%;
-}
+// .carousel,
+// .item,
+// .active {
+// 	height: 100%;
+// }
 
-.carousel-inner {
-	height: 100%;
-}
-.carousel-caption {
-	width: 100%;
-	background-color: rgba(0, 0, 0, 0.62);
-	left: 0;
-	right: 0;
-}
-.carousel-caption p {
-	margin-left: 20%;
-	margin-right: 20%;
-}
+// .carousel-inner {
+// 	height: 100%;
+// }
+// .carousel-caption {
+// 	width: 100%;
+// 	background-color: rgba(0, 0, 0, 0.62);
+// 	left: 0;
+// 	right: 0;
+// }
+// .carousel-caption p {
+// 	margin-left: 20%;
+// 	margin-right: 20%;
+// }
 /* Background images are set within the HTML using inline CSS, not here */
 
 .fill {
@@ -631,6 +671,10 @@ input.text-hollow {
 	}
 	h1, h2, h3, h4, h5 {
 		color: #333;
+	}
+	a {
+		color: #000;
+		text-decoration: none;
 	}
 }
 .gallery-product .owl-controls .owl-nav .owl-prev {

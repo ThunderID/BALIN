@@ -1,11 +1,11 @@
 {!! Form::open() !!}
     <div class="form-group">
-        <label for="email">Email address</label>
+        <label for="email">Email</label>
         {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Masukkan Email', 'required' => 'required']) !!}
     </div>
     <div class="form-group">
 	    <label for="pwd">Password</label>
-	    {!! Form::password('password', ['class' => 'form-control', 'required' => 'required']) !!}
+	    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Masukkan Password', 'required' => 'required']) !!}
 	</div>
 	<div class="checkbox">
 	    <label><input type="checkbox" tabindex="1"> Remember me</label>
@@ -14,7 +14,6 @@
 	    <button type="submit" class="btn-hollow hollow-black" tabindex="1">Sign In</button>
 	</div>
 	<div class="clearfix">&nbsp;</div>
-	<p class="t-xs" style="color:#666">If you don't have account? Please <a href="#" class="btn-signup">Sign Up</a> or login from,</p>
+	<p class="t-xs" style="color:#666">Jika tidak punya akun, silahkan klik <a href="javascript:void(0);" class="btn-signup">Sign Up</a> atau login dengan akun sosial,</p>
 	<a href="#" class="btn-hollow hollow-social hollow-black"><i class="fa fa-facebook"></i></a>
-	<a href="#" class="btn-hollow hollow-social hollow-black"><i class="fa fa-twitter"></i></a>
 {!! Form::close() !!}
