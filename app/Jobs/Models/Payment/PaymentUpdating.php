@@ -21,6 +21,11 @@ class PaymentUpdating extends Job implements SelfHandling
     public function handle()
     {
         $result                          = new JSend('success', (array)$this->payment);
+
+        if($this->payment->transaction->count)
+        {
+            $result                      = new JSend('error', (array)$this->payment, 'Tidak bisa mengubah data payment yang sudah divalidasi.');
+        }
         
         return $result;
     }

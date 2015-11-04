@@ -99,7 +99,7 @@
 @stop
 
 @section('script')
-    @if(is_null($id))
+    @if(!$data['transaction'])
         var preload_data = [];
     @else
         var preload_data = [{"id": {{$data['transaction_id']}}, "text":"{{$data['transaction']['user']['name'].' #'.$data['transaction']['ref_number'].' ('.$data['amount'].')'}}"}];

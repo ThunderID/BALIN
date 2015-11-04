@@ -164,6 +164,7 @@
 								<?php $amount = $amount + $value->amount;?>
 								<tr>
 									<td>{!!($key+1)!!}</td>
+									<td> @date_indo($value->created_at) </td>
 									@if($value->amount >= 0)
 										<td>@money_indo($value->amount)</td>
 									@else
@@ -174,7 +175,7 @@
 									@else
 										<td></td>
 									@endif
-									<td>{!!$amount!!}</td>
+									<td>@money_indo($amount)</td>
 									<td>{!!$value->notes!!}</td>
 								</tr>
 							@empty
