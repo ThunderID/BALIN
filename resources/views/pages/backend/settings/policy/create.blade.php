@@ -1,12 +1,13 @@
 @extends('template.backend.layout') 
 @inject('datas', 'App\Models\StoreSetting')
 
-<?php $datas = $datas::policies()->orderBy('started_at','desc')->paginate(); ?>
+<?php $datas = $datas::policies()->get(); ?>
 
 @section('content')
 	{!! Form::open(array('url' => route('backend.settings.policies.store'), 'method' => 'POST')) !!}
 		<div class="row">
 			@foreach($datas as $key => $value)
+				{!! Form::hidden('id['.$key.']', $value['id']) !!}			
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="parent" class="text-capitalize">{{str_replace('_', ' ', $value['type'])}}</label>
@@ -20,10 +21,13 @@
 					<div class="form-group">
 						<label for="parent" class="text-capitalize">&nbsp;</label>
 						{!! Form::hidden('type['.$key.']', $value['type'], [
-									'class'			=> 'form-control', 
+									'class'			=> 'form-control'
 						]) !!}
-						{!! Form::text('start['.$key.']', $value['started_at'], [
-									'class'			=> 'form-control', 
+						<?php
+							$date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value['started_at'])->format('d-m-Y H:i'); 
+						?>
+						{!! Form::text('start['.$key.']', $date, [
+									'class'			=> 'date-time-format form-control' 
 						]) !!}
 					</div>
 				</div>

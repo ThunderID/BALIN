@@ -92,7 +92,6 @@ class ShippingCostController extends baseController
 
 		$started_at 									= Carbon::createFromFormat('Y-m-d', $inputs['date'])->format('Y-m-d').' '.Carbon::createFromFormat('H:i', $inputs['time'])->format('H:i:s');
 
-
 		$data->fill([
 			'courier_id' 								=> $inputs['courier_id'],
 			'start_postal_code' 						=> $inputs['start_postal_code'],

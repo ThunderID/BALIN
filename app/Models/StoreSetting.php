@@ -135,6 +135,7 @@ class StoreSetting extends Eloquent
 
 	public function scopePolicies($query)
 	{
-		return 	$query->whereIn('type', ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota'] );
+		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota'];
+		return 	$query->whereIn('type', $variable )->orderByRaw(DB::raw('started_at desc, type'))->take(count($variable));
 	}
 }

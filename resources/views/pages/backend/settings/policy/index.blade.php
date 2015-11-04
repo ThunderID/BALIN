@@ -1,6 +1,6 @@
 @inject('datas', 'App\Models\StoreSetting')
 
-<?php $datas = $datas::policies()->orderBy('started_at','desc')->paginate(); ?>
+<?php $datas = $datas::policies()->orderByRaw(DB::raw('started_at desc, type'))->paginate(); ?>
 
 @extends('template.backend.layout') 
 
@@ -66,7 +66,7 @@
 											<td>{{str_replace('_', ' ', $data['type'])}}</td>
 											<td>{{ $data['value'] }}</td>
 											<td>
-												{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('Y-m-d H:i A') }}
+												{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('Y-m-d H:i') }}
 											</td>
 										</tr>       
 										<?php $ctr += 1; ?>                     
