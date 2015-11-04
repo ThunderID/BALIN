@@ -38,12 +38,8 @@ class Shipment extends Eloquent
 	protected $fillable				=	[
 											'courier_id'					,
 											'transaction_id'				,
+											'address_id'					,
 											'receipt_number'				,
-											'ondate'						,
-											'name'							,
-											'phone'							,
-											'address'						,
-											'postal_code'					,
 										];
 
 	/**
@@ -59,12 +55,6 @@ class Shipment extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											// 'receipt_number'				=> 'required|max:255',
-											'ondate'						=> 'required|date_format:"Y-m-d"',
-											'name'							=> 'required|max:255',
-											'phone'							=> 'required|max:20',
-											'address'						=> 'required',
-											'postal_code'					=> 'required|max:6',
 										];
 
 	/**

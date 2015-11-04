@@ -35,7 +35,7 @@ class SendBillingEmail extends Job implements SelfHandling
 	    
 		$transaction 	= Transaction::id($this->transaction->id)->with(['transactiondetails', 'transactiondetails.product', 'shipment', 'shipment.address', 'user'])->first();
 
-		$point 		= 0;
+		$point 			= 0;
 		$plogs 			= $this->transaction->pointlogs;
 
 		foreach ($plogs as $key => $value) 

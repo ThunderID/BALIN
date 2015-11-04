@@ -38,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Payment::observe(new \App\Models\BaseObserver);
         \App\Models\StoreSetting::observe(new \App\Models\BaseObserver);
         \App\Models\ShippingCost::observe(new \App\Models\BaseObserver);
+        \App\Models\Shipment::observe(new \App\Models\BaseObserver);
     }
 
     /**
@@ -56,5 +57,6 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Payment::observe(new \App\Models\BaseObserver);
         \App\Models\StoreSetting::observe(new \App\Models\BaseObserver);
         \App\Models\ShippingCost::observe(new \App\Models\BaseObserver);
+        \App\Models\Shipment::observe(new \App\Models\BaseObserver);
     }
 }

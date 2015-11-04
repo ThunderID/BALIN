@@ -5,6 +5,9 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\Address;
+use App\Models\Shipment;
+use App\Jobs\ChangeStatus;
 
 use Illuminate\Support\MessageBag;
 
@@ -27,6 +30,10 @@ class TransactionController extends baseController
 
 	public function index($type = null)
 	{		
+		$transaction 							= Transaction::findorfail(5010);
+
+        $result                             = $this->dispatch(new ChangeStatus($transaction, 'wait'));
+		dd($result);
 		$breadcrumb								= [	'Transaksi' => 'backend.data.transaction.index'];
 
 		$filters 								= null;
@@ -127,7 +134,7 @@ class TransactionController extends baseController
 				break;
 			default:
 				$data->fill([
-					'customer_id'			=> $inputs['customer'],
+					'user_id'				=> $inputs['customer'],
 					'type'					=> 'sell',
 					]);
 				break;
@@ -177,6 +184,48 @@ class TransactionController extends baseController
 				{
 					$errors->add('Transaction', $datatd->getError());
 				}
+			}
+		}
+
+		if(!$errors->count() && Input::has('address_choice') && Input::get('address_choice')==1)
+		{
+			$inputaddr 							= Input::only('address', 'phone', 'postal_code');
+
+			$address 							= new Address;
+
+			$address->fill([
+				'address'						=> $inputaddr['address'],
+				'phone'							=> $inputaddr['phone'],
+				'zipcode'						=> $inputaddr['postal_code'],
+				]);
+
+			$address->owner()->associate(User::findorfail($inputs['customer']));
+
+			if(!$address->save())
+			{
+				$errors->add('Transaction', $address->getError());
+			}
+		}
+		elseif(!$errors->count() && Input::has('address_choice') && Input::get('address_choice')==2)
+		{
+			$address 							= Address::findorfail(Input::get('address_id'));
+		}
+
+		if(isset($address) && !$errors->count())
+		{
+			$shipinput 							= Input::only('courier');
+
+			$shipment 							= new Shipment;
+
+			$shipment->fill([
+				'courier_id'					=> $shipinput['courier'],
+				'transaction_id'				=> $data->id,
+				'address_id'					=> $address->id,
+				]);
+
+			if(!$shipment->save())
+			{
+				$errors->add('Transaction', $shipment->getError());
 			}
 		}
 
