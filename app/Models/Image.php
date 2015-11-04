@@ -38,7 +38,7 @@ class Image extends Eloquent
 											'image_xs'						,
 											'image_sm'						,
 											'image_md'						,
-											'image_l'						,
+											'image_lg'						,
 										];
 
 	/**
@@ -58,7 +58,7 @@ class Image extends Eloquent
 											'image_xs'						=> 'required|max:255|url',
 											'image_sm'						=> 'required|max:255|url',
 											'image_md'						=> 'required|max:255|url',
-											'image_l'						=> 'required|max:255|url',
+											'image_lg'						=> 'required|max:255|url',
 										];
 
 	/**
