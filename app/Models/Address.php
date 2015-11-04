@@ -67,7 +67,7 @@ class Address extends Eloquent
 	 * @var array
 	 */
 	protected $appends				=	[
-											'Address',
+											// 'Address',
 										];
 
 	/**
@@ -82,15 +82,15 @@ class Address extends Eloquent
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 
-	public function getAddressAttribute($value)
-	{
-		if($this->address()->count())
-		{
-			return $this->address;
-		}
+	// public function getAddressAttribute($value)
+	// {
+	// 	if($this->address()->count())
+	// 	{
+	// 		return $this->address;
+	// 	}
 
-		return false;
-	}
+	// 	return false;
+	// }
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 

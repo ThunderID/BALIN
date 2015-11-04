@@ -8,7 +8,7 @@ if(!is_null($filters) && is_array($filters))
         $datas = call_user_func([$datas, $key], $value);
     }
 }
-$datas          = $datas->orderby('name')->paginate();
+$datas          = $datas->with(['addresses'])->orderby('name')->paginate();
 ?>
 
 @extends('template.backend.layout')
