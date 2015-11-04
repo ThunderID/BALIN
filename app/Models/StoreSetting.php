@@ -133,4 +133,8 @@ class StoreSetting extends Eloquent
 		return 	$query->type(['about_us', 'why_join', 'term_and_condition'])->orderByRaw(DB::raw('started_at, type'));
 	}
 
+	public function scopePolicies($query)
+	{
+		return 	$query->whereIn('type', ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota'] );
+	}
 }
