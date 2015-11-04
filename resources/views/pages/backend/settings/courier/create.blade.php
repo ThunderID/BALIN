@@ -1,8 +1,12 @@
 @inject('data', 'App\Models\Courier')
 
 @if ($id)
-	<?php $data = $data::find($id); ?>
+	<?php 
+		$data = $data::where('id',$id)->with('images')->first();
+		$images = $data['images'][0];
+	?>
 @endif
+
 
 @extends('template.backend.layout') 
 
@@ -14,72 +18,132 @@
     @endif
         {!! Form::hidden('address_id',$data['address']['id']) !!}    
 		<div class="row">
-			<div class="col-md-3 col-sm-3 col-xs-12">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+                <h4 class="sub-header">
+                    Data
+                </h4>
+            </div>
+        </div> 
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group">
-					{!! HTML::image('http://placehold.it/200x200/bababa/000000/?text=gambar') !!}
-					<input type="file" style="opacity:0" class="file-image">
-					<a href="#" class="btn btn-sm btn-primary btn-upload m-t-n-md">Upload Gambar</a>
-				</div>
-			</div>
-			<div class="col-md-9 col-sm-9 col-xs-12">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="parent" class="text-capitalize">Nama</label>
-							{!! Form::text('name', $data['name'], [
-										'class'         => 'form-control', 
-										'tabindex'      => '1',
-										'placeholder'   => 'Masukkan nama',
-							]) !!}
-						</div>              
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="parent" class="text-capitalize">Phone</label>
-							{!! Form::text('phone', $data['address']['phone'], [
-										'class'         => 'form-control', 
-										'tabindex'      => '2',
-										'placeholder'   => 'Masukkan nomor telepon',
-							]) !!}
-						</div>              
-					</div>					
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group">
-							<label for="parent" class="text-capitalize">Kode Pos</label>
-							{!! Form::text('zipcode', $data['address']['zipcode'], [
-										'class'         => 'form-control', 
-										'tabindex'      => '3',
-										'placeholder'   => 'Masukkan kode pos',
-							]) !!}
-						</div>              
-					</div>						
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group">
-							<label for="name" class="text-capitalize">Alamat</label>
-							{!! Form::textarea('address', $data['address']['address'], [
-										'class'         => 'form-control', 
-										'required'      => 'required', 
-										'rows'          => '3',
-										'tabindex'      => '4',
-										'style'         => 'resize:none;',
-										'placeholder'   => 'Masukkan alamat'
-								]) 
-							!!}
-						</div> 
-					</div> 
-				</div> 
+					<label for="parent" class="text-capitalize">Nama</label>
+					{!! Form::text('name', $data['name'], [
+								'class'         => 'form-control', 
+								'tabindex'      => '1',
+								'placeholder'   => 'Masukkan nama',
+					]) !!}
+				</div>              
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="thumbnail" class="text-capitalize">URL Image Thumbnail</label>
+					{!! Form::text('thumbnail', $images['thumbnail'], [
+								'class'         => 'form-control', 
+								'tabindex'      => '2',
+								'placeholder'   => 'Masukkan nomor url image thumbnail',
+					]) !!}
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="logo" class="text-capitalize">URL Image XS</label>
+					{!! Form::text('image_xs', $images['image_xs'], [
+								'class'         => 'form-control', 
+								'tabindex'      => '3',
+								'placeholder'   => 'Masukkan nomor url image xs',
+					]) !!}
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="logo" class="text-capitalize">URL Image SM</label>
+					{!! Form::text('image_sm', $images['image_sm'], [
+								'class'         => 'form-control', 
+								'tabindex'      => '4',
+								'placeholder'   => 'Masukkan nomor url image sm',
+					]) !!}
+				</div>
+			</div>											
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="logo" class="text-capitalize">URL Image MD</label>
+					{!! Form::text('image_md', $images['image_md'], [
+								'class'         => 'form-control', 
+								'tabindex'      => '5',
+								'placeholder'   => 'Masukkan nomor url image md',
+					]) !!}
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="logo" class="text-capitalize">URL Image LG</label>
+					{!! Form::text('image_lg', $images['image_lg'], [
+								'class'         => 'form-control', 
+								'tabindex'      => '6',
+								'placeholder'   => 'Masukkan nomor url image lg',
+					]) !!}							
+				</div>
+			</div>
+			<div class="col-md-4">
+			</div>					
+		</div>
+
+		<div class="row">
+            <div class="col-md-12">
+                <h4 class="sub-header">
+                    Alamat
+                </h4>
+            </div>
+        </div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="parent" class="text-capitalize">Phone</label>
+					{!! Form::text('phone', $data['address']['phone'], [
+								'class'         => 'form-control', 
+								'tabindex'      => '7',
+								'placeholder'   => 'Masukkan nomor telepon',
+					]) !!}
+				</div>              
+			</div>						
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="parent" class="text-capitalize">Kode Pos</label>
+					{!! Form::text('zipcode', $data['address']['zipcode'], [
+								'class'         => 'form-control', 
+								'tabindex'      => '8',
+								'placeholder'   => 'Masukkan kode pos',
+					]) !!}
+				</div>              
+			</div>						
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="name" class="text-capitalize">Alamat</label>
+					{!! Form::textarea('address', $data['address']['address'], [
+								'class'         => 'form-control', 
+								'required'      => 'required', 
+								'rows'          => '3',
+								'tabindex'      => '9',
+								'style'         => 'resize:none;',
+								'placeholder'   => 'Masukkan alamat'
+						]) 
+					!!}
+				</div> 
+			</div> 
+		</div> 
 		</br>
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group text-right">
-					<a href="{{ URL::route('backend.settings.courier.index') }}" class="btn btn-md btn-default" tabindex="5">Batal</a>
-					<button type="submit" class="btn btn-md btn-primary" tabindex="6">Simpan</button>
+					<a href="{{ URL::route('backend.settings.courier.index') }}" class="btn btn-md btn-default" tabindex="10">Batal</a>
+					<button type="submit" class="btn btn-md btn-primary" tabindex="11">Simpan</button>
 				</div>
 			</div>                                     
 		</div>

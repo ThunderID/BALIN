@@ -124,7 +124,7 @@ $shippingcosts = $shippingcosts->courierid($data['id'])->paginate();
 			<tbody>
 				@if (count($shippingcosts) == 0)
 					<tr>
-						<td colspan="5">
+						<td colspan="6">
 							<p class="text-center">Tidak ada data</p>
 						</td>
 					</tr>
