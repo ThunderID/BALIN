@@ -3,34 +3,40 @@
 namespace App\Jobs\Models\User;
 
 use App\Jobs\Job;
+use App\Jobs\GenerateRefferalCode;
+
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use App\Models\User;
 use Hash;
 
 class UserSaving extends Job implements SelfHandling
 {
-    protected $user;
+    use DispatchesJobs;
 
-    public function __construct(User $user)
-    {
-        $this->user                 = $user;
-    }
+	protected $user;
 
-    public function handle()
-    {
-    	if (Hash::needsRehash($this->user->password))
+	public function __construct(User $user)
+	{
+		$this->user							= $user;
+	}
+
+	public function handle()
+	{
+		$result								= new JSend('success', (array)$this->user);
+
+		if (Hash::needsRehash($this->user->password))
 		{
-			$this->user->password            = bcrypt($this->user->password);
+			$this->user->password			= bcrypt($this->user->password);
 		}
 
-        if($this->user->email!='' && $this->user->referral_code=='')
-        {
-            $this->user->referral_code      = bin2hex(openssl_random_pseudo_bytes(4));
-            $this->user->is_active          = true;
-        }
+		if($this->user->email!='' && $this->user->referral_code=='')
+		{
+			$result							= $this->dispatch(new GenerateRefferalCode($this->user));;
+		}
 
-        return new JSend('success', (array)$this->user);
-    }
+	    return $result;
+	}
 }

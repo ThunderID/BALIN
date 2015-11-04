@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class StoreSetting extends Eloquent
 {
@@ -112,7 +113,6 @@ class StoreSetting extends Eloquent
 		return 	$query->where('type', $variable);
 	}
 
-
 	public  function scopeOndate($query, $variable)
 	{
 		if(!is_array($variable))
@@ -122,4 +122,10 @@ class StoreSetting extends Eloquent
 
 		return $query->where('started_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('started_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])))->orderBy('started_at', 'asc');
 	}
+
+	public function scopeStoreInfo($query, $variable)
+	{
+		return 	$query->type(['url', 'logo', 'facebook_url', 'twitter_url', 'email', 'phone', 'address', 'bank_information'])->orderByRaw(DB::raw('started_at, type'));
+	}
+
 }
