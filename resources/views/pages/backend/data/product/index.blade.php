@@ -51,9 +51,8 @@ $datas 			= $datas->orderby('name')->paginate();
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th class="col-md-5">Nama Produk</th>
-									<th class="col-md-2 text-center">Tipe</th>
-									<th class="col-md-2 text-center">Kode</th>
+									<th class="col-md-6">Nama Produk</th>
+									<th class="col-md-3 text-center">Kode</th>
 									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
@@ -73,8 +72,7 @@ $datas 			= $datas->orderby('name')->paginate();
 										<tr>
 											<td>{{ $ctr }}</td>
 											<td>{{ $data['name'] }}</td>
-											<td class="text-uppercase text-center">{{ $data['tag'] }}</td>
-											<td class="text-center">{{ $data['code'] }}</td>
+											<td class="text-center">{{ strtoupper($data['tag']) }} : {{ $data['code'] }}</td>
 											<td class="text-center">
 												<a href="{{ route('backend.data.product.show', $data['id']) }}"> Detail </a>,
 												<a href="{{ url::route('backend.data.product.edit', $data['id']) }}"> Edit </a>, 
