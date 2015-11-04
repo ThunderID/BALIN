@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\baseController;
-use Input, Session, DB, Redirect, Response, Carbon;
+use Input, Session, DB, Redirect, Response, Carbon, App;
 use App\Models\StoreSetting;
 use Illuminate\Support\MessageBag;
 
@@ -36,7 +36,7 @@ class StoreController extends baseController
 
 	public function create($id = null)
 	{
-		$page 									= StoreSetting::id($id)->type('pages')->first();
+		$page 									= StoreSetting::id($id)->storepage(true)->first();
 
 		if(!$page)
 		{
@@ -46,7 +46,7 @@ class StoreController extends baseController
 		if ($id)
 		{
 			$breadcrumb							= 	[	
-														'Pengaturan '.ucwords(str_replace('-', ' ', $page->url))	=> route('backend.settings.store.edit', $id),
+														'Pengaturan '.ucwords(str_replace('_', ' ', $page->type))	=> route('backend.settings.store.edit', $id),
 													];
 		}
 		else
@@ -58,7 +58,7 @@ class StoreController extends baseController
 
 		$this->layout->page 					= view('pages.backend.settings.store.create')
 													->with('WT_pagetitle', $this->view_name )
-													->with('WT_pageSubTitle', ucwords(str_replace('-', ' ', $page->url)))
+													->with('WT_pageSubTitle', ucwords(str_replace('_', ' ', $page->type)))
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('id', $id)
 													->with('page', $page)
@@ -121,7 +121,7 @@ class StoreController extends baseController
 
 		$setting 								= StoreSetting::findorfail($id);
 		
-		$setting->fill(['content' => Input::get('content')]);
+		$setting->fill(['value' => Input::get('content')]);
 				
 		if(!$setting->save())
 		{

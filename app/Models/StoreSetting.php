@@ -128,4 +128,9 @@ class StoreSetting extends Eloquent
 		return 	$query->type(['url', 'logo', 'facebook_url', 'twitter_url', 'email', 'phone', 'address', 'bank_information'])->orderByRaw(DB::raw('started_at, type'));
 	}
 
+	public function scopeStorePage($query, $variable)
+	{
+		return 	$query->type(['about_us', 'why_join', 'term_and_condition'])->orderByRaw(DB::raw('started_at, type'));
+	}
+
 }
