@@ -20,7 +20,7 @@ class CreateImageTable extends Migration
             $table->string('image_xs', 255);
             $table->string('image_sm', 255);
             $table->string('image_md', 255);
-            $table->string('image_l', 255);
+            $table->string('image_lg', 255);
             $table->timestamps();
             $table->softDeletes();
         });

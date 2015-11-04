@@ -34,7 +34,7 @@ class ShippingCostSaving extends Job implements SelfHandling
                                                     $this->shippingcost->end_postal_code,
                                                     $this->shippingcost->started_at
                                                 )
-                                            ->where('started_at','=',date('Y-m-d h:i:s', strtotime($started_at)));
+                                            ->where('started_at','=',date('Y-m-d h:i:s', strtotime($this->shippingcost->started_at)))
                                             ->notid($id)
                                             ->count();
 

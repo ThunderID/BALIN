@@ -17,6 +17,6 @@ trait HasImagesTrait
 
 	public function Images()
 	{
-		return $this->morphMany('App\Models\Image', 'imageable');
+		return $this->morphMany('App\Models\Image', 'imageable')->orderby('created_at','desc');
 	}
 }
