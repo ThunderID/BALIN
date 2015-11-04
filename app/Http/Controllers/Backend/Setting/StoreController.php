@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\baseController;
-use Input, Session, DB, Redirect, Response;
+use Input, Session, DB, Redirect, Response, Carbon;
 use App\Models\StoreSetting;
 use Illuminate\Support\MessageBag;
 
@@ -12,7 +12,7 @@ class StoreController extends baseController
 	public function index()
 	{		
 		$breadcrumb								= 	[
-														'Pengaturan Toko Online' => 'backend.settings.store.index'
+														'Pengaturan Toko Online' => route('backend.settings.store.index')
 													];
 
 		$searchResult							= NULL;
@@ -52,7 +52,7 @@ class StoreController extends baseController
 		else
 		{
 			$breadcrumb							= [
-														'Pengaturan Baru' 			=> 'backend.settings.store.create' 
+														'Pengaturan Baru' 			=> route('backend.settings.store.create')
 													];
 		}
 
@@ -79,30 +79,24 @@ class StoreController extends baseController
 	{
 		$errors 								= new MessageBag();
 
-		$settings 								= StoreSetting::type(['url', 'logo', 'facebook_url', 'twitter_url', 'email', 'phone', 'address', 'bank_information'])->get();
+		$settings 								= StoreSetting::storeinfo(true)->get();
 		
 		foreach ($settings as $key => $value) 
 		{
 			if(Input::has(strtolower($value['type'])))
 			{
 				$setting 						= StoreSetting::findorfail($value->id);
-				if($value['type'] == 'phone' || $value['type'] == 'address' || $value['type'] == 'bank_information')
-				{
-					$setting->fill(['content' => Input::get(strtolower($value['type']))]);
-				}
-				else
-				{
-					$setting->fill(['url' => Input::get(strtolower($value['type']))]);
-				}
+				$setting->fill(['value' => Input::get(strtolower($value['type'])), 'started_at' => Carbon::now()->format('Y-m-d H:i:s')]);
 				
 				if(!$setting->save())
 				{
+					dd($setting->getError());
 					$errors->add('Store', $setting->getError());
 				}
 			}
 		}
 
-		if (!$errors->count())
+		if($errors->count())
 		{
 			DB::rollback();
 
@@ -134,7 +128,7 @@ class StoreController extends baseController
 			$errors->add('Store', $setting->getError());
 		}
 
-		if (!$errors->count())
+		if ($errors->count())
 		{
 			DB::rollback();
 

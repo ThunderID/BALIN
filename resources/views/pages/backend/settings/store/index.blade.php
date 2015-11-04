@@ -1,6 +1,6 @@
 @inject('datas', 'App\Models\StoreSetting')
 
-<?php $datas = $datas->type(['url', 'logo', 'facebook_url', 'twitter_url', 'email', 'phone', 'address', 'bank_information'])->get(); ?>
+<?php $datas = $datas->StoreInfo(true)->get(); ?>
 
 @extends('template.backend.layout') 
 
@@ -10,21 +10,15 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
-						@if(strtolower($value['type'])=='phone')
+						@if(strtolower($value['type'])=='bank_information' || strtolower($value['type'])=='address')
 						<label for="parent" class="text-capitalize">{{str_replace('_', ' ', $value['type'])}}</label>
-						{!! Form::text(strtolower($value['type']), $value['content'], [
-									'class'			=> 'form-control', 
-									'tabindex'		=> $key+1
-						]) !!}
-						@elseif(strtolower($value['type'])=='bank_information' || strtolower($value['type'])=='address')
-						<label for="parent" class="text-capitalize">{{str_replace('_', ' ', $value['type'])}}</label>
-						{!! Form::textarea(strtolower($value['type']), $value['content'], [
+						{!! Form::textarea(strtolower($value['type']), $value['value'], [
 									'class'			=> 'form-control', 
 									'tabindex'		=> $key+1
 						]) !!}
 						@else
 						<label for="parent" class="text-capitalize">{{str_replace('_', ' ', $value['type'])}}</label>
-						{!! Form::text(strtolower($value['type']), $value['url'], [
+						{!! Form::text(strtolower($value['type']), $value['value'], [
 									'class'			=> 'form-control', 
 									'tabindex'		=> $key+1
 						]) !!}
