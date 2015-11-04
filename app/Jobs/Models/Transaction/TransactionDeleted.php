@@ -8,6 +8,9 @@ use App\Libraries\JSend;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Contracts\Bus\SelfHandling;
 
+use App\Jobs\Models\Transaction\Sell\TransactionSellDeleted;
+use App\Jobs\Models\Transaction\Buy\TransactionBuyDeleted;
+
 use App\Models\Transaction;
 
 

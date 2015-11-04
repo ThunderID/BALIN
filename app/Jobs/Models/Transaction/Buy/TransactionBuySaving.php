@@ -4,9 +4,7 @@ namespace App\Jobs\Models\Transaction\Buy;
 
 use App\Jobs\Job;
 use App\Jobs\GenerateTransactionRefNumber;
-use App\Jobs\CountReferralDiscount;
-use App\Jobs\FillTransactionDate;
-use App\Jobs\GenerateTransactionUniqNumber;
+use App\Jobs\GenerateTransactionDate;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -28,6 +26,11 @@ class TransactionBuySaving extends Job implements SelfHandling
     public function handle()
     {
         $result                             = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
+
+        if($result->getStatus()=='success')
+        {
+            $result                         = $this->dispatch(new GenerateTransactionDate($this->transaction));
+        }
 
         return $result;
     }

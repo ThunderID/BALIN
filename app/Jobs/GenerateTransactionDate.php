@@ -9,7 +9,7 @@ use App\Models\Transaction;
 
 use App\Libraries\JSend;
 
-class FillTransactionDate extends Job implements SelfHandling
+class GenerateTransactionDate extends Job implements SelfHandling
 {
     protected $transaction;
 
@@ -20,9 +20,9 @@ class FillTransactionDate extends Job implements SelfHandling
 
     public function handle()
     {
-        if($this->transaction->status == 'draft' || $this->transaction->status == 'waiting')
+        if(!in_array($this->transaction->status, ['wait', 'paid', 'delivered', 'shipping']))
         {
-            $this->transaction->transacted_at  = date('Y-m-d H:i:s', strtotime('now'));
+            $this->transaction->transact_at  = date('Y-m-d H:i:s', strtotime('now'));
         }
 
         return new JSend('success', (array)$this->transaction);
