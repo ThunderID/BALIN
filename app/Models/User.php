@@ -89,6 +89,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	protected $appends				=	[
 											'balance',
 											'quota',
+											'downline',
 											'avatar',
 											'phone',
 											'address',
@@ -106,6 +107,13 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
+
+	public function getDownlineAttribute($value)
+	{
+		$quota 							= PointLog::referenceid($this->id)->referencetype('App\Models\User')->count();
+
+		return $quota;
+	}
 
 	public function getQuotaAttribute($value)
 	{
