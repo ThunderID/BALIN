@@ -298,54 +298,72 @@ html {
 .t-md {
   font-size: 20px;
 }
-.navbar {
-  border-radius: 0;
+.page-header {
+  padding: 0;
+  margin: 0;
 }
-.navbar-nav.navbar-hollow {
+.page-header .navbar {
+  border-radius: 0;
+  border-color: none;
+}
+.page-header .navbar .navbar-header img {
+  height: 40px;
+}
+.page-header .navbar-nav.navbar-hollow {
   float: right;
 }
-@media (max-width: 992px) {
-  .navbar-nav.navbar-hollow {
-    float: left;
-  }
+.page-header .navbar-nav.navbar-hollow ul li a {
+  color: #bbb;
 }
-.navbar {
-  border-radius: 0;
+.page-header .navbar-nav.navbar-hollow ul li a:hover {
+  color: #fff;
 }
-.navbar-nav.navbar-hollow {
-  float: right;
+.page-header .navbar-nav.navbar-hollow ul li.active a {
+  color: #fff;
 }
-@media (max-width: 992px) {
-  .navbar-nav.navbar-hollow {
+@media (max-width: 767px) {
+  .page-header .navbar-nav.navbar-hollow {
     float: left;
   }
 }
 .container a {
   color: black;
 }
-.slide-image {
-  width: 100%;
-}
-.carousel-holder {
-  margin-bottom: 30px;
-}
-.carousel,
-.item,
-.active {
+#intro .carousel {
   height: 100%;
 }
-.carousel-inner {
+#intro .carousel .carousel-inner {
   height: 100%;
 }
-.carousel-caption {
+#intro .carousel .carousel-inner .item {
+  height: 100%;
+}
+#intro .carousel .carousel-inner .item.active {
+  height: 100%;
+  display: block;
+  min-height: 650px;
+}
+#intro .carousel .carousel-inner .item.active .fill {
+  min-height: 650px;
+}
+#intro .carousel .carousel-inner .item .carousel-caption {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.62);
   left: 0;
   right: 0;
 }
-.carousel-caption p {
+#intro .carousel .carousel-inner .item .carousel-caption .carousel-caption-one {
+  top: 25%;
+}
+#intro .carousel .carousel-inner .item .carousel-caption .carousel-caption-two {
+  top: 45%;
+}
+#intro .carousel .carousel-inner .item .carousel-caption p {
   margin-left: 20%;
   margin-right: 20%;
+}
+.carousel-holder {
+  margin-bottom: 30px;
 }
 /* Background images are set within the HTML using inline CSS, not here */
 .fill {
@@ -610,6 +628,10 @@ input.text-hollow:focus {
 .panel-hollow h4,
 .panel-hollow h5 {
   color: #333;
+}
+.panel-hollow a {
+  color: #000;
+  text-decoration: none;
 }
 .gallery-product .owl-controls .owl-nav .owl-prev {
   position: absolute;
