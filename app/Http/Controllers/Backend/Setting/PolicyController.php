@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\baseController;
-use Input, Session, DB, Redirect, Response;
+use Input, Session, DB, Redirect, Response, Carbon;
 use Illuminate\Support\MessageBag;
 use App\Models\StoreSetting;
 
@@ -91,18 +91,32 @@ class PolicyController extends baseController
 		{
 			if($inputs['value'][$key]!='')
 			{
-				$policy 						= new StoreSetting;
+				$policy 						= StoreSetting::findOrNew($inputs['id'][$key]);
+
+				$started_at 					= date("Y-m-d H:i:s", strtotime($inputs['start'][$key]));
 
 				$policy->fill([
 					'type'						=> $value,
 					'value'						=> $inputs['value'][$key],
-					'started_at'				=> $inputs['start'][$key],
+					'started_at'				=> $started_at,
 				]);
 				
-				if(!$policy->save())
-				{
-					$errors->add('Store', $policy->getError());
-				}
+		        if($policy->getDirty())
+		        {
+		        	$data 						= new StoreSetting; 
+
+					$data->fill([
+						'type'					=> $value,
+						'value'					=> $inputs['value'][$key],
+						'started_at'			=> $started_at,
+					]);
+
+					if(!$data->save())
+					{
+						dd($data);
+						$errors->add('Store', $data->getError());
+					}
+		        }
 			}
 		}
 
