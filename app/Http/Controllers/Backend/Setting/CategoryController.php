@@ -172,6 +172,11 @@ class CategoryController extends baseController
 		}
 	}
 
+	public function update($id)
+	{
+		return $this->store($id);		
+	}
+
 	public function destroy($id)
 	{
 		$data 											= Category::findorfail($id);
