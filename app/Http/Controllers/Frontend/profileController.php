@@ -9,9 +9,9 @@ class profileController extends baseController
 
 	public function index()
 	{		
-		$this->layout->page 					= view('pages.frontend.profile')
+		$this->layout->page 					= view('pages.frontend.user.index')
 													->with('controller_name', $this->controller_name)
-													->with('subPage', 'profileDetail');
+													->with('sub_page', 'profile_detail');
 		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;
@@ -19,9 +19,9 @@ class profileController extends baseController
 
 	public function membershipDetail()
 	{		
-		$this->layout->page 					= view('pages.frontend.profile')
+		$this->layout->page 					= view('pages.frontend.user.index')
 													->with('controller_name', $this->controller_name)
-													->with('subPage', 'membershipDetail');
+													->with('sub_page', 'membership_detail');
 		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;
@@ -29,9 +29,9 @@ class profileController extends baseController
 
 	public function changePassword()
 	{		
-		$this->layout->page 					= view('pages.frontend.profile')
+		$this->layout->page 					= view('pages.frontend.user.index')
 													->with('controller_name', $this->controller_name)
-													->with('subPage', 'profileChangePassword');
+													->with('sub_page', 'profile_change_password');
 		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;
@@ -39,9 +39,9 @@ class profileController extends baseController
 
 	public function changeProfile()
 	{		
-		$this->layout->page 					= view('pages.frontend.profile')
+		$this->layout->page 					= view('pages.frontend.user.index')
 													->with('controller_name', $this->controller_name)
-													->with('subPage', 'profileEdit');
+													->with('sub_page', 'profile_edit');
 		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;
