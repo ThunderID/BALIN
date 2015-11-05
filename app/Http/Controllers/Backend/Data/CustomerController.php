@@ -162,6 +162,8 @@ class CustomerController extends baseController
 
 		}
 
+		DB::beginTransaction();
+
 		$data->fill([
 				'name' 			=> $inputs['name'],
 				'email'			=> $inputs['email'],
@@ -170,7 +172,6 @@ class CustomerController extends baseController
 				'gender'		=> $inputs['gender'],
 		]);
 
-		DB::beginTransaction();
 
 		if (!$data->save())
 		{

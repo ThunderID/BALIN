@@ -32,61 +32,67 @@ class GenerateRefferalCode extends Job implements SelfHandling
         }
         else
         {
-			$names							= explode(' ', $this->user->name);
-			$fnames 						= [];
-			$lnames 						= [];
-			$lostcode 						= [];
-        	if(isset($names[0]))
-        	{
-				$fname 						= str_split($names[0]);
+            do
+            {
+    			$names							= explode(' ', $this->user->name);
+    			$fnames 						= [];
+    			$lnames 						= [];
+    			$lostcode 						= [];
+            	if(isset($names[0]))
+            	{
+    				$fname 						= str_split($names[0]);
 
-				foreach ($fname as $key => $value) 
-				{
-					if($key <= 2)
-					{
-						$fnames[$key]		= $value;
-					}
-				}
-        	}
+    				foreach ($fname as $key => $value) 
+    				{
+    					if($key <= 2)
+    					{
+    						$fnames[$key]		= $value;
+    					}
+    				}
+            	}
 
-        	if(count($fnames) < 3)
-        	{
-        		foreach (range((count($fnames)-1), 2) as $key) 
+            	if(count($fnames) < 3)
+            	{
+            		foreach (range((count($fnames)-1), 2) as $key) 
+            		{
+            			$fnames[$key] 			= substr(str_shuffle($letters), 0, 1);
+            		}
+            	}
+
+            	if(isset($names[count($names)-1]))
+            	{
+    				$lname 						= str_split($names[count($names)-1]);
+    				foreach ($lname as $key => $value) 
+    				{
+    					if($key <= 2)
+    					{
+    						$lnames[$key]		= $value;
+    					}
+    				}
+            	}
+
+            	if(count($lnames) < 3)
+            	{
+            		foreach (range((count($lnames)-1), 2) as $key) 
+            		{
+            			$lnames[$key] 			= substr(str_shuffle($letters), 0, 1);
+            		}
+            	}
+
+            	foreach (range(0, 1) as $key) 
         		{
-        			$fnames[$key] 			= substr(str_shuffle($letters), 0, 1);
+        			$lostcode[$key] 			= substr(str_shuffle($letters), 0, 1);
         		}
-        	}
 
-        	if(isset($names[count($names)-1]))
-        	{
-				$lname 						= str_split($names[count($names)-1]);
-				foreach ($lname as $key => $value) 
-				{
-					if($key <= 2)
-					{
-						$lnames[$key]		= $value;
-					}
-				}
-        	}
+        		$lcode 							= implode('', $lnames);
+        		$fcode 							= implode('', $fnames);
+        		$locode 						= implode('', $lostcode);
 
-        	if(count($lnames) < 3)
-        	{
-        		foreach (range((count($lnames)-1), 2) as $key) 
-        		{
-        			$lnames[$key] 			= substr(str_shuffle($letters), 0, 1);
-        		}
-        	}
-
-        	foreach (range(0, 1) as $key) 
-    		{
-    			$lostcode[$key] 			= substr(str_shuffle($letters), 0, 1);
-    		}
-
-    		$lcode 							= implode('', $lnames);
-    		$fcode 							= implode('', $fnames);
-    		$locode 						= implode('', $lostcode);
-
-			$this->user->referral_code 		= $fcode.$lcode.$locode;
+    			$this->user->referral_code 		= $fcode.$lcode.$locode;
+ 
+                $referral                       = User::referralcode($fcode.$lcode.$locode)->first();
+            }
+            while($referral);
 
 			$result         				= new JSend('success', (array)$this->user);
         }
