@@ -62,7 +62,7 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 							<tbody>
 								@if(count($datas) == 0)
 									<tr>
-										<td colspan="4" class="text-center">
+										<td colspan="5" class="text-center">
 											Tidak ada data
 										</td>
 									</tr>
