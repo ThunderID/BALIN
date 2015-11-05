@@ -42,7 +42,7 @@ class ProductTableSeeder extends Seeder
 					$data->fill([
 						'product_universal_id'		=> rand(0, $max_pu),
 						'name'						=> $value->name.' '.$brand.' '.$color.' '.$size,
-						'code'						=> $faker->ean8,
+						'sku'						=> $faker->ean8,
 						'slug'						=> $faker->slug($nbWords = 3),			
 						'color'						=> $color,			
 						'size'						=> $size,			
