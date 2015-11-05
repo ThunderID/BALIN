@@ -16,8 +16,10 @@
 			<div class="col-md-7">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 text-center hidden-xs hidden-sm">
-						<div class="thumbnail m-t-md">
-							<img class="img img-responsive myCanvas"  src="{{$data['default_image']}}" alt="">
+						<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails m-t-md">
+							<a href="/Balin/web/balin/14-large.jpg">
+								<img class="img img-responsive myCanvas"  src="/Balin/web/balin/14.jpg">
+							</a>
 						</div>
 					 </div>
 				</div>
@@ -127,4 +129,5 @@
 
 @section('script_plugin')
 	@include('plugins.owlCarousel')
+	@include('plugins.easyzoom')
 @stop
