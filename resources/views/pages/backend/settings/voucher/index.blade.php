@@ -1,4 +1,5 @@
-@inject('datas', 'App\Models\Product')
+@inject('datas', 'App\Models\Voucher')
+
 <?php 
 if(!is_null($filters) && is_array($filters))
 {
@@ -7,8 +8,11 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->orderby('name')->paginate();
+
+$datas 			= $datas->orderby('expired_at')->paginate();
+
 ?>
+
 
 @extends('template.backend.layout') 
 
@@ -17,13 +21,13 @@ $datas 			= $datas->orderby('name')->paginate();
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-md-8 col-sm-4 hidden-xs">
-					<a class="btn btn-default" href="{{ URL::route('backend.data.product.create') }}"> Data Baru </a>
+					<a class="btn btn-default" href="{{ URL::route('backend.settings.voucher.create') }}"> Data Baru </a>
 				</div>
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-					<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.product.create') }}"> Data Baru </a>
+					<a class="btn btn-default btn-block" href="{{ URL::route('backend.settings.voucher.create') }}"> Data Baru </a>
 				</div>
 				<div class="col-md-4 col-sm-8 col-xs-12">
-					{!! Form::open(array('route' => 'backend.data.product.index', 'method' => 'get' )) !!}
+					{!! Form::open(array('route' => 'backend.settings.voucher.index', 'method' => 'get' )) !!}
 					<div class="row">
 						<div class="col-md-2 col-sm-3 hidden-xs">
 						</div>
@@ -33,7 +37,7 @@ $datas 			= $datas->orderby('name')->paginate();
 										'placeholder'   => 'Cari sesuatu',
 										'required'      => 'required',
 										'style'         =>'text-align:right'
-								]) !!}                                          
+							]) !!}                                          
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
 							<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
@@ -42,7 +46,7 @@ $datas 			= $datas->orderby('name')->paginate();
 					{!! Form::close() !!}
 				</div>            
 			</div>
-			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.product.index') ])
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.settings.voucher.index') ])
 			</br> 
 			<div class="row">
 				<div class="col-lg-12">
@@ -51,15 +55,16 @@ $datas 			= $datas->orderby('name')->paginate();
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th class="col-md-6">Nama Produk</th>
-									<th class="col-md-3 text-center">Kode</th>
-									<th class="text-center">Kontrol</th>
+									<th class="text-center">Code</th>
+									<th class="col-md-4">Tipe</th>
+									<th class="col-md-4">Masa Berlaku</th>
+									<th class="col-md-2">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
 								@if(count($datas) == 0)
 									<tr>
-										<td colspan="4" class="text-center">
+										<td colspan="5" class="text-center">
 											Tidak ada data
 										</td>
 									</tr>
@@ -71,15 +76,19 @@ $datas 			= $datas->orderby('name')->paginate();
 									@foreach($datas as $data)
 										<tr>
 											<td>{{ $ctr }}</td>
-											<td>{{ $data['name'] }}</td>
-											<td class="text-center">{{ strtoupper($data['tag']) }} : {{ $data['code'] }}</td>
-											<td class="text-center">
-												<a href="{{ route('backend.data.product.show', $data['id']) }}"> Detail </a>,
-												<a href="{{ url::route('backend.data.product.edit', $data['id']) }}"> Edit </a>, 
-												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
+											<td>{{ $data['code'] }}</td>
+											<td>{{ str_replace('_', ' ', $data['type']) }} : {{$data['value']}}</td>
+											<td>
+												@datetime_indo($data['started_at'])
+												- @datetime_indo($data['expired_at'])
+											</td>
+											<td>
+												<a href="{{ route('backend.settings.voucher.show', $data['id']) }}"> Detail </a>, 
+												<a href="{{ route('backend.settings.voucher.edit', $data['id']) }}"> Edit </a>, 
+												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#courier_del"
 													data-id="{{$data['id']}}"
-													data-title="Hapus Data Produk {{$data['name']}}"
-													data-action="{{ route('backend.data.product.destroy', $data['id']) }}">
+													data-title="Hapus Data Voucher {{$data['code']}}"
+													data-action="{{ route('backend.settings.voucher.destroy', $data['id']) }}">
 													Hapus
 												</a>                                                                                      
 											</td>    
@@ -88,8 +97,8 @@ $datas 			= $datas->orderby('name')->paginate();
 									@endforeach 
 									
 									@include('widgets.pageelements.formmodaldelete', [
-											'modal_id'      => 'product_del', 
-											'modal_route'   => route('backend.data.product.destroy')
+											'modal_id'      => 'courier_del', 
+											'modal_route'   => 'backend.settings.voucher.destroy'
 									])
 								@endif
 							</tbody>

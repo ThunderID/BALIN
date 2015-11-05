@@ -14,6 +14,7 @@ class CreateAuditorTable extends Migration
     {
         Schema::create('auditors', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->index();
             $table->integer('table_id')->unsigned()->index();
             $table->string('table_type', 255);
             $table->date('ondate');

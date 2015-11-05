@@ -113,6 +113,12 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		Route::any('ajax/get-category-parent',							['uses' => 'CategoryController@getCategoryParentByName', 'as' => 'backend.category.ajax.getParent']);
 
 		// ------------------------------------------------------------------------------------
+		// VOUCHER
+		// ------------------------------------------------------------------------------------
+		
+		Route::resource('vouchers', 	'VoucherController', 			['names' => ['index' => 'backend.settings.voucher.index', 'create' => 'backend.settings.voucher.create', 'store' => 'backend.settings.voucher.store', 'show' => 'backend.settings.voucher.show', 'edit' => 'backend.settings.voucher.edit', 'update' => 'backend.settings.voucher.update', 'destroy' => 'backend.settings.voucher.destroy']]);
+
+		// ------------------------------------------------------------------------------------
 		// COURIER (Store, save image only if there were upload image. Need to sync with job)
 		// ------------------------------------------------------------------------------------
 

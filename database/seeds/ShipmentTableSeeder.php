@@ -22,31 +22,14 @@ class ShipmentTableSeeder extends Seeder
 				$data->fill([
 					'courier_id'					=> App\Models\Courier::all()->random()->id,
 					'transaction_id'				=> $value->id,
+					'address_id'					=> App\Models\Address::all()->random()->id,
 					'receipt_number'				=> bin2hex(openssl_random_pseudo_bytes(5)),
-					'name'							=> $faker->firstName,
-					'ondate'						=> date('Y-m-d'),
-					'phone'							=> $faker->phoneNumber,
-					'address'						=> $faker->address,
-					'postal_code'					=> $faker->postcode,
 				]);
 
 				if (!$data->save())
 				{
 					print_r($data->getError());
 					exit;
-				}
-
-				$check 								= rand(0,1);
-				if($check)
-				{
-					$trs 								= App\Models\Transaction::find($value->id);
-					$trs->fill(['status' => 'delivered']);
-
-					if (!$trs->save())
-					{
-						print_r($trs->getError());
-						exit;
-					}
 				}
 			}	
 		}
