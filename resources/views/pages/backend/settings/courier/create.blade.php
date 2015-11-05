@@ -1,12 +1,9 @@
 @inject('data', 'App\Models\Courier')
 
-@if ($id)
-	<?php 
-		$data = $data::where('id',$id)->with('images')->first();
-		$images = $data['images'][0];
-	?>
-@endif
-
+<?php 
+	$data = $data::where('id',$id)->with('images')->first();
+	$images = $data['images'][0];
+?>
 
 @extends('template.backend.layout') 
 
@@ -43,7 +40,7 @@
 					{!! Form::text('thumbnail', $images['thumbnail'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '2',
-								'placeholder'   => 'Masukkan nomor url image thumbnail',
+								'placeholder'   => 'Masukkan url image thumbnail',
 					]) !!}
 				</div>
 			</div>
@@ -53,7 +50,7 @@
 					{!! Form::text('image_xs', $images['image_xs'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '3',
-								'placeholder'   => 'Masukkan nomor url image xs',
+								'placeholder'   => 'Masukkan url image xs',
 					]) !!}
 				</div>
 			</div>
@@ -63,7 +60,7 @@
 					{!! Form::text('image_sm', $images['image_sm'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '4',
-								'placeholder'   => 'Masukkan nomor url image sm',
+								'placeholder'   => 'Masukkan url image sm',
 					]) !!}
 				</div>
 			</div>											
@@ -75,7 +72,7 @@
 					{!! Form::text('image_md', $images['image_md'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '5',
-								'placeholder'   => 'Masukkan nomor url image md',
+								'placeholder'   => 'Masukkan url image md',
 					]) !!}
 				</div>
 			</div>
@@ -85,7 +82,7 @@
 					{!! Form::text('image_lg', $images['image_lg'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '6',
-								'placeholder'   => 'Masukkan nomor url image lg',
+								'placeholder'   => 'Masukkan url image lg',
 					]) !!}							
 				</div>
 			</div>
