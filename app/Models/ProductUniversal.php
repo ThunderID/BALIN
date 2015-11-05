@@ -33,6 +33,7 @@ class ProductUniversal extends Eloquent
 	 */
 
 	protected $fillable				=	[
+											'name'							,
 											'upc'							,
 											'description'					,
 										];
@@ -50,6 +51,7 @@ class ProductUniversal extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
+											'name'							=> 'required|max:255',
 											'upc'							=> 'required|max:255',
 										];
 

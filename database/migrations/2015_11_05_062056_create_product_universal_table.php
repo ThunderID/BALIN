@@ -14,6 +14,7 @@ class CreateProductUniversalTable extends Migration
     {
         Schema::create('product_universals', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->string('upc')->unique();
             $table->text('description');
             $table->timestamps();

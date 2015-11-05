@@ -24,6 +24,7 @@ class ProductUniversalTableSeeder extends Seeder
             $data                    = new ProductUniversal;
 
             $data->fill([
+                'name'                  => $faker->name,
                 'upc'                   => $faker->ean8,
                 'description'           => $faker->sentence($nbWords = 6),
             ]);

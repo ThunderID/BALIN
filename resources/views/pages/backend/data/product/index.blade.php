@@ -52,7 +52,7 @@ $datas 			= $datas->orderby('name')->paginate();
 								<tr>
 									<th>No.</th>
 									<th class="col-md-6">Nama Produk</th>
-									<th class="col-md-3 text-center">Kode</th>
+									<th class="col-md-3 text-center">UPC</th>
 									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
