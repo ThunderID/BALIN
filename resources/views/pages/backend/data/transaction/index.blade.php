@@ -95,17 +95,7 @@ else
 										<td class="text-center">{{ $data['amount'] }} </td>
 										<td>
 											<a href="{{route('backend.data.transaction.show', ['id' => $data['id'], 'type' => $data['type']])}}">Detail</a>,
-											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#trans" 
-												data-id="{{ $data['id'] }}" 
-												data-nota-transaksi="{{ $data['invoice_no'] }}" 
-												data-name="{{ $data['customer']['name'] }}" 
-												data-date="{{ $data['date'] }}" 
-												data-status="{{ $data['status'] }}"  
-												data-title="Edit Data {{ $data['transaction']['invoice_no'] }}" 
-												data-button="Simpan Data"
-												href="#">
-												Edit
-											</a>,  
+											<!-- <a href="{{route('backend.data.transaction.edit', ['id' => $data['id'], 'type' => $data['type']])}}">Edit</a>, -->
 											<a data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#trans_del"
 												data-id="{{$data['id']}}"
 												data-title="Hapus Data Transaksi {{$data['invoice_no']}}" 

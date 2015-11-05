@@ -297,6 +297,16 @@ class TransactionController extends baseController
 			->with('msg-type','success');
 	}
 
+	public function edit($id)
+	{
+		return $this->create($id);
+	}
+
+	public function update($id)
+	{
+		return $this->store($id);
+	}
+
 	public function show($id)
 	{		
 		if (Input::get('type')=='sell')
@@ -326,7 +336,7 @@ class TransactionController extends baseController
 
 		$breadcrumb[$transaction->ref_number] = route('backend.data.transaction.show', ['id' => $id,'type' => $subnav_active]);
 
-		$this->layout->page 					= view('pages.backend.data.transaction.'.$subnav_active.'show')
+		$this->layout->page 					= view('pages.backend.data.transaction.'.$subnav_active.'.show')
 													->with('WT_pagetitle', $title)
 													->with('WT_pageSubTitle',$transaction->ref_number)
 													->with('WB_breadcrumbs', $breadcrumb)
