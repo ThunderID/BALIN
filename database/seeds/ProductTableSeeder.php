@@ -26,7 +26,7 @@ class ProductTableSeeder extends Seeder
 		$hexs 										= ['ffcccc', 'ccccff', 'fffdcc', 'ddffcc', 'ffccfc', '000000', 'bababa', '00ffae', 'a0000a', '00fff0'];
 		$sizes 										= ['S', 'M', 'XL', 'XXL', 'XXXL'];
 		$brands 									= ['Narada', 'Danar Hadi', 'Batik Keris', 'Batik Semar', 'Irwan Tirta', 'Parang Kencana', 'Wirokuto Batik', 'Alleira Batik', 'Kencana Ungu', 'Bateeq', 'Galeri Batik Jawa', 'BALIN', 'Balin Basic'];
-		$max_pu 									= ProductUniversal::count()
+		$max_pu 									= ProductUniversal::count();
 
 		try
 		{

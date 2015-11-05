@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call('CategoryTableSeeder');
+        $this->call('ProductUniversalTableSeeder');
         $this->call('ProductTableSeeder');
 
         $this->call('UserTableSeeder');
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call('TransactionTableSeeder');
         $this->call('TransactionDetailTableSeeder');
-        // $this->call('TransactionLogTableSeeder');
+        $this->call('TransactionLogTableSeeder');
 
         $this->call('PaymentTableSeeder');
         $this->call('ShipmentTableSeeder');
