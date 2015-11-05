@@ -1,0 +1,124 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Auditor extends Eloquent
+{
+
+	use SoftDeletes;
+
+	/**
+	 * The trait used by the model.
+	 *
+	 * @var string
+	 */
+
+	use \App\Models\Traits\hasMany\HasTransactionsTrait;
+	use \App\Models\Traits\morphMany\HasAddressesTrait;
+
+
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
+	protected $table				= 'auditors';
+
+	// protected $timestamps			= true;
+
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+
+	protected $fillable				=	[
+											'name'							,
+										];
+
+	/**
+	 * Timestamp field
+	 *
+	 * @var array
+	 */
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
+
+	/**
+	 * Basic rule of database
+	 *
+	 * @var array
+	 */
+	protected $rules				=	[
+											'name'							=> 'required|max:255',
+										];
+
+	/**
+	 * The appends attributes from mutator and accessor
+	 *
+	 * @var array
+	 */
+	protected $appends				=	[
+											'address',
+										];
+
+	/**
+	 * The attributes excluded from the model's JSON form.
+	 *
+	 * @var array
+	 */
+	protected $hidden 				= [];
+
+	
+	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
+
+	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
+	public function getAddressAttribute()
+	{
+
+		if($this->addresses()->count())
+		{
+			$address 					= $this->addresses[0]['attributes'];
+		}
+		else
+		{
+			$address 					= NULL;
+		}
+
+		return $address;
+	}
+
+	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
+
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	public function getError()
+	{
+		return $this->errors;
+	}
+
+	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
+
+	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
+
+	public function scopeID($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('suppliers.id', $variable);
+		}
+
+		return 	$query->where('suppliers.id', $variable);
+	}
+	
+	public function scopeName($query, $variable)
+	{
+		return 	$query->where('name', 'like', '%'.$variable.'%');
+	}
+}
