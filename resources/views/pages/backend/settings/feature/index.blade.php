@@ -1,4 +1,4 @@
-@inject('datas', 'App\Models\FeaturedProduct')
+@inject('datas', 'App\Models\StoreSetting')
 
 <?php 
 if(!is_null($filters) && is_array($filters))
@@ -8,7 +8,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->orderby('started_at')->paginate();
+$datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 ?>
 
 
@@ -53,8 +53,9 @@ $datas 			= $datas->orderby('started_at')->paginate();
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th class="text-center col-md-6">Slide</th>
-									<th class="col-md-4">Tanggal</th>
+									<th class="text-center col-md-4">Slide</th>
+									<th class="col-md-5">Konten</th>
+									<th class="col-md-2">Tanggal Mulai</th>
 									<th class="col-md-2">Kontrol</th>
 								</tr>
 							</thead>
@@ -73,8 +74,12 @@ $datas 			= $datas->orderby('started_at')->paginate();
 									@foreach($datas as $data)
 										<tr>
 											<td>{{ $ctr }}</td>
-											<td><strong>{{ $data['title'] }}</strong><br/>{!! HTML::image($data['default_image'], 'default', ['class' => 'img-responsive', 'style' => 'max-width:500px;']) !!}</td>
-											<td>@datetime_indo($data['started_at']) - @datetime_indo($data['ended_at'])</td>
+											<td>{!! HTML::image($data->slider, 'slider', ['class' => 'img-responsive']) !!}</td>
+											</td>
+											<td>{{ $data['value'] }}</td>
+											<td>
+												{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('d-m-Y H:i') }}
+											</td>
 											<td>
 												<a href="{{ route('backend.settings.feature.edit', $data['id']) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#feature_del"

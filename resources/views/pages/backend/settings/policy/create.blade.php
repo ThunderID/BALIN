@@ -23,9 +23,9 @@
 						{!! Form::hidden('type['.$key.']', $value['type'], [
 									'class'			=> 'form-control'
 						]) !!}
-						<?php
-							$date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value['started_at'])->format('d-m-Y H:i'); 
-						?>
+						@if($data)
+							<?php $date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value['started_at'])->format('d-m-Y H:i'); ?>
+						@endif
 						{!! Form::text('start['.$key.']', $date, [
 									'class'			=> 'date-time-format form-control' 
 						]) !!}

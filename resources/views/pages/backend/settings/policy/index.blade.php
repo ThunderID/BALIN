@@ -66,7 +66,7 @@
 											<td>{{str_replace('_', ' ', $data['type'])}}</td>
 											<td>{{ $data['value'] }}</td>
 											<td>
-												{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('Y-m-d H:i') }}
+												{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('d-m-Y H:i') }}
 											</td>
 										</tr>       
 										<?php $ctr += 1; ?>                     

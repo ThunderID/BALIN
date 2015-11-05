@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\baseController;
 use Illuminate\Support\MessageBag;
-use App\Models\FeaturedProduct;
+use App\Models\storeSetting;
 use App\Models\Image;
 use Input, Session, DB, Redirect, Response;
 
@@ -61,7 +61,7 @@ class FeatureController extends baseController
 	{
 		if (is_null($id))
 		{
-			$feature 								= new FeaturedProduct;
+			$feature 								= new storeSetting;
 
 			$breadcrumb								= 	[
 															'Pengaturan Etalase' 			=> route('backend.settings.feature.index'),
@@ -72,7 +72,7 @@ class FeatureController extends baseController
 		}
 		else
 		{
-			$feature 								= FeaturedProduct::findorfail($id);
+			$feature 								= storeSetting::findorfail($id);
 
 			$breadcrumb								= 	[
 															'Pengaturan Etalase' 			=> route('backend.settings.feature.index'),
@@ -100,22 +100,24 @@ class FeatureController extends baseController
 
 	public function store($id = null)
 	{
-		$inputs 										= Input::only('title', 'description', 'started_at', 'ended_at');
+		$inputs 										= Input::only('value', 'started_at');
+		$images 										= Input::only('thumbnail', 'image_xs','image_sm','image_md','image_lg');
 
 		if(!is_null($id))
 		{
-			$data										= FeaturedProduct::find($id);
+			$data										= storeSetting::find($id);
 		}
 		else
 		{
-			$data										= new FeaturedProduct;
+			$data										= new storeSetting;
 		}
 
+		$started_at 									= date("Y-m-d H:i:s", strtotime($inputs['started_at']));
+
 		$data->fill([
-			'title'										=> $inputs['title'],
-			'description'								=> $inputs['description'],
-			'started_at' 								=> $inputs['started_at'],
-			'ended_at' 									=> $inputs['ended_at'],
+			'type'										=> 'slider',
+			'value'										=> $inputs['value'],
+			'started_at' 								=> $started_at,
 		]);
 
 		DB::beginTransaction();
@@ -126,6 +128,29 @@ class FeatureController extends baseController
 		{
 			$errors->add('FeaturedProduct', $data->getError());
 		}
+
+		$image 											= new Image;
+
+		$image->fill([
+				'thumbnail'								=> $images['thumbnail'],
+				'image_xs'								=> $images['image_xs'],
+				'image_sm'								=> $images['image_sm'],
+				'image_md'								=> $images['image_md'],
+				'image_lg'								=> $images['image_lg'],
+				'published_at'							=> date('Y-m-d H:i:s'),
+		]);
+
+		if (!$image->save())
+		{
+			$errors->add('FeaturedProduct', $image->getError());
+		}
+
+		$image->imageable()->associate($data);
+		
+		if (!$image->save())
+		{
+			$errors->add('FeaturedProduct', $image->getError());
+		}		
 
 		if ($errors->count())
 		{
