@@ -1,11 +1,11 @@
-{!! Form::open() !!}
+{!! Form::open(['url' => route('frontend.dologin')]) !!}
     <div class="form-group">
         <label for="email">Email</label>
-        {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Masukkan Email', 'required' => 'required']) !!}
+        {!! Form::email('email', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Email', 'required' => 'required']) !!}
     </div>
     <div class="form-group">
 	    <label for="pwd">Password</label>
-	    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Masukkan Password', 'required' => 'required']) !!}
+	    {!! Form::password('password', ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Password', 'required' => 'required']) !!}
 	</div>
 	<div class="checkbox">
 	    <label><input type="checkbox" tabindex="1"> Remember me</label>

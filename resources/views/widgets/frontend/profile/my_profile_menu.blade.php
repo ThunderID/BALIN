@@ -36,7 +36,7 @@
 		<ul class="list-unstyled menu-info">
 			<li><a href="{{ route('frontend.profile.membershipDetail') }}">Membership Details</a></li>
 			<li><a href="#">Coupon Transaction</a></li>
-			<li class="last-child"><a href="#">Logout</a></li>
+			<li class="last-child"><a href="{{ route('frontend.dologout') }}">Logout</a></li>
 		</ul>
 	</div>
 </div>

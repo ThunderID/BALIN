@@ -9,19 +9,21 @@
 	</section>
 
 	<section id="why-join" class="p-t">
-		@include('pages.frontend.article.partial_why_join')
+		@include('pages.frontend.why_join.partial_why_join')
 	</section>
 
-	<section id="sign-in" class="p-t" style="background-image: url('http://localhost:8000/Balin/web/image/2.jpg')">
-		@include('pages.frontend.login.partial_login')
-	</section>
+	@if (!Auth::user())
+		<section id="sign-in" class="p-t" style="background-image: url('http://localhost:8000/Balin/web/image/2.jpg')">
+			@include('pages.frontend.login.partial_login')
+		</section>
+	@endif
 
 	<section id="about-us" class="p-t">
-		@include('pages.frontend.article.partial_about_us')
+		@include('pages.frontend.about_us.partial_about_us')
 	</section>
 
 	<section id="contact-us" class="p-t">
-		@include('pages.frontend.article.partial_contact_us')
+		@include('pages.frontend.contact_us.partial_contact_us')
 	</section>
 @stop
 
