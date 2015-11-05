@@ -6,15 +6,11 @@
 <fieldset>
 	@include('pages.backend.data.transaction.sell.product')
 </fieldset>
-<h1>Pembayaran</h1>
+<h1>Voucher</h1>
 <fieldset>
-	@include('pages.backend.data.transaction.sell.payment')
+	@include('pages.backend.data.transaction.sell.voucher')
 </fieldset>
 <h1>Pengiriman</h1>
 <fieldset>
 	@include('pages.backend.data.transaction.sell.shipment')
 </fieldset>
-{{-- <h1>Transaksi Detail</h1> --}}
-{{-- <fieldset> --}}
-	{{-- @include('pages.backend.data.transaction.sell.info_transaction_detail') --}}
-{{-- </fieldset> --}}
