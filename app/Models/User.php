@@ -204,6 +204,16 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 		return 	$query->where('id', $variable);
 	}
 
+	public function scopeRole($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('role', $variable);
+		}
+
+		return 	$query->where('role', $variable);
+	}
+
 	public function scopeCustomer($query, $variable)
 	{
 		return 	$query->where('role', 'customer');
