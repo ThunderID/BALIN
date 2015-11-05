@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
+        
+        $this->call('StoreSettingTableSeeder');
 
         $this->call('CategoryTableSeeder');
         $this->call('ProductUniversalTableSeeder');
@@ -32,8 +34,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call('PaymentTableSeeder');
         $this->call('ShipmentTableSeeder');
-        
-        $this->call('StoreSettingTableSeeder');
 
         Model::reguard();
     }
