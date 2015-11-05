@@ -194,13 +194,13 @@ class Transaction extends Eloquent
 					->selectraw('transactions.*')
 					->selectraw("
 						sum(IFNULL((SELECT sum((price - discount) * quantity) FROM transaction_details WHERE transaction_details.transaction_id = transactions.id and transaction_details.deleted_at is null),0)
-						+ IFNULL((SELECT amount FROM point_logs WHERE point_logs.reference_id = transactions.id and point_logs.deleted_at is null and point_logs.reference_type like '%Transaction%' and point_logs.amount < 0),0)
+						+ IFNULL((SELECT sum(amount) FROM point_logs WHERE point_logs.reference_id = transactions.id and point_logs.deleted_at is null and point_logs.reference_type like '%Transaction%' and point_logs.amount < 0),0)
 						+ transactions.shipping_cost - transactions.voucher_discount - transactions.unique_number
 						) as total_paid
 					")
 					->havingraw("
 						sum(IFNULL((SELECT sum((price - discount) * quantity) FROM transaction_details WHERE transaction_details.transaction_id = transactions.id and transaction_details.deleted_at is null),0)
-						+ IFNULL((SELECT amount FROM point_logs WHERE point_logs.reference_id = transactions.id and point_logs.deleted_at is null and point_logs.reference_type like '%Transaction%' and point_logs.amount < 0),0)
+						+ IFNULL((SELECT sum(amount) FROM point_logs WHERE point_logs.reference_id = transactions.id and point_logs.deleted_at is null and point_logs.reference_type like '%Transaction%' and point_logs.amount < 0),0)
 						+ transactions.shipping_cost - transactions.voucher_discount - transactions.unique_number
 						)  =  
 					 ".$variable)

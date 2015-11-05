@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\Address;
 use App\Models\Shipment;
+use App\Models\Voucher;
 use App\Jobs\ChangeStatus;
 
 use Illuminate\Support\MessageBag;
@@ -175,6 +176,8 @@ class TransactionController extends baseController
 			$data 							= new Transaction;
 		}
 
+		$errors 							= new MessageBag();
+
 		switch (strtolower($inputs['type'])) 
 		{
 			case 'buy':
@@ -184,7 +187,26 @@ class TransactionController extends baseController
 					]);
 				break;
 			default:
+				if(Input::has('voucher_code'))
+				{
+					$vouchers 				= Voucher::code(Input::get('voucher_code'))->first();
+
+					if(!$vouchers)
+					{
+						$errors->add('Transaction', 'Kode voucher tidak terdaftar.');
+					}
+					else
+					{
+						$voucher 			= $vouchers->id;
+					}
+				}
+				else
+				{
+					$voucher 				= 0;
+				}
+
 				$data->fill([
+					'voucher_id'			=> $voucher,
 					'user_id'				=> $inputs['customer'],
 					'type'					=> 'sell',
 					]);
@@ -192,8 +214,6 @@ class TransactionController extends baseController
 		}
 
 		DB::beginTransaction();
-
-		$errors 							= new MessageBag();
 
 		//Clean Prev Transaction
 		if($id)

@@ -108,7 +108,7 @@
 						<tr>
 							<td colspan="5"></td>
 							<td><strong>Potongan Point</strong></td>
-							<td>@money_indo(($transaction['amount']) - $discount_point)</td>
+							<td>@money_indo($discount_point - ($transaction['amount']))</td>
 						</tr>
 						<tr>
 							<td colspan="5"></td>
