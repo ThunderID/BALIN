@@ -12,6 +12,8 @@ use App\Models\StoreSetting;
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
 
+use Exception;
+
 class DebitPoint extends Job implements SelfHandling
 {
     protected $transaction;
@@ -24,28 +26,26 @@ class DebitPoint extends Job implements SelfHandling
 
     public function handle()
     {
-        if(is_null($this->transaction->id))
+        if(!is_null($this->transaction->id))
         {
-            throw new Exception('Sent variable must be object of a record.');
-        }
+            $expired                    = StoreSetting::type('voucher_point_expired')->Ondate('now')->first();
 
-        $expired                    = StoreSetting::type('voucher_point_expired')->Ondate('now')->first();
-
-        if($expired)
-        {
-            $point                  = new PointLog;
-            $point->fill([
-                    'user_id'       => $this->transaction->user_id,
-                    'amount'        => $this->debit,
-                    'expired_at'    => date('Y-m-d H:i:s', strtotime($this->transaction->transact_at.' '.$expired->value)),
-                    'notes'         => 'Bonus Belanja dengan Voucher ',
-                ]);
-
-            $point->reference()->associate($this->transaction);
-
-            if(!$point->save())
+            if($expired)
             {
-                return new JSend('error', (array)$this->transaction, $point->getError());
+                $point                  = new PointLog;
+                $point->fill([
+                        'user_id'       => $this->transaction->user_id,
+                        'amount'        => $this->debit,
+                        'expired_at'    => date('Y-m-d H:i:s', strtotime($this->transaction->transact_at.' '.$expired->value)),
+                        'notes'         => 'Bonus Belanja dengan Voucher ',
+                    ]);
+
+                $point->reference()->associate($this->transaction);
+
+                if(!$point->save())
+                {
+                    return new JSend('error', (array)$this->transaction, $point->getError());
+                }
             }
         }
 
