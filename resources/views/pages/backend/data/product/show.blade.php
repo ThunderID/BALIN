@@ -60,11 +60,7 @@
 		<div class="col-md-2">
 			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
-					@if(isset($product->stocks[0]))
-						{!! $product->stocks[0]->current_stock !!}
-					@else
-						0
-					@endif
+					{!! $product->stock !!}
 				</div>
 				<div class="panel-heading">Stok Display</div>
 			</div>

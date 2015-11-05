@@ -12,7 +12,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Libraries\JSend;
 
-class SendDeliveredEmail extends Job implements SelfHandling
+class SendCanceledEmail extends Job implements SelfHandling
 {
     use DispatchesJobs, ValidatesRequests;
 
@@ -47,14 +47,14 @@ class SendDeliveredEmail extends Job implements SelfHandling
             $infos[$value->type]    = $value->value;
         }
 
-        $datas          = ['delivered' => $transaction, 'balin' => $infos];
+        $datas          = ['canceled' => $transaction, 'balin' => $infos];
 
         $mail_data      = [
-                            'view'          => 'emails.delivered', 
+                            'view'          => 'emails.canceled', 
                             'datas'         => $datas,
                             'dest_email'    => $transaction['user']['email'], 
                             'dest_name'     => $transaction['user']['name'], 
-                            'subject'       => 'BALIN - Delivered Order', 
+                            'subject'       => 'BALIN - Canceled Order', 
                         ];
 
         // call email send job
