@@ -14,10 +14,12 @@ class CreateProductTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('product_universal_id');
             $table->string('name');
-            $table->string('code')->unique();
+            $table->string('sku')->unique();
             $table->string('slug')->unique();
-            $table->enum('tag', ['sku', 'upc']);
+            $table->string('color');
+            $table->string('size');
             $table->text('description');
             $table->timestamps();
             $table->softDeletes();

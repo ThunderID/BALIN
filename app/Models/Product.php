@@ -40,10 +40,12 @@ class Product extends Eloquent
 	 */
 
 	protected $fillable				=	[
+											'product_universal_id'			,				,
 											'name'							,
-											'sku'							,
 											'slug'							,
-											'is_new'						,
+											'sku'							,
+											'color'							,
+											'size'							,
 											'description'					,
 										];
 
@@ -63,7 +65,6 @@ class Product extends Eloquent
 											'name'							=> 'required|max:255',
 											'sku'							=> 'required|max:255',
 											'slug'							=> 'required|max:255',
-											'is_new'						=> 'boolean',
 										];
 
 	/**

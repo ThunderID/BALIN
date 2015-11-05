@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductUniversal;
 use App\Models\ProductAttribute;
 use App\Models\Image;
 use App\Models\Price;
@@ -25,6 +26,8 @@ class ProductTableSeeder extends Seeder
 		$hexs 										= ['ffcccc', 'ccccff', 'fffdcc', 'ddffcc', 'ffccfc', '000000', 'bababa', '00ffae', 'a0000a', '00fff0'];
 		$sizes 										= ['S', 'M', 'XL', 'XXL', 'XXXL'];
 		$brands 									= ['Narada', 'Danar Hadi', 'Batik Keris', 'Batik Semar', 'Irwan Tirta', 'Parang Kencana', 'Wirokuto Batik', 'Alleira Batik', 'Kencana Ungu', 'Bateeq', 'Galeri Batik Jawa', 'BALIN', 'Balin Basic'];
+		$max_pu 									= ProductUniversal::count()
+
 		try
 		{
 			foreach($categories as $key => $value)
@@ -37,9 +40,12 @@ class ProductTableSeeder extends Seeder
 					$brand 							= $brands[rand(0, count($brands)-1)];
 					$data 							= new Product;
 					$data->fill([
+						'product_universal_id'		=> rand(0, $max_pu),
 						'name'						=> $value->name.' '.$brand.' '.$color.' '.$size,
 						'code'						=> $faker->ean8,
 						'slug'						=> $faker->slug($nbWords = 3),			
+						'color'						=> $color,			
+						'size'						=> $size,			
 						// 'is_new'					=> rand(0,1),			
 						'description'				=> $faker->sentence($nbWords = 6),			
 					]);
