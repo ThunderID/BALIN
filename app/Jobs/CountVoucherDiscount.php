@@ -29,6 +29,7 @@ class CountVoucherDiscount extends Job implements SelfHandling
                     $this->transaction->voucher_discount    = $this->transaction->shipping_cost;
                 break;
                 case 'debit_point' :
+                    $result                   = $this->dispatch(new DebitPoint($this->transaction, $this->transaction->voucher->value));
                 break;
                 default :
                 break;

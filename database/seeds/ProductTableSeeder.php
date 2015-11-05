@@ -102,7 +102,7 @@ class ProductTableSeeder extends Seeder
 									'image_xs'			=> 'http://placehold.it/150x200/'.$hex.'/000000',
 									'image_sm'			=> 'http://placehold.it/300x400/'.$hex.'/000000',
 									'image_md'			=> 'http://placehold.it/450x600/'.$hex.'/000000',
-									'image_l'			=> 'http://placehold.it/600x800/'.$hex.'/000000',
+									'image_lg'			=> 'http://placehold.it/600x800/'.$hex.'/000000',
 									// 'published_at'		=> date('Y-m-d H:i:s'),
 							]);
 							if (!$image->save())
