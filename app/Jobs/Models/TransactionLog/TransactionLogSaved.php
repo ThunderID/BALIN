@@ -19,6 +19,7 @@ use App\Jobs\SendBillingEmail;
 use App\Jobs\SendPaymentEmail;
 use App\Jobs\SendShipmentEmail;
 use App\Jobs\SendDeliveredEmail;
+use App\Jobs\SendCanceledEmail;
 
 class TransactionLogSaved extends Job implements SelfHandling
 {
@@ -42,7 +43,6 @@ class TransactionLogSaved extends Job implements SelfHandling
 
         if($this->transactionlog->transaction->type=='sell')
         {
-
             switch($this->transactionlog->status)
             {
                 case 'wait' :

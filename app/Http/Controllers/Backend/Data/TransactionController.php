@@ -317,7 +317,7 @@ class TransactionController extends baseController
 											];
 		}
 
-		$transaction 					= Transaction::type($subnav_active)->id($id)->first();
+		$transaction 					= Transaction::type($subnav_active)->id($id)->with(['transactiondetails', 'transactiondetails.product'])->first();
 		
 		if(!$transaction)
 		{
@@ -328,11 +328,9 @@ class TransactionController extends baseController
 
 		$this->layout->page 					= view('pages.backend.data.transaction.'.$subnav_active.'show')
 													->with('WT_pagetitle', $title)
-													->with('WT_pageSubTitle','Index')
+													->with('WT_pageSubTitle',$transaction->ref_number)
 													->with('WB_breadcrumbs', $breadcrumb)
-													->with('searchResult', $searchResult)
 													->with('transaction', $transaction)
-													->with('filters', $filters)
 													->with('nav_active', 'data')
 													->with('subnav_active', $subnav_active)
 													;
@@ -360,19 +358,39 @@ class TransactionController extends baseController
 			DB::commit();
 
 			return Redirect::route('backend.data.transaction.index', ['type' => Input::get('type')])
-				->with('msg', 'Transaction telah dihapus')
+				->with('msg', 'Transaksi telah dihapus')
 				->with('msg-type','success');
 		}
 	}
 
 	public function getTransactionByAmount()
 	{
-		$inputs 			= Input::only('name');
-		$tmp 				= Transaction::amount($inputs['name'])
-								->status('wait')
-								->type('sell')
-								->with(['user'])
-								->get();
+		$inputs 						= Input::only('name');
+
+		$tmp 							= Transaction::amount($inputs['name'])
+											->status('wait')
+											->type('sell')
+											->with(['user'])
+											->get();
+
 		return json_decode(json_encode($tmp));
+	}
+
+	public function ChangeStatus($id = null)
+	{
+		$transaction 					= Transaction::findorfail($id);
+
+		$result                         = $this->dispatch(new ChangeStatus($transaction, strtolower(Input::get('status'))));
+
+		if($result->getStatus()=='success')
+		{
+			return Redirect::back()
+					->with('msg', 'Data transaksi #'.$transaction->ref_number. ' sudah disimpan')
+					->with('msg-type','success');
+		}
+
+		return Redirect::back()
+				->withErrors($result->getErrorMessage())
+				->with('msg-type','danger');
 	}
 }
