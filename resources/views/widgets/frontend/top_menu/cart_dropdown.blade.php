@@ -25,10 +25,8 @@
     <li>
         <div class="row">
             <div class="col-xs-12 text-center" style=" ">
-                <a href="{{ URL::route('frontend.cart.index') }}" class="btn-hollow btn-hollow-sm hollow-black">Show Cart</a>                                   
-                <button type="button" class="btn-hollow hollow-black btn-hollow-sm">
-                    Checkout
-                </button>   
+                <a href="{{ URL::route('frontend.cart.index') }}" class="btn-hollow btn-hollow-sm hollow-black">Show Cart</a>
+                <a href="#" class="btn-hollow btn-hollow-sm hollow-black">Checkout</a>
             </div>
         </div>
     </li>                                                                    
