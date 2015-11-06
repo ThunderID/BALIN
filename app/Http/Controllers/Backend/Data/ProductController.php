@@ -98,10 +98,14 @@ class ProductController extends baseController
 
 	public function show($uid = null, $id = null)
 	{
+		$pu												= ProductUniversal::findorfail($uid);								
+
 		$product 										= Product::findorfail($id);
 
-		$breadcrumb										= 	[	'Data Produk' 	=> route('backend.data.product.index'),
-																$product->name	=> route('backend.data.product.show', $id),
+
+		$breadcrumb										= 	[	'Data Produk' 			=> route('backend.data.productuniversal.index'),
+																$pu['name']				=> route('backend.data.productuniversal.show', ['uid' => $pu['id'] ]),
+																$product['name']		=> route('backend.data.product.show', ['uid' => $pu['id'], 'id' => $id]),
 															];
 
 		if ($search = Input::get('q'))
@@ -129,7 +133,7 @@ class ProductController extends baseController
 
 	public function store($uid = null, $id = null)
 	{
-		$inputs 										= Input::only('category','name','sku','description');
+		$inputs 										= Input::only('category','name','sku','description','color','size');
 
 		if($id)
 		{
@@ -144,6 +148,8 @@ class ProductController extends baseController
 
 		$data->fill([
 			'name' 										=> $inputs['name'],
+			'color' 									=> $inputs['color'],
+			'size' 										=> $inputs['size'],
 			'sku' 										=> $inputs['sku'],
 			'slug' 										=> Str::slug($inputs['name'] . $inputs['sku']),
 			'description' 								=> $inputs['description'],
@@ -199,7 +205,7 @@ class ProductController extends baseController
 		{
 			DB::rollback();
 			
-			return Redirect::route('backend.data.product.index')
+			return Redirect::back()
 					->withErrors($errors)
 					->with('msg-type', 'danger')
 					;
