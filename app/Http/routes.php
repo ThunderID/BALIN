@@ -196,29 +196,34 @@ Route::get('report', ['uses' => 'backend\\reportController@index', 'as' => 'back
 Route::get('/', ['as' => 'frontend.index', function(){ return Redirect::route('frontend.home.index'); }]);
 
 Route::group(['namespace' => 'Frontend\\'], function() {
-	Route::post('do-login',				['uses' => 'authController@doLogin', 'as' => 'frontend.dologin']);
-	Route::get('do-logout',				['uses' => 'authController@doLogout', 'as' => 'frontend.dologout']);
+	Route::post('do-login',					['uses' => 'AuthController@doLogin', 'as' => 'frontend.dologin']);
+	Route::get('do-logout',					['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
 
-	Route::get('home', 					['uses' => 'homeController@index', 'as' => 'frontend.home.index']);
+	Route::get('home', 						['uses' => 'HomeController@index', 'as' => 'frontend.home.index']);
 
-	Route::get('products', 				['uses' => 'productController@index', 'as' => 'frontend.product.index']);
-	Route::get('products/{id}/detail', 	['uses' => 'productController@show', 'as' => 'frontend.product.show']);
+	Route::get('products', 					['uses' => 'ProductController@index', 'as' => 'frontend.product.index']);
+	Route::get('products/{id}/detail', 	['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
 
-	Route::get('join', 					['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
-	Route::get('whyJoin', 				['uses' => 'whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
+	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
+	Route::get('whyJoin', 					['uses' => 'whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
 	
-	Route::get('cart', 					['uses' => 'cartController@index', 'as' => 'frontend.cart.index']);
-	Route::post('addtocart', 			['uses' => 'cartController@store', 'as' => 'frontend.cart.store']);
-	Route::get('removetocart', 			['uses' => 'cartController@destroy', 'as' => 'frontend.cart.destroy']);
+	Route::get('cart', 						['uses' => 'CartController@index', 'as' => 'frontend.cart.index']);
+	Route::post('addtocart', 				['uses' => 'CartController@store', 'as' => 'frontend.cart.store']);
+	Route::get('removetocart', 			['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
 
-	Route::get('profile', 				['uses' => 'profileController@index', 'as' => 'frontend.profile.index']);
+	Route::get('profile', 					['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);
+	Route::post('do-sign-up',				['uses' => 'UserController@store', 'as' => 'frontend.user.store']);
 
 	Route::group(['prefix' => 'profile'], function() 
 	{
-		Route::get('membership-detail', 		['uses' => 'profileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
-		Route::get('change-password', 			['uses' => 'profileController@changePassword', 'as' => 'frontend.profile.changePassword']);
-		Route::get('change-rofile', 			['uses' => 'profileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
+		Route::get('membership-detail', 		['uses' => 'ProfileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
+		Route::get('change-password', 		['uses' => 'ProfileController@changePassword', 'as' => 'frontend.profile.changePassword']);
+		Route::get('change-rofile', 			['uses' => 'ProfileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
 	});
+	
+	Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
+	Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
+	Route::get('/c', 													['uses' => 'HomeController@index', 		'as' => 'balin.claim.voucher']);
 	
 });
 
@@ -230,9 +235,6 @@ Route::get('testcookie', ['uses' => 'Frontend\\productController@removeFromCart'
 Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error']);
 Route::get('test/email', ['uses' => 'testController@testEmail', 'as' => 'test.email']);
 
-Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
-Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
-Route::get('/c', 													['uses' => 'HomeController@index', 		'as' => 'balin.claim.voucher']);
 
 // Route::get('cookieset', function()
 // {
