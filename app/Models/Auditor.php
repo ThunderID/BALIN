@@ -16,8 +16,7 @@ class Auditor extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\hasMany\HasTransactionsTrait;
-	use \App\Models\Traits\morphMany\HasAddressesTrait;
+	use \App\Models\Traits\morphTo\HasTableTrait;
 
 
 	/**

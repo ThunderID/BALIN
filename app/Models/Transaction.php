@@ -162,6 +162,16 @@ class Transaction extends Eloquent
 		return 	$query->where('id', $variable);
 	}
 
+	public function scopeNotID($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereNotIn('id', $variable);
+		}
+
+		return 	$query->where('id', '<>', $variable);
+	}
+
 	public function scopeType($query, $variable)
 	{
 		if(is_array($variable))

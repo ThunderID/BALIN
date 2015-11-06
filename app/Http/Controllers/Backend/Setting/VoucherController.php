@@ -144,8 +144,8 @@ class VoucherController extends baseController
 			$data										= new Voucher;
 		}
 
-		$started_at 									= Carbon::createFromFormat('Y-m-d', $inputs['started_at'])->format('Y-m-d H:i:s');
-		$expired_at 									= Carbon::createFromFormat('Y-m-d', $inputs['expired_at'])->format('Y-m-d H:i:s');
+		$started_at 									= Carbon::createFromFormat('Y-m-d H:i', $inputs['started_at'])->format('Y-m-d H:i:s');
+		$expired_at 									= Carbon::createFromFormat('Y-m-d H:i', $inputs['expired_at'])->format('Y-m-d H:i:s');
 
 		$data->fill([
 			'code' 										=> $inputs['code'],

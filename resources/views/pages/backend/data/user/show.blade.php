@@ -145,7 +145,10 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-list">
-				<div class="panel-heading">Buku Tabungan</div>
+				<div class="panel-heading">
+					Buku Tabungan&nbsp;&nbsp;&nbsp;
+					<a href="{{route('backend.data.pointlog.create', $customer['id'])}}" class="btn btn-xs btn-primary text-right">+ Point</a>
+				</div>
 				<div class="panel-body">
 					<table class="table table-bordered table-hover table-striped">
 						<thead>

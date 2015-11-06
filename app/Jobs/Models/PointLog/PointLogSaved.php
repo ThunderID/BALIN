@@ -5,11 +5,12 @@ namespace App\Jobs\Models\PointLog;
 use App\Jobs\Job;
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
-
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use App\Models\User;
 use App\Models\PointLog;
+
+use App\Jobs\Auditors\SaveAuditPoint;
 
 class PointLogSaved extends Job implements SelfHandling
 {
@@ -50,6 +51,11 @@ class PointLogSaved extends Job implements SelfHandling
         else
         {
             $result                     = new JSend('success', (array)$this->pointlog);
+        }
+
+        if($result->getStatus()=='success')
+        {
+            $result                     = $this->dispatch(new SaveAuditPoint($this->pointlog));
         }
 
         return $result;

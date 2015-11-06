@@ -113,7 +113,6 @@ class PolicyController extends baseController
 
 					if(!$data->save())
 					{
-						dd($data);
 						$errors->add('Store', $data->getError());
 					}
 		        }
