@@ -52,6 +52,28 @@
 			</div>                                         
 		</div>
 		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="color">Warna</label>
+					{!! Form::text('color', $data['color'], [
+								'class'         => 'form-control', 
+								'tabindex'      => '3', 
+								'placeholder'   => 'Masukkan warna'
+					]) !!}
+				</div>  
+			</div> 
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="size">Ukuran</label>
+					{!! Form::text('size', $data['size'], [
+								'class'         => 'form-control', 
+								'placeholder'   => 'Masukkan ukuran',
+								'tabindex'      => '4', 
+					]) !!}
+				</div>
+			</div>                                         
+		</div>		
+		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="description">Deskripsi Produk</label>
@@ -59,7 +81,7 @@
 								'class'         => 'summernote form-control', 
 								'placeholder'   => 'Masukkan deskripsi',
 								'rows'          => '2',
-								'tabindex'      => '3',
+								'tabindex'      => '5',
 								'style'         => 'resize:none;',
 					]) !!}
 				</div>            
@@ -79,7 +101,7 @@
 					<label for="category">Kategori</label>
 					{!! Form::text('category', null, [
 								'class'         => 'select-category', 
-								'tabindex'      => '4',
+								'tabindex'      => '6',
 								'id'            => 'find_category',
 								'style'         => 'width:100%',
 					]) !!}
@@ -100,7 +122,7 @@
 					<label for="category">Harga</label>
 					{!! Form::text('price', $price, [
 								'class'        		=> 'form-control money', 
-								'tabindex'     		=> '5', 
+								'tabindex'     		=> '7', 
 								'placeholder'  		=> 'harga',
 					]) !!}
 				</div>  
@@ -110,7 +132,7 @@
 					<label for="category">Harga Promo</label>
 					{!! Form::text('promo_price', $promo_price, [
 								'class'         => 'form-control money', 
-								'tabindex'      => '6', 
+								'tabindex'      => '8', 
 								'placeholder'   => 'harga promo (kosongkan bila tidak ada harga promo)'
 					]) !!}
 				</div>  
@@ -120,7 +142,7 @@
 					<label for="category">Mulai</label>
 					{!! Form::text('started_at', $date, [
 								'class'         => 'form-control date-time-format',
-								'tabindex'      => '7', 
+								'tabindex'      => '9', 
 								'placeholder'   => 'Y-m-d H:i:s'
 					]) !!}
 				</div>  
@@ -130,7 +152,7 @@
 					<label for="category">Label</label>
 					{!! Form::text('label', $data['label'], [
 								'class'         => 'form-control', 
-								'tabindex'      => '8', 
+								'tabindex'      => '10', 
 								'placeholder'   => 'Label'
 					]) !!}
 				</div>  
