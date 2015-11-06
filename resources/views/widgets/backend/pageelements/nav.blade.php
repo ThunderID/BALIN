@@ -78,8 +78,8 @@
 					<li class="@if($subnav_active=='downline') active @endif">
 						<a href="{{ route('backend.report.customer.downline') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Dengan Downline Terbanyak</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Dengan Point Terbanyak</span></a>
+					<li class="@if($subnav_active=='balance') active @endif">
+						<a href="{{ route('backend.report.customer.balance') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Dengan Point Terbanyak</span></a>
 					</li>
 					<li class="@if($subnav_active=='customermostbuy') active @endif">
 						<a href="{{ route('backend.report.customer.mostbuy') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Paling Banyak Belanja</span></a>

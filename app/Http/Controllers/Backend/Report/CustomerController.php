@@ -103,4 +103,33 @@ class CustomerController extends baseController
 
 		return $this->layout;		
 	}
+
+	public function balance()
+	{		
+		$breadcrumb								= 	[
+														'Laporan Balance Kostumer' 	=> route('backend.report.customer.balance')
+													];
+
+		$filters 								= ['balance' => 'today'];
+
+		if(Input::has('q'))
+		{
+			$filters 							= ['balance' => Input::get('q')];
+		}
+
+		$searchResult							= NULL;
+
+		$this->layout->page 					= view('pages.backend.report.market.balance')
+													->with('WT_pagetitle', $this->view_name )
+													->with('WT_pageSubTitle','Kostumer')
+													->with('WB_breadcrumbs', $breadcrumb)
+													->with('searchResult', $searchResult)
+													->with('filters', $filters)
+													->with('nav_active', 'market')
+													->with('subnav_active', 'balance')
+													;
+
+		return $this->layout;		
+	}
+
 }

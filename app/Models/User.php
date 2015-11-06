@@ -233,4 +233,14 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	{
 		return 	$query->where('referral_code', $variable);
 	}
+
+	public function scopeBalance($query, $variable)
+	{
+		$expired 				= date('Y-m-d H:i:s', strtotime($variable));
+
+		return 	$query->selectraw('users.*')
+						->selectraw('(SELECT sum(amount) from point_logs where point_logs.user_id = users.id and users.deleted_at is null and expired_at <= "'.$expired.'") as total_balance')
+						->orderby('total_balance', 'desc')
+						;
+	}
 }

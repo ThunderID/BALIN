@@ -180,6 +180,12 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		Route::any('downlines',											['uses' => 'CustomerController@downline', 'as' => 'backend.report.customer.downline']);
 	
 		// ------------------------------------------------------------------------------------
+		// MARKET - MOST BALANCE
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('balances',											['uses' => 'CustomerController@balance', 'as' => 'backend.report.customer.balance']);
+
+		// ------------------------------------------------------------------------------------
 		// MARKET - MOST CUSTOMER
 		// ------------------------------------------------------------------------------------
 		
