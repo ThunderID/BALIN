@@ -13,6 +13,7 @@ use App\Models\Transaction;
 
 use App\Jobs\CreditPoint;
 use App\Jobs\RevertPoint;
+use App\Jobs\SaveAuditor;
 use App\Jobs\AddQuotaForUpline;
 use App\Jobs\AddPointForUpline;
 use App\Jobs\SendBillingEmail;
@@ -20,6 +21,12 @@ use App\Jobs\SendPaymentEmail;
 use App\Jobs\SendShipmentEmail;
 use App\Jobs\SendDeliveredEmail;
 use App\Jobs\SendCanceledEmail;
+
+use App\Jobs\Auditors\SaveAuditAbandonCart;
+use App\Jobs\Auditors\SaveAuditPayment;
+use App\Jobs\Auditors\SaveAuditShipment;
+use App\Jobs\Auditors\SaveAuditCanceled;
+use App\Jobs\Auditors\SaveAuditDelivered;
 
 class TransactionLogSaved extends Job implements SelfHandling
 {
@@ -45,6 +52,9 @@ class TransactionLogSaved extends Job implements SelfHandling
         {
             switch($this->transactionlog->status)
             {
+                case 'cart' :
+                    $result                     = $this->dispatch(new SaveAuditAbandonCart($this->transactionlog->transaction));
+                break;
                 case 'wait' :
                     $result                     = $this->dispatch(new CreditPoint($this->transactionlog->transaction));
                     if($result->getStatus()=='success')
@@ -70,18 +80,34 @@ class TransactionLogSaved extends Job implements SelfHandling
                     {
                         $result                 = $this->dispatch(new SendPaymentEmail($this->transactionlog->transaction));
                     }
+                    if($result->getStatus()=='success')
+                    {
+                        $result                 = $this->dispatch(new SaveAuditPayment($this->transactionlog->transaction));
+                    }
                 break;
                 case 'shipping' :
                     $result                     = $this->dispatch(new SendShipmentEmail($this->transactionlog->transaction));
+                    if($result->getStatus()=='success')
+                    {
+                        $result                 = $this->dispatch(new SaveAuditShipment($this->transactionlog->transaction));
+                    }
                 break;
                 case 'delivered' :
                     $result                     = $this->dispatch(new SendDeliveredEmail($this->transactionlog->transaction));
+                    if($result->getStatus()=='success')
+                    {
+                        $result                 = $this->dispatch(new SaveAuditDelivered($this->transactionlog->transaction));
+                    }
                 break;
                 case 'canceled' :
                     $result                     = $this->dispatch(new RevertPoint($this->transactionlog->transaction));
                     if($result->getStatus()=='success')
                     {
                         $result                 = $this->dispatch(new SendCanceledEmail($this->transactionlog->transaction));
+                    }
+                    if($result->getStatus()=='success')
+                    {
+                        $result                 = $this->dispatch(new SaveAuditCanceled($this->transactionlog->transaction));
                     }
                 break;
                 default :

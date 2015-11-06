@@ -105,6 +105,8 @@
 		<div class="col-md-8">
 			<h2 style="margin-top:0px;">{!!$product->name!!}</h2>
 			<h5><strong>SKU</strong> {!!$product->sku!!}</h5>
+			<h5><strong>Warna</strong> {{$product->color}} </h5>
+			<h5><strong>Ukuran</strong> {{$product->size}} </h5>
 			<h5>
 				<strong>Harga</strong> 
 				@if($product->discount!=0)
@@ -113,12 +115,10 @@
 				@else 
 					@money_indo($product->price)
 				@endif 
-				<span>[ <a href="{{ route('backend.data.product.price.index', ['product_id' => $product['id']]) }}">Histori Harga</a> ]</span>
+				<span>[ <a href="{{ route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $product['id']]) }}">Histori Harga</a> ]</span>
 			</h5> 
 			<h5><strong>Diskon</strong> @money_indo($product->discount)</h5>
-			@if($product->is_new)
-				<label class="label label-danger">New</label><br/>
-			@endif
+
 			<br/>
 			<i class = "fa fa-tags"></i>
 			@foreach($product->categories as $key => $value)

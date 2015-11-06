@@ -1,6 +1,11 @@
 {!! HTML::script('Balin/admin/plugin/input-mask/jquery.mask.min.js') !!}
 
 <script>
-	$('.money').mask('000.000.000.000.000', {reverse: true});
-	$('.date_time').mask('00/00/0000 00:00:00');
+	$(".money").inputmask({ rightAlign: false, alias: "numeric", prefix: 'Rp ', radixPoint: '', placeholder: "", autoGroup: !0, digitsOptional: !1, groupSeparator: '.', groupSize: 3, repeat: 15 });              
+	$(".money-right").inputmask({ rightAlign: true, alias: "numeric", prefix: 'Rp ', radixPoint: '', placeholder: "", autoGroup: !0, digitsOptional: !1, groupSeparator: '.', groupSize: 3, repeat: 15 });              
+	$(".date-time-format").inputmask({
+        mask: "d-m-y h:s",
+        placeholder: "dd-mm-yyyy hh:mm",
+        alias: "datetime",
+    }); 
 </script>

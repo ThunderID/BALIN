@@ -1,66 +1,87 @@
 @inject('data', 'App\Models\Product')
 <?php 
-		$data = $data::where('id', $id)
-							->with('categories')
-							->first(); 
+	$data 			= $data::where('id', $id)->with('categories')->first();
+	$date 			= null;
+	$price	 		= null;
+	$promo_price 	= null;
 ?>
+
+@if($data)
+	<?php 
+		$date 			= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->startedAt)->format('d-m-Y H:i'); 
+		$price 			= $data->price;
+		$promo_price	= $data->promoprice;
+	?>
+@endif	
+
 @extends('template.backend.layout') 
 
 @section('content')
 	@if(!is_null($id))
-		{!! Form::open(['url' => route('backend.data.product.update', $id), 'method' => 'PATCH']) !!}
+		{!! Form::open(['url' => route('backend.data.product.update', ['uid' => $uid, 'id' => $id] ), 'method' => 'PATCH']) !!}
 	@else
-		{!! Form::open(['url' => route('backend.data.product.store'), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
+		{!! Form::open(['url' => route('backend.data.product.store', ['uid' => $uid] ), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
 	@endif
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Produk
+					Varian
 				</h4>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="name">Nama Produk</label>
+					<label for="name">Nama Varian Produk</label>
 					{!! Form::text('name', $data['name'], [
 								'class'         => 'form-control', 
-								
 								'tabindex'      => '1', 
-								'placeholder'   => 'Masukkan nama produk'
+								'placeholder'   => 'Masukkan nama varian produk'
 					]) !!}
 				</div>  
 			</div> 
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="sku">SKU Produk</label>
+					<label for="sku">SKU</label>
 					{!! Form::text('sku', $data['sku'], [
 								'class'         => 'form-control', 
-								
-								'placeholder'   => 'Masukkan kode SKU produk',
+								'placeholder'   => 'Masukkan kode SKU',
 								'tabindex'      => '2', 
 					]) !!}
 				</div>
 			</div>                                         
 		</div>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="form-group">
-					<label for="">Baru</label>
-					{!! Form::select('is_new', ['1' => 'Ya', '0' => 'Tidak'], null, ['class' => 'form-control']) !!}
+					<label for="color">Warna</label>
+					{!! Form::text('color', $data['color'], [
+								'class'         => 'form-control', 
+								'tabindex'      => '3', 
+								'placeholder'   => 'Masukkan warna'
+					]) !!}
+				</div>  
+			</div> 
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="size">Ukuran</label>
+					{!! Form::text('size', $data['size'], [
+								'class'         => 'form-control', 
+								'placeholder'   => 'Masukkan ukuran',
+								'tabindex'      => '4', 
+					]) !!}
 				</div>
-			</div>
-		</div>
+			</div>                                         
+		</div>		
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="description">Deskripsi Produk</label>
 					{!! Form::textarea('description', $data['description'], [
-								'class'         => 'summernote', 
-								
-								'placeholder'   => 'Masukkan deskripsi produk',
+								'class'         => 'summernote form-control', 
+								'placeholder'   => 'Masukkan deskripsi',
 								'rows'          => '2',
-								'tabindex'      => '3',
+								'tabindex'      => '5',
 								'style'         => 'resize:none;',
 					]) !!}
 				</div>            
@@ -70,7 +91,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Kategori Produk
+					Kategori
 				</h4>
 			</div>
 		</div>
@@ -80,7 +101,7 @@
 					<label for="category">Kategori</label>
 					{!! Form::text('category', null, [
 								'class'         => 'select-category', 
-								'tabindex'      => '4',
+								'tabindex'      => '6',
 								'id'            => 'find_category',
 								'style'         => 'width:100%',
 					]) !!}
@@ -91,7 +112,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Harga Produk
+					Harga
 				</h4>
 			</div>
 		</div>
@@ -99,9 +120,9 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="category">Harga</label>
-					{!! Form::text('price', $data['price'], [
+					{!! Form::text('price', $price, [
 								'class'        		=> 'form-control money', 
-								'tabindex'     		=> '5', 
+								'tabindex'     		=> '7', 
 								'placeholder'  		=> 'harga',
 					]) !!}
 				</div>  
@@ -109,39 +130,31 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="category">Harga Promo</label>
-					{!! Form::text('promo_price', $data['promo_price'], [
+					{!! Form::text('promo_price', $promo_price, [
 								'class'         => 'form-control money', 
-								'tabindex'      => '6', 
+								'tabindex'      => '8', 
 								'placeholder'   => 'harga promo (kosongkan bila tidak ada harga promo)'
 					]) !!}
 				</div>  
-			</div> 
+			</div> 		
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="category">Mulai</label>
-					{!! Form::text('started_at', $data['started_at'], [
-								'class'         => 'form-control',
-								'tabindex'      => '7', 
+					{!! Form::text('started_at', $date, [
+								'class'         => 'form-control date-time-format',
+								'tabindex'      => '9', 
 								'placeholder'   => 'Y-m-d H:i:s'
 					]) !!}
 				</div>  
 			</div> 
 			<div class="col-md-6">
-				<div class="form-group">
-					<label for="category">Label</label>
-					{!! Form::text('label', $data['label'], [
-								'class'         => 'form-control', 
-								'tabindex'      => '8', 
-								'placeholder'   => 'Label'
-					]) !!}
-				</div>  
 			</div> 
 		</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Gambar Produk
+					Gambar
 				</h4>
 			</div>
 		</div>
@@ -169,7 +182,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group text-right">
-					<a href="{{ URL::route('backend.data.product.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
+					<a href="{{ URL::route('backend.data.productuniversal.show', ['uid' => $uid]) }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
 					<button type="submit" class="btn btn-md btn-primary" tabindex="9">Simpan</button>
 				</div>        
 			</div>        

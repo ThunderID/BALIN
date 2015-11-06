@@ -90,7 +90,6 @@ class StoreController extends baseController
 				
 				if(!$setting->save())
 				{
-					dd($setting->getError());
 					$errors->add('Store', $setting->getError());
 				}
 			}

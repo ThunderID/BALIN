@@ -46,7 +46,9 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// PRODUCT (pending, show, delete)
 		// ------------------------------------------------------------------------------------
 
-		Route::resource('products',  	'ProductController',			['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
+		Route::resource('product',  	'ProductUniversalController',			['names' => ['index' => 'backend.data.productuniversal.index', 'create' => 'backend.data.productuniversal.create', 'store' => 'backend.data.productuniversal.store', 'show' => 'backend.data.productuniversal.show', 'edit' => 'backend.data.productuniversal.edit', 'update' => 'backend.data.productuniversal.update', 'destroy' => 'backend.data.productuniversal.destroy']]);
+
+		Route::resource('product/{uid?}/varian',  	'ProductController',		['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
 		
 		Route::any('ajax/get-product-by-name',							['uses' => 'ProductController@getProductByName', 'as' => 'backend.product.ajax.getProductByName']);
 
@@ -55,8 +57,8 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 			// ------------------------------------------------------------------------------------
 			// PRICE (pending crud)
 			// ------------------------------------------------------------------------------------
-		
-			Route::resource('prices',  		'PriceController',				['names' => ['index' => 'backend.data.product.price.index', 'create' => 'backend.data.product.price.create', 'store' => 'backend.data.product.price.store', 'show' => 'backend.data.product.price.show', 'edit' => 'backend.data.product.price.edit', 'update' => 'backend.data.product.price.update', 'destroy' => 'backend.data.product.price.destroy']]);
+
+			Route::resource('product/{uid?}/varian/{pid?}/price',  		'PriceController',				['names' => ['index' => 'backend.data.product.price.index', 'create' => 'backend.data.product.price.create', 'store' => 'backend.data.product.price.store', 'show' => 'backend.data.product.price.show', 'edit' => 'backend.data.product.price.edit', 'update' => 'backend.data.product.price.update', 'destroy' => 'backend.data.product.price.destroy']]);
 
 		});
 		// ------------------------------------------------------------------------------------
@@ -68,12 +70,17 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		Route::any('ajax/get-supplier-by-name', 						['uses' => 'SupplierController@getSupplierByName', 'as' => 'backend.supplier.ajax.getSupplierByName']);
 
 		// ------------------------------------------------------------------------------------
-		// CUSTOMER (pending, crud)
+		// CUSTOMER
 		// ------------------------------------------------------------------------------------
 
 		Route::resource('customers',  	'CustomerController',			['names' => ['index' => 'backend.data.customer.index', 'create' => 'backend.data.customer.create', 'store' => 'backend.data.customer.store', 'show' => 'backend.data.customer.show', 'edit' => 'backend.data.customer.edit', 'update' => 'backend.data.customer.update', 'destroy' => 'backend.data.customer.destroy']]);
 	
 		Route::any('ajax/get-customer-by-name',							['uses' => 'CustomerController@getCustomerByName', 'as' => 'backend.customer.ajax.getCustomerByName']);
+
+		// ------------------------------------------------------------------------------------
+		// POINTLOG
+		// ------------------------------------------------------------------------------------
+		Route::resource('users/{user_id?}/point/log', 'PointLogController',		['names' => ['index' => 'backend.data.pointlog.index', 'create' => 'backend.data.pointlog.create', 'store' => 'backend.data.pointlog.store', 'show' => 'backend.data.pointlog.show', 'edit' => 'backend.data.pointlog.edit', 'update' => 'backend.data.pointlog.update', 'destroy' => 'backend.data.pointlog.destroy']]);
 
 		// ------------------------------------------------------------------------------------
 		// TRANSACTION (pending, crud)

@@ -23,7 +23,7 @@
 						{!! Form::hidden('type['.$key.']', $value['type'], [
 									'class'			=> 'form-control'
 						]) !!}
-						@if($data)
+						@if($value)
 							<?php $date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value['started_at'])->format('d-m-Y H:i'); ?>
 						@endif
 						{!! Form::text('start['.$key.']', $date, [

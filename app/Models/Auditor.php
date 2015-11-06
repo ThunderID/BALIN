@@ -16,8 +16,7 @@ class Auditor extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\hasMany\HasTransactionsTrait;
-	use \App\Models\Traits\morphMany\HasAddressesTrait;
+	use \App\Models\Traits\morphTo\HasTableTrait;
 
 
 	/**
@@ -36,7 +35,12 @@ class Auditor extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'name'							,
+											'user_id'						,
+											'table_id'						,
+											'table_type'					,
+											'ondate'						,
+											'event'							,
+											'action'						,
 										];
 
 	/**
@@ -44,7 +48,7 @@ class Auditor extends Eloquent
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'ondate'];
 
 	/**
 	 * Basic rule of database
@@ -52,7 +56,8 @@ class Auditor extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:255',
+											'ondate'						=> 'date_format:"Y-m-d H:i:s"',
+											'event'							=> 'required',
 										];
 
 	/**
@@ -75,20 +80,6 @@ class Auditor extends Eloquent
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
-	public function getAddressAttribute()
-	{
-
-		if($this->addresses()->count())
-		{
-			$address 					= $this->addresses[0]['attributes'];
-		}
-		else
-		{
-			$address 					= NULL;
-		}
-
-		return $address;
-	}
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 
@@ -111,14 +102,9 @@ class Auditor extends Eloquent
 	{
 		if(is_array($variable))
 		{
-			return 	$query->whereIn('suppliers.id', $variable);
+			return 	$query->whereIn('auditors.id', $variable);
 		}
 
-		return 	$query->where('suppliers.id', $variable);
-	}
-	
-	public function scopeName($query, $variable)
-	{
-		return 	$query->where('name', 'like', '%'.$variable.'%');
+		return 	$query->where('auditors.id', $variable);
 	}
 }
