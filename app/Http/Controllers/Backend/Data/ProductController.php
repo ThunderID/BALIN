@@ -205,7 +205,7 @@ class ProductController extends baseController
 		{
 			DB::rollback();
 			
-			return Redirect::route('backend.data.product.index')
+			return Redirect::back()
 					->withErrors($errors)
 					->with('msg-type', 'danger')
 					;
