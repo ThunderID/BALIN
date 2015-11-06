@@ -190,7 +190,4 @@ class PriceController extends baseController
 				->with('msg-type','success');
 		}
 	}
-}	->with('msg-type','success');
-		}
-	}
 }
