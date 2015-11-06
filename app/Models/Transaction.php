@@ -218,18 +218,29 @@ class Transaction extends Eloquent
 					;
 	}
 
-	public  function scopeTransactionProcessed($query)
+	public function scopeMostBuy($query, $variable)
 	{
-		return $query
-			->where(function ($q) {
-			    $q->where('status', 'paid')
-			        ->orWhere('status',  'delivered')
-			        ->orWhere('status',  'shipped');
-				});
+		return 	$query
+				->selectraw('transactions.*')
+				->selectraw('(SELECT sum(amount) from payments where payments.transaction_id = transactions.id and payments.deleted_at is null) as total_buy')
+				->ondate($variable)
+				->type('sell')
+				->wherehas('payment', function($q)use($variable){$q;})
+				->orderby('total_buy', 'desc')
+				->groupBy('user_id')
+				;
 	}
 
-	public  function scopeTransactionWaiting($query)
+	public function scopeFrequentBuy($query, $variable)
 	{
-		return $query->where('status', 'waiting');
-	}	
+		return 	$query
+				->selectraw('transactions.*')
+				->selectraw('count(user_id) as frequent_buy')
+				->ondate($variable)
+				->type('sell')
+				->wherehas('payment', function($q)use($variable){$q;})
+				->orderby('frequent_buy', 'desc')
+				->groupBy('user_id')
+				;
+	}
 }

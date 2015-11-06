@@ -177,7 +177,19 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// MARKET - MOST DOWNLINE
 		// ------------------------------------------------------------------------------------
 		
-		Route::any('downlines',											['uses' => 'DownlineController@index', 'as' => 'backend.report.customer.downline']);
+		Route::any('downlines',											['uses' => 'CustomerController@downline', 'as' => 'backend.report.customer.downline']);
+	
+		// ------------------------------------------------------------------------------------
+		// MARKET - MOST CUSTOMER
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('most/buy/customer',									['uses' => 'CustomerController@mostbuy', 'as' => 'backend.report.customer.mostbuy']);
+
+		// ------------------------------------------------------------------------------------
+		// MARKET - FREQ CUSTOMER
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('frequent/buy/customer',								['uses' => 'CustomerController@frequentbuy', 'as' => 'backend.report.customer.frequentbuy']);
 
 		// ------------------------------------------------------------------------------------
 		// MARKET - MOST PRODUCT

@@ -79,13 +79,13 @@
 						<a href="{{ route('backend.report.customer.downline') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Dengan Downline Terbanyak</span></a>
 					</li>
 					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Paling Sering Belanja</span></a>
-					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
 						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Dengan Point Terbanyak</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Paling Banyak Belanja</span></a>
+					<li class="@if($subnav_active=='customermostbuy') active @endif">
+						<a href="{{ route('backend.report.customer.mostbuy') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Paling Banyak Belanja</span></a>
+					</li>
+					<li class="@if($subnav_active=='customerfrequentbuy') active @endif">
+						<a href="{{ route('backend.report.customer.frequentbuy') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Paling Sering Belanja</span></a>
 					</li>
 					<li class="@if($subnav_active=='productmostbuy') active @endif">
 						<a href="{{ route('backend.report.product.mostbuy') }}"><i class="fa fa-archive"></i> <span class="nav-label">Produk Paling Banyak Dibeli</span></a>
