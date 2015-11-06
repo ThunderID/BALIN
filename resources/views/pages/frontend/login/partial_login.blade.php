@@ -20,6 +20,7 @@
 										</div>
 									</div>
 								</div>
+								<div class="clearfix">&nbsp;</div>
 							</div>
 							<div class="col-md-5 col-xs-12 col-md-offset-2">
 								<div class="row panel-hollow panel-default p-xs m-t-n-xs">
@@ -32,6 +33,11 @@
 											<h3>Sign Up</h3>
 											<div class="clearfix">&nbsp;</div>
 											@include('widgets.signup')
+										</div>
+										<div class="forgot" style="display:none">
+											<h3>Lupa Password</h3>
+											<div class="clearfix">&nbsp;</div>
+											@include('widgets.forgot_password')
 										</div>
 									</div>	
 									<div class="clearfix">&nbsp;</div>

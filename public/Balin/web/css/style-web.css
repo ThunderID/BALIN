@@ -321,6 +321,12 @@ html {
 .page-header .navbar-nav.navbar-hollow ul li a:hover {
   color: #fff;
 }
+.page-header .navbar-nav.navbar-hollow ul li a.btn-hollow {
+  color: #fff;
+}
+.page-header .navbar-nav.navbar-hollow ul li a.btn-hollow:hover {
+  color: #000;
+}
 .page-header .navbar-nav.navbar-hollow ul li.active a {
   color: #fff;
 }

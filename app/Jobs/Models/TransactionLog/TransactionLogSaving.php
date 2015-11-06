@@ -5,6 +5,7 @@ namespace App\Jobs\Models\TransactionLog;
 use App\Jobs\Job;
 use App\Jobs\CheckStock;
 use App\Jobs\CheckPaid;
+use App\Jobs\CheckShipping;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -35,8 +36,26 @@ class TransactionLogSaving extends Job implements SelfHandling
                 case 'wait' :
                     $result                 = $this->dispatch(new CheckStock($this->transactionlog->transaction));
                 break;
-                case 'paid' :
+                case 'paid' : 
                     $result                 = $this->dispatch(new CheckPaid($this->transactionlog->transaction, new Payment));
+                break;
+                case 'shipping': case 'delivered' :
+                    $result                 = $this->dispatch(new CheckPaid($this->transactionlog->transaction, new Payment));
+                    if($result->getStatus()=='success')
+                    {
+                        $result             = $this->dispatch(new CheckShipping($this->transactionlog->transaction));
+                    }
+                break;
+                case 'canceled' :
+                    $result                 = $this->dispatch(new CheckPaid($this->transactionlog->transaction, new Payment));
+                    if($result->getStatus()=='success')
+                    {
+                        $result             = new JSend('error', (array)$this->transactionlog, 'Tidak dapat membatalkan transaksi yang sudah dibayar');
+                    }
+                    else
+                    {
+                        $result             = new JSend('success', (array)$this->transactionlog );
+                    }
                 break;
             }
         }

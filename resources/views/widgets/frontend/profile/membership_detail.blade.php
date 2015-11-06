@@ -1,7 +1,6 @@
-<div class="clearfix">&nbsp;</div>
 <div class="row">
 	<div class="col-md-12">
-		<h3>Membership Details</h3>
+		<h3 class="m-t-none">Membership Details</h3>
 	</div>
 </div>
 <div class="clearfix">&nbsp;</div>
@@ -11,6 +10,10 @@
 			<div class="form-group">
 				<h4>Join Date</h4>
 				<label class="text">26 May 2010</label>
+			</div>
+			<div class="form-group">
+				<h4>Refferal Code</h4>
+				<label class="text">sdfskad</label>
 			</div>
 			<div class="form-group">
 				<h4>Coupon Code</h4>

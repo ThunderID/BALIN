@@ -19,11 +19,11 @@ class CategoryUpdating extends Job implements SelfHandling
 
     public function handle()
     {
-        if(isset($this->category ->getDirty()['parent_id']) || !isset($this->category ->getDirty()['path']))
+        if(isset($this->category->getDirty()['category_id']) || !isset($this->category ->getDirty()['path']))
         {
-            if($this->category ->category()->count())
+            if($this->category->category()->count())
             {
-                $this->category ->path = $this->category ->category->path . "," . $this->category ->id;
+                $this->category->path = $this->category->category->path . "," . $this->category ->id;
             }
             else
             {
@@ -33,7 +33,7 @@ class CategoryUpdating extends Job implements SelfHandling
             if(isset($this->category ->getOriginal()['path']))
             {
                 $childs                         = Category::orderBy('path','asc')
-                                                    ->where('path','like',$this->category ->getOriginal()['path'] . ',%')
+                                                    ->where('path','like',$this->category->getOriginal()['path'] . ',%')
                                                     ->get();
                 foreach ($childs as $child) 
                 {

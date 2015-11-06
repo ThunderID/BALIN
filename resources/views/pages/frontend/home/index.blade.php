@@ -31,9 +31,16 @@
 	$('.btn-signup').click( function() {
 		$('.sign-up').show();
 		$('.sign-in').hide();
+		$('.forgot').hide();
 	});
 	$('.btn-cancel').click( function() {
 		$('.sign-up').hide();
+		$('.forgot').hide();
 		$('.sign-in').show();
+	});
+	$('.btn-forgot').click( function() {
+		$('.sign-up').hide();
+		$('.sign-in').hide();
+		$('.forgot').show();
 	});
 @stop

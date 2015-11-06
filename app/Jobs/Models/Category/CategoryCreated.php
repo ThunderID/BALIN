@@ -19,7 +19,14 @@ class CategoryCreated extends Job implements SelfHandling
 
     public function handle()
     {
-        $this->category->path           = $this->category->id;
+        if($this->category->category()->count())
+        {
+            $this->category->path           = $this->category->category->path.','.$this->category->id;
+        }
+        else
+        {
+            $this->category->path           = $this->category->id;
+        }
 
         $this->category->save();
 

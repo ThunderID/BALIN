@@ -9,8 +9,10 @@ class cartController extends baseController
 	protected $controller_name 					= 'cart';
 
 	public function index()
-	{		
-		$carts 								= null;
+	{	
+		$baskets = Cookie::get('basketss');
+	
+		$carts 									= null;
 		$this->layout->page 					= view('pages.frontend.cart.index')
 													->with('controller_name', $this->controller_name)
 													->with('carts', $carts);

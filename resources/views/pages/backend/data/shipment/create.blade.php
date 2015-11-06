@@ -11,7 +11,7 @@
     @else
         {!! Form::open(['url' => route('backend.data.shipment.store'), 'method' => 'POST']) !!}
     @endif
-        <label for="method" class="text-capitalize">Resi Pengiriman</label>
+        <label for="method" class="text-capitalize">Resi Pengiriman {{$data['transaction']['ref_number']}}</label>
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">

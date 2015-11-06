@@ -14,7 +14,7 @@
 					</button>
 					<a href="javascript:void(0);" class="hidden-sm hidden-md hidden-lg" style="color: #fff;
 					    position: absolute;
-					    right: 70px;
+					    right: 80px;
 					    top: 12px;">
 						<i class="fa fa-shopping-cart fa-2x"></i>
 						<span class="m-l-xs">

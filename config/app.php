@@ -139,6 +139,7 @@ return [
         'Illuminate\Html\HtmlServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         Barryvdh\Debugbar\ServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -200,6 +201,7 @@ return [
         'Image'     => 'Intervention\Image\Facades\Image',
         'Carbon'    => 'Carbon\Carbon',
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
