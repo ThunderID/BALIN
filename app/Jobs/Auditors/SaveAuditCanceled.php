@@ -37,6 +37,7 @@ class SaveAuditCanceled extends Job implements SelfHandling
 
             $audit->fill([
                     'user_id'               => (Auth::check() ? Auth::user()->id : '0'),
+                    'type'                  => 'transaction_canceled',
                     'ondate'                => Carbon::now()->format('Y-m-d H:i:s'),
                     'event'                 => 'Pembatalan Pesanan',
                 ]);

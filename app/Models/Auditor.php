@@ -39,6 +39,7 @@ class Auditor extends Eloquent
 											'table_id'						,
 											'table_type'					,
 											'ondate'						,
+											'type'							,
 											'event'							,
 											'action'						,
 										];

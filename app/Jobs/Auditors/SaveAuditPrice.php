@@ -44,6 +44,7 @@ class SaveAuditPrice extends Job implements SelfHandling
 
             $audit->fill([
                     'user_id'               => (Auth::check() ? Auth::user()->id : '0'),
+                    'type'                  => 'price_changed',
                     'ondate'                => Carbon::now()->format('Y-m-d H:i:s'),
                     'event'                 => 'Perubahan harga produk '.$this->price->product->name.' menjadi '.$price,
                 ]);

@@ -39,6 +39,7 @@ class SaveAuditAbandonCart extends Job implements SelfHandling
 
             $audit->fill([
                     'user_id'               => $previoustrans->user_id,
+                    'type'                  => 'abandoned_cart',
                     'ondate'                => Carbon::now()->format('Y-m-d H:i:s'),
                     'event'                 => 'Abandoned Cart',
                 ]);

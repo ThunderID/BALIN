@@ -19,6 +19,7 @@ class CreateAuditorTable extends Migration
             $table->string('table_type', 255);
             $table->date('ondate');
             $table->string('event', 255);
+            $table->string('type', 255);
             $table->text('action');
             $table->timestamps();
             $table->softDeletes();

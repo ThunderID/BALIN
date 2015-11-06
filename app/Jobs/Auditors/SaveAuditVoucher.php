@@ -35,6 +35,7 @@ class SaveAuditVoucher extends Job implements SelfHandling
 
         $audit->fill([
                 'user_id'               => (Auth::check() ? Auth::user()->id : '0'),
+                'type'                  => 'voucher_added',
                 'ondate'                => Carbon::now()->format('Y-m-d H:i:s'),
                 'event'                 => 'Pembuatan Voucher '.str_replace('_', ' ', $this->voucher->type).' sebesar '.$this->voucher->value,
             ]);

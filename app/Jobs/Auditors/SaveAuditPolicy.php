@@ -37,6 +37,7 @@ class SaveAuditPolicy extends Job implements SelfHandling
 
             $audit->fill([
                     'user_id'               => (Auth::check() ? Auth::user()->id : '0'),
+                    'type'                  => 'policy_changed',
                     'ondate'                => Carbon::now()->format('Y-m-d H:i:s'),
                     'event'                 => 'Perubahan Policy  '.str_replace('_', ' ', $this->store->type).' menjadi '.$this->store->value,
                 ]);

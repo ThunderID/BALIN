@@ -41,6 +41,7 @@ class SaveAuditDelivered extends Job implements SelfHandling
 
         $audit->fill([
                 'user_id'                   => (Auth::check() ? Auth::user()->id : '0'),
+                    'type'                  => 'transaction_delivered',
                 'ondate'                    => Carbon::now()->format('Y-m-d H:i:s'),
                 'event'                     => 'Pesanan Lengkap. Selisih waktu pengiriman hingga barang tiba : '.$difference.' hari',
             ]);
