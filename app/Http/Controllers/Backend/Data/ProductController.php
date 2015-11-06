@@ -123,6 +123,7 @@ class ProductController extends baseController
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', $searchResult)
 																		->with('id', $id)
+																		->with('uid', $uid)
 																		->with('nav_active', 'data')
 																		->with('subnav_active', 'products')
 																		->with('product', $product)

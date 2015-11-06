@@ -115,7 +115,7 @@
 				@else 
 					@money_indo($product->price)
 				@endif 
-				<span>[ <a href="{{ route('backend.data.product.price.index', ['product_id' => $product['id']]) }}">Histori Harga</a> ]</span>
+				<span>[ <a href="{{ route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $product['id']]) }}">Histori Harga</a> ]</span>
 			</h5> 
 			<h5><strong>Diskon</strong> @money_indo($product->discount)</h5>
 
