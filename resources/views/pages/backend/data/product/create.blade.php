@@ -1,43 +1,41 @@
 @inject('data', 'App\Models\Product')
 <?php 
-		$data = $data::where('id', $id)
-							->with('categories')
-							->first(); 
+		// $data = $data::where('id', $id)
+		// 					->with('categories')
+		// 					->first(); 
 ?>
 @extends('template.backend.layout') 
 
 @section('content')
 	@if(!is_null($id))
-		{!! Form::open(['url' => route('backend.data.product.update', $id), 'method' => 'PATCH']) !!}
+		{!! Form::open(['url' => route('backend.data.product.update', ['uid' => $uid, 'id' => $id] ), 'method' => 'PATCH']) !!}
 	@else
-		{!! Form::open(['url' => route('backend.data.product.store'), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
+		{!! Form::open(['url' => route('backend.data.product.store', ['uid' => $uid] ), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
 	@endif
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Produk
+					Varian
 				</h4>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="name">Nama Produk</label>
+					<label for="name">Nama Varian Produk</label>
 					{!! Form::text('name', $data['name'], [
 								'class'         => 'form-control', 
-								
 								'tabindex'      => '1', 
-								'placeholder'   => 'Masukkan nama produk'
+								'placeholder'   => 'Masukkan nama varian produk'
 					]) !!}
 				</div>  
 			</div> 
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="sku">SKU Produk</label>
+					<label for="sku">SKU</label>
 					{!! Form::text('sku', $data['sku'], [
 								'class'         => 'form-control', 
-								
-								'placeholder'   => 'Masukkan kode SKU produk',
+								'placeholder'   => 'Masukkan kode SKU',
 								'tabindex'      => '2', 
 					]) !!}
 				</div>
@@ -46,19 +44,10 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="">Baru</label>
-					{!! Form::select('is_new', ['1' => 'Ya', '0' => 'Tidak'], null, ['class' => 'form-control']) !!}
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="form-group">
 					<label for="description">Deskripsi Produk</label>
 					{!! Form::textarea('description', $data['description'], [
-								'class'         => 'summernote', 
-								
-								'placeholder'   => 'Masukkan deskripsi produk',
+								'class'         => 'summernote form-control', 
+								'placeholder'   => 'Masukkan deskripsi',
 								'rows'          => '2',
 								'tabindex'      => '3',
 								'style'         => 'resize:none;',
@@ -70,7 +59,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Kategori Produk
+					Kategori
 				</h4>
 			</div>
 		</div>
@@ -91,7 +80,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Harga Produk
+					Harga
 				</h4>
 			</div>
 		</div>
@@ -141,7 +130,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Gambar Produk
+					Gambar
 				</h4>
 			</div>
 		</div>
@@ -169,7 +158,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group text-right">
-					<a href="{{ URL::route('backend.data.product.index') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
+					<a href="{{ URL::route('backend.data.productuniversal.show', ['uid' => $uid]) }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
 					<button type="submit" class="btn btn-md btn-primary" tabindex="9">Simpan</button>
 				</div>        
 			</div>        

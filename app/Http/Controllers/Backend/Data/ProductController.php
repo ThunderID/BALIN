@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\baseController;
 use App\Models\Product;
+use App\Models\ProductUniversal;
 use App\Models\Price;
 use Illuminate\Support\MessageBag;
-use Input, Session, DB, Redirect;
+use Input, Session, DB, Redirect, Str;
 
 class ProductController extends baseController 
 {
@@ -19,8 +20,8 @@ class ProductController extends baseController
     	parent::__construct();
     }
 
-	protected $view_name 								= 'Produk';
-	
+	protected $view_name 								= 'Varian';
+
 
 	public function index()
 	{	
@@ -50,15 +51,18 @@ class ProductController extends baseController
 		return $this->layout;		
 	}
 
-	public function create($id = null)
+	public function create($uid = null, $id = null)
 	{
+		$pu												= ProductUniversal::findorfail($uid);								
+
 		if($id) 
 		{
 			$product 									= Product::findorfail($id);
 
-			$breadcrumb									= 	[	'Data Produk' 			=> route('backend.data.product.index'),
-																'Edit '	.$product->name	=> route('backend.data.product.edit', $id),
-															];
+			$breadcrumb									= 	[	'Data Produk' 			=> route('backend.data.productuniversal.index'),
+																$pu['name']				=> route('backend.data.productuniversal.show', ['uid' => $pu['id'] ]),
+																'Edit '	.$product->name	=> route('backend.data.product.create', ['uid' => $pu['id']] ),
+															];															
 
 			$title 										= 	'Edit '.$product->name;
 		}
@@ -66,8 +70,9 @@ class ProductController extends baseController
 		{
 			$product 									= new Product;
 
-			$breadcrumb									= 	[	'Data Produk' 	=> route('backend.data.product.index'),
-																'Baru' 			=> route('backend.data.product.create'),
+			$breadcrumb									= 	[	'Data Produk' 			=> route('backend.data.productuniversal.index'),
+																$pu['name']				=> route('backend.data.productuniversal.show', ['uid' => $pu['id'] ]),
+																'Varian Baru' 			=> route('backend.data.product.create', ['uid' => $pu['id']] ),
 															];
 
 			$title 										= 	'Baru';
@@ -78,6 +83,7 @@ class ProductController extends baseController
 																->with('WT_pageSubTitle', $title)		
 																->with('WB_breadcrumbs', $breadcrumb)
 																->with('id', $id)
+																->with('uid', $uid)
 																->with('nav_active', 'data')
 																->with('product', $product)
 																->with('subnav_active', 'products');
@@ -85,12 +91,12 @@ class ProductController extends baseController
 		return $this->layout;		
 	}
 
-	public function edit($id)
+	public function edit($uid, $id)
 	{
-		return $this->create($id);		
+		return $this->create($uid, $id);		
 	}
 
-	public function show($id)
+	public function show($uid = null, $id = null)
 	{
 		$product 										= Product::findorfail($id);
 
@@ -121,7 +127,7 @@ class ProductController extends baseController
 		return $this->layout;
 	}
 
-	public function store($id = null)
+	public function store($uid = null, $id = null)
 	{
 		$inputs 										= Input::only('category','name','sku','description');
 
@@ -134,12 +140,17 @@ class ProductController extends baseController
 			$data 										= new Product;	
 		}
 
+		$pu 											= ProductUniversal::findorfail($uid);
+
 		$data->fill([
 			'name' 										=> $inputs['name'],
 			'sku' 										=> $inputs['sku'],
-			'slug' 										=> $this->generateSlug(),
+			'slug' 										=> Str::slug($inputs['name'] . $inputs['sku']),
 			'description' 								=> $inputs['description'],
 		]);
+
+
+		$data->ProductUniversal()->associate($pu);
 
 		$errors 										= new MessageBag();
 
@@ -152,29 +163,29 @@ class ProductController extends baseController
 		else
 		{
 			// category
-			$categories 								= explode(',', $inputs['category']);
+			// $categories 								= explode(',', $inputs['category']);
 
-			if(!$data->categories()->sync($categories))
-			{
-				$errors->add('Product', $data->getError());
-			}
+			// if(!$data->categories()->sync($categories))
+			// {
+			// 	$errors->add('Product', $data->getError());
+			// }
 
-			if($data->price != Input::get('price') || $data->promo_price != Input::get('promo_price'))
-			{
-				$price 									= new Price;
-				$price->fill([
-					'product_id'						=> $data->id,
-					'price'								=> Input::get('price'),
-					'promo_price'						=> Input::get('promo_price'),
-					'started_at'						=> date('Y-m-d H:i:s', strtotime(Input::get('started_at'))),
-					'label'								=> Input::get('label'),
-				]);
+			// if($data->price != Input::get('price') || $data->promo_price != Input::get('promo_price'))
+			// {
+			// 	$price 									= new Price;
+			// 	$price->fill([
+			// 		'product_id'						=> $data->id,
+			// 		'price'								=> Input::get('price'),
+			// 		'promo_price'						=> Input::get('promo_price'),
+			// 		'started_at'						=> date('Y-m-d H:i:s', strtotime(Input::get('started_at'))),
+			// 		'label'								=> Input::get('label'),
+			// 	]);
 
-				if(!$price->save())
-				{
-					$errors->add('Product', $price->getError());
-				}
-			}
+			// 	if(!$price->save())
+			// 	{
+			// 		$errors->add('Product', $price->getError());
+			// 	}
+			// }
 
 			//save image
 			//ref. producttableseeder line 114
@@ -182,7 +193,7 @@ class ProductController extends baseController
 	
 		if ($errors->count())
 		{
-			DB::commit();
+			DB::rollback();
 			
 			return Redirect::route('backend.data.product.index')
 					->withErrors($errors)
@@ -191,9 +202,9 @@ class ProductController extends baseController
 		}
 		else
 		{
-			DB::rollback();
+			DB::commit();
 
-			return Redirect::route('backend.data.product.index')
+			return Redirect::route('backend.data.productuniversal.show', ['uid' => $uid])
 					->with('msg','Produk sudah disimpan')
 					->with('msg-type', 'success')
 					;

@@ -11,7 +11,7 @@
 				<a href="#"><i class="fa fa-archive"></i> <span class="nav-label">Data</span></a>
 				<ul class="nav nav-second-level">
 					<li class="@if($subnav_active=='products') active @endif">
-						<a href="{{ route('backend.data.product.index') }}"><i class="fa fa-cubes"></i> <span class="nav-label">Produk</span></a>
+						<a href="{{ route('backend.data.productuniversal.index') }}"><i class="fa fa-glass"></i> <span class="nav-label">Produk</span></a>
 					</li>
 					<li class="@if($subnav_active=='supplier') active @endif">
 						<a href="{{ route('backend.data.supplier.index') }}"><i class="fa fa-suitcase"></i><span class="nav-label">Supplier</span></a>
