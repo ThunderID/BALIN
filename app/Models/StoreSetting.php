@@ -53,7 +53,7 @@ class StoreSetting extends Eloquent
 	protected $rules				=	[
 											'type'								=> 'required|max:255',
 											'value'								=> 'required',
-											'started_at'						=> 'date_format:"Y-m-d H:i:s"|after: - 1 second',
+											'started_at'						=> 'date_format:"Y-m-d H:i:s"'/*|after: - 1 second'*/,
 										];
 
 	/**
