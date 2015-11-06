@@ -161,6 +161,18 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 
 		Route::resource('authentications', 'AuthenticationController',	['names' => ['index' => 'backend.settings.authentication.index', 'create' => 'backend.settings.authentication.create', 'store' => 'backend.settings.authentication.store', 'show' => 'backend.settings.authentication.show', 'edit' => 'backend.settings.authentication.edit', 'update' => 'backend.settings.authentication.update', 'destroy' => 'backend.settings.authentication.destroy']]);
 	});
+
+	// ------------------------------------------------------------------------------------
+	// REPORT
+	// ------------------------------------------------------------------------------------
+	Route::group(['namespace' => 'Report\\'], function()
+	{
+		// ------------------------------------------------------------------------------------
+		// GUDANG - CRITICAL STOCK
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('criticals',											['uses' => 'CriticalController@index', 'as' => 'backend.report.critical.stock']);
+	});
 });
 
 Route::get('/mail/activation/{activation_link}', 						['uses' => 'accountcontroller@activateAccount' ,'as' => 'balin.email.activation']);

@@ -243,4 +243,14 @@ class TransactionDetail extends Eloquent
 					;
 	}
 		
+	public function scopeCritical($query, $variable)
+	{
+		return 	$query
+				->selectraw('transaction_details.*')
+				->selectraw('sum(quantity) as stock')
+				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->ondate($variable);})
+				->orderby('stock', 'asc')
+				->groupBy('product_id')
+				;
+	}
 }

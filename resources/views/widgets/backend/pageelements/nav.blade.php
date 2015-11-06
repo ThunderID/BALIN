@@ -65,37 +65,82 @@
 				</ul>
 			</li>
 			<li class="@if($nav_active=='storage') active @endif">
-				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan</span></a>
+				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan Gudang</span></a>
 				<ul class="nav nav-second-level">
-					<li>
-						<a href=""><i class="fa fa-briefcase"></i> <span class="nav-label">Transaksi</span></a>
-						<ul class="nav nav-third-level">
-							<li><a href="">Pesanan Belum Dibayar</a></li>
-							<li><a href="">Pesanan Belum Dikirim</a></li>
-							<li><a href="">Pesanan Belum Tiba</a></li>
-						</ul>
+					<li class="@if($subnav_active=='critical') active @endif">
+						<a href="{{ route('backend.report.critical.stock') }}"><i class="fa fa-exclamation-circle"></i> <span class="nav-label">Stok Kritis</span></a>
+					</li>
+				</ul>
+			</li>
+			<li class="@if($nav_active=='market') active @endif">
+				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan Pasar</span></a>
+				<ul class="nav nav-second-level">
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Dengan Downline Terbanyak</span></a>
 					</li>
 					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Produk Terlaris</span></a>
-					</li>					
-					<li class="@if($subnav_active=='pointlog') active @endif">
-						<a href="{{ route('backend.report.pointlog') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Transaksi Pointlog</span></a>
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Paling Sering Belanja</span></a>
 					</li>
-					<li class="@if($subnav_active=='suppliedby') active @endif">
-						<a href="{{ route('backend.report.suppliedby') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Suply Produk</span></a>
-					</li>					
-					<li>
-						<a href=""><i class="fa fa-line-chart"></i> <span class="nav-label">Perpindahan Stok</span></a>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Dengan Point Terbanyak</span></a>
 					</li>
-					<li class="@if($subnav_active=='criticalstock') active @endif">
-						<a href="{{ route('backend.report.criticalstock') }}"><i class="fa fa-exclamation-circle"></i> <span class="nav-label">Stok Kritis</span></a>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Paling Banyak Belanja</span></a>
 					</li>
-					<li class="@if($subnav_active=='deadstock') active @endif">
-						<a href="{{ route('backend.report.deadstock') }}"><i class="fa fa-exclamation-circle"></i> <span class="nav-label">Stok Mengendap</span></a>
-					</li>					
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Produk Paling Banyak Dibeli</span></a>
+					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Produk Paling Sering Dibeli</span></a>
+					</li>
+				</ul>
+			</li>
+			<li class="@if($nav_active=='market') active @endif">
+				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan Keuangan</span></a>
+				<ul class="nav nav-second-level">
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Pemberian Point</span></a>
+					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Transaksi Beli</span></a>
+					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Perbandingan HPP dan HJ</span></a>
+					</li>
+				</ul>
+			</li>
+			<li class="@if($nav_active=='market') active @endif">
+				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan Audit</span></a>
+				<ul class="nav nav-second-level">
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Abandoned Cart</span></a>
+					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penangan Pembayaran Transaksi</span></a>
+					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penanganan Pengiriman Transaksi</span></a>
+					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penanganan Transaksi Lengkap</span></a>
+					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Pembatalan Transaksi</span></a>
+					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Perubahan Harga Produk</span></a>
+					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penambahan Voucher</span></a>
+					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Perubahan Policy (Business)</span></a>
+					</li>
+					<li class="@if($subnav_active=='topSellingProduct') active @endif">
+						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penambahan Point Manual</span></a>
+					</li>
 				</ul>
 			</li>
 		</ul>
-
 	</div>
 </nav>
