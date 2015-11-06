@@ -112,32 +112,32 @@
 			<li class="@if($nav_active=='audit') active @endif">
 				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan Audit</span></a>
 				<ul class="nav nav-second-level">
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Abandoned Cart</span></a>
+					<li class="@if($subnav_active=='abandoned') active @endif">
+						<a href="{{ route('backend.report.audit.abandoned') }}"><i class="fa fa-archive"></i> <span class="nav-label">Abandoned Cart</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penangan Pembayaran Transaksi</span></a>
+					<li class="@if($subnav_active=='paid') active @endif">
+						<a href="{{ route('backend.report.audit.paid') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penanganan Pembayaran Transaksi</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penanganan Pengiriman Transaksi</span></a>
+					<li class="@if($subnav_active=='ship') active @endif">
+						<a href="{{ route('backend.report.audit.ship') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penanganan Pengiriman Transaksi</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penanganan Transaksi Lengkap</span></a>
+					<li class="@if($subnav_active=='deliver') active @endif">
+						<a href="{{ route('backend.report.audit.deliver') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penanganan Transaksi Lengkap</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Pembatalan Transaksi</span></a>
+					<li class="@if($subnav_active=='cancel') active @endif">
+						<a href="{{ route('backend.report.audit.cancel') }}"><i class="fa fa-archive"></i> <span class="nav-label">Pembatalan Transaksi</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Perubahan Harga Produk</span></a>
+					<li class="@if($subnav_active=='price') active @endif">
+						<a href="{{ route('backend.report.audit.price') }}"><i class="fa fa-archive"></i> <span class="nav-label">Perubahan Harga Produk</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penambahan Voucher</span></a>
+					<li class="@if($subnav_active=='voucher') active @endif">
+						<a href="{{ route('backend.report.audit.voucher') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penambahan Voucher</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Perubahan Policy (Business)</span></a>
+					<li class="@if($subnav_active=='policy') active @endif">
+						<a href="{{ route('backend.report.audit.policy') }}"><i class="fa fa-archive"></i> <span class="nav-label">Perubahan Policy (Business)</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penambahan Point Manual</span></a>
+					<li class="@if($subnav_active=='point') active @endif">
+						<a href="{{ route('backend.report.audit.point') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penambahan Point Manual</span></a>
 					</li>
 				</ul>
 			</li>

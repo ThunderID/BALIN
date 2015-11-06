@@ -216,16 +216,70 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		Route::any('finance/point',										['uses' => 'FinanceController@point', 'as' => 'backend.report.finance.point']);
 
 		// ------------------------------------------------------------------------------------
-		// MARKET - SELL/BUY TRANSACTION
+		// FINANCE - SELL/BUY TRANSACTION
 		// ------------------------------------------------------------------------------------
 		
 		Route::any('finance/transaction',								['uses' => 'FinanceController@transaction', 'as' => 'backend.report.finance.transaction']);
 
 		// ------------------------------------------------------------------------------------
-		// MARKET - HPP/HJ PRODUCT
+		// FINANCE - HPP/HJ PRODUCT
 		// ------------------------------------------------------------------------------------
 		
 		Route::any('finance/price',										['uses' => 'FinanceController@price', 'as' => 'backend.report.finance.price']);
+
+		// ------------------------------------------------------------------------------------
+		// AUDIT - ABANDONED CART
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('audit/abandoned',									['uses' => 'AuditController@abandoned', 'as' => 'backend.report.audit.abandoned']);
+
+		// ------------------------------------------------------------------------------------
+		// AUDIT - PAID 
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('audit/paid',										['uses' => 'AuditController@paid', 'as' => 'backend.report.audit.paid']);
+
+		// ------------------------------------------------------------------------------------
+		// AUDIT - SHIPPING
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('audit/ship',										['uses' => 'AuditController@ship', 'as' => 'backend.report.audit.ship']);
+
+		// ------------------------------------------------------------------------------------
+		// AUDIT - DELIVER
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('audit/deliver',										['uses' => 'AuditController@deliver', 'as' => 'backend.report.audit.deliver']);
+
+		// ------------------------------------------------------------------------------------
+		// AUDIT - CANCELED 
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('audit/cancel',										['uses' => 'AuditController@cancel', 'as' => 'backend.report.audit.cancel']);
+
+		// ------------------------------------------------------------------------------------
+		// AUDIT - PRICE
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('audit/price',										['uses' => 'AuditController@price', 'as' => 'backend.report.audit.price']);
+
+		// ------------------------------------------------------------------------------------
+		// AUDIT - VOUCHER
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('audit/voucher',										['uses' => 'AuditController@voucher', 'as' => 'backend.report.audit.voucher']);
+
+		// ------------------------------------------------------------------------------------
+		// AUDIT - POLICY 
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('audit/policy',										['uses' => 'AuditController@policy', 'as' => 'backend.report.audit.policy']);
+
+		// ------------------------------------------------------------------------------------
+		// AUDIT - POINT
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('audit/point',										['uses' => 'AuditController@point', 'as' => 'backend.report.audit.point']);
 	});
 });
 

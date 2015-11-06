@@ -17,6 +17,7 @@ class Auditor extends Eloquent
 	 */
 
 	use \App\Models\Traits\morphTo\HasTableTrait;
+	use \App\Models\Traits\belongsTo\HasUserTrait;
 
 
 	/**
@@ -107,5 +108,15 @@ class Auditor extends Eloquent
 		}
 
 		return 	$query->where('auditors.id', $variable);
+	}
+
+	public function scopeType($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('type', $variable);
+		}
+
+		return 	$query->where('type', $variable);
 	}
 }
