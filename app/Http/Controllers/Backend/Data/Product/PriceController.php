@@ -124,7 +124,7 @@ class PriceController extends baseController
 	public function store($id = null)
 	{
 		$inputs 								= Input::only('product_id','price', 'promo_price', 'date', 'time', 'label');
-		
+		dD($inputs);
 		if ($id)
 		{
 			$data								= Price::find($id);
