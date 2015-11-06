@@ -75,8 +75,8 @@
 			<li class="@if($nav_active=='market') active @endif">
 				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan Pasar</span></a>
 				<ul class="nav nav-second-level">
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Dengan Downline Terbanyak</span></a>
+					<li class="@if($subnav_active=='downline') active @endif">
+						<a href="{{ route('backend.report.customer.downline') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Dengan Downline Terbanyak</span></a>
 					</li>
 					<li class="@if($subnav_active=='topSellingProduct') active @endif">
 						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Paling Sering Belanja</span></a>

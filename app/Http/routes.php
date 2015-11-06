@@ -172,6 +172,12 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// ------------------------------------------------------------------------------------
 		
 		Route::any('criticals',											['uses' => 'CriticalController@index', 'as' => 'backend.report.critical.stock']);
+
+		// ------------------------------------------------------------------------------------
+		// MARKET - MOST DOWNLINE
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('downlines',											['uses' => 'DownlineController@index', 'as' => 'backend.report.customer.downline']);
 	});
 });
 

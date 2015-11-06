@@ -135,6 +135,11 @@ class PointLog extends Eloquent
 		return $query->where('created_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('created_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
 	}
 
+	public  function scopeDownline($query, $variable)
+	{
+		return $query->selectraw('point_logs.*')->selectraw('count(reference_id) as downline')->ondate($variable)->ReferenceType('App\Models\User')->groupby('reference_id')->orderby('downline', 'desc');
+	}
+
 	public function scopeRangeDate($query, $start, $end)
 	{
 		if($start && $end)
