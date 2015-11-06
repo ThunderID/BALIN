@@ -31,9 +31,9 @@ class SaveAuditAbandonCart extends Job implements SelfHandling
 
         $result                             = new JSend('success', (array)$this->transaction);
 
-        $previoustrans                      = Transaction::userid($this->transaction->user_id)->notid()->status('cart')->first();
+        $previoustrans                      = Transaction::userid($this->transaction->user_id)->notid($this->transaction->id)->status('cart')->first();
 
-        if($previoustrans->count())
+        if($previoustrans)
         {
             $audit                          = new Auditor;
 
