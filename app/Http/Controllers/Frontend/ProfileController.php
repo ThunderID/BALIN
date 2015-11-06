@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\baseController;
 
-class profileController extends baseController 
+class ProfileController extends baseController 
 {
 
 	protected $controller_name 					= 'profile';

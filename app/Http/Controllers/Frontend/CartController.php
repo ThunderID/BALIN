@@ -4,7 +4,7 @@ use App\Http\Controllers\baseController;
 use App\Models\Product;
 use Input, Response, Redirect, Cookie;
 
-class cartController extends baseController 
+class CartController extends baseController 
 {
 	protected $controller_name 					= 'cart';
 
