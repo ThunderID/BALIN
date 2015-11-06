@@ -1,9 +1,19 @@
 @inject('data', 'App\Models\Product')
 <?php 
-		// $data = $data::where('id', $id)
-		// 					->with('categories')
-		// 					->first(); 
+	$data 			= $data::where('id', $id)->with('categories')->first();
+	$date 			= null;
+	$price	 		= null;
+	$promo_price 	= null;
 ?>
+
+@if($data)
+	<?php 
+		$date 			= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->startedAt)->format('d-m-Y H:i'); 
+		$price 			= $data->price;
+		$promo_price	= $data->promoprice;
+	?>
+@endif	
+
 @extends('template.backend.layout') 
 
 @section('content')
@@ -88,7 +98,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="category">Harga</label>
-					{!! Form::text('price', $data['price'], [
+					{!! Form::text('price', $price, [
 								'class'        		=> 'form-control money', 
 								'tabindex'     		=> '5', 
 								'placeholder'  		=> 'harga',
@@ -98,18 +108,18 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="category">Harga Promo</label>
-					{!! Form::text('promo_price', $data['promo_price'], [
+					{!! Form::text('promo_price', $promo_price, [
 								'class'         => 'form-control money', 
 								'tabindex'      => '6', 
 								'placeholder'   => 'harga promo (kosongkan bila tidak ada harga promo)'
 					]) !!}
 				</div>  
-			</div> 
+			</div> 		
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="category">Mulai</label>
-					{!! Form::text('started_at', $data['started_at'], [
-								'class'         => 'form-control',
+					{!! Form::text('started_at', $date, [
+								'class'         => 'form-control date-time-format',
 								'tabindex'      => '7', 
 								'placeholder'   => 'Y-m-d H:i:s'
 					]) !!}

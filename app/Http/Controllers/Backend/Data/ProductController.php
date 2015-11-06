@@ -131,7 +131,7 @@ class ProductController extends baseController
 	{
 		$inputs 										= Input::only('category','name','sku','description');
 
-		if ($id)
+		if($id)
 		{
 			$data 										= Product::find($id);
 		}
@@ -163,29 +163,33 @@ class ProductController extends baseController
 		else
 		{
 			// category
-			// $categories 								= explode(',', $inputs['category']);
+			$categories 								= explode(',', $inputs['category']);
 
-			// if(!$data->categories()->sync($categories))
-			// {
-			// 	$errors->add('Product', $data->getError());
-			// }
+			if(!$data->categories()->sync($categories))
+			{
+				$errors->add('Product', $data->getError());
+			}
 
-			// if($data->price != Input::get('price') || $data->promo_price != Input::get('promo_price'))
-			// {
-			// 	$price 									= new Price;
-			// 	$price->fill([
-			// 		'product_id'						=> $data->id,
-			// 		'price'								=> Input::get('price'),
-			// 		'promo_price'						=> Input::get('promo_price'),
-			// 		'started_at'						=> date('Y-m-d H:i:s', strtotime(Input::get('started_at'))),
-			// 		'label'								=> Input::get('label'),
-			// 	]);
+			$in_price  		=	str_replace('Rp ', '', str_replace('.', '', Input::get('price')));
+			$in_promo_price  	=	str_replace('Rp ', '', str_replace('.', '', Input::get('promo_price')));
 
-			// 	if(!$price->save())
-			// 	{
-			// 		$errors->add('Product', $price->getError());
-			// 	}
-			// }
+			if($data->price != $in_price || $data->promo_price != $in_promo_price)
+			{
+				$price 									= new Price;
+				$price->fill([
+					'product_id'						=> $data->id,
+					'price'								=> (integer)$in_price,
+					'promo_price'						=> (integer)$in_promo_price,
+					'started_at'						=> date('Y-m-d H:i:s', strtotime(Input::get('started_at'))),
+					'label'								=> Input::get('label'),
+				]);
+
+				if(!$price->save())
+				{
+					$errors->add('Product', $price->getError());
+				}
+
+			}
 
 			//save image
 			//ref. producttableseeder line 114
@@ -211,12 +215,12 @@ class ProductController extends baseController
 		}
 	}
 
-	public function Update($id)
+	public function Update($uid = null, $id = null)
 	{
-		return $this->store($id);		
+		return $this->store($uid,$id);		
 	}
 
-	public function destroy($id)
+	public function destroy($uid = null, $id = null)
 	{
 		$data 								= Product::findorfail($id);
 
@@ -234,7 +238,7 @@ class ProductController extends baseController
 		{
 			DB::commit();
 
-			return Redirect::route('backend.data.product.index')
+			return Redirect::route('backend.data.productuniversal.show', ['uid' => $uid])
 				->with('msg', 'Produk telah dihapus')
 				->with('msg-type','success');
 		}

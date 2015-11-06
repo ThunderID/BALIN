@@ -107,14 +107,19 @@
 								<a href="{{ route('backend.data.product.show', ['uid' => $id, 'id' => $product['id'] ]) }}"> Detail </a>,
 								<a href="{{ route('backend.data.product.edit', ['uid' => $id, 'id' => $product['id'] ]) }}"> Edit </a>,
 								
-								<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#sc_del"
-									data-id="{{$product['id']}}"
-									data-title="Hapus Data Ongkos Kirim ">
+								<a href="javascript:void(0);" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#var_del"
+									data-id="{{$data['id']}}"
+									data-title="Hapus Data Produk Varian {{$product['name']}}"
+									data-action="{{ route('backend.data.product.destroy', ['uid' => $id, 'id' => $product['id']]) }}">
 									Hapus
-								</a>   
+								</a> 								  
 							</td>
 						</tr>
 					@endforeach
+					@include('widgets.pageelements.formmodaldelete', [
+							'modal_id'      => 'var_del', 
+							'modal_route'   => route('backend.data.product.destroy', ['uid' => $id])
+					])					
 				@endif
 			</tbody>
 		</table>
