@@ -289,7 +289,7 @@ Route::group(['namespace' => 'Frontend\\'], function() {
 	
 });
 
-
+Route::get('testsso/{provider?}', ['uses' => 'Frontend\\authSocialController@getSocialAuth', 'as' => 'frontend.sso.login']);
 Route::get('testgetcookie', ['uses' => 'Frontend\\productController@detail', 'as' => 'frontend.home.test']);
 Route::get('testcookie', ['uses' => 'Frontend\\productController@removeFromCart', 'as' => 'frontend.home.test2']);
 
