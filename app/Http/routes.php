@@ -70,12 +70,17 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		Route::any('ajax/get-supplier-by-name', 						['uses' => 'SupplierController@getSupplierByName', 'as' => 'backend.supplier.ajax.getSupplierByName']);
 
 		// ------------------------------------------------------------------------------------
-		// CUSTOMER (pending, crud)
+		// CUSTOMER
 		// ------------------------------------------------------------------------------------
 
 		Route::resource('customers',  	'CustomerController',			['names' => ['index' => 'backend.data.customer.index', 'create' => 'backend.data.customer.create', 'store' => 'backend.data.customer.store', 'show' => 'backend.data.customer.show', 'edit' => 'backend.data.customer.edit', 'update' => 'backend.data.customer.update', 'destroy' => 'backend.data.customer.destroy']]);
 	
 		Route::any('ajax/get-customer-by-name',							['uses' => 'CustomerController@getCustomerByName', 'as' => 'backend.customer.ajax.getCustomerByName']);
+
+		// ------------------------------------------------------------------------------------
+		// POINTLOG
+		// ------------------------------------------------------------------------------------
+		Route::resource('users/{user_id?}/point/log', 'PointLogController',		['names' => ['index' => 'backend.data.pointlog.index', 'create' => 'backend.data.pointlog.create', 'store' => 'backend.data.pointlog.store', 'show' => 'backend.data.pointlog.show', 'edit' => 'backend.data.pointlog.edit', 'update' => 'backend.data.pointlog.update', 'destroy' => 'backend.data.pointlog.destroy']]);
 
 		// ------------------------------------------------------------------------------------
 		// TRANSACTION (pending, crud)
