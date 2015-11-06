@@ -148,14 +148,6 @@
 				</div>  
 			</div> 
 			<div class="col-md-6">
-				<div class="form-group">
-					<label for="category">Label</label>
-					{!! Form::text('label', $data['label'], [
-								'class'         => 'form-control', 
-								'tabindex'      => '10', 
-								'placeholder'   => 'Label'
-					]) !!}
-				</div>  
 			</div> 
 		</div>
 		<div class="clearfix">&nbsp;</div>

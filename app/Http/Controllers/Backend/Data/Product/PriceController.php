@@ -3,6 +3,7 @@
 use App\Http\Controllers\baseController;
 use App\Models\Price;
 use App\Models\Product;
+use App\Models\Productuniversal;
 use Input, Session, DB, Redirect, Response, Carbon, App;
 
 class PriceController extends baseController 
@@ -20,26 +21,22 @@ class PriceController extends baseController
 
 	protected $view_name 						= 'Histori Harga';
 
-	public function index()
+	public function index($uid = null, $pid = null, $id = null)
 	{
-		if(Input::has('product_id'))
-		{
-			$product_id 						= Input::get('product_id');
+		$pu										= ProductUniversal::findorfail($uid);								
 
-			$product 							= Product::findorfail(Input::get('product_id'));
-		}
-		else
-		{
-			App::abort(404);
-		}
+		$product 								= Product::findorfail($pid);
 
-		$breadcrumb								= 	[	
-														$product->name	=> route('backend.data.product.show', $product_id),
-														'Histori Harga' => route('backend.data.product.price.index', ['product_id', $product_id])
+
+		$breadcrumb								= 	[	'Data Produk' 			=> route('backend.data.productuniversal.index'),
+														$pu['name']				=> route('backend.data.productuniversal.show', ['uid' => $uid ]),
+														$product['name']		=> route('backend.data.product.show', ['uid' => $uid, 'pid' => $pid]),
+														'Histori Harga' 		=> route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $pid])
 													];
 
 		$filters 								= Null;
 		
+
 		if (Input::has('q'))
 		{
 			$filters							= ['ondate' => Input::get('q')];
@@ -54,14 +51,14 @@ class PriceController extends baseController
 		}
 
 
-
 		$this->layout->page 					= view('pages.backend.data.product.price.index')
 														->with('WT_pagetitle', $this->view_name )
 														->with('WT_pageSubTitle',$product->name)
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('filters', $filters)
+														->with('pid', $pid)
+														->with('uid', $uid)
 														->with('searchResult', $searchResult)
-														->with('product_id', $product_id)
 														->with('nav_active', 'data')
 														->with('subnav_active', 'products');
 
@@ -73,29 +70,26 @@ class PriceController extends baseController
 		return Redirect::back();
 	}
 
-	public function create($id = null)
+	public function create($uid = null, $pid = null, $id = null)
 	{
+		$pu										= ProductUniversal::findorfail($uid);								
 
-		if(Input::has('product_id'))
-		{
-			$product_id 						= Input::get('product_id');
-
-			$product 							= Product::findorfail(Input::get('product_id'));
-		}
-		else
-		{
-			App::abort(404);
-		}
+		$product 								= Product::findorfail($pid);
 
 		$breadcrumb								= 	[	
-														$product->name	=> route('backend.data.product.show', $product_id),
+														$product->name	=> route('backend.data.product.show', $pid),
 													];
 
+		$breadcrumb								= 	[	'Data Produk' 			=> route('backend.data.productuniversal.index'),
+														$pu['name']				=> route('backend.data.productuniversal.show', ['uid' => $uid ]),
+														$product['name']		=> route('backend.data.product.show', ['uid' => $uid, 'pid' => $pid]),
+														'Histori Harga' 		=> route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $pid])
+													];
 
 		if ($id)
 		{
-			$breadcrumb['Edit Harga'] 			= route('backend.data.product.price.edit', $id);
-
+			$breadcrumb['Edit Harga'] 			= route('backend.data.product.price.edit', ['id' => $id, 'uid' => $uid, 'pid' => $pid]);
+ 
 			$title 								= 'Edit';
 		}
 		else
@@ -110,7 +104,8 @@ class PriceController extends baseController
 														->with('WT_pageSubTitle',$title)		
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('id', $id)
-														->with('product_id', $product_id)
+														->with('pid', $pid)
+														->with('uid', $uid)
 														->with('nav_active', 'data')
 														->with('subnav_active', 'products');
 		return $this->layout;		
@@ -121,10 +116,10 @@ class PriceController extends baseController
 		return $this->create($id);
 	}
 
-	public function store($id = null)
+	public function store($uid = null, $pid = null, $id = null)
 	{
-		$inputs 								= Input::only('product_id','price', 'promo_price', 'date', 'time', 'label');
-		dD($inputs);
+		$inputs 								= Input::only('product_id','price', 'promo_price', 'start_at', 'time', 'label');
+		
 		if ($id)
 		{
 			$data								= Price::find($id);
@@ -134,14 +129,16 @@ class PriceController extends baseController
 			$data 								= new Price;
 		}
 
-		$started_at 							= Carbon::createFromFormat('d-m-Y', $inputs['date'])->format('Y-m-d').' '.Carbon::createFromFormat('H:i', $inputs['time'])->format('H:i:s');
+
+		$in_price  								=	str_replace('Rp ', '', str_replace('.', '', Input::get('price')));
+		$in_promo_price  						=	str_replace('Rp ', '', str_replace('.', '', Input::get('promo_price')));
+		$date 									= 	date('Y-m-d H:i:s', strtotime(Input::get('start_at')));
 
 		$data->fill([
-			'product_id'						=> $inputs['product_id'],
-			'price' 							=> $inputs['price'],
-			'promo_price'						=> $inputs['promo_price'],
-			'started_at' 						=> $started_at,
-			'label'								=> $inputs['label'],
+			'product_id'						=> $pid,
+			'price' 							=> $in_price,
+			'promo_price'						=> $in_promo_price,
+			'started_at' 						=> $date,
 		]);
 
 		DB::beginTransaction();
@@ -159,7 +156,7 @@ class PriceController extends baseController
 		{
 			DB::commit();
 
-			return Redirect::route('backend.data.product.price.index', ['product_id' => $inputs['product_id']])
+			return Redirect::route('backend.data.product.price.index', ['pid' => $pid, 'uid' => $uid])
 				->with('msg','Histori harga sudah disimpan')
 				->with('msg-type', 'success');
 		}

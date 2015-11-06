@@ -3,9 +3,9 @@
 @section('content')
 	<!-- Full Page Image Background Carousel Header -->
 	<section id="intro">
-		<div id="my-carousel" class="carousel slide">
-			@include('widgets.slider')
-		</div>
+			<div id="my-carousel" class="carousel slide">
+				@include('widgets.slider')
+			</div>
 	</section>
 
 	<section id="why-join" class="p-t">

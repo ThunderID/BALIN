@@ -1,20 +1,26 @@
 @inject('data', 'App\Models\Price')
 <?php
-	$data	= $data::where('id', $id)
-					->first();
+	$data				= $data::where('id', $pid)->first();
+	$date 				=	null;
 ?>
+
+@if($data)
+	<?php 
+		$date 			= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->startedAt)->format('d-m-Y H:i'); 
+	?>
+@endif	
 
 @extends('template.backend.layout') 
 
 @section('content')
 	@if(!is_null($id))
-		{!! Form::open(['url' => route('backend.data.product.price.update', $id), 'method' => 'PATCH']) !!}
+		{!! Form::open(['url' => route('backend.data.product.price.update', ['uid' => $uid, 'pid' => $pid, 'id' => $id]), 'method' => 'PATCH']) !!}
 	@else
-		{!! Form::open(['url' => route('backend.data.product.price.store'), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
+		{!! Form::open(['url' => route('backend.data.product.price.store', ['uid' => $uid, 'pid' => $pid]), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
 	@endif
 		<div class="row">
-			<div class="col-md-6">
-				{!! Form::hidden('product_id', $product_id) !!}
+			<div class="col-md-4">
+				{!! Form::hidden('pid', $pid) !!}
 				<div class="form-group">
 					<label for="price" class="text-capitalize">Harga</label>
 					{!! Form::text('price', $data['price'], [
@@ -24,7 +30,7 @@
 					]) !!}
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="form-group">
 					<label for="price" class="text-capitalize">Harga Promo</label>
 					{!! Form::text('promo_price', $data['promo_price'], [
@@ -34,55 +40,24 @@
 					]) !!}
 				</div>
 			</div>
-		</div>
-		<?php
-			$date = Null;
-			$time = Null;
-			if (isset($data['started_at']))
-			{
-				$date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('Y-m-d');
-				$time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('H:i');
-			}
-		?>
-		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label for="start_date" class="text-capitalize">Mulai</label>
-					{!! Form::input('date','date', $date, [
-								'class'         		=> 'form-control input-date', 
-								'tabindex'      		=> '3',
-								'placeholder'   		=> 'dd-mm-yyyy',
-								'data-date'		 		=> '',
-								'data-date-format'		=> 'dd-mm-yyyy',
-					]) !!}
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="form-group">
-					{!! Form::input('time','time', $time, [
-								'class'         => 'form-control', 
-								'tabindex'      => '3',
-								'placeholder'   => 'hh:ii',
-								'style'			 => 'margin-top:23px'
+					<label for="start_at">Mulai</label>
+					{!! Form::text('start_at', $date, [
+								'class'         => 'form-control date-time-format',
+								'tabindex'      => '9', 
+								'placeholder'   => 'Y-m-d H:i:s'
 					]) !!}
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div class="form-group">
-					<label for="label" class="text-capitalize">Label</label>
-					{!! Form::text('label', $data['label'], [
-								'class'         => 'form-control', 
-								'tabindex'      => '3',
-								'placeholder'   => 'Masukkan label'
-					]) !!}
-				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">             
 				</br>
 				<div class="form-group text-right">
-					<a href="{{ route('backend.data.product.price.index', ['product_id' => $product_id]) }}" class="btn btn-md btn-default" tabindex="4">Batal</a>
+					<a href="{{ route('backend.data.product.price.index', ['pid' => $pid, 'uid' => $uid]) }}" class="btn btn-md btn-default" tabindex="4">Batal</a>
 					<button type="submit" class="btn btn-md btn-primary" tabindex="5">Simpan</button>
 				</div>
 			</div>                                          

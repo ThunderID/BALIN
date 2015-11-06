@@ -32,6 +32,7 @@
 										<div class="sign-up" style="display:none">
 											<h3>Sign Up</h3>
 											<div class="clearfix">&nbsp;</div>
+											@include('widgets.alerts')
 											@include('widgets.signup')
 										</div>
 										<div class="forgot" style="display:none">

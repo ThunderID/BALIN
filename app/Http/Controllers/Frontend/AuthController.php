@@ -4,7 +4,7 @@ use App\Http\Controllers\baseController;
 use App\Models\User;
 use Input, Session, DB, Redirect, Response, Auth;
 
-class authController extends baseController 
+class AuthController extends baseController 
 {
 	// protected $view_name 			= 'Login';
 

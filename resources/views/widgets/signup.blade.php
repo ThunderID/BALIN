@@ -1,4 +1,4 @@
-{!! Form::open() !!}
+{!! Form::open(['url' => route('frontend.user.store')]) !!}
 	<div class="form-group">
 		<label for="">Name</label>
 		{!! Form::text('name', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Nama']) !!}
@@ -13,11 +13,11 @@
 	</div>
 	<div class="form-group">
 		<label for="">Konfirmasi Password</label>
-		{!! Form::password('confirm_password', ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Konfirmasi Password']) !!}
+		{!! Form::password('password_confirmation', ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Konfirmasi Password']) !!}
 	</div>
 	<div class="form-group">
 		<label for="">Tanggal Lahir</label>
-		{!! Form::password('date_of_birth', ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Tanggal Lahir']) !!}
+		{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Tanggal Lahir']) !!}
 	</div>
 	<div class="form-group">
 		<label for="">Jenis Kelamin</label>
@@ -34,7 +34,7 @@
 	</div>
 	<div class="checkbox">
 		<label class="t-xs" style="color:#666">
-			<input type="checkbox" tabindex="1">Setuju dengan Terms & Conditions
+			<input type="checkbox" tabindex="1" required>Setuju dengan Terms & Conditions
 		</label>
 	</div>
 	<div class="form-group">

@@ -4,7 +4,7 @@ use App\Http\Controllers\baseController;
 
 use Cookie, Response;
 
-class productController extends baseController 
+class ProductController extends baseController 
 {
 
 	protected $controller_name 					= 'Varian';

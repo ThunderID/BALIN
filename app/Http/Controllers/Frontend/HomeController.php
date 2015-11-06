@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\baseController;
 
-class homeController extends baseController 
+class HomeController extends baseController 
 {
 
 	protected $controller_name 					= 'home';

@@ -1,15 +1,11 @@
+@inject('about_us', 'App\Models\StoreSetting')
+<?php
+	$about_us = $about_us::where('type', 'about_us')->first();
+?>
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
-			@include('widgets.pageelements.pagetitle', array('pagetitle' => 'About Us'))
-
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4 text-center">
-					<h2 class="text-center">What are you waiting for?</h2>
-				</div>
-				<div class="col-md-4"></div>
-			</div>
+			{!! $about_us['value'] !!}
 		</div>
 	</div>
 <div class="clearfix">&nbsp;</div>
