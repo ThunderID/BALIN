@@ -98,14 +98,14 @@
 			<li class="@if($nav_active=='finance') active @endif">
 				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan Keuangan</span></a>
 				<ul class="nav nav-second-level">
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Pemberian Point</span></a>
+					<li class="@if($subnav_active=='point') active @endif">
+						<a href="{{ route('backend.report.finance.point') }}"><i class="fa fa-archive"></i> <span class="nav-label">Pemberian Point</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Transaksi Beli</span></a>
+					<li class="@if($subnav_active=='transaction') active @endif">
+						<a href="{{ route('backend.report.finance.transaction') }}"><i class="fa fa-archive"></i> <span class="nav-label">Transaksi Jual / Beli</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Perbandingan HPP dan HJ</span></a>
+					<li class="@if($subnav_active=='price') active @endif">
+						<a href="{{ route('backend.report.finance.price') }}"><i class="fa fa-archive"></i> <span class="nav-label">Perbandingan HPP dan HJ</span></a>
 					</li>
 				</ul>
 			</li>

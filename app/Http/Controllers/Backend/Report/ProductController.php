@@ -18,7 +18,7 @@ class ProductController extends baseController
     	parent::__construct();
     }
 
-	protected $view_name 						= 'Laporan Produk Paling Banyak Dibeli';
+	protected $view_name 						= 'Laporan Market';
 
 	public function mostbuy()
 	{		

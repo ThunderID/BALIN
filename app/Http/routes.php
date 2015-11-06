@@ -208,6 +208,24 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// ------------------------------------------------------------------------------------
 		
 		Route::any('frequent/buy/product',								['uses' => 'ProductController@frequentbuy', 'as' => 'backend.report.product.frequentbuy']);
+
+		// ------------------------------------------------------------------------------------
+		// FINANCE - POINT LOG
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('finance/point',										['uses' => 'FinanceController@point', 'as' => 'backend.report.finance.point']);
+
+		// ------------------------------------------------------------------------------------
+		// MARKET - SELL/BUY TRANSACTION
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('finance/transaction',								['uses' => 'FinanceController@transaction', 'as' => 'backend.report.finance.transaction']);
+
+		// ------------------------------------------------------------------------------------
+		// MARKET - HPP/HJ PRODUCT
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('finance/price',										['uses' => 'FinanceController@price', 'as' => 'backend.report.finance.price']);
 	});
 });
 

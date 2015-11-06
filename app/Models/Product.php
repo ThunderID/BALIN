@@ -264,7 +264,6 @@ class Product extends Eloquent
 					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as selled_frequency')
 					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as selled_stock')
 					->wherehas('transactions', function($q){$q->status(['paid','shipped','delivered'])->type('sell');})
-					// ->first()
 					;
 	}
 
@@ -274,7 +273,15 @@ class Product extends Eloquent
 					->select('products.*')
 					->wherehas('transactions', function($q){$q->status(['paid','shipped','delivered'])->type('buy');})
 					->with(['transactions' => function($q){$q->status(['paid','shipped','delivered'])->type('buy');}], 'transactions.supplier')
-					// ->first()
+					;
+	}
+
+	public function scopeHPP($query, $variable)
+	{
+		return 	$query
+					->select('products.*')
+					->selectraw('(SELECT IFNULL(avg(price),0) as total_hpp FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as hpp')
+					->wherehas('transactions', function($q)use($variable){$q->status(['paid','shipped','delivered'])->type('buy')->ondate($variable);})
 					;
 	}
 }
