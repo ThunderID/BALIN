@@ -139,7 +139,6 @@ class PriceController extends baseController
 			'price' 							=> $in_price,
 			'promo_price'						=> $in_promo_price,
 			'started_at' 						=> $date,
-			'label'								=> $inputs['label'],
 		]);
 
 		DB::beginTransaction();
@@ -189,6 +188,9 @@ class PriceController extends baseController
 			return Redirect::route('backend.data.product.price.index', ['product_id' => $data->product_id])
 				->with('msg', 'Harga telah dihapus')
 				->with('msg-type','success');
+		}
+	}
+}	->with('msg-type','success');
 		}
 	}
 }
