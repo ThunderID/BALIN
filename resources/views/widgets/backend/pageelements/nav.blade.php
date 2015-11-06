@@ -87,15 +87,15 @@
 					<li class="@if($subnav_active=='topSellingProduct') active @endif">
 						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Kostumer Paling Banyak Belanja</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Produk Paling Banyak Dibeli</span></a>
+					<li class="@if($subnav_active=='productmostbuy') active @endif">
+						<a href="{{ route('backend.report.product.mostbuy') }}"><i class="fa fa-archive"></i> <span class="nav-label">Produk Paling Banyak Dibeli</span></a>
 					</li>
-					<li class="@if($subnav_active=='topSellingProduct') active @endif">
-						<a href="{{ route('backend.report.topSellingProduct') }}"><i class="fa fa-archive"></i> <span class="nav-label">Produk Paling Sering Dibeli</span></a>
+					<li class="@if($subnav_active=='productfrequentbuy') active @endif">
+						<a href="{{ route('backend.report.product.frequentbuy') }}"><i class="fa fa-archive"></i> <span class="nav-label">Produk Paling Sering Dibeli</span></a>
 					</li>
 				</ul>
 			</li>
-			<li class="@if($nav_active=='market') active @endif">
+			<li class="@if($nav_active=='finance') active @endif">
 				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan Keuangan</span></a>
 				<ul class="nav nav-second-level">
 					<li class="@if($subnav_active=='topSellingProduct') active @endif">
@@ -109,7 +109,7 @@
 					</li>
 				</ul>
 			</li>
-			<li class="@if($nav_active=='market') active @endif">
+			<li class="@if($nav_active=='audit') active @endif">
 				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan Audit</span></a>
 				<ul class="nav nav-second-level">
 					<li class="@if($subnav_active=='topSellingProduct') active @endif">

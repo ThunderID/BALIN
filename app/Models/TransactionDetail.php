@@ -161,29 +161,27 @@ class TransactionDetail extends Eloquent
 				;
 	}
 
-	public function scopeMostBuy($query, $start, $end)
+	public function scopeMostBuy($query, $variable)
 	{
-		if($start && $end)
-		{
-			return 	$query
-					->selectraw('transaction_details.*')
-					->selectraw('sum(quantity) as total_buy')
-					->wherehas('transaction', function($q)use($start, $end){$q->status(['paid','shipping','delivered'])->type('sell')->where('transacted_at','>=',$start)->where('transacted_at','<=',$end);})
-					->orderby('total_buy', 'desc')
-					->groupBy('product_id')
-					;
-		}
-		else
-		{
-			return 	$query
-					->selectraw('transaction_details.*')
-					->selectraw('sum(quantity) as total_buy')
-					->wherehas('transaction', function($q){$q->status(['paid','shipping','delivered'])->type('sell');})
-					->orderby('total_buy', 'desc')
-					->groupBy('product_id')
-					;
-		}
-	}	
+		return 	$query
+				->selectraw('transaction_details.*')
+				->selectraw('sum(quantity) as total_buy')
+				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->type('sell')->ondate($variable);})
+				->orderby('total_buy', 'desc')
+				->groupBy('product_id')
+				;
+	}
+
+	public function scopeFrequentBuy($query, $variable)
+	{
+		return 	$query
+				->selectraw('transaction_details.*')
+				->selectraw('count(transaction_id) as frequent_buy')
+				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->type('sell')->ondate($variable);})
+				->orderby('frequent_buy', 'desc')
+				->groupBy('transaction_id')
+				;
+	}
 
 	public function scopeLeastBuy($query, $date)
 	{
