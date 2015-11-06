@@ -51,8 +51,8 @@ $datas 			= $datas->orderby('name')->paginate();
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th class="col-md-6">Nama Produk</th>
-									<th class="col-md-3 text-center">UPC</th>
+									<th class="col-md-2 text-center">UPC</th>
+									<th class="col-md-7">Nama Produk</th>
 									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
@@ -71,8 +71,8 @@ $datas 			= $datas->orderby('name')->paginate();
 									@foreach($datas as $data)
 										<tr>
 											<td>{{ $ctr }}</td>
-											<td>{{ $data['name'] }}</td>
 											<td class="text-center">{{ $data['upc'] }}</td>
+											<td>{{ $data['name'] }}</td>
 											<td class="text-center">
 												<a href="{{ route('backend.data.productuniversal.show', $data['id']) }}"> Detail </a>,
 												<a href="{{ url::route('backend.data.productuniversal.edit', $data['id']) }}"> Edit </a>, 
