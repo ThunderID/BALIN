@@ -11,25 +11,25 @@
 				<a href="#"><i class="fa fa-archive"></i> <span class="nav-label">Data</span></a>
 				<ul class="nav nav-second-level">
 					<li class="@if($subnav_active=='products') active @endif">
-						<a href="{{ route('backend.data.product.index') }}"><i class="fa fa-glass"></i> <span class="nav-label">Produk</span></a>
+						<a href="{{ route('backend.data.product.index') }}"><i class="fa fa-cubes"></i> <span class="nav-label">Produk</span></a>
 					</li>
 					<li class="@if($subnav_active=='supplier') active @endif">
-						<a href="{{ route('backend.data.supplier.index') }}"><i class="fa fa-university"></i><span class="nav-label">Supplier</span></a>
+						<a href="{{ route('backend.data.supplier.index') }}"><i class="fa fa-suitcase"></i><span class="nav-label">Supplier</span></a>
 					</li>
 					<li class="@if($subnav_active=='customer') active @endif">
 						<a href="{{ route('backend.data.customer.index') }}"><i class="fa fa-users"></i><span class="nav-label">Kostumer</span></a>
 					</li>
 					<li class="@if($subnav_active=='buy') active @endif">
-					 	<a href="{{ route('backend.data.transaction.index', ['type' => 'buy']) }}"><i class="fa fa-inbox"></i><span class="nav-label">Pembelian</span></a>
+					 	<a href="{{ route('backend.data.transaction.index', ['type' => 'buy']) }}"><i class="fa fa-arrow-circle-left"></i><span class="nav-label">Pembelian</span></a>
 					</li>
 					<li class="@if($subnav_active=='sell') active @endif">
-					 	<a href="{{ route('backend.data.transaction.index', ['type' => 'sell']) }}"><i class="fa fa-briefcase"></i><span class="nav-label">Penjualan</span></a>
+					 	<a href="{{ route('backend.data.transaction.index', ['type' => 'sell']) }}"><i class="fa fa-arrow-circle-right"></i><span class="nav-label">Penjualan</span></a>
 					</li>
 					<li class="@if($subnav_active=='payment') active @endif">
-					 	<a href="{{ route('backend.data.payment.index') }}"><i class="fa fa-file-o"></i><span class="nav-label">Nota Bayar</span></a>
+					 	<a href="{{ route('backend.data.payment.index') }}"><i class="fa fa-credit-card"></i><span class="nav-label">Nota Bayar</span></a>
 					</li>
 					<li class="@if($subnav_active=='shipment') active @endif">
-					 	<a href="{{ route('backend.data.shipment.index') }}"><i class="fa fa-file-o"></i><span class="nav-label">Resi Pengiriman</span></a>
+					 	<a href="{{ route('backend.data.shipment.index') }}"><i class="fa fa-paper-plane"></i><span class="nav-label">Resi Pengiriman</span></a>
 					</li>
 				</ul>
 			</li>
@@ -40,7 +40,7 @@
 						<a href="{{ route('backend.settings.category.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Kategori</span></a>
 					</li>
 					<li class="@if($subnav_active=='voucher') active @endif">
-						<a href="{{ route('backend.settings.voucher.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Voucher</span></a>
+						<a href="{{ route('backend.settings.voucher.index') }}"><i class="fa fa-money"></i> <span class="nav-label">Voucher</span></a>
 					</li>
 					<li class="@if($subnav_active=='courier') active @endif">
 						<a href="{{ route('backend.settings.courier.index') }}"><i class="fa fa-truck"></i> <span class="nav-label">Kurir</span></a>
@@ -57,8 +57,11 @@
 					</li>
 
 					<li class="@if($subnav_active=='policy') active @endif">
-						<a href="{{ route('backend.settings.policies.index') }}"><i class="fa fa-life-ring"></i> <span class="nav-label">Policy</span></a>
-					</li>					
+						<a href="{{ route('backend.settings.policies.index') }}"><i class="fa fa-lock"></i> <span class="nav-label">Policy</span></a>
+					</li>
+					<li class="@if($subnav_active=='authentication') active @endif">
+						<a href="{{ route('backend.settings.authentication.index') }}"><i class="fa fa-key"></i> <span class="nav-label">Otentikasi</span></a>
+					</li>				
 				</ul>
 			</li>
 			<li class="@if($nav_active=='storage') active @endif">

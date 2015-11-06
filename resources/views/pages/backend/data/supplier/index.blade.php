@@ -62,7 +62,7 @@ $datas 			= $datas->orderby('name')->paginate();
 							<tbody>
 								@if(count($datas) == 0)
 									<tr>
-										<td colspan="5" class="text-center">
+										<td colspan="6" class="text-center">
 											Tidak ada data
 										</td>
 									</tr>

@@ -7,8 +7,11 @@
 @extends('template.backend.layout') 
 
 @section('content')
-    {!! Form::open(array('route' => 'backend.settings.category.store')) !!}
-        {!! Form::input('hidden', 'id', $data['id'], ['class' => 'mod_id']) !!}
+    @if(!is_null($id))
+        {!! Form::open(['url' => route('backend.settings.category.update', $id), 'method' => 'PATCH']) !!}
+    @else
+        {!! Form::open(['url' => route('backend.settings.category.store'), 'method' => 'POST']) !!}
+    @endif
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">

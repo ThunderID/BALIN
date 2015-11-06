@@ -5,15 +5,15 @@
 
 @section('content')
     @if(!is_null($id))
-        {!! Form::open(['url' => route('backend.data.customer.update', $id), 'method' => 'PATCH']) !!}
+        {!! Form::open(['url' => route('backend.settings.authentication.update', $id), 'method' => 'PATCH']) !!}
     @else
-        {!! Form::open(['url' => route('backend.data.customer.store'), 'method' => 'POST']) !!}
+        {!! Form::open(['url' => route('backend.settings.authentication.store'), 'method' => 'POST']) !!}
     @endif
 		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					<label for="name">Nama Lengkap</label>
-					{!! Form::text('name', $data['name'], ['class' => 'form-control mod_name', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nama lengkap customer'] ) !!}
+					{!! Form::text('name', $data['name'], ['class' => 'form-control mod_name', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nama lengkap '] ) !!}
 				</div>
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12">
@@ -71,7 +71,7 @@
 			<div class="col-md-12">
 				</br>
 				<div class="form-group text-right">
-					<a href="{{ URL::route('backend.data.customer.index') }}" class="btn btn-md btn-default" tabindex="9">Batal</a>
+					<a href="{{ URL::route('backend.settings.authentication.index') }}" class="btn btn-md btn-default" tabindex="9">Batal</a>
 					<button type="submit" class="btn btn-md btn-primary" tabindex="10">Simpan</button>
 				</div>        
 			</div>        

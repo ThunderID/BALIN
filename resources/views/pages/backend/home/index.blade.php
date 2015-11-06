@@ -7,12 +7,12 @@
 // $total_product          = $product->HasStocks(true)->count();
 $total_product          = 0;
 $total_trans            = $payment->transactiontype('sell')->transactionstatus(['paid', 'shipping', 'delivered'])->transactionondate(['first day of this month', 'last day of this month'])->sum('amount');
-$freq_trans             = $transaction->type('sell')->status(['paid', 'shshippingipped', 'delivered'])->ondate(['first day of this month', 'last day of this month'])->count();
+$freq_trans             = $transaction->type('sell')->status(['paid', 'shipping', 'delivered'])->ondate(['first day of this month', 'last day of this month'])->count();
 $total_point            = $point->ondate(['first day of this month', 'last day of this month'])->debit(true)->sum('amount');
 $total_product          = $product->count();
-$waitingtrs             = $transaction->type('sell')->ondate(['first day of this week', 'today'])->status('wait')->get();
-$paidtrs                = $transaction->type('sell')->ondate(['first day of this week', 'today'])->status('paid')->get();
-$shippedtrs             = $transaction->type('sell')->ondate(['first day of this week', 'today'])->status('shipping')->get();
+$waitingtrs             = $transaction->type('sell')->ondate(['first day of this week', '+ 7 hours'])->status('wait')->get();
+$paidtrs                = $transaction->type('sell')->ondate(['first day of this week', '+ 7 hours'])->status('paid')->get();
+$shippedtrs             = $transaction->type('sell')->ondate(['first day of this week', '+ 7 hours'])->status('shipping')->get();
 ?>
 
 @extends('template.backend.layout') 
@@ -30,7 +30,7 @@ $shippedtrs             = $transaction->type('sell')->ondate(['first day of this
         <div class="col-md-3">
             <div class="panel panel-default panel-widget">
                 <div class="panel-body">
-                    {{$total_point}}
+                    @money_indo($total_point)
                 </div>
                 <div class="panel-heading">Total Poin (Bulan Ini)</div>
             </div>
@@ -40,15 +40,15 @@ $shippedtrs             = $transaction->type('sell')->ondate(['first day of this
                 <div class="panel-body">
                     {{$freq_trans}}
                 </div>
-                <div class="panel-heading">Total Pembelian (Bulan Ini)</div>
+                <div class="panel-heading">Total Penjualan (Bulan Ini)</div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="panel panel-default panel-widget">
                 <div class="panel-body">
-                    {{$total_trans}}
+                    @money_indo($total_trans)
                 </div>
-                <div class="panel-heading">Jumlah Pembelian (Bulan Ini)</div>
+                <div class="panel-heading">Jumlah Penjualan (Bulan Ini)</div>
             </div>
         </div>
     </div>
@@ -74,9 +74,9 @@ $shippedtrs             = $transaction->type('sell')->ondate(['first day of this
                         @else                                                                 
                             @foreach ($waitingtrs as $data)
                             <tr>
-                                <td class="text-left">{{ $data['ref_number'] }}</td>
+                                <td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['ref_number']}}</a></td>
                                 <td>{{ $data['user']['name'] }}</td>
-                                <td class="text-center">{{ $data['amount'] }} </td>
+                                <td class="text-center">@money_indo($data['amount']) </td>
                             </tr>       
                             @endforeach 
                         @endif
@@ -104,9 +104,9 @@ $shippedtrs             = $transaction->type('sell')->ondate(['first day of this
                         @else                                                                 
                             @foreach ($paidtrs as $data)
                             <tr>
-                                <td class="text-left">{{ $data['ref_number'] }}</td>
+                                <td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['ref_number']}}</a></td>
                                 <td>{{ $data['user']['name'] }}</td>
-                                <td class="text-center">{{ $data['amount'] }} </td>
+                                <td class="text-center">@money_indo($data['amount']) </td>
                             </tr>       
                             @endforeach 
                         @endif
@@ -134,9 +134,9 @@ $shippedtrs             = $transaction->type('sell')->ondate(['first day of this
                         @else                                                                 
                             @foreach ($shippedtrs as $data)
                             <tr>
-                                <td class="text-left">{{ $data['ref_number'] }}</td>
+                                <td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['ref_number']}}</a></td>
                                 <td>{{ $data['user']['name'] }}</td>
-                                <td class="text-center">{{ $data['amount'] }} </td>
+                                <td class="text-center">@money_indo($data['amount']) </td>
                             </tr>       
                             @endforeach 
                         @endif
