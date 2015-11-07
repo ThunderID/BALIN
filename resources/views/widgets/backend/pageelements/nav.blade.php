@@ -42,6 +42,7 @@
 					<li class="@if($subnav_active=='courier') active @endif">
 						<a href="{{ route('backend.settings.courier.index') }}"><i class="fa fa-truck"></i> <span class="nav-label">Kurir</span></a>
 					</li>
+					@can('manager')
 					<li class="@if($subnav_active=='voucher') active @endif">
 						<a href="{{ route('backend.settings.voucher.index') }}"><i class="fa fa-money"></i> <span class="nav-label">Voucher</span></a>
 					</li>
@@ -55,15 +56,16 @@
 							<li><a href="{{ route('backend.settings.store.edit', 9) }}">Mengapa bergabung</a></li>
 						</ul>
 					</li>
-
 					<li class="@if($subnav_active=='policy') active @endif">
 						<a href="{{ route('backend.settings.policies.index') }}"><i class="fa fa-lock"></i> <span class="nav-label">Policy</span></a>
 					</li>
 					<li class="@if($subnav_active=='authentication') active @endif">
 						<a href="{{ route('backend.settings.authentication.index') }}"><i class="fa fa-key"></i> <span class="nav-label">Otentikasi</span></a>
 					</li>				
+					@endcan
 				</ul>
 			</li>
+			@can('manager')
 			<li class="@if($nav_active=='storage') active @endif">
 				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan Gudang</span></a>
 				<ul class="nav nav-second-level">
@@ -109,6 +111,8 @@
 					</li>
 				</ul>
 			</li>
+			@endcan
+			@can('admin')
 			<li class="@if($nav_active=='audit') active @endif">
 				<a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Laporan Audit</span></a>
 				<ul class="nav nav-second-level">
@@ -141,6 +145,7 @@
 					</li>
 				</ul>
 			</li>
+			@endcan
 		</ul>
 	</div>
 </nav>

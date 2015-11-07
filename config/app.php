@@ -147,6 +147,7 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
 
     ],
 
@@ -202,6 +203,7 @@ return [
         'Carbon'    => 'Carbon\Carbon',
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Gate'      => Illuminate\Support\Facades\Gate::class,
     ],
 
 ];

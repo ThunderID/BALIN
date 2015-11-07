@@ -23,7 +23,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 	Route::post('/login',												['uses' => 'AuthController@doLogin', 	'as' => 'backend.dologin']);
 });
 
-Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'auth'], function()
+Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['auth', 'staff']], function()
 {
 	Route::get('/change-password',										['uses' => 'PasswordController@create', 'as' => 'backend.changePassword']);
 	
@@ -131,6 +131,8 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 
 		Route::any('ajax/get-courier-by-name',							['uses' => 'CourierController@getCourierByName', 'as' => 'backend.courier.ajax.getCourierByName']);
 
+		Route::group(['middleware' => 'manager'], function()
+		{
 		// ------------------------------------------------------------------------------------
 		// VOUCHER
 		// ------------------------------------------------------------------------------------
@@ -160,12 +162,13 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// ------------------------------------------------------------------------------------
 
 		Route::resource('authentications', 'AuthenticationController',	['names' => ['index' => 'backend.settings.authentication.index', 'create' => 'backend.settings.authentication.create', 'store' => 'backend.settings.authentication.store', 'show' => 'backend.settings.authentication.show', 'edit' => 'backend.settings.authentication.edit', 'update' => 'backend.settings.authentication.update', 'destroy' => 'backend.settings.authentication.destroy']]);
+		});
 	});
 
 	// ------------------------------------------------------------------------------------
 	// REPORT
 	// ------------------------------------------------------------------------------------
-	Route::group(['namespace' => 'Report\\'], function()
+	Route::group(['namespace' => 'Report\\', 'middleware' => 'manager'], function()
 	{
 		// ------------------------------------------------------------------------------------
 		// GUDANG - CRITICAL STOCK
@@ -226,6 +229,9 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// ------------------------------------------------------------------------------------
 		
 		Route::any('finance/price',										['uses' => 'FinanceController@price', 'as' => 'backend.report.finance.price']);
+		
+		Route::group(['namespace' => 'Report\\', 'middleware' => 'admin'], function()
+		{
 
 		// ------------------------------------------------------------------------------------
 		// AUDIT - ABANDONED CART
@@ -280,6 +286,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// ------------------------------------------------------------------------------------
 		
 		Route::any('audit/point',										['uses' => 'AuditController@point', 'as' => 'backend.report.audit.point']);
+		});
 	});
 });
 
