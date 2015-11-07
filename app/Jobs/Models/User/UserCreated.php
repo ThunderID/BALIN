@@ -3,7 +3,7 @@
 namespace App\Jobs\Models\User;
 
 use App\Jobs\Job;
-use App\Jobs\ClaimQuota;
+use App\Jobs\AddQuotaRegistration;
 use App\Jobs\SendWelcomeEmail;
 
 use App\Libraries\JSend;
@@ -25,7 +25,7 @@ class UserCreated extends Job implements SelfHandling
 
     public function handle()
     {
-        $result						= $this->dispatch(new ClaimQuota($this->user));
+        $result						= $this->dispatch(new AddQuotaRegistration($this->user));
         
         if($result->getStatus()=='success')
         {

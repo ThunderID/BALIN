@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class User extends Eloquent implements AuthenticatableContract, CanResetPasswordContract 
+class User extends Eloquent implements AuthenticatableContract, CanResetPasswordContract, AuthorizableContract 
 {
-    use Authenticatable, CanResetPassword;
+    use Authenticatable, CanResetPassword, Authorizable;
 
 	use SoftDeletes;
 
@@ -78,7 +81,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'email'							=> 'max:255|email',
 											'role'							=> 'required|max:255',
 											'referral_code'					=> 'max:8',
-											'date_of_birth'					=> 'date_format:"Y-m-d H:i:s"|before:now'
+											// 'date_of_birth'					=> 'date_format:"Y-m-d H:i:s"|before:now'
 										];
 
 	/**
@@ -217,6 +220,11 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	public function scopeCustomer($query, $variable)
 	{
 		return 	$query->where('role', 'customer');
+	}
+
+	public function scopeEmail($query, $variable)
+	{
+		return 	$query->where('email', $variable);
 	}
 	
 	public function scopeName($query, $variable)

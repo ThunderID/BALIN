@@ -44,6 +44,6 @@
 	<div class="clearfix">&nbsp;</div>
 	<p class="t-xs" style="color:#666">Atau Signup dari akun sosial anda,</p>
 	<div class="form-group">
-		<a class="btn-hollow hollow-black hollow-social" tabindex="2" title="facebook"><i class="fa fa-facebook"></i></a>
+		<a href="{{route('frontend.dosso')}}" class="btn-hollow hollow-black hollow-social" tabindex="2" title="facebook"><i class="fa fa-facebook"></i></a>
 	</div>
 {!! Form::close() !!}

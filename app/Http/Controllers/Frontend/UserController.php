@@ -53,10 +53,10 @@ class UserController extends baseController
 		$data->fill([
 				'name' 				=> $inputs['name'],
 				'email'				=> $inputs['email'],
-				'date_of_birth'	=> $dob,
+				'date_of_birth'		=> $dob,
 				'role'				=> 'customer',
-				'gender'				=> $inputs['gender'],
-				'activation_link' => 'asadfdasfadsf',
+				'gender'			=> $inputs['gender'],
+				'password'			=> Input::get('password'),
 		]);
 
 		if (!$data->save())
@@ -64,12 +64,14 @@ class UserController extends baseController
 			$errors->add('Customer', $data->getError());
 		}
 
-		$address						= new Address;
+		$address					= new Address;
+
 		$address->fill([			
 			'address' 				=> $inputs['address'],
 		]);
 
 		$address->owner()->associate($data);
+		
 		if (!$address->save())
 		{
 			$errors->add('Address', $address->getError());

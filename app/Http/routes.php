@@ -23,7 +23,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
 	Route::post('/login',												['uses' => 'AuthController@doLogin', 	'as' => 'backend.dologin']);
 });
 
-Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'auth'], function()
+Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['auth', 'staff']], function()
 {
 	Route::get('/change-password',										['uses' => 'PasswordController@create', 'as' => 'backend.changePassword']);
 	
@@ -83,7 +83,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		Route::resource('users/{user_id?}/point/log', 'PointLogController',		['names' => ['index' => 'backend.data.pointlog.index', 'create' => 'backend.data.pointlog.create', 'store' => 'backend.data.pointlog.store', 'show' => 'backend.data.pointlog.show', 'edit' => 'backend.data.pointlog.edit', 'update' => 'backend.data.pointlog.update', 'destroy' => 'backend.data.pointlog.destroy']]);
 
 		// ------------------------------------------------------------------------------------
-		// TRANSACTION (pending, crud)
+		// TRANSACTION
 		// ------------------------------------------------------------------------------------
 
 		Route::resource('transactions',	'TransactionController',		['names' => ['index' => 'backend.data.transaction.index', 'create' => 'backend.data.transaction.create', 'store' => 'backend.data.transaction.store', 'show' => 'backend.data.transaction.show', 'edit' => 'backend.data.transaction.edit', 'update' => 'backend.data.transaction.update', 'destroy' => 'backend.data.transaction.destroy']]);
@@ -112,7 +112,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 	Route::group(['namespace' => 'Setting\\'], function()
 	{
 		// ------------------------------------------------------------------------------------
-		// CATEGORY (CHECK)
+		// CATEGORY
 		// ------------------------------------------------------------------------------------
 		
 		Route::resource('categories', 	'CategoryController', 			['names' => ['index' => 'backend.settings.category.index', 'create' => 'backend.settings.category.create', 'store' => 'backend.settings.category.store', 'show' => 'backend.settings.category.show', 'edit' => 'backend.settings.category.edit', 'update' => 'backend.settings.category.update', 'destroy' => 'backend.settings.category.destroy']]);
@@ -120,12 +120,6 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		Route::any('ajax/get-category',									['uses' => 'CategoryController@getCategoryByName', 'as' => 'backend.category.ajax.getByName']);
 
 		Route::any('ajax/get-category-parent',							['uses' => 'CategoryController@getCategoryParentByName', 'as' => 'backend.category.ajax.getParent']);
-
-		// ------------------------------------------------------------------------------------
-		// VOUCHER
-		// ------------------------------------------------------------------------------------
-		
-		Route::resource('vouchers', 	'VoucherController', 			['names' => ['index' => 'backend.settings.voucher.index', 'create' => 'backend.settings.voucher.create', 'store' => 'backend.settings.voucher.store', 'show' => 'backend.settings.voucher.show', 'edit' => 'backend.settings.voucher.edit', 'update' => 'backend.settings.voucher.update', 'destroy' => 'backend.settings.voucher.destroy']]);
 
 		// ------------------------------------------------------------------------------------
 		// COURIER (Store, save image only if there were upload image. Need to sync with job)
@@ -136,6 +130,14 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		Route::resource('couriers/{cou_id?}/shipping/cost',				'ShippingCostController',			['names' => ['index' => 'backend.settings.shippingCost.index', 'create' => 'backend.settings.shippingCost.create', 'store' => 'backend.settings.shippingCost.store', 'show' => 'backend.settings.shippingCost.show', 'edit' => 'backend.settings.shippingCost.edit', 'update' => 'backend.settings.shippingCost.update', 'destroy' => 'backend.settings.shippingCost.destroy']]);
 
 		Route::any('ajax/get-courier-by-name',							['uses' => 'CourierController@getCourierByName', 'as' => 'backend.courier.ajax.getCourierByName']);
+
+		Route::group(['middleware' => 'manager'], function()
+		{
+		// ------------------------------------------------------------------------------------
+		// VOUCHER
+		// ------------------------------------------------------------------------------------
+		
+		Route::resource('vouchers', 	'VoucherController', 			['names' => ['index' => 'backend.settings.voucher.index', 'create' => 'backend.settings.voucher.create', 'store' => 'backend.settings.voucher.store', 'show' => 'backend.settings.voucher.show', 'edit' => 'backend.settings.voucher.edit', 'update' => 'backend.settings.voucher.update', 'destroy' => 'backend.settings.voucher.destroy']]);
 
 		// ------------------------------------------------------------------------------------
 		// STORE
@@ -160,12 +162,13 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// ------------------------------------------------------------------------------------
 
 		Route::resource('authentications', 'AuthenticationController',	['names' => ['index' => 'backend.settings.authentication.index', 'create' => 'backend.settings.authentication.create', 'store' => 'backend.settings.authentication.store', 'show' => 'backend.settings.authentication.show', 'edit' => 'backend.settings.authentication.edit', 'update' => 'backend.settings.authentication.update', 'destroy' => 'backend.settings.authentication.destroy']]);
+		});
 	});
 
 	// ------------------------------------------------------------------------------------
 	// REPORT
 	// ------------------------------------------------------------------------------------
-	Route::group(['namespace' => 'Report\\'], function()
+	Route::group(['namespace' => 'Report\\', 'middleware' => 'manager'], function()
 	{
 		// ------------------------------------------------------------------------------------
 		// GUDANG - CRITICAL STOCK
@@ -226,6 +229,9 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// ------------------------------------------------------------------------------------
 		
 		Route::any('finance/price',										['uses' => 'FinanceController@price', 'as' => 'backend.report.finance.price']);
+		
+		Route::group(['namespace' => 'Report\\', 'middleware' => 'admin'], function()
+		{
 
 		// ------------------------------------------------------------------------------------
 		// AUDIT - ABANDONED CART
@@ -280,56 +286,54 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => 'au
 		// ------------------------------------------------------------------------------------
 		
 		Route::any('audit/point',										['uses' => 'AuditController@point', 'as' => 'backend.report.audit.point']);
+		});
 	});
 });
-
-Route::get('/mail/activation/{activation_link}', 						['uses' => 'accountcontroller@activateAccount' ,'as' => 'balin.email.activation']);
-
-// test
-Route::get('test/sendActivationEmail', ['uses' => 'testController@sendActivationEmail', 'as' => 'backend.test.sendActivationEmail']);
-Route::get('test/sendBillingEmail', ['uses' => 'testController@sendBillingEmail', 'as' => 'backend.test.sendBillingEmail']);
-Route::get('test/sendTransactionValidatedEmail', ['uses' => 'testController@sendTransactionValidatedEmail', 'as' => 'backend.test.sendTransactionValidatedEmail']);
-Route::get('test/sendShipmentEmail', ['uses' => 'testController@sendShipmentEmail', 'as' => 'backend.test.sendShipmentEmail']);
-Route::get('test/testlab', ['uses' => 'testController@testlab', 'as' => 'backend.test.testlab']);
-Route::get('test/testcontroller', ['uses' => 'backend\\data\\transactionController@createsell', 'as' => 'backend.test.testcontroller']);
-Route::post('test/testcontroller', ['uses' => 'backend\\data\\transactionController@sell', 'as' => 'backend.test.testcontroller.post']);
-Route::get('test/generatePassword', function()
-{
-	echo Hash::make('admin');
-});
-
-Route::get('report/criticalStock', ['uses' => 'backend\\reportController@criticalStock', 'as' => 'backend.report.criticalstock']);
-Route::get('report/pointlog', ['uses' => 'backend\\reportController@pointlog', 'as' => 'backend.report.pointlog']);
-Route::get('report/topsellingproduct', ['uses' => 'backend\\reportController@topSellingProduct', 'as' => 'backend.report.topSellingProduct']);
-Route::get('report/suppliedby', ['uses' => 'backend\\reportController@suppliedby', 'as' => 'backend.report.suppliedby']);
-Route::get('report/deadstock', ['uses' => 'backend\\reportController@deadstock', 'as' => 'backend.report.deadstock']);
-Route::get('report', ['uses' => 'backend\\reportController@index', 'as' => 'backend.report.index']);
-
-
-// Route::get('/', function () {
-//     // return view('pages/Frontend/product');
-//     // return view('template/Frontend/index');
-//     // return view('template/Frontend/layout');
-
-//     //'shippings' => nama function di relations
-//  	// $tes = \Models\Courier::with(['Shippings'])->get();
-//   //   print_r($tes);
-// });
 
 // ------------------------------------------------------------------------------------
 // FRONTEND
 // ------------------------------------------------------------------------------------
 // 
-Route::get('/', ['as' => 'frontend.index', function(){ return Redirect::route('frontend.home.index'); }]);
+Route::get('/', 														['as' => 'frontend.index', function()
+{
+	return Redirect::route('frontend.home.index'); 
+}]);
 
-Route::group(['namespace' => 'Frontend\\'], function() {
-	Route::post('do-login',					['uses' => 'AuthController@doLogin', 'as' => 'frontend.dologin']);
-	Route::get('do-logout',					['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
 
-	Route::get('home', 						['uses' => 'HomeController@index', 'as' => 'frontend.home.index']);
+Route::group(['namespace' => 'Frontend\\'], function() 
+{
+	// ------------------------------------------------------------------------------------
+	// LOGIN PAGE
+	// ------------------------------------------------------------------------------------
 
-	Route::get('products', 					['uses' => 'ProductController@index', 'as' => 'frontend.product.index']);
-	Route::get('products/{id}/detail', 	['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
+	Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'frontend.dologin']);
+
+	Route::get('do/logout',												['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
+
+	Route::get('do/sso',												['uses' => 'AuthController@doSso', 'as' => 'frontend.dosso']);
+
+	Route::get('sso/success',											['uses' => 'AuthController@getSso', 'as' => 'frontend.getsso']);
+
+	Route::post('do/signup',											['uses' => 'UserController@store', 'as' => 'frontend.user.store']);
+	
+
+	// ------------------------------------------------------------------------------------
+	// HOME
+	// ------------------------------------------------------------------------------------
+
+	Route::get('home', 													['uses' => 'HomeController@index', 'as' => 'frontend.home.index']);
+
+	// ------------------------------------------------------------------------------------
+	// PRODUCT
+	// ------------------------------------------------------------------------------------
+
+	Route::get('products', 												['uses' => 'ProductController@index', 'as' => 'frontend.product.index']);
+
+	Route::get('products/{id}/detail', 									['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
+
+	// ------------------------------------------------------------------------------------
+	// USER MENU
+	// ------------------------------------------------------------------------------------
 
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
 	Route::get('whyJoin', 					['uses' => 'whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
@@ -339,7 +343,6 @@ Route::group(['namespace' => 'Frontend\\'], function() {
 	Route::get('removetocart', 			['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
 
 	Route::get('profile', 					['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);
-	Route::post('do-sign-up',				['uses' => 'UserController@store', 'as' => 'frontend.user.store']);
 
 	Route::group(['prefix' => 'profile'], function() 
 	{
@@ -347,6 +350,7 @@ Route::group(['namespace' => 'Frontend\\'], function() {
 		Route::get('change-password', 		['uses' => 'ProfileController@changePassword', 'as' => 'frontend.profile.changePassword']);
 		Route::get('change-rofile', 			['uses' => 'ProfileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
 	});
+Route::get('/mail/activation/{activation_link}', 						['uses' => 'accountcontroller@activateAccount' ,'as' => 'balin.email.activation']);
 	
 	Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
 	Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
