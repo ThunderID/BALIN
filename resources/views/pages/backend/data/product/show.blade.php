@@ -110,7 +110,7 @@
 			<h5>
 				<strong>Harga</strong> 
 				@if($product->discount!=0)
-					<strike> @money_inod($product->price) </strike> 
+					<strike> @money_indo($product->price) </strike> 
 					@money_indo($product->promo_price)
 				@else 
 					@money_indo($product->price)
