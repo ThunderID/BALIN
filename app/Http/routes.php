@@ -317,13 +317,23 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	Route::post('do/signup',											['uses' => 'UserController@store', 'as' => 'frontend.user.store']);
 	
 
-
-
+	// ------------------------------------------------------------------------------------
+	// HOME
+	// ------------------------------------------------------------------------------------
 
 	Route::get('home', 													['uses' => 'HomeController@index', 'as' => 'frontend.home.index']);
 
-	Route::get('products', 					['uses' => 'ProductController@index', 'as' => 'frontend.product.index']);
-	Route::get('products/{id}/detail', 	['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
+	// ------------------------------------------------------------------------------------
+	// PRODUCT
+	// ------------------------------------------------------------------------------------
+
+	Route::get('products', 												['uses' => 'ProductController@index', 'as' => 'frontend.product.index']);
+
+	Route::get('products/{id}/detail', 									['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
+
+	// ------------------------------------------------------------------------------------
+	// USER MENU
+	// ------------------------------------------------------------------------------------
 
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
 	Route::get('whyJoin', 					['uses' => 'whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
