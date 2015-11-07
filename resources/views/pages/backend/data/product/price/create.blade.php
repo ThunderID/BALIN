@@ -1,12 +1,12 @@
 @inject('data', 'App\Models\Price')
 <?php
-	$data				= $data::where('id', $pid)->first();
-	$date 				=	null;
+	$data				= $data::where('id', $id)->first();
+	$date 				= null;
 ?>
 
 @if($data)
 	<?php 
-		$date 			= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->startedAt)->format('d-m-Y H:i'); 
+		$date 			= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->started_at)->format('d-m-Y H:i'); 
 	?>
 @endif	
 
@@ -20,7 +20,6 @@
 	@endif
 		<div class="row">
 			<div class="col-md-4">
-				{!! Form::hidden('pid', $pid) !!}
 				<div class="form-group">
 					<label for="price" class="text-capitalize">Harga</label>
 					{!! Form::text('price', $data['price'], [
