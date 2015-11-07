@@ -35,7 +35,6 @@ class PriceController extends baseController
 													];
 
 		$filters 								= Null;
-		
 
 		if (Input::has('q'))
 		{

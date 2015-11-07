@@ -23,12 +23,12 @@ $datas 			= $datas->where('product_id', $pid)->orderby('started_at', 'desc')->pa
 					<a class="btn btn-default btn-block" href="{{ route('backend.data.product.price.create', ['pid' => $pid, 'uid' => $uid]) }}"> Data Baru </a>
 				</div>
 				<div class="col-md-4 col-sm-8 col-xs-12">
-					{!! Form::open(['url' => route('backend.data.product.price.index', ['product_id' => $pid]), 'method' => 'get' ]) !!}
+					{!! Form::open(['url' => route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $pid]), 'method' => 'get' ]) !!}
 						<div class="row">
 							<div class="col-md-2 col-sm-3 hidden-xs">
 							</div>
 							<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
-								{!! Form::input('text', 'q', Null , [
+								{!! Form::input('date', 'q', Null , [
 											'class'         => 'form-control',
 											'placeholder'   => 'Cari sesuatu',
 											'required'      => 'required',
@@ -42,7 +42,7 @@ $datas 			= $datas->where('product_id', $pid)->orderby('started_at', 'desc')->pa
 					{!! Form::close() !!}
 				</div>            
 			</div>
-			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.product.price.index') ])
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $pid]) ])
 			</br> 
 			<div class="row">
 				<div class="col-lg-12">
