@@ -12,7 +12,7 @@ use App\Models\StoreSetting;
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-class ClaimQuota extends Job implements SelfHandling
+class AddQuotaRegistration extends Job implements SelfHandling
 {
     protected $user;
 

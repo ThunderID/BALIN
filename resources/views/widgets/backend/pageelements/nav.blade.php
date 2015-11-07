@@ -39,11 +39,11 @@
 					<li class="@if($subnav_active=='category') active @endif">
 						<a href="{{ route('backend.settings.category.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Kategori</span></a>
 					</li>
-					<li class="@if($subnav_active=='voucher') active @endif">
-						<a href="{{ route('backend.settings.voucher.index') }}"><i class="fa fa-money"></i> <span class="nav-label">Voucher</span></a>
-					</li>
 					<li class="@if($subnav_active=='courier') active @endif">
 						<a href="{{ route('backend.settings.courier.index') }}"><i class="fa fa-truck"></i> <span class="nav-label">Kurir</span></a>
+					</li>
+					<li class="@if($subnav_active=='voucher') active @endif">
+						<a href="{{ route('backend.settings.voucher.index') }}"><i class="fa fa-money"></i> <span class="nav-label">Voucher</span></a>
 					</li>
 					<li class="@if($subnav_active=='store') active @endif">
 						<a href=""><i class="fa fa-home"></i> <span class="nav-label">Toko Online</span></a>

@@ -3,18 +3,16 @@
 namespace App\Jobs\Models\Transaction\Buy;
 
 use App\Jobs\Job;
-use App\Jobs\GenerateTransactionRefNumber;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
 
 class TransactionBuyCreating extends Job implements SelfHandling
 {
-    use DispatchesJobs, ValidatesRequests;
+    use DispatchesJobs;
 
     protected $transaction;
 
@@ -26,6 +24,11 @@ class TransactionBuyCreating extends Job implements SelfHandling
     public function handle()
     {
         $result                             = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
+
+        if($result->getStatus()=='success')
+        {
+            $result                         = $this->dispatch(new GenerateTransactionDate($this->transaction));
+        }
 
         return $result;
     }
