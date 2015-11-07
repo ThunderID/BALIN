@@ -1,9 +1,14 @@
 @inject('data', 'App\Models\Product')
 <?php 
-	$data 			= $data::where('id', $id)->with('categories')->first();
+	$data 			= $data::where('id', $id)->with('lables')->with('categories')->first();
 	$date 			= null;
 	$price	 		= null;
 	$promo_price 	= null;
+	$lables 		= [];
+
+	foreach ($data['lables'] as $value) {
+		array_push($lables, ($value['lable']));
+	}
 ?>
 
 @if($data)
@@ -112,6 +117,64 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
+					Label
+				</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				@if (in_array("new_item", $lables))
+					<?php $val = true; ?>
+				@else
+					<?php $val = false; ?>
+				@endif
+				{!! Form::checkbox('label[]' ,'new_item', $val, [
+								'class' 		=> '',
+								'tabindex'      => '7',
+				]) !!}
+				<label for="new_item">New Item</label>
+			</div>
+			<div class="col-md-3">
+				@if (in_array("best_seller", $lables))
+					<?php $val = true; ?>
+				@else
+					<?php $val = false; ?>
+				@endif				
+				{!! Form::checkbox('label[]' ,'best_seller', $val, [
+								'class' 		=> '',
+								'tabindex'      => '8',
+				]) !!}	
+				<label for="best_seller">Best Seller</label>
+			</div>			
+			<div class="col-md-3">
+				@if (in_array("sale", $lables))
+					<?php $val = true; ?>
+				@else
+					<?php $val = false; ?>
+				@endif					
+				{!! Form::checkbox('label[]' ,'sale', $val, [
+								'class' 		=> '',
+								'tabindex'      => '9',
+				]) !!}	
+				<label for="sale">Sale</label>
+			</div>			
+			<div class="col-md-3">
+				@if (in_array("hot_item", $lables))
+					<?php $val = true; ?>
+				@else
+					<?php $val = false; ?>
+				@endif					
+				{!! Form::checkbox('label[]' ,'hot_item', $val, [
+								'class' 		=> '',
+								'tabindex'      => '10',
+				]) !!}	
+				<label for="hot_item">Hot Item</label>				
+			</div>
+		</div>
+		<div class="clearfix">&nbsp;</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="sub-header">
 					Harga
 				</h4>
 			</div>
@@ -143,7 +206,7 @@
 					{!! Form::text('started_at', $date, [
 								'class'         => 'form-control date-time-format',
 								'tabindex'      => '9', 
-								'placeholder'   => 'Y-m-d H:i:s'
+								'placeholder'   => 'Tanggal mulai'
 					]) !!}
 				</div>  
 			</div> 

@@ -4,6 +4,7 @@ use App\Http\Controllers\baseController;
 use App\Models\Product;
 use App\Models\ProductUniversal;
 use App\Models\Price;
+use App\Models\Lable;
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect, Str;
 
@@ -135,6 +136,7 @@ class ProductController extends baseController
 	public function store($uid = null, $id = null)
 	{
 		$inputs 										= Input::only('category','name','sku','description','color','size');
+		$labels											= Input::only('label');
 
 		if($id)
 		{
@@ -177,7 +179,7 @@ class ProductController extends baseController
 				$errors->add('Product', $data->getError());
 			}
 
-			$in_price  		=	str_replace('Rp ', '', str_replace('.', '', Input::get('price')));
+			$in_price  			=	str_replace('Rp ', '', str_replace('.', '', Input::get('price')));
 			$in_promo_price  	=	str_replace('Rp ', '', str_replace('.', '', Input::get('promo_price')));
 
 			if($data->price != $in_price || $data->promo_price != $in_promo_price)
@@ -195,7 +197,35 @@ class ProductController extends baseController
 				{
 					$errors->add('Product', $price->getError());
 				}
+			}
 
+			//label
+			//label clear previous
+			$Label 									 	= Lable::where('product_id', $data->id)->get();
+			foreach ($Label as $value) {
+				if(!$value->delete())
+				{
+					$errors->add('Product', $value->getError());
+				}
+			}
+
+			//label save
+
+			foreach ($labels['label'] as $value) 
+			{
+				$label 									= new Lable;
+
+				$label->fill([
+					'product_id'						=> $data->id,
+					'lable'								=> $value,
+					'value'								=> 'value',
+					'started_at'						=> date('Y-m-d H:i:s'),
+				]);
+
+				if(!$label->save())
+				{
+					$errors->add('Product', $label->getError());
+				}
 			}
 
 			//save image

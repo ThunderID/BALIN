@@ -19,6 +19,7 @@ class Product extends Eloquent
 	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
 	use \App\Models\Traits\hasMany\HasPricesTrait;
 	use \App\Models\Traits\hasMany\HasDiscountsTrait;
+	use \App\Models\Traits\hasMany\HasLablesTrait;
 	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
 	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
 	use \App\Models\Traits\belongsToMany\HasCategoriesTrait;
