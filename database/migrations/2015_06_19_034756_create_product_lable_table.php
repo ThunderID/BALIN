@@ -15,7 +15,7 @@ class CreateProductLableTable extends Migration
         Schema::create('product_lables', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned()->index();
-            $table->string('name', 255);
+            $table->string('lable', 255);
             $table->text('value');
             $table->datetime('started_at');
             $table->datetime('ended_at');
