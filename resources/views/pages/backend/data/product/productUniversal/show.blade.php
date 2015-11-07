@@ -118,7 +118,7 @@
 					@endforeach
 					@include('widgets.pageelements.formmodaldelete', [
 							'modal_id'      => 'var_del', 
-							'modal_route'   => route('backend.data.product.destroy', ['uid' => $id])
+							'modal_route'   => route('backend.data.product.destroy', 0)
 					])					
 				@endif
 			</tbody>

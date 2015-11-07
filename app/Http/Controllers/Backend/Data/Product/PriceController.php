@@ -35,7 +35,6 @@ class PriceController extends baseController
 													];
 
 		$filters 								= Null;
-		
 
 		if (Input::has('q'))
 		{
@@ -111,9 +110,9 @@ class PriceController extends baseController
 		return $this->layout;		
 	}
 
-	public function edit($id)
+	public function edit($uid = null, $pid = null, $id = null)
 	{
-		return $this->create($id);
+		return $this->create($uid, $pid, $id);
 	}
 
 	public function store($uid = null, $pid = null, $id = null)
@@ -162,12 +161,12 @@ class PriceController extends baseController
 		}
 	}
 
-	public function Update($id)
+	public function Update($uid = null, $pid = null, $id = null)
 	{
-		return $this->store($id);		
+		return $this->store($uid, $pid, $id);		
 	}
 
-	public function destroy($id)
+	public function destroy($uid = null, $pid = null, $id = null)
 	{
 		$data 					= Price::findorfail($id);
 
@@ -185,7 +184,7 @@ class PriceController extends baseController
 		{
 			DB::commit();
 
-			return Redirect::route('backend.data.product.price.index', ['product_id' => $data->product_id])
+			return Redirect::route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $pid])
 				->with('msg', 'Harga telah dihapus')
 				->with('msg-type','success');
 		}
