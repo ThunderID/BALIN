@@ -290,50 +290,37 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 	});
 });
 
-Route::get('/mail/activation/{activation_link}', 						['uses' => 'accountcontroller@activateAccount' ,'as' => 'balin.email.activation']);
-
-// test
-Route::get('test/sendActivationEmail', ['uses' => 'testController@sendActivationEmail', 'as' => 'backend.test.sendActivationEmail']);
-Route::get('test/sendBillingEmail', ['uses' => 'testController@sendBillingEmail', 'as' => 'backend.test.sendBillingEmail']);
-Route::get('test/sendTransactionValidatedEmail', ['uses' => 'testController@sendTransactionValidatedEmail', 'as' => 'backend.test.sendTransactionValidatedEmail']);
-Route::get('test/sendShipmentEmail', ['uses' => 'testController@sendShipmentEmail', 'as' => 'backend.test.sendShipmentEmail']);
-Route::get('test/testlab', ['uses' => 'testController@testlab', 'as' => 'backend.test.testlab']);
-Route::get('test/testcontroller', ['uses' => 'backend\\data\\transactionController@createsell', 'as' => 'backend.test.testcontroller']);
-Route::post('test/testcontroller', ['uses' => 'backend\\data\\transactionController@sell', 'as' => 'backend.test.testcontroller.post']);
-Route::get('test/generatePassword', function()
-{
-	echo Hash::make('admin');
-});
-
-Route::get('report/criticalStock', ['uses' => 'backend\\reportController@criticalStock', 'as' => 'backend.report.criticalstock']);
-Route::get('report/pointlog', ['uses' => 'backend\\reportController@pointlog', 'as' => 'backend.report.pointlog']);
-Route::get('report/topsellingproduct', ['uses' => 'backend\\reportController@topSellingProduct', 'as' => 'backend.report.topSellingProduct']);
-Route::get('report/suppliedby', ['uses' => 'backend\\reportController@suppliedby', 'as' => 'backend.report.suppliedby']);
-Route::get('report/deadstock', ['uses' => 'backend\\reportController@deadstock', 'as' => 'backend.report.deadstock']);
-Route::get('report', ['uses' => 'backend\\reportController@index', 'as' => 'backend.report.index']);
-
-
-// Route::get('/', function () {
-//     // return view('pages/Frontend/product');
-//     // return view('template/Frontend/index');
-//     // return view('template/Frontend/layout');
-
-//     //'shippings' => nama function di relations
-//  	// $tes = \Models\Courier::with(['Shippings'])->get();
-//   //   print_r($tes);
-// });
-
 // ------------------------------------------------------------------------------------
 // FRONTEND
 // ------------------------------------------------------------------------------------
 // 
-Route::get('/', ['as' => 'frontend.index', function(){ return Redirect::route('frontend.home.index'); }]);
+Route::get('/', 														['as' => 'frontend.index', function()
+{
+	return Redirect::route('frontend.home.index'); 
+}]);
 
-Route::group(['namespace' => 'Frontend\\'], function() {
-	Route::post('do-login',					['uses' => 'AuthController@doLogin', 'as' => 'frontend.dologin']);
-	Route::get('do-logout',					['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
 
-	Route::get('home', 						['uses' => 'HomeController@index', 'as' => 'frontend.home.index']);
+Route::group(['namespace' => 'Frontend\\'], function() 
+{
+	// ------------------------------------------------------------------------------------
+	// LOGIN PAGE
+	// ------------------------------------------------------------------------------------
+
+	Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'frontend.dologin']);
+
+	Route::get('do/logout',												['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
+
+	Route::get('do/sso',												['uses' => 'AuthController@doSso', 'as' => 'frontend.dosso']);
+
+	Route::get('sso/success',											['uses' => 'AuthController@getSso', 'as' => 'frontend.getsso']);
+
+	Route::post('do/signup',											['uses' => 'UserController@store', 'as' => 'frontend.user.store']);
+	
+
+
+
+
+	Route::get('home', 													['uses' => 'HomeController@index', 'as' => 'frontend.home.index']);
 
 	Route::get('products', 					['uses' => 'ProductController@index', 'as' => 'frontend.product.index']);
 	Route::get('products/{id}/detail', 	['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
@@ -346,7 +333,6 @@ Route::group(['namespace' => 'Frontend\\'], function() {
 	Route::get('removetocart', 			['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
 
 	Route::get('profile', 					['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);
-	Route::post('do-sign-up',				['uses' => 'UserController@store', 'as' => 'frontend.user.store']);
 
 	Route::group(['prefix' => 'profile'], function() 
 	{
@@ -354,6 +340,7 @@ Route::group(['namespace' => 'Frontend\\'], function() {
 		Route::get('change-password', 		['uses' => 'ProfileController@changePassword', 'as' => 'frontend.profile.changePassword']);
 		Route::get('change-rofile', 			['uses' => 'ProfileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
 	});
+Route::get('/mail/activation/{activation_link}', 						['uses' => 'accountcontroller@activateAccount' ,'as' => 'balin.email.activation']);
 	
 	Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
 	Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);

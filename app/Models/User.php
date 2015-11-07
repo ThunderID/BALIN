@@ -81,7 +81,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'email'							=> 'max:255|email',
 											'role'							=> 'required|max:255',
 											'referral_code'					=> 'max:8',
-											'date_of_birth'					=> 'date_format:"Y-m-d H:i:s"|before:now'
+											// 'date_of_birth'					=> 'date_format:"Y-m-d H:i:s"|before:now'
 										];
 
 	/**
@@ -220,6 +220,11 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	public function scopeCustomer($query, $variable)
 	{
 		return 	$query->where('role', 'customer');
+	}
+
+	public function scopeEmail($query, $variable)
+	{
+		return 	$query->where('email', $variable);
 	}
 	
 	public function scopeName($query, $variable)
