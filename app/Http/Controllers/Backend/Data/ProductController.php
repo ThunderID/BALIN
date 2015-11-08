@@ -136,7 +136,8 @@ class ProductController extends baseController
 	public function store($uid = null, $id = null)
 	{
 		$inputs 										= Input::only('category','name','sku','description','color','size');
-		$labels											= Input::only('label');
+		$labels								
+					= Input::only('label');
 
 		if($id)
 		{
@@ -190,6 +191,7 @@ class ProductController extends baseController
 					'price'								=> (integer)$in_price,
 					'promo_price'						=> (integer)$in_promo_price,
 					'started_at'						=> date('Y-m-d H:i:s', strtotime(Input::get('started_at'))),
+					'ended_at'							=> null,
 					'label'								=> Input::get('label'),
 				]);
 
