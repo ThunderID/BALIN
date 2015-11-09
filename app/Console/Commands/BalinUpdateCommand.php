@@ -53,42 +53,40 @@ class BalinUpdateCommand extends Command
      **/
     public function update10102015()
     {
-        // Schema::table('users', function(Blueprint $table)
-        // {   
-        //     $table->string('activation_link', 255);
-        //     $table->string('reset_password_link', 255);
-        //     $table->datetime('expired_at')->nullable();
-        // });
+        Schema::table('images', function(Blueprint $table)
+        {   
+            $table->boolean('is_default');
+        });
 
         // $this->info("Updating User with link and expired");
-        $types                                      = ['expired_link_duration'];
-        $values                                     = ['+ 2 hours'];
-        try
-        {
-            $i                                      = 0;
-            foreach($types as $key => $value)
-            {
-                $data                               = new Policy;
-                $data->fill([
-                    'type'                          => $value,
-                    'value'                         => $values[$key],
-                    'started_at'                    => date('Y-m-d H:i:s'),
-                ]);
+        // $types                                      = ['expired_link_duration'];
+        // $values                                     = ['+ 2 hours'];
+        // try
+        // {
+        //     $i                                      = 0;
+        //     foreach($types as $key => $value)
+        //     {
+        //         $data                               = new Policy;
+        //         $data->fill([
+        //             'type'                          => $value,
+        //             'value'                         => $values[$key],
+        //             'started_at'                    => date('Y-m-d H:i:s'),
+        //         ]);
 
-                if (!$data->save())
-                {
-                    print_r($data->getError());
-                    exit;
-                }
-            }   
-        }
-        catch (Exception $e) 
-        {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
-            echo 'Caught exception: ',  $e->getFile(), "\n";
-            echo 'Caught exception: ',  $e->getLine(), "\n";
-        }
+        //         if (!$data->save())
+        //         {
+        //             print_r($data->getError());
+        //             exit;
+        //         }
+        //     }   
+        // }
+        // catch (Exception $e) 
+        // {
+        //     echo 'Caught exception: ',  $e->getMessage(), "\n";
+        //     echo 'Caught exception: ',  $e->getFile(), "\n";
+        //     echo 'Caught exception: ',  $e->getLine(), "\n";
+        // }
 
-        $this->info("Add expired link duration");
+        // $this->info("Add expired link duration");
     }
 }

@@ -1,7 +1,11 @@
 @inject('data', 'App\Models\Product')
+@inject('lable', 'App\Models\Lable')
 <?php 
 	$stat 		= $data->id($id)->totalsell(true)->first();
 	$suppliers 	= $data->id($id)->suppliers(true)->first();
+	$product	= $data->where('id', $id)->with('lables')->first();
+	$lables		= $product['lables'];
+
 	// $product 		= $product::id($id)
 	// 				->with(['categories', 'images', 'stocks'])
 	// 				->first(); 
@@ -118,8 +122,13 @@
 				<span>[ <a href="{{ route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $product['id']]) }}">Histori Harga</a> ]</span>
 			</h5> 
 			<h5><strong>Diskon</strong> @money_indo($product->discount)</h5>
-
+			<h5><strong>Lable &nbsp;</strong>
+				@foreach($lables as $lable)
+	                <label class="label label-success">{{ str_replace('_', ' ', ucfirst($lable['lable'] ) )}}</label> &nbsp;
+				@endforeach
+			</h5>
 			<br/>
+
 			<i class = "fa fa-tags"></i>
 			@foreach($product->categories as $key => $value)
 				@if($key!=0)

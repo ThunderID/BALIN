@@ -21,11 +21,34 @@ class ImageSaved extends Job implements SelfHandling
 
     public function __construct(Image $image)
     {
-        $this->image                      = $image;
+        $this->image                    = $image;
     }
 
     public function handle()
     {
+        if(isset($this->image->imageable_id) && $this->image->is_default == 1)
+        {
+            $models                     = Image::where('imageable_id', $this->image->imageable_id)
+                                            ->where('imageable_type','App\Models\Product')
+                                            ->where('is_default', 1)
+                                            ->where('id','!=', $this->image->id)
+                                            ->get();
+
+            foreach ($models as $model) 
+            {
+               $model->fill([
+                    'is_default'        => 0,
+                ]);
+
+               if(!$model->save())
+               {
+                    return new JSend('error', (array)$this->image, (array)$this->image->geterror());
+               }
+            }
+        }
+
+        $result                          = new JSend('success', (array)$this->image);
+        
         return $result;
     }
 }

@@ -1,6 +1,7 @@
 <h2>Informasi Produk</h2>
 <div class="clearfix">&nbsp;</div>
-<!-- <div id="tmplt">
+<div class="hidden">
+<div id="tmplt">
 	<div class="row">
 		<div class="col-md-4">
 			<div class="form-group">
@@ -40,7 +41,8 @@
 			</div>
 		</div>
 	</div>
-</div> -->
+</div>
+</div>
 <div id="template"></div>
 <div class="row">
 	<div class="col-md-2 col-md-offset-9">
