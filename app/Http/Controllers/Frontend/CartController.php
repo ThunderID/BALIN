@@ -22,13 +22,13 @@ class CartController extends baseController
 	}
 
 	// FUNCTION ADD TO CART
-	public function store($id = null , $qty = null)
+	public function store($slug = null , $qty = null)
 	{
 		//test purpose 
-		$id 				= Input::get('product_id');
+		$slug				= Input::get('product_slug');
 		$qty 				= Input::get('product_qty');
 
-		if (!$id && !$qty)
+		if (!$slug && !$qty)
 		{
 			return false;
 		}
@@ -37,35 +37,31 @@ class CartController extends baseController
 		$baskets = Cookie::get('baskets');
 
 
-		$product 								= Product::where('id', $id)
+		$product 								= Product::where('slug', $slug)
 														->with('images')
 														->first();
 
 		//get addition cart
 		$basket 								= 	[
-														'id' 			=> $id, 
+														'slug' 			=> $slug, 
 														'name'			=> $product['name'],
-														'sku'			=> $product['sku'],
+														'sku'				=> $product['sku'],
 														'qty' 			=> $qty,
+														'stock'			=> $product['stock'],
 														'price'			=> $product['price'],
 														'promo_price'	=> $product['promo_price'],
 														'discount'		=> $product['discount'],
-														'images'		=> $product['images'][0]['thumbnail']
+														'images'			=> $product['images'][0]['thumbnail']
 													];
 		// dd($basket);exit;
 		//adding new data to basket 
 		if (empty($baskets))
 		{
 			$basket 							= array($basket);
-
-
-			$baskets 							= $basket;
+			$baskets 						= $basket;
 		}
 		else
 		{
-			// dd('other');
-			// $basket 							= ['id' => $id, 'qty' => $qty];
-
 			array_push($baskets, $basket);
 		}
 
@@ -79,33 +75,48 @@ class CartController extends baseController
 						->withCookie($baskets);
 	}
 
+	public function edit ()
+	{
+		$baskets 								= Cookie::get('basketss');
+		$carts 									= null;
+		$this->layout->page 					= view('pages.frontend.cart.edit')
+														->with('controller_name', $this->controller_name)
+														->with('carts', $carts);
+		$this->layout->controller_name	= $this->controller_name;
+
+		return $this->layout;
+	}
+
 	// FUNCTION REMOVE CART
-	public function destroy ($id = null)
+	public function destroy ($id)
 	{
 		//notes: ID from cart array. bukan product id
 
 		//test purpose
-		$id= 0;
+		// $id= 0;
 
 		//get old baskets
-		$baskets = Cookie::get('baskets');
+		$baskets 								= Cookie::get('baskets');
 
 		//check validation
-		if($id && count($baskets) <= $id )
+		if ($id && count($baskets) <= $id )
 		{
 			return false;
-			dd($wrong);
+			// dd($wrong);
 		}
 
 		//remove selected item from cart
 		unset($baskets[$id]);
-		$baskets = array_values(array_filter($baskets));
+
+		$baskets 								= array_values(array_filter($baskets));
 
 		//update baskets
-		$baskets 			= Cookie::forever('baskets', $baskets);
+		$baskets 								= Cookie::forever('baskets', $baskets);
 
 		//return cookies
-		return Response::make('item removed from cart')
-							->withCookie($baskets);
+		// return Response::make('item removed from cart')
+		// 					->withCookie($baskets);
+		return Redirect::route('frontend.cart.index')
+						->withCookie($baskets);
 	}
 }

@@ -18,11 +18,11 @@ class ProductController extends baseController
 	}
 
 
-	public function show($id = null)
+	public function show($slug = null)
 	{
 		$this->layout->page 					= view('pages.frontend.product.show')
 														->with('controller_name', $this->controller_name)
-														->with('id', $id)
+														->with('slug', $slug)
 														;
 		$this->layout->controller_name			= $this->controller_name;
 
