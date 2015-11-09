@@ -41,13 +41,13 @@ class SaveAuditCanceled extends Job implements SelfHandling
                     'ondate'                => Carbon::now()->format('Y-m-d H:i:s'),
                     'event'                 => 'Pembatalan Pesanan',
                 ]);
-        }
 
-        $audit->table()->associate($this->transaction);
+            $audit->table()->associate($this->transaction);
 
-        if(!$audit->save())
-        {
-            $result                         = new JSend('error', (array)$this->transaction, $audit->getError());
+            if(!$audit->save())
+            {
+                $result                     = new JSend('error', (array)$this->transaction, $audit->getError());
+            }
         }
 
         return $result;

@@ -48,13 +48,13 @@ class SaveAuditPrice extends Job implements SelfHandling
                     'ondate'                => Carbon::now()->format('Y-m-d H:i:s'),
                     'event'                 => 'Perubahan harga produk '.$this->price->product->name.' menjadi '.$price,
                 ]);
-        }
+    
+            $audit->table()->associate($this->price);
 
-        $audit->table()->associate($this->price);
-
-        if(!$audit->save())
-        {
-            $result                         = new JSend('error', (array)$this->price, $audit->getError());
+            if(!$audit->save())
+            {
+                $result                     = new JSend('error', (array)$this->price, $audit->getError());
+            }
         }
 
         return $result;
