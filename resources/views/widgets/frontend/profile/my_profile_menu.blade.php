@@ -11,6 +11,7 @@
 			<li class="m-t-sm"><a href="#" class="@if($subnav_active=='account_address') active @endif">Buku Alamat</a></li>
 			<li class="m-t-sm"><a href="#" class="@if($subnav_active=='account_order') active @endif">Riwayat Pesanan</a></li>
 			<li class="m-t-sm"><a href="{{route('frontend.profile.point')}}" class="@if($subnav_active=='account_point') active @endif">Buku Tabungan</a></li>
+			<li class="m-t-sm"><a href="{{route('frontend.profile.downline')}}" class="@if($subnav_active=='account_downline') active @endif">Daftar Downline</a></li>
 			@if(!Auth::user()->is_active)
 				<li class="m-t-sm"><a href="#" class="@if($subnav_active=='account_reference') active @endif">Referensi</a></li>
 			@endif

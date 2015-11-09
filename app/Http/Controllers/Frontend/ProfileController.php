@@ -94,4 +94,16 @@ class ProfileController extends BaseController
 
 		return $this->layout;
 	}	
+
+	public function downline()
+	{		
+		$this->layout->page 					= view('pages.frontend.user.downline')
+													->with('controller_name', $this->controller_name)
+													->with('subnav_active', 'account_downline')
+													->with('title', 'Daftar Downline');
+
+		$this->layout->controller_name			= $this->controller_name;
+
+		return $this->layout;
+	}	
 }
