@@ -46,7 +46,7 @@ class CheckValidationLink extends Job implements SelfHandling
 						'user_id'			=> $this->user->id,
 						'amount'			=> $gift->value,
 						'expired_at'		=> $expired_at->format('Y-m-d H:i:s'),
-						'notes'				=> 'Welcom Gift dari BALIN',
+						'notes'				=> 'Welcome Gift dari BALIN',
 					]);
 
 				if(!$point->save())
