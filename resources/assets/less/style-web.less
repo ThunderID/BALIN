@@ -352,9 +352,15 @@ html {
 			&.active {
 				height: 100%;
 				display: block;
-					min-height: 650px;
+				min-height: 650px;
 				.fill {
 					min-height: 650px;
+					@media screen and (min-width: 992px) {
+						min-height: 815px;
+					}
+				}
+				@media screen and (min-width: 992px) {
+					min-height: 810px;
 				}
 			}
 			.carousel-caption {
@@ -501,7 +507,9 @@ html {
 		font-size: 14px;
 		color: #777;
 	}
-
+	.label-item {
+		font-size: 16px;
+	}
 }
 .chart-item-mobile h4{
 	margin-top: 5px;
@@ -588,6 +596,16 @@ html {
 			background-color: #fff;
 			color: #000;
 			border-color: #000;
+			text-decoration: none;
+		}
+	}
+	&.hollow-white {
+		background-color: #fff;
+		color: #000;
+		&:hover {
+			background-color: #000;
+			color: #fff;
+			border-color: #fff;
 			text-decoration: none;
 		}
 	}
@@ -693,7 +711,7 @@ input.text-hollow {
 .gallery-product .owl-controls .owl-nav .owl-prev {
 	position: absolute;
 	left: 0;
-	top: 25px;
+	top: 30px;
 	background-color: rgba(0, 0, 0, 0.65);
 	padding-left: 5px;
 	padding-right: 5px;
@@ -701,17 +719,23 @@ input.text-hollow {
 		color: #eee;
 		margin-right: 4px;
 	}
+	@media screen and (max-width: 992px) {
+		top: 50%;
+	}
 }
 .gallery-product .owl-controls .owl-nav .owl-next {
 	position: absolute;
 	right: 0;
-	top: 25px;
+	top: 30px;
 	background-color: rgba(0, 0, 0, 0.65);
 	padding-left: 5px;
 	padding-right: 5px;
 	i {
 		color: #eee;
 		margin-left: 4px;
+	}
+	@media screen and (max-width: 992px) {
+		top: 50%;
 	}
 }
 .info-corporate {
@@ -752,7 +776,7 @@ select.form-control.hollow {
 	outline: none;
 	box-shadow: none;
 	overflow: hidden;
-	background: #fff url("../../../../Balin/web/image/select2x2.png") no-repeat right -80px top -6px;
+	background: #fff url("../../../../Balin/web/image/select2x2.png") no-repeat right -90px top -6px;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 }
