@@ -343,9 +343,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 		Route::post('/setting', 										['uses' => 'ProfileController@update', 'as' => 'frontend.profile.update']);
 		
-		Route::get('membership-detail', 		['uses' => 'ProfileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
-		Route::get('change-password', 		['uses' => 'ProfileController@changePassword', 'as' => 'frontend.profile.changePassword']);
-		Route::get('change-rofile', 			['uses' => 'ProfileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
+		Route::get('/point', 											['uses' => 'ProfileController@point', 'as' => 'frontend.profile.point']);
 	});
 
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);

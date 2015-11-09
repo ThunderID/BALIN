@@ -83,22 +83,12 @@ class ProfileController extends BaseController
 		}
 	}
 
-	public function changePassword()
+	public function point()
 	{		
-		$this->layout->page 					= view('pages.frontend.user.index')
+		$this->layout->page 					= view('pages.frontend.user.point')
 													->with('controller_name', $this->controller_name)
-													->with('sub_page', 'profile_change_password');
-
-		$this->layout->controller_name			= $this->controller_name;
-
-		return $this->layout;
-	}	
-
-	public function changeProfile()
-	{		
-		$this->layout->page 					= view('pages.frontend.user.index')
-													->with('controller_name', $this->controller_name)
-													->with('sub_page', 'profile_edit');
+													->with('subnav_active', 'account_point')
+													->with('title', 'Buku Tabungan');
 
 		$this->layout->controller_name			= $this->controller_name;
 
