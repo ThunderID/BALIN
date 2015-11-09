@@ -308,8 +308,6 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'frontend.dologin']);
 
-	Route::get('do/logout',												['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
-
 	Route::get('do/sso',												['uses' => 'AuthController@doSso', 'as' => 'frontend.dosso']);
 
 	Route::get('sso/success',											['uses' => 'AuthController@getSso', 'as' => 'frontend.getsso']);
@@ -335,7 +333,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	// USER MENU
 	// ------------------------------------------------------------------------------------
 
-	Route::group(['prefix' => 'profile'], function() 
+	Route::group(['prefix' => 'profile', 'middleware' => 'customer'], function() 
 	{
 		Route::get('/', 												['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);
 		
@@ -357,6 +355,15 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 		Route::post('/reference', 										['uses' => 'CampaignController@postreference', 'as' => 'frontend.profile.reference.post']);
 	});
+	
+	Route::get('do/logout',												['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
+
+	// ------------------------------------------------------------------------------------
+	// USER ACTIVATION
+	// ------------------------------------------------------------------------------------
+
+	Route::get('/mail/activation/{activation_link}', 					['uses' => 'AuthController@activateAccount' ,'as' => 'balin.email.activation']);
+
 
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
 	Route::get('whyJoin', 					['uses' => 'whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
@@ -368,7 +375,6 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 
 	
-Route::get('/mail/activation/{activation_link}', 						['uses' => 'accountcontroller@activateAccount' ,'as' => 'balin.email.activation']);
 	
 	Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
 	Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
