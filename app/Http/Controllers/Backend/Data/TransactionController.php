@@ -260,7 +260,7 @@ class TransactionController extends BaseController
 
 		if(!$errors->count() && Input::has('address_choice') && Input::get('address_choice')==1)
 		{
-			$inputaddr 							= Input::only('address', 'phone', 'postal_code');
+			$inputaddr 							= Input::only('address', 'phone', 'postal_code', 'receiver_name');
 
 			$address 							= new Address;
 
@@ -268,6 +268,7 @@ class TransactionController extends BaseController
 				'address'						=> $inputaddr['address'],
 				'phone'							=> $inputaddr['phone'],
 				'zipcode'						=> $inputaddr['postal_code'],
+				'receiver_name'					=> $inputaddr['receiver_name'],
 				]);
 
 			$address->owner()->associate(User::findorfail($inputs['customer']));
@@ -277,7 +278,7 @@ class TransactionController extends BaseController
 				$errors->add('Transaction', $address->getError());
 			}
 		}
-		elseif(!$errors->count() && Input::has('address_choice') && Input::get('address_choice')==2)
+		elseif(!$errors->count() && Input::has('address_choice') && Input::get('address_choice')==0)
 		{
 			$address 							= Address::findorfail(Input::get('address_id'));
 		}

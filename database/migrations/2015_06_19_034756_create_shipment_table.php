@@ -18,6 +18,7 @@ class CreateShipmentTable extends Migration
             $table->integer('transaction_id')->unsigned()->index();
             $table->integer('address_id')->unsigned()->index();
             $table->string('receipt_number', 255)->nullable();
+            $table->string('receiver_name', 255);
             $table->timestamps();
             $table->softDeletes();
         });
