@@ -50,20 +50,21 @@ class CartController extends baseController
 														'price'			=> $product['price'],
 														'promo_price'	=> $product['promo_price'],
 														'discount'		=> $product['discount'],
-														'images'		=> $product['images']
+														'images'		=> $product['images'][0]['thumbnail']
 													];
-		dd($basket);exit;
+		// dd($basket);exit;
 		//adding new data to basket 
 		if (empty($baskets))
 		{
-			$basket 							= array(['id' => $id, 'qty' => $qty]);
+			$basket 							= array($basket);
 
 
 			$baskets 							= $basket;
 		}
 		else
 		{
-			$basket 							= ['id' => $id, 'qty' => $qty];
+			// dd('other');
+			// $basket 							= ['id' => $id, 'qty' => $qty];
 
 			array_push($baskets, $basket);
 		}
@@ -72,8 +73,10 @@ class CartController extends baseController
 		$baskets 								= Cookie::forever('baskets', $baskets);
 
 		//return cookies
-		return Response::make('item added to cart')
-							->withCookie($baskets);
+		// return Response::make('item added to cart')
+		// 					->withCookie($baskets);
+		return Redirect::route('frontend.cart.index')
+						->withCookie($baskets);
 	}
 
 	// FUNCTION REMOVE CART
@@ -82,7 +85,7 @@ class CartController extends baseController
 		//notes: ID from cart array. bukan product id
 
 		//test purpose
-		$id= 1;
+		$id= 0;
 
 		//get old baskets
 		$baskets = Cookie::get('baskets');

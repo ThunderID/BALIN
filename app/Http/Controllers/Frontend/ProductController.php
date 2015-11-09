@@ -7,7 +7,7 @@ use Cookie, Response;
 class ProductController extends baseController 
 {
 
-	protected $controller_name 					= 'Varian';
+	protected $controller_name 					= 'product';
 
 	public function index()
 	{		
