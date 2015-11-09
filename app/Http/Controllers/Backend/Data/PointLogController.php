@@ -1,5 +1,5 @@
 <?php namespace App\Http\Controllers\Backend\Data;
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 
 use App\Models\PointLog;
 use App\Models\User;
@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect, Carbon;
 
-class PointLogController extends baseController 
+class PointLogController extends BaseController 
 {
 
     /**

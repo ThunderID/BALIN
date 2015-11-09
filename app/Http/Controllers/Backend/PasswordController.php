@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\User;
 use Input, Session, DB, Redirect, Response, Auth, Validator;
 
-class PasswordController extends baseController 
+class PasswordController extends BaseController 
 {
 	/**
      * Instantiate a new UserController instance.

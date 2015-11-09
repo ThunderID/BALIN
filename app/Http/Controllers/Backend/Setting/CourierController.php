@@ -1,13 +1,13 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use Illuminate\Support\MessageBag;
 use App\Models\Courier;
 use App\Models\Address;
 use App\Models\Image;
 use Input, Session, DB, Redirect, Response;
 
-class CourierController extends baseController 
+class CourierController extends BaseController 
 {
     /**
      * Instantiate a new UserController instance.

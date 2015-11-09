@@ -1,13 +1,13 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use Illuminate\Support\MessageBag;
 use App\Models\Voucher;
 use App\Models\Address;
 use App\Models\Image;
 use Input, Session, DB, Redirect, Response, Carbon;
 
-class VoucherController extends baseController 
+class VoucherController extends BaseController 
 {
     /**
      * Instantiate a new VoucherController instance.

@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 
-class joinController extends baseController 
+class joinController extends BaseController 
 {
 
 	protected $controller_name 					= 'join';

@@ -5,6 +5,9 @@ namespace App\Jobs\Models\Transaction\Buy;
 use App\Jobs\Job;
 use App\Libraries\JSend;
 
+use App\Jobs\GenerateTransactionRefNumber;
+use App\Jobs\GenerateTransactionDate;
+
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Contracts\Bus\SelfHandling;
 

@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\Category;
 use Input, Session, DB, Redirect, Response;
 
-class CategoryController extends baseController 
+class CategoryController extends BaseController 
 {
 	protected $view_name 							= 'Kategori';
 

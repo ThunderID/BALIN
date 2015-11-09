@@ -1,13 +1,13 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\user;
 
 use App\Jobs\validateEmail;
 
 use Mail;
 
-class accountController extends baseController 
+class accountController extends BaseController 
 {
 	public function activateAccount($activation_link = null)
 	{

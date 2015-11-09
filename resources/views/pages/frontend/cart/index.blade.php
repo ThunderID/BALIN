@@ -1,5 +1,5 @@
 <?php 	
-
+	$carts = Cookie::get('baskets');
 ?>
 @extends('template.frontend.layout')
 
@@ -28,13 +28,13 @@
 									<p class="text-center">Qty</p>
 								</div>
 								<div class="col-md-2 col-sm-2 hidden-xs">
-									<p class="text-right">Price (Rp)</p>
+									<p class="text-right">Price</p>
 								</div>
 								<div class="col-md-2 col-sm-2 hidden-xs">
-									<p class="text-right">Discount (Rp)</p>
+									<p class="text-right">Discount</p>
 								</div>
 								<div class="col-md-2 col-sm-2 hidden-xs">
-									<p class="text-right">Total (Rp)</p>
+									<p class="text-right">Total</p>
 								</div>
 								<div class="col-md-1 col-sm-1 hidden-xs">
 									<p></p>
@@ -45,15 +45,15 @@
 								<?php $total = 0; ?>
 								@foreach ($carts as $k => $item)
 									@include('widgets.cart_item_list', array(
-										"itemIDCart"			=> $k,
-										"itemListImage"			=> $item['images'],
-										"itemListName" 			=> $item['name'],
-										"ItemListSku" 			=> $item['sku'], 
-										"itemListQty"			=> $item['qty'],
-										"itemListNormalPrice"	=> $item['price'],
-										"itemListPromoPrice"	=> $item['promo_price'],
-										"itemListDiscountPrice"	=> $item['discount'],
-										"itemListTotalPrice"	=> ($item['price']*$item['qty'])
+										"item_id_cart"				=> $k,
+										"item_list_image"			=> $item['images'],
+										"item_list_name" 			=> $item['name'],
+										"item_list_sku" 			=> $item['sku'], 
+										"item_list_qty"				=> $item['qty'],
+										"item_list_normal_price"	=> $item['price'],
+										"item_list_promo_price"		=> $item['promo_price'],
+										"item_list_discount_price"	=> $item['discount'],
+										"item_list_total_price"		=> ($item['price']*$item['qty'])
 									))
 									<?php $total += ($item['price']*$item['qty']); ?>
 								@endforeach
@@ -76,7 +76,7 @@
 							</br>
 							<div class="row" style="padding-top:5px; margin-bottom:0px;">
 								<div class="col-xs-12">
-									<h3 style="color:#FFF;" class="text-center">SubTotal(Rp)</h3>
+									<h3 style="color:#FFF;" class="text-center">SubTotal</h3>
 								</div>
 							</div>
 							<div class="row">
@@ -112,7 +112,7 @@
 							@if ($carts)
 								<div class="row chart-footer">
 									<div class="col-lg-9 col-md-9 col-sm-9">
-										<h4 class="text-right">SubTotal(Rp) :</h4>
+										<h4 class="text-right">SubTotal :</h4>
 									</div>
 									<div class="col-lg-2 col-md-2 col-sm-2">
 										<h4 class="text-right">

@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Support\MessageBag;
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\User;
 use App\Models\Address;
 use Input, Carbon, Redirect, Validator, DB;
-class UserController extends baseController 
+class UserController extends BaseController 
 {
 
 	// protected $controller_name 					= 'join';
