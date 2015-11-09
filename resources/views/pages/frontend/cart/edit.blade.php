@@ -54,7 +54,8 @@
 									"item_list_promo_price"		=> $item['promo_price'],
 									"item_list_discount_price"	=> $item['discount'],
 									"item_list_total_price"		=> ($item['price']*$item['qty']),
-									"item_mode"						=> 'new',
+									'item_list_stock'				=> $item['stock'],
+									"item_mode"						=> 'edit',
 								))
 								<?php $total += ($item['price']*$item['qty']); ?>
 							@endforeach
@@ -131,10 +132,10 @@
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12">
 								<a href="#" class="btn-hollow hollow-black pull-right m-r-sm">
-									Checkout
+									Batal
 								</a>
-								<a href="{{ route('frontend.cart.edit') }}" class="btn-hollow hollow-black pull-right m-r-sm">
-									Update Cart
+								<a href="{{ route('frontend.cart.store') }}" class="btn-hollow hollow-black pull-right m-r-sm">
+									Simpan
 								</a>
 							</div>
 							<div class="clearfix">&nbsp;</div>
@@ -152,5 +153,15 @@
 @stop
 
 @section('script')
-
+	$('.product-qty').change( function(e) {
+		e.preventDefault;
+		var total								= 0;
+		var product_price						= parseInt($(this).parent().parent().parent().find('.label-price').attr('data-product-price')); 
+		var product_promo_price				= parseInt($(this).parent().parent().parent().find('.label-promo-price').attr('data-product-promo-price')); 
+		var product_discount_price			= parseInt($(this).parent().parent().parent().find('.label-discount-price').attr('data-product-discount-price'));
+		var product_qty						= parseInt($(this).val());
+		
+		total 									=  product_qty*product_price;
+		$(this).parent().parent().parent().find('.label-total').text('Rp '+number_format(total));
+	});
 @stop

@@ -9,7 +9,7 @@
 			<div class="col-xs-8">
 				<div class="row">
 					<div class="col-xs-12">
-						<h4>{{ $label_name }}</h4>
+						<h4 class="m-t-none">{{ $label_name }}</h4>
 					</div>
 				</div>
 				<div class="row" style="margin-top:0px;">
@@ -31,7 +31,7 @@
 					<div class="col-xs-12">
 						<div class="row">
 							<div class="col-xs-4">
-								<span class="info">Price/Item</span>
+								<span class="info">Harga/Item</span>
 							</div>
 							<div class="col-xs-1">
 								<span class="info">:</span>

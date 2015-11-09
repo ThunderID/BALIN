@@ -15,5 +15,5 @@
 		@endif
 	</div>
 
-	<a href="{{ route('frontend.product.show', $data['id']) }}" type="button" class="btn-hollow hollow-black btn-block t-sm">Detail</a>
+	<a href="{{ route('frontend.product.show', $data['slug']) }}" type="button" class="btn-hollow hollow-black btn-block t-sm">Detail</a>
 </div>
