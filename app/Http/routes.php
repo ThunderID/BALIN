@@ -346,6 +346,8 @@ Route::group(['namespace' => 'Frontend\\'], function()
 		Route::get('/point', 											['uses' => 'ProfileController@point', 'as' => 'frontend.profile.point']);
 
 		Route::get('/downline', 										['uses' => 'ProfileController@downline', 'as' => 'frontend.profile.downline']);
+
+		Route::get('/address', 											['uses' => 'ProfileController@address', 'as' => 'frontend.profile.address']);
 	});
 
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);

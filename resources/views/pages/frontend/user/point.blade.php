@@ -52,7 +52,7 @@
         				}
 					?>
 						<tr>
-							<td>{!!(($key*15)+1)!!}</td>
+							<td>{!!(($key)+1)!!}</td>
 							<td> @date_indo($value->created_at) </td>
 							@if($value->amount >= 0)
 								<td>@money_indo($value->amount)</td>

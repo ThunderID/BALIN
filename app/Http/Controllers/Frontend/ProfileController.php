@@ -106,4 +106,16 @@ class ProfileController extends BaseController
 
 		return $this->layout;
 	}	
+
+	public function address()
+	{		
+		$this->layout->page 					= view('pages.frontend.user.address')
+													->with('controller_name', $this->controller_name)
+													->with('subnav_active', 'account_address')
+													->with('title', 'Buku Alamat');
+
+		$this->layout->controller_name			= $this->controller_name;
+
+		return $this->layout;
+	}	
 }

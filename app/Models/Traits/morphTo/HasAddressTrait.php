@@ -19,4 +19,14 @@ trait HasAddressTrait
     {
         return $this->morphTo();
     }
+
+    public function scopeOwnerID($query, $variable)
+    {
+		return $query->where('owner_id', $variable);
+    }
+
+    public function scopeOwnerType($query, $variable)
+    {
+		return $query->where('owner_type', $variable);
+    }
 }

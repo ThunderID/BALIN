@@ -1,6 +1,6 @@
-@inject('points', 'App\Models\PointLog')
+@inject('address', 'App\Models\Address')
 <?php
-	$downlines 		= $points->referenceid(Auth::user()->id)->referencetype('App\Models\User')->with(['reference'])->paginate();
+	$addresses 		= $address->ownerid(Auth::user()->id)->ownertype('App\Models\User')->paginate();
 ?>
 @extends('template.frontend.layout_account')
 
@@ -18,27 +18,29 @@
 				<thead>
 					<tr>
 						<th>No</th>
-						<th>Tanggal</th>
-						<th>Downline</th>
+						<th>Phone</th>
+						<th>Zipcode</th>
+						<th>Address</th>
 					</tr>
 				</thead>
 				<tbody>
-					@forelse($downlines as $key => $value)
+					@forelse($addresses as $key => $value)
 						<tr>
 							<td>{!!(($key)+1)!!}</td>
-							<td> @date_indo($value->created_at) </td>
-							<td> {{$value['reference']['name']}} </td>
+							<td> {{$value['phone']}} </td>
+							<td> {{$value['zipcode']}} </td>
+							<td> {{$value['address']}} </td>
 						</tr>
 					@empty
 						<tr>
-							<td colspan="3"> Tidak ada data </td>
+							<td colspan="4"> Tidak ada data </td>
 						</tr>
 					@endforelse
 				</tbody>
 			</table>
 			<div class="row">
                 <div class="col-md-12" style="text-align:right;">
-                    {!! $downlines->appends(Input::all())->render() !!}
+                    {!! $addresses->appends(Input::all())->render() !!}
                 </div>
             </div>
 		</div>
