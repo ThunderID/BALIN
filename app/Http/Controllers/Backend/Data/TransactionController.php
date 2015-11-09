@@ -1,5 +1,5 @@
 <?php namespace App\Http\Controllers\Backend\Data;
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 
 use App\Models\User;
 use App\Models\Product;
@@ -14,7 +14,7 @@ use Illuminate\Support\MessageBag;
 
 use Input, DB, Redirect, Response, App;
 
-class TransactionController extends baseController 
+class TransactionController extends BaseController 
 {
 	/**
      * Instantiate a new UserController instance.

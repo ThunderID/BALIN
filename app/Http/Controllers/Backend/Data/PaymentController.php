@@ -1,12 +1,12 @@
 <?php namespace App\Http\Controllers\Backend\Data;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\User;
 use App\Models\Payment;
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect, Carbon;
 
-class PaymentController extends baseController
+class PaymentController extends BaseController
 {
 	/**
 	* Instantiate a new UserController instance.

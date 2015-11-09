@@ -1,5 +1,5 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 
 use App\Models\ShippingCost;
 use App\Models\Courier;
@@ -7,7 +7,7 @@ use App\Models\Courier;
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect, Carbon;
 
-class ShippingCostController extends baseController 
+class ShippingCostController extends BaseController 
 {
 
     /**

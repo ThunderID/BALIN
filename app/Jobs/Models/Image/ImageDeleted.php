@@ -9,7 +9,7 @@ use App\Libraries\JSend;
 
 use App\Models\Image;
 
-class ImageDeleting extends Job implements SelfHandling
+class ImageDeleted extends Job implements SelfHandling
 {
     protected $image;
 

@@ -1,11 +1,11 @@
 <?php 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\User;
 use Input, Session, DB, Redirect, Response;
 
-class HomeController extends baseController
+class HomeController extends BaseController
 {
 	/**
 	* Instantiate a new UserController instance.

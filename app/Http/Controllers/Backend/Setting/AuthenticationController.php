@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Setting;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\User;
 use Input, Session, DB, Redirect, Response, App, Validator, Carbon;
 
-class AuthenticationController extends baseController
+class AuthenticationController extends BaseController
 {
 	/**
 	* Instantiate a new UserController instance.

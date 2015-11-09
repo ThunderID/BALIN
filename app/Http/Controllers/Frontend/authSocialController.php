@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers\Frontend;
 
  use Laravel\Socialite\Contracts\Factory as Socialite;
- use App\Http\Controllers\baseController;
+ use App\Http\Controllers\BaseController;
  use App\Models\User;
  use Input, Session, DB, Redirect, Response, Auth;
 
- class authSocialController extends baseController
+ class authSocialController extends BaseController
  {
 	public function __construct(Socialite $socialite){
 		$this->socialite = $socialite;

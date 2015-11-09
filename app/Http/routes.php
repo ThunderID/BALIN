@@ -335,6 +335,21 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	// USER MENU
 	// ------------------------------------------------------------------------------------
 
+	Route::group(['prefix' => 'profile'], function() 
+	{
+		Route::get('/', 												['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);
+		
+		Route::get('/setting', 											['uses' => 'ProfileController@edit', 'as' => 'frontend.profile.edit']);
+
+		Route::post('/setting', 										['uses' => 'ProfileController@update', 'as' => 'frontend.profile.update']);
+		
+		Route::get('/point', 											['uses' => 'ProfileController@point', 'as' => 'frontend.profile.point']);
+
+		Route::get('/downline', 										['uses' => 'ProfileController@downline', 'as' => 'frontend.profile.downline']);
+
+		Route::get('/address', 											['uses' => 'ProfileController@address', 'as' => 'frontend.profile.address']);
+	});
+
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
 	Route::get('whyJoin', 					['uses' => 'whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
 	
@@ -351,6 +366,8 @@ Route::group(['namespace' => 'Frontend\\'], function()
 		Route::get('change-password', 		['uses' => 'ProfileController@changePassword', 'as' => 'frontend.profile.changePassword']);
 		Route::get('change-rofile', 			['uses' => 'ProfileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
 	});
+
+	
 Route::get('/mail/activation/{activation_link}', 						['uses' => 'accountcontroller@activateAccount' ,'as' => 'balin.email.activation']);
 	
 	Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);

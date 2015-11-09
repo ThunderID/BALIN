@@ -20,6 +20,7 @@ class CreateProductTable extends Migration
             $table->string('slug')->unique();
             $table->string('color');
             $table->string('size');
+            $table->boolean('is_default');
             $table->text('description');
             $table->timestamps();
             $table->softDeletes();

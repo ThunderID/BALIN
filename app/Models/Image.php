@@ -39,6 +39,7 @@ class Image extends Eloquent
 											'image_sm'						,
 											'image_md'						,
 											'image_lg'						,
+											'is_default'					,
 										];
 
 	/**

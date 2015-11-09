@@ -5,7 +5,7 @@ use Illuminate\Routing\Controller as Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-abstract class baseController extends Controller 
+abstract class BaseController extends Controller 
 {
 	protected $layout;
 

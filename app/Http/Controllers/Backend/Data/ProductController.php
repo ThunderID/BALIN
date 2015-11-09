@@ -1,14 +1,15 @@
 <?php namespace App\Http\Controllers\Backend\Data;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\Product;
 use App\Models\ProductUniversal;
 use App\Models\Price;
+use App\Models\Image;
 use App\Models\Lable;
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect, Str;
 
-class ProductController extends baseController 
+class ProductController extends BaseController 
 {
     /**
      * Instantiate a new UserController instance.
@@ -136,8 +137,8 @@ class ProductController extends baseController
 	public function store($uid = null, $id = null)
 	{
 		$inputs 										= Input::only('category','name','sku','description','color','size');
-		$labels								
-					= Input::only('label');
+		$labels											= Input::only('label');
+		$images											= Input::only('thumbnail', 'image_xs', 'image_sm', 'image_md', 'image_lg', 'default');
 
 		if($id)
 		{
@@ -212,26 +213,71 @@ class ProductController extends baseController
 			}
 
 			//label save
-
-			foreach ($labels['label'] as $value) 
+			if($labels['label'])
 			{
-				$label 									= new Lable;
-
-				$label->fill([
-					'product_id'						=> $data->id,
-					'lable'								=> $value,
-					'value'								=> 'value',
-					'started_at'						=> date('Y-m-d H:i:s'),
-				]);
-
-				if(!$label->save())
+				foreach ($labels['label'] as $value) 
 				{
-					$errors->add('Product', $label->getError());
+					$label 									= new Lable;
+
+					$label->fill([
+						'product_id'						=> $data->id,
+						'lable'								=> $value,
+						'value'								=> 'value',
+						'started_at'						=> date('Y-m-d H:i:s'),
+					]);
+
+					if(!$label->save())
+					{
+						$errors->add('Product', $label->getError());
+					}
 				}
 			}
 
 			//save image
 			//ref. producttableseeder line 114
+
+			//clear previous images
+			$prev_images								= Image::where('imageable_id', $data['id'])->where('imageable_type', 'App\Models\Product')->get();
+			foreach ($prev_images as $prev_image) 
+			{
+				if (!$prev_image->delete())
+				{
+					$errors->add('Courier', $prev_image->getError());
+				}
+			}
+
+			//get all images input
+			foreach ($images['thumbnail'] as $key => $tmp) 
+			{
+				//cek apa ada isinya di pointer ini kalo tidak ada ga usah di entri ya
+				if(!empty($tmp))
+				{
+					$image 											= new Image;
+					$image->fill([
+							'thumbnail'								=> $images['thumbnail'][$key],
+							'image_xs'								=> $images['image_xs'][$key],
+							'image_sm'								=> $images['image_sm'][$key],
+							'image_md'								=> $images['image_md'][$key],
+							'image_lg'								=> $images['image_lg'][$key],
+							'is_default'							=> $images['default'][$key],
+							'published_at'							=> date('Y-m-d H:i:s'),
+					]);
+
+					//save
+
+					if (!$image->save())
+					{
+						$errors->add('Courier', $image->getError());
+					}
+
+					$image->imageable()->associate($data);
+					
+					if (!$image->save())
+					{
+						$errors->add('Courier', $image->getError());
+					}
+				}
+			}
 		}
 	
 		if ($errors->count())

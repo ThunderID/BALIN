@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\user;
 use App\Models\Transaction;
 use App\Models\pointlog;
@@ -11,7 +11,7 @@ use App\Jobs\RefreshCart;
 use App\Jobs\sendShipmentEmail;
 use Mail;
 
-class testController extends baseController 
+class testController extends BaseController 
 {
 	protected $controller_name 					= 'test';
 

@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use Input, Session, DB, Redirect, Response, Carbon, App;
 use App\Models\StoreSetting;
 use Illuminate\Support\MessageBag;
 
-class StoreController extends baseController 
+class StoreController extends BaseController 
 {
 	protected $view_name 						= 'Toko Online';
 

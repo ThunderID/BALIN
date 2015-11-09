@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers\Backend\Report;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use Input, Session, DB, Redirect, Response, Carbon;
 use Illuminate\Support\MessageBag;
 use App\Models\StoreSetting;
 
-class FinanceController extends baseController 
+class FinanceController extends BaseController 
 {
 	/**
      * Instantiate a new UserController instance.

@@ -144,4 +144,21 @@
 
 		$('#total_price').val(total);
 	}
+
+	$('.btn-add-image').click(function() {template_add_image($(this));});
+	function template_add_image(e)
+	{
+		var default_val 	= $('#tmplt').find('.default').val();
+		var tmp 			= $('#tmplt').clone();
+
+		tmp.find('.default').val(default_val);
+
+		$('#template-image').append(tmp);
+
+		$('#default select').val($('.fieldsetwrapper select').val());
+		$('.btn-add-image').click(function() {template_add_image($(this));});
+		$('.wizard .content').animate({ height: $('.body.current').outerHeight() }, "slow");
+
+		change_button_add(e);
+	}
 </script>

@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 
 use Cookie, Response;
 
-class ProductController extends baseController 
+class ProductController extends BaseController 
 {
 
 	protected $controller_name 					= 'product';
