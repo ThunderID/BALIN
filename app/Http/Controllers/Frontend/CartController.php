@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\Product;
 use Input, Response, Redirect, Cookie;
 
-class CartController extends baseController 
+class CartController extends BaseController 
 {
 	protected $controller_name 					= 'cart';
 

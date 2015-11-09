@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\stock;
 
 use Input, Session, DB, Redirect, Response;
 
-class reportController extends baseController 
+class reportController extends BaseController 
 {
 	protected $view_name 						= 'Report';
 

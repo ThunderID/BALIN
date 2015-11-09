@@ -1,13 +1,13 @@
 <?php namespace App\Http\Controllers\Backend\Data;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\Product;
 use App\Models\ProductUniversal;
 use App\Models\Price;
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect;
 
-class ProductUniversalController extends baseController 
+class ProductUniversalController extends BaseController 
 {
     /**
      * Instantiate a new UserController instance.

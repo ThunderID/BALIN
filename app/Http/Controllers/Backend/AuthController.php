@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use App\Models\User;
 use Input, Session, DB, Redirect, Response, Auth;
 
-class AuthController extends baseController 
+class AuthController extends BaseController 
 {
 	protected $view_name 			= 'Login';
 

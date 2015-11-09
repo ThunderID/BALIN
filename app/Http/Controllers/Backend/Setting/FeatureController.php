@@ -1,12 +1,12 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
 
-use App\Http\Controllers\baseController;
+use App\Http\Controllers\BaseController;
 use Illuminate\Support\MessageBag;
 use App\Models\storeSetting;
 use App\Models\Image;
 use Input, Session, DB, Redirect, Response;
 
-class FeatureController extends baseController 
+class FeatureController extends BaseController 
 {
     /**
      * Instantiate a new UserController instance.
