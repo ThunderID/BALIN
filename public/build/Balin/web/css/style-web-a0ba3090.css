@@ -598,6 +598,15 @@ input.text-hollow:focus {
   outline: none;
   box-shadow: none;
 }
+.out-stock {
+  font-size: 25px;
+  font-weight: 300;
+}
+@media screen and (max-width: 767px) {
+  .out-stock {
+    font-size: 20px;
+  }
+}
 .hollow-pagination ul.pagination {
   border-radius: 0px;
 }
@@ -705,7 +714,8 @@ select.form-control.hollow {
   outline: none;
   box-shadow: none;
   overflow: hidden;
-  background: #fff url("../../../../Balin/web/image/select2x2.png") no-repeat 128% 16%;
+  background: #fff url("../../../../Balin/web/image/select2x2.png") no-repeat;
+  background-position: right -80px top -8px;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
