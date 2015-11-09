@@ -1,44 +1,16 @@
 <div class="row">
-	<div class="col-md-12">
-		<h3 class="caption-info m-t-xxs">Orders</h3>
+	<div class="col-sm-12">
+		<h3 class="page-title m-t-lg">Akun Saya</h3>
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-12">
 		<ul class="list-unstyled menu-info">
-			<li><a href="{{ URL::route('frontend.cart.index') }}">Shopping Cart</a></li>
-			<li><a href="#">Procesed Order</a></li>
-			<li><a href="#">View Order History</a></li>
-		</ul>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-    	<h3 class="caption-info">Account</h3>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<ul class="list-unstyled menu-info">
-			<li><a href="{{ route('frontend.profile.index') }}">Profile Details</a></li>
-			<li><a href="{{ route('frontend.profile.changeProfile') }}">Change Profile</a></li>
-			<li><a href="{{ route('frontend.profile.changePassword') }}">Change Password</a></li>
-		</ul>
-	</div>
-</div>  
-<div class="row">
-	<div class="col-md-12">
-    	<h3 class="caption-info">Membership</h3>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<ul class="list-unstyled menu-info">
-			<li><a href="{{ route('frontend.profile.membershipDetail') }}">Membership Details</a></li>
-			<li><a href="#">Coupon Transaction</a></li>
-			<li><a href="#">Point History</a></li>
-			<li><a href="#">Quota Invite</a></li>
-			<li class="last-child"><a href="{{ route('frontend.dologout') }}">Logout</a></li>
+			<li class="m-t-sm"><a href="{{route('frontend.profile.index')}}" class="@if($subnav_active=='account_index') active @endif">Dashboard Saya</a></li>
+			<li class="m-t-sm"><a href="{{route('frontend.profile.edit')}}" class="@if($subnav_active=='account_setting') active @endif">Pengaturan Akun</a></li>
+			<li class="m-t-sm"><a href="#" class="@if($subnav_active=='account_address') active @endif">Buku Alamat</a></li>
+			<li class="m-t-sm"><a href="#" class="@if($subnav_active=='account_order') active @endif">Riwayat Pesanan</a></li>
+			<li class="m-t-sm"><a href="#" class="@if($subnav_active=='account_point') active @endif">Buku Tabungan</a></li>
 		</ul>
 	</div>
 </div>

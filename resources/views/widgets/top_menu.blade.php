@@ -49,7 +49,7 @@
 						</li>
 						@if (Auth::user())
 							<li @if($controller_name == 'profile') class=active @endif>
-								<a href="{{ URL::route('frontend.profile.index') }}">My Account</a>
+								<a href="{{ URL::route('frontend.profile.index') }}">Akun Saya</a>
 							</li> 
 						@endif
 						<li @if($controller_name == 'cart') class=active @endif class="dropdown">

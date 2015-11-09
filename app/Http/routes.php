@@ -335,21 +335,29 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	// USER MENU
 	// ------------------------------------------------------------------------------------
 
+	Route::group(['prefix' => 'profile'], function() 
+	{
+		Route::get('/', 												['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);
+		
+		Route::get('/setting', 											['uses' => 'ProfileController@edit', 'as' => 'frontend.profile.edit']);
+
+		Route::post('/setting', 										['uses' => 'ProfileController@update', 'as' => 'frontend.profile.update']);
+		
+		Route::get('membership-detail', 		['uses' => 'ProfileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
+		Route::get('change-password', 		['uses' => 'ProfileController@changePassword', 'as' => 'frontend.profile.changePassword']);
+		Route::get('change-rofile', 			['uses' => 'ProfileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
+	});
+
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
 	Route::get('whyJoin', 					['uses' => 'whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
 	
 	Route::get('cart', 						['uses' => 'CartController@index', 'as' => 'frontend.cart.index']);
 	Route::post('addtocart', 				['uses' => 'CartController@store', 'as' => 'frontend.cart.store']);
-	Route::get('removetocart', 			['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
+	
+	Route::get('removetocart', 				['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
 
-	Route::get('profile', 					['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);
 
-	Route::group(['prefix' => 'profile'], function() 
-	{
-		Route::get('membership-detail', 		['uses' => 'ProfileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
-		Route::get('change-password', 		['uses' => 'ProfileController@changePassword', 'as' => 'frontend.profile.changePassword']);
-		Route::get('change-rofile', 			['uses' => 'ProfileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
-	});
+	
 Route::get('/mail/activation/{activation_link}', 						['uses' => 'accountcontroller@activateAccount' ,'as' => 'balin.email.activation']);
 	
 	Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);

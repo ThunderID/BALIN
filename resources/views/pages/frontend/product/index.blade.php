@@ -14,7 +14,6 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="row">
-					</br>
 					<div class="col-md-7 col-sm-7 col-xs-12">
 				        <h3 class="page-title m-t-lg">Product</h3>
 					</div>

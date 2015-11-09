@@ -1,2 +1,1 @@
 @yield('content_layout')
-
