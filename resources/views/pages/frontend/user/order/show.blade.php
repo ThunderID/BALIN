@@ -1,12 +1,21 @@
-@inject('data', 'App\Models\Transaction')
 <?php 
+	$status 	= ['cart' => 'Keranjang', 'wait' => 'Proses, Menunggu Pembayaran', 'paid' => 'Sudah dibayar, belum dikirim', 'shipping' => 'Sedang dalam pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pembatalan Pesanan'];
 ?>
+@extends('template.frontend.layout_account')
 
-@extends('template.backend.layout') 
-
-@section('content')
+@section('right_content')
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-sm-9">
+			<h3 class="page-title m-t-lg">{{$title}}</h3>
+		</div>
+		<div class="col-sm-3">
+			<p class="text-right m-t-lg"><a href="{{route('frontend.profile.order.index')}}">kembali</a></p>
+		</div>
+	</div>
+
+	<div class="clearfix">&nbsp;</div>
+		<div class="row">
+		<div class="col-md-6">
 			<table>
 				<tbody>
 					<tr>
@@ -24,7 +33,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<table>
 				<tbody>
 					<tr class="row">
@@ -35,26 +44,12 @@
 						<td class="col-sm-6"><strong>Invoice Date</strong></td>
 						<td>@date_indo($transaction['transact_at'])</td>
 					</tr>
+					<tr class="row">
+						<td class="col-sm-6"><strong>Status</strong></td>
+						<td> {{$status[$transaction['status']]}} </td>
+					</tr>
 				</tbody>
 			</table>
-		</div>
-		<div class="col-md-4">
-	        {!! Form::open(['url' => route('backend.data.transaction.status', $transaction['id']), 'method' => 'GET']) !!}
-				<div class="row">
-					<div class="col-sm-3">
-						<label for="status" class="text-capitalize">Status</label>
-					</div>
-					<div class="col-sm-9">
-						{!! Form::select('status', ['cart' => 'Keranjang', 'wait' => 'Proses, Menunggu Pembayaran', 'paid' => 'Sudah dibayar, belum dikirim', 'shipping' => 'Sedang dalam pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pembatalan Pesanan'], $transaction['status'], ['class' => 'form-control', 'tabindex' => '1']) !!}
-					</div>
-				</div>
-				<div class="clearfix">&nbsp;</div>
-				<div class="row">
-					<div class="col-sm-12 text-right">
-						<button type="submit" class="btn btn-md btn-primary" tabindex="2">Ubah Status</button>
-					</div>
-				</div>
-			{!! Form::close() !!}
 		</div>
 	</div>
 	<div class="clearfix">&nbsp;</div>
