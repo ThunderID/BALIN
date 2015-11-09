@@ -25,22 +25,22 @@ class UserSaved extends Job implements SelfHandling
 
     public function handle()
     {
-    	// if(!$this->user->is_active && $this->user->email)
-    	// {
-     //        $result                 = $this->dispatch(new SendReferralCodeEmail($this->user));
+    	if(!$this->user->is_active && $this->user->email)
+    	{
+            $result                 = $this->dispatch(new SendReferralCodeEmail($this->user));
 
-     //        if($result->getStatus()=='success')
-     //        {
-     //            $this->user->is_active  = true;
+            if($result->getStatus()=='success')
+            {
+                $this->user->is_active  = true;
 
-     //            if($this->user->save())
-     //            {
-     //                $result         = new JSend('error', (array)$this->user, $this->user->getError());
-     //            }
-     //        }
+                if($this->user->save())
+                {
+                    $result         = new JSend('error', (array)$this->user, $this->user->getError());
+                }
+            }
 
-     //        return $result;
-    	// }
+            return $result;
+    	}
 
         return new JSend('success', (array)$this->user);
     }

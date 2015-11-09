@@ -250,6 +250,11 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 		return 	$query->ReferralCode($variable)->where('is_active', true);
 	}
 
+	public function scopeActivationLink($query, $variable)
+	{
+		return 	$query->where('activation_link', $variable);
+	}
+
 	public function scopeReferralCode($query, $variable)
 	{
 		return 	$query->where('referral_code', $variable);

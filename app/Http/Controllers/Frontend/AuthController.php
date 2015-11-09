@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\BaseController;
 use App\Models\User;
-use Input, Session, DB, Redirect, Response, Auth, Socialite;
+use App\Jobs\CheckValidationLink;
+use Input, Session, DB, Redirect, Response, Auth, Socialite, App;
 
 class AuthController extends BaseController 
 {
-	// protected $view_name 			= 'Login';
+	protected $controller_name 			= 'Login';
 
 	public function doLogin()
 	{ 
@@ -85,4 +86,34 @@ class AuthController extends BaseController
 
 		return Redirect::intended($redirect);
 	}
+
+	public function activateAccount($activation_link)
+	{
+		$user 							= User::activationlink($activation_link)->first();
+
+		if(!$user)
+		{
+			App::abort(404);
+		}
+
+		if($user->is_active)
+		{
+			return Redirect::back()->withErrors('Expired Link');
+		}
+		
+		$result							= $this->dispatch(new CheckValidationLink($user));
+
+		if ($result->getStatus()=='success')
+		{
+			$this->layout->page 					= view('pages.frontend.login.activation')
+														->with('controller_name', $this->controller_name);
+
+			$this->layout->controller_name			= $this->controller_name;
+
+			return $this->layout;
+		}
+
+		return Redirect::route('frontend.home.index')->withErrors($result->getErrorMessage());
+	}
+
 }
