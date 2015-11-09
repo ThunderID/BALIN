@@ -57,7 +57,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-							<label for="">Konfirmasi Passowrd</label>
+							<label for="">Konfirmasi Password</label>
 							{!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Masukkan konfirmasi password', 'tabindex' => '6']) !!}
 						</div>
 					</div>

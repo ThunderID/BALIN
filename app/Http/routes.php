@@ -309,11 +309,20 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'frontend.dologin']);
 
 	Route::get('do/sso',												['uses' => 'AuthController@doSso', 'as' => 'frontend.dosso']);
-
+	
 	Route::get('sso/success',											['uses' => 'AuthController@getSso', 'as' => 'frontend.getsso']);
 
 	Route::post('do/signup',											['uses' => 'UserController@store', 'as' => 'frontend.user.store']);
 	
+	// ------------------------------------------------------------------------------------
+	// FORGOT PASSWORD
+	// ------------------------------------------------------------------------------------
+
+	Route::post('do/forgot',											['uses' => 'AuthController@doForgot', 'as' => 'frontend.doforgot']);
+	
+	Route::get('do/forgot/password/{link}',								['uses' => 'AuthController@getForgot', 'as' => 'frontend.get.forgot']);
+
+	Route::post('do/forgot/password',									['uses' => 'AuthController@postForgot', 'as' => 'frontend.post.forgot']);
 
 	// ------------------------------------------------------------------------------------
 	// HOME
@@ -327,7 +336,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::get('products', 												['uses' => 'ProductController@index', 'as' => 'frontend.product.index']);
 
-	Route::get('products/{slug}', 									['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
+	Route::get('products/{slug}', 										['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
 
 	// ------------------------------------------------------------------------------------
 	// USER MENU
@@ -362,7 +371,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	// USER ACTIVATION
 	// ------------------------------------------------------------------------------------
 
-	Route::get('/mail/activation/{activation_link}', 					['uses' => 'AuthController@activateAccount' ,'as' => 'balin.email.activation']);
+	Route::get('/mail/activation/{activation_link}', 					['uses' => 'AuthController@activateAccount' ,'as' => 'balin.claim.voucher']);
 
 
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
@@ -386,7 +395,6 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	
 	Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
 	Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
-	Route::get('/c', 													['uses' => 'HomeController@index', 		'as' => 'balin.claim.voucher']);
 	
 });
 

@@ -53,7 +53,6 @@ class ProfileController extends BaseController
 					->withErrors($validator->errors())
 					->with('msg-type', 'danger');
 			}
-
 		}
 
 		DB::beginTransaction();
@@ -65,6 +64,10 @@ class ProfileController extends BaseController
 				'gender'						=> $inputs['gender'],
 		]);
 
+		if(Input::has('password'))
+		{
+			$data->password 					= Input::get('password');
+		}
 
 		if (!$data->save())
 		{
