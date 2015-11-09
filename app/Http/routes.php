@@ -347,7 +347,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 		Route::get('/downline', 										['uses' => 'ProfileController@downline', 'as' => 'frontend.profile.downline']);
 
-		Route::get('/address', 											['uses' => 'ProfileController@address', 'as' => 'frontend.profile.address']);
+		Route::resource('addresses',  									'AddressController',			['names' => ['index' => 'frontend.profile.address.index', 'create' => 'frontend.profile.address.create', 'store' => 'frontend.profile.address.store', 'show' => 'frontend.profile.address.show', 'edit' => 'frontend.profile.address.edit', 'update' => 'frontend.profile.address.update', 'destroy' => 'frontend.profile.address.destroy']]);
 	});
 
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);

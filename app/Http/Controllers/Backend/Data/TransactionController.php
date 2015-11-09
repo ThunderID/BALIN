@@ -260,7 +260,7 @@ class TransactionController extends BaseController
 
 		if(!$errors->count() && Input::has('address_choice') && Input::get('address_choice')==1)
 		{
-			$inputaddr 							= Input::only('address', 'phone', 'postal_code', 'receiver_name');
+			$inputaddr 							= Input::only('address', 'phone', 'postal_code');
 
 			$address 							= new Address;
 
@@ -268,10 +268,10 @@ class TransactionController extends BaseController
 				'address'						=> $inputaddr['address'],
 				'phone'							=> $inputaddr['phone'],
 				'zipcode'						=> $inputaddr['postal_code'],
-				'receiver_name'					=> $inputaddr['receiver_name'],
 				]);
 
-			$address->owner()->associate(User::findorfail($inputs['customer']));
+			// $address->owner()->associate(User::findorfail($inputs['customer']));
+			$receiver_name 						= Input::get('receiver_name');
 
 			if(!$address->save())
 			{
@@ -281,6 +281,7 @@ class TransactionController extends BaseController
 		elseif(!$errors->count() && Input::has('address_choice') && Input::get('address_choice')==0)
 		{
 			$address 							= Address::findorfail(Input::get('address_id'));
+			$receiver_name 						= User::findorfail($inputs['customer'])['name'];
 		}
 
 		if(isset($address) && !$errors->count())
@@ -293,6 +294,7 @@ class TransactionController extends BaseController
 				'courier_id'					=> $shipinput['courier'],
 				'transaction_id'				=> $data->id,
 				'address_id'					=> $address->id,
+				'receiver_name'					=> $receiver_name,
 				]);
 
 			if(!$shipment->save())

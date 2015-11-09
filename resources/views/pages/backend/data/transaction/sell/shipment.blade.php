@@ -52,6 +52,12 @@
 			</label>
 		</div>
 		<div class="form-group">
+			<label for="">Penerima</label>
+			{!! Form::input('text', 'receiver_name', null, [
+					'class' 		=> 'form-control transaction-input-receiver-new',
+			]) !!}
+		</div>
+		<div class="form-group">
 			<label for="">Alamat</label>
 			{!! Form::textarea('address', null, [
 					'class' 		=> 'form-control transaction-input-address-new',
