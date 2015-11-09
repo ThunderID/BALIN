@@ -1,6 +1,6 @@
 @inject('data', 'App\Models\Product')
 <?php 
-	 $data          = $data->find($id)
+	 $data          = $data->find($id);
 ?>
 
 @extends('template.frontend.layout')
@@ -58,10 +58,10 @@
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						{!! Form::open(['url' => route('frontend.cart.store'), 'class' => 'p-t-sm form']) !!}
-							@if (!$data)
+							@if ($data['stock']==0)
 								<div class="row">
 									<div class="col-md-12 m-b-md">
-										<h4 class="text-center">
+										<h4 class="text-center out-of-stock">
 											Sorry,</br>
 											Out of Stock
 										</h4>
@@ -75,7 +75,13 @@
 											<label for="name">Qty</label>
 											<div class="row">
 												<div class="col-md-8">
-													{!! Form::input('number', 'product_qty', null, ['class' => 'form-control hollow', 'max' => '10', 'min' => '0']) !!}
+													<select name="product_qty" class="form-control hollow">
+														@for($x=1; $x<=10; $x++)
+															@if ($x<=$data['stock'])
+																<option value="{{ $x }}">{{ $x }}</option>
+															@endif
+														@endfor
+													</select>
 												</div>
 												<div class="col-md-4" style="padding-left:0">
 													{!! Form::submit('Add to Cart', ['class' => 'btn-hollow hollow-black']) !!}
