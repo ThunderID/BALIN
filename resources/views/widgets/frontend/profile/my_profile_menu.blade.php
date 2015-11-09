@@ -12,10 +12,10 @@
 			<li class="m-t-sm"><a href="{{route('frontend.profile.order.index')}}" class="@if($subnav_active=='account_order') active @endif">Riwayat Pesanan</a></li>
 			<li class="m-t-sm"><a href="{{route('frontend.profile.point')}}" class="@if($subnav_active=='account_point') active @endif">Buku Tabungan</a></li>
 			<!-- <li class="m-t-sm"><a href="{{route('frontend.profile.downline')}}" class="@if($subnav_active=='account_downline') active @endif">Daftar Downline</a></li> -->
-			@if(!Auth::user()->is_active)
-				<li class="m-t-sm"><a href="#" class="@if($subnav_active=='account_reference') active @endif">Referensi</a></li>
+			@if(is_null(Auth::user()->reference))
+				<li class="m-t-sm"><a href="{{route('frontend.profile.reference.get')}}" class="@if($subnav_active=='account_reference') active @endif">Referensi</a></li>
 			@endif
-			<li class="m-t-sm"><a href="#">Logout</a></li>
+			<li class="m-t-sm"><a href="{{route('frontend.dologout')}}">Logout</a></li>
 		</ul>
 	</div>
 </div>

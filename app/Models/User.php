@@ -97,6 +97,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'phone',
 											'address',
 											'zipcode',
+											'reference',
 										];
 
 	/**
@@ -110,6 +111,18 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
+
+	public function getReferenceAttribute($value)
+	{
+		$reference 						= PointLog::userid($this->id)->referencetype('App\Models\User')->first();
+
+		if($reference)
+		{
+			return $reference->reference->name;
+		}
+
+		return null;
+	}
 
 	public function getDownlineAttribute($value)
 	{

@@ -37,6 +37,10 @@
 				Quota <strong>{{Auth::user()->quota}} </strong>
 				<br>
 				Downline <strong>{{Auth::user()->downline}} </strong>
+				@if(!is_null(Auth::user()->reference))
+				<br>
+				Referensi dari <strong>{{Auth::user()->reference}} </strong>
+				@endif
 			</p>
 		</div>
 	</div>

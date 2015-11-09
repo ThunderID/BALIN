@@ -121,7 +121,6 @@ class ProfileController extends BaseController
 		return $this->layout;
 	}
 
-
 	public function order($ref = null)
 	{		
 		$transaction 							= Transaction::userid(Auth::user()->id)->type('sell')->refnumber($ref)->first();

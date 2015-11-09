@@ -91,28 +91,28 @@
 							$discount_point = ($amount + $transaction['shipping_cost'] - $transaction['referral_discount'] - $transaction['unique_number']);
 						?>
 						<tr>
-							<td colspan="5"></td>
-							<td><strong>Ongkos Kirim</strong></td>
+							<td colspan="4"></td>
+							<td colspan="2"><strong>Ongkos Kirim</strong></td>
 							<td>@money_indo($transaction['shipping_cost'])</td>
 						</tr>
 						<tr>
-							<td colspan="5"></td>
-							<td><strong>Diskon Referral</strong></td>
+							<td colspan="4"></td>
+							<td colspan="2"><strong>Diskon Referral</strong></td>
 							<td>@money_indo($transaction['referral_discount'])</td>
 						</tr>
 						<tr>
-							<td colspan="5"></td>
-							<td><strong>Potongan Point</strong></td>
+							<td colspan="4"></td>
+							<td colspan="2"><strong>Potongan Point</strong></td>
 							<td>@money_indo($discount_point - ($transaction['amount']))</td>
 						</tr>
 						<tr>
-							<td colspan="5"></td>
-							<td><strong>Potongan Transfer</strong></td>
+							<td colspan="4"></td>
+							<td colspan="2"><strong>Potongan Transfer</strong></td>
 							<td>@money_indo($transaction['unique_number'])</td>
 						</tr>
 						<tr>
-							<td colspan="5"></td>
-							<td><strong>Total</strong></td>
+							<td colspan="4"></td>
+							<td colspan="2"><strong>Total</strong></td>
 							<td>@money_indo($transaction['amount'])</td>
 						</tr>
 					@endif
@@ -211,7 +211,7 @@
 				<tbody>
 					@forelse($transaction['transactionlogs'] as $key => $value)
 						<tr>
-							<td> <strong> {{$value['status']}} </strong></td>
+							<td> <strong> {{$status[$value['status']]}} </strong></td>
 							<td> @datetime_indo($value['changed_at']) </td>
 						</tr>
 					@empty
