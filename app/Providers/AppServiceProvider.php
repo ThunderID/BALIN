@@ -40,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\ShippingCost::observe(new \App\Models\BaseObserver);
         \App\Models\Shipment::observe(new \App\Models\BaseObserver);
         \App\Models\Price::observe(new \App\Models\BaseObserver);
+        \App\Models\Image::observe(new \App\Models\BaseObserver);
 
         \App\Models\Category::observe(new \App\Models\BaseObserver);
     }
@@ -62,6 +63,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\ShippingCost::observe(new \App\Models\BaseObserver);
         \App\Models\Shipment::observe(new \App\Models\BaseObserver);
         \App\Models\Price::observe(new \App\Models\BaseObserver);
+        \App\Models\Image::observe(new \App\Models\BaseObserver);
         
         \App\Models\Category::observe(new \App\Models\BaseObserver);
     }

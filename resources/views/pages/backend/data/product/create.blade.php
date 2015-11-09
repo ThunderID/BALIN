@@ -321,38 +321,40 @@
 
 		<!-- load microtemplate -->
 		@if(count($images) > 0)
-			$('#tmplt').find('.input-image-thumbnail').val({{$images[0]['thumbnail']}});
-			$('#tmplt').find('.input-image-lg').val({{$images[0]['image_lg']}});
-			$('#tmplt').find('.input-image-md').val({{$images[0]['image_md']}});
-			$('#tmplt').find('.input-image-sm').val({{$images[0]['image_sm']}});
-			$('#tmplt').find('.input-image-xs').val({{$images[0]['image_xs']}});
+			console.log(0);
+			$('#tmplt').find('.input-image-thumbnail').val('{{$images[0]['thumbnail']}}');
+			$('#tmplt').find('.input-image-lg').val('{{$images[0]['image_lg']}}');
+			$('#tmplt').find('.input-image-md').val('{{$images[0]['image_md']}}');
+			$('#tmplt').find('.input-image-sm').val('{{$images[0]['image_sm']}}');
+			$('#tmplt').find('.input-image-xs').val('{{$images[0]['image_xs']}}');
 			$('#tmplt').find('.default').val({{$images[0]['is_default']}});
 		@endif
 
 		template_add_image($('.base'));
 		
 		<!-- push image datas -->
-		@if(count($images)> 1)
-			@for($key=1; $key <= count($images); $key++)
-				@if(count($images)  != $key)
-					$('#tmplt').find('.input-image-thumbnail').val({{$images[$key]['thumbnail']}});
-					$('#tmplt').find('.input-image-lg').val({{$images[$key]['image_lg']}});
-					$('#tmplt').find('.input-image-md').val({{$images[$key]['image_md']}});
-					$('#tmplt').find('.input-image-sm').val({{$images[$key]['image_sm']}});
-					$('#tmplt').find('.input-image-xs').val({{$images[$key]['image_xs']}});
-					$('#tmplt').find('.default').val({{$images[$key]['is_default']}});
-				@else
-					$('#tmplt').find('.input-image-thumbnail').val('');
-					$('#tmplt').find('.input-image-lg').val('');
-					$('#tmplt').find('.input-image-md').val('');
-					$('#tmplt').find('.input-image-sm').val('');
-					$('#tmplt').find('.input-image-xs').val('');
-					$('#tmplt').find('.default').val(0);
-				@endif
+		@if(count($images)>= 1)
+			@for($key=1; $key < count($images); $key++)
+				console.log({{$key}});
+				$('#tmplt').find('.input-image-thumbnail').val('{{$images[$key]['thumbnail']}}');
+				$('#tmplt').find('.input-image-lg').val('{{$images[$key]['image_lg']}}');
+				$('#tmplt').find('.input-image-md').val('{{$images[$key]['image_md']}}');
+				$('#tmplt').find('.input-image-sm').val('{{$images[$key]['image_sm']}}');
+				$('#tmplt').find('.input-image-xs').val('{{$images[$key]['image_xs']}}');
+				$('#tmplt').find('.default').val({{$images[$key]['is_default']}});
 
 				$('#template-image').find('.btn-add-image').trigger('click');
 			@endfor
 		@endif
+
+		$('#tmplt').find('.input-image-thumbnail').val('');
+		$('#tmplt').find('.input-image-lg').val('');
+		$('#tmplt').find('.input-image-md').val('');
+		$('#tmplt').find('.input-image-sm').val('');
+		$('#tmplt').find('.input-image-xs').val('');
+		$('#tmplt').find('.default').val(0);
+
+		$('#template-image').find('.btn-add-image').trigger('click');
 
 		<!-- microtemplate end -->
 

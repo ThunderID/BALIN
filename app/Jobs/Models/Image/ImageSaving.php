@@ -19,12 +19,12 @@ class ImageSaving extends Job implements SelfHandling
 
     public function __construct(Image $image)
     {
-        $this->image                  = $image;
+        $this->image                 = $image;
     }
     
     public function handle()
     {
-        $result                         = new JSend('success', (array)$this->image);
+        $result                       = new JSend('success', (array)$this->image);
         
         return $result;
     }
