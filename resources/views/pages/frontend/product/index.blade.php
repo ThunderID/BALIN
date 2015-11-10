@@ -43,7 +43,7 @@
 							</a>
 							<ul class="dropdown-menu category-list" aria-labelledby="dLabel">
 								@foreach ($category as $cat)
-									<li><a href="#">{{ $cat->name }}</a></li>
+									<li><a href="{{ route('frontend.product.index', ['q' => $cat->name]) }}">{{ $cat->name }}</a></li>
 								@endforeach
 							</ul>
 						</div>
