@@ -4,7 +4,7 @@
 	<div class="caption m-b-lg">
 		<h4 class="text-center">{{$data['name']}}</h4>
 		@if ($data['stock']!=0)
-			@if($data->promo_price!=0)
+			@if($data->discount!=0)
 				<p class="text-center normal-price"><strike> @money_indo($data->price) </strike></p>
 				<p class="text-center promo-price t-sm m-t-xs"> @money_indo($data->promo_price) </p>
 			@else

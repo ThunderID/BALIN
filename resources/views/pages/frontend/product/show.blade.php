@@ -9,7 +9,7 @@
 	<div class="container mt-75">
 		<div class="row">
 			<div class="col-lg-12 m-b-md">
-				@include('widgets.pageelements.pagetitle', array('pagetitle' => 'Product Details'))
+				<!-- @include('widgets.pageelements.pagetitle', array('pagetitle' => 'Product Details')) -->
 			</div>
 		</div>
 		<div class="row">

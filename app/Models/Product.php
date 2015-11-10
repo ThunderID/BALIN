@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 
 class Product extends Eloquent
 {
@@ -76,8 +77,8 @@ class Product extends Eloquent
 	 */
 	protected $appends				=	[
 											'price',
-											'promo_price',
 											'discount',
+											'promo_price',
 											'stock',
 											'started_at',
 											'label',
@@ -110,12 +111,7 @@ class Product extends Eloquent
 
 	public function getDiscountAttribute($value)
 	{
-		if($this->promo_price!=0)
-		{
-			return $this->price - $this->promo_price;
-		}
-
-		return 0;
+		return $this->price - $this->promo_price;
 	}
 
 	public function getPromoPriceAttribute($value)
@@ -124,10 +120,40 @@ class Product extends Eloquent
 		
 		if($discount)
 		{
-			return $discount->promo_price;
+			$price 					= $this->price - $discount->promo_price;
+		}
+		else
+		{
+			$price 					= $this->price;
 		}
 
-		return 0;
+		if(Auth::check() && Auth::user()->balance > 0)
+		{
+			//count price based on balance reduce cart stuff
+			$transaction 			= Transaction::type('sell')->status('draft')->userid(Auth::user()->id)->first();
+
+			if($transaction)
+			{
+				$cart 				= Auth::user()->balance - $transaction->amount;
+			}
+			else
+			{
+				$cart 				= Auth::user()->balance;
+			}
+
+			$price 					= $price - $cart;
+
+			if($price < 0)
+			{
+				return 0;
+			}
+			else
+			{
+				return $price;
+			}
+		}
+
+		return $this->price;
 	}
 
 	public function getStartedAtAttribute($value)

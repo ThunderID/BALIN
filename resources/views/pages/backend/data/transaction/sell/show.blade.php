@@ -45,7 +45,7 @@
 						<label for="status" class="text-capitalize">Status</label>
 					</div>
 					<div class="col-sm-9">
-						{!! Form::select('status', ['cart' => 'Keranjang', 'wait' => 'Proses, Menunggu Pembayaran', 'paid' => 'Sudah dibayar, belum dikirim', 'shipping' => 'Sedang dalam pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pembatalan Pesanan'], $transaction['status'], ['class' => 'form-control', 'tabindex' => '1']) !!}
+						{!! Form::select('status', ['abandoned' => 'Terabaikan','cart' => 'Keranjang', 'wait' => 'Proses, Menunggu Pembayaran', 'paid' => 'Sudah dibayar, belum dikirim', 'shipping' => 'Sedang dalam pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pembatalan Pesanan'], $transaction['status'], ['class' => 'form-control', 'tabindex' => '1']) !!}
 					</div>
 				</div>
 				<div class="clearfix">&nbsp;</div>
