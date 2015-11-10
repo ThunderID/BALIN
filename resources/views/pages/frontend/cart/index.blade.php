@@ -91,7 +91,7 @@
 						<div class="clearfix">&nbsp;</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<a href="#" class="btn-hollow hollow-white btn-block">
+								<a href="{{ route('frontend.cart.edit') }}" class="btn-hollow hollow-white btn-block">
 									Update Cart
 								</a>
 							</div>
