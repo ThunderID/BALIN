@@ -131,6 +131,16 @@ class Courier extends Eloquent
 		return 	$query->where('id', $variable);
 	}
 	
+	public function scopeNotID($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereNotIn('id', $variable);
+		}
+
+		return 	$query->where('id','<>', $variable);
+	}
+
 	public function scopeName($query, $variable)
 	{
 		return 	$query->where('name', 'like', '%'.$variable.'%');

@@ -15,7 +15,7 @@ class PointLogTableSeeder extends Seeder
     {
         DB::table('point_logs')->truncate();
 
-        factory(App\Models\PointLog::class, 5)->create()->each(function($q) 
+        factory(App\Models\PointLog::class, 20)->create()->each(function($q) 
         {
             $q->save();
         });

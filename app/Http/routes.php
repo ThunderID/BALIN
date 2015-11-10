@@ -230,7 +230,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		
 		Route::any('finance/price',										['uses' => 'FinanceController@price', 'as' => 'backend.report.finance.price']);
 		
-		Route::group(['namespace' => 'Report\\', 'middleware' => 'admin'], function()
+		Route::group(['middleware' => 'admin'], function()
 		{
 
 		// ------------------------------------------------------------------------------------

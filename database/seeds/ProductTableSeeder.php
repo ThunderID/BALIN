@@ -4,11 +4,9 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductUniversal;
-use App\Models\ProductAttribute;
 use App\Models\Image;
 use App\Models\Price;
-use App\Models\Discount;
+use App\Models\Varian;
 use Faker\Factory;
 use Illuminate\Support\Facades\DB;
 
@@ -31,15 +29,15 @@ class ProductTableSeeder extends Seeder
 		{
 			foreach($categories as $key => $value)
 			{
-				foreach (range(0, 2) as $key2) 
-				{
+				// foreach (range(0, 2) as $key2) 
+				// {
 					$clridx							= rand(0, count($colors)-1);
 					$color 							= $colors[$clridx];
 					$size 							= $sizes[rand(0, count($sizes)-1)];
 					$brand 							= $brands[rand(0, count($brands)-1)];
 					$data 							= new Product;
 					$data->fill([
-						'name'						=> $value->name.' '.$brand.' '.$color.' '.$size,
+						'name'						=> $value->name.' '.$brand.' '.$color,
 						'upc'						=> $faker->ean8,
 						'slug'						=> $faker->slug($nbWords = 3),			
 						'description'				=> $faker->sentence($nbWords = 6),			
@@ -52,6 +50,22 @@ class ProductTableSeeder extends Seeder
 					}
 					else
 					{
+						foreach (range(0, count($sizes)-1) as $key2) 
+						{
+							$varian 				= new Varian;
+							$varian->fill([
+								'product_id'		=> $data->id,
+								'sku'				=> $faker->ean13,
+								'size'				=> $sizes[$key2],			
+							]);
+
+							if (!$varian->save())
+							{
+								print_r($varian->getError());
+								exit;
+							}
+						}
+
 						//sync category
 						$cats[] 					= $key+1;
 						if($key <= 12)
@@ -99,11 +113,11 @@ class ProductTableSeeder extends Seeder
 							
 							$image 						= new Image;
 							$image->fill([
-									'thumbnail'			=> 'http://placehold.it/75x100/'.$hex.'/000000',
-									'image_xs'			=> 'http://placehold.it/150x200/'.$hex.'/000000',
-									'image_sm'			=> 'http://placehold.it/300x400/'.$hex.'/000000',
-									'image_md'			=> 'http://placehold.it/450x600/'.$hex.'/000000',
-									'image_lg'			=> 'http://placehold.it/600x800/'.$hex.'/000000',
+									'thumbnail'			=> 'http://localhost:8000/Balin/web/balin/'.rand(1,30).'.jpg',
+									'image_xs'			=> 'http://localhost:8000/Balin/web/balin/'.rand(1,30).'.jpg',
+									'image_sm'			=> 'http://localhost:8000/Balin/web/balin/'.rand(1,30).'.jpg',
+									'image_md'			=> 'http://localhost:8000/Balin/web/balin/'.rand(1,30).'.jpg',
+									'image_lg'			=> 'http://localhost:8000/Balin/web/balin/'.rand(1,30).'.jpg',
 									// 'published_at'		=> date('Y-m-d H:i:s'),
 							]);
 							if (!$image->save())
@@ -135,7 +149,7 @@ class ProductTableSeeder extends Seeder
 						}
 					}				
 				}
-			}
+			// }
 		}
 		catch (Exception $e) 
 		{

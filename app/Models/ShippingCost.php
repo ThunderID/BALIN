@@ -57,7 +57,7 @@ class ShippingCost extends Eloquent
 											'start_postal_code'				=> 'required|numeric',
 											'end_postal_code'				=> 'required|numeric',
 											'cost'							=> 'required|numeric',
-											'started_at'					=> 'required|date_format:"Y-m-d H:i:s"|after:now',
+											'started_at'					=> 'required|date_format:"Y-m-d H:i:s"'/*|after:now*/,
 										];
 
 	/**
@@ -81,6 +81,11 @@ class ShippingCost extends Eloquent
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
+	
+	public function getError()
+	{
+		return $this->errors;
+	}	
 	
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
@@ -133,9 +138,4 @@ class ShippingCost extends Eloquent
 		return 	$query->whereraw('start_postal_code <= ' . $variable . '<= end_postal_code')
 						->orderby('started_at', 'desc');
 	}
-
-	public function getError()
-	{
-		return $this->errors;
-	}	
 }

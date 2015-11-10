@@ -21,7 +21,7 @@ class Product extends Eloquent
 	use \App\Models\Traits\hasMany\HasPricesTrait;
 	use \App\Models\Traits\hasMany\HasLablesTrait;
 	use \App\Models\Traits\hasMany\HasVariansTrait;
-	// use \App\Models\Traits\hasManyThrough\HasTransactionDetailsTrait;
+	use \App\Models\Traits\hasManyThrough\HasTransactionDetailsTrait;
 	// use \App\Models\Traits\belongsToManyThrough\HasTransactionsTrait;
 	use \App\Models\Traits\belongsToMany\HasCategoriesTrait;
 	use \App\Models\Traits\morphMany\HasImagesTrait;
@@ -190,10 +190,10 @@ class Product extends Eloquent
 
 	public function getDefaultImageAttribute($value)
 	{
-		if($this->images()->count())
+		$image 						= Image::imageableid($this->id)->imageabletype('App\Models\Product')->default(true)->first();
+		if($image)
 		{
-			return 'http://localhost:8000/Balin/web/balin/'.rand(1,30).'.jpg';
-			return $this->images[0]->image_md;
+			return $image->image_md;
 		}
 
 		return 'https://browshot.com/static/images/not-found.png';
@@ -254,8 +254,8 @@ class Product extends Eloquent
 	public function scopeCountOnHoldStock($query, $variable)
 	{
 		return 	$query
-					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as on_hold_stock')
-					->wherehas('transactions', function($q){$q->status(['waiting'])->type('sell');})
+					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as on_hold_stock')
+					->wherehas('transactiondetails.transaction', function($q){$q->status(['wait'])->type('sell');})
 					->first()
 					;
 		;
@@ -264,8 +264,8 @@ class Product extends Eloquent
 	public function scopeCountReservedStock($query, $variable)
 	{
 		return 	$query
-					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as reserved_stock')
-					->wherehas('transactions', function($q){$q->status(['paid'])->type('sell');})
+					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as reserved_stock')
+					->wherehas('transactiondetails.transaction', function($q){$q->status(['paid'])->type('sell');})
 					->first()
 					;
 		;
@@ -274,8 +274,8 @@ class Product extends Eloquent
 	public function scopeCountBoughtStock($query, $variable)
 	{
 		return 	$query
-					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as bought_stock')
-					->wherehas('transactions', function($q){$q->status('delivered')->type('buy');})
+					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as bought_stock')
+					->wherehas('transactiondetails.transaction', function($q){$q->status('delivered')->type('buy');})
 					->first()
 					;
 	}
@@ -284,9 +284,9 @@ class Product extends Eloquent
 	{
 		return 	$query
 					->select('products.*')
-					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as selled_frequency')
-					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as selled_stock')
-					->wherehas('transactions', function($q){$q->status(['paid','shipped','delivered'])->type('sell');})
+					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as selled_frequency')
+					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as selled_stock')
+					->wherehas('transactiondetails.transaction', function($q){$q->status(['paid','shipped','delivered'])->type('sell');})
 					;
 	}
 
@@ -294,7 +294,7 @@ class Product extends Eloquent
 	{
 		return 	$query
 					->select('products.*')
-					->wherehas('transactions', function($q){$q->status(['paid','shipped','delivered'])->type('buy');})
+					->wherehas('transactiondetails.transaction', function($q){$q->status(['paid','shipped','delivered'])->type('buy');})
 					->with(['transactions' => function($q){$q->status(['paid','shipped','delivered'])->type('buy');}], 'transactions.supplier')
 					;
 	}
@@ -303,8 +303,8 @@ class Product extends Eloquent
 	{
 		return 	$query
 					->select('products.*')
-					->selectraw('(SELECT IFNULL(avg(price),0) as total_hpp FROM transaction_details WHERE transaction_details.product_id = products.id and transaction_details.deleted_at is null) as hpp')
-					->wherehas('transactions', function($q)use($variable){$q->status(['paid','shipped','delivered'])->type('buy')->ondate($variable);})
+					->selectraw('(SELECT IFNULL(avg(price),0) as total_hpp FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as hpp')
+					->wherehas('transactiondetails.transaction', function($q)use($variable){$q->status(['paid','shipped','delivered'])->type('buy')->ondate($variable);})
 					;
 	}
 }

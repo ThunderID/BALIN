@@ -67,10 +67,11 @@ class AuthController extends BaseController
 			$registered->fill([
 				'name'					=> $user->name,
 				'email'					=> $user->email,
-				'gender'				=> $user->user->gender,
+				'gender'				=> $user->user['gender'],
 				'sso_id' 				=> $user->id,
 				'sso_media' 			=> 'facebook',
 				'sso_data' 				=> json_encode($user->user),
+				'role' 					=> 'customer',
 				]);
 
 			if(!$registered->save())

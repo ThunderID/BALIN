@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Courier;
 use App\Models\Address;
+use App\Models\ShippingCost;
 use Faker\Factory;
 use Illuminate\Support\Facades\DB;
 
@@ -12,6 +13,7 @@ class CourierTableSeeder extends Seeder
 	function run()
 	{
 		DB::table('couriers')->truncate();
+		DB::table('shipping_costs')->truncate();
 
 		$faker = Faker\Factory::create();
 
@@ -20,10 +22,14 @@ class CourierTableSeeder extends Seeder
 			$data 					= new Courier;
 
 			$data->fill([
-				'name'				=> $faker->name,
+				'name'				=> $faker->company,
 			]);
 
-			$data->save();
+			if (!$data->save())
+			{
+				print_r($data->getError());
+				exit;
+			}
 
 			$address				= new Address;			
 
@@ -35,7 +41,27 @@ class CourierTableSeeder extends Seeder
 
 			$address->owner()->associate($data);
 
-			$address->save();
+			if (!$address->save())
+			{
+				print_r($address->getError());
+				exit;
+			}
+
+			$shipcost				= new ShippingCost;			
+
+			$shipcost->fill([
+				'courier_id'		=> $data->id,
+				'start_postal_code'	=> 0,
+				'end_postal_code'	=> 100000,
+				'started_at'		=> date('Y-m-d H:i:s', strtotime('- 1 day')),
+				'cost'				=> date('s')*1000,
+			]);
+
+			if (!$shipcost->save())
+			{
+				print_r($shipcost->getError());
+				exit;
+			}
 		}
 	}
 }

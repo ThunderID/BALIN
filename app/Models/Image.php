@@ -108,4 +108,9 @@ class Image extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+
+	public function scopeDefault($query, $variable)
+	{
+		return 	$query->where('is_default', $variable);
+	}
 }

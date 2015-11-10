@@ -26,9 +26,10 @@
 					</tr>
 				</thead>
 				<tbody>
+					<?php $number = (($orders->currentPage() - 1) * $orders->perPage()) + 1;?>
 					@forelse($orders as $key => $value)
 						<tr>
-							<td class="text-center">{!!(($key)+1)!!}</td>
+							<td class="text-center">{!!(($key)+$number)!!}</td>
 							<td> {{$value['ref_number']}} </td>
 							<td> @date_indo($value['transact_at']) </td>
 							<td> {{$value['status']}} </td>

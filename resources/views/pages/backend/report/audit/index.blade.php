@@ -63,9 +63,13 @@ $datas 			= $datas->with(['user'])->paginate();
 									<?php $amount = $amount - $value->amount;?>
 									<tr>
 										<td>{!!($key+1)!!}</td>
-										<td>{!!$value->user->name!!}</td>
-										<td> @date_indo($value->created_at) </td>
-										<td>{!!$value->event!!}</td>
+										@if($value['user'])
+											<td>{!!$value['user']['name']!!}</td>
+										@else
+											<td><i>System</i></td>
+										@endif
+										<td> @date_indo($value['created_at']) </td>
+										<td>{!!$value['event']!!}</td>
 									</tr>
 								@empty
 									<tr>
