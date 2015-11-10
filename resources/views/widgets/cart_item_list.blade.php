@@ -28,13 +28,13 @@
 							</div>
 							<div class="col-xs-7">
 								@if ($item_mode!='edit')
-									<h4 class="text-right">{{ $item_list_qty}}</h4>
+									<h4 class="text-right">{{ $item_list_qty }}</h4>
 								@else
 									<div class="form-group">
-										<select name="product_qty">
+										<select name="product_qty[]" class="form-control hollow product-qty-mobile">
 											@for ($x=1; $x<=10; $x++)
 												@if ($x<=$item_list_stock)
-													<option value="{{ $x }}">{{ $x }}</option>
+													<option value="{{ $x }}" @if($x==$item_list_qty) selected="selected" @endif>{{ $x }}</option>
 												@endif
 											@endfor
 										</select>
@@ -49,13 +49,15 @@
 							<div class="col-xs-1 text-right">
 								<h4>:</h4>
 							</div>
-							<div class="col-xs-7">
-								<h4 class="text-right product-price" style="margin-bottom:10px;">
+							<div class="col-xs-7 text-right">
+								<label class="m-b-sm label-item label-price" data-product-price="{{ $item_list_normal_price }}">
 									@money_indo($item_list_normal_price) 
-								</h4>
-									@if($item_list_promo_price)
+								</label>
+								@if($item_list_promo_price)
+									<label class="m-b-sm label-item label-promo-price" data-product-promo-price="{{ $item_list_promo_price }}">
 										@money_indo($item_list_promo_price)
-									@endif
+									</label>
+								@endif
 							</div>
 						</div>
 						<div class="row">
@@ -65,10 +67,10 @@
 							<div class="col-xs-1 text-right">
 								<h4>:</h4>
 							</div>
-							<div class="col-xs-7">
-								<h4 class="text-right product-discount" style="margin-bottom:10px;">
+							<div class="col-xs-7 text-right">
+								<label class="m-b-sm label-item label-discount" data-product-discout="{{ $item_list_discount_price }}">
 									@money_indo($item_list_discount_price) 
-								</h4>
+								</label>
 							</div>
 						</div>
 						<div class="row">
@@ -84,8 +86,10 @@
 							<div class="col-xs-1 text-right">
 								<h4>:</h4>
 							</div>
-							<div class="col-xs-7">
-								<h4 class="text-right product-total-price">@money_indo($item_list_total_price)</h4>
+							<div class="col-xs-7 text-right">
+								<label class="label-item label-total" data-product-total="{{ $item_list_total_price }}">
+									@money_indo($item_list_total_price)
+								</label>
 							</div>
 						</div>
 					</div>
@@ -98,10 +102,10 @@
 			<h4 class="text-center">{{ $item_list_qty }}</h4>
 		@else
 			<div class="form-group">
-				<select name="product_qty" class="form-control hollow m-t-sm product-qty">
+				<select name="product_qty[]" class="form-control hollow m-t-sm product-qty-desktop">
 					@for ($x=1; $x<=10; $x++)
 						@if ($x<=$item_list_stock)
-							<option value="{{ $x }}">{{ $x }}</option>
+							<option value="{{ $x }}" @if($x==$item_list_qty) selected @endif>{{ $x }}</option>
 						@endif
 					@endfor
 				</select>

@@ -16,7 +16,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<label for="referral_code">Referral Code</label>
-							{!! Form::text('referral_code', '', ['class' => 'form-control mod_referral_code', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nama referral code referensi'] ) !!}
+							{!! Form::text('referral_code', '', ['class' => 'form-control hollow mod_referral_code', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nama referral code referensi'] ) !!}
 						</div>
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 					<div class="col-md-12">
 						</br>
 						<div class="form-group text-right">
-							<button type="submit" class="btn btn-md btn-primary" tabindex="2">Simpan</button>
+							<button type="submit" class="btn-hollow hollow-black" tabindex="2">Simpan</button>
 						</div>        
 					</div>        
 				</div>    

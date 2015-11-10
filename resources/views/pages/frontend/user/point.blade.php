@@ -17,7 +17,7 @@
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
-						<th>No</th>
+						<th class="text-center">No</th>
 						<th>Tanggal</th>
 						<th>Debit</th>
 						<th>Kredit</th>
@@ -52,7 +52,7 @@
         				}
 					?>
 						<tr>
-							<td>{!!(($key)+1)!!}</td>
+							<td class="text-center">{!!(($key)+1)!!}</td>
 							<td> @date_indo($value->created_at) </td>
 							@if($value->amount >= 0)
 								<td>@money_indo($value->amount)</td>
@@ -83,7 +83,7 @@
 				</tbody>
 			</table>
 			<div class="row">
-                <div class="col-md-12" style="text-align:right;">
+                <div class="col-md-12 hollow-pagination text-right">
                     {!! $pointlogs->appends(['amount' => $amount])->render() !!}
                 </div>
             </div>

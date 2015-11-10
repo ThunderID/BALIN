@@ -20,7 +20,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<label for="phone">Nomor Telepon</label>
-							{!! Form::text('phone', $address['phone'], ['class' => 'form-control mod_name', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nomor telepon'] ) !!}
+							{!! Form::text('phone', $address['phone'], ['class' => 'form-control hollow mod_name', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nomor telepon'] ) !!}
 						</div>
 					</div>
 				</div>
@@ -28,7 +28,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<label for="zipcode">Kode Pos</label>
-							{!! Form::text('zipcode', $address['zipcode'], ['class' => 'form-control mod_email', 'tabindex' => '2', 'placeholder' => 'Masukkan kode pos']) !!}
+							{!! Form::text('zipcode', $address['zipcode'], ['class' => 'form-control hollow mod_email', 'tabindex' => '2', 'placeholder' => 'Masukkan kode pos']) !!}
 						</div>
 					</div>
 				</div>
@@ -36,7 +36,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<label for="address">Alamat</label>
-							 {!!Form::textarea('address', $address['address'], ['class' => 'form-control mod_dob', 'required' => 'required', 'tabindex' => '3'] ) !!}
+							 {!! Form::textarea('address', $address['address'], ['class' => 'form-control hollow mod_dob', 'required' => 'required', 'tabindex' => '3', 'style' => 'resize:none', 'rows' => '5'] ) !!}
 						</div>
 					</div>
 				</div>
@@ -45,7 +45,7 @@
 					<div class="col-md-12">
 						</br>
 						<div class="form-group text-right">
-							<button type="submit" class="btn btn-md btn-primary" tabindex="4">Simpan</button>
+							<button type="submit" class="btn-hollow hollow-black" tabindex="4">Simpan</button>
 						</div>        
 					</div>        
 				</div>    

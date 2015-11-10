@@ -17,7 +17,7 @@
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
-						<th>No</th>
+						<th class="text-center">No</th>
 						<th>#</th>
 						<th>Tanggal</th>
 						<th>Status</th>
@@ -28,7 +28,7 @@
 				<tbody>
 					@forelse($orders as $key => $value)
 						<tr>
-							<td>{!!(($key)+1)!!}</td>
+							<td class="text-center">{!!(($key)+1)!!}</td>
 							<td> {{$value['ref_number']}} </td>
 							<td> @date_indo($value['transact_at']) </td>
 							<td> {{$value['status']}} </td>
@@ -43,7 +43,7 @@
 				</tbody>
 			</table>
 			<div class="row">
-                <div class="col-md-12" style="text-align:right;">
+                <div class="col-md-12 text-right hollow-pagination">
                     {!! $orders->appends(Input::all())->render() !!}
                 </div>
             </div>
