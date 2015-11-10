@@ -69,7 +69,7 @@ class PolicyController extends BaseController
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('id', $id)
 													->with('nav_active', 'settings')
-													->with('subnav_active', 'store')
+													->with('subnav_active', 'policy')
 													;
 
 		return $this->layout;

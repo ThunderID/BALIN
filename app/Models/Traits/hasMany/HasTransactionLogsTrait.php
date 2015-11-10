@@ -38,7 +38,7 @@ trait HasTransactionLogsTrait
 	{
 		if(!is_array($variable))
 		{
-			return $query->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 join (select tlogs2.status as status2, max(tlogs2.changed_at) as max_date from transaction_logs as tlogs2 group by tlogs2.transaction_id) as tmp_s on (tmp_s.status2 = tlogs1.status) and tlogs1.changed_at = tmp_s.max_date) as transaction_logs'), function ($join) use($variable) 
+			return $query->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
 			{
 				$join
 					->on('transaction_logs.transaction_id', '=', 'transactions.id')
@@ -48,7 +48,8 @@ trait HasTransactionLogsTrait
 		}
 		else
 		{
-			return $query->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 join (select tlogs2.status as status2, max(tlogs2.changed_at) as max_date from transaction_logs as tlogs2 group by tlogs2.transaction_id) as tmp_s on (tmp_s.status2 = tlogs1.status) and tlogs1.changed_at = tmp_s.max_date) as transaction_logs'), function ($join) use($variable) 
+
+			return $query->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
 			{
 				$join
 					->on('transaction_logs.transaction_id', '=', 'transactions.id')

@@ -268,8 +268,8 @@ class TransactionDetail extends Eloquent
 				->selectraw('sum(quantity) as total_buy')
 				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->ondate($variable);})
 				->orderby('stock', 'asc')
-				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
-				->groupBy('product_id')
+				// ->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
+				->groupBy('varian_id')
 				;
 	}
 }

@@ -72,8 +72,8 @@ $datas 			= $datas->with(['product'])->paginate();
 									@foreach ($datas as $data)
 									<tr>
 										<td class="text-center">{{ $ctr }}</td>
-										<td class="text-left">{{ $data['product']['sku'] }}</td>
-										<td class="text-left">{{ $data['product']['name'] }}</td>
+										<td class="text-left">{{ $data['varian']['sku'] }}</td>
+										<td class="text-left">{{ $data['varian']['product']['name'] }} {{ $data['varian']['size'] }}</td>
 										<td class="text-right">{{ $data['stock'] }} </td>
 									</tr>       
 									<?php $ctr += 1; ?>                     

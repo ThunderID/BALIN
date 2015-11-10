@@ -135,17 +135,39 @@ class StoreSetting extends Eloquent
 
 	public function scopeStoreInfo($query, $variable)
 	{
-		return 	$query->type(['url', 'logo', 'facebook_url', 'twitter_url', 'email', 'phone', 'address', 'bank_information'])->orderByRaw(DB::raw('started_at, type'));
+		$variable = ['url', 'logo', 'facebook_url', 'twitter_url', 'email', 'phone', 'address', 'bank_information'];
+		return $query->join(DB::raw('(SELECT tlogs1.type as typee, tlogs1.id as id2, tlogs1.started_at as start from tmp_store_settings as tlogs1 where tlogs1.started_at = (SELECT MAX(tlogs2.started_at) FROM tmp_store_settings AS tlogs2 WHERE tlogs1.id = tlogs2.id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by id) as tmp_store_settings2'), function ($join) use($variable) 
+			{
+				$join
+					->on('tmp_store_settings2.id2', '=', 'tmp_store_settings.id')
+					->whereIn('tmp_store_settings.type', $variable)
+					;
+			});
 	}
 
 	public function scopeStorePage($query, $variable)
 	{
-		return 	$query->type(['about_us', 'why_join', 'term_and_condition'])->orderByRaw(DB::raw('started_at, type'));
+		$variable = ['about_us', 'why_join', 'term_and_condition'];
+		return $query->join(DB::raw('(SELECT tlogs1.type as typee, tlogs1.id as id2, tlogs1.started_at as start from tmp_store_settings as tlogs1 where tlogs1.started_at = (SELECT MAX(tlogs2.started_at) FROM tmp_store_settings AS tlogs2 WHERE tlogs1.id = tlogs2.id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by id) as tmp_store_settings2'), function ($join) use($variable) 
+			{
+				$join
+					->on('tmp_store_settings2.id2', '=', 'tmp_store_settings.id')
+					->whereIn('tmp_store_settings.type', $variable)
+					;
+			});
 	}
 
 	public function scopePolicies($query)
 	{
-		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota'];
-		return 	$query->whereIn('type', $variable )->orderByRaw(DB::raw('started_at desc, type'))->take(count($variable));
+		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift'];
+		return $query->join(DB::raw('(SELECT tlogs1.type as typee, tlogs1.id as id2, tlogs1.started_at as start from tmp_store_settings as tlogs1 where tlogs1.started_at = (SELECT MAX(tlogs2.started_at) FROM tmp_store_settings AS tlogs2 WHERE tlogs1.id = tlogs2.id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by id) as tmp_store_settings2'), function ($join) use($variable) 
+			{
+				$join
+					->on('tmp_store_settings2.id2', '=', 'tmp_store_settings.id')
+					->whereIn('tmp_store_settings.type', $variable)
+					;
+			});
+
+		// return 	$query->whereIn('type', $variable )->orderByRaw(DB::raw('started_at desc, type'))->take(count($variable));
 	}
 }

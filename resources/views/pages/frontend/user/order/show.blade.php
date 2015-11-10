@@ -60,7 +60,7 @@
 				<thead>
 					<tr>
 						<th>No</th>
-						<th>Item#</th>
+						<!-- <th>Item#</th> -->
 						<th>Description</th>
 						<th>Qty</th>
 						<th>Unit Price</th>
@@ -74,8 +74,8 @@
 						<?php $amount = $amount + (($value['price'] - $value['discount']) * $value['quantity']);?>
 						<tr>
 							<td>{!!($key+1)!!}</td>
-							<td> {{$value['product']['sku']}} </td>
-							<td> {{$value['product']['name']}} </td>
+							<!-- <td> {{$value['product']['sku']}} </td> -->
+							<td> {{$value['product']['name']}} {{$value['varian']['size']}}</td>
 							<td> {{$value['quantity']}} </td>
 							<td> @money_indo($value['price']) </td>
 							<td> @money_indo($value['discount']) </td>
@@ -83,7 +83,7 @@
 						</tr>
 					@empty
 						<tr>
-							<td colspan="7"> Tidak ada data </td>
+							<td colspan="6"> Tidak ada data </td>
 						</tr>
 					@endforelse
 					@if($transaction['transactiondetails'])
@@ -91,27 +91,27 @@
 							$discount_point = ($amount + $transaction['shipping_cost'] - $transaction['referral_discount'] - $transaction['unique_number']);
 						?>
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="2"><strong>Ongkos Kirim</strong></td>
 							<td>@money_indo($transaction['shipping_cost'])</td>
 						</tr>
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="2"><strong>Diskon Referral</strong></td>
 							<td>@money_indo($transaction['referral_discount'])</td>
 						</tr>
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="2"><strong>Potongan Point</strong></td>
 							<td>@money_indo($discount_point - ($transaction['amount']))</td>
 						</tr>
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="2"><strong>Potongan Transfer</strong></td>
 							<td>@money_indo($transaction['unique_number'])</td>
 						</tr>
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="2"><strong>Total</strong></td>
 							<td>@money_indo($transaction['amount'])</td>
 						</tr>
