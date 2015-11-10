@@ -22,7 +22,7 @@ class ProductController extends BaseController
     	parent::__construct();
     }
 
-	protected $view_name 								= 'Varian';
+	protected $view_name 								= 'Produk';
 
 
 	public function index()
@@ -53,17 +53,14 @@ class ProductController extends BaseController
 		return $this->layout;		
 	}
 
-	public function create($uid = null, $id = null)
+	public function create($id = null)
 	{
-		$pu												= ProductUniversal::findorfail($uid);								
-
 		if($id) 
 		{
 			$product 									= Product::findorfail($id);
 
-			$breadcrumb									= 	[	'Data Produk' 			=> route('backend.data.productuniversal.index'),
-																$pu['name']				=> route('backend.data.productuniversal.show', ['uid' => $pu['id'] ]),
-																'Edit '	.$product->name	=> route('backend.data.product.create', ['uid' => $pu['id']] ),
+			$breadcrumb									= 	[	'Data Produk' 			=> route('backend.data.product.index'),
+																'Edit '	.$product->name	=> route('backend.data.product.create', ['id' => $id] ),
 															];															
 
 			$title 										= 	'Edit '.$product->name;
@@ -72,9 +69,8 @@ class ProductController extends BaseController
 		{
 			$product 									= new Product;
 
-			$breadcrumb									= 	[	'Data Produk' 			=> route('backend.data.productuniversal.index'),
-																$pu['name']				=> route('backend.data.productuniversal.show', ['uid' => $pu['id'] ]),
-																'Varian Baru' 			=> route('backend.data.product.create', ['uid' => $pu['id']] ),
+			$breadcrumb									= 	[	'Data Produk' 			=> route('backend.data.product.index'),
+																'Data Baru' 			=> route('backend.data.product.create'),
 															];
 
 			$title 										= 	'Baru';
@@ -85,7 +81,6 @@ class ProductController extends BaseController
 																->with('WT_pageSubTitle', $title)		
 																->with('WB_breadcrumbs', $breadcrumb)
 																->with('id', $id)
-																->with('uid', $uid)
 																->with('nav_active', 'data')
 																->with('product', $product)
 																->with('subnav_active', 'products');
@@ -93,21 +88,18 @@ class ProductController extends BaseController
 		return $this->layout;		
 	}
 
-	public function edit($uid, $id)
+	public function edit($id)
 	{
-		return $this->create($uid, $id);		
+		return $this->create($id);		
 	}
 
-	public function show($uid = null, $id = null)
+	public function show($id = null)
 	{
-		$pu												= ProductUniversal::findorfail($uid);								
-
 		$product 										= Product::findorfail($id);
 
 
-		$breadcrumb										= 	[	'Data Produk' 			=> route('backend.data.productuniversal.index'),
-																$pu['name']				=> route('backend.data.productuniversal.show', ['uid' => $pu['id'] ]),
-																$product['name']		=> route('backend.data.product.show', ['uid' => $pu['id'], 'id' => $id]),
+		$breadcrumb										= 	[	'Data Produk' 			=> route('backend.data.product.index'),
+																$product['name']		=> route('backend.data.product.show', ['id' => $id]),
 															];
 
 		if ($search = Input::get('q'))
@@ -125,7 +117,6 @@ class ProductController extends BaseController
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', $searchResult)
 																		->with('id', $id)
-																		->with('uid', $uid)
 																		->with('nav_active', 'data')
 																		->with('subnav_active', 'products')
 																		->with('product', $product)
@@ -134,9 +125,9 @@ class ProductController extends BaseController
 		return $this->layout;
 	}
 
-	public function store($uid = null, $id = null)
+	public function store($id = null)
 	{
-		$inputs 										= Input::only('category','name','sku','description','color','size');
+		$inputs 										= Input::only('category','name','upc','description','slug');
 		$labels											= Input::only('label');
 		$images											= Input::only('thumbnail', 'image_xs', 'image_sm', 'image_md', 'image_lg', 'default');
 
@@ -149,19 +140,13 @@ class ProductController extends BaseController
 			$data 										= new Product;	
 		}
 
-		$pu 											= ProductUniversal::findorfail($uid);
-
 		$data->fill([
 			'name' 										=> $inputs['name'],
-			'color' 									=> $inputs['color'],
-			'size' 										=> $inputs['size'],
-			'sku' 										=> $inputs['sku'],
-			'slug' 										=> Str::slug($inputs['name'] . $inputs['sku']),
+			'upc' 										=> $inputs['upc'],
+			'slug' 										=> Str::slug($inputs['name'] . $inputs['upc']),
 			'description' 								=> $inputs['description'],
 		]);
 
-
-		$data->ProductUniversal()->associate($pu);
 
 		$errors 										= new MessageBag();
 
@@ -293,19 +278,19 @@ class ProductController extends BaseController
 		{
 			DB::commit();
 
-			return Redirect::route('backend.data.productuniversal.show', ['uid' => $uid])
+			return Redirect::route('backend.data.product.index')
 					->with('msg','Produk sudah disimpan')
 					->with('msg-type', 'success')
 					;
 		}
 	}
 
-	public function Update($uid = null, $id = null)
+	public function Update($id = null)
 	{
-		return $this->store($uid,$id);		
+		return $this->store($id);		
 	}
 
-	public function destroy($uid = null, $id = null)
+	public function destroy($id = null)
 	{
 		$data 								= Product::findorfail($id);
 
@@ -323,24 +308,18 @@ class ProductController extends BaseController
 		{
 			DB::commit();
 
-			return Redirect::route('backend.data.productuniversal.show', ['uid' => $uid])
+			return Redirect::route('backend.data.product.index')
 				->with('msg', 'Produk telah dihapus')
 				->with('msg-type','success');
 		}
 	}
 
-	public function generateSlug()
-	{
-		$result = "abc";
-	    return $result;
-	}	
-
-	public function getProductBySKU()
+	public function getProductByUPC()
 	{
 	    $inputs 	= Input::only('name');
 	    
-	    $tmp 		=  product::select(array('id', 'sku', 'name'))
-	    				->where('sku', 'like', "%" . $inputs['name'] . "%")
+	    $tmp 		=  product::select(array('id', 'upc', 'name'))
+	    				->where('upc', 'like', "%" . $inputs['name'] . "%")
 	    				->get();
 	    		
 	    return json_decode(json_encode($tmp));

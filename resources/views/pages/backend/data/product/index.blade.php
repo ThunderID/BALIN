@@ -1,4 +1,4 @@
-@inject('datas', 'App\Models\ProductUniversal')
+@inject('datas', 'App\Models\Product')
 <?php 
 if(!is_null($filters) && is_array($filters))
 {
@@ -17,13 +17,13 @@ $datas 			= $datas->orderby('name')->paginate();
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-md-8 col-sm-4 hidden-xs">
-					<a class="btn btn-default" href="{{ URL::route('backend.data.productuniversal.create') }}"> Data Baru </a>
+					<a class="btn btn-default" href="{{ URL::route('backend.data.product.create') }}"> Data Baru </a>
 				</div>
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-					<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.productuniversal.create') }}"> Data Baru </a>
+					<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.product.create') }}"> Data Baru </a>
 				</div>
 				<div class="col-md-4 col-sm-8 col-xs-12">
-					{!! Form::open(array('route' => 'backend.data.productuniversal.index', 'method' => 'get' )) !!}
+					{!! Form::open(array('route' => 'backend.data.product.index', 'method' => 'get' )) !!}
 					<div class="row">
 						<div class="col-md-2 col-sm-3 hidden-xs">
 						</div>
@@ -42,7 +42,7 @@ $datas 			= $datas->orderby('name')->paginate();
 					{!! Form::close() !!}
 				</div>            
 			</div>
-			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.productuniversal.index') ])
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.product.index') ])
 			</br> 
 			<div class="row">
 				<div class="col-lg-12">
@@ -51,8 +51,8 @@ $datas 			= $datas->orderby('name')->paginate();
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th class="col-md-6">Nama Produk</th>
-									<th class="col-md-3 text-center">UPC</th>
+									<th class="col-md-2 text-center">UPC</th>
+									<th class="col-md-7">Nama Produk</th>
 									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
@@ -71,15 +71,15 @@ $datas 			= $datas->orderby('name')->paginate();
 									@foreach($datas as $data)
 										<tr>
 											<td>{{ $ctr }}</td>
-											<td>{{ $data['name'] }}</td>
 											<td class="text-center">{{ $data['upc'] }}</td>
+											<td>{{ $data['name'] }}</td>
 											<td class="text-center">
-												<a href="{{ route('backend.data.productuniversal.show', $data['id']) }}"> Detail </a>,
-												<a href="{{ url::route('backend.data.productuniversal.edit', $data['id']) }}"> Edit </a>, 
+												<a href="{{ route('backend.data.product.show', $data['id']) }}"> Detail </a>,
+												<a href="{{ url::route('backend.data.product.edit', $data['id']) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
 													data-id="{{$data['id']}}"
 													data-title="Hapus Data Produk {{$data['name']}}"
-													data-action="{{ route('backend.data.productuniversal.destroy', $data['id']) }}">
+													data-action="{{ route('backend.data.product.destroy', $data['id']) }}">
 													Hapus
 												</a>                                                                                      
 											</td>    
@@ -89,7 +89,7 @@ $datas 			= $datas->orderby('name')->paginate();
 									
 									@include('widgets.pageelements.formmodaldelete', [
 											'modal_id'      => 'product_del', 
-											'modal_route'   => route('backend.data.productuniversal.destroy')
+											'modal_route'   => route('backend.data.product.destroy')
 									])
 								@endif
 							</tbody>
