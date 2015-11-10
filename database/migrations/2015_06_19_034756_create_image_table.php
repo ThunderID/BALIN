@@ -21,6 +21,7 @@ class CreateImageTable extends Migration
             $table->string('image_sm', 255);
             $table->string('image_md', 255);
             $table->string('image_lg', 255);
+            $table->boolean('is_default');
             $table->timestamps();
             $table->softDeletes();
         });
