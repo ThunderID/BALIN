@@ -25,8 +25,8 @@ class CartController extends BaseController
 	public function store($slug = null , $qty = null)
 	{
 		//test purpose 
-		$slug				= Input::get('product_slug');
-		$qty 				= Input::get('product_qty');
+		$slug									= Input::get('product_slug');
+		$qty 									= Input::get('product_qty');
 
 		if (!$slug && !$qty)
 		{
@@ -45,20 +45,20 @@ class CartController extends BaseController
 		$basket 								= 	[
 														'slug' 			=> $slug, 
 														'name'			=> $product['name'],
-														'sku'				=> $product['sku'],
+														'sku'			=> $product['sku'],
 														'qty' 			=> $qty,
 														'stock'			=> $product['stock'],
 														'price'			=> $product['price'],
 														'promo_price'	=> $product['promo_price'],
 														'discount'		=> $product['discount'],
-														'images'			=> $product['images'][0]['thumbnail']
+														'images'		=> $product['images'][0]['thumbnail']
 													];
 		// dd($basket);exit;
 		//adding new data to basket 
 		if (empty($baskets))
 		{
 			$basket 							= array($basket);
-			$baskets 						= $basket;
+			$baskets 							= $basket;
 		}
 		else
 		{
@@ -77,14 +77,48 @@ class CartController extends BaseController
 
 	public function edit ()
 	{
-		$baskets 								= Cookie::get('basketss');
+		$baskets 								= Cookie::get('baskets');
 		$carts 									= null;
 		$this->layout->page 					= view('pages.frontend.cart.edit')
 														->with('controller_name', $this->controller_name)
 														->with('carts', $carts);
-		$this->layout->controller_name	= $this->controller_name;
+		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;
+	}
+
+	public function update()
+	{
+		//get current stock
+		$baskets 								= Cookie::get('baskets');
+
+		$qty 									= Input::get('product_qty');
+
+		foreach ($baskets as $k => $item)
+		{
+			$basket[$k]							=	[
+														'slug' 			=> $item['slug'], 
+														'name'			=> $item['name'],
+														'sku'			=> $item['sku'],
+														'qty' 			=> $qty[$k],
+														'stock'			=> $item['stock'],
+														'price'			=> $item['price'],
+														'promo_price'	=> $item['promo_price'],
+														'discount'		=> $item['discount'],
+														'images'		=> $item['images']
+													];
+		}
+
+		Cookie::forget('baskets');
+
+		$baskets 								= $basket;
+
+		//update baskets
+		$baskets 								= Cookie::forever('baskets', $baskets);
+
+		//return cookies
+		return Redirect::route('frontend.cart.index')
+						->withCookie($baskets);
 	}
 
 	// FUNCTION REMOVE CART

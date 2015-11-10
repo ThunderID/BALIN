@@ -380,6 +380,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	Route::get('cart', 						['uses' => 'CartController@index', 'as' => 'frontend.cart.index']);
 	Route::post('addtocart', 				['uses' => 'CartController@store', 'as' => 'frontend.cart.store']);
 	Route::get('editcart', 					['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
+	Route::post('updatecart',				['uses' => 'CartController@update', 'as' => 'frontend.cart.update']);
 	Route::get('removetocart/{id?}',		['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
 
 	Route::get('profile', 					['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\BaseController;
 
-use Cookie, Response;
+use Cookie, Response, Input;
 
 class ProductController extends BaseController 
 {
@@ -10,8 +10,9 @@ class ProductController extends BaseController
 	protected $controller_name 					= 'product';
 
 	public function index()
-	{		
-		$this->layout->page 					= view('pages.frontend.product.index')->with('controller_name', $this->controller_name);
+	{
+		$this->layout->page 					= view('pages.frontend.product.index')
+													->with('controller_name', $this->controller_name);
 		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;
