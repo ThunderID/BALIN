@@ -46,9 +46,9 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		// PRODUCT (pending, show, delete)
 		// ------------------------------------------------------------------------------------
 
-		Route::resource('product',  	'ProductUniversalController',			['names' => ['index' => 'backend.data.productuniversal.index', 'create' => 'backend.data.productuniversal.create', 'store' => 'backend.data.productuniversal.store', 'show' => 'backend.data.productuniversal.show', 'edit' => 'backend.data.productuniversal.edit', 'update' => 'backend.data.productuniversal.update', 'destroy' => 'backend.data.productuniversal.destroy']]);
+		Route::resource('product',  	'ProductController',			['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
 
-		Route::resource('product/{uid?}/varian',  	'ProductController',		['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
+		// Route::resource('product/{uid?}/varian',  	'ProductController',		['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
 		
 		Route::any('ajax/get-product-by-name',							['uses' => 'ProductController@getProductByName', 'as' => 'backend.product.ajax.getProductByName']);
 

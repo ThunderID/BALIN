@@ -25,40 +25,40 @@
 
 @section('content')
 	@if(!is_null($id))
-		{!! Form::open(['url' => route('backend.data.product.update', ['uid' => $uid, 'id' => $id] ), 'method' => 'PATCH']) !!}
+		{!! Form::open(['url' => route('backend.data.product.update', ['id' => $id] ), 'method' => 'PATCH']) !!}
 	@else
-		{!! Form::open(['url' => route('backend.data.product.store', ['uid' => $uid] ), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
+		{!! Form::open(['url' => route('backend.data.product.store'), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
 	@endif
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Varian
+					Produk
 				</h4>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="name">Nama Varian Produk</label>
+					<label for="name">Nama Produk</label>
 					{!! Form::text('name', $data['name'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '1', 
-								'placeholder'   => 'Masukkan nama varian produk'
+								'placeholder'   => 'Masukkan nama produk'
 					]) !!}
 				</div>  
 			</div> 
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="sku">SKU</label>
-					{!! Form::text('sku', $data['sku'], [
+					<label for="upc">UPC</label>
+					{!! Form::text('upc', $data['upc'], [
 								'class'         => 'form-control', 
-								'placeholder'   => 'Masukkan kode SKU',
+								'placeholder'   => 'Masukkan kode UPC',
 								'tabindex'      => '2', 
 					]) !!}
 				</div>
 			</div>                                         
 		</div>
-		<div class="row">
+<!-- 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="color">Warna</label>
@@ -79,7 +79,7 @@
 					]) !!}
 				</div>
 			</div>                                         
-		</div>		
+		</div>	 -->	
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
@@ -305,7 +305,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group text-right">
-					<a href="{{ URL::route('backend.data.productuniversal.show', ['uid' => $uid]) }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
+					<a href="{{ URL::route('backend.data.product.show') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
 					<button type="submit" class="btn btn-md btn-primary" tabindex="9">Simpan</button>
 				</div>        
 			</div>        
@@ -321,7 +321,6 @@
 
 		<!-- load microtemplate -->
 		@if(count($images) > 0)
-			console.log(0);
 			$('#tmplt').find('.input-image-thumbnail').val('{{$images[0]['thumbnail']}}');
 			$('#tmplt').find('.input-image-lg').val('{{$images[0]['image_lg']}}');
 			$('#tmplt').find('.input-image-md').val('{{$images[0]['image_md']}}');
@@ -347,15 +346,16 @@
 			@endfor
 		@endif
 
-		$('#tmplt').find('.input-image-thumbnail').val('');
-		$('#tmplt').find('.input-image-lg').val('');
-		$('#tmplt').find('.input-image-md').val('');
-		$('#tmplt').find('.input-image-sm').val('');
-		$('#tmplt').find('.input-image-xs').val('');
-		$('#tmplt').find('.default').val(0);
+		@if(count($images) > 0)
+			$('#tmplt').find('.input-image-thumbnail').val('');
+			$('#tmplt').find('.input-image-lg').val('');
+			$('#tmplt').find('.input-image-md').val('');
+			$('#tmplt').find('.input-image-sm').val('');
+			$('#tmplt').find('.input-image-xs').val('');
+			$('#tmplt').find('.default').val(0);
 
-		$('#template-image').find('.btn-add-image').trigger('click');
-
+			$('#template-image').find('.btn-add-image').trigger('click');
+		@endif
 		<!-- microtemplate end -->
 
 		<!-- image default validator -->
