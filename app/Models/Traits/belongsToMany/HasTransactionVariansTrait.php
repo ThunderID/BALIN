@@ -1,6 +1,6 @@
 <?php namespace App\Models\Traits\belongsToMany;
 
-trait HasTransactionProductsTrait 
+trait HasTransactionVariansTrait 
 {
 
 	/**
@@ -10,15 +10,15 @@ trait HasTransactionProductsTrait
 	 * @author 
 	 **/
 
-	function HasTransactionProductsTraitConstructor()
+	function HasTransactionVariansTraitConstructor()
 	{
 		//
 	}
 
 	/* ------------------------------------------------------------------- RELATIONSHIP TO SERVICE -------------------------------------------------------------------*/
 
-	public function Products()
+	public function Varians()
 	{
-		return $this->belongsToMany('App\Models\Product', 'transaction_details');
+		return $this->belongsToMany('App\Models\Varian', 'transaction_details');
 	}
 }

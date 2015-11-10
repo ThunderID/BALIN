@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionDetailTable extends Migration
+class CreateVarianTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,11 @@ class CreateTransactionDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_details', function (Blueprint $table) {
+        Schema::create('varians', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('transaction_id')->unsigned()->index();
-            $table->integer('varian_id')->unsigned()->index();
-            $table->integer('quantity');
-            $table->double('price');
-            $table->double('discount');
+            $table->integer('product_id')->unsigned()->index();
+            $table->string('sku', 255);
+            $table->string('size', 255);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +29,6 @@ class CreateTransactionDetailTable extends Migration
      */
     public function down()
     {
-        Schema::drop('transaction_details');
+        Schema::drop('varians');
     }
 }
