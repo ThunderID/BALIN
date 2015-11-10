@@ -1,4 +1,6 @@
 <script>
+	var ptr = 0;
+
 	$(document).ready(function() {template_add_product($('.base'))});
 
 	$('.btn-add').click(function() {template_add_product($(this))});
@@ -10,7 +12,7 @@
 						<div class="col-md-4"> \
 							<div class="form-group"> \
 								<label>Produk</label> \
-								<input type="text" name="product[]" class="select-product-by-name" style="width:100%" /> \
+								<input type="text" id="pd-'+ ptr +'" name="product[]" class="select-product-by-name" style="width:100%" /> \
 							</div> \
 						</div> \
 						<div class="col-md-1"> \
@@ -47,10 +49,16 @@
 					</div>';
 
 		$('#template').append(tmp);
-		$('.btn-add').click(function() {template_add_product($(this))});
+
+		$('.btn-add').click(function() {
+			template_add_product($(this));
+		});
+
 		$('.wizard .content').animate({ height: $('.body.current').outerHeight() }, "slow");
 
-		$('.select-product-by-name').select2({
+		var className = '#pd-' + ptr;
+
+		$(className).select2({
 			placeholder: 'Masukkan nama product',
 			minimumInputLength: 4,
 			maximumSelectionSize: 1,
@@ -92,6 +100,7 @@
 			$(this).parent().parent().parent().find('.transaction-input-discount').val(e.object.discount);
 		});
 
+		ptr += 1;
 		change_button_add(e);
 
 		$('.transaction-input-qty').on('change', function()
