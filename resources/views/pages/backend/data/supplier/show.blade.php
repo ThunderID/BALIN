@@ -30,7 +30,7 @@
 					<ul><a href=""></a>
 					@foreach($products as $key => $value)
 						<li>
-							{!! $value->product->name !!}
+							{!! $value['product']['name'] !!}
 						</li>
 					@endforeach
 					</ul>

@@ -112,7 +112,7 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->type('buy')->supplierid($variable);})
-				->groupBy('product_id')
+				->groupBy('varian_id')
 				;
 	}
 
@@ -120,9 +120,11 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 				->selectraw('transaction_details.*')
+				->selectraw('varians.product_id')
 				->selectraw('sum(quantity) as total_buy')
 				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->type('sell')->userid($variable);})
 				->orderby('total_buy', 'desc')
+				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
 				->groupBy('product_id')
 				;
 	}
@@ -131,10 +133,12 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 				->selectraw('transaction_details.*')
+				->selectraw('varians.product_id')
 				->selectraw('sum(quantity) as total_buy')
 				->wherehas('product.categoryproduct', function($q)use($variable){$q->categoryid($variable);})
 				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->type('sell');})
 				->orderby('total_buy', 'desc')
+				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
 				->groupBy('product_id')
 				;
 	}
@@ -144,9 +148,12 @@ class TransactionDetail extends Eloquent
 		return 	$query
 				->selectraw('transaction_details.*')
 				->selectraw('count(transaction_id) as frequent_buy')
+				->selectraw('varians.product_id')
 				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->type('sell')->userid($variable);})
 				->orderby('frequent_buy', 'desc')
-				->groupBy('transaction_id')
+				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
+				->groupBy('product_id')
+				// ->groupBy('transaction_id')
 				;
 	}
 
@@ -155,10 +162,13 @@ class TransactionDetail extends Eloquent
 		return 	$query
 				->selectraw('transaction_details.*')
 				->selectraw('count(transaction_id) as frequent_buy')
+				->selectraw('varians.product_id')
 				->wherehas('product.categoryproduct', function($q)use($variable){$q->categoryid($variable);})
 				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->type('sell');})
 				->orderby('frequent_buy', 'desc')
-				->groupBy('transaction_id')
+				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
+				->groupBy('product_id')
+				// ->groupBy('transaction_id')
 				;
 	}
 
@@ -167,9 +177,12 @@ class TransactionDetail extends Eloquent
 		return 	$query
 				->selectraw('transaction_details.*')
 				->selectraw('sum(quantity) as total_buy')
+				->selectraw('varians.product_id')
 				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->type('sell')->ondate($variable);})
 				->orderby('total_buy', 'desc')
+				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
 				->groupBy('product_id')
+
 				;
 	}
 
@@ -178,9 +191,12 @@ class TransactionDetail extends Eloquent
 		return 	$query
 				->selectraw('transaction_details.*')
 				->selectraw('count(transaction_id) as frequent_buy')
+				->selectraw('varians.product_id')
 				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->type('sell')->ondate($variable);})
 				->orderby('frequent_buy', 'desc')
-				->groupBy('transaction_id')
+				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
+				->groupBy('product_id')
+				// ->groupBy('transaction_id')
 				;
 	}
 
@@ -188,9 +204,11 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 				->selectraw('transaction_details.*')
+				->selectraw('varians.product_id')
 				->selectraw('sum(quantity) as total_buy')
 				->whereDoesntHave('transaction', function($q)use($date){$q->status(['paid','shipping','delivered'])->type('sell')->where('transacted_at','>=',$date);})
 				->orderby('total_buy', 'desc')
+				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
 				->groupBy('product_id')
 				;
 	}
@@ -247,8 +265,10 @@ class TransactionDetail extends Eloquent
 		return 	$query
 				->selectraw('transaction_details.*')
 				->selectraw('sum(quantity) as stock')
+				->selectraw('sum(quantity) as total_buy')
 				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->ondate($variable);})
 				->orderby('stock', 'asc')
+				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
 				->groupBy('product_id')
 				;
 	}
