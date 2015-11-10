@@ -748,19 +748,28 @@ input.text-hollow {
 	text-align: center;
 	font-weight: 300;
 }
-.menu-info li a {
-	color: #999;
-	text-decoration: none;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	&:hover, &.active {
-		color: #222;
-	}
+.menu-info li {
+	border: 1px solid #ccc;
+    padding: 9px;
+    border-top: none;
+	padding-left: 15px;
+    &:first-child {
+    	border-top: 1px solid #ccc;
+    }
+    a {
+		color: #999;
+		text-decoration: none;
+		&:hover, &.active {
+			color: #222;
+		}
+    }
 }
-.menu-info li.last-child {
-	margin-top: 30px;
-	margin-bottom: 50px;
-}
+// .menu-info li a {
+// }
+// .menu-info li.last-child {
+// 	margin-top: 30px;
+// 	margin-bottom: 50px;
+// }
 label.text {
 	color: #999;
 	font-weight: 300;

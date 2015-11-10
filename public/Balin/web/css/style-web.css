@@ -713,19 +713,22 @@ input.text-hollow:focus {
   text-align: center;
   font-weight: 300;
 }
+.menu-info li {
+  border: 1px solid #ccc;
+  padding: 9px;
+  border-top: none;
+  padding-left: 15px;
+}
+.menu-info li:first-child {
+  border-top: 1px solid #ccc;
+}
 .menu-info li a {
   color: #999;
   text-decoration: none;
-  padding-top: 5px;
-  padding-bottom: 5px;
 }
 .menu-info li a:hover,
 .menu-info li a.active {
   color: #222;
-}
-.menu-info li.last-child {
-  margin-top: 30px;
-  margin-bottom: 50px;
 }
 label.text {
   color: #999;
