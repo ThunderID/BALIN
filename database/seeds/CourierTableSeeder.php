@@ -13,6 +13,7 @@ class CourierTableSeeder extends Seeder
 	function run()
 	{
 		DB::table('couriers')->truncate();
+		DB::table('shipping_costs')->truncate();
 
 		$faker = Faker\Factory::create();
 

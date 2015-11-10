@@ -4,11 +4,9 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductUniversal;
-use App\Models\ProductAttribute;
 use App\Models\Image;
 use App\Models\Price;
-use App\Models\Discount;
+use App\Models\Varian;
 use Faker\Factory;
 use Illuminate\Support\Facades\DB;
 

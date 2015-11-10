@@ -31,4 +31,9 @@ trait HasCourierTrait
 	{
 		return $query->whereHas('courier', function($q)use($variable){$q->id($variable);});
 	}
+
+	public function scopeCourierNotID($query, $variable)
+	{
+		return $query->whereDoesntHave('courier', function($q)use($variable){$q->id($variable);});
+	}
 }
