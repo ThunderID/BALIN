@@ -50,9 +50,10 @@
         				{
 							$amount							= $amount + $value->amount;
         				}
+						$number = (($pointlogs->currentPage() - 1) * $pointlogs->perPage())+1;
 					?>
 						<tr>
-							<td class="text-center">{!!(($key)+1)!!}</td>
+							<td class="text-center">{!!(($key)+$number)!!}</td>
 							<td> @date_indo($value->created_at) </td>
 							@if($value->amount >= 0)
 								<td>@money_indo($value->amount)</td>
