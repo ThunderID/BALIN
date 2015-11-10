@@ -32,6 +32,10 @@ class PointLogSaving extends Job implements SelfHandling
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat memakai referensi dari pemberi referens.');
             }
+            elseif($this->pointlog->user_id == $this->pointlog->reference_id)
+            {
+                $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat referral code anda sebagai pemberi referens.');
+            }
             else
             {
                 //temporary

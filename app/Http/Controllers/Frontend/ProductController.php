@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\BaseController;
 
-use Cookie, Response;
+use Cookie, Response, Input;
 
 class ProductController extends BaseController 
 {
@@ -10,19 +10,53 @@ class ProductController extends BaseController
 	protected $controller_name 					= 'product';
 
 	public function index()
-	{		
-		$this->layout->page 					= view('pages.frontend.product.index')->with('controller_name', $this->controller_name);
+	{
+		$filters 								= null;
+
+		if(Input::has('q'))
+		{
+			$filters 							= ['categoriesname' => Input::get('q')];
+
+			$searchResult						= Input::get('q');
+		}
+		else
+		{
+			$searchResult						= null;
+		}
+
+		if(Input::has('name'))
+		{
+			$filters['name']					= Input::get('name');
+			$searchResult						= Input::get('name');
+		}
+
+		if(Input::has('sort') && Input::get('sort')=='desc')
+		{
+			$filters['orderbyraw']				= 'name desc';
+			$searchResult						= $searchResult.' di urutkan Z-A';
+		}
+		elseif(Input::has('sort') && Input::get('sort')=='asc')
+		{
+			$filters['orderbyraw']				= 'name asc';
+			$searchResult						= $searchResult.' di urutkan A-Z';
+		}
+
+		$this->layout->page 					= view('pages.frontend.product.index')
+													->with('controller_name', $this->controller_name)
+													->with('filters', $filters)
+													->with('searchResult', $searchResult)
+													;
 		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;
 	}
 
 
-	public function show($id = null)
+	public function show($slug = null)
 	{
 		$this->layout->page 					= view('pages.frontend.product.show')
 														->with('controller_name', $this->controller_name)
-														->with('id', $id)
+														->with('slug', $slug)
 														;
 		$this->layout->controller_name			= $this->controller_name;
 

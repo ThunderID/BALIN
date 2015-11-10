@@ -6,6 +6,7 @@ namespace App\Jobs\Auditors;
 use App\Jobs\Job;
 
 use App\Models\Transaction;
+use App\Models\TransactionLog;
 use App\Models\Auditor;
 
 use App\Libraries\JSend;
@@ -49,6 +50,21 @@ class SaveAuditAbandonCart extends Job implements SelfHandling
             if(!$audit->save())
             {
                 $result                     = new JSend('error', (array)$this->transaction, $audit->getError());
+            }
+            else
+            {
+                $tlog                       = new TransactionLog;
+
+                $tlog->fill([
+                        'transaction_id'    => $previoustrans->id,
+                        'status'            => 'abandoned',
+                        'changed_at'        => Carbon::now()->format('Y-m-d H:i:s'),
+                    ]);
+
+                if(!$tlog->save())
+                {
+                    $result                 = new JSend('error', (array)$this->transaction, $tlog->getError());
+                }
             }
         }
 

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\BaseController;
 
-use Input, Redirect, Auth, Carbon, Validator, DB;
+use Input, Redirect, Auth, Carbon, Validator, DB, App;
+
+use App\Models\Transaction;
 
 class ProfileController extends BaseController 
 {
@@ -51,7 +53,6 @@ class ProfileController extends BaseController
 					->withErrors($validator->errors())
 					->with('msg-type', 'danger');
 			}
-
 		}
 
 		DB::beginTransaction();
@@ -63,6 +64,10 @@ class ProfileController extends BaseController
 				'gender'						=> $inputs['gender'],
 		]);
 
+		if(Input::has('password'))
+		{
+			$data->password 					= Input::get('password');
+		}
 
 		if (!$data->save())
 		{
@@ -107,15 +112,35 @@ class ProfileController extends BaseController
 		return $this->layout;
 	}	
 
-	public function address()
+	public function orders()
 	{		
-		$this->layout->page 					= view('pages.frontend.user.address')
+		$this->layout->page 					= view('pages.frontend.user.order.index')
 													->with('controller_name', $this->controller_name)
-													->with('subnav_active', 'account_address')
-													->with('title', 'Buku Alamat');
+													->with('subnav_active', 'account_order')
+													->with('title', 'Riwayat Pesanan');
 
 		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;
-	}	
+	}
+
+	public function order($ref = null)
+	{		
+		$transaction 							= Transaction::userid(Auth::user()->id)->type('sell')->refnumber($ref)->first();
+		
+		if(!$transaction)
+		{
+			App::abort(404);
+		}
+		
+		$this->layout->page 					= view('pages.frontend.user.order.show')
+													->with('controller_name', $this->controller_name)
+													->with('subnav_active', 'account_order')
+													->with('title', 'Riwayat Pesanan #'.$ref)
+													->with('transaction', $transaction);
+
+		$this->layout->controller_name			= $this->controller_name;
+
+		return $this->layout;
+	}
 }

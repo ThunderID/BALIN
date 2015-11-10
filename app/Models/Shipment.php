@@ -40,6 +40,7 @@ class Shipment extends Eloquent
 											'transaction_id'				,
 											'address_id'					,
 											'receipt_number'				,
+											'receiver_name'					,
 										];
 
 	/**
@@ -55,6 +56,7 @@ class Shipment extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
+											'receiver_name'					=> 'max:255',
 										];
 
 	/**

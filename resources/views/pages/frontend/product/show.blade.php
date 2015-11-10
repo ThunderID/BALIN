@@ -1,6 +1,6 @@
 @inject('data', 'App\Models\Product')
 <?php 
-	 $data          = $data->find($id);
+	 $data          = $data->where('slug', $slug)->first();
 ?>
 
 @extends('template.frontend.layout')
@@ -9,22 +9,22 @@
 	<div class="container mt-75">
 		<div class="row">
 			<div class="col-lg-12 m-b-md">
-				@include('widgets.pageelements.pagetitle', array('pagetitle' => 'Product Details'))
+				<!-- @include('widgets.pageelements.pagetitle', array('pagetitle' => 'Product Details')) -->
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-7">
 				<div class="row">
-					<div class="col-md-6 col-md-offset-3 text-center hidden-xs hidden-sm">
-						<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails m-t-md">
+					<div class="col-md-7 col-md-offset-3 text-center hidden-xs hidden-sm">
+						<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails m-t-md" style="width:100%">
 							<a href="/Balin/web/balin/14-large.jpg">
-								<img class="img img-responsive myCanvas"  src="/Balin/web/balin/14.jpg">
+								<img class="img img-responsive myCanvas"  src="/Balin/web/balin/14.jpg" style="width:100%">
 							</a>
 						</div>
 					 </div>
 				</div>
 				<div class="row">
-					<div class="col-md-7 col-md-6 col-md-offset-3">
+					<div class="col-md-7 col-md-offset-3">
 						<div class="owl-carousel gallery-product">
 							@for ($i = 0; $i < 7; $i++)
 								<div class="item">
@@ -38,7 +38,7 @@
 			<div class="col-md-5">
 				<div class="row">
 					<div class="col-md-12">
-						<h3>{{ $data['name'] }}</h3>
+						<h3 style="font-size:28px; font-weight:300">{{ $data['name'] }}</h3>
 						<div class="clearfix">&nbsp;</div>
 						<?php $discount = $data['discount']; ?> 
 						@if ($discount == 0)
@@ -70,7 +70,7 @@
 							@else
 								<div class="row">
 									<div class="col-md-12">
-										{!! Form::hidden('product_id', $id) !!}
+										{!! Form::hidden('product_slug', $slug) !!}
 										<div class="form-group">
 											<label for="name">Qty</label>
 											<div class="row">
@@ -114,7 +114,7 @@
 								@if ($key!=0)
 									,
 								@endif
-								{!! $value['name'] !!}
+								<a href="{{route('frontend.product.index', ['q' => $value['name']])}}"> {!! $value['name'] !!}</a>
 							@endforeach
 						</p>
 					</div>

@@ -355,6 +355,16 @@ html {
 #intro .carousel .carousel-inner .item.active .fill {
   min-height: 650px;
 }
+@media screen and (min-width: 992px) {
+  #intro .carousel .carousel-inner .item.active .fill {
+    min-height: 815px;
+  }
+}
+@media screen and (min-width: 992px) {
+  #intro .carousel .carousel-inner .item.active {
+    min-height: 810px;
+  }
+}
 #intro .carousel .carousel-inner .item .carousel-caption {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.62);
@@ -461,6 +471,9 @@ html {
   font-size: 14px;
   color: #777;
 }
+.chart-item .label-item {
+  font-size: 16px;
+}
 .chart-item-mobile h4 {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -541,6 +554,16 @@ html {
   background-color: #fff;
   color: #000;
   border-color: #000;
+  text-decoration: none;
+}
+.btn-hollow.hollow-white {
+  background-color: #fff;
+  color: #000;
+}
+.btn-hollow.hollow-white:hover {
+  background-color: #000;
+  color: #fff;
+  border-color: #fff;
   text-decoration: none;
 }
 .btn-hollow.btn-hollow-sm {
@@ -649,7 +672,7 @@ input.text-hollow:focus {
 .gallery-product .owl-controls .owl-nav .owl-prev {
   position: absolute;
   left: 0;
-  top: 25px;
+  top: 30px;
   background-color: rgba(0, 0, 0, 0.65);
   padding-left: 5px;
   padding-right: 5px;
@@ -658,10 +681,15 @@ input.text-hollow:focus {
   color: #eee;
   margin-right: 4px;
 }
+@media screen and (max-width: 992px) {
+  .gallery-product .owl-controls .owl-nav .owl-prev {
+    top: 50%;
+  }
+}
 .gallery-product .owl-controls .owl-nav .owl-next {
   position: absolute;
   right: 0;
-  top: 25px;
+  top: 30px;
   background-color: rgba(0, 0, 0, 0.65);
   padding-left: 5px;
   padding-right: 5px;
@@ -669,6 +697,11 @@ input.text-hollow:focus {
 .gallery-product .owl-controls .owl-nav .owl-next i {
   color: #eee;
   margin-left: 4px;
+}
+@media screen and (max-width: 992px) {
+  .gallery-product .owl-controls .owl-nav .owl-next {
+    top: 50%;
+  }
 }
 .info-corporate {
   color: #fff;
@@ -680,19 +713,22 @@ input.text-hollow:focus {
   text-align: center;
   font-weight: 300;
 }
+.menu-info li {
+  border: 1px solid #ccc;
+  padding: 9px;
+  border-top: none;
+  padding-left: 15px;
+}
+.menu-info li:first-child {
+  border-top: 1px solid #ccc;
+}
 .menu-info li a {
   color: #999;
   text-decoration: none;
-  padding-top: 5px;
-  padding-bottom: 5px;
 }
 .menu-info li a:hover,
 .menu-info li a.active {
   color: #222;
-}
-.menu-info li.last-child {
-  margin-top: 30px;
-  margin-bottom: 50px;
 }
 label.text {
   color: #999;
@@ -709,7 +745,7 @@ select.form-control.hollow {
   outline: none;
   box-shadow: none;
   overflow: hidden;
-  background: #fff url("../../../../Balin/web/image/select2x2.png") no-repeat right -80px top -6px;
+  background: #fff url("../../../../Balin/web/image/select2x2.png") no-repeat right -90px top -6px;
   -webkit-appearance: none;
   -moz-appearance: none;
 }

@@ -37,6 +37,10 @@
 				Quota <strong>{{Auth::user()->quota}} </strong>
 				<br>
 				Downline <strong>{{Auth::user()->downline}} </strong>
+				@if(!is_null(Auth::user()->reference))
+				<br>
+				Referensi dari <strong>{{Auth::user()->reference}} </strong>
+				@endif
 			</p>
 		</div>
 	</div>
@@ -45,12 +49,12 @@
 
 	<div class="row">
 		<div class="col-sm-12">
-			<h4>Alamat <small><a href="" class="balin-link">edit</a></small></h4>
+			<h4>Alamat <small><a href="{{route('frontend.profile.address.index')}}" class="balin-link">edit</a></small></h4>
 			<p>
 				{{Auth::user()->phone}}<br/>
 				{{Auth::user()->address}}
 				{{Auth::user()->zipcode}}<br/>
-				<a href="" class="balin-link text-right">Atur Buku Alamat</a><br/>
+				<!-- <a href="" class="balin-link text-right">Atur Buku Alamat</a><br/> -->
 			</p>
 		</div>
 	</div>

@@ -7,7 +7,7 @@
 @section('right_content')
 	<div class="row">
 		<div class="col-sm-12">
-			<h3 class="page-title m-t-lg">{{$title}}</h3>
+			<h3 class="page-title m-t-lg">{{$title}}&nbsp;&nbsp;<a href="{{route('frontend.profile.address.create')}}" class="btn btn-xs btn-default">Baru</a></h3>
 		</div>
 	</div>
 
@@ -21,6 +21,7 @@
 						<th>Phone</th>
 						<th>Zipcode</th>
 						<th>Address</th>
+						<th>&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -30,10 +31,21 @@
 							<td> {{$value['phone']}} </td>
 							<td> {{$value['zipcode']}} </td>
 							<td> {{$value['address']}} </td>
+							<td> 
+                                <a href="{{ route('frontend.profile.address.edit', $value['id']) }}">Edit</a>, 
+                                <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#cus_del"
+                                    data-id="{{$value['id']}}"
+                                    data-title="Hapus Data user {{$value['name']}}" 
+                                    data-button="Hapus Data"
+                                    data-action="{{ route('frontend.profile.address.destroy', $value->id) }}"
+                                    href="#">
+                                    Hapus
+                                </a>
+							</td>
 						</tr>
 					@empty
 						<tr>
-							<td colspan="4"> Tidak ada data </td>
+							<td colspan="5"> Tidak ada data </td>
 						</tr>
 					@endforelse
 				</tbody>

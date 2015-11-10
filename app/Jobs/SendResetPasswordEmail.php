@@ -3,19 +3,21 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
-use App\Models\user;
+use App\Models\User;
+use App\Models\StoreSetting;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests
 
 class SendResetPasswordEmail extends Job implements SelfHandling
 {
+    use DispatchesJobs;
+    
     protected $user;
 
-    public function __construct(user $user)
+    public function __construct(User $user)
     {
-        $this->user             = $user;
+        $this->user             				= $user;
     }
 
     public function handle()
@@ -27,19 +29,33 @@ class SendResetPasswordEmail extends Job implements SelfHandling
         }
         
         //get Billing
-        $datas                              = $this->dispatch(new GenerateResetPasswordEmail($this->user));        
+        $result                              	= $this->dispatch(new GenerateResetPasswordLink($this->user));
 
-        //send email
-        $mail_data      = [
-                            'view'          => 'emails.test', 
-                            'datas'         => (array)$datas, 
-                            'dest_email'    => 'budi-purnomo@outlook.com', 
-                            'dest_name'     => 'budi purnomo', 
-                            'subject'       => 'Password Reset', 
-                        ];
+        if($result->getStatus()=='success')
+        {
+	        //check store info
+	        $info								= StoreSetting::storeinfo(true)->take(8)->get();
+	        $infos								= [];
 
-        // call email send job
-        $this->dispatch(new Mailman($mail_data));
+	        foreach ($info as $key => $value) 
+	        {
+	            $infos[$value->type]    		= $value->value;
+	        }
 
-        return true;
+	        $datas          					= ['user' => (array)$this->user['attributes'], 'balin' => $infos];
+
+	        $mail_data      = [
+	                            'view'          => 'emails.password', 
+	                            'datas'         => $datas, 
+	                            'dest_email'    => $this->user->email, 
+	                            'dest_name'     => $this->user->name, 
+	                            'subject'       => 'Reset Password', 
+	                        ];   
+
+	        // call email send job
+	        $this->dispatch(new Mailman($mail_data));
+        }
+        
+        return $result;
+    }
 }

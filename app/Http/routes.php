@@ -308,14 +308,21 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'frontend.dologin']);
 
-	Route::get('do/logout',												['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
-
 	Route::get('do/sso',												['uses' => 'AuthController@doSso', 'as' => 'frontend.dosso']);
-
+	
 	Route::get('sso/success',											['uses' => 'AuthController@getSso', 'as' => 'frontend.getsso']);
 
 	Route::post('do/signup',											['uses' => 'UserController@store', 'as' => 'frontend.user.store']);
 	
+	// ------------------------------------------------------------------------------------
+	// FORGOT PASSWORD
+	// ------------------------------------------------------------------------------------
+
+	Route::post('do/forgot',											['uses' => 'AuthController@doForgot', 'as' => 'frontend.doforgot']);
+	
+	Route::get('do/forgot/password/{link}',								['uses' => 'AuthController@getForgot', 'as' => 'frontend.get.forgot']);
+
+	Route::post('do/forgot/password',									['uses' => 'AuthController@postForgot', 'as' => 'frontend.post.forgot']);
 
 	// ------------------------------------------------------------------------------------
 	// HOME
@@ -329,13 +336,13 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::get('products', 												['uses' => 'ProductController@index', 'as' => 'frontend.product.index']);
 
-	Route::get('products/{id}/detail', 									['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
+	Route::get('products/{slug}', 										['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
 
 	// ------------------------------------------------------------------------------------
 	// USER MENU
 	// ------------------------------------------------------------------------------------
 
-	Route::group(['prefix' => 'profile'], function() 
+	Route::group(['prefix' => 'profile', 'middleware' => 'customer'], function() 
 	{
 		Route::get('/', 												['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);
 		
@@ -343,28 +350,52 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 		Route::post('/setting', 										['uses' => 'ProfileController@update', 'as' => 'frontend.profile.update']);
 		
-		Route::get('/point', 											['uses' => 'ProfileController@point', 'as' => 'frontend.profile.point']);
+		Route::get('/points', 											['uses' => 'ProfileController@point', 'as' => 'frontend.profile.point']);
 
 		Route::get('/downline', 										['uses' => 'ProfileController@downline', 'as' => 'frontend.profile.downline']);
 
-		Route::get('/address', 											['uses' => 'ProfileController@address', 'as' => 'frontend.profile.address']);
+		Route::resource('address',  									'AddressController',			['names' => ['index' => 'frontend.profile.address.index', 'create' => 'frontend.profile.address.create', 'store' => 'frontend.profile.address.store', 'show' => 'frontend.profile.address.show', 'edit' => 'frontend.profile.address.edit', 'update' => 'frontend.profile.address.update', 'destroy' => 'frontend.profile.address.destroy']]);
+		
+		Route::get('/orders', 											['uses' => 'ProfileController@orders', 'as' => 'frontend.profile.order.index']);
+
+		Route::get('/order/{ref}', 										['uses' => 'ProfileController@order', 'as' => 'frontend.profile.order.show']);
+	
+		Route::get('/reference', 										['uses' => 'CampaignController@getreference', 'as' => 'frontend.profile.reference.get']);
+
+		Route::post('/reference', 										['uses' => 'CampaignController@postreference', 'as' => 'frontend.profile.reference.post']);
 	});
+	
+	Route::get('do/logout',												['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
+
+	// ------------------------------------------------------------------------------------
+	// USER ACTIVATION
+	// ------------------------------------------------------------------------------------
+
+	Route::get('/mail/activation/{activation_link}', 					['uses' => 'AuthController@activateAccount' ,'as' => 'balin.claim.voucher']);
+
 
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
 	Route::get('whyJoin', 					['uses' => 'whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
 	
 	Route::get('cart', 						['uses' => 'CartController@index', 'as' => 'frontend.cart.index']);
 	Route::post('addtocart', 				['uses' => 'CartController@store', 'as' => 'frontend.cart.store']);
-	
-	Route::get('removetocart', 				['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
+	Route::get('editcart', 					['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
+	Route::post('updatecart',				['uses' => 'CartController@update', 'as' => 'frontend.cart.update']);
+	Route::get('removetocart/{id?}',		['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
 
+	Route::get('profile', 					['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);
+
+	Route::group(['prefix' => 'profile'], function() 
+	{
+		Route::get('membership-detail', 		['uses' => 'ProfileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
+		Route::get('change-password', 		['uses' => 'ProfileController@changePassword', 'as' => 'frontend.profile.changePassword']);
+		Route::get('change-rofile', 			['uses' => 'ProfileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
+	});
 
 	
-Route::get('/mail/activation/{activation_link}', 						['uses' => 'accountcontroller@activateAccount' ,'as' => 'balin.email.activation']);
 	
 	Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
 	Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
-	Route::get('/c', 													['uses' => 'HomeController@index', 		'as' => 'balin.claim.voucher']);
 	
 });
 

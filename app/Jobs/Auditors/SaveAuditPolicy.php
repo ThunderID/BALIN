@@ -41,13 +41,13 @@ class SaveAuditPolicy extends Job implements SelfHandling
                     'ondate'                => Carbon::now()->format('Y-m-d H:i:s'),
                     'event'                 => 'Perubahan Policy  '.str_replace('_', ' ', $this->store->type).' menjadi '.$this->store->value,
                 ]);
-        }
+    
+            $audit->table()->associate($this->store);
 
-        $audit->table()->associate($this->store);
-
-        if(!$audit->save())
-        {
-            $result                         = new JSend('error', (array)$this->store, $audit->getError());
+            if(!$audit->save())
+            {
+                $result                         = new JSend('error', (array)$this->store, $audit->getError());
+            }
         }
 
         return $result;
