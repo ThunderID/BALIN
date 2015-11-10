@@ -33,7 +33,7 @@ class UserSaved extends Job implements SelfHandling
             {
                 $this->user->is_active  = true;
 
-                if($this->user->save())
+                if(!$this->user->save())
                 {
                     $result         = new JSend('error', (array)$this->user, $this->user->getError());
                 }

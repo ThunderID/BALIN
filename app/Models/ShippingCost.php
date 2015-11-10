@@ -57,7 +57,7 @@ class ShippingCost extends Eloquent
 											'start_postal_code'				=> 'required|numeric',
 											'end_postal_code'				=> 'required|numeric',
 											'cost'							=> 'required|numeric',
-											'started_at'					=> 'required|date_format:"Y-m-d H:i:s"|after:now',
+											'started_at'					=> 'required|date_format:"Y-m-d H:i:s"'/*|after:now*/,
 										];
 
 	/**

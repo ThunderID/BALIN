@@ -190,10 +190,10 @@ class Product extends Eloquent
 
 	public function getDefaultImageAttribute($value)
 	{
-		if($this->images()->count())
+		$image 						= Image::imageableid($this->id)->imageabletype('App\Models\Product')->default(true)->first();
+		if($image)
 		{
-			return 'http://localhost:8000/Balin/web/balin/'.rand(1,30).'.jpg';
-			return $this->images[0]->image_md;
+			return $image->image_md;
 		}
 
 		return 'https://browshot.com/static/images/not-found.png';

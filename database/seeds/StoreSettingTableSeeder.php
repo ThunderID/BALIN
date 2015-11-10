@@ -55,7 +55,7 @@ class StoreSettingTableSeeder extends Seeder
 				$data->fill([
 					'type'							=> $value,
 					'value'							=> $values[$key],
-					'started_at'					=> date('Y-m-d H:i:s' , strtotime('+ 3 minutes')),
+					'started_at'					=> date('Y-m-d H:i:s' , strtotime('- 1 day')),
 				]);
 
 				if (!$data->save())
@@ -72,7 +72,7 @@ class StoreSettingTableSeeder extends Seeder
 				$data->fill([
 					'type'							=> $value,
 					'value'							=> $slidevals[$key],
-					'started_at'					=> date('Y-m-d H:i:s' , strtotime('+ 3 minutes')),
+					'started_at'					=> date('Y-m-d H:i:s' , strtotime('- 1 day')),
 				]);
 
 				if (!$data->save())
@@ -111,7 +111,7 @@ class StoreSettingTableSeeder extends Seeder
 				$data->fill([
 					'type'							=> $value,
 					'value'							=> $polvals[$key],
-					'started_at'					=> date('Y-m-d H:i:s' , strtotime('+ 3 minutes')),
+					'started_at'					=> date('Y-m-d H:i:s' , strtotime('- 1 day')),
 				]);
 
 				if (!$data->save())

@@ -23,10 +23,14 @@ class SupplierTableSeeder extends Seeder
 			$data 					= new Supplier;
 
 			$data->fill([
-				'name'				=> $faker->name,
+				'name'				=> $faker->company,
 			]);
 
-			$data->save();
+			if (!$data->save())
+			{
+				print_r($data->getError());
+				exit;
+			}
 
 			$address				= new Address;			
 
@@ -38,7 +42,11 @@ class SupplierTableSeeder extends Seeder
 
 			$address->owner()->associate($data);
 
-			$address->save();
+			if (!$address->save())
+			{
+				print_r($address->getError());
+				exit;
+			}
 		}		
 	}
 }			
