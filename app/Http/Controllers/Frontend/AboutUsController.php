@@ -2,15 +2,15 @@
 
 use App\Http\Controllers\BaseController;
 
-class whyjoinController extends BaseController 
+class AboutUsController extends BaseController 
 {
 
-	protected $controller_name 					= 'whyjoin';
+	protected $controller_name 					= 'aboutus';
 
 	public function index()
 	{		
-		$breadcrumb								= ['Why Join' => route('frontend.whyjoin.index')];
-		$this->layout->page 					= view('pages.frontend.why_join.index')
+		$breadcrumb								= ['About Us' => route('frontend.aboutus.index')];
+		$this->layout->page 					= view('pages.frontend.about_us.index')
 													->with('controller_name', $this->controller_name)
 													->with('breadcrumb', $breadcrumb)
 													;
