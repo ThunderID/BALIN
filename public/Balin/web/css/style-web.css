@@ -1,7 +1,8 @@
 body {
   height: 100%;
   /*padding-top: 50px;*/
-  font-family: 'Lato', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f5f5;
 }
 html {
   height: 100%;
@@ -69,6 +70,12 @@ html {
 }
 .p-b-xl {
   padding-bottom: 40px;
+}
+.p-l-none {
+  padding-left: 0;
+}
+.p-r-none {
+  padding-right: 0;
 }
 .m-xxs {
   margin: 2px 4px;
@@ -338,53 +345,32 @@ html {
 .container a {
   color: black;
 }
-#intro .carousel {
-  height: 100%;
+.breadcrumb.hollow li a {
+  color: #888;
+  text-decoration: none;
 }
-#intro .carousel .carousel-inner {
-  height: 100%;
+.breadcrumb.hollow li.active a {
+  color: #000;
 }
-#intro .carousel .carousel-inner .item {
-  height: 100%;
-}
-#intro .carousel .carousel-inner .item.active {
-  height: 100%;
-  display: block;
-  min-height: 650px;
-}
-#intro .carousel .carousel-inner .item.active .fill {
-  min-height: 650px;
-}
-@media screen and (min-width: 992px) {
-  #intro .carousel .carousel-inner .item.active .fill {
-    min-height: 815px;
-  }
-}
-@media screen and (min-width: 992px) {
-  #intro .carousel .carousel-inner .item.active {
-    min-height: 810px;
-  }
-}
-#intro .carousel .carousel-inner .item .carousel-caption {
-  width: 100%;
+.carousel-caption {
   background-color: rgba(0, 0, 0, 0.62);
-  left: 0;
-  right: 0;
+  width: 450px;
+  top: 28%;
+  position: absolute;
+  bottom: inherit;
 }
-#intro .carousel .carousel-inner .item .carousel-caption .carousel-caption-one {
-  top: 25%;
+.carousel-caption .carousel-caption-one {
+  top: 30%;
 }
-#intro .carousel .carousel-inner .item .carousel-caption .carousel-caption-two {
+.carousel-caption .carousel-caption-two {
   top: 45%;
 }
-#intro .carousel .carousel-inner .item .carousel-caption p {
-  margin-left: 20%;
-  margin-right: 20%;
+.carousel-caption.left {
+  left: 0;
 }
-.carousel-holder {
-  margin-bottom: 30px;
+.carousel-caption.right {
+  right: 0;
 }
-/* Background images are set within the HTML using inline CSS, not here */
 .fill {
   width: 100%;
   height: 100%;
@@ -392,11 +378,23 @@ html {
   background-size: cover;
   -o-background-size: cover;
 }
+.carousel-holder {
+  margin-bottom: 30px;
+}
+.carousel,
+.item,
+.active {
+  height: 100%;
+}
+.carousel-inner {
+  height: 100%;
+}
+/* Background images are set within the HTML using inline CSS, not here */
 .item {
   border-radius: 4px;
 }
 .caption {
-  height: 130px;
+  height: 140px;
   overflow: hidden;
   font-weight: 300;
 }
@@ -542,6 +540,8 @@ html {
   border-radius: 0;
   box-shadow: none;
   outline: none;
+  text-decoration: none;
+  text-shadow: none;
 }
 .btn-hollow:focus {
   outline: none;
@@ -551,6 +551,16 @@ html {
   color: #fff;
 }
 .btn-hollow.hollow-black:hover {
+  background-color: #fff;
+  color: #000;
+  border-color: #fff;
+  text-decoration: none;
+}
+.btn-hollow.hollow-black-border {
+  background-color: #000;
+  color: #fff;
+}
+.btn-hollow.hollow-black-border:hover {
   background-color: #fff;
   color: #000;
   border-color: #000;
@@ -564,6 +574,24 @@ html {
   background-color: #000;
   color: #fff;
   border-color: #fff;
+  text-decoration: none;
+}
+.btn-hollow.hollow-black-transparent {
+  background-color: #000;
+  color: #fff;
+}
+.btn-hollow.hollow-black-transparent:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-decoration: none;
+}
+.btn-hollow.hollow-black-transparent-reverse {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+.btn-hollow.hollow-black-transparent-reverse:hover {
+  background-color: #fff;
+  color: #333;
   text-decoration: none;
 }
 .btn-hollow.btn-hollow-sm {
@@ -616,6 +644,7 @@ html {
   color: #fff;
 }
 input.text-hollow {
+  background-color: transparent;
   border: none;
   border-bottom: 1px solid #333;
   margin-right: 18px;
@@ -632,14 +661,15 @@ input.text-hollow:focus {
 .hollow-pagination ul.pagination li a {
   border: none;
   color: #aaa;
+  background-color: transparent;
 }
 .hollow-pagination ul.pagination li span:hover,
 .hollow-pagination ul.pagination li a:hover {
-  background-color: inherit;
+  background-color: transparent;
   color: #000;
 }
 .hollow-pagination ul.pagination li.active span {
-  background-color: inherit;
+  background-color: transparent;
   border-color: inherit;
   color: #000;
   font-weight: bold;
@@ -729,6 +759,9 @@ input.text-hollow:focus {
 .menu-info li a:hover,
 .menu-info li a.active {
   color: #222;
+}
+.tag-categories a {
+  font-weight: 300;
 }
 label.text {
   color: #999;
