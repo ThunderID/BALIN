@@ -193,6 +193,8 @@ class AuthController extends BaseController
 
 		$user->fill([
 				'password'					=> Input::get('password'),
+				'reset_password_link'		=> '',
+				'expired_at' 				=> NULL,
 		]);
 
 

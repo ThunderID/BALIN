@@ -29,7 +29,7 @@ class CategoryController extends BaseController
 
 		if(Input::has('q'))
 		{
-			$filters 								= ['name' => Input::get('q')];
+			$filters 								= ['categoriesname' => Input::get('q')];
 
 			$searchResult							= Input::get('q');
 		}

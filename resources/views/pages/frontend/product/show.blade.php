@@ -114,7 +114,7 @@
 								@if ($key!=0)
 									,
 								@endif
-								{!! $value['name'] !!}
+								<a href="{{route('frontend.product.index', ['q' => $value['name']])}}"> {!! $value['name'] !!}</a>
 							@endforeach
 						</p>
 					</div>
