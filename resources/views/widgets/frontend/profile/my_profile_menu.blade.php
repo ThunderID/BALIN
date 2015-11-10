@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-sm-12">
-		<h3 class="page-title m-t-lg">Akun Saya</h3>
+		<h3 class="page-title m-t-lg"></h3>
 	</div>
 </div>
 <div class="row">
