@@ -1,14 +1,30 @@
-@extends('template.frontend.layout_onepage')
+@extends('template.frontend.layout')
 
 @section('content')
 	<!-- Full Page Image Background Carousel Header -->
-	<section id="intro">
-			<div id="my-carousel" class="carousel slide">
-				@include('widgets.slider')
+
+	<section id="my-carousel" class="carousel slide hidden-xs hide">
+		@include('widgets.slider')
+	</section>
+	<div class="hidden-xs">
+		@include('widgets.slider-revolution')
+	</div>
+	
+	<section class="container-fluid">
+		<div class="row hidden-sm hidden-md hidden-lg">
+			<div class="col-xs-12 p-l-none p-r-none">
+				<img src="Balin/web/image/1.jpg" style="" class="img-responsive">
 			</div>
+			<div class="col-xs-12 p-l-none p-r-none">
+				<img src="Balin/web/image/2.jpg" style="" class="img-responsive">
+			</div>
+			<div class="col-xs-12 p-l-none p-r-none">
+				<img src="Balin/web/image/3.jpg" style="" class="img-responsive">
+			</div>
+		</div>
 	</section>
 
-	<section id="why-join" class="p-t">
+	<!-- <section id="why-join" class="p-t">
 		@include('pages.frontend.why_join.partial_why_join')
 	</section>
 
@@ -24,7 +40,7 @@
 
 	<section id="contact-us" class="p-t">
 		@include('pages.frontend.contact_us.partial_contact_us')
-	</section>
+	</section> -->
 @stop
 
 @section('script')
@@ -43,4 +59,8 @@
 		$('.sign-in').hide();
 		$('.forgot').show();
 	});
+@stop
+
+@section('script_plugin')
+	@include('plugins.revolution-slider')
 @stop

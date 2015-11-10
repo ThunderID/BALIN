@@ -9,14 +9,14 @@
 	<div class="container mt-75">
 		<div class="row">
 			<div class="col-lg-12 m-b-md">
-				<!-- @include('widgets.pageelements.pagetitle', array('pagetitle' => 'Product Details')) -->
+				@include('widgets.breadcrumb')
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-7">
 				<div class="row">
 					<div class="col-md-7 col-md-offset-3 text-center hidden-xs hidden-sm">
-						<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails m-t-md" style="width:100%">
+						<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails m-t-md" style="width:100%; border:1px solid #eee">
 							<a href="/Balin/web/balin/14-large.jpg">
 								<img class="img img-responsive myCanvas"  src="/Balin/web/balin/14.jpg" style="width:100%">
 							</a>
@@ -46,7 +46,7 @@
 						@else
 							<h4>
 								Price : 
-								<span style="text-decoration:line-through; color: #ccc">
+								<span style="text-decoration:line-through; color: #999">
 									@money_indo($data['price'])
 								</span> &nbsp;
 								@money_indo($data['promo_price'])
@@ -89,10 +89,6 @@
 											</div>
 										</div>	
 									</div>	
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-									</div>
 								</div>
 								<div class="clearfix">&nbsp;</div>
 							@endif

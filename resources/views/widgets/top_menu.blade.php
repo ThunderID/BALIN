@@ -15,8 +15,8 @@
 					<a href="javascript:void(0);" class="hidden-sm hidden-md hidden-lg" style="color: #fff;
 					    position: absolute;
 					    right: 80px;
-					    top: 12px;">
-						<i class="fa fa-shopping-cart fa-2x"></i>
+					    top: 16px;">
+						<i class="fa fa-shopping-cart fa-lg"></i>
 						<span class="m-l-xs">
 							{{ count(Cookie::get('baskets')) }}
 						</span>
@@ -35,14 +35,14 @@
 							<a href="{{ URL::route('frontend.product.index') }}">Products</a>
 						</li>
 						<li @if($controller_name == 'whyjoin') class=active @endif>
-							<a href="{{ URL::route('frontend.home.index') }}#why-join" data-scroll>Why Join</a>
+							<a href="{{ URL::route('frontend.whyjoin.index') }}" data-scroll>Why Join</a>
 						@if (!Auth::user())
 							<li @if($controller_name == 'join') class=active @endif >
-								<a href="{{ URL::route('frontend.home.index') }}#sign-in" data-scroll>Sign In</a>
+								<a href="{{ URL::route('frontend.whyjoin.index') }}" data-scroll>Sign In</a>
 							</li>
 						@endif
 						<li>
-							<a href="{{ URL::route('frontend.home.index') }}#about-us" data-scroll>About Us</a>
+							<a href="{{ URL::route('frontend.aboutus.index') }}" data-scroll>About Us</a>
 						</li>
 						<li>
 							<a href="{{ URL::route('frontend.home.index') }}#contact-us" data-scroll>Contact Us</a>

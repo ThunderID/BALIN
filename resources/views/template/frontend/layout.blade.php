@@ -18,7 +18,7 @@
    {!! HTML::style('Balin/web/css/bootstrap.min.css') !!}
    <link rel="stylesheet" href="{{ elixir('Balin/web/css/style-web.css') }}">
    {!! HTML::style('Balin/web/plugin/fontawesome/css/font-awesome.min.css') !!}
-   {!! HTML::style('http://fonts.googleapis.com/css?family=Lato:400,300,700') !!}
+   {!! HTML::style('https://fonts.googleapis.com/css?family=Roboto:400,300,100,700') !!}
 
 </head>
 
@@ -42,9 +42,9 @@
 
     <!-- Script to Activate the Carousel -->
     <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
+    // $('.carousel').carousel({
+    //     interval: 5000 //changes the speed
+    // })
     
     @yield('script')
 
