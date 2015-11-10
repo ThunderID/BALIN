@@ -16,7 +16,8 @@ class TransactionDetail extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\belongsTo\HasProductTrait;
+	use \App\Models\Traits\belongsTo\HasVarianTrait;
+	use \App\Models\Traits\belongsToThrough\HasProductTrait;
 	use \App\Models\Traits\belongsTo\HasTransactionTrait;
 
 	/**
@@ -36,7 +37,7 @@ class TransactionDetail extends Eloquent
 
 	protected $fillable				=	[
 											'transaction_id'				,
-											'product_id'					,
+											'varian_id'						,
 											'quantity'						,
 											'price'							,
 											'discount'						,
