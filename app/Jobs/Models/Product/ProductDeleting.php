@@ -21,10 +21,10 @@ class ProductDeleting extends Job implements SelfHandling
 
     public function handle()
     {
-        if($this->product->transactiondetails->count())
-        {
-            return new JSend('error', (array)$this->product, 'Produk memiliki transaksi');
-        }
+        // if($this->product->transactiondetails->count())
+        // {
+        //     return new JSend('error', (array)$this->product, 'Produk memiliki transaksi');
+        // }
 
         return new JSend('success', (array)$this->product);
     }

@@ -21,8 +21,8 @@ class Product extends Eloquent
 	use \App\Models\Traits\hasMany\HasPricesTrait;
 	use \App\Models\Traits\hasMany\HasLablesTrait;
 	use \App\Models\Traits\hasMany\HasVariansTrait;
-	use \App\Models\Traits\hasManyThrough\HasTransactionDetailsTrait;
-	use \App\Models\Traits\belongsToManyThrough\HasTransactionsTrait;
+	// use \App\Models\Traits\hasManyThrough\HasTransactionDetailsTrait;
+	// use \App\Models\Traits\belongsToManyThrough\HasTransactionsTrait;
 	use \App\Models\Traits\belongsToMany\HasCategoriesTrait;
 	use \App\Models\Traits\morphMany\HasImagesTrait;
 
