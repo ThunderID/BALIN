@@ -19,10 +19,10 @@ class Product extends Eloquent
 
 	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
 	use \App\Models\Traits\hasMany\HasPricesTrait;
-	use \App\Models\Traits\hasMany\HasDiscountsTrait;
 	use \App\Models\Traits\hasMany\HasLablesTrait;
-	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
-	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
+	use \App\Models\Traits\hasMany\HasVariansTrait;
+	use \App\Models\Traits\hasManyThrough\HasTransactionDetailsTrait;
+	use \App\Models\Traits\belongsToManyThrough\HasTransactionsTrait;
 	use \App\Models\Traits\belongsToMany\HasCategoriesTrait;
 	use \App\Models\Traits\morphMany\HasImagesTrait;
 
@@ -42,12 +42,9 @@ class Product extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'product_universal_id'			,
 											'name'							,
+											'upc'							,
 											'slug'							,
-											'sku'							,
-											'color'							,
-											'size'							,
 											'description'					,
 										];
 
@@ -65,7 +62,7 @@ class Product extends Eloquent
 	 */
 	protected $rules				=	[
 											'name'							=> 'required|max:255',
-											'sku'							=> 'required|max:255',
+											'upc'							=> 'required|max:255',
 											'slug'							=> 'required|max:255',
 										];
 
