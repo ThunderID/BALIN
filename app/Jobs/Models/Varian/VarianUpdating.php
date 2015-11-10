@@ -20,6 +20,11 @@ class VarianUpdating extends Job implements SelfHandling
 
     public function handle()
     {
+		if($this->varian->transactiondetails->count())
+        {
+            return new JSend('error', (array)$this->varian, ['message' => 'Produk memiliki transaksi']);
+        }
+
         return new JSend('success', (array)$this->varian);
     }
 }

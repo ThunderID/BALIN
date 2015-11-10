@@ -20,6 +20,11 @@ class VarianDeleting extends Job implements SelfHandling
 
     public function handle()
     {
+		if($this->varian->transactiondetails->count())
+        {
+            return new JSend('error', (array)$this->varian, 'Produk memiliki transaksi');
+        }
+
         return new JSend('success', (array)$this->varian);
     }
 }
