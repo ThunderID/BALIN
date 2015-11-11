@@ -294,10 +294,10 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 // FRONTEND
 // ------------------------------------------------------------------------------------
 // 
-Route::get('/', 														['as' => 'frontend.index', function()
-{
-	return Redirect::route('frontend.home.index'); 
-}]);
+// Route::get('/', 														['as' => 'frontend.index', function()
+// {
+// 	return Redirect::route('frontend.home.index'); 
+// }]);
 
 
 Route::group(['namespace' => 'Frontend\\'], function() 
@@ -328,7 +328,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	// HOME
 	// ------------------------------------------------------------------------------------
 
-	Route::get('home', 													['uses' => 'HomeController@index', 'as' => 'frontend.home.index']);
+	Route::get('/', 													['uses' => 'HomeController@index', 'as' => 'frontend.home.index']);
 
 	// ------------------------------------------------------------------------------------
 	// PRODUCT
@@ -376,6 +376,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
 	Route::get('whyJoin', 					['uses' => 'whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
+	Route::get('aboutus', 					['uses' => 'AboutUsController@index', 'as' => 'frontend.aboutus.index']);
 	
 	Route::get('cart', 						['uses' => 'CartController@index', 'as' => 'frontend.cart.index']);
 	Route::post('addtocart', 				['uses' => 'CartController@store', 'as' => 'frontend.cart.store']);
@@ -394,7 +395,6 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	
 	
-	Route::get('/b', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
 	Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
 	
 });

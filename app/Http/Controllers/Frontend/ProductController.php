@@ -11,6 +11,8 @@ class ProductController extends BaseController
 
 	public function index()
 	{
+		$breadcrumb								= ['Produk' => route('frontend.product.index')];
+
 		$filters 								= null;
 
 		if(Input::has('q'))
@@ -45,6 +47,7 @@ class ProductController extends BaseController
 													->with('controller_name', $this->controller_name)
 													->with('filters', $filters)
 													->with('searchResult', $searchResult)
+													->with('breadcrumb', $breadcrumb)
 													;
 		$this->layout->controller_name			= $this->controller_name;
 
@@ -54,9 +57,13 @@ class ProductController extends BaseController
 
 	public function show($slug = null)
 	{
+		$breadcrumb								= ['Produk' => route('frontend.product.index'),
+													$slug => route('frontend.product.show')
+													];
 		$this->layout->page 					= view('pages.frontend.product.show')
 														->with('controller_name', $this->controller_name)
 														->with('slug', $slug)
+														->with('breadcrumb', $breadcrumb)
 														;
 		$this->layout->controller_name			= $this->controller_name;
 

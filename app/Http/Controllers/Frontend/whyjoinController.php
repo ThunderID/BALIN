@@ -9,7 +9,11 @@ class whyjoinController extends BaseController
 
 	public function index()
 	{		
-		$this->layout->page 					= view('pages.frontend.whyJoin')->with('controller_name', $this->controller_name);
+		$breadcrumb								= ['Why Join' => route('frontend.whyjoin.index')];
+		$this->layout->page 					= view('pages.frontend.why_join.index')
+													->with('controller_name', $this->controller_name)
+													->with('breadcrumb', $breadcrumb)
+													;
 		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;

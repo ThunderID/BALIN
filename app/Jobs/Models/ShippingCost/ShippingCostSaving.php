@@ -29,19 +29,19 @@ class ShippingCostSaving extends Job implements SelfHandling
             $id = $this->shippingcost->id;
         }
 
-        // $shippingCost                   = shippingCost::ShippingCost(
-        //                                             $this->shippingcost->start_postal_code,
-        //                                             $this->shippingcost->end_postal_code,
-        //                                             $this->shippingcost->started_at
-        //                                         )
-        //                                     ->where('started_at','=',date('Y-m-d h:i:s', strtotime($this->shippingcost->started_at)))
-        //                                     ->notid($id)
-        //                                     ->count();
+        $shippingCost                   = shippingCost::ShippingCost(
+                                                    $this->shippingcost->start_postal_code,
+                                                    $this->shippingcost->end_postal_code,
+                                                    $this->shippingcost->started_at
+                                                )
+                                            ->where('started_at','=',date('Y-m-d h:i:s', strtotime($this->shippingcost->started_at)))
+                                            ->notid($id)
+                                            ->count();
 
-        // if($shippingCost)
-        // {
-        //     return new JSend('error', (array)$this->shippingcost, 'Tidak dapat menyimpan data yang tanggal berlakunya telah berlalu');
-        // }
+        if($shippingCost)
+        {
+            return new JSend('error', (array)$this->shippingcost, 'Tidak dapat menyimpan data yang tanggal berlakunya telah berlalu');
+        }
 
         return new JSend('success', (array)$this->shippingcost);
     }
