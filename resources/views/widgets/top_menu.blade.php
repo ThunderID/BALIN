@@ -38,7 +38,7 @@
 							<a href="{{ URL::route('frontend.whyjoin.index') }}" data-scroll>Why Join</a>
 						@if (!Auth::user())
 							<li @if($controller_name == 'join') class=active @endif >
-								<a href="{{ URL::route('frontend.whyjoin.index') }}" data-scroll>Sign In</a>
+								<a href="{{ URL::route('frontend.join.index') }}" data-scroll>Sign In</a>
 							</li>
 						@endif
 						<li>

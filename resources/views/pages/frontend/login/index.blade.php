@@ -1,8 +1,8 @@
 @extends('template.frontend.layout')
 
 @section('content')
-	<div class="container-fluid page-join" style="background-color: rgba(0, 0, 0, 0.62);">
-		<div class="row" style="padding-top:60px">
+	<div class="container-fluid page-join">
+		<div class="row mt-75" style="padding-top:60px">
 			<div class="col-md-12">
 				<div class="container">
 					<div class="row">
@@ -23,9 +23,10 @@
 											</div>
 										</div>
 									</div>
+									<div class="clearfix">&nbsp;</div>
 								</div>
 								<div class="col-md-5 col-xs-12 col-md-offset-2">
-									<div class="row panel-hollow panel-default p-xs" style="margin-top:28%">
+									<div class="row panel-hollow panel-default p-xs m-t-n-xs">
 										<div class="col-md-12">
 											<div class="sign-in">
 												<h3>Sign In</h3>
@@ -34,9 +35,16 @@
 											<div class="sign-up" style="display:none">
 												<h3>Sign Up</h3>
 												<div class="clearfix">&nbsp;</div>
+												@include('widgets.alerts')
 												@include('widgets.signup')
 											</div>
+											<div class="forgot" style="display:none">
+												<h3>Lupa Password</h3>
+												<div class="clearfix">&nbsp;</div>
+												@include('widgets.forgot_password')
+											</div>
 										</div>	
+										<div class="clearfix">&nbsp;</div>
 									</div>                        
 								</div>
 							</div>
@@ -45,11 +53,13 @@
 				</div>
 			</div>
 		</div>
+		<div class="clearfix">&nbsp;</div>
+		<div class="clearfix">&nbsp;</div>
 	</div>
 @stop
 
 @section('script')
-	$('document').ready(function() {
+ /* $('document').ready(function() {
 		$('body').attr('style', 'background-image: url("http://localhost:8000/Balin/web/image/2.jpg")');
 		$('.page-join').height(($(window).height())+$('footer.footer').height());
 	});
@@ -62,5 +72,21 @@
 		$('.sign-up').hide();
 		$('.sign-in').show();
 		$('.page-join').animate({ height: ($(window).height())+1 }, "slow");
+	}); */
+
+	$('.btn-signup').click( function() {
+		$('.sign-up').show();
+		$('.sign-in').hide();
+		$('.forgot').hide();
+	});
+	$('.btn-cancel').click( function() {
+		$('.sign-up').hide();
+		$('.forgot').hide();
+		$('.sign-in').show();
+	});
+	$('.btn-forgot').click( function() {
+		$('.sign-up').hide();
+		$('.sign-in').hide();
+		$('.forgot').show();
 	});
 @stop

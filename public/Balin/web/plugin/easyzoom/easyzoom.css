@@ -19,7 +19,7 @@
 }
 
 .easyzoom.is-ready img {
-	cursor: crosshair;
+	cursor: auto;
 }
 
 .easyzoom.is-error  img {

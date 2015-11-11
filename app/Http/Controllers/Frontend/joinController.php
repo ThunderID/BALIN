@@ -8,8 +8,12 @@ class joinController extends BaseController
 	protected $controller_name 					= 'join';
 
 	public function index()
-	{		
-		$this->layout->page 					= view('pages.frontend.join')->with('controller_name', $this->controller_name);
+	{	
+		$breadcrumb										= ['Sign In' => route('frontend.join.index')];
+		$this->layout->page 							= view('pages.frontend.login.index')
+																->with('controller_name', $this->controller_name)
+																->with('breadcrumb', $breadcrumb)
+																;
 		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;

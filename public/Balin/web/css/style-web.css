@@ -7,6 +7,10 @@ body {
 html {
   height: 100%;
 }
+/* COLOR */
+.orange-red {
+  color: #FF3A00;
+}
 /* MARGINS & PADDINGS */
 .p-xxs {
   padding: 5px;
@@ -461,9 +465,6 @@ html {
   padding: 9px;
   color: #333;
 }
-.promo-price {
-  color: #222;
-}
 .normal-price {
   /*padding-top: inherit;*/
   padding-bottom: initial;
@@ -772,7 +773,7 @@ input.text-hollow:focus {
   }
 }
 .info-corporate {
-  color: #fff;
+  color: #666;
 }
 .caption-info {
   border-top: 1px solid #ccc;

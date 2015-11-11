@@ -5,7 +5,7 @@
     </div>
     <div class="clearfix">&nbsp;</div>
 	<div class="form-group">
-	    <button type="submit" class="btn-hollow hollow-black" tabindex="1">Kirim</button>
-	    <a class="btn-hollow hollow-black btn-cancel" tabindex="1">Cancel</a>
+	    <button type="submit" class="btn-hollow hollow-black-border" tabindex="1">Kirim</button>
+	    <a class="btn-hollow hollow-black-border btn-cancel" tabindex="1">Cancel</a>
 	</div>
 {!! Form::close() !!}
