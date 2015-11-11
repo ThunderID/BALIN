@@ -21,10 +21,20 @@
 				</div>
 				<img src="Balin/web/image/a3.jpg" style="" class="img-responsive">
 			</div>
-			<div class="col-xs-12 p-l-none p-r-none">
+			<div class="col-xs-12 p-l-none p-r-none" style="position:relative">
+				<div class="caption-mobile left">
+					<h3>PRODUK TERLARIS KAMI</h3>
+					<p class="m-t-sm">BERSERAT RAPAT <br>DAN TIDAK MUDAH PANAS</p>
+					<p>SANGAT LEMBUT DAN HALUS</p>
+					<p>COCOK DIPAKAI SEHARI-HARI </p>
+					<a href="#" class="btn-hollow hollow-black btn-hollow-xs">TAMBAHKAN DIKERANJANG</a>
+				</div>
 				<img src="Balin/web/image/a4.jpg" style="" class="img-responsive">
 			</div>
-			<div class="col-xs-12 p-l-none p-r-none">
+			<div class="col-xs-12 p-l-none p-r-none" style="position:relative">
+				<div class="caption-mobile right mt-75">
+					<h3>DIBUAT SECARA TULIS<br>DAN MESIN</h3>
+				</div>
 				<img src="Balin/web/image/2.jpg" style="" class="img-responsive">
 			</div>
 		</div>

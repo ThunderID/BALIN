@@ -64,7 +64,7 @@
 			<!-- SLIDE  -->
 			<li data-transition="fade" data-slotamount="5" data-masterspeed="700" >
 				<!-- MAIN IMAGE -->
-				<img src="Balin/web/image/a5-edit.jpg"   alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+				<img src="Balin/web/image/a4.jpg"   alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 				<!-- LAYERS -->
 				<!-- LAYER 0 -->
 				<div class="tp-caption mediumlarge_light_white_center customin customout start" style="background-color: rgba(0,0,0,0.9); padding:10px"
