@@ -17,8 +17,8 @@
 				<div class="row">
 					<div class="col-md-7 col-md-offset-3 text-center hidden-xs hidden-sm">
 						<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails m-t-md" style="width:100%; border:1px solid #eee">
-							<a href="/Balin/web/balin/14-large.jpg">
-								<img class="img img-responsive myCanvas"  src="/Balin/web/balin/14.jpg" style="width:100%">
+							<a class="img-large" href="{{ str_replace('.jpg', '-large.jpg', $data['default_image']) }}" >
+								<img class="img img-responsive myCanvas"  src="{{ $data['default_image'] }}" style="width:100%">
 							</a>
 						</div>
 					 </div>
@@ -28,9 +28,11 @@
 						<div class="owl-carousel gallery-product">
 							@for ($i = 0; $i < 7; $i++)
 								<div class="item">
-									<img class="img img-responsive canvasSource" id="canvasSource{{$i}}" src="{{$data['default_image']}}" alt="">
+									<a href="{{ str_replace('.jpg', '-large.jpg', $data['default_image']) }}" data-standard="{{ $data['default_image'] }}">
+										<img class="img img-responsive canvasSource" id="canvasSource{{$i}}" src="{{$data['default_image']}}" alt="">
+									</a>
 								</div>
-							@endfor							    	     
+							@endfor					    	     
 						</div>      
 					</div>        				
 				</div>
@@ -46,12 +48,14 @@
 						@else
 							<h4>
 								Price : 
-								<span style="text-decoration:line-through; color: #999">
-									@money_indo($data['price'])
+								<span style="color: #999">
+									<strike>@money_indo($data['price'])</strike>
 								</span> &nbsp;
-								@money_indo($data['promo_price'])
+								<span class="orange-red">
+									<strong>@money_indo($data['promo_price'])</strong>
+								</span>
 							</h4>
-							<p>Discount : @money_indo($data['discount']) </p>
+
 						@endif
 					</div>
 				</div>
@@ -84,7 +88,7 @@
 													</select>
 												</div>
 												<div class="col-md-4" style="padding-left:0">
-													{!! Form::submit('Add to Cart', ['class' => 'btn-hollow hollow-black']) !!}
+													{!! Form::submit('Add to Cart', ['class' => 'btn-hollow hollow-black-border']) !!}
 												</div>
 											</div>
 										</div>	
@@ -123,10 +127,13 @@
 @section('script')
 	$(document).ready(function() {
 		$('.canvasSource').click(function() {
-			  var image = $(this).attr('src');
+			  /* var image = $(this).attr('src');
+			  var image_replace = image.replace('.jpg', '-large.jpg');
+			  console.log(image_replace);
 			  $('img.myCanvas').attr('src', image);
+			  $('a.img-large').attr('href', image_replace); */
 		 });    
-		});  
+	});  
 @stop
 
 @section('script_plugin')

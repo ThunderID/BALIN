@@ -4,7 +4,7 @@
 			<!-- SLIDE 1-->
 			<li data-transition="fade" data-slotamount="5" data-masterspeed="700" >
 				<!-- MAIN IMAGE -->
-				<img src="Balin/web/image/a3.jpg"   alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+				<img src="Balin/web/image/slide-2-large.png"   alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 
 
 				<!-- LAYERS -->
@@ -64,7 +64,7 @@
 			<!-- SLIDE  -->
 			<li data-transition="fade" data-slotamount="5" data-masterspeed="700" >
 				<!-- MAIN IMAGE -->
-				<img src="Balin/web/image/a4.jpg"   alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+				<img src="Balin/web/image/slide-1-large.png"   alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 				<!-- LAYERS -->
 				<!-- LAYER 0 -->
 				<div class="tp-caption mediumlarge_light_white_center customin customout start" style="background-color: rgba(0,0,0,0.9); padding:10px"
@@ -133,21 +133,51 @@
 			<!-- SLIDE  3-->
 			<li data-transition="fade" data-slotamount="5" data-masterspeed="700" >
 				<!-- MAIN IMAGE -->
-				<img src="Balin/web/image/2.jpg"  alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+				<img src="Balin/web/image/slide-3-large.png"  alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 				<!-- LAYERS -->
-				<!-- LAYERS -->
-				<div class="tp-caption mediumlarge_light_white_center customin customout start" style="background-color: rgba(0,0,0,0.9); padding:10px"
+				<!-- LAYER NR. 1 -->
+				<div class="tp-caption medium_bg_asbestos skewfromleft"
 					data-x="right"
-					data-hoffset="-60"
-					data-y="bottom"
-					data-voffset="-120"
-
-					data-customin="x:0;y:0;z:0;rotationX:90;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
-					data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
-					data-speed="1000"
-					data-start="500"
-					data-easing="Back.easeInOut"
-					data-endspeed="300">DIBUAT SECARA TULIS<br>DAN MESIN
+					data-y="130"
+					data-speed="800"
+					data-start="800"
+					data-easing="Power3.easeInOut"
+					data-endspeed="300"
+					data-endeasing="Power1.easeIn"
+					style="z-index: 6">BATIK TULIS
+				</div>
+				<!-- LAYER NR. 2 -->
+				<div class="tp-caption medium_bg_asbestos skewfromleft"
+					data-x="right"
+					data-y="190"
+					data-speed="800"
+					data-start="1500"
+					data-easing="Power3.easeInOut"
+					data-endspeed="300"
+					data-endeasing="Power1.easeIn"
+					style="z-index: 6">BATIK CAP
+				</div>
+				<!-- LAYER NR. 3 -->
+				<div class="tp-caption medium_bg_asbestos skewfromleft"
+					data-x="right"
+					data-y="250"
+					data-speed="800"
+					data-start="2000"
+					data-easing="Power3.easeInOut"
+					data-endspeed="300"
+					data-endeasing="Power1.easeIn"
+					style="z-index: 6">BATIK PRINTING
+				</div>
+				<!-- LAYER NR. 4 -->
+				<div class="tp-caption medium_bg_asbestos skewfromleft"
+					data-x="right"
+					data-y="310"
+					data-speed="800"
+					data-start="2500"
+					data-easing="Power3.easeInOut"
+					data-endspeed="300"
+					data-endeasing="Power1.easeIn"
+					style="z-index: 6">BATIK TULIS
 				</div>
 			</li>
 		</ul>

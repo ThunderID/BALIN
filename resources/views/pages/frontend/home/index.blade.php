@@ -19,7 +19,7 @@
 					<p>DESAIN SIMPLE...<br>MINIMALIS...ELEGAN...</p>
 					<a href="#" class="btn-hollow hollow-black btn-hollow-xs">LIHAT PRODUK KAMI</a>
 				</div>
-				<img src="Balin/web/image/a3.jpg" style="" class="img-responsive">
+				<img src="Balin/web/image/slide-2.png" style="" class="img-responsive">
 			</div>
 			<div class="col-xs-12 p-l-none p-r-none" style="position:relative">
 				<div class="caption-mobile left">

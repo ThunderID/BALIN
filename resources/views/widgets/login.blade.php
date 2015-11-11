@@ -11,7 +11,7 @@
 	    <label><input type="checkbox" tabindex="1"> Remember me</label>
 	</div>
 	<div class="form-group">
-	    <button type="submit" class="btn-hollow hollow-black" tabindex="1">Sign In</button>
+	    <button type="submit" class="btn-hollow hollow-black-border " tabindex="1">Sign In</button>
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<p class="t-xs" style="color:#666">
@@ -21,5 +21,5 @@
 		<a href="javascript:void(0);" class="btn-signup">Sign Up</a> 
 		atau login dengan akun sosial,
 	</p>
-	<a href="{{route('frontend.dosso')}}" class="btn-hollow hollow-black hollow-social" title="facebook"><i class="fa fa-facebook"></i></a>
+	<a href="{{route('frontend.dosso')}}" class="btn-hollow hollow-black-border hollow-social" title="facebook"><i class="fa fa-facebook"></i></a>
 {!! Form::close() !!}

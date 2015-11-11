@@ -38,8 +38,8 @@
 		</label>
 	</div>
 	<div class="form-group">
-	    <button type="submit" class="btn-hollow hollow-black" tabindex="1">Sign Up</button>
-	    <a class="btn-hollow hollow-black btn-cancel" tabindex="1">Cancel</a>
+	    <button type="submit" class="btn-hollow hollow-black-border" tabindex="1">Sign Up</button>
+	    <a class="btn-hollow hollow-black-border btn-cancel" tabindex="1">Cancel</a>
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<p class="t-xs" style="color:#666">Atau Signup dari akun sosial anda,</p>
