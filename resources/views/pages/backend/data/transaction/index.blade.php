@@ -10,12 +10,12 @@ if(!is_null($filters) && is_array($filters))
 
 if ($subnav_active == 'sell')
 {
-	$datas 		= $datas->type($subnav_active)->orderby('transact_at')->with(['user', 'transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
+	$datas 		= $datas->type($subnav_active)->orderby('transact_at', 'desc')->with(['user', 'transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
 	$type_user  = 'Kostumer';
 }
 else
 {
-	$datas 		= $datas->type($subnav_active)->orderby('transact_at')->with(['supplier', 'transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
+	$datas 		= $datas->type($subnav_active)->orderby('transact_at', 'desc')->with(['supplier', 'transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
 	$type_user  = 'Supplier';
 }
 ?>
@@ -85,7 +85,7 @@ else
 									@foreach ($datas as $data)
 									<tr>
 										<td class="text-center">{{ $ctr }}</td>
-										<td class="text-left">{{ $data['ref_number'] }}</td>
+										<td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['id'], 'type' => $data['type']])}}">{{ $data['ref_number'] }}</a></td>
 										@if($type_user=='Kostumer')
 											<td>{{ $data['user']['name'] }}</td>
 										@else

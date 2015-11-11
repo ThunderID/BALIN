@@ -31,7 +31,7 @@ class SaveAuditPoint extends Job implements SelfHandling
 
         $result                             = new JSend('success', (array)$this->pointlog);
 
-        if(Auth::check() || (Auth::check() && Auth::user()->id != $this->pointlog->user_id))
+        if((Auth::check() || (Auth::check() && Auth::user()->id != $this->pointlog->user_id)) && !$this->pointlog->reference()->count())
         {
             $audit                          = new Auditor;
 
