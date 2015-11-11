@@ -8,7 +8,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->with(['product'])->paginate();
+$datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 
 ?>
 

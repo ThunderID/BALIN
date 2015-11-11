@@ -21,6 +21,8 @@ class CreateShipmentTable extends Migration
             $table->string('receiver_name', 255);
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->index(['deleted_at', 'transaction_id', 'address_id']);
         });
     }
 

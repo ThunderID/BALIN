@@ -8,7 +8,7 @@
 			$datas = call_user_func([$datas, $key], $value);
 		}
 	}
-	$datas 			= $datas->paginate(12);
+	$datas 			= $datas->currentprice(true)->DefaultImage(true)->paginate(12);
 
 	$category       = $category::where('category_id', 0)
 								->get();

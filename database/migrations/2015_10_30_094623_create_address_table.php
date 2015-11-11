@@ -21,6 +21,8 @@ class CreateAddressTable extends Migration
             $table->string('zipcode', 10);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['deleted_at', 'owner_id', 'owner_type']);
         });
     }
 

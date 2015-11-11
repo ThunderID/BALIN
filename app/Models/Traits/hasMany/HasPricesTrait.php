@@ -31,4 +31,9 @@ trait HasPricesTrait
 	{
 		return $query->whereHas('prices', function($q)use($variable){$q->id($variable);});
 	}
+
+	public function scopeCurrentPrice($query, $variable)
+	{
+		return $query->whereHas('prices', function($q)use($variable){$q;})->with(['prices' => function($q){$q->ondate('now');}]);
+	}
 }

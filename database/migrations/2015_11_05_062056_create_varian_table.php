@@ -19,6 +19,8 @@ class CreateVarianTable extends Migration
             $table->string('size', 255);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['deleted_at', 'product_id']);
         });
     }
 

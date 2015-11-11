@@ -21,6 +21,8 @@ class CreateShippingCostTable extends Migration
             $table->datetime('started_at');
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->index(['deleted_at', 'started_at', 'start_postal_code']);
         });
     }
 

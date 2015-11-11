@@ -19,6 +19,8 @@ class CreateCategoryTable extends Migration
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['deleted_at', 'path', 'name']);
         });
     }
 

@@ -8,7 +8,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->status(['paid', 'shipping', 'delivered'])->with(['user', 'supplier'])->paginate();
+$datas 			= $datas->status(['paid', 'shipping', 'delivered'])->with(['user', 'supplier', 'transactiondetails', 'pointlogs'])->paginate();
 
 ?>
 

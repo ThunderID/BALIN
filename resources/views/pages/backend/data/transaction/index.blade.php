@@ -7,7 +7,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->type($subnav_active)->orderby('transact_at')->with(['user', 'supplier'])->paginate();
+$datas 			= $datas->type($subnav_active)->orderby('transact_at')->with(['user', 'supplier', 'transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
 
 if ($subnav_active == 'sell')
 {
