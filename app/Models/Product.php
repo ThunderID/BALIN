@@ -183,7 +183,7 @@ class Product extends Eloquent
 
 	public function getStockAttribute($value)
 	{
-		$stock 						= TransactionDetail::productid($this->id)->CountCurrentStock(true);
+		$stock 						= TransactionDetail::CountCurrentStockByProduct($this->id);
 		
 		if($stock)
 		{
