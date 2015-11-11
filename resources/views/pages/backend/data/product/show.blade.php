@@ -6,7 +6,7 @@
 	// $suppliers 	= $data->id($id)->suppliers(true)->first();
 	$suppliers 	= $data->where('products.id', $id)->suppliers(true)->get();
 	
-	$data 		= $data::find($id);
+	$data 		= $data::where('products.id', $id)->globalstock(true)->first();
 	$lables		= $data['lables'];
 
 
@@ -109,7 +109,7 @@
 				<div class="panel-heading">Stok Display</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{!! $data->stock !!}
+						{!! $data['current_stock'] !!}
 					</h4>
 				</div>
 			</div>
@@ -120,11 +120,7 @@
 				<div class="panel-heading">Stok Gudang</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						@if(isset($data->stocks[0]))
-							{!! $data->stocks[0]->current_stock + $data->stocks[0]->reserved_stock + $data->stocks[0]->on_hold_stock !!}
-						@else
-							0
-						@endif
+						{!! $data['inventory_stock'] !!}
 					</h4>
 				</div>
 			</div>
@@ -135,11 +131,7 @@
 				<div class="panel-heading">Stok Dibayar</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						@if(isset($data->stocks[0]))
-							{!! $data->stocks[0]->reserved_stock !!}
-						@else
-							0
-						@endif
+						{!! $data['reserved_stock'] !!}
 					</h4>
 				</div>
 			</div>
@@ -150,11 +142,7 @@
 				<div class="panel-heading">Stok Dipesan</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						@if(isset($data->stocks[0]))
-							{!! $data->stocks[0]->on_hold_stock !!}
-						@else
-							0
-						@endif
+						{!! $data['on_hold_stock'] !!}
 					</h4>
 				</div>
 			</div>
