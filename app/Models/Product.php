@@ -159,7 +159,7 @@ class Product extends Eloquent
 
 	public function getStartedAtAttribute($value)
 	{
-		$discount 					= $this->prices;//Price::productid($this->id)->ondate('now')->first();
+		$price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 
 		if($price)
 		{
