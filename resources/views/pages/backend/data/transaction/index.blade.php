@@ -90,7 +90,7 @@ else
 										@else
 											<td>{{ $data[$type_user]['name'] }}</td>
 										@endif
-										<td class="text-center">{{ $data['transact_at'] }}</td>
+										<td class="text-center">@datetime_indo($data['transact_at'])</td>
 										<td class="text-center">{{ $data['status'] }} </td>
 										<td class="text-center">{{ $data['amount'] }} </td>
 										<td>
