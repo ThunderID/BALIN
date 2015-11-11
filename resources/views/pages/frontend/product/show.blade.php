@@ -1,6 +1,6 @@
 @inject('product', 'App\Models\Product')
 <?php 
-	$data          	= $product->slug($slug)->sellable(true)->first();
+	$data          = $product->slug($slug)->sellable(true)->first();
 
 	$related 		= $product->notid($data->id)->sellable(true)->take(4)->get();
 ?>
