@@ -24,7 +24,7 @@
 					<p class="text-center promo-price t-sm"> @money_indo($price) </p>
 				@endif
 			@else
-				<p class="text-center promo-price t-sm"> Out of Stock </p>
+				<p class="text-center promo-price t-sm"><strong>Out of Stock</strong></p>
 			@endif
 		</div>
 	</div>

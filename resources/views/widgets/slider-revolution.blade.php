@@ -68,8 +68,7 @@
 				<!-- LAYERS -->
 				<!-- LAYER 0 -->
 				<div class="tp-caption mediumlarge_light_white_center customin customout start" style="background-color: rgba(0,0,0,0.9); padding:10px"
-					data-x="50"
-					data-hoffset="0"
+					data-x="left"
 					data-y="50"
 
 					data-customin="x:0;y:0;z:0;rotationX:90;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
@@ -82,7 +81,7 @@
 
 				<!-- LAYER NR. 1 -->
 				<div class="tp-caption medium_bg_asbestos skewfromleft"
-					data-x="50"
+					data-x="left"
 					data-y="180"
 					data-speed="800"
 					data-start="1500"
@@ -94,7 +93,7 @@
 
 				<!-- LAYER NR. 2 -->
 				<div class="tp-caption medium_bg_asbestos skewfromleft"
-					data-x="50"
+					data-x="left"
 					data-y="240"
 					data-speed="800"
 					data-start="2200"
@@ -106,7 +105,7 @@
 
 				<!-- LAYER NR. 3 -->
 				<div class="tp-caption medium_bg_asbestos skewfromleft"
-					data-x="50"
+					data-x="left"
 					data-y="300"
 					data-speed="800"
 					data-start="3000"
@@ -118,7 +117,7 @@
 
 				<!-- LAYER NR. 4 -->
 				<a class="tp-caption medium_bg_asbestos skewfromleft"
-					data-x="50"
+					data-x="left"
 					data-y="400"
 					data-speed="800"
 					data-start="3400"
@@ -177,7 +176,58 @@
 					data-easing="Power3.easeInOut"
 					data-endspeed="300"
 					data-endeasing="Power1.easeIn"
+					style="z-index: 6">BATIK PREMIUM
+				</div>
+			</li>
+
+			<!-- SLIDE  4 -->
+			<li data-transition="fade" data-slotamount="5" data-masterspeed="700" >
+				<!-- MAIN IMAGE -->
+				<img src="Balin/web/image/slide-4-large.png"  alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+				<!-- LAYERS -->
+				<!-- LAYER NR. 1 -->
+				<div class="tp-caption medium_bg_asbestos skewfromleft"
+					data-x="left"
+					data-y="130"
+					data-speed="800"
+					data-start="800"
+					data-easing="Power3.easeInOut"
+					data-endspeed="300"
+					data-endeasing="Power1.easeIn"
 					style="z-index: 6">BATIK TULIS
+				</div>
+				<!-- LAYER NR. 2 -->
+				<div class="tp-caption medium_bg_asbestos skewfromleft"
+					data-x="left"
+					data-y="190"
+					data-speed="800"
+					data-start="1500"
+					data-easing="Power3.easeInOut"
+					data-endspeed="300"
+					data-endeasing="Power1.easeIn"
+					style="z-index: 6">BATIK CAP
+				</div>
+				<!-- LAYER NR. 3 -->
+				<div class="tp-caption medium_bg_asbestos skewfromleft"
+					data-x="left"
+					data-y="250"
+					data-speed="800"
+					data-start="2000"
+					data-easing="Power3.easeInOut"
+					data-endspeed="300"
+					data-endeasing="Power1.easeIn"
+					style="z-index: 6">BATIK PRINTING
+				</div>
+				<!-- LAYER NR. 4 -->
+				<div class="tp-caption medium_bg_asbestos skewfromleft"
+					data-x="left"
+					data-y="310"
+					data-speed="800"
+					data-start="2500"
+					data-easing="Power3.easeInOut"
+					data-endspeed="300"
+					data-endeasing="Power1.easeIn"
+					style="z-index: 6">BATIK PREMIUM
 				</div>
 			</li>
 		</ul>

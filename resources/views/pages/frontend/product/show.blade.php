@@ -83,7 +83,7 @@
 										<div class="form-group">
 											<label for="name">Qty</label>
 											<div class="row">
-												<div class="col-md-8">
+												<div class="col-xs-12 col-sm-10 col-md-8">
 													<select name="product_qty" class="form-control hollow">
 														@for($x=1; $x<=10; $x++)
 															@if ($x<=$data['stock'])
@@ -92,7 +92,7 @@
 														@endfor
 													</select>
 												</div>
-												<div class="col-md-4" style="padding-left:0">
+												<div class="col-xs-12 col-sm-2 col-md-4" style="">
 													{!! Form::submit('Add to Cart', ['class' => 'btn-hollow hollow-black-border']) !!}
 												</div>
 											</div>
