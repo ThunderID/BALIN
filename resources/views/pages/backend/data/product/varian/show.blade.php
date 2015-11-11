@@ -95,11 +95,7 @@
 			<div class="panel panel-panel panel-default">
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						@if(isset($data->stocks[0]))
-							{!! $data->stocks[0]->on_hold_stock !!}
-						@else
-							0
-						@endif
+						{{ $td->sold_item }}
 					</h4>
 				</div>
 				<div class="panel-heading">Sold Items</div>
