@@ -17,13 +17,13 @@ $datas 			= $datas->where('product_id', $pid)->orderby('started_at', 'desc')->pa
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-md-8 col-sm-4 hidden-xs">
-					<a class="btn btn-default" href="{{ route('backend.data.product.price.create', ['pid' => $pid, 'uid' => $uid]) }}"> Data Baru </a>
+					<a class="btn btn-default" href="{{ route('backend.data.product.price.create', ['pid' => $pid]) }}"> Data Baru </a>
 				</div>
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-					<a class="btn btn-default btn-block" href="{{ route('backend.data.product.price.create', ['pid' => $pid, 'uid' => $uid]) }}"> Data Baru </a>
+					<a class="btn btn-default btn-block" href="{{ route('backend.data.product.price.create', ['pid' => $pid]) }}"> Data Baru </a>
 				</div>
 				<div class="col-md-4 col-sm-8 col-xs-12">
-					{!! Form::open(['url' => route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $pid]), 'method' => 'get' ]) !!}
+					{!! Form::open(['url' => route('backend.data.product.price.index', ['pid' => $pid]), 'method' => 'get' ]) !!}
 						<div class="row">
 							<div class="col-md-2 col-sm-3 hidden-xs">
 							</div>
@@ -42,7 +42,7 @@ $datas 			= $datas->where('product_id', $pid)->orderby('started_at', 'desc')->pa
 					{!! Form::close() !!}
 				</div>            
 			</div>
-			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $pid]) ])
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.product.price.index', ['pid' => $pid]) ])
 			</br> 
 			<div class="row">
 				<div class="col-lg-12">
@@ -72,16 +72,16 @@ $datas 			= $datas->where('product_id', $pid)->orderby('started_at', 'desc')->pa
 									@foreach($datas as $data)
 										<tr>
 											<td>{{ $ctr }}</td>
-											<td class="text-center">{{ $data['started_at'] }}</td>
+											<td class="text-center">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('d-m-Y H:i') }}</td>
 											<td class="text-right">@money_indo($data['price'])</td>
 											<td class="text-right">@money_indo($data['promo_price'])</td>
 											<td class="text-center">
 												{{-- <a href="{{ route('backend.data.product.show', $data['id']) }}"> Detail </a>, --}}
-												<a href="{{ route('backend.data.product.price.edit', [$data['id'], 'pid' => $pid, 'uid' => $uid]) }}"> Edit </a>,
+												<a href="{{ route('backend.data.product.price.edit', [$data['id'], 'pid' => $pid]) }}"> Edit </a>,
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#product_del"
 													data-id="{{$data['id']}}"
 													data-title="Hapus Data Harga Produk"
-													data-action="{{ route('backend.data.product.price.destroy', ['id' => $data['id'], 'pid' => $pid, 'uid' => $uid]) }}">
+													data-action="{{ route('backend.data.product.price.destroy', ['pid' => $pid, 'id' => $data['id']]) }}">
 													
 													Hapus
 												</a>
