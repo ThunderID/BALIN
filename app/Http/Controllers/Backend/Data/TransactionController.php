@@ -350,7 +350,7 @@ class TransactionController extends BaseController
 											];
 		}
 
-		$transaction 					= Transaction::type($subnav_active)->id($id)->with(['transactiondetails', 'transactiondetails.product'])->first();
+		$transaction 					= Transaction::type($subnav_active)->id($id)->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->first();
 		
 		if(!$transaction)
 		{

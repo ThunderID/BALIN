@@ -1,6 +1,8 @@
-@inject('data', 'App\Models\Product')
+@inject('product', 'App\Models\Product')
 <?php 
-	 $data          = $data->where('slug', $slug)->first();
+	 $data          = $product->where('slug', $slug)->first();
+
+	$related 		= $product->notid($data->id)->take(4)->get();
 ?>
 
 @extends('template.frontend.layout')

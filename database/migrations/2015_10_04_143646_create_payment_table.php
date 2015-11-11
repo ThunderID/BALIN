@@ -23,6 +23,8 @@ class CreatePaymentTable extends Migration
             $table->double('amount');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['deleted_at', 'ondate', 'amount']);
         });
     }
 

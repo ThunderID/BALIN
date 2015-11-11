@@ -19,6 +19,8 @@ class CreateTransactionLogTable extends Migration
             $table->datetime('changed_at');
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->index(['deleted_at', 'status', 'changed_at']);
         });
     }
 

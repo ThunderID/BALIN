@@ -395,6 +395,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	
 	
 	Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
+	Route::get('/ab', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
 	
 });
 

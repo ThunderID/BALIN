@@ -21,6 +21,9 @@ class CreateVoucherTable extends Migration
             $table->datetime('expired_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->index(['deleted_at', 'type', 'started_at']);
+            $table->index(['deleted_at', 'type', 'expired_at']);
         });
     }
 

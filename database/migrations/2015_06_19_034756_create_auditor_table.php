@@ -23,6 +23,8 @@ class CreateAuditorTable extends Migration
             $table->text('action');
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->index(['deleted_at', 'ondate', 'type']);
         });
     }
 

@@ -20,6 +20,8 @@ class CreatePriceTable extends Migration
             $table->datetime('started_at');
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->index(['deleted_at', 'product_id', 'started_at']);
         });
     }
 

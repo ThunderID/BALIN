@@ -29,9 +29,9 @@ class CheckStock extends Job implements SelfHandling
 
         foreach ($this->transaction->transactiondetails as $key => $value) 
         {
-            if($value->quantity > $value->product->stock)
+            if($value->quantity > $value->varian->stock)
             {
-                return new JSend('error', (array)$this->transaction, "Stok ".$value->product->name." tinggal ".$value->product->stock);
+                return new JSend('error', (array)$this->transaction, "Stok ".$value->varian->product->name.' '.$value->varian->size." tinggal ".$value->product->varian);
             }
         }
 
