@@ -49,11 +49,11 @@ class CheckPaid extends Job implements SelfHandling
         }
         elseif($total_paid > $this->transaction->amount)
         {
-            $result                         = new JSend('error', (array)$this->transaction, "Pembayaran berlebih sebesar ".($total_paid - $this->transaction->amount));
+            $result                         = new JSend('error', (array)$this->transaction, "Pembayaran berlebih sebesar ".($total_paid - $this->transaction->amount). '. Harap melakukan <a href="'.route('backend.data.payment.create').'"> validasi pembayaran </a> terlebih dahulu. ');
         }
         elseif($total_paid < $this->transaction->amount)
         {
-            $result                         = new JSend('error', (array)$this->transaction, "Pembayaran kurang sebesar ".($this->transaction->amount - $total_paid));
+            $result                         = new JSend('error', (array)$this->transaction, "Pembayaran kurang sebesar ".($this->transaction->amount - $total_paid). '. Harap melakukan <a href="'.route('backend.data.payment.create').'"> validasi pembayaran </a> terlebih dahulu. ');
         }
         
         return $result;

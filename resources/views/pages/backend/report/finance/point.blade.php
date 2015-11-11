@@ -8,7 +8,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->with(['user'])->paginate();
+$datas 			= $datas->with(['user'])->orderby('created_at', 'desc')->paginate();
 
 ?>
 
@@ -77,7 +77,7 @@ $datas 			= $datas->with(['user'])->paginate();
 											<td></td>
 										@endif
 										<td>@money_indo(abs($amount))</td>
-										<td>{!!$value->notes!!} {!!$value->user->name!!}</td>
+										<td>{!!$value->notes!!} - {!!$value->user->name!!}</td>
 									</tr>
 								@empty
 									<tr>

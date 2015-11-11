@@ -272,4 +272,18 @@ class TransactionDetail extends Eloquent
 				->groupBy('varian_id')
 				;
 	}
+
+	public function scopeCountCurrentStockByProduct($query, $variable)
+	{
+		return 	$query
+					->selectraw('IFNULL(SUM(if(transactions.type ="sell", 0-quantity, quantity)),0) current_stock')
+					->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
+					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
+					->wherehas('transaction', function($q){$q->status(['paid', 'shipping', 'delivered']);})
+					->whereIn('transactions.type', ['sell', 'buy'])
+					->where('varians.product_id', $variable)
+					->first()
+					;
+		;
+	}
 }

@@ -8,7 +8,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->with(['user'])->paginate();
+$datas 			= $datas->with(['user'])->orderby('created_at', 'desc')->paginate();
 
 ?>
 
@@ -68,7 +68,7 @@ $datas 			= $datas->with(['user'])->paginate();
 										@else
 											<td><i>System</i></td>
 										@endif
-										<td> @date_indo($value['created_at']) </td>
+										<td> @datetime_indo($value['created_at']) </td>
 										<td>{!!$value['event']!!}</td>
 									</tr>
 								@empty
