@@ -3,7 +3,7 @@
 <?php 
 	$data 		= $data::id($id)
 					->first(); 
-	$products 	= $products->supplier($id)->with(['product'])->get();
+	$products 	= $products->supplier($id)->with(['varian.product', 'product'])->get();
 ?>
 
 @extends('template.backend.layout') 
@@ -30,7 +30,7 @@
 					<ul><a href=""></a>
 					@foreach($products as $key => $value)
 						<li>
-							{!! $value['product']['name'] !!}
+							{!! $value['varian']['product']['name'] !!} {!! $value['varian']['size'] !!}
 						</li>
 					@endforeach
 					</ul>

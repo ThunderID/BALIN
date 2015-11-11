@@ -195,13 +195,12 @@ class Product extends Eloquent
 
 	public function getDefaultImageAttribute($value)
 	{
-		$image 						= $this->images;//Price::productid($this->id)->ondate('now')->first();
-		if($image)
+		$image 						= $this->images;
+		
+		if(isset($image[0]))
 		{
-			return $image[count($this->images)-1]->image_md;
+			return $image[0]->image_md;
 		}
-
-		return 'https://browshot.com/static/images/not-found.png';
 	}
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/

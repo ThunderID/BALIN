@@ -22,6 +22,6 @@ trait HasImagesTrait
 
 	public function scopeDefaultImage($query, $variable)
 	{
-		return $query->whereHas('images', function($q)use($variable){$q->default(true);})->with(['images' => function($q)use($variable){$q->default(true);}]);
+		return $query->with(['images' => function($q)use($variable){$q->default(true);}]);
 	}
 }
