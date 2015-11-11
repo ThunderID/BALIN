@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class TransactionDetail extends Eloquent
 {
@@ -264,9 +265,16 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 				->selectraw('transaction_details.*')
-				->selectraw('sum(quantity) as stock')
-				->selectraw('sum(quantity) as total_buy')
-				->wherehas('transaction', function($q)use($variable){$q->status(['paid','shipping','delivered'])->ondate($variable);})
+				->selectraw('IFNULL(SUM(if(transactions.type ="sell", 0-quantity, quantity)),0) stock')
+				->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
+				->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
+						{
+							$join
+								->on('transaction_logs.transaction_id', '=', 'transactions.id')
+								->whereIn('transaction_logs.status' , ['wait', 'paid', 'shipping', 'delivered'])
+								;
+						})
+				->whereIn('transactions.type', ['sell', 'buy'])
 				->orderby('stock', 'asc')
 				// ->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
 				->groupBy('varian_id')
@@ -279,7 +287,13 @@ class TransactionDetail extends Eloquent
 					->selectraw('IFNULL(SUM(if(transactions.type ="sell", 0-quantity, quantity)),0) current_stock')
 					->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
 					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-					->wherehas('transaction', function($q){$q->status(['paid', 'shipping', 'delivered']);})
+					->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
+						{
+							$join
+								->on('transaction_logs.transaction_id', '=', 'transactions.id')
+								->whereIn('transaction_logs.status' , ['wait', 'paid', 'shipping', 'delivered'])
+								;
+						})
 					->whereIn('transactions.type', ['sell', 'buy'])
 					->where('varians.product_id', $variable)
 					->first()
