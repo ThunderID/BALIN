@@ -300,4 +300,23 @@ class TransactionDetail extends Eloquent
 					;
 		;
 	}
+
+	public function scopeCountSoldItemByProduct($query, $variable)
+	{
+		return 	$query
+					->selectraw('IFNULL(SUM(quantity),0) current_stock')
+					->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
+					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
+					->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
+						{
+							$join
+								->on('transaction_logs.transaction_id', '=', 'transactions.id')
+								->whereIn('transaction_logs.status' , ['paid', 'shipping', 'delivered'])
+								;
+						})
+					->whereIn('transactions.type', ['sell'])
+					->first()
+					;
+		;
+	}	
 }

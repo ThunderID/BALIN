@@ -1,9 +1,13 @@
 @inject('product', 'App\Models\Product')
 @inject('data', 'App\Models\Varian')
+@inject('td', 'App\Models\TransactionDetail')
+
 <?php 
 	$product 		= $product::find($pid);
 
-	$data 			= $data::where('id', $id)->first();
+	$data 			= $data::find($id);
+
+	$td 			= $td->varianid($id)->CountSoldItemByProduct(true);
 ?>
 
 @extends('template.backend.layout') 
@@ -91,7 +95,11 @@
 			<div class="panel panel-panel panel-default">
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						Dummy
+						@if(isset($data->stocks[0]))
+							{!! $data->stocks[0]->on_hold_stock !!}
+						@else
+							0
+						@endif
 					</h4>
 				</div>
 				<div class="panel-heading">Sold Items</div>
