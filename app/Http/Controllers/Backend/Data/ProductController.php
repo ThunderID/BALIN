@@ -6,6 +6,7 @@ use App\Models\ProductUniversal;
 use App\Models\Price;
 use App\Models\Image;
 use App\Models\Lable;
+use App\Models\Varian;
 use Illuminate\Support\MessageBag;
 use Input, Session, DB, Redirect, Str;
 
@@ -331,9 +332,20 @@ class ProductController extends BaseController
 	public function getProductByName()
 	{
 		$inputs		= Input::only('name');
-		$tmp 		= Product::select(['id', 'name'])
-								->where('name', 'like', '%'. $inputs['name'].'%')
+		$tmp 		= Varian::selectraw('varians.id as varian_id')
+								->selectraw('products.id as product_id')
+								->selectraw('CONCAT_WS(" ", products.name, varians.size) AS name')
+								->productname($inputs['name'])
+								->join('products', function ($join) use($inputs) 
+									{
+										$join
+											->on('products.id', '=', 'varians.product_id')
+											->where('products.name' ,'like' , '%'.$inputs['name'].'%')
+											;
+									})
 								->get();
+								//select(['id', 'name'])
+								//->name($inputs['name'])
 
 		return json_decode(json_encode($tmp));
 	}
