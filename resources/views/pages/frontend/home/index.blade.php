@@ -14,28 +14,40 @@
 		<div class="row hidden-sm hidden-md hidden-lg">
 			<div class="col-xs-12 p-l-none p-r-none m-t-lg" style="position:relative">
 				<div class="caption-mobile right">
-					<h3>PRODUK BATIK UNGGULAN<br>DAERAH MALANG</h3>
-					<p class="m-t-sm">BATIK BERKUALITAS BAGUS <br>DAN BUKAN BATIK BIASA</p>
-					<p>DESAIN SIMPLE...<br>MINIMALIS...ELEGAN...</p>
-					<a href="#" class="btn-hollow hollow-black btn-hollow-xs">LIHAT PRODUK KAMI</a>
+					<h3 class="m-r-md">PRODUK BATIK UNGGULAN<br>DAERAH MALANG</h3>
+					<p class="m-t-sm m-r-md">BATIK BERKUALITAS BAGUS <br>DAN BUKAN BATIK BIASA</p>
+					<p class="m-r-md">DESAIN SIMPLE...<br>MINIMALIS...ELEGAN...</p>
+					<a href="#" class="btn-hollow hollow-black btn-hollow-xs m-r-md">LIHAT PRODUK KAMI</a>
 				</div>
 				<img src="Balin/web/image/slide-2.png" style="" class="img-responsive">
 			</div>
 			<div class="col-xs-12 p-l-none p-r-none" style="position:relative">
 				<div class="caption-mobile left">
-					<h3>PRODUK TERLARIS KAMI</h3>
-					<p class="m-t-sm">BERSERAT RAPAT <br>DAN TIDAK MUDAH PANAS</p>
-					<p>SANGAT LEMBUT DAN HALUS</p>
-					<p>COCOK DIPAKAI SEHARI-HARI </p>
-					<a href="#" class="btn-hollow hollow-black btn-hollow-xs">TAMBAHKAN DIKERANJANG</a>
+					<h3 class="m-l-md">PRODUK TERLARIS KAMI</h3>
+					<p class="m-t-sm m-l-md">BERSERAT RAPAT <br>DAN TIDAK MUDAH PANAS</p>
+					<p class="m-l-md">SANGAT LEMBUT DAN HALUS</p>
+					<p class="m-l-md">COCOK DIPAKAI SEHARI-HARI </p>
+					<a href="#" class="btn-hollow hollow-black btn-hollow-xs m-l-md">TAMBAHKAN DIKERANJANG</a>
 				</div>
-				<img src="Balin/web/image/a4.jpg" style="" class="img-responsive">
+				<img src="Balin/web/image/slide-1.png" style="" class="img-responsive">
 			</div>
 			<div class="col-xs-12 p-l-none p-r-none" style="position:relative">
-				<div class="caption-mobile right mt-75">
-					<h3>DIBUAT SECARA TULIS<br>DAN MESIN</h3>
+				<div class="caption-mobile right">
+					<p class="m-t-sm m-r-md">BATIK TULIS</p>
+					<p class="m-r-md">BATIK CAP</p>
+					<p class="m-r-md">BATIK PRINTING</p>
+					<p class="m-r-md">BATIK PREMIUM</p>
 				</div>
-				<img src="Balin/web/image/2.jpg" style="" class="img-responsive">
+				<img src="Balin/web/image/slide-3.png" style="" class="img-responsive">
+			</div>
+			<div class="col-xs-12 p-l-none p-r-none" style="position:relative">
+				<div class="caption-mobile left">
+					<p class="m-t-sm m-l-md">BATIK TULIS</p>
+					<p class="m-l-md">BATIK CAP</p>
+					<p class="m-l-md">BATIK PRINTING</p>
+					<p class="m-l-md">BATIK PREMIUM</p>
+				</div>
+				<img src="Balin/web/image/slide-4.png" style="" class="img-responsive">
 			</div>
 		</div>
 	</section>

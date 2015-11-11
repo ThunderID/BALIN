@@ -12,13 +12,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Balin</title>
+    <title>BALIN</title>
 
     <!-- Custom CSS -->
    {!! HTML::style('Balin/web/css/bootstrap.min.css') !!}
    <link rel="stylesheet" href="{{ elixir('Balin/web/css/style-web.css') }}">
    {!! HTML::style('Balin/web/plugin/fontawesome/css/font-awesome.min.css') !!}
    {!! HTML::style('https://fonts.googleapis.com/css?family=Roboto:400,300,100,700') !!}
+
+   <link rel="shortcut icon" href="{{ url('Balin/web/image/favicon.ico') }} "/>
 
 </head>
 
