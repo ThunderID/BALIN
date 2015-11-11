@@ -33,7 +33,7 @@ class SendBillingEmail extends Job implements SelfHandling
 	        throw new Exception('Sent variable must be object of a record.');
 	    }
 	    
-		$transaction 	= Transaction::id($this->transaction->id)->with(['transactiondetails', 'transactiondetails.product', 'shipment', 'shipment.address', 'user'])->first();
+		$transaction 	= Transaction::id($this->transaction->id)->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.product', 'shipment', 'shipment.address', 'user'])->first();
 
 		$point 			= 0;
 		$plogs 			= $this->transaction->pointlogs;

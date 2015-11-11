@@ -333,7 +333,7 @@ class ProductController extends BaseController
 	{
 		$variable 	= new Carbon('now');
 		$inputs		= Input::only('name');
-		$tmp 		= Varian::selectraw('varians.id as varian_id')
+		$tmp 		= Varian::selectraw('varians.id as id')
 								->selectraw('products.id as product_id')
 								->selectraw('CONCAT_WS(" ", products.name, varians.size) AS name')
 								->selectraw('prices.price AS price')
