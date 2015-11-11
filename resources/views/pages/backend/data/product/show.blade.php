@@ -97,11 +97,13 @@
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
+	
 	<div class="row">
 		<div class="col-md-12">
 			<h5><strong>Statistic &nbsp;</strong></h5>
 		</div>
 	</div>
+
 	<div class="row">
 		<div class="col-md-3">
 			<div class="panel panel-list panel-default">
@@ -177,7 +179,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 
 	<div class="clearfix">&nbsp;</div>
@@ -242,7 +243,7 @@
 							<td class="text-center">{{ $product['sku']  }}</td>
 							<td class="text-center">{{ $product['size'] }}</td>
 							<td class="text-center"> 
-								<a href="{{ route('backend.data.product.show', ['uid' => $id, 'id' => $product['id'] ]) }}"> Detail </a>,
+								<a href="{{ route('backend.data.product.varian.show', ['pid' => $id, 'id' => $product['id'] ]) }}"> Detail </a>,
 								<a href="{{ route('backend.data.product.varian.edit', ['pid' => $id, 'id' => $product['id'] ]) }}"> Edit </a>,
 								
 								<a href="javascript:void(0);" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#var_del"

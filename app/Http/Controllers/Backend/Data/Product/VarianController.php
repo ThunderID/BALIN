@@ -25,8 +25,25 @@ class varianController extends BaseController
 		return Redirect::back();
 	}
 
-	public function show($id)
+	public function show($pid = null, $id = null)
 	{
+		$product 								= Product::findorfail($pid);
+		$varian 								= Varian::findorfail($id);
+
+		$breadcrumb								= 	[	'Data Produk' 					=> route('backend.data.product.index'),
+														$product['name']				=> route('backend.data.product.show', ['pid' => $pid]),
+														'Ukuran ' .$varian['size']		=> route('backend.data.product.varian.show', ['pid' => $pid, 'id' => $id]),
+													];
+
+		$this->layout->page 					= view('pages.backend.data.product.varian.show')
+														->with('WT_pagetitle', $this->view_name )
+														->with('WT_pageSubTitle', $product->name)		
+														->with('WB_breadcrumbs', $breadcrumb)
+														->with('id', $id)
+														->with('pid', $pid)
+														->with('nav_active', 'data')
+														->with('subnav_active', 'products');
+		return $this->layout;														
 	}
 
 	public function create($pid = null, $id = null)
