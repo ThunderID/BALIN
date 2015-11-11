@@ -104,11 +104,13 @@ class ProductController extends BaseController
 
 		if ($search = Input::get('q'))
 		{
+            $filters                                    = ['size' => Input::get('q')];
 			$searchResult								= $search;
 		}
 		else
 		{
-			$searchResult								= NULL;
+            $filters                               		= null;
+			$searchResult								= null;
 		}
 
 		$this->layout->page 							= view('pages.backend.data.product.show')
@@ -116,6 +118,7 @@ class ProductController extends BaseController
 																		->with('WT_pageSubTitle', $product->name)
 																		->with('WB_breadcrumbs', $breadcrumb)
 																		->with('searchResult', $searchResult)
+                                                                        ->with('filters', $filters)
 																		->with('id', $id)
 																		->with('nav_active', 'data')
 																		->with('subnav_active', 'products')

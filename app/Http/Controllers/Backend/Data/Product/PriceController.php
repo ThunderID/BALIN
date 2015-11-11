@@ -3,7 +3,6 @@
 use App\Http\Controllers\BaseController;
 use App\Models\Price;
 use App\Models\Product;
-use App\Models\Productuniversal;
 use Input, Session, DB, Redirect, Response, Carbon, App;
 
 class PriceController extends BaseController 
@@ -75,9 +74,9 @@ class PriceController extends BaseController
 
 		$product 								= Product::findorfail($pid);
 
-		$breadcrumb								= 	[	
-														$product->name	=> route('backend.data.product.show', $pid),
-													];
+		// $breadcrumb								= 	[	
+		// 												$product->name	=> route('backend.data.product.show', $pid),
+		// 											];
 
 		$breadcrumb								= 	[	'Data Produk' 			=> route('backend.data.productuniversal.index'),
 														$pu['name']				=> route('backend.data.productuniversal.show', ['uid' => $uid ]),

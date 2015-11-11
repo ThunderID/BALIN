@@ -25,6 +25,9 @@ class CreateTransactionTable extends Migration
             $table->double('voucher_discount');
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->index(['deleted_at', 'type', 'user_id']);
+            $table->index(['deleted_at', 'type', 'transact_at']);
         });
     }
 

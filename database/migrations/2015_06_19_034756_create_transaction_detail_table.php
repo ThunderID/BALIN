@@ -21,6 +21,8 @@ class CreateTransactionDetailTable extends Migration
             $table->double('discount');
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->index(['deleted_at', 'varian_id', 'transaction_id']);
         });
     }
 

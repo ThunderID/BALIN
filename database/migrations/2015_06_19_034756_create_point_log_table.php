@@ -23,6 +23,8 @@ class CreatePointLogTable extends Migration
             $table->text('notes');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['deleted_at', 'user_id', 'expired_at']);
         });
     }
 

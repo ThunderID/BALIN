@@ -1,6 +1,6 @@
 @inject('transaction', 'App\Models\Transaction')
 <?php
-	$orders 		= $transaction->userid(Auth::user()->id)->type('sell')->orderby('transact_at', 'desc')->paginate();
+	$orders 		= $transaction->userid(Auth::user()->id)->type('sell')->orderby('transact_at', 'desc')->with(['transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
 ?>
 @extends('template.frontend.layout_account')
 

@@ -20,6 +20,8 @@ class CreateShipmentLogTable extends Migration
             $table->text('notes');
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->index(['deleted_at', 'changed_at', 'status']);
         });
     }
 

@@ -1,8 +1,15 @@
 @inject('datas', 'App\Models\Product')
 @inject('category', 'App\Models\Category')
 <?php 
-	$datas          = $datas->orderby('name')
-						->paginate(12);
+	if(!is_null($filters) && is_array($filters))
+	{
+		foreach ($filters as $key => $value) 
+		{
+			$datas = call_user_func([$datas, $key], $value);
+		}
+	}
+	$datas 			= $datas->currentprice(true)->DefaultImage(true)->paginate(12);
+
 	$category       = $category::where('category_id', 0)
 								->get();
 ?>

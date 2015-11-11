@@ -1,25 +1,27 @@
 @inject('data', 'App\Models\Product')
-<!-- @inject('products', 'App\Models\Product') -->
+@inject('products', 'App\Models\Varian')
 
 <?php 
 	// $stat 		= $data->id($id)->totalsell(true)->first();
 	// $suppliers 	= $data->id($id)->suppliers(true)->first();
+	// $suppliers 	= $data->id($id)->suppliers(true)->first();
+	$suppliers 	= null;
 	
 	$data 		= $data::find($id);
 	$lables		= $data['lables'];
 
 
-	// $products 	= $products::where('product_universal_id', $id);
+	$products 	= $products::where('product_id', $id);
 
-	// if(!is_null($filters) && is_array($filters))
-	// {
-	// 	foreach ($filters as $key => $value) 
-	// 	{
-	// 		$products = call_user_func([$products, $key], $value);
-	// 	}
-	// }
+	if(!is_null($filters) && is_array($filters))
+	{
+		foreach ($filters as $key => $value) 
+		{
+			$products = call_user_func([$products, $key], $value);
+		}
+	}
 
-	// $products 	= $products->orderby('name')->paginate();
+	$products 	= $products->orderby('size')->paginate();
 ?>
 
 
@@ -34,7 +36,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-5">
+		<div class="col-md-6">
 			<h2 style="margin-top:0px;">{{ $data['name'] }}</h2>
 			<h5><strong>UPC &nbsp;</strong>{{ $data['upc'] }}</h5>
 			<h5>
@@ -54,7 +56,7 @@
 				@endforeach
 			</h5>
 			</br>
-			<h4>
+			<h5>
 				<i class = "fa fa-tags"></i>
 				@foreach($product->categories as $key => $value)
 					@if($key!=0)
@@ -62,12 +64,10 @@
 					@endif
 					{!! $value->name !!}
 				@endforeach
-			</h4>
-			<div class="row clearfix">
-				&nbsp;
-			</div>
+			</h5>			
+			</br>
 		</div>	
-		<div class="col-md-7">
+		<div class="col-md-6">
 			<div class="row">
 				<div class="col-md-10">
 					<h5><strong>Galery</strong></h5>
@@ -95,8 +95,91 @@
 			<h5><strong>Description &nbsp;</strong></h5>{!! $data['description'] !!}
 		</div>
 	</div>
-
 	<div class="clearfix">&nbsp;</div>
+	<div class="clearfix">&nbsp;</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h5><strong>Statistic &nbsp;</strong></h5>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="panel panel-list panel-default">
+				<div class="panel-heading">Stok Display</div>
+				<div class="panel-body">
+					<h4 class="m-r-sm m-t-sm text-right">
+						{!! $product->stock !!}
+					</h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="panel panel-list panel-default">
+				<div class="panel-heading">Stok Gudang</div>
+				<div class="panel-body">
+					<h4 class="m-r-sm m-t-sm text-right">
+						@if(isset($product->stocks[0]))
+							{!! $product->stocks[0]->current_stock + $product->stocks[0]->reserved_stock + $product->stocks[0]->on_hold_stock !!}
+						@else
+							0
+						@endif
+					</h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="panel panel-list panel-default">
+				<div class="panel-heading">Stok Dibayar</div>
+				<div class="panel-body">
+					<h4 class="m-r-sm m-t-sm text-right">
+						@if(isset($product->stocks[0]))
+							{!! $product->stocks[0]->reserved_stock !!}
+						@else
+							0
+						@endif
+					</h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="panel panel-list panel-default">
+				<div class="panel-heading">Stok Dipesan</div>
+				<div class="panel-body">
+					<h4 class="m-r-sm m-t-sm text-right">
+						@if(isset($product->stocks[0]))
+							{!! $product->stocks[0]->on_hold_stock !!}
+						@else
+							0
+						@endif
+					</h4>
+				</div>
+			</div>
+		</div>		
+
+		<div class="col-md-12">
+			<div class="panel panel-list panel-default">
+				<div class="panel-heading">Daftar Supplier</div>
+				<div class="panel-body">
+					@if(!is_null($suppliers))
+						<ul>
+						@foreach($suppliers->transactions as $key => $value)
+							<li>
+								{!! $value->supplier->name !!}
+							</li>
+						@endforeach
+						</ul>
+					@else
+						<p class="m-l-sm m-t-sm text-center">Tidak ada supplier</p>
+					@endif
+				</div>
+			</div>
+		</div>
+
+	</div>
+
 	<div class="clearfix">&nbsp;</div>
 
 	<div class="row">
@@ -108,10 +191,10 @@
 	</div>
 	<div class="row">
 		<div class="col-md-8 col-sm-4 hidden-xs">
-			<a class="btn btn-default" href="{{ URL::route('backend.data.product.create', ['uid' => $data['id'] ]) }}"> Data Baru </a>
+			<a class="btn btn-default" href="{{ URL::route('backend.data.product.varian.create', ['uid' => $data['id'] ]) }}"> Data Baru </a>
 		</div>
 		<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-			<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.product.create', ['uid' => $data['id'] ]) }}"> Data Baru </a>
+			<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.product.varian.create', ['uid' => $data['id'] ]) }}"> Data Baru </a>
 		</div>
 		<div class="col-md-4 col-sm-8 col-xs-12">
 			{!! Form::open(['url' => route('backend.data.product.show', ['uid' => $id] ), 'method' => 'get']) !!}
@@ -140,9 +223,9 @@
 			<thead>
 				<tr>
 					<th>No</th>
-					<th>SKU</th>
-					<th>Nama Produk</th>
-					<th>Kontrol</th>
+					<th class="col-md-5 text-center">SKU</th>
+					<th class="col-md-4 text-center">Ukuran</th>
+					<th class="text-center">Kontrol</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -156,16 +239,16 @@
 					@foreach($products as $ctr => $product)
 						<tr>
 							<td>{{ $ctr+1 }}</td>
-							<td>{{ $product['sku']  }}</td>
-							<td>{{ $product['name'] }}</td>
-							<td> 
+							<td class="text-center">{{ $product['sku']  }}</td>
+							<td class="text-center">{{ $product['size'] }}</td>
+							<td class="text-center"> 
 								<a href="{{ route('backend.data.product.show', ['uid' => $id, 'id' => $product['id'] ]) }}"> Detail </a>,
-								<a href="{{ route('backend.data.product.edit', ['uid' => $id, 'id' => $product['id'] ]) }}"> Edit </a>,
+								<a href="{{ route('backend.data.product.varian.edit', ['pid' => $id, 'id' => $product['id'] ]) }}"> Edit </a>,
 								
 								<a href="javascript:void(0);" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#var_del"
 									data-id="{{$data['id']}}"
-									data-title="Hapus Data Produk Varian {{$product['name']}}"
-									data-action="{{ route('backend.data.product.destroy', ['uid' => $id, 'id' => $product['id']]) }}">
+									data-title="Hapus Data Produk Varian {{$product['size']}}"
+									data-action="{{ route('backend.data.product.varian.destroy', ['pid' => $id, 'id' => $product['id']]) }}">
 									Hapus
 								</a> 								  
 							</td>
@@ -173,7 +256,7 @@
 					@endforeach
 					@include('widgets.pageelements.formmodaldelete', [
 							'modal_id'      => 'var_del', 
-							'modal_route'   => route('backend.data.product.destroy', 0)
+							'modal_route'   => route('backend.data.product.varian.destroy', 0)
 					])					
 				@endif
 			</tbody>

@@ -8,7 +8,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->with(['product'])->paginate();
+$datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 
 ?>
 
@@ -71,7 +71,7 @@ $datas 			= $datas->with(['product'])->paginate();
 									@foreach ($datas as $data)
 									<tr>
 										<td class="text-center">{{ $ctr }}</td>
-										<td class="text-left">{{ $data['product']['name'] }}</td>
+										<td class="text-left">{{ $data['varian']['product']['name'] }}</td>
 										<td class="text-right">{{ (is_null($data['total_buy']) ? $data['frequent_buy'] : $data['total_buy']) }}</td>
 									</tr>       
 									<?php $ctr += 1; ?>                     

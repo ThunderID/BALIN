@@ -19,6 +19,8 @@ class CreateStoreSettingTable extends Migration
             $table->datetime('started_at');
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->index(['deleted_at', 'type', 'started_at']);
         });
     }
 

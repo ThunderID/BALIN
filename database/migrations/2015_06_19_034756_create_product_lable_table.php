@@ -21,6 +21,8 @@ class CreateProductLableTable extends Migration
             $table->datetime('ended_at');
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->index(['deleted_at', 'product_id', 'started_at']);
         });
     }
 

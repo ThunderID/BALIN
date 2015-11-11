@@ -13,7 +13,7 @@ class LableTableSeeder extends Seeder
 	{
 		try
 		{
-			DB::table('couriers')->truncate();
+			DB::table('product_lables')->truncate();
 
 			$faker = Faker\Factory::create();
 

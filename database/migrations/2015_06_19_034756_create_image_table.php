@@ -24,6 +24,8 @@ class CreateImageTable extends Migration
             $table->boolean('is_default');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['deleted_at', 'imageable_id', 'imageable_type', 'is_default']);
         });
     }
 

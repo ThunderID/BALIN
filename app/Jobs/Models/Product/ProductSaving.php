@@ -21,14 +21,14 @@ class ProductSaving extends Job implements SelfHandling
 
     public function handle()
     {
-        // $this->product->slug            = Str::slug($this->product->name);
+        $this->product->slug            = Str::slug($this->product->name);
 
-        // $slug                           = Product::slug($this->product->slug)->notid($this->product->id)->first();
+        $slug                           = Product::slug($this->product->slug)->notid($this->product->id)->first();
 
-        // if(!is_null($slug))
-        // {
-        //     return new JSend('error', (array)$this->product, 'Produk sudah ada');
-        // }
+        if(!is_null($slug))
+        {
+            return new JSend('error', (array)$this->product, 'Produk sudah ada');
+        }
 
         return new JSend('success', (array)$this->product);
     }

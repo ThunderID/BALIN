@@ -95,11 +95,11 @@ class Product extends Eloquent
 
 	public function getPriceAttribute($value)
 	{
-		$price 						= Price::productid($this->id)->ondate('now')->first();
+		$price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 
 		if($price)
 		{
-			return $price->price;
+			return $price[count($this->prices)-1]->price;
 		}
 
 		return 0;
@@ -112,11 +112,11 @@ class Product extends Eloquent
 
 	public function getPromoPriceAttribute($value)
 	{
-		$discount 					= Price::productid($this->id)->ondate('now')->first();
+		$discount 					= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 		
 		if($discount)
 		{
-			$price 					= $this->price - $discount->promo_price;
+			$price 					= $this->price - $discount[count($this->prices)-1]->promo_price;
 		}
 		else
 		{
@@ -154,11 +154,11 @@ class Product extends Eloquent
 
 	public function getStartedAtAttribute($value)
 	{
-		$price 						= Price::productid($this->id)->ondate('now')->first();
+		$discount 					= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 
 		if($price)
 		{
-			return date('Y-m-d H:i:s', strtotime($price->started_at));
+			return date('Y-m-d H:i:s', strtotime($price[count($this->prices)-1]->started_at));
 		}
 
 		return date('Y-m-d H:i:s');
@@ -166,12 +166,12 @@ class Product extends Eloquent
 
 	public function getLabelAttribute($value)
 	{
-		$price 						= Price::productid($this->id)->ondate('now')->first();
+		// $price 						= Price::productid($this->id)->ondate('now')->first();
 
-		if($price)
-		{
-			return $price->label;
-		}
+		// if($price)
+		// {
+		// 	return $price->label;
+		// }
 
 		return '';
 	}
@@ -179,7 +179,7 @@ class Product extends Eloquent
 	public function getStockAttribute($value)
 	{
 		$stock 						= TransactionDetail::productid($this->id)->CountCurrentStock(true);
-
+		
 		if($stock)
 		{
 			return $stock->current_stock;
@@ -190,10 +190,10 @@ class Product extends Eloquent
 
 	public function getDefaultImageAttribute($value)
 	{
-		$image 						= Image::imageableid($this->id)->imageabletype('App\Models\Product')->default(true)->first();
+		$image 						= $this->images;//Price::productid($this->id)->ondate('now')->first();
 		if($image)
 		{
-			return $image->image_md;
+			return $image[count($this->images)-1]->image_md;
 		}
 
 		return 'https://browshot.com/static/images/not-found.png';
