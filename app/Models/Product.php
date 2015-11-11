@@ -196,7 +196,7 @@ class Product extends Eloquent
 	public function getDefaultImageAttribute($value)
 	{
 		$image 						= $this->images;
-		
+
 		if(isset($image[0]))
 		{
 			return $image[0]->image_md;
@@ -318,9 +318,22 @@ class Product extends Eloquent
 	public function scopeSuppliers($query, $variable)
 	{
 		return 	$query
-					->select('products.*')
-					->wherehas('transactiondetails.transaction', function($q){$q->status(['paid','shipped','delivered'])->type('buy');})
-					->with(['transactions' => function($q){$q->status(['paid','shipped','delivered'])->type('buy');}], 'transactions.supplier')
+					->selectraw('products.*')
+					->selectraw('suppliers.name as supplier_name')
+					->selectraw('suppliers.id as supplier_id')
+					->join('varians', 'varians.product_id', '=', 'products.id')
+					->join('transaction_details', 'transaction_details.varian_id', '=', 'varians.id')
+					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
+					->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
+					{
+						$join
+							->on('transaction_logs.transaction_id', '=', 'transactions.id')
+							->whereIn('transaction_logs.status' , ['paid','shipped','delivered'])
+							;
+					})
+					->join('suppliers', 'suppliers.id', '=', 'transactions.supplier_id')
+					->where('transactions.type', 'buy')
+					->groupby('supplier_id')
 					;
 	}
 

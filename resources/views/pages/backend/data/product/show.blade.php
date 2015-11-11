@@ -4,8 +4,7 @@
 <?php 
 	// $stat 		= $data->id($id)->totalsell(true)->first();
 	// $suppliers 	= $data->id($id)->suppliers(true)->first();
-	// $suppliers 	= $data->id($id)->suppliers(true)->first();
-	$suppliers 	= null;
+	$suppliers 	= $data->where('products.id', 8)->suppliers(true)->get();
 	
 	$data 		= $data::find($id);
 	$lables		= $data['lables'];
@@ -165,9 +164,9 @@
 				<div class="panel-body">
 					@if(!is_null($suppliers))
 						<ul>
-						@foreach($suppliers->transactions as $key => $value)
+						@foreach($suppliers as $key => $value)
 							<li>
-								{!! $value->supplier->name !!}
+								{!! $value['supplier_name'] !!} <a href="{{route('backend.data.supplier.show', $value['supplier_id'])}}"> detail </a>
 							</li>
 						@endforeach
 						</ul>
