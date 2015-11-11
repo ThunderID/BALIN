@@ -9,7 +9,7 @@ if(!is_null($filters) && is_array($filters))
 	}
 }
 
-$datas 			= $datas->orderby('name')->paginate();
+$datas 			= $datas->with('addresses')->DefaultImage(true)->orderby('name')->paginate();
 
 ?>
 

@@ -78,7 +78,7 @@ class Supplier extends Eloquent
 	public function getAddressAttribute()
 	{
 
-		if($this->addresses()->count())
+		if(isset($this->addresses[0]))
 		{
 			$address 					= $this->addresses[0]['attributes'];
 		}

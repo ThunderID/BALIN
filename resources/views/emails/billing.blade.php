@@ -36,34 +36,34 @@
 			@foreach($data['bill']['transactiondetails'] as $key => $detail)
 				<tr>
 					<td>{{($key+1)}}</td>
-					<td>{{$detail['product']['name']}}</td>
+					<td>{{$detail['varian']['product']['name']}}{{$detail['varian']['size']}}</td>
 					<td>{{$detail['quantity']}}</td>
-					<td>{{$detail['price']}}</td>
-					<td>{{$detail['discount']}}</td>
-					<td>{{($detail['quantity'] * ($detail['price'] - $detail['discount']))}}</td>
+					<td>@money_indo($detail['price'])</td>
+					<td>@money_indo($detail['discount'])</td>
+					<td>@money_indo($detail['quantity'] * ($detail['price'] - $detail['discount']))</td>
 				</tr>
 			@endforeach
 			<tr>
 				<td colspan="5">Ongkos Kirim</td>
-				<td>{{ $data['bill']['shipping_cost'] }}</td>
+				<td>@money_indo($data['bill']['shipping_cost'])</td>
 			</tr>
 			<tr>
 				<td colspan="5">Diskon Referral</td>
-				<td>{{ ($data['bill']['referral_discount'] ? $data['bill']['referral_discount'] : 0) }}</td>
+				<td>@money_indo(($data['bill']['referral_discount'] ? $data['bill']['referral_discount'] : 0))</td>
 			</tr>
 			<tr>
 				<td colspan="5">Potongan Point</td>
-				<td>{{ $data['bill']['discount_point'] }}</td>
+				<td>@money_indo($data['bill']['discount_point'])</td>
 			</tr>
 			@if($data['bill']['amount']>0)
 			<tr>
 				<td colspan="5">Potongan Transfer</td>
-				<td>{{ $data['bill']['unique_number'] }}</td>
+				<td>@money_indo($data['bill']['unique_number'])</td>
 			</tr>
 			@endif
 			<tr>
 				<td colspan="5">Grand Total</td>
-				<td>{{ $data['bill']['amount'] }}</td>
+				<td>@money_indo($data['bill']['amount'])</td>
 			</tr>										
 		</tbody>
 	</table>
