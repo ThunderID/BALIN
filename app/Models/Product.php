@@ -123,33 +123,38 @@ class Product extends Eloquent
 			$price 					= $this->price;
 		}
 
-		if(Auth::check() && Auth::user()->balance > 0)
-		{
-			//count price based on balance reduce cart stuff
-			$transaction 			= Transaction::type('sell')->status('draft')->userid(Auth::user()->id)->first();
+		// if(Auth::check())
+		// {
+		// 	$user 						= Auth::user();
+		// 	$balance					= Auth::user()->balance;
+		// 	if($balance > 0)
+		// 	{
+		// 		//count price based on balance reduce cart stuff
+		// 		$transaction 			= Transaction::type('sell')->status('draft')->userid($user->id)->first();
 
-			if($transaction)
-			{
-				$cart 				= Auth::user()->balance - $transaction->amount;
-			}
-			else
-			{
-				$cart 				= Auth::user()->balance;
-			}
+		// 		if($transaction)
+		// 		{
+		// 			$cart 				= $balance - $transaction->amount;
+		// 		}
+		// 		else
+		// 		{
+		// 			$cart 				= $balance;
+		// 		}
 
-			$price 					= $price - $cart;
+		// 		$price 					= $price - $cart;
 
-			if($price < 0)
-			{
-				return 0;
-			}
-			else
-			{
-				return $price;
-			}
-		}
+		// 		if($price < 0)
+		// 		{
+		// 			return 0;
+		// 		}
+		// 		else
+		// 		{
+		// 			return $price;
+		// 		}
+		// 	}
+		// }
 
-		return $this->price;
+		return $price;
 	}
 
 	public function getStartedAtAttribute($value)

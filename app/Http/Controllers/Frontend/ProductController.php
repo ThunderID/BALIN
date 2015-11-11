@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\BaseController;
 
-use Cookie, Response, Input;
+use Cookie, Response, Input, Auth;
 
 class ProductController extends BaseController 
 {
@@ -43,11 +43,21 @@ class ProductController extends BaseController
 			$searchResult						= $searchResult.' di urutkan A-Z';
 		}
 
+		if(Auth::check())
+		{
+			$balance 							= Auth::user()->cart_balance;
+		}
+		else
+		{
+			$balance 							= 0;
+		}
+
 		$this->layout->page 					= view('pages.frontend.product.index')
 													->with('controller_name', $this->controller_name)
 													->with('filters', $filters)
 													->with('searchResult', $searchResult)
 													->with('breadcrumb', $breadcrumb)
+													->with('balance', $balance)
 													;
 		$this->layout->controller_name			= $this->controller_name;
 
@@ -60,10 +70,21 @@ class ProductController extends BaseController
 		$breadcrumb								= ['Produk' => route('frontend.product.index'),
 													$slug => route('frontend.product.show')
 													];
+
+		if(Auth::check())
+		{
+			$balance 							= Auth::user()->cart_balance;
+		}
+		else
+		{
+			$balance 							= 0;
+		}
+		
 		$this->layout->page 					= view('pages.frontend.product.show')
 														->with('controller_name', $this->controller_name)
 														->with('slug', $slug)
 														->with('breadcrumb', $breadcrumb)
+														->with('balance', $balance)
 														;
 		$this->layout->controller_name			= $this->controller_name;
 

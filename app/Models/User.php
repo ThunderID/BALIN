@@ -90,6 +90,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 * @var array
 	 */
 	protected $appends				=	[
+											'cart_balance',
 											'balance',
 											'quota',
 											'downline',
@@ -191,6 +192,29 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 		}
 
 		return $avatar;
+	}
+
+	public function getCartBalanceAttribute($value)
+	{
+		$transaction 			= Transaction::type('sell')->status('draft')->userid($this->id)->first();
+
+		if($transaction)
+		{
+			$cart 				= $this->balance - $transaction->amount;
+		}
+		else
+		{
+			$cart 				= $this->balance;
+		}
+
+		if($cart < 0)
+		{
+			return 0;
+		}
+		else
+		{
+			return $cart;
+		}
 	}
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/

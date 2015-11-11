@@ -42,19 +42,24 @@
 					<div class="col-md-12">
 						<h3 style="font-size:28px; font-weight:300">{{ $data['name'] }}</h3>
 						<div class="clearfix">&nbsp;</div>
-						<?php $discount = $data['discount']; ?> 
-						@if ($discount == 0)
-							<h4>Price : @money_indo($data['price']) </h4>
-						@else
-							<h4>
-								Price : 
-								<span style="text-decoration:line-through; color: #999">
-									@money_indo($data['price'])
-								</span> &nbsp;
-								@money_indo($data['promo_price'])
-							</h4>
-							<p>Discount : @money_indo($data['discount']) </p>
-						@endif
+							<?php $price 	= $data->price;?>
+							@if($data->discount!=0)
+								<h4><strike> @money_indo($data->price) </strike></h4>
+								<?php $price 	= $data->promo_price;?>
+							@endif
+							@if($balance - $price >= 0)
+								<h4><strike> @money_indo($price) </strike></h4>
+								<?php $price 	= 0;?>
+							@elseif($balance!=0)
+								<h4><strike> @money_indo($price) </strike></h4>
+								<?php $price 	= $price - $balance;?>
+							@endif
+
+							@if($price==$data->price)
+								<h4> @money_indo($price)</h4>
+							@else
+								<h4> @money_indo($price) </h4>
+							@endif
 					</div>
 				</div>
 				<div class="row">
