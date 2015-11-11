@@ -4,8 +4,7 @@
 <?php 
 	// $stat 		= $data->id($id)->totalsell(true)->first();
 	// $suppliers 	= $data->id($id)->suppliers(true)->first();
-	// $suppliers 	= $data->id($id)->suppliers(true)->first();
-	$suppliers 	= null;
+	$suppliers 	= $data->where('products.id', $id)->suppliers(true)->get();
 	
 	$data 		= $data::find($id);
 	$lables		= $data['lables'];
@@ -41,15 +40,15 @@
 			<h5><strong>UPC &nbsp;</strong>{{ $data['upc'] }}</h5>
 			<h5>
 				<strong>Harga</strong> 
-				@if($product->discount!=0)
-					<strike> @money_indo($product->price) </strike> 
-					@money_indo($product->promo_price)
+				@if($data->discount!=0)
+					<strike> @money_indo($data->price) </strike> 
+					@money_indo($data->promo_price)
 				@else 
-					@money_indo($product->price)
+					@money_indo($data->price)
 				@endif 
 				<span>[ <a href="{{ route('backend.data.product.price.index', ['pid' => $product['id']]) }}">Histori Harga</a> ]</span>
 			</h5> 
-			<h5><strong>Diskon</strong> @money_indo($product->discount)</h5>
+			<h5><strong>Diskon</strong> @money_indo($data->discount)</h5>
 			<h5><strong>Label &nbsp;</strong>
 				@foreach($lables as $lable)
 	                <label class="label label-success">{{ str_replace('_', ' ', ucfirst($lable['lable'] ) )}}</label> &nbsp;
@@ -58,7 +57,7 @@
 			</br>
 			<h5>
 				<i class = "fa fa-tags"></i>
-				@foreach($product->categories as $key => $value)
+				@foreach($data->categories as $key => $value)
 					@if($key!=0)
 						,
 					@endif
@@ -81,8 +80,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="backend-owl-carousel gallery-product">
-						@foreach ($product->images as $i => $img)
-							<img class="img img-responsive canvasSource hidden galery" src="{{$product->images[0]['image_xs']}}" alt="">
+						@foreach ($data->images as $i => $img)
+							<img class="img img-responsive canvasSource hidden galery" src="{{$data->images[0]['image_xs']}}" alt="">
 						@endforeach
 					</div>
 				</div>
@@ -97,18 +96,20 @@
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
+	
 	<div class="row">
 		<div class="col-md-12">
 			<h5><strong>Statistic &nbsp;</strong></h5>
 		</div>
 	</div>
+
 	<div class="row">
 		<div class="col-md-3">
 			<div class="panel panel-list panel-default">
 				<div class="panel-heading">Stok Display</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{!! $product->stock !!}
+						{!! $data->stock !!}
 					</h4>
 				</div>
 			</div>
@@ -119,8 +120,8 @@
 				<div class="panel-heading">Stok Gudang</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						@if(isset($product->stocks[0]))
-							{!! $product->stocks[0]->current_stock + $product->stocks[0]->reserved_stock + $product->stocks[0]->on_hold_stock !!}
+						@if(isset($data->stocks[0]))
+							{!! $data->stocks[0]->current_stock + $data->stocks[0]->reserved_stock + $data->stocks[0]->on_hold_stock !!}
 						@else
 							0
 						@endif
@@ -134,8 +135,8 @@
 				<div class="panel-heading">Stok Dibayar</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						@if(isset($product->stocks[0]))
-							{!! $product->stocks[0]->reserved_stock !!}
+						@if(isset($data->stocks[0]))
+							{!! $data->stocks[0]->reserved_stock !!}
 						@else
 							0
 						@endif
@@ -149,8 +150,8 @@
 				<div class="panel-heading">Stok Dipesan</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						@if(isset($product->stocks[0]))
-							{!! $product->stocks[0]->on_hold_stock !!}
+						@if(isset($data->stocks[0]))
+							{!! $data->stocks[0]->on_hold_stock !!}
 						@else
 							0
 						@endif
@@ -165,9 +166,9 @@
 				<div class="panel-body">
 					@if(!is_null($suppliers))
 						<ul>
-						@foreach($suppliers->transactions as $key => $value)
+						@foreach($suppliers as $key => $value)
 							<li>
-								{!! $value->supplier->name !!}
+								{!! $value['supplier_name'] !!} <a href="{{route('backend.data.supplier.show', $value['supplier_id'])}}"> detail </a>
 							</li>
 						@endforeach
 						</ul>
@@ -177,7 +178,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 
 	<div class="clearfix">&nbsp;</div>
@@ -242,7 +242,7 @@
 							<td class="text-center">{{ $product['sku']  }}</td>
 							<td class="text-center">{{ $product['size'] }}</td>
 							<td class="text-center"> 
-								<a href="{{ route('backend.data.product.show', ['uid' => $id, 'id' => $product['id'] ]) }}"> Detail </a>,
+								<a href="{{ route('backend.data.product.varian.show', ['pid' => $id, 'id' => $product['id'] ]) }}"> Detail </a>,
 								<a href="{{ route('backend.data.product.varian.edit', ['pid' => $id, 'id' => $product['id'] ]) }}"> Edit </a>,
 								
 								<a href="javascript:void(0);" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#var_del"

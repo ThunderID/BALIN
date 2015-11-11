@@ -8,7 +8,7 @@ use App\Models\Image;
 use App\Models\Lable;
 use App\Models\Varian;
 use Illuminate\Support\MessageBag;
-use Input, Session, DB, Redirect, Str;
+use Input, Session, DB, Redirect, Str, Carbon;
 
 class ProductController extends BaseController 
 {
@@ -331,10 +331,13 @@ class ProductController extends BaseController
 
 	public function getProductByName()
 	{
+		$variable 	= new Carbon('now');
 		$inputs		= Input::only('name');
-		$tmp 		= Varian::selectraw('varians.id as varian_id')
+		$tmp 		= Varian::selectraw('varians.id as id')
 								->selectraw('products.id as product_id')
 								->selectraw('CONCAT_WS(" ", products.name, varians.size) AS name')
+								->selectraw('prices.price AS price')
+								->selectraw('IFNULL(sum(if(prices.promo_price > 0, prices.price - prices.promo_price, 0)),0) AS discount')
 								->productname($inputs['name'])
 								->join('products', function ($join) use($inputs) 
 									{
@@ -343,9 +346,14 @@ class ProductController extends BaseController
 											->where('products.name' ,'like' , '%'.$inputs['name'].'%')
 											;
 									})
+								->join(DB::raw('(SELECT promo_price, price, product_id, started_at from prices as prices1 where started_at = (SELECT MAX(started_at) FROM prices AS prices2 WHERE prices1.product_id = prices2.product_id and prices2.deleted_at is null) and prices1.deleted_at is null group by product_id) as prices'), function ($join) use($variable) 
+								{
+									$join
+										->on('prices.product_id', '=', 'products.id')
+										->where('prices.started_at' ,'<=' , $variable->format('Y-m-d H:i:s'))
+										;
+								})
 								->get();
-								//select(['id', 'name'])
-								//->name($inputs['name'])
 
 		return json_decode(json_encode($tmp));
 	}

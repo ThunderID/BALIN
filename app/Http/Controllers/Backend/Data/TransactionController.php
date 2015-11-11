@@ -244,7 +244,7 @@ class TransactionController extends BaseController
 
 				$datatd->fill([
 					'transaction_id'			=> $data['id'],
-					'product_id'				=> $value,
+					'varian_id'					=> $value,
 					'quantity'					=> $inputs['qty'][$key],
 					'price'						=> $inputs['price'][$key],
 					'discount'					=> $inputs['discount'][$key],

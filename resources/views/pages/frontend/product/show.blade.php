@@ -1,8 +1,8 @@
 @inject('product', 'App\Models\Product')
 <?php 
-	 $data          = $product->where('slug', $slug)->first();
+	$data          	= $product->slug($slug)->sellable(true)->first();
 
-	$related 		= $product->notid($data->id)->take(4)->get();
+	$related 		= $product->notid($data->id)->sellable(true)->take(4)->get();
 ?>
 
 @extends('template.frontend.layout')
@@ -67,7 +67,8 @@
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						{!! Form::open(['url' => route('frontend.cart.store'), 'class' => 'p-t-sm form']) !!}
-							@if ($data['stock']==0)
+							<?php $stock = $data['current_stock'];?>
+							@if ($stock==0)
 								<div class="row">
 									<div class="col-md-12 m-b-md">
 										<h4 class="text-center out-of-stock">
@@ -86,7 +87,7 @@
 												<div class="col-xs-12 col-sm-10 col-md-8">
 													<select name="product_qty" class="form-control hollow">
 														@for($x=1; $x<=10; $x++)
-															@if ($x<=$data['stock'])
+															@if ($x<=$stock)
 																<option value="{{ $x }}">{{ $x }}</option>
 															@endif
 														@endfor
