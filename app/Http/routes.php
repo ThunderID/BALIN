@@ -48,8 +48,6 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 
 		Route::resource('product',  	'ProductController',			['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
 
-		// Route::resource('product/{uid?}/varian',  	'ProductController',		['names' => ['index' => 'backend.data.product.index', 'create' => 'backend.data.product.create', 'store' => 'backend.data.product.store', 'show' => 'backend.data.product.show', 'edit' => 'backend.data.product.edit', 'update' => 'backend.data.product.update', 'destroy' => 'backend.data.product.destroy']]);
-		
 		Route::any('ajax/get-product-by-name',							['uses' => 'ProductController@getProductByName', 'as' => 'backend.product.ajax.getProductByName']);
 
 		Route::group(['namespace' => 'Product\\'], function()
@@ -57,8 +55,9 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 			// ------------------------------------------------------------------------------------
 			// PRICE (pending crud)
 			// ------------------------------------------------------------------------------------
-
 			Route::resource('product/{uid?}/varian/{pid?}/price',  		'PriceController',				['names' => ['index' => 'backend.data.product.price.index', 'create' => 'backend.data.product.price.create', 'store' => 'backend.data.product.price.store', 'show' => 'backend.data.product.price.show', 'edit' => 'backend.data.product.price.edit', 'update' => 'backend.data.product.price.update', 'destroy' => 'backend.data.product.price.destroy']]);
+			
+			Route::resource('product/{uid?}/varian',  	'VarianController',		['names' => ['index' => 'backend.data.product.varian.index', 'create' => 'backend.data.product.varian.create', 'store' => 'backend.data.product.varian.store', 'show' => 'backend.data.product.varian.show', 'edit' => 'backend.data.product.varian.edit', 'update' => 'backend.data.product.varian.update', 'destroy' => 'backend.data.product.varian.destroy']]);
 
 		});
 		// ------------------------------------------------------------------------------------
