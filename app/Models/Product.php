@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Auth;
+use Auth, DB;
 
 class Product extends Eloquent
 {
@@ -250,10 +250,31 @@ class Product extends Eloquent
 
 		if(is_array($variable))
 		{
-			return 	$query->whereNotIn('id', $variable);
+			return 	$query->whereNotIn('products.id', $variable);
 		}
 
-		return 	$query->where('id', '<>', $variable);
+		return 	$query->where('products.id', '<>', $variable);
+	}
+
+	public function scopeSellable($query, $variable)
+	{
+		return 	$query->selectraw('products.*')
+					->selectraw('IFNULL(SUM(if(transactions.type ="sell", 0-quantity, quantity)),0) as current_stock')
+					->join('varians', 'varians.product_id', '=', 'products.id')
+					->join('transaction_details', 'transaction_details.varian_id', '=', 'varians.id')
+					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
+					->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
+						{
+							$join
+								->on('transaction_logs.transaction_id', '=', 'transactions.id')
+								->whereIn('transaction_logs.status' , ['paid', 'shipping', 'delivered'])
+								;
+						})
+					->whereIn('transactions.type', ['sell', 'buy'])
+					->havingraw('IFNULL(SUM(if(transactions.type ="sell", 0-quantity, quantity)),0) > 0')
+					->groupby('products.id')
+					;
+		;
 	}
 
 	public function scopeCountOnHoldStock($query, $variable)
