@@ -20,17 +20,14 @@ class PriceController extends BaseController
 
 	protected $view_name 						= 'Histori Harga';
 
-	public function index($uid = null, $pid = null, $id = null)
+	public function index($pid = null, $id = null)
 	{
-		$pu										= ProductUniversal::findorfail($uid);								
-
 		$product 								= Product::findorfail($pid);
 
 
-		$breadcrumb								= 	[	'Data Produk' 			=> route('backend.data.productuniversal.index'),
-														$pu['name']				=> route('backend.data.productuniversal.show', ['uid' => $uid ]),
-														$product['name']		=> route('backend.data.product.show', ['uid' => $uid, 'pid' => $pid]),
-														'Histori Harga' 		=> route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $pid])
+		$breadcrumb								= 	[	'Data Produk' 			=> route('backend.data.product.index'),
+														$product['name']		=> route('backend.data.product.show', ['pid' => $pid]),
+														'Histori Harga' 		=> route('backend.data.product.price.index', ['pid' => $pid])
 													];
 
 		$filters 								= Null;
@@ -39,7 +36,7 @@ class PriceController extends BaseController
 		{
 			$filters							= ['ondate' => Input::get('q')];
 
-			$searchResult						= Input::get('q');
+			$searchResult						= date('d-m-Y', strtotime(Input::get('q')));
 		}
 		else
 		{
@@ -55,7 +52,6 @@ class PriceController extends BaseController
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('filters', $filters)
 														->with('pid', $pid)
-														->with('uid', $uid)
 														->with('searchResult', $searchResult)
 														->with('nav_active', 'data')
 														->with('subnav_active', 'products');
@@ -68,25 +64,19 @@ class PriceController extends BaseController
 		return Redirect::back();
 	}
 
-	public function create($uid = null, $pid = null, $id = null)
+	public function create($pid = null, $id = null)
 	{
-		$pu										= ProductUniversal::findorfail($uid);								
-
 		$product 								= Product::findorfail($pid);
 
-		// $breadcrumb								= 	[	
-		// 												$product->name	=> route('backend.data.product.show', $pid),
-		// 											];
 
-		$breadcrumb								= 	[	'Data Produk' 			=> route('backend.data.productuniversal.index'),
-														$pu['name']				=> route('backend.data.productuniversal.show', ['uid' => $uid ]),
-														$product['name']		=> route('backend.data.product.show', ['uid' => $uid, 'pid' => $pid]),
-														'Histori Harga' 		=> route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $pid])
+		$breadcrumb								= 	[	'Data Produk' 			=> route('backend.data.product.index'),
+														$product['name']		=> route('backend.data.product.show', ['pid' => $pid]),
+														'Histori Harga' 		=> route('backend.data.product.price.index', ['pid' => $pid])
 													];
 
 		if ($id)
 		{
-			$breadcrumb['Edit Harga'] 			= route('backend.data.product.price.edit', ['id' => $id, 'uid' => $uid, 'pid' => $pid]);
+			$breadcrumb['Edit Harga'] 			= route('backend.data.product.price.edit', ['id' => $id, 'pid' => $pid]);
  
 			$title 								= 'Edit';
 		}
@@ -103,20 +93,19 @@ class PriceController extends BaseController
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('id', $id)
 														->with('pid', $pid)
-														->with('uid', $uid)
 														->with('nav_active', 'data')
 														->with('subnav_active', 'products');
 		return $this->layout;		
 	}
 
-	public function edit($uid = null, $pid = null, $id = null)
+	public function edit($pid = null, $id = null)
 	{
-		return $this->create($uid, $pid, $id);
+		return $this->create($pid, $id);
 	}
 
-	public function store($uid = null, $pid = null, $id = null)
+	public function store($pid = null, $id = null)
 	{
-		$inputs 								= Input::only('product_id','price', 'promo_price', 'start_at', 'time', 'label');
+		$inputs 								= Input::only('price', 'promo_price', 'start_at', 'time', 'label');
 		
 		if ($id)
 		{
@@ -154,18 +143,18 @@ class PriceController extends BaseController
 		{
 			DB::commit();
 
-			return Redirect::route('backend.data.product.price.index', ['pid' => $pid, 'uid' => $uid])
+			return Redirect::route('backend.data.product.price.index', ['pid' => $pid])
 				->with('msg','Histori harga sudah disimpan')
 				->with('msg-type', 'success');
 		}
 	}
 
-	public function Update($uid = null, $pid = null, $id = null)
+	public function Update($pid = null, $id = null)
 	{
-		return $this->store($uid, $pid, $id);		
+		return $this->store($pid, $id);		
 	}
 
-	public function destroy($uid = null, $pid = null, $id = null)
+	public function destroy($pid = null, $id = null)
 	{
 		$data 					= Price::findorfail($id);
 
@@ -183,7 +172,7 @@ class PriceController extends BaseController
 		{
 			DB::commit();
 
-			return Redirect::route('backend.data.product.price.index', ['uid' => $uid, 'pid' => $pid])
+			return Redirect::route('backend.data.product.price.index', ['pid' => $pid])
 				->with('msg', 'Harga telah dihapus')
 				->with('msg-type','success');
 		}

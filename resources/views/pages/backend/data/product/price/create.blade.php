@@ -14,9 +14,9 @@
 
 @section('content')
 	@if(!is_null($id))
-		{!! Form::open(['url' => route('backend.data.product.price.update', ['uid' => $uid, 'pid' => $pid, 'id' => $id]), 'method' => 'PATCH']) !!}
+		{!! Form::open(['url' => route('backend.data.product.price.update', ['pid' => $pid, 'id' => $id]), 'method' => 'PATCH']) !!}
 	@else
-		{!! Form::open(['url' => route('backend.data.product.price.store', ['uid' => $uid, 'pid' => $pid]), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
+		{!! Form::open(['url' => route('backend.data.product.price.store', ['pid' => $pid]), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
 	@endif
 		<div class="row">
 			<div class="col-md-4">
@@ -56,7 +56,7 @@
 			<div class="col-md-12">             
 				</br>
 				<div class="form-group text-right">
-					<a href="{{ route('backend.data.product.price.index', ['pid' => $pid, 'uid' => $uid]) }}" class="btn btn-md btn-default" tabindex="4">Batal</a>
+					<a href="{{ route('backend.data.product.price.index', ['pid' => $pid]) }}" class="btn btn-md btn-default" tabindex="4">Batal</a>
 					<button type="submit" class="btn btn-md btn-primary" tabindex="5">Simpan</button>
 				</div>
 			</div>                                          
