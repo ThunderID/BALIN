@@ -27,7 +27,14 @@ class ProductSaving extends Job implements SelfHandling
 
         if(!is_null($slug))
         {
-            return new JSend('error', (array)$this->product, 'Produk sudah ada');
+            return new JSend('error', (array)$this->product, 'Produk sudah ada.');
+        }
+        
+        $upc                            = Product::upc($this->product->upc)->notid($this->product->id)->first();
+
+        if(!is_null($upc))
+        {
+            return new JSend('error', (array)$this->product, 'UPC sudah ada.');
         }
 
         return new JSend('success', (array)$this->product);

@@ -58,13 +58,17 @@ $mostbuy  = $td->MostBuyByCategory($id)->get();
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($mostbuy as $ctr => $product)
+						@forelse($mostbuy as $ctr => $product)
 							<tr>
 								<td>{{ $ctr+1 }}</td>
 								<td>{{ $product['product']['name'] }}</td>
 								<td>{{ $product['total_buy'] }}</td>
 							</tr>
-						@endforeach
+						@empty
+							<tr>
+								<td colspan="3">Tidak ada produk</td>
+							</tr>
+						@endforelse
 					</tbody>
 				</table>
 			</div>  
@@ -81,13 +85,17 @@ $mostbuy  = $td->MostBuyByCategory($id)->get();
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($frequentbuy as $ctr => $product)
+						@forelse($frequentbuy as $ctr => $product)
 							<tr>
 								<td>{{ $ctr+1 }}</td>
 								<td>{{ $product['product']['name'] }}</td>
 								<td>{{ $product['frequent_buy'] }}</td>
 							</tr>
-						@endforeach
+						@empty
+							<tr>
+								<td colspan="3">Tidak ada produk</td>
+							</tr>
+						@endforelse
 					</tbody>
 				</table>
 			</div>  

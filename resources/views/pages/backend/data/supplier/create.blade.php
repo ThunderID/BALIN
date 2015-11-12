@@ -79,10 +79,12 @@
             </div>            
         </div>
         <div class="row">
-            <div class="clearfix">&nbsp;</div>
-            <div class="form-group text-right">
-                <a href="{{ URL::route('backend.data.supplier.index') }}" class="btn btn-md btn-default" tabindex="4">Batal</a>
-                <button type="submit" class="btn btn-md btn-primary" tabindex="5">Simpan</button>
+            <div class="col-sm-12">
+                <div class="clearfix">&nbsp;</div>
+                <div class="form-group text-right">
+                    <a href="{{ URL::route('backend.data.supplier.index') }}" class="btn btn-md btn-default" tabindex="4">Batal</a>
+                    <button type="submit" class="btn btn-md btn-primary" tabindex="5">Simpan</button>
+                </div>
             </div>
         </div>
     {!! Form::close() !!}

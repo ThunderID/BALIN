@@ -246,6 +246,11 @@ class Product extends Eloquent
 		return 	$query->where('slug', $variable);
 	}
 
+	public function scopeUPC($query, $variable)
+	{
+		return 	$query->where('upc', $variable);
+	}
+
 	public function scopeNotID($query, $variable)
 	{
 		if(is_null($variable))

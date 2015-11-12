@@ -240,20 +240,23 @@ class TransactionController extends BaseController
 			//foreach data transaksi detail
 			foreach ($inputs['product'] as $key => $value) 
 			{
-				$datatd							= new TransactionDetail;
-
-				$datatd->fill([
-					'transaction_id'			=> $data['id'],
-					'varian_id'					=> $value,
-					'quantity'					=> $inputs['qty'][$key],
-					'price'						=> $inputs['price'][$key],
-					'discount'					=> $inputs['discount'][$key],
-				]);
-
-				//cek apa punya error
-				if(!$datatd->save())
+				if($value!='' || !empty($value))
 				{
-					$errors->add('Transaction', $datatd->getError());
+					$datatd							= new TransactionDetail;
+
+					$datatd->fill([
+						'transaction_id'			=> $data['id'],
+						'varian_id'					=> $value,
+						'quantity'					=> $inputs['qty'][$key],
+						'price'						=> $inputs['price'][$key],
+						'discount'					=> $inputs['discount'][$key],
+					]);
+
+					//cek apa punya error
+					if(!$datatd->save())
+					{
+						$errors->add('Transaction', $datatd->getError());
+					}
 				}
 			}
 		}

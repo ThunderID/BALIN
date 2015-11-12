@@ -122,9 +122,29 @@ class Varian extends Eloquent
 		return 	$query->where('id', $variable);
 	}
 
+	public function scopeNotID($query, $variable)
+	{
+		if(is_null($variable))
+		{
+			return 	$query;
+		}
+
+		if(is_array($variable))
+		{
+			return 	$query->whereNotIn('varians.id', $variable);
+		}
+
+		return 	$query->where('varians.id', '<>', $variable);
+	}
+
 	public function scopeSize($query, $variable)
 	{
 		return 	$query->where('size', $variable);
+	}
+
+	public function scopeSKU($query, $variable)
+	{
+		return 	$query->where('sku', $variable);
 	}
 
 	public function scopeGlobalStock($query, $variable)
