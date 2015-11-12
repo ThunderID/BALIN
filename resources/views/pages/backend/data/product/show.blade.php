@@ -5,8 +5,10 @@
 	// $stat 		= $data->id($id)->totalsell(true)->first();
 	// $suppliers 	= $data->id($id)->suppliers(true)->first();
 	$suppliers 	= $data->where('products.id', $id)->suppliers(true)->get();
-	
-	$data 		= $data::where('products.id', $id)->globalstock(true)->first();
+	$stocks 	= $data::where('products.id', $id)->globalstock(true)->first();
+	$data 		= $data::where('products.id', $id)->first();
+
+
 	$lables		= $data['lables'];
 
 
@@ -109,7 +111,11 @@
 				<div class="panel-heading">Stok Display</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{!! $data['current_stock'] !!}
+						@if($stocks['current_stock'])
+							{!! $stocks['current_stock'] !!}
+						@else
+							0
+						@endif
 					</h4>
 				</div>
 			</div>
@@ -120,7 +126,11 @@
 				<div class="panel-heading">Stok Gudang</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{!! $data['inventory_stock'] !!}
+						@if($stocks['inventory_stock'])
+							{!! $stocks['inventory_stock'] !!}
+						@else
+							0
+						@endif
 					</h4>
 				</div>
 			</div>
@@ -131,7 +141,11 @@
 				<div class="panel-heading">Stok Dibayar</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{!! $data['reserved_stock'] !!}
+						@if($stocks['reserved_stock'])
+							{!! $stocks['reserved_stock'] !!}
+						@else
+							0
+						@endif						
 					</h4>
 				</div>
 			</div>
@@ -142,7 +156,11 @@
 				<div class="panel-heading">Stok Dipesan</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{!! $data['on_hold_stock'] !!}
+						@if($stocks['on_hold_stock'])
+							{!! $stocks['on_hold_stock'] !!}
+						@else
+							0
+						@endif						
 					</h4>
 				</div>
 			</div>
@@ -152,7 +170,9 @@
 			<div class="panel panel-list panel-default">
 				<div class="panel-heading">Daftar Supplier</div>
 				<div class="panel-body">
-					@if(!is_null($suppliers))
+					@if(!isset($suppliers[0]))
+						<p class="m-l-sm m-t-sm text-center">Tidak ada supplier</p>
+					@else
 						<ul>
 						@foreach($suppliers as $key => $value)
 							<li>
@@ -160,8 +180,6 @@
 							</li>
 						@endforeach
 						</ul>
-					@else
-						<p class="m-l-sm m-t-sm text-center">Tidak ada supplier</p>
 					@endif
 				</div>
 			</div>
