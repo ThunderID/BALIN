@@ -22,7 +22,7 @@ class TransactionDetail extends Eloquent
 	use \App\Models\Traits\belongsTo\HasTransactionTrait;
 	use \App\Models\Traits\Custom\HasStockTrait;
 	use \App\Models\Traits\Custom\HasStatusTrait;
-	
+
 	/**
 	 * The database table used by the model.
 	 *
@@ -216,25 +216,29 @@ class TransactionDetail extends Eloquent
 				;
 	}
 
+	public function scopeInventoryStock($query, $variable)
+	{
+		return 	$query
+					->selectinventorystock(true)
+					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->first()
+		;
+	}
+
 	public function scopeCountOnHoldStock($query, $variable)
 	{
 		return 	$query
-					->selectraw('IFNULL(SUM(quantity),0) on_hold_stock')
-					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-					->whereIn('transactions.status', ['wait'])
-					->where('transactions.type', 'sell')
+					->selectonholdstock(true)
+					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
 					->first()
-					;
 		;
 	}
 
 	public function scopeCountCurrentStock($query, $variable)
 	{
 		return 	$query
-					->selectraw('IFNULL(SUM(if(transactions.type ="sell", 0-quantity, quantity)),0) current_stock')
-					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-					->wherehas('transaction', function($q){$q->status(['paid', 'shipping', 'delivered']);})
-					->whereIn('transactions.type', ['sell', 'buy'])
+					->selectcurrentstock(true)
+					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
 					->first()
 					;
 		;
@@ -243,26 +247,13 @@ class TransactionDetail extends Eloquent
 	public function scopeCountReservedStock($query, $variable)
 	{
 		return 	$query
-					->selectraw('IFNULL(SUM(quantity),0) reserved_stock')
-					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-					->whereIn('transactions.status', ['paid'])
-					->where('transactions.type', 'sell')
+					->selectreservedstock(true)
+					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
 					->first()
 					;
 		;
 	}
 
-	public function scopeCountBoughtStock($query, $variable)
-	{
-		return 	$query
-					->selectraw('IFNULL(SUM(quantity),0) bought_stock')
-					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-					->whereIn('transactions.status', ['delivered'])
-					->where('transactions.type', 'buy')
-					->first()
-					;
-	}
-		
 	public function scopeCritical($query, $variable)
 	{
 		return 	$query
