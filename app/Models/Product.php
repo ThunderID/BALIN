@@ -113,11 +113,11 @@ class Product extends Eloquent
 
 	public function getPromoPriceAttribute($value)
 	{
-		$discount 					= $this->prices;//Price::productid($this->id)->ondate('now')->first();
+		$price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 		
-		if(isset($discount[0]))
+		if(isset($price[0]))
 		{
-			$price 					= $this->price - $discount[count($this->prices)-1]->promo_price;
+			$price 					= $price[count($this->prices)-1]->promo_price;
 		}
 		else
 		{
