@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use App\Models\User;
 use App\Models\PointLog;
+use App\Models\QuotaLog;
 use App\Models\StoreSetting;
 
 use App\Jobs\Auditors\SaveAuditPoint;
@@ -54,7 +55,24 @@ class PointLogSaved extends Job implements SelfHandling
                 }
                 else
                 {
-                    $result             = new JSend('success', (array)$this->pointlog);
+                    $quota              = new QuotaLog;
+
+                    $quota->fill([
+                            'user_id'   => $this->pointlog->reference_id,
+                            'amount'    => -1,
+                            'notes'     => 'Mereferensikan '.$this->pointlog->user->name,
+                        ]);
+
+                    $quota->reference()->associate($this->pointlog);
+
+                    if(!$quota->save())
+                    {
+                        $result         = new JSend('error', (array)$this->pointlog, $quota->getError());
+                    }
+                    else
+                    {
+                        $result         = new JSend('success', (array)$this->pointlog);
+                    }
                 }
             }
         }

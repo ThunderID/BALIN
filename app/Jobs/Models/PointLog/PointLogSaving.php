@@ -37,6 +37,10 @@ class PointLogSaving extends Job implements SelfHandling
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat referral code anda sebagai pemberi referens.');
             }
+            elseif($this->pointlog->reference->quota <= 0)
+            {
+                $result                 = new JSend('error', (array)$this->pointlog, 'Untuk saat ini tidak dapat menggunakan referral code '.$this->pointlog->reference->name);
+            }
             else
             {
                 $gift                   = StoreSetting::type('invitation_royalty')->Ondate('now')->first();
