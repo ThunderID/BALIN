@@ -1,8 +1,12 @@
 <div class="thumbnail">
-	<img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
+	<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">
+		<img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
+	</a>
 
 	<div class="caption m-b-sm" >
-		<h4 class="text-center">{{$data['name']}}</h4>
+		<h4 class="text-center">
+			<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">{{$data['name']}}</a>
+		</h4>
 		<div class="info-price">
 			<?php $price 	= $data->price;?>
 			@if($data->discount!=0)

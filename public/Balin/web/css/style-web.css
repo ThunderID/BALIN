@@ -408,6 +408,9 @@ html {
   font-size: 20px;
   color: #000;
 }
+.caption h4 a {
+  text-decoration: none;
+}
 .caption-mobile {
   position: absolute;
   top: 80px;
