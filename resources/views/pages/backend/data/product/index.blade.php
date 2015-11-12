@@ -7,6 +7,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
+$varians 		= $datas->with('varians')->first()['varians'];
 $datas 			= $datas->orderby('name')->paginate();
 ?>
 
@@ -52,7 +53,8 @@ $datas 			= $datas->orderby('name')->paginate();
 								<tr>
 									<th>No.</th>
 									<th class="col-md-2 text-center">UPC</th>
-									<th class="col-md-7">Nama Produk</th>
+									<th class="col-md-5">Nama Produk</th>
+									<th class="col-md-2 text-center">Ukuran</th>
 									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
@@ -73,6 +75,11 @@ $datas 			= $datas->orderby('name')->paginate();
 											<td>{{ $ctr }}</td>
 											<td class="text-center">{{ $data['upc'] }}</td>
 											<td>{{ $data['name'] }}</td>
+											<td class="text-center">
+												@foreach($varians as $varian)
+													{{ $varian['size'] }} &nbsp;
+												@endforeach
+											</td>
 											<td class="text-center">
 												<a href="{{ route('backend.data.product.show', $data['id']) }}"> Detail </a>,
 												<a href="{{ url::route('backend.data.product.edit', $data['id']) }}"> Edit </a>, 
