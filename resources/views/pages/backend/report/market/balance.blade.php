@@ -53,7 +53,7 @@ $datas 			= $datas->paginate();
 								<tr>
 									<th class="text-center">No.</th>
 									<th class=" text-left">Kostumer</th>
-									<th class=" text-left">Balance</th>
+									<th class=" text-right">Balance</th>
 								</tr>
 							</thead>
 							<tbody>

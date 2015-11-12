@@ -41,7 +41,11 @@
 			<div class="panel panel-panel panel-default">
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{!! $stocks->current_stock !!}
+						@if( $stocks['current_stock'])
+							{!! $stocks['current_stock'] !!}
+						@else
+							0
+						@endif
 					</h4>
 				</div>
 				<div class="panel-heading">Stok Display</div>
@@ -52,7 +56,11 @@
 			<div class="panel panel-panel panel-default">
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{!! $stocks->inventory_stock !!}
+					@if( $stocks['inventory_stock'])
+						{!! $stocks['inventory_stock'] !!}
+					@else
+						0
+					@endif						
 					</h4>
 				</div>
 				<div class="panel-heading">Stok Gudang</div>
@@ -63,7 +71,11 @@
 			<div class="panel panel-panel panel-default">
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{!! $stocks->reserved_stock !!}
+					@if( $stocks['reserved_stock'])
+						{!! $stocks['reserved_stock'] !!}
+					@else
+						0
+					@endif						
 					</h4>
 				</div>
 				<div class="panel-heading">Stok Dibayar</div>
@@ -74,7 +86,11 @@
 			<div class="panel panel-panel panel-default">
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{!! $stocks->on_hold_stock !!}
+					@if( $stocks['on_hold_stock'] )
+						{!! $stocks['on_hold_stock'] !!}
+					@else
+						0
+					@endif						
 					</h4>
 				</div>
 				<div class="panel-heading">Stok Dipesan</div>
@@ -85,7 +101,11 @@
 			<div class="panel panel-panel panel-default">
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{{ $td->sold_item }}
+					@if( $td['sold_item'] )
+						{{ $td['sold_item'] }}
+					@else
+						0
+					@endif
 					</h4>
 				</div>
 				<div class="panel-heading">Sold Items</div>

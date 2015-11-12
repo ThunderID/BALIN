@@ -53,8 +53,8 @@ $datas 			= $datas->with(['transaction'])->paginate();
 									<th>No.</th>
 									<th>#</th>
 									<th>Nomor Resi</th>
-									<th>Alamat</th>
-									<th>Kontrol</th>
+									<th class="text-center">Alamat</th>
+									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -74,8 +74,8 @@ $datas 			= $datas->with(['transaction'])->paginate();
 										<td>{{$ctr}}</td>
 										<td><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['transaction']['ref_number']}}</a></td>
 										<td>{{$data['receipt_number']}}</td>
-										<td>{{$data['address']['address']}}</td>
-										<td>
+										<td class="text-center">{{$data['address']['address']}}</td>
+										<td class="text-center">
 											<!-- <a href="{{ URL::route('backend.data.shipment.show', ['id' => $data['id']]) }}"> Detail </a>,  -->
 											<a href="{{ URL::route('backend.data.shipment.edit', ['id' => $data['id']]) }}"> Edit </a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#shipment_del"

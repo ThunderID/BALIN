@@ -7,8 +7,9 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$varians 		= $datas->with('varians')->first()['varians'];
-$datas 			= $datas->orderby('name')->paginate();
+
+$datas 			= $datas->with('varians')->orderby('name')->paginate();
+
 ?>
 
 @extends('template.backend.layout') 
@@ -76,7 +77,7 @@ $datas 			= $datas->orderby('name')->paginate();
 											<td class="text-center">{{ $data['upc'] }}</td>
 											<td>{{ $data['name'] }}</td>
 											<td class="text-center">
-												@foreach($varians as $varian)
+												@foreach($data['varians'] as $varian)
 													{{ $varian['size'] }} &nbsp;
 												@endforeach
 											</td>

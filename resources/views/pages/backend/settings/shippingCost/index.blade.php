@@ -52,7 +52,7 @@ $datas 			= $datas
 									<th class="text-center">Awal Kode Pos</th>
 									<th class="text-center">Akhir Kode Pos</th>
 									<th class="text-center">Biaya</th>
-									<th>Kontrol</th>
+									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -74,7 +74,7 @@ $datas 			= $datas
 										<td class="text-center">{{$data['start_postal_code']}}</td>                                                                               
 										<td class="text-center">{{$data['end_postal_code']}}</td>                                                                               
 										<td class="text-center">{{$data['cost']}}</td>                                                                               
-										<td>
+										<td class="text-center">
 											<a href="{{ URL::route('backend.settings.shippingCost.show', ['id' => $data['id']]) }}"> Detail </a>, 
 											<a href="{{ URL::route('backend.settings.shippingCost.edit', ['id' => $data['id']]) }}"> Edit </a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#shippingCost_del"

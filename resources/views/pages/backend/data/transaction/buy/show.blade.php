@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-7 col-sm-5 col-xs-12">
 			<table>
 				<tbody>
 					<tr>
@@ -21,16 +21,40 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-6">
+		<div class="hidden-lg hidden-md hidden-sm col-xs-12">
+			<div class="clearfix row">
+				&nbsp;
+			</div>
+
+			<div class="row">
+				<div class="col-xs-5">
+					<strong>Invoice ID</strong>
+				</div>
+				<div class="col-xs-7 text-left">
+					{{$transaction['ref_number']}}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-5">
+					<strong>Invoice Date</strong>
+				</div>
+				<div class="col-xs-7 text-left">
+					@date_indo($transaction['transact_at'])
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-5 col-sm-7 hidden-xs">
 			<table>
 				<tbody>
 					<tr class="row">
-						<td class="col-sm-6"><strong>Invoice ID</strong></td>
-						<td> {{$transaction['ref_number']}} </td>
+						<td class="col-sm-6 text-right"><strong>Invoice ID</strong></td>
+						<td class="text-left"> {{$transaction['ref_number']}} </td>
 					</tr>
 					<tr class="row">
-						<td class="col-sm-6"><strong>Invoice Date</strong></td>
-						<td>@date_indo($transaction['transact_at'])</td>
+						<td class="col-sm-6 text-right"><strong>Invoice Date</strong></td>
+						<td class="text-left">@date_indo($transaction['transact_at'])</td>
 					</tr>
 				</tbody>
 			</table>

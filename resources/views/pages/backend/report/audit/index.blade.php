@@ -53,7 +53,7 @@ $datas 			= $datas->with(['user'])->orderby('created_at', 'desc')->paginate();
 								<tr>
 									<th>No</th>
 									<th>Petugas</th>
-									<th>Tanggal</th>
+									<th class="text-center">Tanggal</th>
 									<th>Aktivitas</th>
 								</tr>
 							</thead>
@@ -68,12 +68,12 @@ $datas 			= $datas->with(['user'])->orderby('created_at', 'desc')->paginate();
 										@else
 											<td><i>System</i></td>
 										@endif
-										<td> @datetime_indo($value['created_at']) </td>
+										<td class="text-center"> @datetime_indo($value['created_at']) </td>
 										<td>{!!$value['event']!!}</td>
 									</tr>
 								@empty
 									<tr>
-										<td colspan="4"> Tidak ada data </td>
+										<td colspan="4" class="text-center"> Tidak ada data </td>
 									</tr>
 								@endforelse
 							</tbody>

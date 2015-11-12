@@ -55,10 +55,10 @@ $datas 			= $datas->orderby('expired_at')->paginate();
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th class="text-center">Code</th>
-									<th class="col-md-4">Tipe</th>
-									<th class="col-md-4">Masa Berlaku</th>
-									<th class="col-md-2">Kontrol</th>
+									<th>Code</th>
+									<th>Tipe</th>
+									<th class="col-md-4 text-center">Masa Berlaku</th>
+									<th class="col-md-2 text-center">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -78,11 +78,11 @@ $datas 			= $datas->orderby('expired_at')->paginate();
 											<td>{{ $ctr }}</td>
 											<td>{{ $data['code'] }}</td>
 											<td>{{ str_replace('_', ' ', $data['type']) }} : {{$data['value']}}</td>
-											<td>
+											<td class="text-center">
 												@datetime_indo($data['started_at'])
 												- @datetime_indo($data['expired_at'])
 											</td>
-											<td>
+											<td class="text-center">
 												<a href="{{ route('backend.settings.voucher.show', $data['id']) }}"> Detail </a>, 
 												<a href="{{ route('backend.settings.voucher.edit', $data['id']) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#courier_del"

@@ -58,7 +58,7 @@ $datas 			= $datas->with('addresses')->DefaultImage(true)->orderby('name')->pagi
 									<th class="text-center">Logo</th>
 									<th class="col-md-2">Nama</th>
 									<th class="col-md-6">Alamat</th>
-									<th class="col-md-2">Kontrol</th>
+									<th class="col-md-2 text-center">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -83,7 +83,7 @@ $datas 			= $datas->with('addresses')->DefaultImage(true)->orderby('name')->pagi
 												</br>
 												<i class="fa fa-phone"></i> {{ $data['address']['phone'] }}
 											</td>
-											<td>
+											<td class="text-center">
 												<a href="{{ route('backend.settings.courier.show', $data['id']) }}"> Detail </a>, 
 												<a href="{{ route('backend.settings.courier.edit', $data['id']) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#courier_del"

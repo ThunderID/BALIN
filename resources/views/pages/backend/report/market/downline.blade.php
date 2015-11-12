@@ -53,7 +53,7 @@ $datas 			= $datas->with(['reference'])->paginate();
 								<tr>
 									<th class="text-center">No.</th>
 									<th class=" text-left">Kostumer</th>
-									<th class=" text-left">Sisa Quota</th>
+									<th class=" text-center">Sisa Quota</th>
 									<th class=" text-center">Jumlah Downline</th>
 								</tr>
 							</thead>
@@ -64,7 +64,7 @@ $datas 			= $datas->with(['reference'])->paginate();
 								?> 
 								@if (count($datas) == 0)
 									<tr>
-										<td colspan="3" class="text-center">
+										<td colspan="4" class="text-center">
 											Tidak ada data
 										</td>
 									</tr>
@@ -73,8 +73,8 @@ $datas 			= $datas->with(['reference'])->paginate();
 									<tr>
 										<td class="text-center">{{ $ctr }}</td>
 										<td class="text-left">{{ $data['reference']['name'] }}</td>
-										<td class="text-right">{{ $data['reference']['quota'] }}</td>
-										<td class="text-right">{{ $data['downline'] }}</td>
+										<td class="text-center">{{ $data['reference']['quota'] }}</td>
+										<td class="text-center">{{ $data['downline'] }}</td>
 									</tr>       
 									<?php $ctr += 1; ?>                     
 									@endforeach 

@@ -53,9 +53,9 @@ $datas 			= $datas->currentprice(true)->orderby('hpp', 'desc')->paginate();
 								<tr>
 									<th class="text-center">No.</th>
 									<th class="">Item</th>
-									<th class=" text-center">HPP</th>
-									<th class=" text-center">HJ</th>
-									<th class=" text-center">Selisih (Margin)</th>
+									<th class=" text-right">HPP</th>
+									<th class=" text-right">HJ</th>
+									<th class=" text-right">Selisih (Margin)</th>
 								</tr>
 							</thead>
 							<tbody>
