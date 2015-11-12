@@ -98,7 +98,7 @@ class Product extends Eloquent
 	{
 		$price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 
-		if(empty($price))
+		if(isset($price[0]))
 		{
 			return $price[count($this->prices)-1]->price;
 		}
@@ -115,13 +115,13 @@ class Product extends Eloquent
 	{
 		$discount 					= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 		
-		if(empty($discount))
+		if(isset($discount[0]))
 		{
 			$price 					= $this->price - $discount[count($this->prices)-1]->promo_price;
 		}
 		else
 		{
-			$price 					= $this->price;
+			$price 					= 0;
 		}
 
 		// if(Auth::check())
@@ -162,7 +162,7 @@ class Product extends Eloquent
 	{
 		$price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 
-		if(empty($price))
+		if(isset($price[0]))
 		{
 			return date('Y-m-d H:i:s', strtotime($price[count($this->prices)-1]->started_at));
 		}
