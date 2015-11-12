@@ -24,34 +24,36 @@ class CartController extends BaseController
 	// FUNCTION ADD TO CART
 	public function store($slug = null , $qty = null)
 	{
-		//test purpose 
+		$name 								= Input::get('product_name');
 		$slug									= Input::get('product_slug');
 		$qty 									= Input::get('product_qty');
+		$price 								= Input::get('product_price');
+		$discount 							= Input::get('product_discount');
+		$stock 								= Input::get('product_stock');
+		$size 								= Input::get('product_size');
+		$images								= Input::get('product_image');
 
-		if (!$slug && !$qty)
+		if (!$slug || !$qty)
 		{
-			return false;
+			return Redirect::back()
+						->with('msg','Size atau Kuantitas belum masih kosong')
+						->with('msg-type', 'danger');
 		}
 
 		//get current stock
 		$baskets = Cookie::get('baskets');
 
 
-		$product 								= Product::where('slug', $slug)
-														->with('images')
-														->first();
-
 		//get addition cart
 		$basket 								= 	[
 														'slug' 			=> $slug, 
-														'name'			=> $product['name'],
-														'sku'			=> $product['sku'],
+														'name'			=> $name,
 														'qty' 			=> $qty,
-														'stock'			=> $product['stock'],
-														'price'			=> $product['price'],
-														'promo_price'	=> $product['promo_price'],
-														'discount'		=> $product['discount'],
-														'images'		=> $product['images'][0]['thumbnail']
+														'stock'			=> $stock,
+														'price'			=> $price,
+														'discount'		=> $discount,
+														'size'			=> $size,
+														'images'			=> $images
 													];
 		// dd($basket);exit;
 		//adding new data to basket 
@@ -66,7 +68,7 @@ class CartController extends BaseController
 		}
 
 		//update baskets
-		$baskets 								= Cookie::forever('baskets', $baskets);
+		$baskets 								= Cookie::make('baskets', $baskets, 1440);
 
 		//return cookies
 		// return Response::make('item added to cart')
@@ -92,20 +94,19 @@ class CartController extends BaseController
 		//get current stock
 		$baskets 								= Cookie::get('baskets');
 
-		$qty 									= Input::get('product_qty');
+		$qty 										= Input::get('product_qty');
 
 		foreach ($baskets as $k => $item)
 		{
 			$basket[$k]							=	[
 														'slug' 			=> $item['slug'], 
 														'name'			=> $item['name'],
-														'sku'			=> $item['sku'],
+														'sku'				=> $item['sku'],
 														'qty' 			=> $qty[$k],
 														'stock'			=> $item['stock'],
 														'price'			=> $item['price'],
-														'promo_price'	=> $item['promo_price'],
 														'discount'		=> $item['discount'],
-														'images'		=> $item['images']
+														'images'			=> $item['images']
 													];
 		}
 
@@ -114,7 +115,7 @@ class CartController extends BaseController
 		$baskets 								= $basket;
 
 		//update baskets
-		$baskets 								= Cookie::forever('baskets', $baskets);
+		$baskets 								= Cookie::make('baskets', $baskets, 1440);
 
 		//return cookies
 		return Redirect::route('frontend.cart.index')
@@ -124,11 +125,6 @@ class CartController extends BaseController
 	// FUNCTION REMOVE CART
 	public function destroy ($id)
 	{
-		//notes: ID from cart array. bukan product id
-
-		//test purpose
-		// $id= 0;
-
 		//get old baskets
 		$baskets 								= Cookie::get('baskets');
 
@@ -148,8 +144,6 @@ class CartController extends BaseController
 		$baskets 								= Cookie::forever('baskets', $baskets);
 
 		//return cookies
-		// return Response::make('item removed from cart')
-		// 					->withCookie($baskets);
 		return Redirect::route('frontend.cart.index')
 						->withCookie($baskets);
 	}

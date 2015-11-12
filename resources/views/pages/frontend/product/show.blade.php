@@ -1,8 +1,7 @@
 @inject('product', 'App\Models\Product')
 <?php 
-	$data          = $product->slug($slug)->sellable(true)->first();
-
-	$related 		= $product->notid($data->id)->sellable(true)->take(4)->get();
+	$data          = $product->slug($slug)->sellable(true)->with('varians')->first();
+	$related 		= $product->notid($data['id'])->sellable(true)->take(4)->get();
 ?>
 
 @extends('template.frontend.layout')
@@ -44,10 +43,10 @@
 					<div class="col-md-12">
 						<h3 style="font-size:28px; font-weight:300">{{ $data['name'] }}</h3>
 						<div class="clearfix">&nbsp;</div>
-						<?php $price 	= $data->price;?>
-						@if($data->discount!=0)
-							<h4><strike> @money_indo($data->price) </strike></h4>
-							<?php $price 	= $data->promo_price;?>
+						<?php $price 	= $data['price'];?>
+						@if($data['discount']!=0)
+							<h4><strike> @money_indo($data['price']) </strike></h4>
+							<?php $price 	= $data['promo_price'];?>
 						@endif
 						@if($balance - $price >= 0)
 							<h4><strike> @money_indo($price) </strike></h4>
@@ -57,7 +56,7 @@
 							<?php $price 	= $price - $balance;?>
 						@endif
 
-						@if($price==$data->price)
+						@if($price==$data['price'])
 							<h4> @money_indo($price)</h4>
 						@else
 							<h4> @money_indo($price) </h4>
@@ -78,23 +77,41 @@
 									</div>
 								</div>
 							@else
+								{!! Form::hidden('product_slug', $slug) !!}
+								{!! Form::hidden('product_name', $data['name']) !!}
+								{!! Form::hidden('product_price', $price) !!}
+								{!! Form::hidden('product_discount', $data['discount']) !!}
+								{!! Form::hidden('product_stock', 0, ['class' => 'prod_stock']) !!}
+								{!! Form::hidden('product_image', $data['default_image']) !!}
+								{!! Form::hidden('product_size', '', ['class' => 'prod_size']) !!}
+
+								@include('widgets.alerts')
 								<div class="row">
-									<div class="col-md-12">
-										{!! Form::hidden('product_slug', $slug) !!}
+									<div class="col-md-4">
 										<div class="form-group">
-											<label for="name">Qty</label>
+											<label>Size</label>
+											<select name="varian_id" class="form-control hollow select_varian" required>
+												<option value="">Pilih Size</option>
+												@foreach($data['varians'] as $v)
+													<option value="{{ $v['id'] }}" data-stock="{{ $v['stock'] }}">{{ $v['size'] }}</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
+									<div class="col-md-8">
+										<div class="form-group">
+											<label for="name">Kuantitas</label>
 											<div class="row">
 												<div class="col-xs-12 col-sm-10 col-md-8">
-													<select name="product_qty" class="form-control hollow">
-														@for($x=1; $x<=10; $x++)
-															@if ($x<=$stock)
-																<option value="{{ $x }}">{{ $x }}</option>
-															@endif
-														@endfor
+													<select name="product_qty" class="form-control hollow select_qty" placholder="Pilih Kuantitas" >
+														<option value="" disabled="disabled">Pilih Kuantitas</option>
 													</select>
 												</div>
-												<div class="col-xs-12 col-sm-2 col-md-4" style="">
-													{!! Form::submit('Add to Cart', ['class' => 'btn-hollow hollow-black-border']) !!}
+												<div class="col-xs-12 col-sm-2 col-md-4 hidden-xs" style="">
+													{!! Form::submit('Beli', ['class' => 'btn-hollow hollow-black-border']) !!}
+												</div>
+												<div class="col-xs-12 col-sm-2 col-md-4 hidden-sm hidden-md hidden-lg" style="">
+													{!! Form::submit('Beli', ['class' => 'btn-hollow hollow-black-border m-t-sm']) !!}
 												</div>
 											</div>
 										</div>	
@@ -108,7 +125,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h4>Deskripsi</h4>
-						<p>{{ $data['description'] }}</p>     
+						<p>{!! $data['description'] !!}</p>
 					</div> 					        				
 				</div>
 				<div class="clearfix">&nbsp;</div>
@@ -138,7 +155,24 @@
 			  console.log(image_replace);
 			  $('img.myCanvas').attr('src', image);
 			  $('a.img-large').attr('href', image_replace); */
-		 });    
+		 });
+
+		<!-- Get Stock Varian -->
+		$('.select_varian').on('change', function() {
+			var stock 	= $(this).find(':selected').data('stock');
+			var size 	= $(this).find(':selected').text();
+			var sel_qty = $('.select_qty');
+			
+			sel_qty.find('option').remove();
+			sel_qty.append($("<option>").attr("value", "").text("Pilih Kuantitas").attr("disabled", "disabled"));
+			for (var i=1; i<=10; i++ ) {
+				if (i<=stock) {
+					sel_qty.append($("<option>").attr("value", i).text(i));
+				}
+			}
+			$('.prod_stock').val(stock);
+			$('.prod_size').val(size);
+		});
 	});  
 @stop
 

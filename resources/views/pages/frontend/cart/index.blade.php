@@ -12,12 +12,8 @@
 		</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
-			@if (Auth::User())
-				<div class="col-md-2 col-lg-2 col-sm-3 hidden-xs">              		
-					@include('widgets.frontend.profile.my_profile_menu')
-				</div>
-			@endif
-			<div class="@if(Auth::User()) col-md-10 col-lg-10 col-sm-9 @else col-xs-12 col-md-12 col-sm-12 @endif">
+			
+			<div class="col-xs-12 col-md-12 col-sm-12">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="row chart-header">
@@ -25,7 +21,7 @@
 								<p>Produk</p>
 							</div>
 							<div class="col-md-1 col-sm-1 hidden-xs">
-								<p class="text-center">Qty</p>
+								<p class="text-center">Kuantitas</p>
 							</div>
 							<div class="col-md-2 col-sm-2 hidden-xs">
 								<p class="text-right">Harga</p>
@@ -48,10 +44,9 @@
 									"item_list_id"					=> $k,
 									"item_list_image"				=> $item['images'],
 									"item_list_name" 				=> $item['name'],
-									"item_list_sku" 				=> $item['sku'], 
 									"item_list_qty"				=> $item['qty'],
 									"item_list_normal_price"	=> $item['price'],
-									"item_list_promo_price"		=> $item['promo_price'],
+									"item_list_size"				=> $item['size'],
 									"item_list_discount_price"	=> $item['discount'],
 									"item_list_total_price"		=> ($item['price']*$item['qty']),
 									"item_mode"						=> 'new',
@@ -121,7 +116,7 @@
 								<div class="col-lg-2 col-md-2 col-sm-2">
 									<h4 class="text-right">
 										@if ($total)
-											@money_indo($total)
+											<strong>@money_indo($total)</strong>
 										@endif
 									</h4>
 								</div>	

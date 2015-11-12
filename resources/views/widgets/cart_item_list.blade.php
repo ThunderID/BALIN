@@ -2,19 +2,19 @@
 	<div class="col-md-4 col-sm-4 col-xs-12">
 		<div class="row">
 			<div class="col-sm-4 col-xs-3">
-                <a href="#">
-                	<img class="image-responsive m-t" style="height:107px;width:85px;"  src="{{ $item_list_image }}" >
-                </a>
+				 <a href="#">
+					<img class="image-responsive m-t-sm" style="width:65px;"  src="{{ $item_list_image }}" >
+				 </a>
 			</div>
 			<div class="col-sm-8 col-xs-8">
- 				<div class="row">
+				<div class="row">
 					<div class="col-sm-12 col-xs-12">
 						<h4 class="m-b-xs">{{ $item_list_name }}</h4>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">	
-						<p>SKU : {{ $item_list_sku }}</p>
+						<p>Size : {{ $item_list_size }}</p>
 					</div>
 				</div>	
 				<div class="row chart-item-mobile">
@@ -53,11 +53,11 @@
 								<label class="m-b-sm label-item label-price" data-product-price="{{ $item_list_normal_price }}">
 									@money_indo($item_list_normal_price) 
 								</label>
-								@if($item_list_promo_price)
-									<label class="m-b-sm label-item label-promo-price" data-product-promo-price="{{ $item_list_promo_price }}">
-										@money_indo($item_list_promo_price)
+
+									<label class="m-b-sm label-item ">
+
 									</label>
-								@endif
+
 							</div>
 						</div>
 						<div class="row">
@@ -113,9 +113,6 @@
 		@endif
 	</div>
 	<div class="col-md-2 col-sm-2 hidden-xs text-right">
-		@if ($item_list_promo_price!=0)
-			<label class="m-t-sm label-item label-promo-price" data-product-promo-price="{{ $item_list_promo_price }}">@money_indo($item_list_promo_price)</label>
-		@endif
 		<label class="m-t-sm label-item label-price" data-product-price="{{ $item_list_normal_price }}">@money_indo($item_list_normal_price)</label>
 	</div>
 	<div class="col-md-2 col-sm-2 hidden-xs text-right">
@@ -128,7 +125,7 @@
 		<a href="{{ route('frontend.cart.destroy', $item_list_id) }}" class="btn-hollow btn-hollow-xs hollow-black pull-right m-t-sm">
 			<i class="fa fa-times"></i>
 		</a>
-        
+		  
 	</div>
 	<div class="hidden-lg hidden-md hidden-sm col-xs-12">
 		<div class="row">

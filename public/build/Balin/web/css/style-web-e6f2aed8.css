@@ -491,21 +491,21 @@ html {
   }
 }
 .chart-header {
-  border-bottom: 3px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 .chart-header p {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 300;
   color: #555;
 }
 .chart-item {
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 .chart-item h4 {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 400;
 }
 .chart-item p {
   font-size: 14px;
@@ -513,23 +513,27 @@ html {
 }
 .chart-item .label-item {
   font-size: 16px;
+  font-weight: 400;
+}
+.chart-item:first-of-type {
+  border-top: none;
 }
 .chart-item-mobile h4 {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 .chart-topLine {
-  border-top: 2px solid #ccc;
+  border-top: 1px solid #ccc;
 }
 .chart-lowLine {
-  border-bottom: 2px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 .chart-footer {
   padding-top: 15px;
   padding-bottom: 15px;
 }
 .chart-footer h4 {
-  font-weight: bold;
+  font-weight: 300;
 }
 .chart-dropdown {
   width: 280px;

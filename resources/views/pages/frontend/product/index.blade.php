@@ -5,11 +5,11 @@
 	{
 		foreach ($filters as $key => $value) 
 		{
-			$datas = call_user_func([$datas, $key], $value);
+			$datas 	= call_user_func([$datas, $key], $value);
 		}
 	}
 	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true)->paginate(12);
-	$category       = $category::where('category_id', 0)
+	$category      = $category::where('category_id', 0)
 								->get();
 ?>
 
