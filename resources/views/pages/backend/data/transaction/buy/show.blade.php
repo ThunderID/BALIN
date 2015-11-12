@@ -58,7 +58,10 @@
 						<?php $amount = $amount + (($value['price'] - $value['discount']) * $value['quantity']);?>
 						<tr>
 							<td>{!!($key+1)!!}</td>
-							<td> {{$value['varian']['product']['upc']}} </td>
+							<td>
+								<strong> UPC </strong>{{$value['varian']['product']['upc']}} <br/>
+								<strong> SKU </strong>{{$value['varian']['sku']}}
+							</td>
 							<td> {{$value['varian']['product']['name']}} {{$value['varian']['size']}}</td>
 							<td> {{$value['quantity']}} </td>
 							<td> @money_indo($value['price']) </td>
