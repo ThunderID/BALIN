@@ -46,6 +46,7 @@
 	$('.select-customer').select2({
 		placeholder: 'Masukkan nama customer',
 		minimumInputLength: 2,
+		maximumSelectionSize: 1,
 		tags: false,
 		ajax : {
 			url: "{{ route('backend.customer.ajax.getCustomerByName') }}",
