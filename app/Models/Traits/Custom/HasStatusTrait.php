@@ -48,7 +48,7 @@ trait HasStatusTrait
 		}
 	}
 	
-	public function scopeTransactionType($query, $variable)
+	public function scopeExtendTransactionType($query, $variable)
 	{
 		if(is_array($variable))
 		{
@@ -64,19 +64,19 @@ trait HasStatusTrait
 
 	public function scopeTransactionStockOn($query, $variable)
 	{
-		return $query->jointransaction(true)->transactionlogstatus($variable)->transactiontype(['sell', 'buy'])
+		return $query->jointransaction(true)->transactionlogstatus($variable)->extendtransactiontype(['sell', 'buy'])
 		;
 	}
 
 	public function scopeTransactionSellOn($query, $variable)
 	{
-		return $query->jointransaction(true)->transactionlogstatus($variable)->transactiontype('sell')
+		return $query->jointransaction(true)->transactionlogstatus($variable)->extendtransactiontype('sell')
 		;
 	}
 
 	public function scopeTransactionBuyOn($query, $variable)
 	{
-		return $query->jointransaction(true)->transactionlogstatus($variable)->transactiontype('buy')
+		return $query->jointransaction(true)->transactionlogstatus($variable)->extendtransactiontype('buy')
 		;
 	}
 }

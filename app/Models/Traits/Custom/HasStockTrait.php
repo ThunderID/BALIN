@@ -47,6 +47,12 @@ trait HasStockTrait
 		;
 	}
 
+	public function scopeSelectSoldItem($query, $variable)
+	{
+		return $query->selectraw('IFNULL(SUM(quantity),0) sold_item')
+		;
+	}
+
 	public function scopeSelectGlobalStock($query, $variable)
 	{
 		return $query->selectcurrentstock(true)->selectonholdstock(true)->selectinventorystock(true)->selectreservedstock(true);
@@ -63,6 +69,12 @@ trait HasStockTrait
 	public function scopeJoinTransactionDetailFromVarian($query, $variable)
 	{
 		return $query->join('transaction_details', 'transaction_details.varian_id', '=', 'varians.id')
+		;
+	}
+
+	public function scopeJoinVarianFromTransactionDetail($query, $variable)
+	{
+		return $query->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
 		;
 	}
 

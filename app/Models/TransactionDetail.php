@@ -20,7 +20,9 @@ class TransactionDetail extends Eloquent
 	use \App\Models\Traits\belongsTo\HasVarianTrait;
 	use \App\Models\Traits\belongsToThrough\HasProductTrait;
 	use \App\Models\Traits\belongsTo\HasTransactionTrait;
-
+	use \App\Models\Traits\Custom\HasStockTrait;
+	use \App\Models\Traits\Custom\HasStatusTrait;
+	
 	/**
 	 * The database table used by the model.
 	 *
@@ -265,18 +267,9 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 				->selectraw('transaction_details.*')
-				->selectraw('IFNULL(SUM(if(transactions.type ="sell", 0-quantity, quantity)),0) stock')
-				->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-				->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
-						{
-							$join
-								->on('transaction_logs.transaction_id', '=', 'transactions.id')
-								->whereIn('transaction_logs.status' , ['wait', 'paid', 'shipping', 'delivered'])
-								;
-						})
-				->whereIn('transactions.type', ['sell', 'buy'])
-				->orderby('stock', 'asc')
-				// ->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
+				->selectcurrentstock(true)
+				->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+				->orderby('current_stock', 'asc')
 				->groupBy('varian_id')
 				;
 	}
@@ -284,17 +277,9 @@ class TransactionDetail extends Eloquent
 	public function scopeCountCurrentStockByProduct($query, $variable)
 	{
 		return 	$query
-					->selectraw('IFNULL(SUM(if(transactions.type ="sell", 0-quantity, quantity)),0) current_stock')
-					->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
-					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-					->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
-						{
-							$join
-								->on('transaction_logs.transaction_id', '=', 'transactions.id')
-								->whereIn('transaction_logs.status' , ['wait', 'paid', 'shipping', 'delivered'])
-								;
-						})
-					->whereIn('transactions.type', ['sell', 'buy'])
+					->selectcurrentstock(true)
+					->JoinVarianFromTransactionDetail(true)
+					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
 					->where('varians.product_id', $variable)
 					->first()
 					;
@@ -304,17 +289,9 @@ class TransactionDetail extends Eloquent
 	public function scopeCountSoldItemByProduct($query, $variable)
 	{
 		return 	$query
-					->selectraw('IFNULL(SUM(quantity),0) sold_item')
-					->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
-					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-					->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
-						{
-							$join
-								->on('transaction_logs.transaction_id', '=', 'transactions.id')
-								->whereIn('transaction_logs.status' , ['paid', 'shipping', 'delivered'])
-								;
-						})
-					->whereIn('transactions.type', ['sell'])
+					->selectsolditem(true)
+					->JoinVarianFromTransactionDetail(true)
+					->TransactionSellOn(['paid', 'shipping', 'delivered'])
 					->first()
 					;
 		;

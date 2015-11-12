@@ -132,7 +132,6 @@ class Varian extends Eloquent
 		return 	$query->selectraw('varians.*')
 					->selectglobalstock(true)
 					->JoinTransactionDetailFromVarian(true)
-					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
 					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
 					->groupby('varians.id')
 					;
