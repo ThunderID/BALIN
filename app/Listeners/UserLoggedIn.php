@@ -7,9 +7,12 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Auth, Cookie;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class UserLoggedIn
 {
+    use DispatchesJobs;
+    
     /**
      * Create the event listener.
      *
@@ -35,7 +38,7 @@ class UserLoggedIn
             if($result->getStatus()=='success')
             {
                 Cookie::forget('baskets');
-                
+
                 return true;
             }
             else
