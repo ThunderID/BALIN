@@ -72,7 +72,11 @@ $datas 			= $datas->with(['user'])->paginate();
 									<tr>
 										<td class="text-center">{{ $ctr }}</td>
 										<td class="text-left">{{ $data['user']['name'] }}</td>
-										<td class="text-right">{{ (is_null($data['total_buy']) ? $data['frequent_buy'] : $data['total_buy']) }}</td>
+										@if(is_null($data['total_buy']))
+											<td class="text-right">{{ $data['frequent_buy'] }}</td>
+										@else
+											<td class="text-right">@money_indo($data['total_buy'])</td>
+										@endif
 									</tr>       
 									<?php $ctr += 1; ?>                     
 									@endforeach 
