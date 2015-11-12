@@ -25,12 +25,13 @@ class UserCreating extends Job implements SelfHandling
 
     public function handle()
     {
-        $result					= $this->dispatch(new GenerateRefferalCode($this->user));
+        $this->user->is_active      = false;
+        $result					    = $this->dispatch(new GenerateRefferalCode($this->user));
 
         if($result->getStatus()=='success')
         {
             //activation link used to generate link for first claimed voucher
-            $result             = $this->dispatch(new GenerateActivationLink($this->user));
+            $result                 = $this->dispatch(new GenerateActivationLink($this->user));
         }
 
         return $result;

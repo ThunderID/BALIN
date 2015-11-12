@@ -8,10 +8,10 @@
 			<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">{{$data['name']}}</a>
 		</h4>
 		<div class="info-price">
-			<?php $price 	= $data->price;?>
-			@if($data->discount!=0)
-				<p class="text-center normal-price"><strike> @money_indo($data->price) </strike></p>
-				<?php $price 	= $data->promo_price;?>
+			<?php $price 	= $data['price'];?>
+			@if($data['discount']!=0)
+				<p class="text-center normal-price"><strike> @money_indo($data['price']) </strike></p>
+				<?php $price 	= $data['promo_price'];?>
 			@endif
 			@if($balance - $price >= 0)
 				<p class="text-center normal-price"><strike> @money_indo($price) </strike></p>

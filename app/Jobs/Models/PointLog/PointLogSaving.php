@@ -8,6 +8,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use App\Models\PointLog;
+use App\Models\StoreSetting;
 use App\Libraries\JSend;
 
 class PointLogSaving extends Job implements SelfHandling
@@ -36,13 +37,26 @@ class PointLogSaving extends Job implements SelfHandling
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat referral code anda sebagai pemberi referens.');
             }
+            elseif($this->pointlog->reference->quota <= 0)
+            {
+                $result                 = new JSend('error', (array)$this->pointlog, 'Untuk saat ini tidak dapat menggunakan referral code '.$this->pointlog->reference->name);
+            }
             else
             {
-                //temporary
-                $this->pointlog->amount = 20000;
-                $this->pointlog->notes  = 'Direferensikan '.$this->pointlog->reference->name;
+                $gift                   = StoreSetting::type('invitation_royalty')->Ondate('now')->first();
+
+                if(!$gift)
+                {
+                    $result             = new JSend('error', (array)$this->pointlog, 'Tidak ada campaign untuk point reference.');
+                }
+                else
+                {
+                    //temporary
+                    $this->pointlog->amount = $gift->value;
+                    $this->pointlog->notes  = 'Direferensikan '.$this->pointlog->reference->name;
+                    $result                 = new JSend('success', (array)$this->pointlog);
+                }
                 
-                $result                 = new JSend('success', (array)$this->pointlog);
             }
         }
         else
