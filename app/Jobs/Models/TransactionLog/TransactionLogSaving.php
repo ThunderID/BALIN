@@ -6,6 +6,8 @@ use App\Jobs\Job;
 use App\Jobs\CheckStock;
 use App\Jobs\CheckPaid;
 use App\Jobs\CheckShipping;
+
+use App\Jobs\Models\Transaction\Sell\TransactionSellSaving;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -33,6 +35,12 @@ class TransactionLogSaving extends Job implements SelfHandling
         {
             switch($this->transactionlog->status)
             {
+                case 'abandoned' :
+                    if($this->transactionlog->transaction->status!='cart')
+                    {
+                       $result              = new JSend('error', (array)$this->transactionlog, 'Tidak dapat mengabaikan transaksi yang bukan di keranjang');
+                    }
+                break;
                 case 'wait' :
                     $result                 = $this->dispatch(new CheckStock($this->transactionlog->transaction));
                 break;

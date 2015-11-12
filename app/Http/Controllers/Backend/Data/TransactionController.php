@@ -189,7 +189,7 @@ class TransactionController extends BaseController
 			default:
 				if(Input::has('voucher_code'))
 				{
-					$vouchers 				= Voucher::code(Input::get('voucher_code'))->first();
+					$vouchers 				= Voucher::code(Input::get('voucher_code'))->ondate('now')->first();
 
 					if(!$vouchers)
 					{
@@ -204,12 +204,14 @@ class TransactionController extends BaseController
 				{
 					$voucher 				= 0;
 				}
-
-				$data->fill([
-					'voucher_id'			=> $voucher,
-					'user_id'				=> $inputs['customer'],
-					'type'					=> 'sell',
-					]);
+				if(!$errors->count())
+				{
+					$data->fill([
+						'voucher_id'			=> $voucher,
+						'user_id'				=> $inputs['customer'],
+						'type'					=> 'sell',
+						]);
+				}
 				break;
 		}
 

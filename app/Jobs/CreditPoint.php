@@ -54,7 +54,7 @@ class CreditPoint extends Job implements SelfHandling
                         'point_log_id'      => $points[$idx]->id,
                         'amount'            => 0 - $currentamount,
                         'expired_at'        => $points[$idx]->expired_at,
-                        'notes'             => 'Pembayaran Belanja ',
+                        'notes'             => 'Pembayaran Belanja #'.$this->transaction->ref_number,
                     ]);
 
                 $point->reference()->associate($this->transaction);

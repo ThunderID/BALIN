@@ -37,7 +37,7 @@ class RevertPoint extends Job implements SelfHandling
                         'point_log_id'      => $value->id,
                         'amount'            => 0 - $value->amount,
                         'expired_at'        => $value->expired_at,
-                        'notes'             => 'Revert Point Belanja ',
+                        'notes'             => 'Revert Belanja #'.$this->transaction->ref_number,
                     ]);
         
                 $point->reference()->associate($this->transaction);

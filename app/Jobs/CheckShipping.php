@@ -28,7 +28,7 @@ class CheckShipping extends Job implements SelfHandling
 
         if(is_null($this->transaction->shipment->receipt_number) || $this->transaction->shipment->receipt_number='')
         {
-            $result                         = new JSend('error', (array)$this->transaction, 'Nomor resi pengiriman belum ada. Tambahkan nomor resi pengriman <a href="'.route('backend.data.shipment.edit', $this->transaction->shipment->id).'"> disini </a>.');
+            $result                         = new JSend('error', (array)$this->transaction, 'Nomor resi pengiriman belum ada. Tambahkan nomor resi pengiriman <a href="'.route('backend.data.shipment.edit', $this->transaction->shipment->id).'"> disini </a>.');
         }
         else
         {

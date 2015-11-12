@@ -96,7 +96,7 @@
 					@endforelse
 					@if($transaction['transactiondetails'])
 						<?php 
-							$discount_point = ($amount + $transaction['shipping_cost'] - $transaction['referral_discount'] - $transaction['unique_number']);
+							$discount_point = ($amount + $transaction['shipping_cost'] - $transaction['voucher_discount'] - $transaction['unique_number']);
 						?>
 						<tr>
 							<td colspan="5"></td>
@@ -106,7 +106,7 @@
 						<tr>
 							<td colspan="5"></td>
 							<td><strong>Diskon Referral</strong></td>
-							<td>@money_indo($transaction['referral_discount'])</td>
+							<td>@money_indo($transaction['voucher_discount'])</td>
 						</tr>
 						<tr>
 							<td colspan="5"></td>

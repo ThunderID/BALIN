@@ -40,7 +40,7 @@ class CountVoucherDiscount extends Job implements SelfHandling
             switch($this->transaction->voucher->type)
             {
                 case 'free_shipping_cost' :
-                    $this->transaction->voucher_discount    = $this->transaction->shipping_cost;
+                    $this->transaction->voucher_discount    = (!is_null($this->transaction->shipping_cost) ? $this->transaction->shipping_cost : 0);
                 break;
                 default :
                 break;

@@ -49,7 +49,7 @@
 			</tr>
 			<tr>
 				<td colspan="5">Diskon Referral</td>
-				<td>@money_indo(($data['bill']['referral_discount'] ? $data['bill']['referral_discount'] : 0))</td>
+				<td>@money_indo(($data['bill']['voucher_discount'] ? $data['bill']['voucher_discount'] : 0))</td>
 			</tr>
 			<tr>
 				<td colspan="5">Potongan Point</td>
