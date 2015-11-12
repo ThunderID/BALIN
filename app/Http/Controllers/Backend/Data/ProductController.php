@@ -339,7 +339,6 @@ class ProductController extends BaseController
 								->selectraw('CONCAT_WS(" ", products.name, varians.size) AS name')
 								->selectraw('prices.price AS price')
 								->selectraw('IFNULL(sum(if(prices.promo_price > 0, prices.price - prices.promo_price, 0)),0) AS discount')
-								->productname($inputs['name'])
 								->join('products', function ($join) use($inputs) 
 									{
 										$join
@@ -354,6 +353,7 @@ class ProductController extends BaseController
 										->where('prices.started_at' ,'<=' , $variable->format('Y-m-d H:i:s'))
 										;
 								})
+								->groupby('varians.id')
 								->get();
 
 		return json_decode(json_encode($tmp));

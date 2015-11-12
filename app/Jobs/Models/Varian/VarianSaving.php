@@ -20,6 +20,13 @@ class VarianSaving extends Job implements SelfHandling
 
     public function handle()
     {
+        $sku                        = Varian::sku($this->varian->sku)->notid($this->varian->id)->first();
+
+        if(!is_null($sku))
+        {
+            return new JSend('error', (array)$this->varian, 'SKU sudah ada.');
+        }
+
 	    $result 			        =  new JSend('success', (array)$this->varian);
 
         return $result;
