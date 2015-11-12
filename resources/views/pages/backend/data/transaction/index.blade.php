@@ -66,8 +66,8 @@ else
 									<th class="">{{ $type_user }}</th>
 									<th class=" text-center">Tanggal Transaksi</th>
 									<th class=" text-center">Status</th>
-									<th class=" text-center">Total</th>
-									<th class="">Kontrol</th>
+									<th class="text-right">Total</th>
+									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -93,8 +93,8 @@ else
 										@endif
 										<td class="text-center">@datetime_indo($data['transact_at'])</td>
 										<td class="text-center">{{ $data['status'] }} </td>
-										<td class="text-center">{{ $data['amount'] }} </td>
-										<td>
+										<td class="text-right">@money_indo($data['amount']) </td>
+										<td class="text-center">
 											<a href="{{route('backend.data.transaction.show', ['id' => $data['id'], 'type' => $data['type']])}}">Detail</a>,
 											<!-- <a href="{{route('backend.data.transaction.edit', ['id' => $data['id'], 'type' => $data['type']])}}">Edit</a>, -->
 											<a data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#trans_del"

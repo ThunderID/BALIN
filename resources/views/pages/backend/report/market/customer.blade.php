@@ -53,7 +53,7 @@ $datas 			= $datas->with(['user'])->paginate();
 								<tr>
 									<th class="text-center">No.</th>
 									<th class=" text-left">Produk</th>
-									<th class=" text-left">Jumlah</th>
+									<th class=" text-center">Jumlah</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -73,9 +73,9 @@ $datas 			= $datas->with(['user'])->paginate();
 										<td class="text-center">{{ $ctr }}</td>
 										<td class="text-left">{{ $data['user']['name'] }}</td>
 										@if(is_null($data['total_buy']))
-											<td class="text-right">{{ $data['frequent_buy'] }}</td>
+											<td class="text-center">{{ $data['frequent_buy'] }}</td>
 										@else
-											<td class="text-right">@money_indo($data['total_buy'])</td>
+											<td class="text-center">@money_indo($data['total_buy'])</td>
 										@endif
 									</tr>       
 									<?php $ctr += 1; ?>                     

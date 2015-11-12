@@ -53,10 +53,10 @@ $datas 			= $datas->with('addresses')->orderby('name')->paginate();
 								<tr>
 									<th>No.</th>
 									<th>Nama</th>
-									<th>Telepon</th>
-									<th>Zip Code</th>
-									<th>Alamat</th>
-									<th>Kontrol</th>
+									<th class="text-center">Telepon</th>
+									<th class="text-center">Zip Code</th>
+									<th class="text-center">Alamat</th>
+									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -76,10 +76,10 @@ $datas 			= $datas->with('addresses')->orderby('name')->paginate();
 									<tr>
 										<td>{{$ctr}}</td>
 										<td>{{$data['name']}}</td>
-										<td>{{$address['phone']}}</td>
-										<td>{{$address['zipcode']}}</td>
-										<td>{{$address['address']}}</td>
-										<td>
+										<td class="text-center">{{$address['phone']}}</td>
+										<td class="text-center">{{$address['zipcode']}}</td>
+										<td class="text-center">{{$address['address']}}</td>
+										<td class="text-center">
 											<a href="{{ URL::route('backend.data.supplier.show', ['id' => $data['id']]) }}"> Detail </a>, 
 											<a href="{{ URL::route('backend.data.supplier.edit', ['id' => $data['id']]) }}"> Edit </a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#supplier_del"

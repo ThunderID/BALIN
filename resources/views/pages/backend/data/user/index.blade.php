@@ -47,9 +47,9 @@ $datas          = $datas->with(['addresses'])->orderby('name')->paginate();
                                 <tr>
                                     <th class="text-center">No.</th>
                                     <th class="col-md-3">Nama</th>
-                                    <th class="col-md-2">Nomor Telepon</th>
-                                    <th class="col-md-4">Email</th>
-                                    <th>Kontrol</th>
+                                    <th class="col-md-3 text-center">Nomor Telepon</th>
+                                    <th class="col-md-3 text-center">Email</th>
+                                    <th class="text-center">Kontrol</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,9 +75,9 @@ $datas          = $datas->with(['addresses'])->orderby('name')->paginate();
                                                 <label class="label label-danger pull-right">inactive</label><br/>
                                             @endif
                                         </td>
-                                        <td>{{$data['phone']}}</td>
-                                        <td>{{$data['email']}}</td>
-                                        <td>
+                                        <td class="text-center">{{$data['phone']}}</td>
+                                        <td class="text-center">{{$data['email']}}</td>
+                                        <td class="text-center">
                                             <a href="{{ route('backend.data.customer.show', $data['id']) }}">Detail</a>, 
                                             <a href="{{ route('backend.data.customer.edit', $data['id']) }}">Edit</a>, 
                                             <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#cus_del"

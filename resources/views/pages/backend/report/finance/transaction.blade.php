@@ -52,10 +52,10 @@ $datas 			= $datas->status(['paid', 'shipping', 'delivered'])->with(['user', 'su
 							<thead>
 								<tr>
 									<th>No</th>
-									<th>Tanggal</th>
-									<th>Debit</th>
-									<th>Kredit</th>
-									<th>Saldo</th>
+									<th class="text-center">Tanggal</th>
+									<th class="text-right">Debit</th>
+									<th class="text-right">Kredit</th>
+									<th class="text-right">Saldo</th>
 									<th>Catatan</th>
 								</tr>
 							</thead>
@@ -65,18 +65,18 @@ $datas 			= $datas->status(['paid', 'shipping', 'delivered'])->with(['user', 'su
 									<?php $amount = $amount - $value->amount;?>
 									<tr>
 										<td>{!!($key+1)!!}</td>
-										<td> @date_indo($value->transact_at) </td>
+										<td class="text-center"> @date_indo($value->transact_at) </td>
 										@if($value->amount < 0)
-											<td>@money_indo(abs($value->amount))</td>
+											<td class="text-right">@money_indo(abs($value->amount))</td>
 										@else
 											<td></td>
 										@endif
 										@if($value->amount >= 0)
-											<td>@money_indo(abs($value->amount))</td>
+											<td class="text-right">@money_indo(abs($value->amount))</td>
 										@else
 											<td></td>
 										@endif
-										<td>@money_indo(abs($amount))</td>
+										<td class="text-right">@money_indo(abs($amount))</td>
 										@if($value->type=='sell')
 											<td>Transaksi Jual {!!$value->user->name!!}</td>
 										@else
@@ -85,7 +85,7 @@ $datas 			= $datas->status(['paid', 'shipping', 'delivered'])->with(['user', 'su
 									</tr>
 								@empty
 									<tr>
-										<td colspan="6"> Tidak ada data </td>
+										<td colspan="6" class="text-center"> Tidak ada data </td>
 									</tr>
 								@endforelse
 							</tbody>

@@ -53,9 +53,9 @@ $datas 			= $datas->orderby('account_name')->with(['transaction'])->paginate();
 									<th>No.</th>
 									<th>#</th>
 									<th>Nomor Akun</th>
-									<th>Jumlah</th>
-									<th>Tanggal Bayar</th>
-									<th>Kontrol</th>
+									<th class="text-right">Jumlah</th>
+									<th class="text-center">Tanggal Bayar</th>
+									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -75,9 +75,9 @@ $datas 			= $datas->orderby('account_name')->with(['transaction'])->paginate();
 										<td>{{$ctr}}</td>
 										<td><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['transaction']['ref_number']}}</a></td>
 										<td>{{$data['account_number']}}</td>                                                                               
-										<td>@money_indo($data['amount'])</td>                                                                               
-										<td>@date_indo($data['ondate'])</td>                                                                               
-										<td>
+										<td class="text-right">@money_indo($data['amount'])</td>                                                                               
+										<td class="text-center">@date_indo($data['ondate'])</td>                                                                               
+										<td class="text-center">
 											<!-- <a href="{{ URL::route('backend.data.payment.show', ['id' => $data['id']]) }}"> Detail </a>,  -->
 											<a href="{{ URL::route('backend.data.payment.edit', ['id' => $data['id']]) }}"> Edit </a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#payment_del"
