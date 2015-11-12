@@ -136,9 +136,6 @@ class CourierController extends BaseController
 		$inputs 										= Input::only('address_id', 'name', 'address', 'phone', 'zipcode');
 		$images 										= Input::only('thumbnail', 'image_xs','image_sm','image_md','image_lg');
 
-		$colors 										= ['ffcccc', 'ccccff', 'fffdcc', 'ddffcc', 'ffccfc', '000000', 'bababa', '00ffae', 'a0000a', '00fff0'];
-		$inputs['logo_url']								= 'http://placehold.it/200x200/'.$colors[rand(0, count($colors)-1)].'/000000';
-
 		if(!is_null($id))
 		{
 			$data										= Courier::find($id);
@@ -169,7 +166,6 @@ class CourierController extends BaseController
 				'image_sm'								=> $images['image_sm'],
 				'image_md'								=> $images['image_md'],
 				'image_lg'								=> $images['image_lg'],
-				'published_at'							=> date('Y-m-d H:i:s'),
 		]);
 
 		if (!$image->save())

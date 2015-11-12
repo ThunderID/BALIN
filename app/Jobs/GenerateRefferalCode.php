@@ -88,7 +88,7 @@ class GenerateRefferalCode extends Job implements SelfHandling
         		$fcode 							= implode('', $fnames);
         		$locode 						= implode('', $lostcode);
 
-    			$this->user->referral_code 		= $fcode.$lcode.$locode;
+    			$this->user->referral_code 		= strtolower($fcode.$lcode.$locode);
  
                 $referral                       = User::referralcode($fcode.$lcode.$locode)->first();
             }

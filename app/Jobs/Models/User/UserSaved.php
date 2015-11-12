@@ -31,7 +31,7 @@ class UserSaved extends Job implements SelfHandling
 
             if($result->getStatus()=='success')
             {
-                $this->user->is_active  = true;
+                // $this->user->is_active  = true;
 
                 if(!$this->user->save())
                 {

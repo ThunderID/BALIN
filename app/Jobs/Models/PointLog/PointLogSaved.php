@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use App\Models\User;
 use App\Models\PointLog;
+use App\Models\StoreSetting;
 
 use App\Jobs\Auditors\SaveAuditPoint;
 
@@ -28,24 +29,33 @@ class PointLogSaved extends Job implements SelfHandling
          //jika save referee dari user
         if($this->pointlog->reference_type=='App\Models\User')
         {
-            $referee                    = new PointLog;
+            $gift                       = StoreSetting::type('referral_royalty')->Ondate('now')->first();
 
-            $referee->fill([
-                    'user_id'           => $this->pointlog->reference_id,
-                    'amount'            => 20000,
-                    'expired_at'        => $this->pointlog->expired_at,
-                    'notes'             => 'Mereferensikan '.$this->pointlog->user->name,
-                ]);
-
-            $referee->reference()->associate($this->pointlog);
-
-            if(!$referee->save())
+            if(!$gift)
             {
-                $result                 = new JSend('error', (array)$this->pointlog, $referee->getError());
+                $result                 = new JSend('error', (array)$this->pointlog, 'Tidak ada campaign untuk point reference.');
             }
             else
             {
-                $result                 = new JSend('success', (array)$this->pointlog);
+                $referee                = new PointLog;
+
+                $referee->fill([
+                        'user_id'       => $this->pointlog->reference_id,
+                        'amount'        => $gift->value,
+                        'expired_at'    => $this->pointlog->expired_at,
+                        'notes'         => 'Mereferensikan '.$this->pointlog->user->name,
+                    ]);
+
+                $referee->reference()->associate($this->pointlog);
+
+                if(!$referee->save())
+                {
+                    $result             = new JSend('error', (array)$this->pointlog, $referee->getError());
+                }
+                else
+                {
+                    $result             = new JSend('success', (array)$this->pointlog);
+                }
             }
         }
         else

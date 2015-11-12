@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\BaseController;
 
-use Cookie, Response, Input, Auth;
+use Cookie, Response, Input, Auth, App;
+use App\Models\Product;
 
 class ProductController extends BaseController 
 {
@@ -67,8 +68,16 @@ class ProductController extends BaseController
 
 	public function show($slug = null)
 	{
-		$breadcrumb								= ['Produk' => route('frontend.product.index'),
-													$slug => route('frontend.product.show')
+		$data          							= Product::slug($slug)->sellable(true)->first();
+
+		if(!$data)
+		{
+			App::abort(404);
+		}
+
+		$breadcrumb								= 	[
+														'Produk' 			=> route('frontend.product.index'),
+														$data['name'] 		=> route('frontend.product.show', $slug)
 													];
 
 		if(Auth::check())
@@ -85,6 +94,7 @@ class ProductController extends BaseController
 														->with('slug', $slug)
 														->with('breadcrumb', $breadcrumb)
 														->with('balance', $balance)
+														->with('data', $data)
 														;
 		$this->layout->controller_name			= $this->controller_name;
 
