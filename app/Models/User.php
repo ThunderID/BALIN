@@ -196,15 +196,15 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
 	public function getCartBalanceAttribute($value)
 	{
-		$transaction 			= Transaction::type('sell')->status('draft')->userid($this->id)->first();
+		$transaction 					= Transaction::UserCurrentCart($this->id)->with('pointlogs')->first();
 
 		if($transaction)
 		{
-			$cart 				= $this->balance - $transaction->amount;
+			$cart 						= $this->balance - $transaction->amount;
 		}
 		else
 		{
-			$cart 				= $this->balance;
+			$cart 						= $this->balance;
 		}
 
 		if($cart < 0)

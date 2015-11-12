@@ -25,6 +25,7 @@ class Transaction extends Eloquent
 	use \App\Models\Traits\hasOne\HasShipmentTrait;
 	use \App\Models\Traits\belongsToMany\HasTransactionVariansTrait;
 	use \App\Models\Traits\morphMany\HasPointLogsTrait;
+	use \App\Models\Traits\Custom\HasStatusTrait;
 
 	/**
 	 * The database table used by the model.
@@ -242,5 +243,16 @@ class Transaction extends Eloquent
 				->orderby('frequent_buy', 'desc')
 				->groupBy('user_id')
 				;
+	}
+
+	public function scopeUserCurrentCart($query, $variable)
+	{
+		return 	$query->selectraw('transactions.*')
+					->type('sell')
+					->status('cart')
+					->userid($variable)
+					->orderby('transact_at', 'desc')
+					->with(['transactiondetails'])
+					;
 	}
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class Varian extends Eloquent
 {
@@ -19,6 +20,8 @@ class Varian extends Eloquent
 	use \App\Models\Traits\hasMany\HasTransactionDetailsTrait;
 	use \App\Models\Traits\belongsToMany\HasTransactionsTrait;
 	use \App\Models\Traits\belongsTo\HasProductTrait;
+	use \App\Models\Traits\Custom\HasStockTrait;
+	use \App\Models\Traits\Custom\HasStatusTrait;
 
 	/**
 	 * The database table used by the model.
@@ -104,6 +107,7 @@ class Varian extends Eloquent
 		return $this->errors;
 	}
 
+
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
@@ -118,8 +122,39 @@ class Varian extends Eloquent
 		return 	$query->where('id', $variable);
 	}
 
+	public function scopeNotID($query, $variable)
+	{
+		if(is_null($variable))
+		{
+			return 	$query;
+		}
+
+		if(is_array($variable))
+		{
+			return 	$query->whereNotIn('varians.id', $variable);
+		}
+
+		return 	$query->where('varians.id', '<>', $variable);
+	}
+
 	public function scopeSize($query, $variable)
 	{
 		return 	$query->where('size', $variable);
+	}
+
+	public function scopeSKU($query, $variable)
+	{
+		return 	$query->where('sku', $variable);
+	}
+
+	public function scopeGlobalStock($query, $variable)
+	{
+		return 	$query->selectraw('varians.*')
+					->selectglobalstock(true)
+					->JoinTransactionDetailFromVarian(true)
+					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->groupby('varians.id')
+					;
+		;
 	}
 }

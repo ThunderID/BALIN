@@ -22,9 +22,10 @@ class Product extends Eloquent
 	use \App\Models\Traits\hasMany\HasLablesTrait;
 	use \App\Models\Traits\hasMany\HasVariansTrait;
 	use \App\Models\Traits\hasManyThrough\HasTransactionDetailsTrait;
-	// use \App\Models\Traits\belongsToManyThrough\HasTransactionsTrait;
 	use \App\Models\Traits\belongsToMany\HasCategoriesTrait;
 	use \App\Models\Traits\morphMany\HasImagesTrait;
+	use \App\Models\Traits\Custom\HasStockTrait;
+	use \App\Models\Traits\Custom\HasStatusTrait;
 
 	/**
 	 * The database table used by the model.
@@ -97,7 +98,7 @@ class Product extends Eloquent
 	{
 		$price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 
-		if($price)
+		if(isset($price[0]))
 		{
 			return $price[count($this->prices)-1]->price;
 		}
@@ -107,20 +108,25 @@ class Product extends Eloquent
 
 	public function getDiscountAttribute($value)
 	{
+		if($this->promo_price==0)
+		{
+			return 0;
+		}
+	
 		return $this->price - $this->promo_price;
 	}
 
 	public function getPromoPriceAttribute($value)
 	{
-		$discount 					= $this->prices;//Price::productid($this->id)->ondate('now')->first();
+		$price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 		
-		if($discount)
+		if(isset($price[0]))
 		{
-			$price 					= $this->price - $discount[count($this->prices)-1]->promo_price;
+			$price 					= $price[count($this->prices)-1]->promo_price;
 		}
 		else
 		{
-			$price 					= $this->price;
+			$price 					= 0;
 		}
 
 		// if(Auth::check())
@@ -161,7 +167,7 @@ class Product extends Eloquent
 	{
 		$price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 
-		if($price)
+		if(isset($price[0]))
 		{
 			return date('Y-m-d H:i:s', strtotime($price[count($this->prices)-1]->started_at));
 		}
@@ -240,6 +246,11 @@ class Product extends Eloquent
 		return 	$query->where('slug', $variable);
 	}
 
+	public function scopeUPC($query, $variable)
+	{
+		return 	$query->where('upc', $variable);
+	}
+
 	public function scopeNotID($query, $variable)
 	{
 		if(is_null($variable))
@@ -258,19 +269,10 @@ class Product extends Eloquent
 	public function scopeSellable($query, $variable)
 	{
 		return 	$query->selectraw('products.*')
-					->selectraw('IFNULL(SUM(if(transactions.type ="sell", 0-quantity, quantity)),0) as current_stock')
-					->join('varians', 'varians.product_id', '=', 'products.id')
-					->join('transaction_details', 'transaction_details.varian_id', '=', 'varians.id')
-					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-					->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
-						{
-							$join
-								->on('transaction_logs.transaction_id', '=', 'transactions.id')
-								->whereIn('transaction_logs.status' , ['wait', 'paid', 'shipping', 'delivered'])
-								;
-						})
-					->whereIn('transactions.type', ['sell', 'buy'])
-					->havingraw('IFNULL(SUM(if(transactions.type ="sell", 0-quantity, quantity)),0) > 0')
+					->selectcurrentstock(true)
+					->JoinTransactionDetailFromProduct(true)
+					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->HavingCurrentStock(0)
 					->groupby('products.id')
 					;
 		;
@@ -279,63 +281,12 @@ class Product extends Eloquent
 	public function scopeGlobalStock($query, $variable)
 	{
 		return 	$query->selectraw('products.*')
-					->selectraw('IFNULL(SUM(
-									if(transactions.type ="sell", if(transaction_logs.status ="wait" OR transaction_logs.status ="paid" OR transaction_logs.status ="shipping" OR transaction_logs.status ="delivered", 0-quantity, 0), quantity)
-									),0) as current_stock')
-					->selectraw('IFNULL(SUM(
-									if(transactions.type ="sell", if(transaction_logs.status ="wait" OR transaction_logs.status ="paid", quantity, 0), 0)
-									),0) as on_hold_stock')
-					->selectraw('IFNULL(SUM(
-									if(transactions.type ="sell", if(transaction_logs.status ="shipping" OR transaction_logs.status ="delivered", 0-quantity, 0), quantity)
-									),0) as inventory_stock')
-					->selectraw('IFNULL(SUM(
-									if(transactions.type ="sell", if(transaction_logs.status ="paid", quantity, 0), 0)
-									),0) as reserved_stock')
-					->selectraw('IFNULL(SUM(
-									if(transactions.type ="sell", if(transaction_logs.status ="wait" OR transaction_logs.status ="paid", 0-quantity, 0), quantity)
-									),0) as bought_stock')
-					->join('varians', 'varians.product_id', '=', 'products.id')
-					->join('transaction_details', 'transaction_details.varian_id', '=', 'varians.id')
-					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-					->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
-						{
-							$join
-								->on('transaction_logs.transaction_id', '=', 'transactions.id')
-								->whereIn('transaction_logs.status' , ['wait', 'paid', 'shipping', 'delivered'])
-								;
-						})
-					->whereIn('transactions.type', ['sell', 'buy'])
+					->selectglobalstock(true)
+					->JoinTransactionDetailFromProduct(true)
+					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
 					->groupby('products.id')
 					;
 		;
-	}
-	public function scopeCountOnHoldStock($query, $variable)
-	{
-		return 	$query
-					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as on_hold_stock')
-					->wherehas('transactiondetails.transaction', function($q){$q->status(['wait'])->type('sell');})
-					->first()
-					;
-		;
-	}
-
-	public function scopeCountReservedStock($query, $variable)
-	{
-		return 	$query
-					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as reserved_stock')
-					->wherehas('transactiondetails.transaction', function($q){$q->status(['paid'])->type('sell');})
-					->first()
-					;
-		;
-	}
-
-	public function scopeCountBoughtStock($query, $variable)
-	{
-		return 	$query
-					->selectraw('(SELECT IFNULL(SUM(quantity),0) FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as bought_stock')
-					->wherehas('transactiondetails.transaction', function($q){$q->status('delivered')->type('buy');})
-					->first()
-					;
 	}
 
 	public function scopeTotalSell($query, $variable)
@@ -344,7 +295,9 @@ class Product extends Eloquent
 					->select('products.*')
 					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as selled_frequency')
 					->selectraw('(SELECT IFNULL(COUNT(quantity),0) FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as selled_stock')
-					->wherehas('transactiondetails.transaction', function($q){$q->status(['paid','shipped','delivered'])->type('sell');})
+					->JoinTransactionDetailFromProduct(true)
+					->TransactionSellOn(['paid', 'shipping', 'delivered'])
+					->groupby('products.id')
 					;
 	}
 
@@ -354,18 +307,9 @@ class Product extends Eloquent
 					->selectraw('products.*')
 					->selectraw('suppliers.name as supplier_name')
 					->selectraw('suppliers.id as supplier_id')
-					->join('varians', 'varians.product_id', '=', 'products.id')
-					->join('transaction_details', 'transaction_details.varian_id', '=', 'varians.id')
-					->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-					->join(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
-					{
-						$join
-							->on('transaction_logs.transaction_id', '=', 'transactions.id')
-							->whereIn('transaction_logs.status' , ['paid','shipped','delivered'])
-							;
-					})
+					->JoinTransactionDetailFromProduct(true)
+					->TransactionBuyOn(['paid', 'shipping', 'delivered'])
 					->join('suppliers', 'suppliers.id', '=', 'transactions.supplier_id')
-					->where('transactions.type', 'buy')
 					->groupby('supplier_id')
 					;
 	}

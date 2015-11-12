@@ -5,6 +5,8 @@
 <?php 
 	$product 		= $product::find($pid);
 
+	$stocks			= $data::where('varians.id', $id)->globalstock(true)->first();
+
 	$data 			= $data::find($id);
 
 	$td 			= $td->varianid($id)->CountSoldItemByProduct(true);
@@ -39,7 +41,7 @@
 			<div class="panel panel-panel panel-default">
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						{!! $data->stock !!}
+						{!! $stocks->current_stock !!}
 					</h4>
 				</div>
 				<div class="panel-heading">Stok Display</div>
@@ -50,11 +52,7 @@
 			<div class="panel panel-panel panel-default">
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						@if(isset($data->stocks[0]))
-							{!! $data->stocks[0]->current_stock + $data->stocks[0]->reserved_stock + $data->stocks[0]->on_hold_stock !!}
-						@else
-							0
-						@endif
+						{!! $stocks->inventory_stock !!}
 					</h4>
 				</div>
 				<div class="panel-heading">Stok Gudang</div>
@@ -65,11 +63,7 @@
 			<div class="panel panel-panel panel-default">
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						@if(isset($data->stocks[0]))
-							{!! $data->stocks[0]->reserved_stock !!}
-						@else
-							0
-						@endif
+						{!! $stocks->reserved_stock !!}
 					</h4>
 				</div>
 				<div class="panel-heading">Stok Dibayar</div>
@@ -80,11 +74,7 @@
 			<div class="panel panel-panel panel-default">
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
-						@if(isset($data->stocks[0]))
-							{!! $data->stocks[0]->on_hold_stock !!}
-						@else
-							0
-						@endif
+						{!! $stocks->on_hold_stock !!}
 					</h4>
 				</div>
 				<div class="panel-heading">Stok Dipesan</div>
