@@ -170,6 +170,7 @@ class ProductController extends BaseController
 				$errors->add('Product', $data->getError());
 			}
 
+			//price
 			$in_price  			=	str_replace('Rp ', '', str_replace('.', '', Input::get('price')));
 			$in_promo_price  	=	str_replace('Rp ', '', str_replace('.', '', Input::get('promo_price')));
 
