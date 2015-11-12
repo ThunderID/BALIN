@@ -31,7 +31,7 @@
 		<div class="col-md-3">
 			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
-					{!! $customer->balance !!}
+					@money_indo($customer->balance)
 				</div>
 				<div class="panel-heading">Point</div>
 			</div>

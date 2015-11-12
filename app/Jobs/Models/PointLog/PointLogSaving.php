@@ -28,14 +28,14 @@ class PointLogSaving extends Job implements SelfHandling
         if($this->pointlog->reference_type=='App\Models\User')
         {
             //Check referee
-            $reference                  = PointLog::referenceid($this->pointlog->reference_id)->first();
+            $reference                  = PointLog::referenceid($this->pointlog->reference_id)->referencetype('App\Models\User')->first();
             if($reference && $this->pointlog->user_id == $reference->reference_id)
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat memakai referensi dari pemberi referens.');
             }
             elseif($this->pointlog->user_id == $this->pointlog->reference_id)
             {
-                $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat referral code anda sebagai pemberi referens.');
+                $result                 = new JSend('error', (array)$this->pointlog, 'Tidak memakai dapat referral code anda sebagai pemberi referens.');
             }
             elseif($this->pointlog->reference->quota <= 0)
             {
