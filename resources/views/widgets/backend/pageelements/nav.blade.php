@@ -143,6 +143,9 @@
 					<li class="@if($subnav_active=='point') active @endif">
 						<a href="{{ route('backend.report.audit.point') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penambahan Point Manual</span></a>
 					</li>
+					<li class="@if($subnav_active=='quota') active @endif">
+						<a href="{{ route('backend.report.audit.quota') }}"><i class="fa fa-archive"></i> <span class="nav-label">Penambahan Quota Manual</span></a>
+					</li>
 				</ul>
 			</li>
 			@endcan

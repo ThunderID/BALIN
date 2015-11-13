@@ -49,6 +49,13 @@ class PointLogSaving extends Job implements SelfHandling
                 {
                     $result             = new JSend('error', (array)$this->pointlog, 'Tidak ada campaign untuk point reference.');
                 }
+                elseif($this->pointlog->reference->voucher->value!=0)
+                {
+                    //temporary
+                    $this->pointlog->amount = $this->pointlog->reference->voucher->value;
+                    $this->pointlog->notes  = 'Referensi promo '.$this->pointlog->reference->name;
+                    $result                 = new JSend('success', (array)$this->pointlog);
+                }
                 else
                 {
                     //temporary

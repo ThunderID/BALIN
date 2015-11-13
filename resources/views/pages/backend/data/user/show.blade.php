@@ -91,7 +91,7 @@
 				<div class="panel-heading">Informasi Pribadi</div>
 				<div class="panel-body m-l">
 					<h5><strong>Nama</strong><br/> {!!$customer->name!!}</h5>
-					<h5><strong>Referral Code</strong><br/> {!!$customer->referral_code!!}</h5>
+					<h5><strong>Referral Code</strong><br/> {!!$customer->referral_code!!} @if($customer->voucher()->count()) <a href="{{route('backend.settings.voucher.edit', $customer->voucher->id)}}"> custom royalti</a> @endif</h5>
 					<h5><strong>Email</strong><br/> {!!$customer->email!!}</h5>
 					<h5><strong>Tanggal Join</strong><br/> @date_indo($customer->created_at)</h5>
 					<h5><strong>Gender</strong><br/> {!!$customer->gender!!}</h5>

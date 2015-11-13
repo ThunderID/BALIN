@@ -137,6 +137,19 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		// ------------------------------------------------------------------------------------
 		
 		Route::resource('vouchers', 	'VoucherController', 			['names' => ['index' => 'backend.settings.voucher.index', 'create' => 'backend.settings.voucher.create', 'store' => 'backend.settings.voucher.store', 'show' => 'backend.settings.voucher.show', 'edit' => 'backend.settings.voucher.edit', 'update' => 'backend.settings.voucher.update', 'destroy' => 'backend.settings.voucher.destroy']]);
+		
+		// ------------------------------------------------------------------------------------
+		// QUOTA
+		// ------------------------------------------------------------------------------------
+		
+		Route::resource('vouchers/{vou_id?}/quotas', 					'QuotaController', 				['names' => ['index' => 'backend.settings.quota.index', 'create' => 'backend.settings.quota.create', 'store' => 'backend.settings.quota.store', 'show' => 'backend.settings.quota.show', 'edit' => 'backend.settings.quota.edit', 'update' => 'backend.settings.quota.update', 'destroy' => 'backend.settings.quota.destroy']]);
+
+		// ------------------------------------------------------------------------------------
+		// VOUCHERS' MAIL
+		// ------------------------------------------------------------------------------------
+		Route::get('vouchers/mail/{id}',								['uses' => 'VoucherController@getMail', 'as' => 'backend.settings.voucher.getmail']);
+		
+		Route::post('vouchers/mail/{id}',								['uses' => 'VoucherController@postMail', 'as' => 'backend.settings.voucher.postmail']);
 
 		// ------------------------------------------------------------------------------------
 		// STORE
@@ -285,6 +298,12 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		// ------------------------------------------------------------------------------------
 		
 		Route::any('audit/point',										['uses' => 'AuditController@point', 'as' => 'backend.report.audit.point']);
+
+		// ------------------------------------------------------------------------------------
+		// AUDIT - QUOTA
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('audit/quota',										['uses' => 'AuditController@quota', 'as' => 'backend.report.audit.quota']);
 		});
 	});
 });
@@ -358,6 +377,8 @@ Route::group(['namespace' => 'Frontend\\'], function()
 		Route::get('/orders', 											['uses' => 'ProfileController@orders', 'as' => 'frontend.profile.order.index']);
 
 		Route::get('/order/{ref}', 										['uses' => 'ProfileController@order', 'as' => 'frontend.profile.order.show']);
+		
+		Route::get('/order/delete/{ref}', 								['uses' => 'ProfileController@orderdestroy', 'as' => 'frontend.profile.order.destroy']);
 	
 		Route::get('/reference', 										['uses' => 'CampaignController@getreference', 'as' => 'frontend.profile.reference.get']);
 

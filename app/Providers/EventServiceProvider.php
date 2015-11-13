@@ -15,6 +15,7 @@ class EventServiceProvider extends ServiceProvider
 	protected $listen = 
 	[
 		'auth.login'											=>		['App\Listeners\UserLoggedIn'],
+		'auth.logout'											=> 		['App\Listeners\UserLoggedOut'],
 	];
 
 	/**

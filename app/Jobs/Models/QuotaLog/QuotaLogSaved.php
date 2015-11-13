@@ -8,6 +8,7 @@ use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\QuotaLog;
+use App\Jobs\Auditors\SaveAuditQuota;
 
 class QuotaLogSaved extends Job implements SelfHandling
 {
@@ -20,6 +21,8 @@ class QuotaLogSaved extends Job implements SelfHandling
 
     public function handle()
     {
-        return new JSend('success', (array)$this->quotalog);
+    	$result                     = $this->dispatch(new SaveAuditQuota($this->pointlog));
+
+        return $result;
     }
 }

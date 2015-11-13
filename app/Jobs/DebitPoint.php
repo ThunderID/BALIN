@@ -26,31 +26,31 @@ class DebitPoint extends Job implements SelfHandling
 
     public function handle()
     {
+        $result                             = new JSend('success', (array)$this->transaction);
+
         if(!is_null($this->transaction->id))
         {
-            $expired                    = StoreSetting::type('voucher_point_expired')->Ondate('now')->first();
+            $expired                        = StoreSetting::type('voucher_point_expired')->Ondate('now')->first();
 
             if($expired)
             {
-                $point                  = new PointLog;
+                $point                      = new PointLog;
                 $point->fill([
-                        'user_id'       => $this->transaction->user_id,
-                        'amount'        => $this->debit,
-                        'expired_at'    => date('Y-m-d H:i:s', strtotime($this->transaction->transact_at.' '.$expired->value)),
-                        'notes'         => 'Bonus Belanja dengan Voucher ',
+                        'user_id'           => $this->transaction->user_id,
+                        'amount'            => $this->debit,
+                        'expired_at'        => date('Y-m-d H:i:s', strtotime($this->transaction->transact_at.' '.$expired->value)),
+                        'notes'             => 'Bonus Belanja dengan Voucher ',
                     ]);
 
                 $point->reference()->associate($this->transaction);
 
                 if(!$point->save())
                 {
-                    return new JSend('error', (array)$this->transaction, $point->getError());
+                    $result                 = new JSend('error', (array)$this->transaction, $point->getError());
                 }
             }
         }
 
-        $result                         = new JSend('success', (array)$this->transaction);
-        
         return $result;
     }
 }

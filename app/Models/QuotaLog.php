@@ -116,4 +116,9 @@ class QuotaLog extends Eloquent
 
 		return $query->where('created_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('created_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
 	}
+
+	public function scopeNotes($query, $variable)
+	{
+		return 	$query->where('notes', $variable);
+	}
 }
