@@ -15,10 +15,12 @@ use Illuminate\Contracts\Bus\SelfHandling;
 class AddQuotaRegistration extends Job implements SelfHandling
 {
     protected $user;
+    protected $voucher;
 
-    public function __construct(User $user)
+    public function __construct(User $user, $voucher)
     {
         $this->user                  = $user;
+        $this->voucher               = $voucher;
     }
 
     public function handle()
@@ -40,12 +42,10 @@ class AddQuotaRegistration extends Job implements SelfHandling
         {
         	$newquota 				= new QuotaLog;
         	$newquota->fill([
-        		'voucher_id'		=> $this->user->voucher->id,
+        		'voucher_id'		=> $this->voucher['id'],
 				'amount'			=> $quota->value,
 				'notes'				=> 'Hadiah registrasi',
         		]);
-
-        	$newquota->reference()->associate($this->user);
 
         	if(!$newquota->save())
         	{

@@ -30,6 +30,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	use \App\Models\Traits\hasMany\HasQuotaLogsTrait;
 	use \App\Models\Traits\hasMany\HasAuditorsTrait;
 	use \App\Models\Traits\morphMany\HasImagesTrait;
+	use \App\Models\Traits\morphMany\HasAddressesTrait;
 	use \App\Models\Traits\hasOne\HasVoucherTrait;
 
 	/**
@@ -134,9 +135,14 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
 	public function getQuotaAttribute($value)
 	{
-		$quota 							= QuotaLog::userid($this->id)->sum('amount');
+		if($this->voucher()->count())
+		{
+			$quota 						= QuotaLog::voucherid($this->voucher->id)->sum('amount');
+			
+			return $quota;
+		}
 
-		return $quota;
+		return 0;
 	}
 
 	public function getBalanceAttribute($value)

@@ -31,7 +31,9 @@ class UserCreated extends Job implements SelfHandling
         
         if($result->getStatus()=='success')
         {
-            $result					= $this->dispatch(new AddQuotaRegistration($this->user));
+            $voucher                = json_decode(json_encode($result->getData()), true);
+            
+            $result					= $this->dispatch(new AddQuotaRegistration($this->user, $voucher));
         }
         
         if($result->getStatus()=='success')
