@@ -3,7 +3,6 @@
 namespace App\Jobs\Models\User;
 
 use App\Jobs\Job;
-use App\Jobs\GenerateRefferalCode;
 use App\Jobs\GenerateActivationLink;
 
 use App\Libraries\JSend;
@@ -26,13 +25,9 @@ class UserCreating extends Job implements SelfHandling
     public function handle()
     {
         $this->user->is_active      = false;
-        $result					    = $this->dispatch(new GenerateRefferalCode($this->user));
 
-        if($result->getStatus()=='success')
-        {
-            //activation link used to generate link for first claimed voucher
-            $result                 = $this->dispatch(new GenerateActivationLink($this->user));
-        }
+        //activation link used to generate link for first claimed voucher
+        $result                     = $this->dispatch(new GenerateActivationLink($this->user));
 
         return $result;
     }

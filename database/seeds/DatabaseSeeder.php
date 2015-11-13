@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
         
         $this->call('StoreSettingTableSeeder');
 
+        // $this->call('VoucherTableSeeder');
+        
         $this->call('UserTableSeeder');
 
         // $this->call('SupplierTableSeeder');
@@ -23,7 +25,6 @@ class DatabaseSeeder extends Seeder
 
         // $this->call('ShippingCostTableSeeder');
         // $this->call('PointLogTableSeeder');
-        // $this->call('VoucherTableSeeder');
 
         // $this->call('CategoryTableSeeder');
         // $this->call('ProductTableSeeder');

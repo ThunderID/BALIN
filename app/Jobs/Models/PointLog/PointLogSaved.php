@@ -58,12 +58,10 @@ class PointLogSaved extends Job implements SelfHandling
                     $quota              = new QuotaLog;
 
                     $quota->fill([
-                            'user_id'   => $this->pointlog->reference_id,
+                            'voucher_id'=> $this->pointlog->reference->voucher->id,
                             'amount'    => -1,
                             'notes'     => 'Mereferensikan '.$this->pointlog->user->name,
                         ]);
-
-                    $quota->reference()->associate($this->pointlog);
 
                     if(!$quota->save())
                     {

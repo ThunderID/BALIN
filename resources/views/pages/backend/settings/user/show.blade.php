@@ -32,7 +32,7 @@
 		<div class="col-md-3">
 			<div class="panel panel-widget panel-default">
 				<div class="panel-body">
-					{!! $authentication->balance !!}
+					@money_indo($authentication->balance)
 				</div>
 				<div class="panel-heading">Point</div>
 			</div>
