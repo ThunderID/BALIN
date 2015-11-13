@@ -23,7 +23,7 @@ class CreateVoucherTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            $table->index(['deleted_at', 'type', 'started_at']);
+            $table->index(['deleted_at', 'code', 'started_at']);
         });
     }
 
