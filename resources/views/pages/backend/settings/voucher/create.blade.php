@@ -38,7 +38,7 @@
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group">
 					<label for="type" class="text-capitalize">Tipe</label>
-					{!! Form::select('type', ['free_shipping_cost' => 'Potongan Shipping Cost', 'debit_point' => 'Debit Point'], $data['type'], ['class' => 'form-control', 'tabindex' => '2']) !!}
+					{!! Form::select('type', ['referral' => 'Referral', 'free_shipping_cost' => 'Potongan Shipping Cost', 'debit_point' => 'Debit Point'], $data['type'], ['class' => 'form-control', 'tabindex' => '2']) !!}
 				</div>
 			</div>
 		</div>

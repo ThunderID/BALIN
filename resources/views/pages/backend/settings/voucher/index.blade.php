@@ -9,7 +9,7 @@ if(!is_null($filters) && is_array($filters))
 	}
 }
 
-$datas 			= $datas->orderby('expired_at')->paginate();
+$datas 			= $datas->orderby(DB::raw('type', 'expired_at'))->paginate();
 
 ?>
 
@@ -57,8 +57,9 @@ $datas 			= $datas->orderby('expired_at')->paginate();
 									<th>No.</th>
 									<th>Code</th>
 									<th>Tipe</th>
+									<th>Quota</th>
 									<th class="col-md-4 text-center">Masa Berlaku</th>
-									<th class="col-md-2 text-center">Kontrol</th>
+									<th class="col-md-3 text-center">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -78,11 +79,15 @@ $datas 			= $datas->orderby('expired_at')->paginate();
 											<td>{{ $ctr }}</td>
 											<td>{{ $data['code'] }}</td>
 											<td>{{ str_replace('_', ' ', $data['type']) }} : {{$data['value']}}</td>
+											<td class="text-right">{{ $data['quota'] }}</td>
 											<td class="text-center">
+												@if(!is_null($data['started_at']) && !is_null($data['expired_at']))
 												@datetime_indo($data['started_at'])
 												- @datetime_indo($data['expired_at'])
+												@endif
 											</td>
 											<td class="text-center">
+												<a href="{{ route('backend.settings.quota.index', ['vou_id' => $data['id']]) }}"> Quota </a>, 
 												<a href="{{ route('backend.settings.voucher.show', $data['id']) }}"> Detail </a>, 
 												<a href="{{ route('backend.settings.voucher.edit', $data['id']) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#courier_del"

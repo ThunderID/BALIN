@@ -3,6 +3,7 @@
 namespace App\Jobs\Models\Transaction\Sell;
 
 use App\Jobs\Job;
+use App\Jobs\CreditQuota;
 use App\Libraries\JSend;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -24,6 +25,11 @@ class TransactionSellSaved extends Job implements SelfHandling
     public function handle()
     {
         $result                                 = new JSend('success', (array)$this->transaction );
+
+        if($this->transaction->voucher->count())
+        {
+            $result                             = $this->dispatch(new CreditQuota($this->transaction->voucher, 'Penggunaan voucher untuk transaksi #'.$this->transaction->ref_number));
+        }
 
         return $result;
     }

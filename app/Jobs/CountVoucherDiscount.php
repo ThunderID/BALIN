@@ -42,7 +42,11 @@ class CountVoucherDiscount extends Job implements SelfHandling
                 case 'free_shipping_cost' :
                     $this->transaction->voucher_discount    = (!is_null($this->transaction->shipping_cost) ? $this->transaction->shipping_cost : 0);
                 break;
+                case 'referral' :
+                    $result                                 = new JSend('error', (array)$this->transaction, 'Tidak dapat menggunakan kode referral sebagai voucher.');
+                break;
                 default :
+                    $result                                 = new JSend('error', (array)$this->transaction, 'Voucher tidak terdaftar.');
                 break;
             }
         }

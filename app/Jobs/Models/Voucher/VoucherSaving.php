@@ -19,6 +19,11 @@ class VoucherSaving extends Job implements SelfHandling
 
     public function handle()
     {
+        if($this->voucher->user()->count())
+        {
+            $this->voucher->type        = 'referral';
+        }
+
 		if($this->voucher->transactions->count())
 		{
 			return new JSend('error', (array)$this->voucher, 'Tidak dapat mengubah voucher yang telah digunakan dalam transaksi.');

@@ -69,6 +69,7 @@ class Voucher extends Eloquent
 	 * @var array
 	 */
 	protected $appends				=	[
+											'quota',
 										];
 
 	/**
@@ -82,6 +83,13 @@ class Voucher extends Eloquent
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
+	
+	public function getQuotaAttribute($value)
+	{
+		$quota 						= QuotaLog::voucherid($this->id)->sum('amount');
+			
+		return $quota;
+	}
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 		
@@ -113,6 +121,16 @@ class Voucher extends Eloquent
 	public function scopeCode($query, $variable)
 	{
 		return 	$query->where('code', $variable);
+	}
+
+	public function scopeType($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('type', $variable);
+		}
+
+		return 	$query->where('type', $variable);
 	}
 
 	public function scopeOnDate($query, $variable)

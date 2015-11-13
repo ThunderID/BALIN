@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <!-- <p class="danger text-center">Error apa gitu</p> -->
-                {!! Form::open(['url' => $modal_route,'method' => 'delete', 'class' => 'modal1']) !!}
+                {!! Form::open(['url' => $modal_route,'method' => 'DELETE', 'class' => 'modal1']) !!}
                     {!! Form::input('hidden', 'id', NULL,  
                             ['class' => 'mod_id']
                     ) !!}   

@@ -139,6 +139,12 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		Route::resource('vouchers', 	'VoucherController', 			['names' => ['index' => 'backend.settings.voucher.index', 'create' => 'backend.settings.voucher.create', 'store' => 'backend.settings.voucher.store', 'show' => 'backend.settings.voucher.show', 'edit' => 'backend.settings.voucher.edit', 'update' => 'backend.settings.voucher.update', 'destroy' => 'backend.settings.voucher.destroy']]);
 
 		// ------------------------------------------------------------------------------------
+		// QUOTA
+		// ------------------------------------------------------------------------------------
+		
+		Route::resource('vouchers/{vou_id?}/quotas', 					'QuotaController', 				['names' => ['index' => 'backend.settings.quota.index', 'create' => 'backend.settings.quota.create', 'store' => 'backend.settings.quota.store', 'show' => 'backend.settings.quota.show', 'edit' => 'backend.settings.quota.edit', 'update' => 'backend.settings.quota.update', 'destroy' => 'backend.settings.quota.destroy']]);
+
+		// ------------------------------------------------------------------------------------
 		// STORE
 		// ------------------------------------------------------------------------------------
 
