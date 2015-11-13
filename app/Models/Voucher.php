@@ -17,6 +17,7 @@ class Voucher extends Eloquent
 	 */
 
 	use \App\Models\Traits\hasMany\HasTransactionsTrait;
+	use \App\Models\Traits\hasMany\HasQuotaLogsTrait;
 
 	/**
 	 * The database table used by the model.
@@ -34,6 +35,7 @@ class Voucher extends Eloquent
 	 */
 
 	protected $fillable				=	[
+											'user_id'						,
 											'code'							,
 											'type'							,
 											'value'							,

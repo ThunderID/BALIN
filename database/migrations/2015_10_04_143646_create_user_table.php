@@ -17,7 +17,6 @@ class CreateUserTable extends Migration
             $table->string('name', 255);
             $table->string('email', 255)->unique();
             $table->string('password', 60);
-            $table->string('referral_code',255);
             $table->string('role', 255);
             $table->boolean('is_active');
             $table->string('sso_id', 255);
@@ -28,11 +27,13 @@ class CreateUserTable extends Migration
             $table->string('activation_link', 255);
             $table->string('reset_password_link', 255);
             $table->datetime('expired_at')->nullable();
+            $table->datetime('last_logged_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
 
             $table->index(['deleted_at', 'email']);
+            $table->index(['deleted_at', 'name']);
         });
     }
 

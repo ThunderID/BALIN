@@ -4,6 +4,7 @@ namespace App\Jobs\Models\User;
 
 use App\Jobs\Job;
 use App\Jobs\AddQuotaRegistration;
+use App\Jobs\AddRefferalCode;
 use App\Jobs\SendWelcomeEmail;
 
 use App\Libraries\JSend;
@@ -25,7 +26,13 @@ class UserCreated extends Job implements SelfHandling
 
     public function handle()
     {
-        $result						= $this->dispatch(new AddQuotaRegistration($this->user));
+        //give refferalcode
+        $result                     = $this->dispatch(new AddRefferalCode($this->user));
+        
+        if($result->getStatus()=='success')
+        {
+            $result					= $this->dispatch(new AddQuotaRegistration($this->user));
+        }
         
         if($result->getStatus()=='success')
         {

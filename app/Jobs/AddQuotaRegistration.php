@@ -40,7 +40,7 @@ class AddQuotaRegistration extends Job implements SelfHandling
         {
         	$newquota 				= new QuotaLog;
         	$newquota->fill([
-        		'user_id'			=> $this->user->id,
+        		'voucher_id'		=> $this->user->voucher->id,
 				'amount'			=> $quota->value,
 				'notes'				=> 'Hadiah registrasi',
         		]);

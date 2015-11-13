@@ -19,36 +19,36 @@ $shippedtrs             = $transaction->type('sell')->ondate(['first day of this
 
 @section('content')
 	<div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6">
             <div class="panel panel-default panel-widget">
                 <div class="panel-body">
                     {{$total_product}}
                 </div>
-                <div class="panel-heading">Total Produk</div>
+                <div class="panel-heading">Total Produk<a href="{{route('backend.data.product.index')}}" class="pull-right">&nbsp; <i class="fa fa-arrow-circle-o-right"></i></a></div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6">
             <div class="panel panel-default panel-widget">
                 <div class="panel-body">
                     @money_indo($total_point)
                 </div>
-                <div class="panel-heading">Total Poin (Bulan Ini)</div>
+                <div class="panel-heading">Total Poin (Bulan Ini)<a href="{{route('backend.report.finance.point')}}" class="pull-right">&nbsp; <i class="fa fa-arrow-circle-o-right"></i></a></div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6">
             <div class="panel panel-default panel-widget">
                 <div class="panel-body">
                     {{$freq_trans}}
                 </div>
-                <div class="panel-heading">Total Penjualan (Bulan Ini)</div>
+                <div class="panel-heading">Total Jual (Bulan Ini)<a href="{{route('backend.data.product.index')}}" class="pull-right">&nbsp; <i class="fa fa-arrow-circle-o-right"></i></a></div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6">
             <div class="panel panel-default panel-widget">
                 <div class="panel-body">
                     @money_indo($total_trans)
                 </div>
-                <div class="panel-heading">Jumlah Penjualan (Bulan Ini)</div>
+                <div class="panel-heading">Jumlah Jual (Bulan Ini)<a href="{{route('backend.data.product.index')}}" class="pull-right">&nbsp; <i class="fa fa-arrow-circle-o-right"></i></a></div>
             </div>
         </div>
     </div>
