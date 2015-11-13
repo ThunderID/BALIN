@@ -1,6 +1,6 @@
 @inject('product', 'App\Models\Product')
 <?php 
-	$data          = $product->slug($slug)->sellable(true)->with('varians')->first();
+	$data          = $product->slug($slug)->sellable(true)->with('varians')->with('images')->first();
 	$related 		= $product->notid($data['id'])->sellable(true)->take(4)->get();
 ?>
 
@@ -27,13 +27,13 @@
 				<div class="row">
 					<div class="col-md-7 col-md-offset-3">
 						<div class="owl-carousel gallery-product">
-							@for ($i = 0; $i < 7; $i++)
+							@foreach ($data['images'] as $k => $v)
 								<div class="item">
-									<a href="{{ str_replace('.jpg', '-large.jpg', $data['default_image']) }}" data-standard="{{ $data['default_image'] }}">
-										<img class="img img-responsive canvasSource" id="canvasSource{{$i}}" src="{{$data['default_image']}}" alt="">
+									<a href="{{ str_replace('.jpg', '-large.jpg', $v['image_md']) }}" data-standard="{{ $v['image_md'] }}">
+										<img class="img img-responsive canvasSource" id="canvasSource{{$k}}" src="{{$v['image_md']}}" alt="">
 									</a>
 								</div>
-							@endfor					    	     
+							@endforeach
 						</div>      
 					</div>        				
 				</div>
@@ -108,10 +108,10 @@
 													</select>
 												</div>
 												<div class="col-xs-12 col-sm-2 col-md-4 hidden-xs" style="">
-													{!! Form::submit('Beli', ['class' => 'btn-hollow hollow-black-border']) !!}
+													{!! Form::submit('ADD TO CART', ['class' => 'btn-hollow hollow-black-border']) !!}
 												</div>
 												<div class="col-xs-12 col-sm-2 col-md-4 hidden-sm hidden-md hidden-lg" style="">
-													{!! Form::submit('Beli', ['class' => 'btn-hollow hollow-black-border m-t-sm']) !!}
+													{!! Form::submit('ADD TO CART', ['class' => 'btn-hollow hollow-black-border m-t-sm']) !!}
 												</div>
 											</div>
 										</div>	
