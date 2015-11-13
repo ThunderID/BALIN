@@ -87,6 +87,7 @@ $datas 			= $datas->orderby(DB::raw('type', 'expired_at'))->paginate();
 												@endif
 											</td>
 											<td class="text-center">
+												<a href="{{ route('backend.settings.voucher.getmail', $data['id']) }}"> Broadcast </a>, 
 												<a href="{{ route('backend.settings.quota.index', ['vou_id' => $data['id']]) }}"> Quota </a>, 
 												<a href="{{ route('backend.settings.voucher.show', $data['id']) }}"> Detail </a>, 
 												<a href="{{ route('backend.settings.voucher.edit', $data['id']) }}"> Edit </a>, 
