@@ -170,4 +170,12 @@ class StoreSetting extends Eloquent
 
 		// return 	$query->whereIn('type', $variable )->orderByRaw(DB::raw('started_at desc, type'))->take(count($variable));
 	}
+
+	public function scopeAllPolicies($query)
+	{
+		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift'];
+		return $query->type($variable);
+
+		// return 	$query->whereIn('type', $variable )->orderByRaw(DB::raw('started_at desc, type'))->take(count($variable));
+	}
 }

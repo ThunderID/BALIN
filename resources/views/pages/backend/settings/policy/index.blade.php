@@ -1,6 +1,6 @@
 @inject('datas', 'App\Models\StoreSetting')
 
-<?php $datas = $datas::policies()->orderByRaw(DB::raw('started_at desc, type'))->paginate(); ?>
+<?php $datas = $datas::allpolicies()->orderByRaw(DB::raw('started_at desc, type'))->paginate(); ?>
 
 @extends('template.backend.layout') 
 
