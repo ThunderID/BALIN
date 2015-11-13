@@ -5,6 +5,7 @@ use App\Http\Controllers\BaseController;
 use Input, Redirect, Auth, Carbon, Validator, DB, App;
 
 use App\Models\Transaction;
+use App\Jobs\ChangeStatus;
 
 class ProfileController extends BaseController 
 {
@@ -142,5 +143,28 @@ class ProfileController extends BaseController
 		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;
+	}
+
+	public function orderdestroy($ref = null)
+	{		
+		$transaction 							= Transaction::userid(Auth::user()->id)->type('sell')->refnumber($ref)->first();
+		
+		if(!$transaction)
+		{
+			App::abort(404);
+		}
+		
+		$result                         		= $this->dispatch(new ChangeStatus($transaction, 'canceled'));
+
+		if($result->getStatus()=='success')
+		{
+			return Redirect::route('frontend.profile.order.index')
+							->with('msg','Pembatalan sudah disimpan')
+							->with('msg-type', 'success');
+		}
+
+		return Redirect::route('frontend.profile.order.index')
+							->withErrors($result->getErrorMessage())
+							->with('msg-type', 'danger');
 	}
 }

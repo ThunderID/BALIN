@@ -34,7 +34,12 @@
 							<td> @date_indo($value['transact_at']) </td>
 							<td> {{$value['status']}} </td>
 							<td> @money_indo($value['amount']) </td>
-							<td>  <a href="{{ route('frontend.profile.order.show', $value['ref_number']) }}">Detail</a></td>
+							<td>  
+								<a href="{{ route('frontend.profile.order.show', $value['ref_number']) }}">Detail</a>
+								@if($value['status']=='wait')
+								, <a href="{{ route('frontend.profile.order.destroy', $value['ref_number']) }}">Cancel</a>
+								@endif
+							</td>
 						</tr>
 					@empty
 						<tr>

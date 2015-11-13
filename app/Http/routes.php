@@ -377,6 +377,8 @@ Route::group(['namespace' => 'Frontend\\'], function()
 		Route::get('/orders', 											['uses' => 'ProfileController@orders', 'as' => 'frontend.profile.order.index']);
 
 		Route::get('/order/{ref}', 										['uses' => 'ProfileController@order', 'as' => 'frontend.profile.order.show']);
+		
+		Route::get('/order/delete/{ref}', 								['uses' => 'ProfileController@orderdestroy', 'as' => 'frontend.profile.order.destroy']);
 	
 		Route::get('/reference', 										['uses' => 'CampaignController@getreference', 'as' => 'frontend.profile.reference.get']);
 

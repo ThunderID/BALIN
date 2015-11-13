@@ -26,7 +26,7 @@ class TransactionSellSaved extends Job implements SelfHandling
     {
         $result                                 = new JSend('success', (array)$this->transaction );
 
-        if($this->transaction->voucher->count())
+        if($this->transaction->voucher()->count())
         {
             $result                             = $this->dispatch(new CreditQuota($this->transaction->voucher, 'Penggunaan voucher untuk transaksi #'.$this->transaction->ref_number));
         }
