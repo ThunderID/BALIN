@@ -118,6 +118,21 @@ class Voucher extends Eloquent
 		return 	$query->where('id', $variable);
 	}
 
+	public function scopeNotID($query, $variable)
+	{
+		if(is_null($variable))
+		{
+			return 	$query;
+		}
+
+		if(is_array($variable))
+		{
+			return 	$query->whereNotIn('id', $variable);
+		}
+
+		return 	$query->where('id', '<>', $variable);
+	}
+
 	public function scopeCode($query, $variable)
 	{
 		return 	$query->where('code', $variable);

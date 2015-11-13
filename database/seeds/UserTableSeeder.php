@@ -20,30 +20,30 @@ class UserTableSeeder extends Seeder
         factory(App\Models\User::class, 1)->create();
 
 		// factory(App\Models\User::class, 20)->create()->each(function($q) 
-  //       {
+		// {
 		// 	$q->save();
 		// });
 
-  //       $faker                          = Faker\Factory::create();
-        
-  //       $users                          = User::all();
+		// $faker                          = Faker\Factory::create();
 
-  //       foreach ($users as $key => $value) 
-  //       {
-  //           $address                    = new Address;
+		// $users                          = User::all();
 
-  //           $address->fill([
-  //               'phone'             => $faker->phoneNumber,
-  //               'zipcode'           => $faker->postcode,
-  //               'address'           => $faker->address,
-  //           ]);
+		// foreach ($users as $key => $value) 
+		// {
+		//     $address                    = new Address;
 
-  //           $address->owner()->associate($value);
+		//     $address->fill([
+		//         'phone'             => $faker->phoneNumber,
+		//         'zipcode'           => $faker->postcode,
+		//         'address'           => $faker->address,
+		//     ]);
 
-  //           if(!$address->save())
-  //           {
-  //               dd($address->getError());
-  //           }
-  //       }
+		//     $address->owner()->associate($value);
+
+		//     if(!$address->save())
+		//     {
+		//         dd($address->getError());
+		//     }
+		// }
     }
 }
