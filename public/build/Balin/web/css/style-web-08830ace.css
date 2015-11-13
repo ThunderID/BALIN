@@ -326,20 +326,22 @@ html {
 .page-header .navbar-nav.navbar-hollow {
   float: right;
 }
-.page-header .navbar-nav.navbar-hollow ul li a {
+.page-header .navbar-nav.navbar-hollow li a {
   color: #bbb;
+  font-weight: 300;
 }
-.page-header .navbar-nav.navbar-hollow ul li a:hover {
+.page-header .navbar-nav.navbar-hollow li a:hover {
   color: #fff;
 }
-.page-header .navbar-nav.navbar-hollow ul li a.btn-hollow {
+.page-header .navbar-nav.navbar-hollow li a.btn-hollow {
   color: #fff;
 }
-.page-header .navbar-nav.navbar-hollow ul li a.btn-hollow:hover {
+.page-header .navbar-nav.navbar-hollow li a.btn-hollow:hover {
   color: #000;
 }
-.page-header .navbar-nav.navbar-hollow ul li.active a {
+.page-header .navbar-nav.navbar-hollow li.active a {
   color: #fff;
+  font-weight: 500;
 }
 @media (max-width: 767px) {
   .page-header .navbar-nav.navbar-hollow {
@@ -351,10 +353,12 @@ html {
 }
 .breadcrumb.hollow li a {
   color: #888;
+  font-weight: 300;
   text-decoration: none;
 }
 .breadcrumb.hollow li.active a {
   color: #000;
+  font-weight: 400;
 }
 .carousel-caption {
   background-color: rgba(0, 0, 0, 0.62);
@@ -449,9 +453,6 @@ html {
   padding: 5px;
   color: #fff;
 }
-.thumbnail img {
-  width: 100%;
-}
 .imageCard {
   height: 320px !important;
 }
@@ -464,18 +465,56 @@ html {
   padding: 0;
   border-radius: 0;
 }
+.thumbnail img {
+  width: 100%;
+}
+.thumbnail a {
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+.thumbnail a:hover {
+  color: #999;
+}
+.thumbnail a:hover .hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0;
+}
+.thumbnail a:hover .normal-price,
+.thumbnail a:hover .promo-price,
+.thumbnail a:hover .out-of-stock {
+  color: #999;
+}
+.thumbnail a:hover h4 {
+  color: #999;
+}
+.thumbnail .hover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+.thumbnail .caption-card {
+  min-height: 95px;
+}
+.thumbnail .caption-card h4 {
+  font-weight: 300;
+  color: #000;
+}
 .thumbnail .caption-full {
   padding: 9px;
   color: #333;
 }
-.normal-price {
+.thumbnail .normal-price {
   /*padding-top: inherit;*/
   padding-bottom: initial;
   margin-bottom: 0px;
-  color: #666;
-  font-size: 14px;
+  color: #000;
+  font-size: 15px;
+  font-weight: 300;
 }
-.out-of-stock {
+.thumbnail .out-of-stock {
   font-size: 24px;
   font-weight: 300;
 }
