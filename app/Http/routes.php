@@ -291,6 +291,12 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		// ------------------------------------------------------------------------------------
 		
 		Route::any('audit/point',										['uses' => 'AuditController@point', 'as' => 'backend.report.audit.point']);
+
+		// ------------------------------------------------------------------------------------
+		// AUDIT - QUOTA
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('audit/quota',										['uses' => 'AuditController@quota', 'as' => 'backend.report.audit.quota']);
 		});
 	});
 });

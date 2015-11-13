@@ -271,4 +271,33 @@ class AuditController extends BaseController
 
 		return $this->layout;		
 	}
+
+
+	public function quota()
+	{		
+		$breadcrumb								= 	[
+														'Laporan Penambahan Quota' 	=> route('backend.report.audit.quota')
+													];
+
+		$filters 								= ['type' => 'quota_added'];
+
+		if(Input::has('q'))
+		{
+			$filters 							= ['ondate' => Input::get('q')];
+		}
+
+		$searchResult							= NULL;
+
+		$this->layout->page 					= view('pages.backend.report.audit.index')
+													->with('WT_pagetitle', $this->view_name )
+													->with('WT_pageSubTitle','Penambahan Quota')
+													->with('WB_breadcrumbs', $breadcrumb)
+													->with('searchResult', $searchResult)
+													->with('filters', $filters)
+													->with('nav_active', 'audit')
+													->with('subnav_active', 'quota')
+													;
+
+		return $this->layout;		
+	}
 }
