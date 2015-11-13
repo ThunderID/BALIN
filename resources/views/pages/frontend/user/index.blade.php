@@ -24,7 +24,7 @@
 				@if(Auth::user()->gender=='female')Ms. @else Mr. @endif {{Auth::user()->name}}<br/>
 				{{Auth::user()->email}}<br/>
 				@date_indo(Auth::user()->date_of_birth)<br/>
-				<a href="{{route('frontend.profile.edit')}}" class="balin-link text-right">Ubah Password</a><br/>
+				<small><a href="{{route('frontend.profile.edit')}}" class="balin-link text-right">Ubah Password</a></small><br/>
 			</p>
 		</div>
 		<div class="col-sm-6">
@@ -36,7 +36,7 @@
 				<br>
 				Quota <strong>{{Auth::user()->quota}} </strong>
 				<br>
-				Downline <strong>{{Auth::user()->downline}} </strong>
+				Downline <strong>{{Auth::user()->downline}} </strong> <small><a href="{{route('frontend.profile.downline')}}">lihat</a></small>
 				@if(!is_null(Auth::user()->reference))
 				<br>
 				Referensi dari <strong>{{Auth::user()->reference}} </strong>
