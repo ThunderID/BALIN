@@ -15,27 +15,27 @@ $role 									= ['customer', 'staff', 'store_manager', 'admin', 'developer'];
 
 $factory->define(App\Models\User::class, function ($faker) use ($gender, $role)
 {
-	if(!App\Models\User::count()==0)
-	{
+	// if(!App\Models\User::count()==0)
+	// {
 		return 
 		[
-			'name'						=> 'developer',
-			'email'						=> 'dev@balin.id',
+			'name'						=> 'BALIN',
+			'email'						=> 'cs@balin.id',
 			'password' 					=> bcrypt('admin'),
-			'role' 						=> 'developer',
-			'gender' 					=> $gender[rand(0,1)],
+			'role' 						=> 'admin',
+			'gender' 					=> 'male',
 			'remember_token' 			=> str_random(10),
 		];		
-	}
-	return 
-	[
-		'name'							=> $faker->name,
-		'email'							=> $faker->email,
-		'password' 						=> bcrypt('admin'),
-		'role' 							=> $role[rand(0,4)],
-		'gender' 						=> $gender[rand(0,1)],
-		'remember_token' 				=> str_random(10),
-	];
+	// }
+	// return 
+	// [
+	// 	'name'							=> $faker->name,
+	// 	'email'							=> $faker->email,
+	// 	'password' 						=> bcrypt('admin'),
+	// 	'role' 							=> $role[rand(0,4)],
+	// 	'gender' 						=> $gender[rand(0,1)],
+	// 	'remember_token' 				=> str_random(10),
+	// ];
 });
 
 $factory->define(App\Models\Voucher::class, function ($faker)
