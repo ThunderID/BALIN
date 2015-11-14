@@ -36,7 +36,7 @@ class CartController extends BaseController
 		if (!$slug || !$qty)
 		{
 			return Redirect::back()
-						->with('msg','Size atau Kuantitas belum masih kosong')
+						->with('msg','Size atau Kuantitas masih kosong')
 						->with('msg-type', 'danger');
 		}
 
