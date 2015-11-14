@@ -72,11 +72,50 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 										$ctr = 1 + $nop;
 									?> 
 									@foreach($datas as $data)
+										<?php
+											$value = (array)json_decode($data['value'], true);
+										?>
 										<tr>
 											<td>{{ $ctr }}</td>
 											<td>{!! HTML::image($data->slider, 'slider', ['class' => 'img-responsive']) !!}</td>
 											</td>
-											<td>{{ $data['value'] }}</td>
+											<td>
+												@if(isset($value['title']['slider_title']))
+													@if($value['title']['title_active'] == 1)
+														<h5><strong>Judul :</strong>
+															{{ $value['title']['slider_title'] }}
+														</h5>
+													@else
+														<h5><strong>Judul tidak aktif</strong></h5>
+													@endif
+												@else
+													<h5><strong>Judul tidak aktif</strong></h5>
+												@endif
+
+												@if(isset($value['content']['slider_content']))
+													@if($value['content']['content_active'] == 1)
+														<h5><strong>Konten :</strong>
+															{{ $value['content']['slider_content'] }}
+														</h5>
+													@else
+														<h5><strong>Konten tidak aktif</strong></h5>
+													@endif
+												@else
+													<h5><strong>Konten tidak aktif</strong></h5>
+												@endif		
+
+												@if(isset($value['button']['slider_button_text']))
+													@if($value['button']['button_active'] == 1)
+														<h5><strong>Tombol :</strong>
+															{{ $value['button']['slider_button_text'] }}
+														</h5>
+													@else
+														<h5><strong>Tombol tidak aktif</strong></h5>
+													@endif
+												@else
+													<h5><strong>Tombol tidak aktif</strong></h5>
+												@endif																						
+											</td>
 											<td>
 												{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('d-m-Y H:i') }}
 											</td>
