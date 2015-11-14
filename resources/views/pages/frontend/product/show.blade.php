@@ -132,11 +132,8 @@
 												Total
 											</h4>
 											<?php $price 	= $data['price'];?>
-											@if ($price==$data['price'])
-												<h4 class="text-right text-product tot_qty" data-price="{{ $price }}"> @money_indo($price)</h4>
-											@else
-												<h4 class="text-right text-product tot_qty" data-price="{{ $price }}"> @money_indo($price) </h4>
-											@endif
+											<label class="text-right text-product tot_qty" data-price="{{ $price }}"> @money_indo($price)</label>
+											
 										</div>
 									</div>
 								</div>
