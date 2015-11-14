@@ -5,8 +5,10 @@ use App\Models\User;
 use App\Models\Transaction;
 use App\Jobs\CheckValidationLink;
 use App\Jobs\SaveToCookie;
+use App\Jobs\SaveToTransactionDetail;
 use App\Jobs\SendResetPasswordEmail;
 use Input, Session, DB, Redirect, Response, Auth, Socialite, App, Validator, Carbon, Cookie;
+use App\Libraries\JSend;
 
 class AuthController extends BaseController 
 {

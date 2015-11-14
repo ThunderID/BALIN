@@ -3,7 +3,9 @@
 use App\Http\Controllers\BaseController;
 use App\Models\Product;
 use App\Models\Varian;
-use Input, Response, Redirect, Cookie;
+use App\Models\Transaction;
+use App\Jobs\SaveToTransactionDetail;
+use Input, Response, Redirect, Cookie, Auth;
 
 class CartController extends BaseController 
 {
@@ -56,6 +58,39 @@ class CartController extends BaseController
 		$basket['varians']						= $varian;
 
 		$baskets[$product->id]					= $basket;
+
+		if(Auth::check())
+		{
+			$price 								= ['price' => $basket['price'], 'discount' => $basket['discount']];
+			$transaction           	 			= Transaction::userid(Auth::user()->id)->status('cart')->first();
+
+			if($transaction)
+			{
+	            $result                 		= $this->dispatch(new SaveToTransactionDetail($transaction, $varian, $price));
+			}
+			else
+			{
+				$transaction 					= new Transaction;
+				$transaction->fill([
+                    'user_id'               	=> Auth::user()->id,
+                    'type'                  	=> 'sell',
+                    ]);
+
+		        if($transaction->save())
+		        {
+	            	$result                 	= $this->dispatch(new SaveToTransactionDetail($transaction, $varian, $price));
+		        }
+		        else
+		        {
+		        	$result 					= new JSend('success', (array)$transaction);
+		        }
+			}
+
+			if($result->getStatus()=='error')
+			{
+				return Redirect::route('frontend.cart.index')->withErrors($result->getErrorMessage());
+			}
+		}
 
 		//update baskets
 		$baskets 								= Cookie::make('baskets', $baskets, 1440);
