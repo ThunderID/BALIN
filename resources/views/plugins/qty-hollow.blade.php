@@ -8,6 +8,8 @@
 		type      = $(this).attr('data-type');
 		var input = $("input[name='"+fieldName+"']");
 		var currentVal = parseInt(input.val());
+		var tot   = parseInt($('.tot_qty').attr('price'));
+		console.log(tot);
 		if (!isNaN(currentVal)) {
 			if(type == 'minus') {
 				
@@ -26,7 +28,6 @@
 				if(parseInt(input.val()) == input.attr('max')) {
 					$(this).attr('disabled', true);
 				}
-
 			}
 		} else {
 			input.val(0);
