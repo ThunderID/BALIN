@@ -1,7 +1,7 @@
 @inject('product', 'App\Models\Product')
 <?php 
 	$data          = $product->slug($slug)->sellable(true)->with('varians')->with('images')->first();
-	$related 		= $product->notid($data['id'])->sellable(true)->with('images')->take(4)->get();
+	$related 		= $product->notid($data['id'])->sellable(true)->currentprice(true)->DefaultImage(true)->take(4)->get();
 ?>
 
 @extends('template.frontend.layout')
