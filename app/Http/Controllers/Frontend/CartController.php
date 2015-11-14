@@ -35,6 +35,7 @@ class CartController extends BaseController
 		$basket['name']							= $product->name;
 		$basket['price']						= $product->price;
 		$basket['discount']						= $product->discount;
+		$basket['stock']						= $product->stock;
 		$basket['images']						= $product->default_image;
 
 		$varians 								= Input::get('varianids');
