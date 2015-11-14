@@ -34,23 +34,26 @@ class SaveToCart extends Job implements SelfHandling
 
         if($transaction->save())
         {
-            foreach ($this->cart as $key => $value) 
+            foreach ($this->cart as $key => $cart) 
             {
-                $trsdetail                  = new TransactionDetail;
-
-                $trsdetail->fill([
-                    'transaction_id'        => $transaction['id'],
-                    'varian_id'             => $value['varian_id'],
-                    'quantity'              => $value['qty'],
-                    'price'                 => $value['price'],
-                    'discount'              => $value['discount'],
-                ]);
-
-                //cek apa punya error
-                if(!$trsdetail->save())
+                foreach ($cart['varians'] as $key => $value)
                 {
-                    $errors->add('Transaction', $trsdetail->getError());
-                }
+                    $trsdetail                  = new TransactionDetail;
+
+                    $trsdetail->fill([
+                        'transaction_id'        => $transaction['id'],
+                        'varian_id'             => $value['varian_id'],
+                        'quantity'              => $value['qty'],
+                        'price'                 => $cart['price'],
+                        'discount'              => $cart['discount'],
+                    ]);
+
+                    //cek apa punya error
+                    if(!$trsdetail->save())
+                    {
+                        $errors->add('Transaction', $trsdetail->getError());
+                    }
+                } 
             }
         }
         else

@@ -162,6 +162,7 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		// ------------------------------------------------------------------------------------
 
 		Route::resource('features',		'FeatureController',			['names' => ['index' => 'backend.settings.feature.index', 'create' => 'backend.settings.feature.create', 'store' => 'backend.settings.feature.store', 'show' => 'backend.settings.feature.show', 'edit' => 'backend.settings.feature.edit', 'update' => 'backend.settings.feature.update', 'destroy' => 'backend.settings.feature.destroy']]);
+		Route::get('features/{id}/preview', 							['uses' => 'featurecontroller@showPreview', 'as' => 'backend.settings.feature.show.preview']);
 
 		// ------------------------------------------------------------------------------------
 		// POLICY
@@ -393,54 +394,36 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::get('/mail/activation/{activation_link}', 					['uses' => 'AuthController@activateAccount' ,'as' => 'balin.claim.voucher']);
 
+	// ------------------------------------------------------------------------------------
+	// CART
+	// ------------------------------------------------------------------------------------
+
+	Route::get('cart', 													['uses' => 'CartController@index', 'as' => 'frontend.cart.index']);
+
+	Route::post('add/to/cart', 											['uses' => 'CartController@store', 'as' => 'frontend.cart.store']);
+
+	Route::get('edit/cart', 											['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
+
+	Route::post('update/cart',											['uses' => 'CartController@update', 'as' => 'frontend.cart.update']);
+
+	Route::get('remove/from/cart/{id?}',								['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
+	
+	// ------------------------------------------------------------------------------------
+	// CHECKOUT
+	// ------------------------------------------------------------------------------------
+	
+	Route::group(['middleware' => 'customer'], function() 
+	{
+		Route::get('checkout',											['uses' => 'CheckOutController@getCheckout', 'as' => 'frontend.get.checkout']);
+		
+		Route::post('checkout',											['uses' => 'CheckOutController@postCheckout', 'as' => 'frontend.post.checkout']);
+	}
 
 	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
 	Route::get('whyJoin', 					['uses' => 'whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
 	Route::get('aboutus', 					['uses' => 'AboutUsController@index', 'as' => 'frontend.aboutus.index']);
 	
-	Route::get('cart', 						['uses' => 'CartController@index', 'as' => 'frontend.cart.index']);
-	Route::post('addtocart', 				['uses' => 'CartController@store', 'as' => 'frontend.cart.store']);
-	Route::get('editcart', 					['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
-	Route::post('updatecart',				['uses' => 'CartController@update', 'as' => 'frontend.cart.update']);
-	Route::get('removetocart/{id?}',		['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
-
-	Route::get('profile', 					['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);
-
-	Route::group(['prefix' => 'profile'], function() 
-	{
-		Route::get('membership-detail', 		['uses' => 'ProfileController@membershipDetail', 'as' => 'frontend.profile.membershipDetail']);
-		Route::get('change-password', 		['uses' => 'ProfileController@changePassword', 'as' => 'frontend.profile.changePassword']);
-		Route::get('change-rofile', 			['uses' => 'ProfileController@changeProfile', 'as' => 'frontend.profile.changeProfile']);
-	});
-
-	
-	
 	Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
 	Route::get('/ab', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
 	
 });
-
-Route::get('testsso/{provider?}', ['uses' => 'Frontend\\authSocialController@getSocialAuth', 'as' => 'frontend.sso.login']);
-Route::get('testgetcookie', ['uses' => 'Frontend\\productController@detail', 'as' => 'frontend.home.test']);
-Route::get('testcookie', ['uses' => 'Frontend\\productController@removeFromCart', 'as' => 'frontend.home.test2']);
-
-
-Route::get('test/error', ['uses' => 'testController@error', 'as' => 'ftest.error']);
-Route::get('test/email', ['uses' => 'testController@testEmail', 'as' => 'test.email']);
-
-
-// Route::get('cookieset', function()
-// {
-//     $foreverCookie = Cookie::forever('forever', 'Success');
-//     $tempCookie = Cookie::make('temporary', 'Victory', 5);
-//     return Response::make()->withCookie($foreverCookie)->withCookie($tempCookie);
-// });
-
-
-// Route::get('cookietest', function()
-// {
-//      $forever = Cookie::get('forever');
-//      $temporary = Cookie::get('temporary');
-//      dd($forever);
-//      return View::make('cookietest', array('forever' => $forever, 'temporary' => $temporary, 'variableTest' => 'works'));
-// });

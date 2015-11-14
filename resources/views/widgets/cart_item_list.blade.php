@@ -14,7 +14,9 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">	
-						<p>Size : {{ $item_list_size }}</p>
+						@foreach($item_list_size as $key => $value)
+						<p>Size : {{ $value['size'] }}</p>
+						@endforeach
 					</div>
 				</div>	
 				<div class="row chart-item-mobile">

@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Auth, Carbon;
+use Auth, Carbon, Cookie;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -40,6 +40,8 @@ class UserLoggedOut
         {
             return false;
         }
+
+        Cookie::forget('baskets');
 
         return true;
     }

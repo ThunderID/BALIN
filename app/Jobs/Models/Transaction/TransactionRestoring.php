@@ -9,6 +9,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Models\Transaction;
+use App\Jobs\Models\Transaction\Buy\TransactionBuyRestoring;
+use App\Jobs\Models\Transaction\Sell\TransactionSellRestoring;
 
 class TransactionRestoring extends Job implements SelfHandling
 {

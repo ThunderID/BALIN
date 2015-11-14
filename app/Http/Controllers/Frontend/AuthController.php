@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\BaseController;
 use App\Models\User;
+use App\Models\Transaction;
 use App\Jobs\CheckValidationLink;
+use App\Jobs\SaveToCookie;
+use App\Jobs\SaveToTransactionDetail;
 use App\Jobs\SendResetPasswordEmail;
-use Input, Session, DB, Redirect, Response, Auth, Socialite, App, Validator, Carbon;
+use Input, Session, DB, Redirect, Response, Auth, Socialite, App, Validator, Carbon, Cookie;
+use App\Libraries\JSend;
 
 class AuthController extends BaseController 
 {
@@ -21,6 +25,24 @@ class AuthController extends BaseController
 		{
 			$redirect 					= Session::get('login_redirect');
 			Session::forget('login_redirect');
+
+            $transaction           	 	= Transaction::userid(Auth::user()->id)->status('cart')->wherehas('transactiondetails', function($q){$q;})->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->first();
+
+            if($transaction)
+            {
+                $result             	= $this->dispatch(new SaveToCookie($transaction));
+
+                if($result->getStatus()=='success' && !is_null($result->getData()))
+                {
+                	$baskets 			= $result->getData();
+
+					return Redirect::intended($redirect)->withCookie(Cookie::make('baskets', $baskets, 1440));
+                }
+                else
+                {
+					return Redirect::back()->withErrors(['Tidak bisa login.']);
+                }
+            }
 
 			return Redirect::intended($redirect);
 		}

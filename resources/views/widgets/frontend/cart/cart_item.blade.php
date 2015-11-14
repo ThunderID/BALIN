@@ -14,17 +14,19 @@
 				</div>
 				<div class="row" style="margin-top:0px;">
 					<div class="col-xs-12">
+						@foreach($label_qty as $key => $value)
 						<div class="row">
 							<div class="col-xs-4">
-								<span class="info">Qty</span>
+								<span class="info">{{ $value['size'] }}</span>
 							</div>
 							<div class="col-xs-1">
 								<span class="info">:</span>
 							</div>
 							<div class="col-xs-6" style="padding-left: 2px;">
-								<span class="info">{{ $label_qty }}</span>
-							</div>                                                                                                                
+								<span class="info">{{ $value['qty'] }}</span>
+							</div>
 						</div>
+						@endforeach
 					</div>
 				</div>
 				<div class="row" style="margin-top:0px;">

@@ -40,18 +40,25 @@
 						@if ($carts)
 							<?php $total = 0; ?>
 							@foreach ($carts as $k => $item)
+								<?php
+									$qty 			= 0;
+									foreach ($item['varians'] as $key => $value) 
+									{
+										$qty 		= $qty + $value['qty'];
+									}
+								?>
 								@include('widgets.cart_item_list', array(
 									"item_list_id"					=> $k,
 									"item_list_image"				=> $item['images'],
 									"item_list_name" 				=> $item['name'],
-									"item_list_qty"					=> $item['qty'],
+									"item_list_qty"					=> $qty,
 									"item_list_normal_price"		=> $item['price'],
-									"item_list_size"				=> $item['size'],
+									"item_list_size"				=> $item['varians'],
 									"item_list_discount_price"		=> $item['discount'],
-									"item_list_total_price"			=> ($item['price']*$item['qty']),
+									"item_list_total_price"			=> ($item['price']*$qty),
 									"item_mode"						=> 'new',
 								))
-								<?php $total += ($item['price']*$item['qty']); ?>
+								<?php $total += ($item['price']*$qty); ?>
 							@endforeach
 						@else
 							<div class="row chart-item">

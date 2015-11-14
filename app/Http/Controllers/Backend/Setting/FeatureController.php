@@ -243,17 +243,33 @@ class FeatureController extends BaseController
 		}
 	}
 
+	public function showPreview($id)
+	{
+		$data 			= storeSetting::findorfail($id);
+
+		$images 		= null;
+		if(isset($data['images'][0]))
+		{
+			$images 	= $data['images'][0];
+		}
+
+		$value 			= null;
+		if(isset($data['value']))
+		{
+			$value 		= (array)json_decode($data['value'], true);
+		}
+
+		return $this->preview($images, $value);
+	}
+
+
 	public function preview($images, $value)
 	{
 		//notes
 		//variable images utk image slider
 		//variable value utk content slider
-// dd($value);
-
 		return  view('pages.backend.settings.feature.preview')
 					->with('images', $images)
 					->with('value', $value);
-		
-
 	}
 }

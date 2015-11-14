@@ -3,11 +3,13 @@
 namespace App\Listeners;
 
 use App\Jobs\SaveToCart;
+use App\Jobs\SaveToCookie;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Auth, Cookie;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Models\Transaction;
 
 class UserLoggedIn
 {
@@ -31,7 +33,7 @@ class UserLoggedIn
      */
     public function handle()
     {
-        if(Cookie::has('baskets'))
+        if(Cookie::has('baskets') && !is_null(Cookie::Get('baskets')) && !empty(Cookie::Get('baskets')))
         {
             $result                 = $this->dispatch(new SaveToCart(Cookie::Get('baskets')));
 
@@ -46,7 +48,7 @@ class UserLoggedIn
                 return false;
             }
         }
-
+        
         return true;
     }
 }
