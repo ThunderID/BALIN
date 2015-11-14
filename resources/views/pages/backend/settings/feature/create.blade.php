@@ -10,10 +10,21 @@
 
 @section('content')
     @if(!is_null($id))
-        {!! Form::open(['url' => route('backend.settings.feature.update', $id), 'method' => 'PATCH']) !!}
+        {!! Form::open(['url' => route('backend.settings.feature.update', $id), 'method' => 'PATCH', 'class' => 'sliderform']) !!}
     @else
-        {!! Form::open(['url' => route('backend.settings.feature.store'), 'method' => 'POST']) !!}
+        {!! Form::open(['url' => route('backend.settings.feature.store'), 'method' => 'POST', 'class' => 'sliderform']) !!}
     @endif
+
+		{!! Form::hidden('action', 'preview', ['id' => 'action']) !!}	
+
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="sub-header">
+					Pengaturan Slider
+				</h4>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
@@ -27,6 +38,14 @@
 					]) !!}					
 				</div>  
 			</div> 
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="sub-header">
+					Gambar Slider
+				</h4>
+			</div>
 		</div>
 
 		<div class="row">
@@ -88,25 +107,255 @@
 
 		<div class="row">
 			<div class="col-md-12">
+				<h4 class="sub-header">
+					Judul Slider
+				</h4>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 ">
 				<div class="form-group">
-					<label for="value" class="text-capitalize">Kontent Slider</label>
-					{!! Form::textarea('value', $data['value'], [
-								'class'         => 'form-control summernote', 
-								'tabindex'      => '7',
-								'style'        	=> 'resize:none;',
-					]) !!}					
+					<label for="title_active" class="text-capitalize">Aktifkan Judul</label>
+					{!! Form::select('title_active', [
+							'0' 					=> 'Non Aktif',
+							'1' 					=> 'Aktif',
+						], 
+						null, 
+						[
+							'class' 				=> 'form-control slider-text-switch', 
+							'id'					=> 'slider-title',
+							'tabindex' 				=> '7'
+						]) 
+					!!}								
+				</div>				
+			</div>
+			<div class="col-md-6 ">
+				<div class="form-group">
+					<label for="slider_title_location" class="text-capitalize">Posisi Judul</label>
+					{!! Form::select('slider_title_location', [
+							'Top-Left' 				=> 'Top-Left',
+							'Top-Center' 			=> 'Top-Center',
+							'Top-Right' 			=> 'Top-Right',
+							'Midle-Left' 			=> 'Midle-Left',
+							'Midle-Center' 			=> 'Midle-Center',
+							'Midle-Right' 			=> 'Midle-Right',
+							'Bottom-Left' 			=> 'Bottom-Left',
+							'Bottom-Center' 		=> 'Bottom-Center',
+							'Bottom-Right' 			=> 'Bottom-Right',															
+						], 
+						null, 
+						[
+							'class' 				=> 'form-control', 
+							'tabindex' 				=> '8'
+						]) 
+					!!}														
+				</div>				
+			</div>
+			<div class="col-md-12 ">
+				<div class="form-group">
+					<label for="slider_title" class="text-capitalize">Teks Judul</label>
+					{!! Form::text('slider_title', null, [
+								'class'         => 'form-control', 
+								'tabindex'      => '9',
+								'placeholder'   => 'Masukkan title slider',
+					]) !!}										
 				</div>
 			</div>
 		</div>
-		</br>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="sub-header">
+					Konten Slider
+				</h4>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 slider-title">
+				<div class="form-group">
+					<label for="content_active" class="text-capitalize">Aktifkan Konten</label>
+					{!! Form::select('content_active', [
+							'0' 					=> 'Non Aktif',
+							'1' 					=> 'Aktif',
+						], 
+						null, 
+						[
+							'class' 				=> 'form-control slider-text-switch', 
+							'tabindex' 				=> '10',
+							'id'					=> 'slider-content'
+						]) 
+					!!}								
+				</div>				
+			</div>
+			<div class="col-md-6 ">
+				<div class="form-group">
+					<label for="slider_content_location" class="text-capitalize">Posisi Konten</label>
+					{!! Form::select('slider_content_location', [
+							'Top-Left' 				=> 'Top-Left',
+							'Top-Center' 			=> 'Top-Center',
+							'Top-Right' 			=> 'Top-Right',
+							'Midle-Left' 			=> 'Midle-Left',
+							'Midle-Center' 			=> 'Midle-Center',
+							'Midle-Right' 			=> 'Midle-Right',
+							'Bottom-Left' 			=> 'Bottom-Left',
+							'Bottom-Center' 		=> 'Bottom-Center',
+							'Bottom-Right' 			=> 'Bottom-Right',															
+						], 
+						null, 
+						[
+							'class' 				=> 'form-control',
+							'id'					=> 'slider-content', 
+							'tabindex' 				=> '11'
+						]) 
+					!!}														
+				</div>				
+			</div>
+			<div class="col-md-12 ">
+				<div class="form-group">
+					<label for="slider_content" class="text-capitalize">Konten Slider</label>
+					{!! Form::textarea('slider_content', null, [
+								'class'         => 'form-control', 
+								'tabindex'      => '12',
+								'rows'			=> '3',
+								'style'        	=> 'resize:none;',
+								'placeholder'   => 'Masukkan teks konten',
+					]) !!}										
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="sub-header">
+					Tombol Slider
+				</h4>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 ">
+				<div class="form-group">
+					<label for="button_active" class="text-capitalize">Aktifkan Tombol</label>
+					{!! Form::select('button_active', [
+							'0' 					=> 'Non Aktif',
+							'1' 					=> 'Aktif',
+						], 
+						null, 
+						[
+							'class' 				=> 'form-control slider-text-switch', 
+							'tabindex' 				=> '13',
+							'id'					=> 'slider-button'
+						]) 
+					!!}								
+				</div>				
+			</div>
+			<div class="col-md-6 ">
+				<div class="form-group">
+					<label for="slider_button_location" class="text-capitalize">Posisi Tombol</label>
+					{!! Form::select('slider_button_location', [
+							'Top-Left' 				=> 'Top-Left',
+							'Top-Center' 			=> 'Top-Center',
+							'Top-Right' 			=> 'Top-Right',
+							'Midle-Left' 			=> 'Midle-Left',
+							'Midle-Center' 			=> 'Midle-Center',
+							'Midle-Right' 			=> 'Midle-Right',
+							'Bottom-Left' 			=> 'Bottom-Left',
+							'Bottom-Center' 		=> 'Bottom-Center',
+							'Bottom-Right' 			=> 'Bottom-Right',															
+						], 
+						null, 
+						[
+							'class' 				=> 'form-control', 
+							'tabindex' 				=> '14'
+						]) 
+					!!}														
+				</div>				
+			</div>
+			<div class="col-md-6 ">
+				<div class="form-group">
+					<label for="slider_button_text" class="text-capitalize">Teks Tombol</label>
+					{!! Form::text('slider_button_text', null, [
+								'class'         => 'form-control', 
+								'tabindex'      => '15',
+								'placeholder'   => 'Masukkan teks tombol',
+					]) !!}										
+				</div>
+			</div>
+			<div class="col-md-6 ">
+				<div class="form-group">
+					<label for="slider_button_url" class="text-capitalize">URL Tombol</label>
+					{!! Form::text('slider_button_url', null, [
+								'class'         => 'form-control', 
+								'tabindex'      => '16',
+								'placeholder'   => 'Masukkan URL tombol',
+					]) !!}										
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row clearfix">
+			&nbsp;
+		</div>
+
+		<div class="row clearfix">
+			&nbsp;
+		</div>		
 
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group text-right">
-					<a href="{{ URL::route('backend.settings.feature.index') }}" class="btn btn-md btn-default" tabindex="8">Batal</a>
-					<button type="submit" class="btn btn-md btn-primary" tabindex="9">Simpan</button>
+					<a href="{{ URL::route('backend.settings.feature.index') }}" class="btn btn-md btn-default" tabindex="17">Batal</a>
+					<!-- <button type="submit" class="btn btn-md btn-primary" tabindex="18" name="action" value="preview">Preview</button> -->
+					<a onclick="preview()" href="javascript:void(0);" class="btn btn-md btn-primary" tabindex="18" name="action" value="preview">Preview</a>
+					<a onclick="store()" href="javascript:void(0);" class="btn btn-md btn-primary" tabindex="18" name="action" value="store">Simpan</a>
+					<!-- <button type="submit" class="btn btn-md btn-primary" tabindex="18" name="action" value="store">Simpan</button> -->
 				</div>
 			</div>                                     
 		</div>
+
+
 	{!! Form::close() !!}
+@stop
+
+@section('script')
+	$(document).ready(function() {
+		checkStatus($('#slider-title'));
+		checkStatus($('#slider-content'));
+		checkStatus($('#slider-button'));
+	});
+
+	$('.slider-text-switch').change(function() {
+		checkStatus($(this));
+	});
+
+	function checkStatus(e) {
+		var stat = false;
+		if(e.val() == 0)
+		{
+			stat = true;
+		}
+
+		e.parent().parent().siblings().find('.form-control').prop( "disabled", stat );
+	}
+
+	function store() {
+		$('.sliderform').attr("target", "");
+		$('#action').val('store');
+		$('.sliderform').submit();
+	}
+
+	function preview() {
+		$('.sliderform').attr("target", "_blank");
+		$('#action').val('preview');
+		$('.sliderform').submit();
+	}
+
+@stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
 @stop

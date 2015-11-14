@@ -100,8 +100,35 @@ class FeatureController extends BaseController
 
 	public function store($id = null)
 	{
-		$inputs 										= Input::only('value', 'started_at');
+		$action 										= Input::get('action');
+
+		$inputs 										= Input::only('title_active', 'slider_title_location', 'slider_title','content_active', 'slider_content_location', 'slider_content' , 'button_active' ,'slider_button_location','slider_button_text', 'slider_button_url', 'started_at');
 		$images 										= Input::only('thumbnail', 'image_xs','image_sm','image_md','image_lg');
+
+		$value											= 	[
+																'title'		=> 	[
+																					'title_active'				=> $inputs['title_active'],
+																					'slider_title_location'		=> $inputs['slider_title_location'],
+																					'slider_title'				=> $inputs['slider_title'],
+																				],
+																'content'	=> 	[
+																					'content_active'			=> $inputs['content_active'],
+																					'slider_content_location'	=> $inputs['slider_content_location'],
+																					'slider_content'			=> $inputs['slider_content'],
+																				],		
+																'button'	=> 	[
+																					'button_active'				=> $inputs['button_active'],
+																					'slider_button_location'	=> $inputs['slider_button_location'],
+																					'slider_button_url'			=> $inputs['slider_button_url'],
+																					'slider_button_url'			=> $inputs['slider_button_url'],
+																				],																																							
+															];
+
+
+		if($action == 'preview')
+		{
+			return $this->preview($images, $value);		
+		}															
 
 		if(!is_null($id))
 		{
@@ -116,7 +143,7 @@ class FeatureController extends BaseController
 
 		$data->fill([
 			'type'										=> 'slider',
-			'value'										=> $inputs['value'],
+			'value'										=> json_encode($value),
 			'started_at' 								=> $started_at,
 		]);
 
@@ -198,5 +225,13 @@ class FeatureController extends BaseController
 				->with('msg', 'Etalase sudah dihapus')
 				->with('msg-type','success');
 		}
+	}
+
+	public function preview($images, $value)
+	{
+		//notes
+		//variable images utk image slider
+		//variable value utk content slider
+
 	}
 }
