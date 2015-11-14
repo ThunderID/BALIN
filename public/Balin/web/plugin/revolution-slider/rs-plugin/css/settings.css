@@ -891,17 +891,51 @@ border-style:none;
 }
 
 .tp-caption.medium_bg_asbestos {
-font-size:20px;
+font-size:24px;
 line-height:20px;
 font-weight:300;
 font-family:"Roboto";
 color:#fff;
 text-decoration:none;
-background-color:rgba(0, 0, 0, 0.9);
+/*background-color:rgba(0, 0, 0, 0.9);*/
 padding:15px;
 border-width:0px;
 border-color:rgb(255, 214, 88);
 border-style:none;
+}
+
+.tp-caption.medium_bg_asbestos-title {
+margin-top: 20px;
+font-size:40px;
+line-height:20px;
+font-weight:400;
+font-family:"Roboto";
+color:#000;
+text-decoration:none;
+padding:15px;
+text-shadow: 1px 1px 1px #999;
+}
+
+.tp-caption.medium_bg_asbestos-content {
+font-size:24px;
+line-height:20px;
+font-weight:200;
+font-family:"Roboto";
+color:#000;
+text-decoration:none;
+padding:5px;
+text-shadow: 1px 1px 1px #999;
+}
+
+.tp-caption.medium_bg_asbestos-action {
+font-size:24px;
+line-height:20px;
+font-weight:200;
+font-family:"Roboto";
+color:#000;
+text-decoration:none;
+padding:5px;
+text-shadow: 1px 1px 1px #999;
 }
 
 .tp-caption.medium_light_black {
