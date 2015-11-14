@@ -19,6 +19,11 @@ class VoucherSaving extends Job implements SelfHandling
 
     public function handle()
     {
+        if($this->voucher->type=='referral' && $this->voucher->user_id==0)
+        {
+            return new JSend('error', (array)$this->voucher, 'Voucher referral hanya dapat digunakan untuk pelanggan.');
+        }
+
         if($this->voucher->user()->count())
         {
             $prevvocuher                = Voucher::userid($this->voucher->user_id)->notid($this->voucher->id)->first();
