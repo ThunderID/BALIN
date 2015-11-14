@@ -1,7 +1,7 @@
 @inject('product', 'App\Models\Product')
 <?php 
-	$data          = $product->slug($slug)->sellable(true)->with('varians')->first();
-	$related 		= $product->notid($data['id'])->sellable(true)->take(4)->get();
+	$data          = $product->slug($slug)->sellable(true)->with('varians')->with('images')->first();
+	$related 		= $product->notid($data['id'])->sellable(true)->with('images')->take(4)->get();
 ?>
 
 @extends('template.frontend.layout')
@@ -27,40 +27,53 @@
 				<div class="row">
 					<div class="col-md-7 col-md-offset-3">
 						<div class="owl-carousel gallery-product">
-							@for ($i = 0; $i < 7; $i++)
+							@foreach ($data['images'] as $k => $v)
 								<div class="item">
-									<a href="{{ str_replace('.jpg', '-large.jpg', $data['default_image']) }}" data-standard="{{ $data['default_image'] }}">
-										<img class="img img-responsive canvasSource" id="canvasSource{{$i}}" src="{{$data['default_image']}}" alt="">
+									<a href="{{ str_replace('.jpg', '-large.jpg', $v['image_md']) }}" data-standard="{{ $v['image_md'] }}">
+										<img class="img img-responsive canvasSource" id="canvasSource{{$k}}" src="{{$v['image_md']}}" alt="">
 									</a>
 								</div>
-							@endfor					    	     
+							@endforeach
 						</div>      
 					</div>        				
 				</div>
 			</div>
-			<div class="col-md-5">
+			<div class="col-md-5 product-info">
 				<div class="row">
 					<div class="col-md-12">
-						<h3 style="font-size:28px; font-weight:300">{{ $data['name'] }}</h3>
+						<h3 class="title-product caption-product">{{ $data['name'] }}</h3>
 						<div class="clearfix">&nbsp;</div>
+						<h4 class="caption-product">Price</h4>
 						<?php $price 	= $data['price'];?>
 						@if($data['discount']!=0)
-							<h4><strike> @money_indo($data['price']) </strike></h4>
+							<h4 class="text-product"><strike> @money_indo($data['price']) </strike></h4>
 							<?php $price 	= $data['promo_price'];?>
 						@endif
 						@if($balance - $price >= 0)
-							<h4><strike> @money_indo($price) </strike></h4>
+							<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
 							<?php $price 	= 0;?>
 						@elseif($balance!=0)
-							<h4><strike> @money_indo($price) </strike></h4>
+							<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
 							<?php $price 	= $price - $balance;?>
 						@endif
 
 						@if($price==$data['price'])
-							<h4> @money_indo($price)</h4>
+							<h4 class="text-product"> @money_indo($price)</h4>
 						@else
-							<h4> @money_indo($price) </h4>
+							<h4 class="text-product"> @money_indo($price) </h4>
 						@endif
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<h4 class="caption-product">Deskripsi</h4>
+						<p class="text-product">{!! $data['description'] !!}</p>
+					</div> 					        				
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<h4 class="caption-product">Ukuran & Fit</h4>
+						<p class="text-product">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ratione voluptatem fugiat ipsam explicabo repellat optio beatae corrupti obcaecati deleniti, laborum dolores. Placeat dolorem ipsam nostrum, inventore iste accusamus similique?</p>
 					</div>
 				</div>
 				<div class="row">
@@ -86,34 +99,50 @@
 								{!! Form::hidden('product_size', '', ['class' => 'prod_size']) !!}
 
 								@include('widgets.alerts')
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<label>Size</label>
-											<select name="varian_id" class="form-control hollow select_varian" required>
-												<option value="">Pilih Size</option>
-												@foreach($data['varians'] as $v)
-													<option value="{{ $v['id'] }}" data-stock="{{ $v['stock'] }}">{{ $v['size'] }}</option>
-												@endforeach
-											</select>
-										</div>
-									</div>
-									<div class="col-md-8">
-										<div class="form-group">
-											<label for="name">Kuantitas</label>
-											<div class="row">
-												<div class="col-xs-12 col-sm-10 col-md-8">
-													<select name="product_qty" class="form-control hollow select_qty" placholder="Pilih Kuantitas" >
-														<option value="" disabled="disabled">Pilih Kuantitas</option>
-													</select>
-												</div>
-												<div class="col-xs-12 col-sm-2 col-md-4 hidden-xs" style="">
-													{!! Form::submit('Beli', ['class' => 'btn-hollow hollow-black-border']) !!}
-												</div>
-												<div class="col-xs-12 col-sm-2 col-md-4 hidden-sm hidden-md hidden-lg" style="">
-													{!! Form::submit('Beli', ['class' => 'btn-hollow hollow-black-border m-t-sm']) !!}
+								<div class="row text-center p-l-md" style="padding-left:20px">
+									@foreach($data['varians'] as $k => $v)
+										@if ($k<=3)
+											<div class="col-sm-3 text-center">
+												<div class="form-group">
+													<div class="qty-hollow m-b-lg">
+														<label>{{ $v['size'] }}</label>
+													  	<input type="text" name="qty-{{strtolower($v['size'])}}[1]" class="form-control hollow form-qty input-number" value="1" min="1" max="
+													  	@if (50<=$v['stock'])
+													  		{{'50'}}
+													  	@else
+													  		{{ $v['stock'] }}
+													  	@endif" data-stock="{{ $v['stock'] }}" data-id="{{ $v['id'] }}">
+														<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-minus btn-number" disabled="disabled" data-type="minus" data-field="qty-{{strtolower($v['size'])}}[1]">
+															<i class="fa fa-minus"></i>
+													  	</button>
+													  	<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-plus btn-number" data-type="plus" data-field="qty-{{strtolower($v['size'])}}[1]">
+														  	<i class="fa fa-plus"></i>
+													  	</button>
+													</div>
 												</div>
 											</div>
+										@endif
+									@endforeach
+								</div>
+								<div class="row m-t-lg">
+									<div class="col-sm-12">
+										<div class="qty-total">
+											<h4 class="pull-left text-product">
+												Total
+											</h4>
+											<?php $price 	= $data['price'];?>
+											@if($price==$data['price'])
+												<h4 class="text-right text-product tot_qty"> @money_indo($price)</h4>
+											@else
+												<h4 class="text-right text-product tot_qty"> @money_indo($price) </h4>
+											@endif
+										</div>
+									</div>
+								</div>
+								<div class="row m-t-sm">
+									<div class="col-md-12">
+										<div class="form-group text-right">
+											{!! Form::submit('ADD TO CART', ['class' => 'btn-hollow hollow-black-border m-t-sm']) !!}
 										</div>	
 									</div>	
 								</div>
@@ -122,14 +151,8 @@
 						{!! Form::close() !!}
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<h4>Deskripsi</h4>
-						<p>{!! $data['description'] !!}</p>
-					</div> 					        				
-				</div>
 				<div class="clearfix">&nbsp;</div>
-				<div class="row">
+				{{-- <div class="row">
 					<div class="col-md-12">
 						<p class="tag-categories">
 							<i class = "fa fa-tags"></i>
@@ -141,9 +164,50 @@
 							@endforeach
 						</p>
 					</div>
-				</div>
+				</div> --}}
 			</div>
 		</div>
+		@if ($related)
+			<div class="row m-t-lg">
+				<div class="col-sm-12">
+					<h4 style="font-weight:300">Related Produk</h4>
+				</div>
+			</div>
+			<div class="row related-product">
+				@foreach ($related as $k => $v)
+					<div class="col-sm-3">
+						<div class="row">
+							<div class="col-sm-6">
+								<img src="{{ $v['images'][0]['thumbnail'] }}" class="img-responsive" alt="">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<h4 class="caption-product">{{ $v['name'] }}</h4>
+								<?php $price 	= $data['price'];?>
+								@if($v['discount']!=0)
+									<h4 class="text-product"><strike> @money_indo($v['price']) </strike></h4>
+									<?php $price 	= $v['promo_price'];?>
+								@endif
+								@if($balance - $price >= 0)
+									<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
+									<?php $price 	= 0;?>
+								@elseif($balance!=0)
+									<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
+									<?php $price 	= $price - $balance;?>
+								@endif
+
+								@if($price==$v['price'])
+									<h4 class="text-product"> @money_indo($price)</h4>
+								@else
+									<h4 class="text-product"> @money_indo($price) </h4>
+								@endif
+							</div>
+						</div>
+					</div>
+				@endforeach
+			</div>
+		@endif
 	</div>
 @stop
 
@@ -179,4 +243,5 @@
 @section('script_plugin')
 	@include('plugins.owlCarousel')
 	@include('plugins.easyzoom')
+	@include('plugins.qty-hollow')
 @stop
