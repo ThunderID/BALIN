@@ -53,11 +53,6 @@
 								<label class="m-b-sm label-item label-price" data-product-price="{{ $item_list_normal_price }}">
 									@money_indo($item_list_normal_price) 
 								</label>
-
-									<label class="m-b-sm label-item ">
-
-									</label>
-
 							</div>
 						</div>
 						<div class="row">

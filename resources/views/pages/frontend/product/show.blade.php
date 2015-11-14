@@ -43,7 +43,7 @@
 					<div class="col-md-12">
 						<h3 class="title-product caption-product">{{ $data['name'] }}</h3>
 						<div class="clearfix">&nbsp;</div>
-						<h4 class="caption-product">Price</h4>
+						{{-- <h4 class="caption-product">Price</h4> --}}
 						<?php $price 	= $data['price'];?>
 						@if($data['discount']!=0)
 							<h4 class="text-product"><strike> @money_indo($data['price']) </strike></h4>
@@ -64,6 +64,7 @@
 						@endif
 					</div>
 				</div>
+				<div class="clearfix">&nbsp;</div>
 				<div class="row">
 					<div class="col-md-12">
 						<h4 class="caption-product">Deskripsi</h4>
@@ -99,13 +100,13 @@
 								{!! Form::hidden('product_size', '', ['class' => 'prod_size']) !!}
 
 								@include('widgets.alerts')
-								<div class="row text-center p-l-md" style="padding-left:20px">
+								<div class="row text-center m-t-xl">
 									@foreach($data['varians'] as $k => $v)
-										@if ($k<=3)
-											<div class="col-sm-3 text-center">
+										@if ($k<=2)
+											<div class="col-sm-4 text-center">
 												<div class="form-group">
 													<div class="qty-hollow m-b-lg">
-														<label>{{ $v['size'] }}</label>
+														<label class="label-qty">{{ $v['size'] }}</label>
 													  	<input type="text" name="qty-{{strtolower($v['size'])}}[1]" class="form-control hollow form-qty input-number" value="1" min="1" max="
 													  	@if (50<=$v['stock'])
 													  		{{'50'}}
@@ -124,18 +125,15 @@
 										@endif
 									@endforeach
 								</div>
-								<div class="row m-t-lg">
+								<div class="row m-t-xl">
 									<div class="col-sm-12">
 										<div class="qty-total">
-											<h4 class="pull-left text-product">
+											<h4 class="pull-left caption-product">
 												Total
 											</h4>
 											<?php $price 	= $data['price'];?>
-											@if($price==$data['price'])
-												<h4 class="text-right text-product tot_qty"> @money_indo($price)</h4>
-											@else
-												<h4 class="text-right text-product tot_qty"> @money_indo($price) </h4>
-											@endif
+											<label class="text-right text-product tot_qty" data-price="{{ $price }}"> @money_indo($price)</label>
+											
 										</div>
 									</div>
 								</div>
@@ -168,40 +166,38 @@
 			</div>
 		</div>
 		@if ($related)
-			<div class="row m-t-lg">
+			<div class="row m-t-lg related-product">
 				<div class="col-sm-12">
-					<h4 style="font-weight:300">Related Produk</h4>
+					<h4>Related Produk</h4>
 				</div>
 			</div>
 			<div class="row related-product">
 				@foreach ($related as $k => $v)
 					<div class="col-sm-3">
-						<div class="row">
-							<div class="col-sm-6">
-								<img src="{{ $v['images'][0]['thumbnail'] }}" class="img-responsive" alt="">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6">
-								<h4 class="caption-product">{{ $v['name'] }}</h4>
-								<?php $price 	= $data['price'];?>
-								@if($v['discount']!=0)
-									<h4 class="text-product"><strike> @money_indo($v['price']) </strike></h4>
-									<?php $price 	= $v['promo_price'];?>
-								@endif
-								@if($balance - $price >= 0)
-									<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
-									<?php $price 	= 0;?>
-								@elseif($balance!=0)
-									<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
-									<?php $price 	= $price - $balance;?>
-								@endif
+						<div class="box-related">
+							<div class="row ">
+								<div class="col-sm-6">
+									<img src="{{ $v['images'][0]['thumbnail'] }}" class="img-responsive" alt="">
+									<h4 class="caption-product">{{ $v['name'] }}</h4>
+									<?php $price 	= $data['price'];?>
+									@if($v['discount']!=0)
+										<h4 class="text-product"><strike> @money_indo($v['price']) </strike></h4>
+										<?php $price 	= $v['promo_price'];?>
+									@endif
+									@if($balance - $price >= 0)
+										<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
+										<?php $price 	= 0;?>
+									@elseif($balance!=0)
+										<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
+										<?php $price 	= $price - $balance;?>
+									@endif
 
-								@if($price==$v['price'])
-									<h4 class="text-product"> @money_indo($price)</h4>
-								@else
-									<h4 class="text-product"> @money_indo($price) </h4>
-								@endif
+									@if($price==$v['price'])
+										<h4 class="text-product"> @money_indo($price)</h4>
+									@else
+										<h4 class="text-product"> @money_indo($price) </h4>
+									@endif
+								</div>
 							</div>
 						</div>
 					</div>
