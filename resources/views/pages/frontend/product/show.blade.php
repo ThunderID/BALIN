@@ -107,7 +107,7 @@
 												<div class="form-group">
 													<div class="qty-hollow m-b-lg">
 														<label class="label-qty">{{ $v['size'] }}</label>
-													  	<input type="text" name="qty-{{strtolower($v['size'])}}[1]" class="form-control hollow form-qty input-number" value="1" min="1" max="
+													  	<input type="text" name="qty-{{strtolower($v['size'])}}[1]" class="form-control hollow form-qty input-number" value="0" min="0" max="
 													  	@if (50<=$v['stock'])
 													  		{{'50'}}
 													  	@else
@@ -128,12 +128,11 @@
 								<div class="row m-t-xl">
 									<div class="col-sm-12">
 										<div class="qty-total">
-											<h4 class="pull-left caption-product">
+											<h4 class="pull-left m-t-sm caption-product">
 												Total
 											</h4>
 											<?php $price 	= $data['price'];?>
-											<label class="text-right text-product tot_qty" data-price="{{ $price }}"> @money_indo($price)</label>
-											
+											<label class="text-right m-t-xs text-product tot_qty" data-price="{{ $price }}"> @money_indo($price)</label> 
 										</div>
 									</div>
 								</div>
