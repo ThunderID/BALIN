@@ -22,6 +22,6 @@ class PriceUpdating extends Job implements SelfHandling
     
     public function handle()
     {
-        return new JSend('success', (array)$this->product);
+        return new JSend('success', (array)$this->price);
     }
 }
