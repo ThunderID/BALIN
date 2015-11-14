@@ -120,6 +120,7 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 												{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('d-m-Y H:i') }}
 											</td>
 											<td>
+												<a href="{{ route('backend.settings.feature.show.preview', $data['id']) }}"> Preview </a>, 
 												<a href="{{ route('backend.settings.feature.edit', $data['id']) }}"> Edit </a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#feature_del"
 													data-id="{{$data['id']}}"
