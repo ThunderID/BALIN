@@ -5,15 +5,22 @@
 	@if ($carts)
 		<?php $total = 0; ?>
 		@foreach ($carts as $k => $item)
+			<?php
+				$qty 			= 0;
+				foreach ($item['varians'] as $key => $value) 
+				{
+					$qty 		= $qty + $value['qty'];
+				}
+			?>
 			@if ($k==0)
 				<li class="chart-dropdown-item-grid">
 					@include('widgets.frontend.cart.cart_item', [
 						'label_id'				=> $k,
 						'label_image'			=> $item['images'],
 						'label_name'			=> $item['name'],
-						'label_qty'				=> $item['qty'],
+						'label_qty'				=> $item['varians'],
 						'label_price'			=> $item['price'],
-						'label_total'			=> $item['qty']*$item['price']
+						'label_total'			=> $qty*$item['price']
 					])
 				</li>
 			@else
@@ -22,13 +29,13 @@
 						'label_id'				=> $k,
 						'label_image'			=> $item['images'],
 						'label_name'			=> $item['name'],
-						'label_qty'				=> $item['qty'],
+						'label_qty'				=> $item['varians'],
 						'label_price'			=> $item['price'],
-						'label_total'			=> $item['qty']*$item['price']
+						'label_total'			=> $qty*$item['price']
 					])
 				</li>                        
 			@endif
-			<?php $total += ($item['price']*$item['qty']); ?>
+			<?php $total += ($item['price']*$qty); ?>
 		@endforeach
 
 		<li class="chart-dropdown-subtotal chart-lowLine">

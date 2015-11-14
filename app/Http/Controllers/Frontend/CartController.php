@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BaseController;
 use App\Models\Product;
+use App\Models\Varian;
 use Input, Response, Redirect, Cookie;
 
 class CartController extends BaseController 
@@ -22,57 +23,42 @@ class CartController extends BaseController
 	}
 
 	// FUNCTION ADD TO CART
-	public function store($slug = null , $qty = null)
+	public function store($slug = null)
 	{
-		$name 								= Input::get('product_name');
+		$baskets 								= Cookie::get('baskets');
+
 		$slug									= Input::get('product_slug');
-		$qty 									= Input::get('product_qty');
-		$price 								= Input::get('product_price');
-		$discount 							= Input::get('product_discount');
-		$stock 								= Input::get('product_stock');
-		$size 								= Input::get('product_size');
-		$images								= Input::get('product_image');
 
-		if (!$slug || !$qty)
+		$product 								= Product::slug($slug)->first();
+
+		$basket['slug']							= $product->slug;
+		$basket['name']							= $product->name;
+		$basket['price']						= $product->price;
+		$basket['discount']						= $product->discount;
+		$basket['images']						= $product->default_image;
+
+		$varians 								= Input::get('varianids');
+		$qtys 									= Input::get('qty');
+
+		$varian 								= [];
+
+		foreach ($varians as $key => $value) 
 		{
-			return Redirect::back()
-						->with('msg','Size atau Kuantitas masih kosong')
-						->with('msg-type', 'danger');
+			if(isset($qtys[$key]) && $qtys!=0)
+			{
+				$varianp 						= Varian::findorfail($value);
+
+				$varian[]						= ['varian_id' => $varianp->id, 'qty' => $qtys[$key], 'size' => $varianp->size];
+			}
 		}
 
-		//get current stock
-		$baskets = Cookie::get('baskets');
+		$basket['varians']						= $varian;
 
-
-		//get addition cart
-		$basket 								= 	[
-														'slug' 			=> $slug, 
-														'name'			=> $name,
-														'qty' 			=> $qty,
-														'stock'			=> $stock,
-														'price'			=> $price,
-														'discount'		=> $discount,
-														'size'			=> $size,
-														'images'			=> $images
-													];
-		// dd($basket);exit;
-		//adding new data to basket 
-		if (empty($baskets))
-		{
-			$basket 							= array($basket);
-			$baskets 							= $basket;
-		}
-		else
-		{
-			array_push($baskets, $basket);
-		}
+		$baskets[$product->id]					= $basket;
 
 		//update baskets
 		$baskets 								= Cookie::make('baskets', $baskets, 1440);
 
-		//return cookies
-		// return Response::make('item added to cart')
-		// 					->withCookie($baskets);
 		return Redirect::route('frontend.cart.index')
 						->withCookie($baskets);
 	}
