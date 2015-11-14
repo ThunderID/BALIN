@@ -44,11 +44,11 @@
 									"item_list_id"					=> $k,
 									"item_list_image"				=> $item['images'],
 									"item_list_name" 				=> $item['name'],
-									"item_list_qty"				=> $item['qty'],
-									"item_list_normal_price"	=> $item['price'],
+									"item_list_qty"					=> $item['qty'],
+									"item_list_normal_price"		=> $item['price'],
 									"item_list_size"				=> $item['size'],
-									"item_list_discount_price"	=> $item['discount'],
-									"item_list_total_price"		=> ($item['price']*$item['qty']),
+									"item_list_discount_price"		=> $item['discount'],
+									"item_list_total_price"			=> ($item['price']*$item['qty']),
 									"item_mode"						=> 'new',
 								))
 								<?php $total += ($item['price']*$item['qty']); ?>
