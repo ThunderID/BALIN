@@ -14,6 +14,7 @@ class CreateVoucherTable extends Migration
     {
         Schema::create('tmp_vouchers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->index()->nullable();
             $table->string('code', 255);
             $table->string('type', 255);
             $table->text('value');
@@ -22,8 +23,7 @@ class CreateVoucherTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            $table->index(['deleted_at', 'type', 'started_at']);
-            $table->index(['deleted_at', 'type', 'expired_at']);
+            $table->index(['deleted_at', 'code', 'started_at']);
         });
     }
 

@@ -326,20 +326,22 @@ html {
 .page-header .navbar-nav.navbar-hollow {
   float: right;
 }
-.page-header .navbar-nav.navbar-hollow ul li a {
+.page-header .navbar-nav.navbar-hollow li a {
   color: #bbb;
+  font-weight: 300;
 }
-.page-header .navbar-nav.navbar-hollow ul li a:hover {
+.page-header .navbar-nav.navbar-hollow li a:hover {
   color: #fff;
 }
-.page-header .navbar-nav.navbar-hollow ul li a.btn-hollow {
+.page-header .navbar-nav.navbar-hollow li a.btn-hollow {
   color: #fff;
 }
-.page-header .navbar-nav.navbar-hollow ul li a.btn-hollow:hover {
+.page-header .navbar-nav.navbar-hollow li a.btn-hollow:hover {
   color: #000;
 }
-.page-header .navbar-nav.navbar-hollow ul li.active a {
+.page-header .navbar-nav.navbar-hollow li.active a {
   color: #fff;
+  font-weight: 500;
 }
 @media (max-width: 767px) {
   .page-header .navbar-nav.navbar-hollow {
@@ -351,10 +353,12 @@ html {
 }
 .breadcrumb.hollow li a {
   color: #888;
+  font-weight: 300;
   text-decoration: none;
 }
 .breadcrumb.hollow li.active a {
   color: #000;
+  font-weight: 400;
 }
 .carousel-caption {
   background-color: rgba(0, 0, 0, 0.62);
@@ -449,9 +453,6 @@ html {
   padding: 5px;
   color: #fff;
 }
-.thumbnail img {
-  width: 100%;
-}
 .imageCard {
   height: 320px !important;
 }
@@ -464,19 +465,66 @@ html {
   padding: 0;
   border-radius: 0;
 }
+.thumbnail img {
+  width: 100%;
+}
+.thumbnail a {
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+.thumbnail a:hover {
+  color: #999;
+}
+.thumbnail a:hover .hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0;
+}
+.thumbnail a:hover .normal-price,
+.thumbnail a:hover .promo-price,
+.thumbnail a:hover .out-of-stock {
+  color: #999;
+}
+.thumbnail a:hover h4 {
+  color: #999;
+}
+.thumbnail .hover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+.thumbnail .caption-card {
+  min-height: 95px;
+}
+.thumbnail .caption-card h4 {
+  font-weight: 300;
+  color: #000;
+}
 .thumbnail .caption-full {
   padding: 9px;
   color: #333;
 }
-.normal-price {
+.thumbnail .normal-price {
   /*padding-top: inherit;*/
   padding-bottom: initial;
   margin-bottom: 0px;
-  color: #666;
-  font-size: 14px;
+  color: #000;
+  font-size: 15px;
+  font-weight: 300;
 }
-.out-of-stock {
+.thumbnail .out-of-stock {
   font-size: 24px;
+  font-weight: 300;
+}
+.product-info .title-product {
+  font-size: 28px;
+}
+.product-info .caption-product {
+  font-weight: 400;
+}
+.product-info .text-product {
   font-weight: 300;
 }
 .img-center {
@@ -622,6 +670,16 @@ html {
   border-color: #fff;
   text-decoration: none;
 }
+.btn-hollow.hollow-white-border {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+.btn-hollow.hollow-white-border:hover {
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+}
 .btn-hollow.hollow-black-transparent {
   background-color: #000;
   color: #fff;
@@ -647,6 +705,14 @@ html {
 .btn-hollow.btn-hollow-xs {
   padding: 3px 6px;
   font-size: 10px;
+}
+.btn-hollow.btn-hollow-xs.btn-qty {
+  width: 32px;
+  height: 32px;
+}
+.btn-hollow.btn-hollow-xs.btn-qty i {
+  font-size: 8px;
+  font-weight: 100;
 }
 .hollow-social {
   width: 38px;
@@ -827,6 +893,51 @@ select.form-control.hollow {
   background: #fff url("../../../../Balin/web/image/select2x2.png") no-repeat right -90px top -6px;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+.qty-hollow {
+  width: 61px;
+  position: relative;
+}
+.qty-hollow .form-qty {
+  text-align: center;
+  width: 64px;
+  height: 38px;
+  border: 1px solid #000;
+}
+.qty-hollow .btn-qty {
+  position: absolute;
+  border: 1px solid #000;
+  background-color: #000;
+  color: #fff;
+  margin-top: -1px;
+  width: 32px;
+  height: 28px;
+}
+.qty-hollow .btn-qty.qty-minus {
+  left: 0px;
+  border-right: none;
+}
+.qty-hollow .btn-qty.qty-plus {
+  right: -3px;
+  border-left: 1px solid #444;
+}
+.qty-hollow .btn-qty:disabled {
+  background-color: #666;
+  color: #aaa;
+  border-color: #666;
+}
+.qty-total {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  padding: 6px;
+}
+.related-product .caption-product {
+  font-size: 16px;
+  font-weight: 400;
+}
+.related-product .text-product {
+  font-size: 14px;
+  font-weight: 300;
 }
 span.info {
   color: #888;

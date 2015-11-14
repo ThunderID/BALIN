@@ -1,6 +1,6 @@
 @inject('transaction', 'App\Models\Transaction')
 <?php
-	$orders 		= $transaction->userid(Auth::user()->id)->type('sell')->orderby('transact_at', 'desc')->with(['transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
+	$orders 		= $transaction->userid(Auth::user()->id)->type('sell')->status(['cart', 'wait', 'paid', 'shipping', 'delivered', 'canceled'])->orderby('transact_at', 'desc')->with(['transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
 ?>
 @extends('template.frontend.layout_account')
 
@@ -34,7 +34,12 @@
 							<td> @date_indo($value['transact_at']) </td>
 							<td> {{$value['status']}} </td>
 							<td> @money_indo($value['amount']) </td>
-							<td>  <a href="{{ route('frontend.profile.order.show', $value['ref_number']) }}">Detail</a></td>
+							<td>  
+								<a href="{{ route('frontend.profile.order.show', $value['ref_number']) }}">Detail</a>
+								@if($value['status']=='wait')
+								, <a href="{{ route('frontend.profile.order.destroy', $value['ref_number']) }}">Cancel</a>
+								@endif
+							</td>
 						</tr>
 					@empty
 						<tr>

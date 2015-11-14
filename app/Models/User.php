@@ -31,6 +31,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	use \App\Models\Traits\hasMany\HasAuditorsTrait;
 	use \App\Models\Traits\morphMany\HasImagesTrait;
 	use \App\Models\Traits\morphMany\HasAddressesTrait;
+	use \App\Models\Traits\hasOne\HasVoucherTrait;
 
 	/**
 	 * The database table used by the model.
@@ -51,7 +52,6 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'name'							,
 											'email'							,
 											'password'						,
-											'referral_code'					,
 											'role'							,
 											'is_active'						,
 											'sso_id'						,
@@ -62,6 +62,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'activation_link'				,
 											'reset_password_link'			,
 											'expired_at'					,
+											'last_logged_at'				,
 										];
 
 	/**
@@ -69,7 +70,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'joined_at', 'expired_at', 'date_of_birth'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'joined_at', 'expired_at', 'date_of_birth', 'last_logged_at'];
 
 	/**
 	 * Basic rule of database
@@ -80,7 +81,6 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'name'							=> 'required|max:255',
 											'email'							=> 'max:255|email',
 											'role'							=> 'required|max:255',
-											'referral_code'					=> 'max:8',
 											// 'date_of_birth'					=> 'date_format:"Y-m-d H:i:s"|before:now'
 										];
 
@@ -99,6 +99,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'address',
 											'zipcode',
 											'reference',
+											'referral_code',
 										];
 
 	/**
@@ -134,9 +135,14 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
 	public function getQuotaAttribute($value)
 	{
-		$quota 							= QuotaLog::userid($this->id)->sum('amount');
+		if($this->voucher()->count())
+		{
+			$quota 						= QuotaLog::voucherid($this->voucher->id)->sum('amount');
+			
+			return $quota;
+		}
 
-		return $quota;
+		return 0;
 	}
 
 	public function getBalanceAttribute($value)
@@ -217,6 +223,18 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 		}
 	}
 
+	public function getReferralCodeAttribute($value)
+	{
+		$referral 						= $this->voucher;
+
+		if($referral)
+		{
+			return $referral->code;
+		}
+
+		return null;
+	}
+
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 	
 	/**
@@ -286,7 +304,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
 	public function scopeReferralCode($query, $variable)
 	{
-		return 	$query->where('referral_code', $variable);
+		return 	$query->vouchercode($variable);
 	}
 
 	public function scopeBalance($query, $variable)

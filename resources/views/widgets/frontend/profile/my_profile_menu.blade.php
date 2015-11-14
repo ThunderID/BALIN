@@ -26,7 +26,10 @@
 				<a href="{{route('frontend.profile.point')}}" 
 					class="@if($subnav_active=='account_point') active @endif">Buku Tabungan</a>
 			</li>
-			<!-- <li class=""><a href="{{route('frontend.profile.downline')}}" class="@if($subnav_active=='account_downline') active @endif">Daftar Downline</a></li> -->
+			<li class="">
+				<a href="{{route('frontend.profile.downline')}}" 
+					class="@if($subnav_active=='account_downline') active @endif">Daftar Downline</a>
+			</li>
 			@if(is_null(Auth::user()->reference))
 				<li class="">
 					<a href="{{route('frontend.profile.reference.get')}}" 

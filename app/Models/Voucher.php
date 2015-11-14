@@ -17,6 +17,8 @@ class Voucher extends Eloquent
 	 */
 
 	use \App\Models\Traits\hasMany\HasTransactionsTrait;
+	use \App\Models\Traits\hasMany\HasQuotaLogsTrait;
+	use \App\Models\Traits\belongsTo\HasUserTrait;
 
 	/**
 	 * The database table used by the model.
@@ -34,6 +36,7 @@ class Voucher extends Eloquent
 	 */
 
 	protected $fillable				=	[
+											'user_id'						,
 											'code'							,
 											'type'							,
 											'value'							,
@@ -66,6 +69,7 @@ class Voucher extends Eloquent
 	 * @var array
 	 */
 	protected $appends				=	[
+											'quota',
 										];
 
 	/**
@@ -79,6 +83,13 @@ class Voucher extends Eloquent
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
+	
+	public function getQuotaAttribute($value)
+	{
+		$quota 						= QuotaLog::voucherid($this->id)->sum('amount');
+			
+		return $quota;
+	}
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 		
@@ -107,9 +118,34 @@ class Voucher extends Eloquent
 		return 	$query->where('id', $variable);
 	}
 
+	public function scopeNotID($query, $variable)
+	{
+		if(is_null($variable))
+		{
+			return 	$query;
+		}
+
+		if(is_array($variable))
+		{
+			return 	$query->whereNotIn('id', $variable);
+		}
+
+		return 	$query->where('id', '<>', $variable);
+	}
+
 	public function scopeCode($query, $variable)
 	{
 		return 	$query->where('code', $variable);
+	}
+
+	public function scopeType($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('type', $variable);
+		}
+
+		return 	$query->where('type', $variable);
 	}
 
 	public function scopeOnDate($query, $variable)

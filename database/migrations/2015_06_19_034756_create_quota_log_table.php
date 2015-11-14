@@ -14,9 +14,7 @@ class CreateQuotaLogTable extends Migration
     {
         Schema::create('quota_logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
-            $table->integer('reference_id');
-            $table->string('reference_type');
+            $table->integer('voucher_id')->unsigned()->index();
             $table->double('amount');
             $table->text('notes');
             $table->timestamps();

@@ -15,7 +15,7 @@ $data = $data::id($id)->with(['transactions', 'transactions.user'])->first();
 					<p class="text-capitalize">Kode Voucher<span class="pull-right">:</span></p>
 				</div>
 				<div class="col-md-8">
-					<p class="text-capitalize">{{ $data['code'] }}</p>
+					<p class="">{{ $data['code'] }}</p>
 				</div>
 			</div> 
 			<div class="row">
@@ -24,6 +24,14 @@ $data = $data::id($id)->with(['transactions', 'transactions.user'])->first();
 				</div>
 				<div class="col-md-8">
 					<p>{{ count($data['transactions']) }}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 text-left">
+					<p class="text-capitalize">Sisa Quota<span class="pull-right">:</span></p>
+				</div>
+				<div class="col-md-8">
+					<p>{{ $data['quota'] }} <a href="{{route('backend.settings.quota.index', $id)}}">custom quota</a></p>
 				</div>
 			</div>
 		</div>

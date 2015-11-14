@@ -16,8 +16,7 @@ class QuotaLog extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\belongsTo\HasUserTrait;
-	use \App\Models\Traits\morphTo\HasReferenceTrait;
+	use \App\Models\Traits\belongsTo\HasVoucherTrait;
 
 	/**
 	 * The database table used by the model.
@@ -35,9 +34,7 @@ class QuotaLog extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'user_id'						,
-											'reference_id'					,
-											'reference_type'				,
+											'voucher_id'					,
 											'amount'						,
 											'notes'							,
 										];
@@ -118,5 +115,10 @@ class QuotaLog extends Eloquent
 		}
 
 		return $query->where('created_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('created_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
+	}
+
+	public function scopeNotes($query, $variable)
+	{
+		return 	$query->where('notes', $variable);
 	}
 }

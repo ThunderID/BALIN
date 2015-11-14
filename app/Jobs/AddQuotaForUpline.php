@@ -35,12 +35,14 @@ class AddQuotaForUpline extends Job implements SelfHandling
         
         $quota                              = StoreSetting::type('downline_purchase_quota_bonus')->Ondate('now')->first();
 
-        if($upline && $quota)
+        $whoisupline                        = $upline->reference->voucher->value;
+
+        if($upline && $quota && $whoisupline == 0)
         {
             $quotalog                       = new QuotaLog;
 
             $quotalog->fill([
-                    'user_id'               => $upline->reference_id,
+                    'voucher_id'            => $upline->reference->voucher->id,
                     'amount'                => $quota->value,
                     'notes'                 => 'Bonus belanja '.$this->transaction->user->name
                 ]);

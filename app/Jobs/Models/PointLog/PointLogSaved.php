@@ -3,6 +3,7 @@
 namespace App\Jobs\Models\PointLog;
 
 use App\Jobs\Job;
+use App\Jobs\CreditQuota;
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -27,7 +28,9 @@ class PointLogSaved extends Job implements SelfHandling
 
     public function handle()
     {
-         //jika save referee dari user
+        //jika save referee dari user
+        $result                         = new JSend('success', (array)$this->pointlog);
+
         if($this->pointlog->reference_type=='App\Models\User')
         {
             $gift                       = StoreSetting::type('referral_royalty')->Ondate('now')->first();
@@ -38,47 +41,30 @@ class PointLogSaved extends Job implements SelfHandling
             }
             else
             {
-                $referee                = new PointLog;
-
-                $referee->fill([
-                        'user_id'       => $this->pointlog->reference_id,
-                        'amount'        => $gift->value,
-                        'expired_at'    => $this->pointlog->expired_at,
-                        'notes'         => 'Mereferensikan '.$this->pointlog->user->name,
-                    ]);
-
-                $referee->reference()->associate($this->pointlog);
-
-                if(!$referee->save())
+                if($this->pointlog->reference->voucher->value==0)
                 {
-                    $result             = new JSend('error', (array)$this->pointlog, $referee->getError());
-                }
-                else
-                {
-                    $quota              = new QuotaLog;
+                    $referee            = new PointLog;
 
-                    $quota->fill([
-                            'user_id'   => $this->pointlog->reference_id,
-                            'amount'    => -1,
-                            'notes'     => 'Mereferensikan '.$this->pointlog->user->name,
+                    $referee->fill([
+                            'user_id'       => $this->pointlog->reference_id,
+                            'amount'        => $gift->value,
+                            'expired_at'    => $this->pointlog->expired_at,
+                            'notes'         => 'Mereferensikan '.$this->pointlog->user->name,
                         ]);
 
-                    $quota->reference()->associate($this->pointlog);
+                    $referee->reference()->associate($this->pointlog);
 
-                    if(!$quota->save())
+                    if(!$referee->save())
                     {
-                        $result         = new JSend('error', (array)$this->pointlog, $quota->getError());
-                    }
-                    else
-                    {
-                        $result         = new JSend('success', (array)$this->pointlog);
+                        $result         = new JSend('error', (array)$this->pointlog, $referee->getError());
                     }
                 }
             }
-        }
-        else
-        {
-            $result                     = new JSend('success', (array)$this->pointlog);
+
+            if($result->getStatus()=='success')
+            {
+                $result                 = $this->dispatch(new CreditQuota($this->pointlog->reference->voucher, 'Mereferensikan '.$this->pointlog->user->name));
+            }
         }
 
         if($result->getStatus()=='success')
