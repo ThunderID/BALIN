@@ -25,7 +25,7 @@ class StoreSettingDeleting extends Job implements SelfHandling
 
     public function handle()
     {
-        $result                 = new JSend('error', (array)$this->store, 'Tidak adapat menghapus pengaturan toko.');
+        $result                 = new JSend('error', (array)$this->store, 'Tidak dapat menghapus pengaturan toko.');
 
         return $result;
     }

@@ -4,6 +4,7 @@
 	$data 	= $data::where('id',$id)->with('images')->first();
 	$images = $data['images'][0];
 	$date 	= null;
+	$value  = (array)json_decode($data['value'], true);
 ?>
 
 @extends('template.backend.layout') 
@@ -121,7 +122,7 @@
 							'0' 					=> 'Non Aktif',
 							'1' 					=> 'Aktif',
 						], 
-						null, 
+						isset($value['title']['title_active']) ? $value['title']['title_active'] : '', 
 						[
 							'class' 				=> 'form-control slider-text-switch', 
 							'id'					=> 'slider-title',
@@ -144,7 +145,7 @@
 							'Bottom-Center' 		=> 'Bottom-Center',
 							'Bottom-Right' 			=> 'Bottom-Right',															
 						], 
-						null, 
+						isset($value['title']['slider_title_location']) ? $value['title']['slider_title_location'] : '', 
 						[
 							'class' 				=> 'form-control', 
 							'tabindex' 				=> '8'
@@ -155,7 +156,7 @@
 			<div class="col-md-12 ">
 				<div class="form-group">
 					<label for="slider_title" class="text-capitalize">Teks Judul</label>
-					{!! Form::text('slider_title', null, [
+					{!! Form::text('slider_title', isset($value['title']['slider_title']) ? $value['title']['slider_title'] : '', [
 								'class'         => 'form-control', 
 								'tabindex'      => '9',
 								'placeholder'   => 'Masukkan title slider',
@@ -180,7 +181,7 @@
 							'0' 					=> 'Non Aktif',
 							'1' 					=> 'Aktif',
 						], 
-						null, 
+						isset($value['content']['content_active']) ? $value['content']['content_active'] : '', 
 						[
 							'class' 				=> 'form-control slider-text-switch', 
 							'tabindex' 				=> '10',
@@ -203,7 +204,7 @@
 							'Bottom-Center' 		=> 'Bottom-Center',
 							'Bottom-Right' 			=> 'Bottom-Right',															
 						], 
-						null, 
+						isset($value['content']['slider_content_location']) ? $value['content']['slider_content_location'] : '',
 						[
 							'class' 				=> 'form-control',
 							'id'					=> 'slider-content', 
@@ -215,7 +216,7 @@
 			<div class="col-md-12 ">
 				<div class="form-group">
 					<label for="slider_content" class="text-capitalize">Konten Slider</label>
-					{!! Form::textarea('slider_content', null, [
+					{!! Form::textarea('slider_content', isset($value['content']['slider_content']) ? $value['content']['slider_content'] : '', [
 								'class'         => 'form-control', 
 								'tabindex'      => '12',
 								'rows'			=> '3',
@@ -243,7 +244,7 @@
 							'0' 					=> 'Non Aktif',
 							'1' 					=> 'Aktif',
 						], 
-						null, 
+						isset($value['button']['button_active']) ? $value['button']['button_active'] : '',
 						[
 							'class' 				=> 'form-control slider-text-switch', 
 							'tabindex' 				=> '13',
@@ -266,7 +267,7 @@
 							'Bottom-Center' 		=> 'Bottom-Center',
 							'Bottom-Right' 			=> 'Bottom-Right',															
 						], 
-						null, 
+						isset($value['button']['slider_button_location']) ? $value['button']['slider_button_location'] : '',
 						[
 							'class' 				=> 'form-control', 
 							'tabindex' 				=> '14'
@@ -277,7 +278,7 @@
 			<div class="col-md-6 ">
 				<div class="form-group">
 					<label for="slider_button_text" class="text-capitalize">Teks Tombol</label>
-					{!! Form::text('slider_button_text', null, [
+					{!! Form::text('slider_button_text', isset($value['button']['slider_button_text']) ? $value['button']['slider_button_text'] : '', [
 								'class'         => 'form-control', 
 								'tabindex'      => '15',
 								'placeholder'   => 'Masukkan teks tombol',
@@ -287,7 +288,7 @@
 			<div class="col-md-6 ">
 				<div class="form-group">
 					<label for="slider_button_url" class="text-capitalize">URL Tombol</label>
-					{!! Form::text('slider_button_url', null, [
+					{!! Form::text('slider_button_url', isset($value['button']['slider_button_url']) ? $value['button']['slider_button_url'] : '', [
 								'class'         => 'form-control', 
 								'tabindex'      => '16',
 								'placeholder'   => 'Masukkan URL tombol',

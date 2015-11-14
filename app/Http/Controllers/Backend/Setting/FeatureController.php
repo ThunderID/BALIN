@@ -105,24 +105,40 @@ class FeatureController extends BaseController
 		$inputs 										= Input::only('title_active', 'slider_title_location', 'slider_title','content_active', 'slider_content_location', 'slider_content' , 'button_active' ,'slider_button_location','slider_button_text', 'slider_button_url', 'started_at');
 		$images 										= Input::only('thumbnail', 'image_xs','image_sm','image_md','image_lg');
 
-		$value											= 	[
-																'title'		=> 	[
-																					'title_active'				=> $inputs['title_active'],
-																					'slider_title_location'		=> $inputs['slider_title_location'],
-																					'slider_title'				=> $inputs['slider_title'],
-																				],
-																'content'	=> 	[
-																					'content_active'			=> $inputs['content_active'],
-																					'slider_content_location'	=> $inputs['slider_content_location'],
-																					'slider_content'			=> $inputs['slider_content'],
-																				],		
-																'button'	=> 	[
-																					'button_active'				=> $inputs['button_active'],
-																					'slider_button_location'	=> $inputs['slider_button_location'],
-																					'slider_button_url'			=> $inputs['slider_button_url'],
-																					'slider_button_url'			=> $inputs['slider_button_url'],
-																				],																																							
+
+		$title 											= ['title_active'					=> 0];
+		$content										= ['content_active'					=> 0];
+		$button											= ['button_active'					=> 0];
+
+		if($inputs['title_active'] == 1)
+		{
+			$title 										= 	[
+																'title_active'				=> $inputs['title_active'],
+																'slider_title_location'		=> $inputs['slider_title_location'],
+																'slider_title'				=> $inputs['slider_title'],
 															];
+		}
+
+		if($inputs['content_active'] == 1)
+		{
+			$content 									= 	[
+																'content_active'			=> $inputs['content_active'],
+																'slider_content_location'	=> $inputs['slider_content_location'],
+																'slider_content'			=> $inputs['slider_content'],
+															];
+		}
+
+		if($inputs['button_active'] == 1)
+		{
+			$button 									= 	[
+																'button_active'				=> $inputs['button_active'],
+																'slider_button_location'	=> $inputs['slider_button_location'],
+																'slider_button_text'		=> $inputs['slider_button_text'],
+																'slider_button_url'			=> $inputs['slider_button_url'],
+															];
+		}				
+
+		$value											= 	[ 'title' => $title, 'content' => $content, 'button' => $button];
 
 
 		if($action == 'preview')
@@ -205,7 +221,7 @@ class FeatureController extends BaseController
 
 	public function destroy($id)
 	{
-		$data											= FeaturedProduct::findorfail($id);
+		$data											= storeSetting::findorfail($id);
 
 		DB::beginTransaction();
 
