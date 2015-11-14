@@ -49,7 +49,7 @@ class CartController extends BaseController
 			{
 				$varianp 						= Varian::findorfail($value);
 
-				$varian[]						= ['varian_id' => $varianp->id, 'qty' => $qtys[$key], 'size' => $varianp->size];
+				$varian[]						= ['varian_id' => $varianp->id, 'qty' => $qtys[$key], 'size' => $varianp->size, 'stock' => $varianp->stook];
 			}
 		}
 
