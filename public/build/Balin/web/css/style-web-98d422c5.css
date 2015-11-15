@@ -854,6 +854,9 @@ input.text-hollow:focus {
   color: #000;
   text-decoration: none;
 }
+.hollow-login label {
+  font-weight: 400;
+}
 .gallery-product .owl-controls .owl-nav .owl-prev {
   position: absolute;
   left: 0;
@@ -991,6 +994,30 @@ select.form-control.hollow {
 }
 .qty-total label {
   font-size: 18px;
+}
+.qty-hollow-cart .input-hollow-cart,
+.qty-hollow-cart .btn-hollow-cart {
+  border: 1px solid #000;
+  width: 24px;
+  height: 24px;
+  font-size: 8px;
+}
+.qty-hollow-cart .input-hollow-cart {
+  border-color: #888;
+  padding: 3px 3px;
+  font-size: 12px;
+  text-align: center;
+  width: 40px;
+}
+.qty-hollow-cart .btn-hollow-cart {
+  padding: 5px 5px;
+  background-color: #000;
+  color: #fff;
+}
+.qty-hollow-cart .btn-hollow-cart:disabled {
+  background-color: #666;
+  color: #aaa;
+  border-color: #666;
 }
 .related-product {
   font-weight: 400;
