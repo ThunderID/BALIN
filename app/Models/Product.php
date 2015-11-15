@@ -205,7 +205,8 @@ class Product extends Eloquent
 
 		if(isset($image[0]))
 		{
-			return str_replace('localhost', '192.168.1.71', $image[0]->image_md);
+			// return str_replace('localhost', '127.0.0.1', $image[0]->image_md);
+			return $image[0]->image_md;
 		}
 	}
 
