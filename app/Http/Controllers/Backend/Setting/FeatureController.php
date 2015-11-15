@@ -268,5 +268,8 @@ class FeatureController extends BaseController
 		//notes
 		//variable images utk image slider
 		//variable value utk content slider
+		return  view('pages.backend.settings.feature.preview')
+					->with('images', $images)
+					->with('value', $value);
 	}
 }

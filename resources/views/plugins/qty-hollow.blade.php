@@ -1,6 +1,7 @@
 <script>
 	//plugin bootstrap minus and plus
 	//http://jsfiddle.net/laelitenetwork/puJ6G/
+	var tot_qty = 0;
 	$('.btn-number').click(function(e){
 		e.preventDefault();
 		
@@ -8,13 +9,15 @@
 		type      = $(this).attr('data-type');
 		var input = $("input[name='"+fieldName+"']");
 		var currentVal = parseInt(input.val());
-		var tot   = $('.tot_qty').attr('price');
-		console.log(tot);
+		var qty   = parseInt($('.tot_qty').data('price'));
+
 		if (!isNaN(currentVal)) {
 			if(type == 'minus') {
 				
 				if(currentVal > input.attr('min')) {
 					input.val(currentVal - 1).change();
+					tot_qty -= qty;
+					$('.tot_qty').text('IDR '+number_format(tot_qty));
 				} 
 				if(parseInt(input.val()) == input.attr('min')) {
 					$(this).attr('disabled', true);
@@ -24,6 +27,8 @@
 
 				if(currentVal < input.attr('max')) {
 					input.val(currentVal + 1).change();
+					tot_qty += qty;
+					$('.tot_qty').text('IDR '+number_format(tot_qty));
 				}
 				if(parseInt(input.val()) == input.attr('max')) {
 					$(this).attr('disabled', true);
