@@ -101,7 +101,7 @@
 						<div class="clearfix">&nbsp;</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<a href="#" class="btn-hollow hollow-white btn-block">
+								<a href="{{route('frontend.get.checkout')}}" class="btn-hollow hollow-white btn-block">
 									Checkout
 								</a>
 							</div>
@@ -132,7 +132,7 @@
 						<div class="clearfix">&nbsp;</div>
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12">
-								<a href="#" class="btn-hollow hollow-black pull-right m-r-sm">
+								<a href="{{route('frontend.get.checkout')}}" class="btn-hollow hollow-black pull-right m-r-sm">
 									Checkout
 								</a>
 								<a href="{{ route('frontend.cart.edit') }}" class="btn-hollow hollow-black pull-right m-r-sm">

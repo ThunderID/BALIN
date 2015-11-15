@@ -15,7 +15,7 @@
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">	
 						@foreach($item_list_size as $key => $value)
-						<p>Size : {{ $value['size'] }}</p>
+						<p>Size : {{ $value['size'] }} ({{ $value['qty'] }})</p>
 						@endforeach
 					</div>
 				</div>	
@@ -119,12 +119,14 @@
 		<label class="m-t-sm label-item label-total" data-product-total="{{ $item_list_total_price }}">@money_indo($item_list_total_price)</label>
 	</div>
 	<div class="col-md-1 col-sm-1 hidden-xs">
+		@if($item_mode!='checkout')
 		<a href="{{ route('frontend.cart.destroy', $item_list_id) }}" class="btn-hollow btn-hollow-xs hollow-black pull-right m-t-sm">
 			<i class="fa fa-times"></i>
 		</a>
-		  
+		@endif
 	</div>
 	<div class="hidden-lg hidden-md hidden-sm col-xs-12">
+		@if($item_mode!='checkout')
 		<div class="row">
 			<div class="col-xs-12">
 				<a href="{{ route('frontend.cart.destroy', $item_list_id) }}" class="btn-hollow hollow-black btn-block m-t-md">
@@ -133,5 +135,6 @@
 			</div>
 			<div class="clearfix">&nbsp;</div>
 		</div>
+		@endif
 	</div>
 </div>
