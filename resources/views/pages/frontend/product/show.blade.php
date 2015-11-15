@@ -107,12 +107,8 @@
 												<div class="form-group">
 													<div class="qty-hollow m-b-lg">
 														<label class="label-qty">{{ $v['size'] }}</label>
-<<<<<<< HEAD
-													  	<input type="text" name="qty-{{strtolower($v['size'])}}[1]" class="form-control hollow form-qty input-number" value="0" min="0" max="
-=======
 													  	<input type="hidden" name="varianids[{{$k}}]" class="form-control" value="{{$v['id']}}">
 													  	<input type="text" name="qty[{{$k}}]" class="form-control hollow form-qty input-number" value="1" min="1" max="
->>>>>>> origin/master
 													  	@if (50<=$v['stock'])
 													  		{{'50'}}
 													  	@else
