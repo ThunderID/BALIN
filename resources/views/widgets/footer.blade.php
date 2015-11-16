@@ -5,16 +5,13 @@
 				<div class="row">
 					<div class="col-md-8">
 						<ul class="list-inline menu-footer">
-							<li><a href="#">About US</a></li>
-							<li><a href="#">Contact US</a></li>
-							<li><a href="#">FAQ</a></li>
-							<li><a href="#">Term & Condition</a></li>
-							<li><a href="#">Advertise with US</a></li>
+							<li><a href="{{ URL::route('frontend.aboutus.index') }}">About US</a></li>
+							<li><a href="{{ URL::route('frontend.home.index') }}#contact-us">Contact US</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4 text-right">
-						<a href="#" class="btn-hollow hollow-social hollow-white btn-hollow-xs"><i class="fa fa-facebook"></i></a>
-						<a href="#" class="btn-hollow hollow-social hollow-white btn-hollow-xs"><i class="fa fa-twitter"></i></a>
+						<a href="{{ $storeinfo['facebook_url'] }}" class="btn-hollow hollow-social hollow-white btn-hollow-xs"><i class="fa fa-facebook"></i></a>
+						<a href="{{ $storeinfo['twitter_url'] }}" class="btn-hollow hollow-social hollow-white btn-hollow-xs"><i class="fa fa-twitter"></i></a>
 					</div>
 				</div>
 				<div class="row">
