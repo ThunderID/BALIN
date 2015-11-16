@@ -404,7 +404,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::get('edit/cart', 											['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
 
-	Route::post('update/cart',											['uses' => 'CartController@update', 'as' => 'frontend.cart.update']);
+	Route::post('update/cart/{cid?}/{vid?}',							['uses' => 'CartController@update', 'as' => 'frontend.cart.update']);
 
 	Route::get('remove/from/cart/{cid?}/{vid?}',						['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
 	

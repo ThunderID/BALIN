@@ -111,8 +111,17 @@ class CartController extends BaseController
 		return $this->layout;
 	}
 
-	public function update()
+	public function update($cid = null, $vid = null)
 	{
+
+		$baskets 									= Cookie::get('baskets');
+
+		$inputs 									= Input::only('qty');
+
+
+		$baskets[$cid]['varians'][$vid]['qty']		= $inputs['qty'][$vid];
+
+
 		// $inputs 									= Input::all();
 
 		// //get current stock
@@ -146,17 +155,18 @@ class CartController extends BaseController
 		// 													];				
 		// 	}
 		// }
+		// dd($vid);
 
-		// Cookie::forget('baskets');
+		Cookie::forget('baskets');
 
-		// //update baskets
 		// dd($baskets);
-		// $baskets 								= Cookie::forever('baskets', $baskets);
+		// //update baskets
+		$baskets 								= Cookie::forever('baskets', $baskets);
 
 
-		// //return cookies
-		// return Redirect::route('frontend.cart.index')
-		// 				->withCookie($baskets);
+		//return cookies
+		return Redirect::route('frontend.cart.index')
+						->withCookie($baskets);
 	}
 
 	// FUNCTION REMOVE CART

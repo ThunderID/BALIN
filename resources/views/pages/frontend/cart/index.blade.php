@@ -11,34 +11,34 @@
 			</div>
 		</div>
 		<div class="clearfix">&nbsp;</div>
-		<div class="row">
-<div class="col-xs-12 col-md-12 col-sm-12">
-				<div class="row chart-header">
-					<div class="col-md-1">
-						<p>Produk</p>
-					</div>
-					<div class="col-md-11">
-						<div class="row">
-							<div class="col-md-4">
-							</div>
-							<div class="col-md-1">
-								<p class="text-center">Kuantitas</p>
-							</div>
-							<div class="col-md-2">
-								<p class="text-right">Harga</p>
-							</div>
-							<div class="col-md-2">
-								<p class="text-right">Diskon</p>
-							</div>
-							<div class="col-md-2">
-								<p class="text-right">Total</p>
-							</div>
-							<div class="col-md-1">
-								<p></p>
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-sm-12">
+					<div class="row chart-header">
+						<div class="col-md-1">
+							<p>Produk</p>
+						</div>
+						<div class="col-md-11">
+							<div class="row">
+								<div class="col-md-4">
+								</div>
+								<div class="col-md-1">
+									<p class="text-center">Kuantitas</p>
+								</div>
+								<div class="col-md-2">
+									<p class="text-right">Harga</p>
+								</div>
+								<div class="col-md-2">
+									<p class="text-right">Diskon</p>
+								</div>
+								<div class="col-md-2">
+									<p class="text-right">Total</p>
+								</div>
+								<div class="col-md-1">
+									<p></p>
+								</div>        	
 							</div>        	
 						</div>        	
-					</div>        	
-				</div>
+					</div>
 						
 						@if ($carts)
 							<?php $total = 0; ?>
@@ -158,6 +158,12 @@
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
+@stop
+
+@section('script')
+	$('.qty').change(function() {
+		$(this).closest("form").submit();
+	});
 @stop
 
 @section('script_plugin')

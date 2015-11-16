@@ -30,10 +30,25 @@
 					<p>Size : {{ $value['size'] }} <a href="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}">(Hapus)</a></p>
 				</div>
 				<div class="col-md-1 text-center">
-					{!! Form::text( $k  . '[]', $value['qty'], [
-								'class'         => 'form-control text-center', 
-								'tabindex'      => '1',
-					]) !!}					
+					<div class="row qty-hollow-cart">
+						{!! Form::open(['url' => route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key] ), 'method' => 'POST']) !!}
+
+							<div class="input-group">
+							  	<input type="hidden" name="varianids[{{$key}}]" class="form-control" value="{{$value['varian_id']}}">
+								<span class="input-group-btn">
+									<button type="button" class="btn-hollow btn-hollow-sm btn-hollow-cart btn-number" @if($value['qty'] <= 0)disabled="disabled"@endif data-type="minus" data-field="qty-{{strtolower($value['size'])}}[1]">
+										<i class="fa fa-minus"></i>
+									</button>
+								</span>
+								<input type="text" name="qty[{{$key}}]" class="form-control input-hollow-cart input-number qty" value="{{ $value['qty'] }}" min="0" max="@if(50<=$value['stock']){{ '50' }}@else{{ $value['stock'] }}@endif" data-stock="{{ $value['stock'] }}" data-id="{{ $value['varian_id'] }}" data-name="qty-{{strtolower($value['size'])}}[1]">
+								<span class="input-group-btn">
+									<button type="button" class="btn-hollow btn-hollow-sm btn-hollow-cart btn-number" data-type="plus" data-field="qty-{{strtolower($value['size'])}}[1]">
+										<i class="fa fa-plus"></i>
+									</button>
+								</span>
+							</div>
+						{!! Form::close() !!}   
+					</div>					
 				</div>
 				<div class="col-md-2 text-right">
 					@money_indo($item_list_normal_price) 
@@ -48,6 +63,7 @@
 					</br>
 					</br>
 				</div>  
+				<div class"col-md-12 clearfix"></div>
 			@endforeach
 		</div>
 	</div>
