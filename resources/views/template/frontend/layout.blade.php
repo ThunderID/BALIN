@@ -14,6 +14,15 @@
 
     <title>BALIN</title>
 
+    <style>
+        a.hover-black:hover{
+           color:#000 !important;
+        }
+        a.hover-gray:hover{
+           color:#888 !important;
+        }            
+    </style>
+
     <!-- Custom CSS -->
    {!! HTML::style('Balin/web/css/bootstrap.min.css') !!}
    {!! HTML::style('Balin/web/css/layout.css') !!}
