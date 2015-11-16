@@ -17,6 +17,7 @@ class Address extends Eloquent
 	 */
 
 	use \App\Models\Traits\morphTo\HasAddressTrait;
+	use \App\Models\Traits\Custom\HasStatusTrait;
 
 	/**
 	 * The database table used by the model.
@@ -109,4 +110,13 @@ class Address extends Eloquent
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
 
+	public function scopeOlderShipmentByCustomer($query, $variable)
+	{
+		return $query->join('shipments', 'shipments.address_id', '=', 'addresses.id')
+					->join('transactions', 'transactions.id', '=', 'shipments.transaction_id')
+					->transactionlogstatus(['wait', 'paid', 'shipping', 'delivered'])
+					->extendtransactiontype('sell')
+					->where('transactions.user_id', $variable)
+				;
+	}
 }

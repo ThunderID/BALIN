@@ -12,10 +12,9 @@
 		</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
-			
 			<div class="col-xs-12 col-md-12 col-sm-12">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-11">
 						<div class="row chart-header">
 							<div class="col-md-4 col-sm-4 hidden-xs">
 								<p>Produk</p>
@@ -56,13 +55,14 @@
 									"item_list_size"				=> $item['varians'],
 									"item_list_discount_price"		=> $item['discount'],
 									"item_list_total_price"			=> ($item['price']*$qty),
+									"item_varians"					=> $item['varians'],
 									"item_mode"						=> 'new',
 								))
 								<?php $total += ($item['price']*$qty); ?>
 							@endforeach
 						@else
 							<div class="row chart-item">
-								<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="col-md-11 col-sm-12 col-xs-12">
 									<h4 class="text-center">Tidak ada item di cart</h4>
 								</div>
 							</div>
@@ -93,15 +93,15 @@
 						<div class="clearfix">&nbsp;</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<a href="{{ route('frontend.cart.edit') }}" class="btn-hollow hollow-white btn-block">
-									Update Cart
+								<a href="{{ route('frontend.product.index') }}" class="btn-hollow hollow-white btn-block">
+									Lanjut Belanja
 								</a>
 							</div>
 						</div>
 						<div class="clearfix">&nbsp;</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<a href="#" class="btn-hollow hollow-white btn-block">
+								<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-white btn-block">
 									Checkout
 								</a>
 							</div>
@@ -132,11 +132,11 @@
 						<div class="clearfix">&nbsp;</div>
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12">
-								<a href="#" class="btn-hollow hollow-black pull-right m-r-sm">
-									Checkout
+								<a href="{{ route('frontend.product.index') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
+									Lanjut Belanja
 								</a>
-								<a href="{{ route('frontend.cart.edit') }}" class="btn-hollow hollow-black pull-right m-r-sm">
-									Update Cart
+								<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
+									Checkout
 								</a>
 							</div>
 							<div class="clearfix">&nbsp;</div>
@@ -153,6 +153,6 @@
 	<div class="clearfix">&nbsp;</div>
 @stop
 
-@section('script')
-
+@section('script_plugin')
+	@include('plugins.qty-hollow')
 @stop

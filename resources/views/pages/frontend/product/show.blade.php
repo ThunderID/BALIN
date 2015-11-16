@@ -108,12 +108,7 @@
 													<div class="qty-hollow m-b-lg">
 														<label class="label-qty">{{ $v['size'] }}</label>
 													  	<input type="hidden" name="varianids[{{$k}}]" class="form-control" value="{{$v['id']}}">
-													  	<input type="text" name="qty[{{$k}}]" class="form-control hollow form-qty input-number" value="1" min="1" max="
-													  	@if (50<=$v['stock'])
-													  		{{'50'}}
-													  	@else
-													  		{{ $v['stock'] }}
-													  	@endif" data-stock="{{ $v['stock'] }}" data-id="{{ $v['id'] }}">
+													  	<input type="text" name="qty[{{$k}}]" class="form-control hollow form-qty input-number" value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" data-stock="{{ $v['stock'] }}" data-id="{{ $v['id'] }}" data-name="qty-{{strtolower($v['size'])}}[1]">
 														<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-minus btn-number" disabled="disabled" data-type="minus" data-field="qty-{{strtolower($v['size'])}}[1]">
 															<i class="fa fa-minus"></i>
 													  	</button>

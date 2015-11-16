@@ -1,10 +1,10 @@
-{!! Form::open(['url' => route('frontend.dologin')]) !!}
+{!! Form::open(['url' => route('frontend.dologin', ['class' => 'hollow-login'])]) !!}
     <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email" style="font-weight:400">Email</label>
         {!! Form::email('email', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Email', 'required' => 'required']) !!}
     </div>
     <div class="form-group">
-	    <label for="pwd">Password</label>
+	    <label for="pwd" style="font-weight:400">Password</label>
 	    {!! Form::password('password', ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Password', 'required' => 'required']) !!}
 	</div>
 	<div class="checkbox">
