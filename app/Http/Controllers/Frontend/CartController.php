@@ -93,7 +93,7 @@ class CartController extends BaseController
 		}
 
 		//update baskets
-		$baskets 								= Cookie::make('baskets', $baskets, 1440);
+		$baskets 								= Cookie::forever('baskets', $baskets);
 
 		return Redirect::route('frontend.cart.index')
 						->withCookie($baskets);
@@ -113,60 +113,98 @@ class CartController extends BaseController
 
 	public function update()
 	{
-		//get current stock
+		// $inputs 									= Input::all();
+
+		// //get current stock
+		// $baskets 									= Cookie::get('baskets');
+
+		// $qty 										= Input::get('product_qty');
+
+		// foreach ($inputs  as $k => $input)
+		// {
+		// 	if($k != '_token')
+		// 	{
+		// 		foreach ($input as $key => $value) 
+		// 		{
+		// 			// $baskets[$k]['varians'][$key]['qty'] = $value;
+		// 			$varians 							= 	[
+		// 														'varian_id' 	=> $baskets[$k]['varians'][$key]['varian_id'], 
+		// 														'qty' 			=> $qty[$k],
+		// 														'size' 			=> $baskets[$k]['varians'][$key]['size'], 
+		// 														'stock' 		=> $baskets[$k]['varians'][$key]['stock']
+		// 													];
+		// 		}
+
+		// 		$baskets[$k]							=	[
+		// 														'slug' 			=> $baskets[$k]['slug'], 
+		// 														'name'			=> $baskets[$k]['name'],
+		// 														'stock'			=> $baskets[$k]['stock'],
+		// 														'price'			=> $baskets[$k]['price'],
+		// 														'discount'		=> $baskets[$k]['discount'],
+		// 														'images'		=> $baskets[$k]['images'],
+		// 														'varians'		=> $varians
+		// 													];				
+		// 	}
+		// }
+
+		// Cookie::forget('baskets');
+
+		// //update baskets
+		// dd($baskets);
+		// $baskets 								= Cookie::forever('baskets', $baskets);
+
+
+		// //return cookies
+		// return Redirect::route('frontend.cart.index')
+		// 				->withCookie($baskets);
+	}
+
+	// FUNCTION REMOVE CART
+	public function destroy ($cid = null, $vid = null)
+	{
+		//get old baskets
 		$baskets 								= Cookie::get('baskets');
 
-		$qty 										= Input::get('product_qty');
+		//check validation
+		// if ($cid)
+		// {
+		// 	// return false;
+		// 	dd('wrong');
+		// }
 
-		foreach ($baskets as $k => $item)
+		if(isset($cid) && !isset($vid))
 		{
-			$basket[$k]							=	[
-														'slug' 			=> $item['slug'], 
-														'name'			=> $item['name'],
-														'sku'				=> $item['sku'],
-														'qty' 			=> $qty[$k],
-														'stock'			=> $item['stock'],
-														'price'			=> $item['price'],
-														'discount'		=> $item['discount'],
-														'images'			=> $item['images']
-													];
+			//remove selected item from cart
+			unset($baskets[$cid]);
+		}
+		else if (isset($cid) && isset($vid)) 
+		{
+			//remove varian from selected item cart
+			if(count($baskets[$cid]['varians']) > 1)
+			{
+				unset($baskets[$cid]['varians'][$vid]);
+			}
+			else
+			{
+				unset($baskets[$cid]);
+			}
 		}
 
-		Cookie::forget('baskets');
+		$baskets 								= array_values($baskets);
 
-		$baskets 								= $basket;
-
-		//update baskets
-		$baskets 								= Cookie::make('baskets', $baskets, 1440);
+		// //update baskets
+		$baskets 								= Cookie::forever('baskets', $baskets);
 
 		//return cookies
 		return Redirect::route('frontend.cart.index')
 						->withCookie($baskets);
 	}
 
-	// FUNCTION REMOVE CART
-	public function destroy ($id)
+
+	// FUNCTION EMPTY CART
+	public function clean()
 	{
-		//get old baskets
-		$baskets 								= Cookie::get('baskets');
-
-		//check validation
-		if ($id && count($baskets) <= $id )
-		{
-			return false;
-			// dd($wrong);
-		}
-
-		//remove selected item from cart
-		unset($baskets[$id]);
-
-		$baskets 								= array_values(array_filter($baskets));
-
-		//update baskets
-		$baskets 								= Cookie::forever('baskets', $baskets);
-
-		//return cookies
 		return Redirect::route('frontend.cart.index')
-						->withCookie($baskets);
+						->withCookie(Cookie::forget('baskets'));		
 	}
 }
