@@ -72,6 +72,7 @@ html {
 				}
 			}
 			&.active a {
+				border-bottom: none;
 				color: #fff;
 				font-weight: 500;
 			}
@@ -688,8 +689,8 @@ select.form-control.hollow {
     position: relative;
     .label-qty {
 		position: absolute;
-		background-color: #222;
-		border: 1px solid #666;
+		background-color: #000;
+		border: 1px solid #000;
 		color: #eee;
 		top: -49px;
 		width: 64px;
@@ -707,23 +708,24 @@ select.form-control.hollow {
 	}
 	.btn-qty {
 		position: absolute;
-		border: 1px solid #000;
-		background-color: #000;
-		color: #fff;
+		border: 1px solid #666;
+		background-color: #fff;
+		font-size: 10px;
+		color: #000;
 		margin-top: -1px;
 		width: 32px;
 		height: 28px;
+		padding: 7px 3px;
 		&.qty-minus {
 			left: 0px;
 			border-right: none;
 		}
 		&.qty-plus {
 			right: 0px;
-			border-left: 1px solid #444;
+			border-left: 1px solid #666;
 		}
 		&:disabled {
-			background-color: #666;
-			color: #aaa;
+			color: #999;
 			border-color: #666;
 		}
 	}
