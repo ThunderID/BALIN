@@ -599,7 +599,7 @@ html {
   font-weight: 400;
 }
 .chart-item p {
-  font-size: 14px;
+  font-size: 13px;
   color: #777;
 }
 .chart-item .label-item {
@@ -856,6 +856,12 @@ input.text-hollow:focus {
 }
 .hollow-login label {
   font-weight: 400;
+}
+h3.hollow-label {
+  font-weight: 400;
+}
+label.hollow-label {
+  font-weight: 300;
 }
 .gallery-product .owl-controls .owl-nav .owl-prev {
   position: absolute;
