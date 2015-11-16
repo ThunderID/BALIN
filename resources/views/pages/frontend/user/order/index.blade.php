@@ -37,7 +37,7 @@
 							<td>  
 								<a class="link-grey hover-black unstyle" href="{{ route('frontend.profile.order.show', $value['ref_number']) }}">Detail</a>
 								@if($value['status']=='wait')
-								, <a class="link-grey hover-black unstyle" href="{{ route('frontend.profile.order.destroy', $value['ref_number']) }}">Cancel</a>
+								, <a class="link-grey hover-black unstyle" href="{{ route('frontend.profile.order.destroy', $value['ref_number']) }}">Batal</a>
 								@endif
 							</td>
 						</tr>
