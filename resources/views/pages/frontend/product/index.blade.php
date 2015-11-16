@@ -20,7 +20,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="row">
-					<div class="col-md-7 col-sm-7 col-xs-12">
+					<div class="col-md-6 col-sm-7 col-xs-12">
 						@include('widgets.breadcrumb')
 					</div>
 					<div class="col-md-3 col-sm-6 hidden-xs pull-right m-t-lg">
@@ -34,7 +34,7 @@
 					<div class="col-md-1 col-sm-2 hidden-xs pull-right m-t-lg">
 						<div class="dropdown">
 							<a href="#" id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-								<p class="pull-right">Sort by</p>
+								<p class="pull-right">Sort by &nbsp;<i class="fa fa-angle-down"></i></p>
 							</a>
 							<ul class="dropdown-menu category-list" aria-labelledby="dLabel">
 								<li><a href="#">A-Z</a></li>
@@ -42,10 +42,10 @@
 							</ul>
 						</div>
 					</div>		
-					<div class="col-md-1 col-sm-2 hidden-xs pull-right m-t-lg">
+					<div class="col-md-2 col-sm-2 hidden-xs pull-right m-t-lg">
 						<div class="dropdown">
 							<a href="#" id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-								<p class="pull-right">Kategori</p>
+								<p class="pull-right">Kategori &nbsp;<i class="fa fa-angle-down"></i></p>
 							</a>
 							<ul class="dropdown-menu category-list" aria-labelledby="dLabel">
 								@foreach ($category as $cat)
