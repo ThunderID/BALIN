@@ -21,7 +21,6 @@
 			var input 		= $(this).parent().find('.input-number').attr('data-name', fieldName);
 			var qty   		= parseInt($('.tot_qty').data('price'));
 		@endif
-
 		var currentVal = parseInt(input.val());
 
 		if (!isNaN(currentVal)) {
