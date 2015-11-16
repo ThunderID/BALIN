@@ -12,29 +12,33 @@
 		</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
-			<div class="col-xs-12 col-md-12 col-sm-12">
-				<div class="row">
+<div class="col-xs-12 col-md-12 col-sm-12">
+				<div class="row chart-header">
+					<div class="col-md-1">
+						<p>Produk</p>
+					</div>
 					<div class="col-md-11">
-						<div class="row chart-header">
-							<div class="col-md-4 col-sm-4 hidden-xs">
-								<p>Produk</p>
+						<div class="row">
+							<div class="col-md-4">
 							</div>
-							<div class="col-md-1 col-sm-1 hidden-xs">
+							<div class="col-md-1">
 								<p class="text-center">Kuantitas</p>
 							</div>
-							<div class="col-md-2 col-sm-2 hidden-xs">
+							<div class="col-md-2">
 								<p class="text-right">Harga</p>
 							</div>
-							<div class="col-md-2 col-sm-2 hidden-xs">
+							<div class="col-md-2">
 								<p class="text-right">Diskon</p>
 							</div>
-							<div class="col-md-2 col-sm-2 hidden-xs">
+							<div class="col-md-2">
 								<p class="text-right">Total</p>
 							</div>
-							<div class="col-md-1 col-sm-1 hidden-xs">
+							<div class="col-md-1">
 								<p></p>
 							</div>        	
-						</div>
+						</div>        	
+					</div>        	
+				</div>
 						
 						@if ($carts)
 							<?php $total = 0; ?>
@@ -138,6 +142,9 @@
 								<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
 									Checkout
 								</a>
+								<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-black pull-right m-r-sm">
+									Empty Cart
+								</a>								
 							</div>
 							<div class="clearfix">&nbsp;</div>
 							<div class="clearfix">&nbsp;</div>
