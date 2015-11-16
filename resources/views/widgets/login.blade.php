@@ -16,7 +16,7 @@
 	<div class="clearfix">&nbsp;</div>
 	<p class="t-xs" style="color:#666">
 		Jika anda lupa password klik 
-		<a href="javascript:void(0);" class="btn-forgot">Lupa Password</a>, 
+		<a href="javascript:void(0);" class="btn-forgot">Reset Password</a>, 
 		dan jika belum punya akun, silahkan klik 
 		<a href="javascript:void(0);" class="btn-signup">Sign Up</a> 
 		atau login dengan akun sosial,
