@@ -10,6 +10,7 @@
 				@include('widgets.pageelements.pagetitle', array('pagetitle' => 'Cart'))
 			</div>
 		</div>
+		<div class="col-md-12">
 		<div class="clearfix">&nbsp;</div>
 			<div class="row">
 				<div class="col-xs-12 col-md-12 col-sm-12">
@@ -120,31 +121,42 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
 						@if ($carts)
-							<div class="row chart-footer">
-								<div class="col-lg-9 col-md-9 col-sm-9">
-									<h4 class="text-right">SubTotal :</h4>
-								</div>
-								<div class="col-lg-2 col-md-2 col-sm-2">
-									<h4 class="text-right">
-										@if ($total)
-											<strong>@money_indo($total)</strong>
-										@endif
-									</h4>
-								</div>	
+						<div class="row">
+							<div class="col-md-1">
 							</div>
+							<div class="col-md-11">
+								<div class="row chart-footer">
+									<div class="col-md-9 col-sm-9">
+										<h4 class="text-right">SubTotal :</h4>
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<h4 class="text-right">
+											@if ($total)
+												<strong>@money_indo($total)</strong>
+											@endif
+										</h4>
+									</div>	
+									<div class="col-md-1 col-sm-1">
+									</div>	
+								</div>
+							</div>
+						</div>
 						@endif
 						<div class="clearfix">&nbsp;</div>
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12">
+						<div class="row">
+								
 								<a href="{{ route('frontend.product.index') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
 									Lanjut Belanja
 								</a>
 								<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
 									Checkout
 								</a>
-								<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-black pull-right m-r-sm">
-									Empty Cart
+								<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
+									Kosongkan Cart
 								</a>								
+							</div>
 							</div>
 							<div class="clearfix">&nbsp;</div>
 							<div class="clearfix">&nbsp;</div>
@@ -153,6 +165,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	</div>
 	<div class="clearfix">&nbsp;</div>
