@@ -3,7 +3,7 @@
 @section('right_content')
 	<div class="row">
 		<div class="col-sm-12">
-			<h3 class="page-title m-t-lg">{{$title}}</h3>
+			<h3 class="m-t-0">{{$title}}</h3>
 			<p class="m-t-md"><strong>Halo, @if(Auth::user()->gender=='female')Ms. @else Mr. @endif {{Auth::user()->name}}!</strong></p>
 			<p class="m-t-md">
 			Melalui dashboard anda, anda dapat melihat aktivitas akun anda dan mengubah informasi akun. Klik link yang tersedia untuk melihat atau mengubah profil anda.

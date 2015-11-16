@@ -7,7 +7,7 @@
 @section('right_content')
 	<div class="row">
 		<div class="col-sm-12">
-			<h3 class="page-title m-t-lg">{{$title}}&nbsp;&nbsp;<a href="{{route('frontend.profile.address.create')}}" class="btn btn-xs btn-default">Baru</a></h3>
+			<h3 class="page-title m-t-0">{{$title}}&nbsp;&nbsp;<a href="{{route('frontend.profile.address.create')}}" class="btn btn-xs btn-default">Baru</a></h3>
 		</div>
 	</div>
 
