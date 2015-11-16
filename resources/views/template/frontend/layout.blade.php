@@ -23,6 +23,15 @@
     <title>BALIN</title>
 
     <style>
+        a.unstyle{
+             text-decoration: none;
+        }
+        a.link-grey{
+            color:#999!important;
+        }
+        a.unstyle:hover{
+             text-decoration: none;
+        }
         a.hover-black:hover{
            color:#000 !important;
         }
