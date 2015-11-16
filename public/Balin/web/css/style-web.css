@@ -971,7 +971,7 @@ select.form-control.hollow {
 }
 .qty-hollow .btn-qty {
   position: absolute;
-  border: 1px solid #666;
+  border: 1px solid #000;
   background-color: #fff;
   font-size: 10px;
   color: #000;
@@ -986,7 +986,7 @@ select.form-control.hollow {
 }
 .qty-hollow .btn-qty.qty-plus {
   right: 0px;
-  border-left: 1px solid #666;
+  border-left: 1px solid #000;
 }
 .qty-hollow .btn-qty:disabled {
   color: #999;
