@@ -43,7 +43,7 @@ class CustomerAndAccessor
             } 
             else 
             {
-                return redirect()->route('frontend.home.index');
+                return redirect()->route('frontend.join.index');
             }
         }
 

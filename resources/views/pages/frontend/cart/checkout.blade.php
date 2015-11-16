@@ -127,6 +127,12 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
+								<label class="hollow-label" for="">Nama Penerima</label>
+								{!! Form::input('text', 'receiver_name', null, [
+										'class' 		=> 'form-control hollow transaction-input-postal-code',
+								]) !!}
+							</div>
+							<div class="form-group">
 								<label class="hollow-label" for="">Alamat</label>
 								{!! Form::textarea('address', null, [
 										'class' 		=> 'form-control hollow transaction-input-address',
@@ -136,14 +142,29 @@
 							</div>
 							<div class="form-group">
 								<label class="hollow-label" for="">Kode Pos</label>
-								{!! Form::input('number', 'postal_code', null, [
+								{!! Form::input('number', 'zipcode', null, [
 										'class' 		=> 'form-control hollow transaction-input-postal-code',
 								]) !!}
 							</div>
 							<div class="form-group">
 								<label class="hollow-label" for="">No. Tlp</label>
-								{!! Form::input('number', 'phone', null, [
+								{!! Form::input('text', 'phone', null, [
 										'class' 		=> 'form-control hollow transaction-input-phone',
+								]) !!}
+							</div>
+						</div>
+					</div>
+					<div class="row">
+			    		<div class="col-md-12">
+			    			<h3 class="m-t-none m-b-md hollow-label">VOUCHER</h3>
+			    		</div>
+			    	</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="hollow-label" for="">Kode Voucher</label>
+								{!! Form::input('text', 'voucher_code', null, [
+										'class' 		=> 'form-control hollow transaction-input-voucher-code',
 								]) !!}
 							</div>
 						</div>
