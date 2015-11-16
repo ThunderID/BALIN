@@ -35,7 +35,7 @@
 </head>
 
 <body>
-    <div id="container">
+    <div id="container" style="padding-bottom:90px;">
         <header class="page-header">
             @include('widgets.top_menu')
         </header>
