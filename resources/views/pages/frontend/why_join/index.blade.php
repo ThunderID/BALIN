@@ -17,7 +17,7 @@
 					<div class="col-md-4"></div>
 					<div class="col-md-4 text-center">
 						<H2 class="text-center m-b-lg">Tunggu apa lagi?</H2>
-						<a class="btn-hollow hollow-black-border btn-block" href="{{ URL::route('frontend.join.index') }}">Mendaftar</a>
+						<a class="btn-hollow hollow-black-border btn-block" href="{{ URL::route('frontend.join.index') }}">Join Now</a>
 					</div>
 					<div class="col-md-4"></div>
 				</div>
