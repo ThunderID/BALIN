@@ -128,7 +128,7 @@
 												Total
 											</h4>
 											<?php $price 	= $data['price'];?>
-											<label class="text-right m-t-xs text-product tot_qty" data-price="{{ $price }}"> @money_indo($price)</label> 
+											<label class="text-right m-t-xs text-product tot_qty" data-price="{{ $price }}"> @money_indo('0')</label> 
 										</div>
 									</div>
 								</div>
@@ -161,43 +161,19 @@
 			</div>
 		</div>
 		@if ($related)
-			<div class="row m-t-lg related-product">
+			<div class="row m-t-lg m-b-md related-product">
 				<div class="col-sm-12">
 					<h4>Related Produk</h4>
 				</div>
 			</div>
-			<div class="row related-product">
-				@foreach ($related as $k => $v)
-					<div class="col-sm-3">
-						<div class="box-related">
-							<div class="row ">
-								<div class="col-sm-6">
-									<img src="{{ $v['images'][0]['thumbnail'] }}" class="img-responsive" alt="">
-									<h4 class="caption-product">{{ $v['name'] }}</h4>
-									<?php $price 	= $data['price'];?>
-									@if($v['discount']!=0)
-										<h4 class="text-product"><strike> @money_indo($v['price']) </strike></h4>
-										<?php $price 	= $v['promo_price'];?>
-									@endif
-									@if($balance - $price >= 0)
-										<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
-										<?php $price 	= 0;?>
-									@elseif($balance!=0)
-										<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
-										<?php $price 	= $price - $balance;?>
-									@endif
-
-									@if($price==$v['price'])
-										<h4 class="text-product"> @money_indo($price)</h4>
-									@else
-										<h4 class="text-product"> @money_indo($price) </h4>
-									@endif
-								</div>
-							</div>
+			<div class="row">
+					@foreach($related as $data)
+						<div class="col-sm-4 col-md-3">
+							@include('widgets.product_card')
 						</div>
-					</div>
-				@endforeach
-			</div>
+					@endforeach
+				</div>
+			
 		@endif
 	</div>
 @stop
