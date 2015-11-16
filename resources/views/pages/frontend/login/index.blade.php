@@ -12,8 +12,6 @@
 									 <div class="row">
 										<div class="col-md-12">
 											<div class="info-corporate">
-												<div class="clearfix">&nbsp;</div>
-												<div class="clearfix">&nbsp;</div>
 												<p class="t-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus iure ratione maiores ducimus nulla cumque qui voluptatem dolores distinctio odit? Dolore praesentium officia distinctio itaque corporis quidem quod officiis iste.</p>
 
 												<p class="t-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus iure ratione maiores ducimus nulla cumque qui voluptatem dolores distinctio odit? Dolore praesentium officia distinctio itaque corporis quidem quod officiis iste.</p>

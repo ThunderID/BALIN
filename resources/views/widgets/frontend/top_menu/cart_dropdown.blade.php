@@ -48,8 +48,8 @@
 		<li>
 			<div class="row">
 				<div class="col-xs-12 text-center" style=" ">
-					<a href="{{ URL::route('frontend.cart.index') }}" class="btn-hollow btn-hollow-sm hollow-black-border m-r-sm">Lihat Cart</a>
-					<a href="#" class="btn-hollow btn-hollow-sm hollow-black-border m-l-sm">Checkout</a>
+					<a href="{{ route('frontend.cart.index') }}" class="btn-hollow btn-hollow-sm hollow-black-border m-r-sm">Lihat Cart</a>
+					<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow btn-hollow-sm hollow-black-border m-l-sm">Checkout</a>
 				</div>
 			</div>
 		</li> 

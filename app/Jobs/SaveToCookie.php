@@ -24,7 +24,7 @@ class SaveToCookie extends Job implements SelfHandling
 
         $errors                                             = new MessageBag();
 
-        $basket                                             = null;
+        $basket                                             = [];
         
         foreach ($this->transaction->transactiondetails as $key => $value) 
         {
@@ -42,9 +42,10 @@ class SaveToCookie extends Job implements SelfHandling
                 $tempb['images']                           = $value['varian']['product']['default_image'];
                 $tempb['varians'][]                        = ['varian_id' => $value->varian_id, 'qty' => $value->quantity, 'size' => $value->varian->size, 'stock' => $value->varian->stock];
 
-                $basket[$value['product_id']]              = $tempb;
+                $basket[$key]                              = $tempb;
             }
         }
+        // dd($basket);exit;
 
         Cookie::forget('baskets');
         $baskets                                           = Cookie::make('baskets', $basket, 1440);
