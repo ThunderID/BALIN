@@ -16,8 +16,8 @@
 				<div class="row">
 					<div class="col-md-4"></div>
 					<div class="col-md-4 text-center">
-						<H2 class="text-center m-b-lg">What are you waiting for?</H2>
-						<a class="btn-hollow hollow-black-border btn-block" href="{{ URL::route('frontend.join.index') }}">JOIN NOW</a>
+						<H2 class="text-center m-b-lg">Tunggu apa lagi?</H2>
+						<a class="btn-hollow hollow-black-border btn-block" href="{{ URL::route('frontend.join.index') }}">Mendaftar</a>
 					</div>
 					<div class="col-md-4"></div>
 				</div>
