@@ -59,11 +59,13 @@ class CheckOutController extends BaseController
 		if(Input::has('address_id') && Input::Get('address_id')!=0)
 		{
 			$address 							= Address::findorfail(Input::get('address_id'));
+			$receiver_name 						= Auth::user()->name;
 		}
 		else
 		{
 			$input 								= Input::only('address', 'zipcode', 'phone', 'receiver_name');
 			$address 							= new Address;
+			$receiver_name 						= $input['receiver_name'];
 			$address->fill($input);
 
 			if(!$address->save())
@@ -84,7 +86,7 @@ class CheckOutController extends BaseController
 				'courier_id'					=> $courier->id,
 				'transaction_id'				=> $transaction->id,
 				'address_id'					=> $address->id,
-				'receiver_name'					=> $address->receiver_name,
+				'receiver_name'					=> $receiver_name,
 		]);
 
 		if(!$shipment->save())
