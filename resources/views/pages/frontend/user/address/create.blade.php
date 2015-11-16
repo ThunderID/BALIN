@@ -45,7 +45,7 @@
 					<div class="col-md-12">
 						</br>
 						<div class="form-group text-right">
-							<button type="submit" class="btn-hollow hollow-black" tabindex="4">Simpan</button>
+							<button type="submit" class="btn-hollow hollow-black-border" tabindex="4">Simpan</button>
 						</div>        
 					</div>        
 				</div>    
