@@ -116,7 +116,7 @@
 							<div class="form-group">
 								<label class="hollow-label" for="name">Alamat Sebelumnya</label>
 								<select class="form-control hollow" name="address_id">
-									<option value="0"></option>
+									<option value="0">Alamat Baru</option>
 									@foreach($addresses as $key => $value)
 										<option value={{$value['id']}}>{{$value['receiver_name']}}</option>
 									@endforeach
