@@ -1,5 +1,5 @@
 <?php 	
-	$carts = Cookie::get('baskets'); 
+	$carts = Cookie::get('baskets');
 ?>
 @extends('template.frontend.layout')
 
@@ -12,10 +12,9 @@
 		</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
-			
 			<div class="col-xs-12 col-md-12 col-sm-12">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-11">
 						<div class="row chart-header">
 							<div class="col-md-4 col-sm-4 hidden-xs">
 								<p>Produk</p>
@@ -63,7 +62,7 @@
 							@endforeach
 						@else
 							<div class="row chart-item">
-								<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="col-md-11 col-sm-12 col-xs-12">
 									<h4 class="text-center">Tidak ada item di cart</h4>
 								</div>
 							</div>

@@ -1,12 +1,12 @@
 <div class="row chart-item">
 	<div class="col-md-4 col-sm-4 col-xs-12">
 		<div class="row">
-			<div class="col-sm-4 col-xs-3">
+			<div class="col-sm-5 col-xs-3">
 				 <a href="#">
 					<img class="img-responsive m-t-sm" src="{{ $item_list_image }}" >
 				 </a>
 			</div>
-			<div class="col-sm-8 col-xs-8">
+			<div class="col-sm-7 col-xs-7">
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">
 						<h4 class="m-b-xs">{{ $item_list_name }}</h4>
@@ -155,7 +155,7 @@
 	</div>
 	<div class="col-md-1 col-sm-1 hidden-xs">
 		@if($item_mode!='checkout')
-		<a href="{{ route('frontend.cart.destroy', $item_list_id) }}" class="btn-hollow btn-hollow-xs hollow-black pull-right m-t-lg">
+		<a href="{{ route('frontend.cart.destroy', ['id' => $item_list_id]) }}" class="btn-hollow btn-hollow-xs hollow-black pull-right m-t-lg">
 			<i class="fa fa-times"></i>
 		</a>
 		@endif
