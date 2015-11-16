@@ -7,9 +7,6 @@
 						<ul class="list-inline menu-footer">
 							<li><a href="#">About US</a></li>
 							<li><a href="#">Contact US</a></li>
-							<li><a href="#">FAQ</a></li>
-							<li><a href="#">Term & Condition</a></li>
-							<li><a href="#">Advertise with US</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4 text-right">
