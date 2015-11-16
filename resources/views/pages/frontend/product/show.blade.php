@@ -7,7 +7,7 @@
 @extends('template.frontend.layout')
 
 @section('content')
-	<div class="container mt-75">
+	<div class="container mt-75 m-b-xl">
 		<div class="row">
 			<div class="col-lg-12 m-b-md">
 				@include('widgets.breadcrumb')
@@ -163,7 +163,7 @@
 		@if ($related)
 			<div class="row m-t-lg m-b-md related-product">
 				<div class="col-sm-12">
-					<h4>Related Produk</h4>
+					<h4>Produk Lainnya</h4>
 				</div>
 			</div>
 			<div class="row">
