@@ -47,7 +47,7 @@ class CartController extends BaseController
 
 		foreach ($varians as $key => $value) 
 		{
-			if(isset($qtys[$key]) && $qtys!=0)
+			if(isset($qtys[$key]) && $qtys[$key]!=0)
 			{
 				$varianp 						= Varian::findorfail($value);
 
