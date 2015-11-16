@@ -142,8 +142,8 @@
 								<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
 									Checkout
 								</a>
-								<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-black pull-right m-r-sm">
-									Empty Cart
+								<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
+									Kosongkan Cart
 								</a>								
 							</div>
 							<div class="clearfix">&nbsp;</div>
