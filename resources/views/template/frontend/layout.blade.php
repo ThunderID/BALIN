@@ -28,7 +28,24 @@
         }
         a.hover-gray:hover{
            color:#888 !important;
-        }            
+        }
+
+        .info-price{
+            min-height: 43px;
+            padding-bottom: 5px;
+        }      
+
+        .info-price .small-price{
+            font-size: 8pt !important;
+        }           
+
+        .info-product{
+            min-height: 38px;
+        }  
+
+        .m-t-0{
+            margin-top: 0px;
+        }             
     </style>
 
     <!-- Custom CSS -->

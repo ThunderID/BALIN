@@ -6,22 +6,33 @@
 
 	<div class="caption-card" >
 		<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">
-			<h4 class="text-center">
-				{{ $data['name'] }}
-			</h4>
+			<div class="info-product">
+				<h4 class="text-center">
+					{{ $data['name'] }}
+				</h4>
+			</div>
 			<div class="info-price">
 				<?php $price 	= $data['price'];?>
-				@if($data['discount']!=0)
-					<p class="text-center normal-price"><strike> @money_indo($data['price']) </strike></p>
-					<?php $price 	= $data['promo_price'];?>
-				@endif
-				@if($balance - $price >= 0)
-					<p class="text-center normal-price"><strike> @money_indo($price) </strike></p>
-					<?php $price 	= 0;?>
-				@elseif($balance!=0)
-					<p class="text-center normal-price"><strike> @money_indo($price) </strike></p>
-					<?php $price 	= $price - $balance;?>
-				@endif
+				<p class="text-center normal-price small-price">
+					@if($data['discount']!=0)
+						<strike> @money_indo($data['price']) </strike>
+						<?php $price 	= $data['promo_price'];?>
+					@else
+						&nbsp;
+					@endif
+				</p>
+				
+				<p class="text-center normal-price small-price">
+					@if($balance - $price >= 0)
+						<strike> @money_indo($price) </strike>
+						<?php $price 	= 0;?>
+					@elseif($balance!=0)
+						<strike> @money_indo($price) </strike>
+						<?php $price 	= $price - $balance;?>
+					@else
+						&nbsp;
+					@endif
+				</p>
 
 				@if($price==$data->price)
 					<p class="text-center normal-price"> @money_indo($price)</p>
