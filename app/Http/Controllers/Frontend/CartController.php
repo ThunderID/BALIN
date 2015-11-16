@@ -190,8 +190,6 @@ class CartController extends BaseController
 			}
 		}
 
-		$baskets 								= array_values($baskets);
-
 		// //update baskets
 		$baskets 								= Cookie::forever('baskets', $baskets);
 
