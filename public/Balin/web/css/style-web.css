@@ -757,24 +757,22 @@ html {
   font-size: 8px;
   font-weight: 100;
 }
-.hollow-social {
-  width: 38px;
-  height: 35px;
-}
 .hollow-social.hollow-white {
-  background-color: #fff;
-  color: #000;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
 }
 .hollow-social.hollow-white:hover {
   background-color: #fff;
   color: #000;
-  border-color: #000;
+  border-color: #fff;
   text-decoration: none;
 }
 .hollow-social.btn-hollow-xs {
   width: 30px;
   height: 28px;
   font-size: 12px;
+  padding: 6px 4px;
 }
 .dropdown-menu.category-list {
   margin-top: 30px;

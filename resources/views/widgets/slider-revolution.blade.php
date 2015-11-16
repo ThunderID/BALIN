@@ -8,7 +8,7 @@
 
 
 				<!-- LAYERS -->
-				<div class="tp-caption mediumlarge_light_white_center customin customout start" style="background-color: rgba(0,0,0,0.9); padding:10px"
+				<div class="tp-caption large_text customin customout start" style="padding:10px"
 					data-x="right"
 					data-hoffset="0"
 					data-y="80"
@@ -22,7 +22,7 @@
 				</div>
 
 				<!-- LAYER NR. 1 -->
-				<div class="tp-caption medium_bg_asbestos skewfromright"
+				<div class="tp-caption medium_text skewfromright"
 					data-x="right"
 					data-y="220"
 					data-speed="800"
@@ -35,7 +35,7 @@
 				</div>
 
 				<!-- LAYER NR. 2 -->
-				<div class="tp-caption medium_bg_asbestos skewfromright"
+				<div class="tp-caption medium_text skewfromright"
 					data-x="right"
 					data-y="280"
 					data-speed="800"
@@ -48,7 +48,7 @@
 				</div>
 
 				<!-- LAYER NR. 3 -->
-				<a class="tp-caption medium_bg_asbestos skewfromright"
+				<a class="tp-caption medium_bg_asbestos-action skewfromright"
 					data-x="right"
 					data-y="400"
 					data-speed="800"
@@ -67,7 +67,7 @@
 				<img src="Balin/web/image/slide-1-large.png"   alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 				<!-- LAYERS -->
 				<!-- LAYER 0 -->
-				<div class="tp-caption mediumlarge_light_white_center customin customout start" style="background-color: rgba(0,0,0,0.9); padding:10px"
+				<div class="tp-caption large_text customin customout start" style="padding:10px"
 					data-x="left"
 					data-y="50"
 
@@ -80,7 +80,7 @@
 				</div>
 
 				<!-- LAYER NR. 1 -->
-				<div class="tp-caption medium_bg_asbestos skewfromleft"
+				<div class="tp-caption medium_text skewfromleft"
 					data-x="left"
 					data-y="180"
 					data-speed="800"
@@ -92,7 +92,7 @@
 				</div>
 
 				<!-- LAYER NR. 2 -->
-				<div class="tp-caption medium_bg_asbestos skewfromleft"
+				<div class="tp-caption medium_text skewfromleft"
 					data-x="left"
 					data-y="240"
 					data-speed="800"
@@ -104,7 +104,7 @@
 				</div>
 
 				<!-- LAYER NR. 3 -->
-				<div class="tp-caption medium_bg_asbestos skewfromleft"
+				<div class="tp-caption medium_text skewfromleft"
 					data-x="left"
 					data-y="300"
 					data-speed="800"
@@ -116,7 +116,7 @@
 				</div>
 
 				<!-- LAYER NR. 4 -->
-				<a class="tp-caption medium_bg_asbestos skewfromleft"
+				<a class="tp-caption medium_bg_asbestos-action skewfromleft"
 					data-x="left"
 					data-y="400"
 					data-speed="800"
@@ -135,7 +135,7 @@
 				<img src="Balin/web/image/slide-3-large.png"  alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 				<!-- LAYERS -->
 				<!-- LAYER NR. 1 -->
-				<div class="tp-caption medium_bg_asbestos skewfromleft"
+				<div class="tp-caption medium_text skewfromleft"
 					data-x="right"
 					data-y="130"
 					data-speed="800"
@@ -146,7 +146,7 @@
 					style="z-index: 6">BATIK TULIS
 				</div>
 				<!-- LAYER NR. 2 -->
-				<div class="tp-caption medium_bg_asbestos skewfromleft"
+				<div class="tp-caption medium_text skewfromleft"
 					data-x="right"
 					data-y="190"
 					data-speed="800"
@@ -157,7 +157,7 @@
 					style="z-index: 6">BATIK CAP
 				</div>
 				<!-- LAYER NR. 3 -->
-				<div class="tp-caption medium_bg_asbestos skewfromleft"
+				<div class="tp-caption medium_text skewfromleft"
 					data-x="right"
 					data-y="250"
 					data-speed="800"
@@ -168,7 +168,7 @@
 					style="z-index: 6">BATIK PRINTING
 				</div>
 				<!-- LAYER NR. 4 -->
-				<div class="tp-caption medium_bg_asbestos skewfromleft"
+				<div class="tp-caption medium_text skewfromleft"
 					data-x="right"
 					data-y="310"
 					data-speed="800"
@@ -186,7 +186,7 @@
 				<img src="Balin/web/image/slide-4-large.png"  alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 				<!-- LAYERS -->
 				<!-- LAYER NR. 1 -->
-				<div class="tp-caption medium_bg_asbestos skewfromleft"
+				<div class="tp-caption medium_text skewfromleft"
 					data-x="left"
 					data-y="130"
 					data-speed="800"
@@ -197,7 +197,7 @@
 					style="z-index: 6">BATIK TULIS
 				</div>
 				<!-- LAYER NR. 2 -->
-				<div class="tp-caption medium_bg_asbestos skewfromleft"
+				<div class="tp-caption medium_text skewfromleft"
 					data-x="left"
 					data-y="190"
 					data-speed="800"
@@ -208,7 +208,7 @@
 					style="z-index: 6">BATIK CAP
 				</div>
 				<!-- LAYER NR. 3 -->
-				<div class="tp-caption medium_bg_asbestos skewfromleft"
+				<div class="tp-caption medium_text skewfromleft"
 					data-x="left"
 					data-y="250"
 					data-speed="800"
@@ -219,7 +219,7 @@
 					style="z-index: 6">BATIK PRINTING
 				</div>
 				<!-- LAYER NR. 4 -->
-				<div class="tp-caption medium_bg_asbestos skewfromleft"
+				<div class="tp-caption medium_text skewfromleft"
 					data-x="left"
 					data-y="310"
 					data-speed="800"

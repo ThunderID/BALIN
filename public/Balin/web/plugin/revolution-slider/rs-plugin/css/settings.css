@@ -302,8 +302,8 @@ white-space:nowrap;
 .tp-caption.medium_text {
 position:absolute;
 color:#fff;
-text-shadow:0px 2px 5px rgba(0, 0, 0, 0.5);
-font-weight:700;
+text-shadow:0px 2px 5px rgba(0, 0, 0, 0.2);
+font-weight:300;
 font-size:20px;
 line-height:20px;
 font-family:Arial;
@@ -347,8 +347,8 @@ border-style:none;
 .tp-caption.large_text {
 position:absolute;
 color:#fff;
-text-shadow:0px 2px 5px rgba(0, 0, 0, 0.5);
-font-weight:700;
+text-shadow:0px 2px 5px rgba(0, 0, 0, 0.2);
+font-weight:400;
 font-size:40px;
 line-height:40px;
 font-family:Arial;
@@ -886,8 +886,8 @@ background-color:transparent;
 padding:0px 0px 0px 0px;
 text-align:center;
 border-width:0px;
-border-color:rgb(255, 214, 88);
 border-style:none;
+text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .tp-caption.medium_bg_asbestos {
@@ -928,14 +928,14 @@ text-shadow: 1px 1px 1px #999;
 }
 
 .tp-caption.medium_bg_asbestos-action {
-font-size:24px;
+font-size:20px;
 line-height:20px;
-font-weight:200;
+font-weight:400;
 font-family:"Roboto";
-color:#000;
+color:#fff;
 text-decoration:none;
-padding:5px;
-text-shadow: 1px 1px 1px #999;
+padding:10px;
+background-color: #000;
 }
 
 .tp-caption.medium_light_black {
