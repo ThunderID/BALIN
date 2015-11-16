@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Voucher;
 use App\Models\Shipment;
 use App\Models\Courier;
+use App\Jobs\ChangeStatus;
 use Input, Response, Redirect, Cookie, Auth;
 
 class CheckOutController extends BaseController 
@@ -85,6 +86,11 @@ class CheckOutController extends BaseController
 				'address_id'					=> $address->id,
 				'receiver_name'					=> $address->receiver_name,
 		]);
+
+		if(!$shipment->save())
+		{
+			return Redirect::back()->withErrors($shipment->getError());
+		}
 
 		//bisa jadi setelah term and condition
 		$result                         		= $this->dispatch(new ChangeStatus($transaction, 'wait'));
