@@ -48,6 +48,15 @@
            color:#888 !important;
         }
 
+        a.footer-link{
+            color:#bbb !important;
+        }
+
+        a.footer-link:hover{
+            color:#fff !important;
+        }
+
+
         .info-price{
             min-height: 43px;
             padding-bottom: 5px;
@@ -64,6 +73,10 @@
         .m-t-0{
             margin-top: 0px;
         }  
+
+        .m-t-0{
+            margin-bottom: 0px;
+        }         
 
         .btn-share{
             font-size: 12px !important; 
