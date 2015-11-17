@@ -22,22 +22,19 @@ class ProductController extends BaseController
 		$breadcrumb								= ['Produk' => route('frontend.product.index')];
 
 		$filters 								= null;
+		$searchResult							= null;
 
 		if(Input::has('q'))
 		{
 			$filters 							= ['categoriesname' => Input::get('q')];
 
-			$searchResult						= Input::get('q');
-		}
-		else
-		{
-			$searchResult						= null;
+			$searchResult						= $searchResult.'kategori '.Input::get('q').' ';
 		}
 
 		if(Input::has('name'))
 		{
 			$filters['name']					= Input::get('name');
-			$searchResult						= Input::get('name');
+			$searchResult						= $searchResult.'nama '.Input::get('name').' ';
 		}
 
 		if(Input::has('sort') && Input::get('sort')=='desc')

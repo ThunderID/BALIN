@@ -1,6 +1,8 @@
 <script>
 	var tot_qty = 0;
 	var gtotal = 0;
+	var item_qty = 0;
+	var pqty 			= [];
 
 	@if (Route::is('frontend.cart.index'))
 	@endif
@@ -12,8 +14,8 @@
 		e.preventDefault();
 		$(this).parent().parent().parent().attr('action', 'javascript:void(0);');
 
-		fieldName = $(this).attr('data-field');
-		type      = $(this).attr('data-type');
+		fieldName 				= $(this).attr('data-field');
+		type      				= $(this).attr('data-type');
 		// var input = $("input[name='"+fieldName+"']");
 		@if (Route::is('frontend.cart.index'))
 			var input 			= $(this).parent().parent().find('.input-number').attr('data-name', fieldName);
@@ -21,13 +23,7 @@
 			var get_flag		= $(this).attr('data-get-flag');
 			var cid 			= $(this).parent().parent().parent().find('.cid');
 			var vid 			= $(this).parent().parent().parent().find('.vid');
-			// var pqty 			= [];
-
-			var pqty = $.map($(".pqty"), function(elt) { return elt.val;});
-			// $('.pqty').each( function() {
-			// 	pqty.push($(this).val());
-			// });
-
+			var action_update	= $(this).attr('data-action-update');
 			tot_qty 			= parseInt($(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').attr('data-total'));	
 		@else
 			var input 			= $(this).parent().find('.input-number').attr('data-name', fieldName);
@@ -44,9 +40,9 @@
 					@if (Route::is('frontend.cart.index'))
 						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').text('IDR '+number_format(tot_qty));
 						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').attr('data-total', tot_qty);
-						// $(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').trigger('change');
-						// $('.label-total').text('IDR '+number_format(tot_qty));
-						gtotal = grand_total();
+						
+						gtotal 		= grand_total();
+						item_qty 	= (currentVal - 1);
 						$('.label-total-all').html('<strong>IDR '+number_format(gtotal)+'</strong>');
 					@else
 						$('.tot_qty').text('IDR '+number_format(tot_qty));
@@ -65,7 +61,9 @@
 					@if (Route::is('frontend.cart.index'))
 						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').text('IDR '+number_format(tot_qty));
 						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').attr('data-total', tot_qty);
-						gtotal = grand_total();
+						gtotal 		= grand_total();
+						item_qty 	= (currentVal + 1);
+
 						$('.label-total-all').html('<strong>IDR '+number_format(gtotal)+'</strong>');
 					@else
 						$('.tot_qty').text('IDR '+number_format(tot_qty));
@@ -77,7 +75,7 @@
 			}
 
 			@if (Route::is('frontend.cart.index'))
-				// send_ajax_update(cid, vid, pqty);
+				send_ajax_update(item_qty, action_update);
 			@endif
 		} else {
 			input.val(0);
@@ -211,17 +209,29 @@
 		return tot;
 	}
 
-	function send_ajax_update(cid, vid, pqty)
+	function grand_qty()
+	{
+		$('.pqty').each( function() {
+			pqty.push($(this).val());
+		});
+	}
+
+	function send_ajax_update(item_qty, action)
 	{
 		$.ajax({
-			url: "{{ route('frontend.cart.update', ['cid' => "+cid+", 'vid' => "+vid+"]) }}",
+			url: action,
 			type: 'POST',
 			dataType:"json",
 			async: true,
-			data: {qty: pqty},
+			data: {qty: item_qty},
 			success: function(result) {
-				// console.log(result);
+				console.log(result);
 			}
 		});
+	}
+
+	function send_ajax_destroy_varian()
+	{
+
 	}
 </script>
