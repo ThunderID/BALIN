@@ -41,14 +41,14 @@ class AuthController extends BaseController
                 }
                 else
                 {
-					return Redirect::back()->withErrors(['Tidak bisa login.']);
+					return Redirect::back()->withErrors(['Tidak bisa login.'])->with('msg-type', 'danger');
                 }
             }
 
 			return Redirect::intended($redirect);
 		}
 		
-		return Redirect::back()->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami. Harap anda memeriksa data masukkan dan mencoba lagi.']);
+		return Redirect::back()->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami. Harap anda memeriksa data masukkan dan mencoba lagi.'])->with('msg-type', 'danger');
 	}
 
 	public function doLogout()
@@ -81,7 +81,7 @@ class AuthController extends BaseController
 
 			if(!$registered->save())
 			{
-				return Redirect::back()->withErrors($registered->getError());
+				return Redirect::back()->withErrors($registered->getError())->with('msg-type', 'danger');
 			}
 		}
 		else
@@ -99,7 +99,7 @@ class AuthController extends BaseController
 
 			if(!$registered->save())
 			{
-				return Redirect::back()->withErrors($registered->getError());
+				return Redirect::back()->withErrors($registered->getError())->with('msg-type', 'danger');
 			}
 		}
 
@@ -124,7 +124,7 @@ class AuthController extends BaseController
 	        }
 	        else
 	        {
-				return Redirect::back()->withErrors(['Tidak bisa login.']);
+				return Redirect::back()->withErrors(['Tidak bisa login.'])->with('msg-type', 'danger');
 	        }
 	    }
 
@@ -142,7 +142,7 @@ class AuthController extends BaseController
 
 		if($user->is_active)
 		{
-			return Redirect::back()->withErrors('Expired Link');
+			return Redirect::back()->withErrors('Expired Link')->with('msg-type', 'danger');
 		}
 		
 		$result							= $this->dispatch(new CheckValidationLink($user));
@@ -157,7 +157,7 @@ class AuthController extends BaseController
 			return $this->layout;
 		}
 
-		return Redirect::route('frontend.home.index')->withErrors($result->getErrorMessage());
+		return Redirect::route('frontend.home.index')->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
 	}
 
 	public function doForgot()
@@ -167,7 +167,7 @@ class AuthController extends BaseController
 
 		if(!$user)
 		{
-			return Redirect::back()->withErrors('Email tidak terdaftar');
+			return Redirect::back()->withErrors('Email tidak terdaftar')->with('msg-type', 'danger');
 		}
 		
 		$result							= $this->dispatch(new SendResetPasswordEmail($user));
@@ -179,7 +179,7 @@ class AuthController extends BaseController
 				->with('msg-type', 'success');
 		}
 
-		return Redirect::route('frontend.home.index')->withErrors($result->getErrorMessage());
+		return Redirect::route('frontend.home.index')->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
 	}
 
 	public function getForgot($link = null)
@@ -195,7 +195,7 @@ class AuthController extends BaseController
 
 		if($user->expired_at->lt($dateexpired))
 		{
-			return Redirect::route('frontend.home.index')->withErrors('Link Expired');
+			return Redirect::route('frontend.home.index')->withErrors('Link Expired')->with('msg-type', 'danger');
 		}
 
 		$this->layout->page					= view('pages.frontend.login.reset')

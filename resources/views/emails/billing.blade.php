@@ -24,12 +24,12 @@
 	<table  class="twelve columns">
 		<thead>
 			<tr>
-				<th>No.</th>
-				<th>Nama Produk</th>
-				<th>Qty</th>
-				<th>Harga</th>
-				<th>Diskon</th>
-				<th>Sub Total</th>
+				<th class="text-center">No.</th>
+				<th class="text-center">Nama Produk</th>
+				<th class="text-center">Qty</th>
+				<th class="text-center">Harga</th>
+				<th class="text-center">Diskon</th>
+				<th class="text-center">Sub Total</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -38,18 +38,18 @@
 					<td>{{($key+1)}}</td>
 					<td>{{$detail['varian']['product']['name']}}{{$detail['varian']['size']}}</td>
 					<td>{{$detail['quantity']}}</td>
-					<td>@money_indo($detail['price'])</td>
-					<td>@money_indo($detail['discount'])</td>
-					<td>@money_indo($detail['quantity'] * ($detail['price'] - $detail['discount']))</td>
+					<td class="text-right">@money_indo($detail['price'])</td>
+					<td class="text-right">@money_indo($detail['discount'])</td>
+					<td class="text-right">@money_indo($detail['quantity'] * ($detail['price'] - $detail['discount']))</td>
 				</tr>
 			@endforeach
 			<tr>
 				<td colspan="5">Ongkos Kirim</td>
-				<td>@money_indo($data['bill']['shipping_cost'])</td>
+				<td class="text-right">@money_indo($data['bill']['shipping_cost'])</td>
 			</tr>
 			<tr>
 				<td colspan="5">Diskon Referral</td>
-				<td>@money_indo(($data['bill']['voucher_discount'] ? $data['bill']['voucher_discount'] : 0))</td>
+				<td class="text-right">@money_indo(($data['bill']['voucher_discount'] ? $data['bill']['voucher_discount'] : 0))</td>
 			</tr>
 			<tr>
 				<td colspan="5">Potongan Point</td>
@@ -58,12 +58,12 @@
 			@if($data['bill']['amount']>0)
 			<tr>
 				<td colspan="5">Potongan Transfer</td>
-				<td>@money_indo($data['bill']['unique_number'])</td>
+				<td class="text-right">@money_indo($data['bill']['unique_number'])</td>
 			</tr>
 			@endif
 			<tr>
 				<td colspan="5">Grand Total</td>
-				<td>@money_indo($data['bill']['amount'])</td>
+				<td class="text-right">@money_indo($data['bill']['amount'])</td>
 			</tr>										
 		</tbody>
 	</table>

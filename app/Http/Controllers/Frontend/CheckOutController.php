@@ -48,14 +48,14 @@ class CheckOutController extends BaseController
 
 			if(!$vouchers)
 			{
-				return Redirect::back()->withErrors('Tidak ada voucher.');
+				return Redirect::back()->withErrors('Tidak ada voucher.')->with('msg-type', 'danger');
 			}
 
 			$transaction->fill(['voucher_id' => $vouchers->id]);
 
 			if(!$transaction->save())
 			{
-				return Redirect::back()->withErrors($transaction->getError());
+				return Redirect::back()->withErrors($transaction->getError())->with('msg-type', 'danger');
 			}
 		}
 
@@ -73,7 +73,7 @@ class CheckOutController extends BaseController
 
 			if(!$address->save())
 			{
-				return Redirect::back()->withErrors($address->getError());
+				return Redirect::back()->withErrors($address->getError())->with('msg-type', 'danger');
 			}
 		}
 
@@ -94,7 +94,7 @@ class CheckOutController extends BaseController
 
 		if(!$shipment->save())
 		{
-			return Redirect::back()->withErrors($shipment->getError());
+			return Redirect::back()->withErrors($shipment->getError())->with('msg-type', 'danger');
 		}
 
 		//bisa jadi setelah term and condition
@@ -107,6 +107,6 @@ class CheckOutController extends BaseController
 			return Redirect::route('frontend.profile.order.show', $transaction->ref_number);
 		}
 
-		return Redirect::back()->withErrors($result->getErrorMessage());
+		return Redirect::back()->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
 	}
 }
