@@ -8,7 +8,7 @@
 @section('content')
 	<!-- Full Page Image Background Carousel Header -->
 	
-	<div class="tp-banner-container">
+	<div class="tp-banner-container hidden-xs">
 		<div class="tp-banner" >
 			<ul>
 				<!-- SLIDE 1-->
@@ -41,11 +41,11 @@
 								data-captionhidden="off"
 								style="z-index: 6">
 								@if(isset($v['slider_button_url'])) 
-									<a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black hollow-black-border"> 
+									<a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black hollow-black-border @if($loc_x=='left') m-l-xs @else m-r-xs @endif"> 
 										{!! $v['slider_'. $k] !!} 
 									</a> 
 								@else 
-								{!! $v['slider_'. $k] !!} 
+									{!! $v['slider_'. $k] !!} 
 								@endif
 							</div>
 						@endif
@@ -56,6 +56,43 @@
 			</ul>
 		</div>
 	</div>
+	<section class="container-fluid hidden-sm hidden-md hidden-lg">
+		<div class="row">
+			@foreach($stores as $key => $value)
+				<?php $content 		= json_decode($value->value, true); ?>
+
+				<?php $i = 0; ?>
+				<div class="col-xs-12 p-l-none p-r-none m-t-lg" style="position:relative">
+					<div class="caption-mobile">
+						@foreach ($content as $k => $v)
+							@if ($v[$k.'_active']=='1')
+								<?php 
+									$loc = explode('-', $v['slider_'. $k .'_location']); 
+									$loc_x = strtolower($loc[1]);
+									$loc_y = strtolower($loc[0]);
+								?>
+								<div class="@if($loc_x=='left') left @else right @endif">
+									@if ($k=='title')
+										<h3>{!! $v['slider_'. $k] !!} </h3>
+									@elseif ($k=='content')
+										<p class="m-t-sm">{!! $v['slider_'. $k] !!} </p>
+									@else
+										<a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black btn-hollow-xs">
+											{!! $v['slider_'. $k] !!} 
+										</a>
+									@endif
+								</div>
+
+							@endif
+						@endforeach
+					</div>
+					@if(isset($value['images'][0]))
+						<img src="{!!$value['images'][0]['image_lg']!!}" style="" class="img-responsive">
+					@endif
+				</div>
+			@endforeach
+		</div>
+	</section>
 @stop
 
 @section('script')

@@ -458,44 +458,6 @@ html {
 .caption h4 a {
   text-decoration: none;
 }
-.caption-mobile {
-  position: absolute;
-  top: 80px;
-}
-.caption-mobile.left {
-  left: 0;
-}
-.caption-mobile.left h3 {
-  background-color: rgba(0, 0, 0, 0.9);
-  font-size: 12px;
-  padding: 5px;
-  color: #fff;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.caption-mobile.left p {
-  background-color: rgba(0, 0, 0, 0.9);
-  font-size: 10px;
-  padding: 5px;
-  color: #fff;
-}
-.caption-mobile.right {
-  right: 0;
-}
-.caption-mobile.right h3 {
-  background-color: rgba(0, 0, 0, 0.9);
-  font-size: 12px;
-  padding: 5px;
-  color: #fff;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.caption-mobile.right p {
-  background-color: rgba(0, 0, 0, 0.9);
-  font-size: 10px;
-  padding: 5px;
-  color: #fff;
-}
 .imageCard {
   height: 320px !important;
 }
@@ -1106,6 +1068,53 @@ footer .menu-footer a:hover {
   border-width: 0px;
   border-style: none;
   white-space: nowrap;
+}
+.caption-mobile {
+  position: absolute;
+  top: 80px;
+  width: 100%;
+}
+.caption-mobile .left {
+  left: 0;
+  margin-left: 50px;
+  text-align: left;
+}
+.caption-mobile .left h3 {
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 600;
+  padding: 5px;
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.caption-mobile .left p {
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 10px;
+  font-weight: 300;
+  padding: 5px;
+  color: #fff;
+}
+.caption-mobile .right {
+  right: 0;
+  margin-right: 50px;
+  text-align: right;
+}
+.caption-mobile .right h3 {
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 600;
+  padding: 5px;
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.caption-mobile .right p {
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 10px;
+  font-weight: 300;
+  padding: 5px;
+  color: #fff;
 }
 
 /*# sourceMappingURL=style-web.css.map */
