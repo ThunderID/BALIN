@@ -18,11 +18,11 @@
 				<thead>
 					<tr>
 						<th class="text-center">No</th>
-						<th>#</th>
-						<th>Tanggal</th>
-						<th>Status</th>
-						<th>Pembayaran</th>
-						<th>&nbsp;</th>
+						<th class="text-center">#</th>
+						<th class="text-center">Tanggal</th>
+						<th class="text-center">Status</th>
+						<th class="text-center">Pembayaran</th>
+						<th class="text-center">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>

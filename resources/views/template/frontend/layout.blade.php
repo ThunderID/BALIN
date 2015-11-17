@@ -65,6 +65,9 @@
             margin-top: 0px;
         }  
 
+        .mb-100{
+            margin-bottom: 100px;
+        }  
         .btn-share{
             font-size: 12px !important; 
             height: 20px;

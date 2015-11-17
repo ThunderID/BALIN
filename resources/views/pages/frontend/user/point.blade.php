@@ -18,11 +18,11 @@
 				<thead>
 					<tr>
 						<th class="text-center">No</th>
-						<th>Tanggal</th>
-						<th>Debit</th>
-						<th>Kredit</th>
-						<th>Saldo</th>
-						<th>Catatan</th>
+						<th class="text-center">Tanggal</th>
+						<th class="text-center">Debit</th>
+						<th class="text-center">Kredit</th>
+						<th class="text-center">Saldo</th>
+						<th class="text-center">Catatan</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -56,19 +56,19 @@
 							<td class="text-center">{!!(($key)+$number)!!}</td>
 							<td> @date_indo($value->created_at) </td>
 							@if($value->amount >= 0)
-								<td>@money_indo($value->amount)</td>
+								<td class="text-right">@money_indo($value->amount)</td>
 							@else
-								<td></td>
+								<td class="text-right"></td>
 							@endif
 							@if($value->amount < 0)
-								<td>@money_indo($value->amount)</td>
+								<td class="text-right">@money_indo($value->amount)</td>
 							@else
-								<td></td>
+								<td class="text-right"></td>
 							@endif
 							@if(!$is_expired)
-								<td>@money_indo($amount)</td>
+								<td class="text-right">@money_indo($amount)</td>
 							@else
-								<td><i>Expired</i></td>
+								<td class="text-right"><i>Expired</i></td>
 							@endif
 							<td>
 								{!!$value->notes!!}
