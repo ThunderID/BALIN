@@ -22,15 +22,16 @@
 				<div class="row">
 					<div class="col-md-6 col-sm-7 col-xs-12">
 						@include('widgets.breadcrumb')
+						@include('widgets.pageelements.headersearchresult', ['closeSearchLink' => route('frontend.product.index') ])
 					</div>
 						<div class="col-md-3 col-sm-6 hidden-xs pull-right m-t-lg">
-							{!! Form::open(array('route' => 'frontend.product.index', 'method' => 'get', 'id' => 'form1' )) !!}
+							{!! Form::open(array('url' => route('frontend.product.index', Input::all()), 'method' => 'get', 'id' => 'form1' )) !!}
 								<a href="#" onclick="form1.submit();" class="pull-right"><i class="fa fa-search"></i></a>
 								{!! Form::text('name', null, ['class' => 'text-hollow pull-right', 'placeholder' => 'Search', 'style' => 'width:80%']) !!}
 							{!! Form::close() !!}
 						</div>
 						<div class="hidden-lg hidden-md hidden-sm col-xs-12 pull-right m-t-lg">
-							{!! Form::open(array('route' => 'frontend.product.index', 'method' => 'get', 'id' => 'form2' )) !!}
+							{!! Form::open(array('url' => route('frontend.product.index', Input::all()), 'method' => 'get', 'id' => 'form2' )) !!}
 								<a href="#" onclick="form2.submit();" class="pull-right"><i class="fa fa-search"></i></a>
 								{!! Form::text('name', null, ['class' => 'text-hollow pull-right', 'placeholder' => 'Search', 'style' => 'width:94%']) !!}
 							{!! Form::close() !!}
@@ -41,8 +42,8 @@
 								<p class="pull-right">Sort by &nbsp;<i class="fa fa-angle-down"></i></p>
 							</a>
 							<ul class="dropdown-menu category-list" aria-labelledby="dLabel">
-								<li><a href="{{ route('frontend.product.index', ['sort' => 'asc']) }}">A-Z</a></li>
-								<li><a href="{{ route('frontend.product.index', ['sort' => 'desc']) }}">Z-A</a></li>
+								<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'asc'], Input::all())) }}">A-Z</a></li>
+								<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'desc'], Input::all())) }}">Z-A</a></li>
 							</ul>
 						</div>
 					</div>		
@@ -53,7 +54,7 @@
 							</a>
 							<ul class="dropdown-menu category-list" aria-labelledby="dLabel">
 								@foreach ($category as $cat)
-									<li><a href="{{ route('frontend.product.index', ['q' => $cat->name]) }}">{{ $cat->name }}</a></li>
+									<li><a href="{{ route('frontend.product.index', array_merge(['q' => $cat->name], Input::all())) }}">{{ $cat->name }}</a></li>
 								@endforeach
 							</ul>
 						</div>
@@ -65,7 +66,7 @@
 							</a>
 							<ul class="dropdown-menu category-list" aria-labelledby="dLabel">
 								@foreach ($category as $cat)
-									<li><a href="{{ route('frontend.product.index', ['q' => $cat->name]) }}">{{ $cat->name }}</a></li>
+									<li><a href="{{ route('frontend.product.index', array_merge(['q' => $cat->name], Input::all())) }}">{{ $cat->name }}</a></li>
 								@endforeach
 							</ul>							
 						</div>
@@ -74,8 +75,8 @@
 								<p class="pull-left">Sort by</p>
 							</a>							
 							<ul class="dropdown-menu category-list" aria-labelledby="dLabel">
-								<li><a href="{{ route('frontend.product.index', ['sort' => 'asc']) }}">A-Z</a></li>
-								<li><a href="{{ route('frontend.product.index', ['sort' => 'desc']) }}">Z-A</a></li>
+								<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'asc'], Input::all())) }}">A-Z</a></li>
+								<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'desc'], Input::all())) }}">Z-A</a></li>
 							</ul>							
 						</div>							
 					</div>
