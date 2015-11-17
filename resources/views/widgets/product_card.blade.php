@@ -36,7 +36,7 @@
 				@if($price==$data->price)
 					<p class="text-center normal-price"> @money_indo($price)</p>
 				@else
-					<p class="text-center promo-price t-sm"> @money_indo($price) </p>
+					<p class="text-center promo-price"> @money_indo($price) </p>
 				@endif
 			</div>
 		</a>
