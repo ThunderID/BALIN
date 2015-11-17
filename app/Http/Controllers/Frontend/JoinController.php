@@ -2,9 +2,8 @@
 
 use App\Http\Controllers\BaseController;
 
-class joinController extends BaseController 
+class JoinController extends BaseController 
 {
-
 	protected $controller_name 					= 'join';
 
 	public function index()
@@ -15,6 +14,9 @@ class joinController extends BaseController
 																->with('breadcrumb', $breadcrumb)
 																;
 		$this->layout->controller_name			= $this->controller_name;
+
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= 'Sign In';
 
 		return $this->layout;
 	}

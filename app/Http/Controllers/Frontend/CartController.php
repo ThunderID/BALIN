@@ -19,6 +19,9 @@ class CartController extends BaseController
 													->with('carts', $carts);
 		$this->layout->controller_name			= $this->controller_name;
 
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= 'Shopping Cart';
+
 		return $this->layout;
 	}
 

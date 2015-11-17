@@ -51,6 +51,9 @@ class AddressController extends BaseController
 
 		$this->layout->controller_name			= $this->controller_name;
 
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= 'Buku Alamat';
+
 		return $this->layout;
 	}
 

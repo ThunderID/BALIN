@@ -424,11 +424,14 @@ Route::group(['namespace' => 'Frontend\\'], function()
 		Route::post('checkout',											['uses' => 'CheckOutController@postCheckout', 'as' => 'frontend.post.checkout']);
 	});
 
-	Route::get('join', 						['uses' => 'joinController@index', 'as' => 'frontend.join.index']);
-	Route::get('whyJoin', 					['uses' => 'whyjoinController@index', 'as' => 'frontend.whyjoin.index']);
-	Route::get('aboutus', 					['uses' => 'AboutUsController@index', 'as' => 'frontend.aboutus.index']);
+	Route::get('why/join',												['uses' => 'WhyJoinController@index', 'as' => 'frontend.whyjoin.index']);
+	
+	Route::get('about/us', 												['uses' => 'AboutUsController@index', 'as' => 'frontend.aboutus.index']);
+
+	Route::get('join', 													['uses' => 'JoinController@index', 'as' => 'frontend.join.index']);
 	
 	Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
+	
 	Route::get('/ab', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
 	
 });

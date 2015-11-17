@@ -20,6 +20,9 @@ class ProfileController extends BaseController
 
 		$this->layout->controller_name			= $this->controller_name;
 
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= 'Dashboard';
+
 		return $this->layout;
 	}
 
@@ -31,6 +34,9 @@ class ProfileController extends BaseController
 													->with('title', 'Ubah Pengaturan Akun');
 
 		$this->layout->controller_name			= $this->controller_name;
+
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= 'Pengaturan Akun';
 
 		return $this->layout;
 	}
@@ -98,6 +104,9 @@ class ProfileController extends BaseController
 
 		$this->layout->controller_name			= $this->controller_name;
 
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= 'Buku Tabungan';
+
 		return $this->layout;
 	}	
 
@@ -109,6 +118,9 @@ class ProfileController extends BaseController
 													->with('title', 'Daftar Downline');
 
 		$this->layout->controller_name			= $this->controller_name;
+
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= 'Daftar Downline';
 
 		return $this->layout;
 	}	
@@ -122,6 +134,9 @@ class ProfileController extends BaseController
 
 		$this->layout->controller_name			= $this->controller_name;
 
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= 'Riwayat Pesanan';
+		
 		return $this->layout;
 	}
 
@@ -140,6 +155,9 @@ class ProfileController extends BaseController
 													->with('title', 'Riwayat Pesanan #'.$ref)
 													->with('transaction', $transaction);
 
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= 'Riwayat Pesanan';
+		
 		$this->layout->controller_name			= $this->controller_name;
 
 		return $this->layout;
