@@ -281,7 +281,7 @@
 			<div class="col-md-6 ">
 				<div class="form-group">
 					<label for="slider_button_text" class="text-capitalize">Teks Tombol</label>
-					{!! Form::text('slider_button_text', isset($value['button']['slider_button_text']) ? $value['button']['slider_button_text'] : '', [
+					{!! Form::text('slider_button_text', isset($value['button']['slider_button']) ? $value['button']['slider_button'] : '', [
 								'class'         => 'form-control', 
 								'tabindex'      => '15',
 								'placeholder'   => 'Masukkan teks tombol',

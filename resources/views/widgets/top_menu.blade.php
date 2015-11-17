@@ -44,9 +44,9 @@
 						<li @if($controller_name == 'aboutus') class=active @endif>
 							<a href="{{ URL::route('frontend.aboutus.index') }}" data-scroll>About Us</a>
 						</li>
-						<li>
+						<!-- <li>
 							<a href="{{ URL::route('frontend.home.index') }}#contact-us" data-scroll>Contact Us</a>
-						</li>
+						</li> -->
 						@if (Auth::user())
 							<li @if($controller_name == 'profile') class=active @endif>
 								<a href="{{ URL::route('frontend.profile.index') }}">Akun Saya</a>
