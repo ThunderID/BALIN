@@ -7,7 +7,7 @@ use App\Models\Transaction;
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\MessageBag;
-use Auth, Cookie;
+use Auth, Session;
 
 class SaveToCookie extends Job implements SelfHandling
 {
@@ -47,8 +47,8 @@ class SaveToCookie extends Job implements SelfHandling
         }
         // dd($basket);exit;
 
-        Cookie::forget('baskets');
-        $baskets                                           = Cookie::make('baskets', $basket, 1440);
+        Session::forget('baskets');
+        $baskets                                           = Session::put('baskets', $basket);
 
         $result                                            = new JSend('success', (array)$basket);
 

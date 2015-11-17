@@ -5,7 +5,7 @@ use App\Models\Product;
 use App\Models\Varian;
 use App\Models\Transaction;
 use App\Jobs\SaveToTransactionDetail;
-use Input, Response, Redirect, Cookie, Auth, Request;
+use Input, Response, Redirect, Session, Auth, Request;
 
 class CartController extends BaseController 
 {
@@ -25,7 +25,7 @@ class CartController extends BaseController
 	// FUNCTION ADD TO CART
 	public function store($slug = null)
 	{
-		$baskets 								= Request::cookie('baskets');
+		$baskets 								= Session::get('baskets');
 
 		$slug									= Input::get('product_slug');
 
@@ -91,18 +91,14 @@ class CartController extends BaseController
 		}
 
 		//update baskets
-		$carts 									= Cookie::make('baskets', $baskets, 1440);
-		// $baskets 								= json_encode($baskets);
-		// dd($baskets);
+		$carts 									= Session::put('baskets', $baskets);
 
-		return Response::json(['carts' => $baskets], 200)
-						->withCookie($carts);
-		// return Redirect::route('frontend.cart.index')
+		return Response::json(['carts' => $baskets], 200);
 	}
 
 	public function edit ()
 	{
-		$baskets 								= Request::cookie('baskets');
+		$baskets 								= Session::get('baskets');
 		$carts 									= null;
 		$this->layout->page 					= view('pages.frontend.cart.edit')
 														->with('controller_name', $this->controller_name)
@@ -115,78 +111,24 @@ class CartController extends BaseController
 	public function update($cid = null, $vid = null)
 	{
 
-		$baskets 									= Request::cookie('baskets');
+		$baskets 									= Session::get('baskets');
 
 		$inputs 									= Input::only('qty');
 
-
 		$baskets[$cid]['varians'][$vid]['qty']		= $inputs['qty'][$vid];
 
+		Session::forget('baskets');
 
-		// $inputs 									= Input::all();
+		$carts 										= Session::put('baskets', $baskets);
 
-		// //get current stock
-		// $baskets 									= Request::cookie('baskets');
-
-		// $qty 										= Input::get('product_qty');
-
-		// foreach ($inputs  as $k => $input)
-		// {
-		// 	if($k != '_token')
-		// 	{
-		// 		foreach ($input as $key => $value) 
-		// 		{
-		// 			// $baskets[$k]['varians'][$key]['qty'] = $value;
-		// 			$varians 							= 	[
-		// 														'varian_id' 	=> $baskets[$k]['varians'][$key]['varian_id'], 
-		// 														'qty' 			=> $qty[$k],
-		// 														'size' 			=> $baskets[$k]['varians'][$key]['size'], 
-		// 														'stock' 		=> $baskets[$k]['varians'][$key]['stock']
-		// 													];
-		// 		}
-
-		// 		$baskets[$k]							=	[
-		// 														'slug' 			=> $baskets[$k]['slug'], 
-		// 														'name'			=> $baskets[$k]['name'],
-		// 														'stock'			=> $baskets[$k]['stock'],
-		// 														'price'			=> $baskets[$k]['price'],
-		// 														'discount'		=> $baskets[$k]['discount'],
-		// 														'images'		=> $baskets[$k]['images'],
-		// 														'varians'		=> $varians
-		// 													];				
-		// 	}
-		// }
-		// dd($vid);
-
-		Cookie::forget('baskets');
-
-		// dd($baskets);
-		// //update baskets
-		// $carts			 								= Cookie::forever('baskets', $baskets);
-		$carts 									= Cookie::make('baskets', $baskets, 1440);
-
-
-
-		//return cookies
-		// return Redirect::route('frontend.cart.index')
-		// 				->withCookie($baskets);
-
-		return Response::json(['carts' => $baskets], 200)
-						->withCookie($carts);
+		return Response::json(['carts' => $baskets], 200);
 	}
 
 	// FUNCTION REMOVE CART
 	public function destroy ($cid = null, $vid = null)
 	{
 		//get old baskets
-		$baskets 								= Request::cookie('baskets');
-
-		//check validation
-		// if ($cid)
-		// {
-		// 	// return false;
-		// 	dd('wrong');
-		// }
+		$baskets 								= Session::get('baskets');
 
 		if(isset($cid) && !isset($vid))
 		{
@@ -207,14 +149,9 @@ class CartController extends BaseController
 		}
 
 		// //update baskets
-		$carts 								= Cookie::forever('baskets', $baskets);
+		$carts 								= Session::put('baskets', $baskets);
 
-		//return cookies
-		// return Redirect::route('frontend.cart.index')
-		// 				->withCookie($baskets);
-
-		return Response::json(['carts' => $baskets], 200)
-				->withCookie($carts);
+		return Response::json(['carts' => $baskets], 200);
 	}
 
 
@@ -222,7 +159,7 @@ class CartController extends BaseController
 	public function clean()
 	{
 		return Redirect::route('frontend.cart.index')
-						->withCookie(Cookie::forget('baskets'));		
+						->withSession(Session::forget('baskets'));		
 	}
 
 	public function getListBasket() 

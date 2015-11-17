@@ -35,8 +35,9 @@ class AuthController extends BaseController
                 if($result->getStatus()=='success' && !is_null($result->getData()))
                 {
                 	$baskets 			= $result->getData();
+					Session::put('baskets', $baskets);
 
-					return Redirect::intended($redirect)->withCookie(Cookie::make('baskets', $baskets, 1440));
+					return Redirect::intended($redirect);
                 }
                 else
                 {
@@ -107,6 +108,25 @@ class AuthController extends BaseController
 		$redirect 						= Session::get('login_redirect');
 
 		Session::forget('login_redirect');
+		
+		$transaction           	 		= Transaction::userid(Auth::user()->id)->status('cart')->wherehas('transactiondetails', function($q){$q;})->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->first();
+
+	    if($transaction)
+	    {
+	        $result             		= $this->dispatch(new SaveToCookie($transaction));
+
+	        if($result->getStatus()=='success' && !is_null($result->getData()))
+	        {
+	        	$baskets 				= $result->getData();
+				Session::put('baskets', $baskets);
+
+				return Redirect::intended($redirect);
+	        }
+	        else
+	        {
+				return Redirect::back()->withErrors(['Tidak bisa login.']);
+	        }
+	    }
 
 		return Redirect::intended($redirect);
 	}

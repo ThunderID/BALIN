@@ -1,5 +1,5 @@
 <?php 	
-	$carts = Cookie::get('baskets');
+	$carts = Session::get('baskets');
 ?>
 @extends('template.frontend.layout')
 

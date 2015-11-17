@@ -1,5 +1,5 @@
 <?php
-	$carts = Cookie::get('baskets');
+	$carts = Session::get('baskets');
 ?>
 <ul class="dropdown-menu dropdown-menu-right chart-dropdown m-t-md" aria-labelledby="dLabel" style="margin-top:3px">
 	@if ($carts)
