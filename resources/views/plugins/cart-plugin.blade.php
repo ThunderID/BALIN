@@ -30,6 +30,9 @@
 				$('.ico-cart').find('span').html(count_cart);
 				$.ajax({
 					url: '{{ route('frontend.cart.listBasket.ajax') }}',
+					beforeSend: function() {
+						$('chart-dropdown').html("<img src='/Balin/web/image/loading.gif'/>");
+					},
 					success: function(msg) {
 						$('.chart-dropdown').html(msg);
 					}

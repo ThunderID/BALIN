@@ -1,7 +1,7 @@
 <?php
-	$carts = Cookie::get('baskets');
+	$carts = Session::get('baskets');
 ?>
-	@if ($carts)
+	@if (!empty($carts))
 		<?php $total = 0; ?>
 		@foreach ($carts as $k => $item)
 			<?php

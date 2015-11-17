@@ -41,8 +41,8 @@
 						</div>        	
 					</div>
 						
-						@if ($carts)
-							<?php $total = 0; ?>
+						<?php $total = 0; ?>
+						@if (!empty($carts))
 							@foreach ($carts as $k => $item)
 								<?php
 									$qty 			= 0;
@@ -89,7 +89,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<h2 style="color:#fff;" class="text-center m-t-none">
+								<h2 style="color:#fff;" class="text-center m-t-none total-all" data-get-total="{{ $total }}">
 									@if (isset($total))
 										@money_indo($total)
 									@endif
@@ -131,7 +131,7 @@
 										<h4 class="text-right">SubTotal :</h4>
 									</div>
 									<div class="col-md-2 col-sm-2">
-										<h4 class="text-right">
+										<h4 class="text-right label-total-all" data-total-item="{{ $total }}">
 											@if ($total)
 												<strong>@money_indo($total)</strong>
 											@endif
@@ -203,6 +203,14 @@
 
 		$(row).siblings('.'+flag).remove();
 		$(row).remove();
+	});
+	
+	var total_all = 0;
+	$('.label-total').change( function() {
+		//var total_cart = $(this).html('data-total');
+		// var total_all = $.map($(".pqty"), function(elt) { return elt.val;});
+
+		console.log(total_cart);
 	});
 @stop
 
