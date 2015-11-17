@@ -1,5 +1,6 @@
 <script>
 	var tot_qty = 0;
+	var gtotal = 0;
 
 	@if (Route::is('frontend.cart.index'))
 	@endif
@@ -43,7 +44,10 @@
 					@if (Route::is('frontend.cart.index'))
 						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').text('IDR '+number_format(tot_qty));
 						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').attr('data-total', tot_qty);
+						// $(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').trigger('change');
 						// $('.label-total').text('IDR '+number_format(tot_qty));
+						gtotal = grand_total();
+						$('.label-total-all').html('<strong>IDR '+number_format(gtotal)+'</strong>');
 					@else
 						$('.tot_qty').text('IDR '+number_format(tot_qty));
 					@endif
@@ -61,6 +65,8 @@
 					@if (Route::is('frontend.cart.index'))
 						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').text('IDR '+number_format(tot_qty));
 						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').attr('data-total', tot_qty);
+						gtotal = grand_total();
+						$('.label-total-all').html('<strong>IDR '+number_format(gtotal)+'</strong>');
 					@else
 						$('.tot_qty').text('IDR '+number_format(tot_qty));
 					@endif
@@ -71,7 +77,7 @@
 			}
 
 			@if (Route::is('frontend.cart.index'))
-				send_ajax_update(cid, vid, pqty);
+				// send_ajax_update(cid, vid, pqty);
 			@endif
 		} else {
 			input.val(0);
@@ -195,6 +201,16 @@
 		}
 	});
 
+	function grand_total()
+	{
+		var tot = 0;
+		$('.label-total').each( function() {
+			tot += parseInt($(this).attr('data-total'));
+		});
+
+		return tot;
+	}
+
 	function send_ajax_update(cid, vid, pqty)
 	{
 		$.ajax({
@@ -204,7 +220,7 @@
 			async: true,
 			data: {qty: pqty},
 			success: function(result) {
-				console.log(result);
+				// console.log(result);
 			}
 		});
 	}
