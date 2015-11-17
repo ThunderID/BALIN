@@ -46,7 +46,14 @@
 					</tr>
 					<tr class="row">
 						<td class="col-sm-6"><strong>Status</strong></td>
-						<td> {{$status[$transaction['status']]}} </td>
+						<td> 
+							{{$status[$transaction['status']]}} 
+							@if($transaction['status']=='wait')
+								<small>
+									<a class="link-grey hover-black unstyle" href="{{ route('frontend.profile.order.destroy', $transaction['ref_number']) }}">Batal</a>
+								</small>
+							@endif
+						</td>
 					</tr>
 				</tbody>
 			</table>
