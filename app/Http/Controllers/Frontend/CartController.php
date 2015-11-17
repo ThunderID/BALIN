@@ -5,7 +5,7 @@ use App\Models\Product;
 use App\Models\Varian;
 use App\Models\Transaction;
 use App\Jobs\SaveToTransactionDetail;
-use Input, Response, Redirect, Cookie, Auth;
+use Input, Response, Redirect, Cookie, Auth, Request;
 
 class CartController extends BaseController 
 {
@@ -13,8 +13,6 @@ class CartController extends BaseController
 
 	public function index()
 	{	
-		$baskets = Cookie::get('basketss');
-	
 		$carts 									= null;
 		$this->layout->page 					= view('pages.frontend.cart.index')
 													->with('controller_name', $this->controller_name)
@@ -27,7 +25,7 @@ class CartController extends BaseController
 	// FUNCTION ADD TO CART
 	public function store($slug = null)
 	{
-		$baskets 								= Cookie::get('baskets');
+		$baskets 								= Request::cookie('baskets');
 
 		$slug									= Input::get('product_slug');
 
@@ -104,7 +102,7 @@ class CartController extends BaseController
 
 	public function edit ()
 	{
-		$baskets 								= Cookie::get('baskets');
+		$baskets 								= Request::cookie('baskets');
 		$carts 									= null;
 		$this->layout->page 					= view('pages.frontend.cart.edit')
 														->with('controller_name', $this->controller_name)
@@ -117,7 +115,7 @@ class CartController extends BaseController
 	public function update($cid = null, $vid = null)
 	{
 
-		$baskets 									= Cookie::get('baskets');
+		$baskets 									= Request::cookie('baskets');
 
 		$inputs 									= Input::only('qty');
 
@@ -128,7 +126,7 @@ class CartController extends BaseController
 		// $inputs 									= Input::all();
 
 		// //get current stock
-		// $baskets 									= Cookie::get('baskets');
+		// $baskets 									= Request::cookie('baskets');
 
 		// $qty 										= Input::get('product_qty');
 
@@ -181,7 +179,7 @@ class CartController extends BaseController
 	public function destroy ($cid = null, $vid = null)
 	{
 		//get old baskets
-		$baskets 								= Cookie::get('baskets');
+		$baskets 								= Request::cookie('baskets');
 
 		//check validation
 		// if ($cid)

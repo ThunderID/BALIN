@@ -6,10 +6,10 @@
 @section('right_content')
 	<div class="row">
 		<div class="col-sm-9">
-			<h3 class="page-title m-t-lg">{{$title}}</h3>
+			<h3 class="page-title m-t-0">{{$title}}</h3>
 		</div>
 		<div class="col-sm-3">
-			<p class="text-right m-t-lg"><a href="{{route('frontend.profile.order.index')}}">kembali</a></p>
+			<p class="text-right m-t-lg"><a class="link-grey hover-black unstyle" href="{{route('frontend.profile.order.index')}}">Kembali</a></p>
 		</div>
 	</div>
 

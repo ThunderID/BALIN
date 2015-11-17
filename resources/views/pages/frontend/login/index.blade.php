@@ -36,7 +36,7 @@
 												@include('widgets.signup')
 											</div>
 											<div class="forgot" style="display:none">
-												<h3>Lupa Password</h3>
+												<h3>Reset Password</h3>
 												<div class="clearfix">&nbsp;</div>
 												@include('widgets.forgot_password')
 											</div>

@@ -1,13 +1,13 @@
 @inject('transaction', 'App\Models\Transaction')
 <?php
-	$orders 		= $transaction->userid(Auth::user()->id)->type('sell')->status(['cart', 'wait', 'paid', 'shipping', 'delivered', 'canceled'])->orderby('transact_at', 'desc')->with(['transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
+	$orders 		= $transaction->userid(Auth::user()->id)->type('sell')->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->orderby('transact_at', 'desc')->with(['transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
 ?>
 @extends('template.frontend.layout_account')
 
 @section('right_content')
 	<div class="row">
 		<div class="col-sm-12">
-			<h3 class="page-title m-t-lg">{{$title}}</h3>
+			<h3 class="page-title m-t-0">{{$title}}</h3>
 		</div>
 	</div>
 
@@ -33,11 +33,11 @@
 							<td> {{$value['ref_number']}} </td>
 							<td> @date_indo($value['transact_at']) </td>
 							<td> {{$value['status']}} </td>
-							<td> @money_indo($value['amount']) </td>
+							<td class="text-right"> @money_indo($value['amount']) </td>
 							<td>  
-								<a href="{{ route('frontend.profile.order.show', $value['ref_number']) }}">Detail</a>
+								<a class="link-grey hover-black unstyle" href="{{ route('frontend.profile.order.show', $value['ref_number']) }}">Detail</a>
 								@if($value['status']=='wait')
-								, <a href="{{ route('frontend.profile.order.destroy', $value['ref_number']) }}">Cancel</a>
+								, <a class="link-grey hover-black unstyle" href="{{ route('frontend.profile.order.destroy', $value['ref_number']) }}">Batal</a>
 								@endif
 							</td>
 						</tr>

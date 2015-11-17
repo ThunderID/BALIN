@@ -1057,7 +1057,7 @@ span.info {
   padding-bottom: 10px;
 }
 footer {
-  margin-top: 120px;
+  /*margin-top: 120px;*/
   background: black !important;
   color: white;
   padding-top: 30px;

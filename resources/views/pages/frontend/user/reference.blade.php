@@ -3,7 +3,7 @@
 @section('right_content')
 	<div class="row">
 		<div class="col-sm-12">
-			<h3 class="page-title m-t-lg">{{$title}}</h3>
+			<h3 class="page-title m-t-0">{{$title}}</h3>
 		</div>
 	</div>
 
@@ -24,7 +24,7 @@
 					<div class="col-md-12">
 						</br>
 						<div class="form-group text-right">
-							<button type="submit" class="btn-hollow hollow-black" tabindex="2">Simpan</button>
+							<button type="submit" class="btn-hollow hollow-black-border" tabindex="2">Simpan</button>
 						</div>        
 					</div>        
 				</div>    

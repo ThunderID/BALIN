@@ -112,7 +112,9 @@ class Address extends Eloquent
 
 	public function scopeOlderShipmentByCustomer($query, $variable)
 	{
-		return $query->join('shipments', 'shipments.address_id', '=', 'addresses.id')
+		return $query->selectraw('addresses.id')
+					->selectraw('shipments.receiver_name as receiver_name')
+					->join('shipments', 'shipments.address_id', '=', 'addresses.id')
 					->join('transactions', 'transactions.id', '=', 'shipments.transaction_id')
 					->transactionlogstatus(['wait', 'paid', 'shipping', 'delivered'])
 					->extendtransactiontype('sell')

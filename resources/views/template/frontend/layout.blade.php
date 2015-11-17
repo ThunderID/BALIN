@@ -1,3 +1,11 @@
+@inject('settings', 'App\Models\StoreSetting')
+<?php
+    $tmp = $settings->storeinfo(true)->get();
+    foreach ($tmp as $key => $value) {
+       $storeinfo[$value->type]   = $value->value; 
+    }
+?>
+
 @extends('template.layout')
 
 @section('content_layout')
@@ -14,8 +22,44 @@
 
     <title>BALIN</title>
 
+    <style>
+        a.unstyle{
+             text-decoration: none;
+        }
+        a.link-grey{
+            color:#999!important;
+        }
+        a.unstyle:hover{
+             text-decoration: none;
+        }
+        a.hover-black:hover{
+           color:#000 !important;
+        }
+        a.hover-gray:hover{
+           color:#888 !important;
+        }
+
+        .info-price{
+            min-height: 43px;
+            padding-bottom: 5px;
+        }      
+
+        .info-price .small-price{
+            font-size: 8pt !important;
+        }           
+
+        .info-product{
+            min-height: 38px;
+        }  
+
+        .m-t-0{
+            margin-top: 0px;
+        }             
+    </style>
+
     <!-- Custom CSS -->
    {!! HTML::style('Balin/web/css/bootstrap.min.css') !!}
+   {!! HTML::style('Balin/web/css/layout.css') !!}
    <link rel="stylesheet" href="{{ elixir('Balin/web/css/style-web.css') }}">
    {!! HTML::style('Balin/web/plugin/fontawesome/css/font-awesome.min.css') !!}
    {!! HTML::style('https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700') !!}
@@ -25,16 +69,19 @@
 </head>
 
 <body>
-    <header class="page-header">
-        @include('widgets.top_menu')
-    </header>
+    <div id="container" style="padding-bottom:90px;">
+        <header class="page-header">
+            @include('widgets.top_menu')
+        </header>
 
-    @yield('content')
+        @yield('content')
 
-    @if($controller_name != 'home')
-        @include('widgets.footer')
-    @endif
-
+        @if($controller_name != 'home')
+            <div id="footer">
+                @include('widgets.footer')
+            </div>
+        @endif
+    </div> 
 
     <!-- /.container -->
 

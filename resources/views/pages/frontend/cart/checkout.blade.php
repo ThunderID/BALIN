@@ -8,9 +8,10 @@
 		<div class="row">
 			<div class="col-lg-12">
 				@include('widgets.pageelements.pagetitle', array('pagetitle' => 'Checkout'))
+				<div class="clearfix">&nbsp;</div>
+				@include('widgets.alerts')
 			</div>
 		</div>
-		<div class="clearfix">&nbsp;</div>
 		<div class="row">
 			<div class="col-sm-7">
 				<div class="row chart-header">
