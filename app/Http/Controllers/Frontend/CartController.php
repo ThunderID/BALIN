@@ -93,10 +93,13 @@ class CartController extends BaseController
 		}
 
 		//update baskets
-		$baskets 								= Cookie::forever('baskets', $baskets);
+		$carts 									= Cookie::make('baskets', $baskets, 1440);
+		// $baskets 								= json_encode($baskets);
+		// dd($baskets);
 
-		return Redirect::route('frontend.cart.index')
-						->withCookie($baskets);
+		return Response::json(['carts' => $baskets], 200)
+						->withCookie($carts);
+		// return Redirect::route('frontend.cart.index')
 	}
 
 	public function edit ()
@@ -161,12 +164,17 @@ class CartController extends BaseController
 
 		// dd($baskets);
 		// //update baskets
-		$baskets 								= Cookie::forever('baskets', $baskets);
+		// $carts			 								= Cookie::forever('baskets', $baskets);
+		$carts 									= Cookie::make('baskets', $baskets, 1440);
+
 
 
 		//return cookies
-		return Redirect::route('frontend.cart.index')
-						->withCookie($baskets);
+		// return Redirect::route('frontend.cart.index')
+		// 				->withCookie($baskets);
+
+		return Response::json(['carts' => $baskets], 200)
+						->withCookie($carts);
 	}
 
 	// FUNCTION REMOVE CART
@@ -201,11 +209,14 @@ class CartController extends BaseController
 		}
 
 		// //update baskets
-		$baskets 								= Cookie::forever('baskets', $baskets);
+		$carts 								= Cookie::forever('baskets', $baskets);
 
 		//return cookies
-		return Redirect::route('frontend.cart.index')
-						->withCookie($baskets);
+		// return Redirect::route('frontend.cart.index')
+		// 				->withCookie($baskets);
+
+		return Response::json(['carts' => $baskets], 200)
+				->withCookie($carts);
 	}
 
 
@@ -214,5 +225,10 @@ class CartController extends BaseController
 	{
 		return Redirect::route('frontend.cart.index')
 						->withCookie(Cookie::forget('baskets'));		
+	}
+
+	public function getListBasket() 
+	{
+		return View('widgets.frontend.top_menu.item_cart_dropdown');
 	}
 }

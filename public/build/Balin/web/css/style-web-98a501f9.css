@@ -595,6 +595,13 @@ html {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+.chart-item a.title {
+  color: #888;
+  text-decoration: none;
+}
+.chart-item a.title:hover {
+  color: #000;
+}
 .chart-item h4 {
   font-size: 16px;
   font-weight: 400;
@@ -629,7 +636,10 @@ html {
 }
 .chart-dropdown {
   width: 280px;
+  height: 100%;
+  min-height: 450px;
   font-size: 12px;
+  overflow-y: scroll;
 }
 .chart-dropdown li {
   padding-left: 5px;
@@ -1013,7 +1023,7 @@ select.form-control.hollow {
   padding: 3px 3px;
   font-size: 12px;
   text-align: center;
-  width: 40px;
+  width: 41px;
 }
 .qty-hollow-cart .btn-hollow-cart {
   padding: 5px 5px;

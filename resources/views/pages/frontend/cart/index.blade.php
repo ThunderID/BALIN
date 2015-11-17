@@ -60,6 +60,7 @@
 									"item_list_discount_price"		=> $item['discount'],
 									"item_list_total_price"			=> ($item['price']*$qty),
 									"item_varians"					=> $item['varians'],
+									"item_list_slug"				=> $item['slug'],
 									"item_mode"						=> 'new',
 								))
 								<?php $total += ($item['price']*$qty); ?>
@@ -161,8 +162,26 @@
 @stop
 
 @section('script')
-	$('.qty').change(function() {
-		$(this).closest("form").submit();
+	$('.btn-delete-item').on('click', function() {
+		var action = $(this).attr('data-action');
+		$.ajax({
+			url: action,
+			type: 'POST',
+			dataType:"json",
+			success: function(result) {
+				$(this).parent().parent().parent().parent().remove();
+				count_cart = Object.keys(result.carts).length; 
+				$('.addto-cart').val('ADD TO CART');
+				$('.ico-cart').find('span').html(count_cart);
+				$.ajax({
+					url: '{{ route('frontend.cart.listBasket.ajax') }}',
+					success: function(msg) {
+						$('.chart-dropdown').html(msg);
+					}
+				});
+			}
+
+		});
 	});
 @stop
 

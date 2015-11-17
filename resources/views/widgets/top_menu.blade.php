@@ -12,7 +12,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span> --}}
 					</button>
-					<a href="javascript:void(0);" class="hidden-sm hidden-md hidden-lg" style="color: #fff;
+					<a href="javascript:void(0);" class="hidden-sm hidden-md hidden-lg ico-cart" style="color: #fff;
 					    position: absolute;
 					    right: 80px;
 					    top: 16px;">
@@ -53,7 +53,7 @@
 							</li> 
 						@endif
 						<li @if($controller_name == 'cart') class=active @endif class="dropdown">
-							<a href="javascript:void(0);" class="dropdown-toggle">
+							<a href="javascript:void(0);" class="dropdown-toggle ico-cart">
 								<i class="fa fa-shopping-cart fa-lg"></i>
 								<span class="m-l-xs">
 									{{ count(Cookie::get('baskets')) }}

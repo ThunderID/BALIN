@@ -79,7 +79,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
-						{!! Form::open(['url' => route('frontend.cart.store'), 'class' => 'p-t-sm form']) !!}
+						{!! Form::open(['url' => 'javascript:void(0);', 'class' => 'p-t-sm form-addtocart']) !!}
 							<?php $stock = $data['current_stock'];?>
 							@if ($stock==0)
 								<div class="row">
@@ -91,24 +91,24 @@
 									</div>
 								</div>
 							@else
-								{!! Form::hidden('product_slug', $slug) !!}
-								{!! Form::hidden('product_name', $data['name']) !!}
-								{!! Form::hidden('product_price', $price) !!}
-								{!! Form::hidden('product_discount', $data['discount']) !!}
-								{!! Form::hidden('product_stock', 0, ['class' => 'prod_stock']) !!}
-								{!! Form::hidden('product_image', $data['default_image']) !!}
-								{!! Form::hidden('product_size', '', ['class' => 'prod_size']) !!}
+								{!! Form::hidden('product_slug', $slug, ['class' => 'pslug']) !!}
+								{!! Form::hidden('product_name', $data['name'], ['class' => 'pname']) !!}
+								{!! Form::hidden('product_price', $price, ['class' => 'pprice']) !!}
+								{!! Form::hidden('product_discount', $data['discount'], ['class' => 'pdiscount']) !!}
+								{!! Form::hidden('product_stock', 0, ['class' => 'prod_stock pstock']) !!}
+								{!! Form::hidden('product_image', $data['default_image'], ['class' => 'pimage']) !!}
+								{!! Form::hidden('product_size', '', ['class' => 'prod_size psize']) !!}
 
 								@include('widgets.alerts')
 								<div class="row text-center m-t-xl">
 									@foreach($data['varians'] as $k => $v)
 										@if ($k<=2)
-											<div class="col-sm-4 text-center">
+											<div class="col-sm-12 col-md-4 text-center">
 												<div class="form-group">
 													<div class="qty-hollow m-b-lg">
 														<label class="label-qty">{{ $v['size'] }}</label>
-													  	<input type="hidden" name="varianids[{{$k}}]" class="form-control" value="{{$v['id']}}">
-													  	<input type="text" name="qty[{{$k}}]" class="form-control hollow form-qty input-number" value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" data-stock="{{ $v['stock'] }}" data-id="{{ $v['id'] }}" data-name="qty-{{strtolower($v['size'])}}[1]">
+													  	<input type="hidden" name="varianids[{{$k}}]" class="form-control pvarians" value="{{$v['id']}}">
+													  	<input type="text" name="qty[{{$k}}]" class="form-control hollow form-qty input-number pqty" value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" data-stock="{{ $v['stock'] }}" data-id="{{ $v['id'] }}" data-name="qty-{{strtolower($v['size'])}}[1]" data-oldValue="">
 														<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-minus btn-number" disabled="disabled" data-type="minus" data-field="qty-{{strtolower($v['size'])}}[1]">
 															<i class="fa fa-minus"></i>
 													  	</button>
@@ -135,7 +135,7 @@
 								<div class="row m-t-sm">
 									<div class="col-md-12">
 										<div class="form-group text-right">
-											{!! Form::submit('ADD TO CART', ['class' => 'btn-hollow hollow-black-border m-t-sm']) !!}
+											{!! Form::submit('ADD TO CART', ['class' => 'btn-hollow hollow-black-border m-t-sm addto-cart']) !!}
 										</div>	
 									</div>	
 								</div>
@@ -204,11 +204,12 @@
 			$('.prod_stock').val(stock);
 			$('.prod_size').val(size);
 		});
-	});  
+	});
 @stop
 
 @section('script_plugin')
 	@include('plugins.owlCarousel')
 	@include('plugins.easyzoom')
 	@include('plugins.qty-hollow')
+	@include('plugins.cart-plugin')
 @stop

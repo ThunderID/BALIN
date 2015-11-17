@@ -9,14 +9,14 @@
 			<div class="col-md-4">
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">
-						<h4 class="m-b-xs">{{ $item_list_name }}</h4>
+						<a href="{{ route('frontend.product.show', $item_list_slug) }}" class="title"><h4 class="m-b-xs">{{ $item_list_name }}</h4></a>
 					</div>
 				</div>		
 			</div>	
 			<div class="col-md-7">
 			</div>
 			<div class="col-md-1">
-				<a href="{{ route('frontend.cart.destroy', $item_list_id) }}" class="btn-hollow btn-hollow-xs hollow-black pull-right m-t-sm">
+				<a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', $item_list_id) }}" class="btn-hollow btn-hollow-xs hollow-black pull-right m-t-sm btn-delete-item">
 					<i class="fa fa-times"></i>
 				</a>
 			</div>
@@ -27,22 +27,23 @@
 		<div class="row">
 			@foreach($item_list_size as $key => $value)
 				<div class="col-md-4">
-					<p>Size : {{ $value['size'] }} <a href="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}">(Hapus)</a></p>
+					<p>Size : {{ $value['size'] }} <a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}" class="btn-delete-varian">(Hapus)</a></p>
 				</div>
 				<div class="col-md-1 text-center">
 					<div class="row qty-hollow-cart">
-						{!! Form::open(['url' => route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key] ), 'method' => 'POST']) !!}
-
+						{!! Form::open(['url' => route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key] ), 'method' => 'POST', 'class' => 'form-cart']) !!}
+							{!! Form::hidden('cid', $item_list_id, ['class' => 'cid']) !!}
+							{!! Form::hidden('vid', $key, ['class' => 'vid']) !!}
 							<div class="input-group">
 							  	<input type="hidden" name="varianids[{{$key}}]" class="form-control" value="{{$value['varian_id']}}">
 								<span class="input-group-btn">
-									<button type="button" class="btn-hollow btn-hollow-sm btn-hollow-cart btn-number" @if($value['qty'] <= 0)disabled="disabled"@endif data-type="minus" data-field="qty-{{strtolower($value['size'])}}[1]">
+									<button type="button" class="btn-hollow btn-hollow-sm btn-hollow-cart btn-number" @if($value['qty'] <= 0)disabled="disabled"@endif data-type="minus" data-field="qty-{{strtolower($value['size'])}}[1]" data-get-flag="qty-{{strtolower($value['size'])}}" data-price="{{ $item_list_normal_price }}">
 										<i class="fa fa-minus"></i>
 									</button>
 								</span>
-								<input type="text" name="qty[{{$key}}]" class="form-control input-hollow-cart input-number qty" value="{{ $value['qty'] }}" min="0" max="@if(50<=$value['stock']){{ '50' }}@else{{ $value['stock'] }}@endif" data-stock="{{ $value['stock'] }}" data-id="{{ $value['varian_id'] }}" data-name="qty-{{strtolower($value['size'])}}[1]">
+								<input type="text" name="qty[{{$key}}]" class="form-control input-hollow-cart input-number qty pqty" value="{{ $value['qty'] }}" min="0" max="@if(50<=$value['stock']){{ '50' }}@else{{ $value['stock'] }}@endif" data-stock="{{ $value['stock'] }}" data-id="{{ $value['varian_id'] }}" data-name="qty-{{strtolower($value['size'])}}[1]">
 								<span class="input-group-btn">
-									<button type="button" class="btn-hollow btn-hollow-sm btn-hollow-cart btn-number" data-type="plus" data-field="qty-{{strtolower($value['size'])}}[1]">
+									<button type="button" class="btn-hollow btn-hollow-sm btn-hollow-cart btn-number" data-type="plus" data-field="qty-{{strtolower($value['size'])}}[1]" data-get-flag="qty-{{strtolower($value['size'])}}" data-price="{{ $item_list_normal_price }}" data-total="">
 										<i class="fa fa-plus"></i>
 									</button>
 								</span>
@@ -50,13 +51,13 @@
 						{!! Form::close() !!}   
 					</div>					
 				</div>
-				<div class="col-md-2 text-right">
+				<div class="col-md-2 text-right label-price" data-price="{{ $item_list_normal_price }}" data-get-price="qty-{{strtolower($value['size'])}}">
 					@money_indo($item_list_normal_price) 
 				</div>
 				<div class="col-md-2 text-right">
 					@money_indo($item_list_discount_price) 
 				</div>
-				<div class="col-md-2 text-right">
+				<div class="col-md-2 text-right label-total" data-total="{{ ($item_list_normal_price - $item_list_discount_price) * $value['qty'] }}" data-get-total="qty-{{strtolower($value['size'])}}">
 					@money_indo(($item_list_normal_price - $item_list_discount_price) * $value['qty'])
 				</div>					
 				<div class="col-md-1">

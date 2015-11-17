@@ -384,6 +384,8 @@ Route::group(['namespace' => 'Frontend\\'], function()
 		Route::get('/reference', 										['uses' => 'CampaignController@getreference', 'as' => 'frontend.profile.reference.get']);
 
 		Route::post('/reference', 										['uses' => 'CampaignController@postreference', 'as' => 'frontend.profile.reference.post']);
+
+		Route::get('edit/cart', 											['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
 	});
 	
 	Route::get('do/logout',												['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
@@ -400,13 +402,14 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::get('cart', 													['uses' => 'CartController@index', 'as' => 'frontend.cart.index']);
 
-	Route::post('add/to/cart', 											['uses' => 'CartController@store', 'as' => 'frontend.cart.store']);
+	// Route::post('add/to/cart', 											['uses' => 'CartController@store', 'as' => 'frontend.cart.store']);
+	Route::get('cart/list',												['uses' => 'CartController@getListBasket', 'as' => 'frontend.cart.listBasket.ajax']);
 
-	Route::get('edit/cart', 											['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
+	Route::any('cart/add', 												['uses' => 'CartController@store', 'as' => 'frontend.cart.store.ajax' ]);
 
-	Route::post('update/cart/{cid?}/{vid?}',							['uses' => 'CartController@update', 'as' => 'frontend.cart.update']);
+	Route::any('update/cart/{cid?}/{vid?}',							['uses' => 'CartController@update', 'as' => 'frontend.cart.update']);
 
-	Route::get('remove/from/cart/{cid?}/{vid?}',						['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
+	Route::any('remove/from/cart/{cid?}/{vid?}',						['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
 	
 	Route::get('empty/cart',											['uses' => 'CartController@clean', 'as' => 'frontend.cart.empty']);
 	
