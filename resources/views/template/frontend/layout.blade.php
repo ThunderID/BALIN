@@ -78,7 +78,11 @@
 </head>
 
 <body>
-    <div id="container" style="padding-bottom:90px;">
+    <?php $pb = 90; ?>
+    @if($controller_name == 'home') { $pb = 0;}@endif
+    
+    <div id="container" style="padding-bottom: {{$pb}} px;">
+
         <header class="page-header">
             @include('widgets.top_menu')
         </header>
