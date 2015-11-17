@@ -26,10 +26,10 @@
 		</div>
 		<div class="row">
 			@foreach($item_list_size as $key => $value)
-				<div class="col-md-4">
+				<div class="col-md-4 qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 					<p>Size : {{ $value['size'] }} <a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}" class="btn-delete-varian">(Hapus)</a></p>
 				</div>
-				<div class="col-md-1 text-center">
+				<div class="col-md-1 text-center qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 					<div class="row qty-hollow-cart">
 						{!! Form::open(['url' => route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key] ), 'method' => 'POST', 'class' => 'form-cart']) !!}
 							{!! Form::hidden('cid', $item_list_id, ['class' => 'cid']) !!}
@@ -51,20 +51,20 @@
 						{!! Form::close() !!}   
 					</div>					
 				</div>
-				<div class="col-md-2 text-right label-price" data-price="{{ $item_list_normal_price }}" data-get-price="qty-{{strtolower($value['size'])}}">
+				<div class="col-md-2 text-right label-price qty-{{strtolower($value['size'])}}" data-price="{{ $item_list_normal_price }}" data-get-price="qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 					@money_indo($item_list_normal_price) 
 				</div>
-				<div class="col-md-2 text-right">
+				<div class="col-md-2 text-right qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 					@money_indo($item_list_discount_price) 
 				</div>
-				<div class="col-md-2 text-right label-total" data-total="{{ ($item_list_normal_price - $item_list_discount_price) * $value['qty'] }}" data-get-total="qty-{{strtolower($value['size'])}}">
+				<div class="col-md-2 text-right label-total qty-{{strtolower($value['size'])}}" data-total="{{ ($item_list_normal_price - $item_list_discount_price) * $value['qty'] }}" data-get-total="qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 					@money_indo(($item_list_normal_price - $item_list_discount_price) * $value['qty'])
 				</div>					
-				<div class="col-md-1">
+				<div class="col-md-1 qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 					</br>
 					</br>
 				</div>  
-				<div class"col-md-12 clearfix"></div>
+				<div class="col-md-12 clearfix qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}"></div>
 			@endforeach
 		</div>
 	</div>

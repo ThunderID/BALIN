@@ -196,6 +196,14 @@
 
 		});
 	});
+
+	$('.btn-delete-varian').on('click', function() {
+		var row = $(this).parent().parent();
+		var flag = row.attr('data-get-flag');
+
+		$(row).siblings('.'+flag).remove();
+		$(row).remove();
+	});
 @stop
 
 @section('script_plugin')
