@@ -18,7 +18,7 @@
 					    top: 16px;">
 						<i class="fa fa-shopping-cart fa-lg"></i>
 						<span class="m-l-xs">
-							{{ count(Cookie::get('baskets')) }}
+							{{ count(Session::get('baskets')) }}
 						</span>
 					</a>
 					<a class="navbar-brand" href="{{ URL::route('frontend.home.index') }}">
@@ -56,7 +56,7 @@
 							<a href="javascript:void(0);" class="dropdown-toggle ico-cart">
 								<i class="fa fa-shopping-cart fa-lg"></i>
 								<span class="m-l-xs">
-									{{ count(Cookie::get('baskets')) }}
+									{{ count(Session::get('baskets')) }}
 								</span>
 							</a>
 							@include('widgets.frontend.top_menu.cart_dropdown')

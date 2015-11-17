@@ -7,7 +7,7 @@ use App\Models\Voucher;
 use App\Models\Shipment;
 use App\Models\Courier;
 use App\Jobs\ChangeStatus;
-use Input, Response, Redirect, Cookie, Auth, Request;
+use Input, Response, Redirect, Session, Auth, Request;
 
 class CheckOutController extends BaseController 
 {
@@ -16,7 +16,7 @@ class CheckOutController extends BaseController
 	public function getCheckout()
 	{	
 		//get transaction
-		$baskets 								= Request::cookie('baskets');
+		$baskets 								= Session::get('baskets');
 		$addresses 								= Address::oldershipmentbycustomer(Auth::user()->id)->get()->toArray();
 		$address 								= Address::ownerid(Auth::user()->id)->ownertype('App\Models\User')->first();
 		$addresses[]							= $address;
@@ -99,9 +99,9 @@ class CheckOutController extends BaseController
 
 		if($result->getStatus()=='success')
 		{
-			$cookie = Cookie::forget('baskets');
+			$cookie = Session::forget('baskets');
 
-			return Redirect::route('frontend.profile.order.show', $transaction->ref_number)->withCookie($cookie);
+			return Redirect::route('frontend.profile.order.show', $transaction->ref_number);
 		}
 
 		return Redirect::back()->withErrors($result->getErrorMessage());
