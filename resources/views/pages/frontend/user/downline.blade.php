@@ -17,9 +17,9 @@
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
-						<th>No</th>
-						<th>Tanggal</th>
-						<th>Downline</th>
+						<th class="text-center">No</th>
+						<th class="text-center">Tanggal</th>
+						<th class="text-center">Downline</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -31,7 +31,7 @@
 						</tr>
 					@empty
 						<tr>
-							<td colspan="3"> Tidak ada data </td>
+							<td class="text-center" colspan="3"> Tidak ada data </td>
 						</tr>
 					@endforelse
 				</tbody>

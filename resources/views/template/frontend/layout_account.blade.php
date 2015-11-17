@@ -1,7 +1,7 @@
 @extends('template.frontend.layout')
 
 @section('content')
-	<div class="container mt-75">
+	<div class="container mt-75 mb-100">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="row">

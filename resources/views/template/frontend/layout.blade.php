@@ -74,10 +74,16 @@
             margin-top: 0px;
         }  
 
-        .m-t-0{
+
+        .m-b-0{
             margin-bottom: 0px;
         }         
 
+
+        .mb-100{
+            margin-bottom: 100px;
+        }
+        
         .btn-share{
             font-size: 12px !important; 
             height: 20px;
