@@ -103,7 +103,7 @@
 								<div class="row text-center m-t-xl">
 									@foreach($data['varians'] as $k => $v)
 										@if ($k<=2)
-											<div class="col-sm-12 col-md-4 text-center">
+											<div class="col-xs-4 col-sm-4 col-md-4 text-center">
 												<div class="form-group">
 													<div class="qty-hollow m-b-lg">
 														<label class="label-qty">{{ $v['size'] }}</label>
