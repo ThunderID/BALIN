@@ -20,8 +20,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    @if(isset($page_title))
-        <title>{{$page_title}} - {{$page_subtitle}}</title>
+    @if(isset($page_subtitle))
+        <title>{{$page_subtitle}} - {{$page_title}}</title>
     @else
     <title>BALIN.ID</title>
     @endif
