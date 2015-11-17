@@ -48,7 +48,7 @@ class CartController extends BaseController
 
 		foreach ($varians as $key => $value) 
 		{
-			if(isset($qtys[$key]) && $qtys[$key]!=0)
+			if (isset($qtys[$key]) && $qtys[$key]!=0)
 			{
 				$varianp 						= Varian::findorfail($value);
 
@@ -60,7 +60,7 @@ class CartController extends BaseController
 
 		$baskets[$product->id]					= $basket;
 
-		if(Auth::check())
+		if (Auth::check())
 		{
 			$price 								= ['price' => $basket['price'], 'discount' => $basket['discount']];
 			$transaction           	 			= Transaction::userid(Auth::user()->id)->status('cart')->first();
@@ -113,12 +113,8 @@ class CartController extends BaseController
 
 	public function update($cid = null, $vid = null)
 	{
-
 		$baskets 									= Session::get('baskets');
-
-		$inputs 									= Input::only('qty');
-
-		$baskets[$cid]['varians'][$vid]['qty']		= $inputs['qty'][$vid];
+		$baskets[$cid]['varians'][$vid]['qty']		= Input::get('qty');
 
 		Session::forget('baskets');
 
@@ -128,20 +124,22 @@ class CartController extends BaseController
 	}
 
 	// FUNCTION REMOVE CART
-	public function destroy ($cid = null, $vid = null)
+	public function destroy ()
 	{
 		//get old baskets
-		$baskets 								= Session::get('baskets');
+		$baskets 									= Session::get('baskets');
+		$cid 										= Input::get('cid');
+		$vid 										= Input::get('vid');
 
-		if(isset($cid) && !isset($vid))
+		if (isset($cid) && !isset($vid))
 		{
-			//remove selected item from cart
+			// remove selected item from cart
 			unset($baskets[$cid]);
 		}
 		else if (isset($cid) && isset($vid)) 
 		{
-			//remove varian from selected item cart
-			if(count($baskets[$cid]['varians']) > 1)
+			// remove varian from selected item cart
+			if (count($baskets[$cid]['varians']) > 1)
 			{
 				unset($baskets[$cid]['varians'][$vid]);
 			}
@@ -151,7 +149,7 @@ class CartController extends BaseController
 			}
 		}
 
-		// //update baskets
+		// update baskets
 		$carts 								= Session::put('baskets', $baskets);
 
 		return Response::json(['carts' => $baskets], 200);
