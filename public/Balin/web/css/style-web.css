@@ -1081,5 +1081,31 @@ footer .menu-footer a {
 footer .menu-footer a:hover {
   color: #eee;
 }
+.tp-caption.large_text {
+  pposition: absolute;
+  color: #fff;
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  font-size: 45px;
+  line-height: 40px;
+  font-family: 'Roboto';
+  margin: 0px;
+  border-width: 0px;
+  border-style: none;
+  white-space: nowrap;
+}
+.tp-caption.medium_text {
+  position: absolute;
+  color: #fff;
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 28px;
+  font-family: 'Roboto';
+  margin: 0;
+  border-width: 0px;
+  border-style: none;
+  white-space: nowrap;
+}
 
 /*# sourceMappingURL=style-web.css.map */

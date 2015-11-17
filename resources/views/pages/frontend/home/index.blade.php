@@ -25,18 +25,28 @@
 						@if ($v[$k.'_active']=='1')
 							<?php 
 								$loc = explode('-', $v['slider_'. $k .'_location']); 
+								$loc_x = strtolower($loc[1]);
+								$loc_y = strtolower($loc[0]);
 							?>
 							<!-- LAYER NR. 1 -->
-							<div class="tp-caption medium_bg_asbestos-{{$k}} skewfromright"
-								data-x="{{ strtolower($loc[1]) }}"
-								data-y="{{ strtolower($loc[0]) }}"
+							<div class="tp-caption @if($k=='title') large_text @elseif($k=='content') medium_text @endif @if($loc_x=='left') skewfromleft @else skewfromright @endif"
+								data-x="{{$loc_x}}"
+								data-y="@if($loc_y=='top'){{'120'}}@elseif($loc_y=='bottom'){{'320'}}@else{{$loc_y}}@endif"
 								data-speed="800"
 								data-start="{{ ($i*800)+800 }}"
 								data-easing="Power4.easeinOut"
+								data-hoffset="@if($loc_x=='left'){{'100'}}@else{{'-100'}}@endif"
 								data-endspeed="300"
 								data-endeasing="Power1.easeIn"
 								data-captionhidden="off"
-								style="z-index: 6">@if(isset($v['slider_button_url'])) <a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black hollow-black-border"> {!! $v['slider_'. $k] !!} </a> @else {!! $v['slider_'. $k] !!} @endif
+								style="z-index: 6">
+								@if(isset($v['slider_button_url'])) 
+									<a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black hollow-black-border"> 
+										{!! $v['slider_'. $k] !!} 
+									</a> 
+								@else 
+								{!! $v['slider_'. $k] !!} 
+								@endif
 							</div>
 						@endif
 						<?php $i++; ?>
