@@ -18,7 +18,9 @@
 							@include('widgets.alerts')
 						</div>
 						<div class="row">
-							@yield('right_content')
+							<div class="col-sm-12">
+								@yield('right_content')
+							</div>
 						</div>
 					</div>
 				</div>
