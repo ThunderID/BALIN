@@ -20,8 +20,7 @@
 				<!-- SLIDE 1-->
 				<li data-transition="fade" data-slotamount="5" data-masterspeed="700" >
 					<!-- MAIN IMAGE -->
-					<img src="/Balin/web/image/slide-2-large.png"   alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
-
+					<img src="{!!$images['image_lg']!!}"   alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 					<?php $i = 0; ?>
 					@foreach ($value as $k => $v)
 						@if ($v[$k.'_active']=='1')
@@ -38,7 +37,7 @@
 								data-endspeed="300"
 								data-endeasing="Power1.easeIn"
 								data-captionhidden="off"
-								style="z-index: 6">{!! $v['slider_'. $k] !!}
+								style="z-index: 6">@if(isset($v['slider_button_url'])) <a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black hollow-black-border"> {!! $v['slider_'. $k] !!} </a> @else {!! $v['slider_'. $k] !!} @endif
 							</div>
 						@endif
 						<?php $i++; ?>

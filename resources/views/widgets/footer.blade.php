@@ -6,7 +6,7 @@
 					<div class="col-md-8">
 						<ul class="list-inline menu-footer">
 							<li><a href="{{ URL::route('frontend.aboutus.index') }}">About US</a></li>
-							<li><a href="{{ URL::route('frontend.home.index') }}#contact-us">Contact US</a></li>
+							<!-- <li><a href="{{ URL::route('frontend.home.index') }}#contact-us">Contact US</a></li> -->
 						</ul>
 					</div>
 					<div class="col-md-4 text-right">

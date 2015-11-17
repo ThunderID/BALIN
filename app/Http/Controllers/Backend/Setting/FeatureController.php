@@ -133,7 +133,7 @@ class FeatureController extends BaseController
 			$button 									= 	[
 																'button_active'				=> $inputs['button_active'],
 																'slider_button_location'	=> $inputs['slider_button_location'],
-																'slider_button_text'		=> $inputs['slider_button_text'],
+																'slider_button'				=> $inputs['slider_button_text'],
 																'slider_button_url'			=> $inputs['slider_button_url'],
 															];
 		}				
@@ -245,7 +245,7 @@ class FeatureController extends BaseController
 
 	public function showPreview($id)
 	{
-		$data 			= storeSetting::findorfail($id);
+		$data 			= StoreSetting::findorfail($id);
 
 		$images 		= null;
 		if(isset($data['images'][0]))

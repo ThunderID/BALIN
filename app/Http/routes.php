@@ -162,7 +162,8 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		// ------------------------------------------------------------------------------------
 
 		Route::resource('features',		'FeatureController',			['names' => ['index' => 'backend.settings.feature.index', 'create' => 'backend.settings.feature.create', 'store' => 'backend.settings.feature.store', 'show' => 'backend.settings.feature.show', 'edit' => 'backend.settings.feature.edit', 'update' => 'backend.settings.feature.update', 'destroy' => 'backend.settings.feature.destroy']]);
-		Route::get('features/{id}/preview', 							['uses' => 'featurecontroller@showPreview', 'as' => 'backend.settings.feature.show.preview']);
+	
+		Route::get('features/{id}/preview', 							['uses' => 'FeatureController@showPreview', 'as' => 'backend.settings.feature.show.preview']);
 
 		// ------------------------------------------------------------------------------------
 		// POLICY
