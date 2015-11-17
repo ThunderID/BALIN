@@ -551,6 +551,9 @@ html {
 }
 .thumbnail .promo-price {
   margin-bottom: 0px;
+  color: #000;
+  font-size: 15px;
+  font-weight: 300;
 }
 .thumbnail .normal-price {
   /*padding-top: inherit;*/
