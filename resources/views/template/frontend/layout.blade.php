@@ -63,7 +63,14 @@
 
         .m-t-0{
             margin-top: 0px;
-        }             
+        }  
+
+        .btn-share{
+            font-size: 12px !important; 
+            height: 20px;
+            padding: 1px 7px !important;
+            margin: 0px !important;
+        }           
     </style>
 
     <!-- Custom CSS -->

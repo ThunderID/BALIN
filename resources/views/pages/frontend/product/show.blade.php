@@ -134,7 +134,7 @@
 								</div>
 								<div class="row m-t-sm">
 									<div class="col-sm-4">
-										<a href="#" class="btn btn-hollow hollow-social hollow-black hollow-black-border addto-cart"><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
+										<a href="#" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border addto-cart"><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
 									</div>
 									<div class="col-sm-8">
 										<div class="form-group text-right">
