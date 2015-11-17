@@ -485,8 +485,8 @@ html {
 		width: 30px;
 		height: 28px;
 		font-size: 12px;
-	    font-size: 12px;
-	    padding: 6px 4px;
+		font-size: 12px;
+		padding: 6px 4px;
 	}
 }
 .dropdown-menu.category-list {
@@ -615,19 +615,19 @@ label.hollow-label {
 }
 .menu-info li {
 	border: 1px solid #ccc;
-    padding: 9px;
-    border-top: none;
+	padding: 9px;
+	border-top: none;
 	padding-left: 15px;
-    &:first-child {
-    	border-top: 1px solid #ccc;
-    }
-    a {
+	&:first-child {
+		border-top: 1px solid #ccc;
+	}
+	a {
 		color: #999;
 		text-decoration: none;
 		&:hover, &.active {
 			color: #222;
 		}
-    }
+	}
 }
 // .menu-info li a {
 // }
@@ -662,8 +662,8 @@ select.form-control.hollow {
 .qty-hollow {
 	margin: 0 auto;
 	width: 61px;
-    position: relative;
-    .label-qty {
+	position: relative;
+	.label-qty {
 		position: absolute;
 		background-color: #000;
 		border: 1px solid #000;
@@ -674,7 +674,7 @@ select.form-control.hollow {
 		display: block;
 		margin-bottom: -6px;
 		border-bottom: none;
-    }
+	}
 	.form-qty {
 		text-align: center;
 		width: 61px;
@@ -856,6 +856,77 @@ footer {
 			padding: 5px;
 			color: #fff;
 		}
+	}
+}
+
+// Label
+.tag-label {
+	position: absolute;
+	top: 0;
+	margin-top: 10px;
+	width: 85%;
+	&.right {
+		right: 0;
+		margin-right: 15px;
+	}
+	&.left {
+		left: 0;
+		margin-left: 15px;
+	}
+}
+.circle-label {
+	width:18%;
+	&:after {
+		content: "";
+		display: block;
+		width: 100%;
+		height:0;
+		padding-bottom: 100%;
+		background: #4679BD; 
+		-moz-border-radius: 50%; 
+		-webkit-border-radius: 50%; 
+		border-radius: 50%;
+	}
+	div {
+		font-weight: 100;
+		font-size: 13px;
+		float:left;
+		width:100%;
+		padding-top:50%;
+		line-height:1em;
+		margin-top:-0.4em;
+		text-align:center;
+		color:white;
+	}
+}
+.square-label {
+	position: relative;
+	width: 72px;
+	padding: 5px;
+	background: rgba(0, 0, 0, 0.8);
+	text-align: center;
+	color: #fff;
+	font-weight: 100;
+	font-size: 13px;
+	line-height: 1;
+}
+.text-label {
+	font-size: 13px;
+	font-weight: 100;
+	text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.circle-non-label {
+	width:8%;
+	&:after {
+		content: "";
+		display: block;
+		width: 100%;
+		height:0;
+		padding-bottom: 100%;
+		background: #4679BD; 
+		-moz-border-radius: 50%; 
+		-webkit-border-radius: 50%; 
+		border-radius: 50%;
 	}
 }
 

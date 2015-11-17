@@ -65,7 +65,9 @@
         .info-price .small-price{
             font-size: 8pt !important;
         }           
-
+        .text-product.small-price {
+            font-size: 10pt !important;
+        }
         .info-product{
             min-height: 38px;
         }  

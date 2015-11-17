@@ -42,25 +42,35 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h3 class="title-product caption-product">{{ $data['name'] }}</h3>
+						{{-- <div class="circle-label">
+							<div>SALE</div>
+						</div> --}}
+						<div class="square-label">
+							<div>HOT ITEM</div>
+						</div>
+						{{-- <div class="text-label">
+							<div>BEST SALLER</div>
+						</div> --}}
+						{{-- <div class="circle-non-label"></div> --}}
 						<div class="clearfix">&nbsp;</div>
 						{{-- <h4 class="caption-product">Price</h4> --}}
 						<?php $price 	= $data['price'];?>
 						@if($data['discount']!=0)
-							<h4 class="text-product"><strike> @money_indo($data['price']) </strike></h4>
+							<h4 class="text-product small-price"><strike> @money_indo($data['price']) </strike></h4>
 							<?php $price 	= $data['promo_price'];?>
 						@endif
 						@if($balance - $price >= 0)
-							<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
+							<h4 class="text-product small-price"><strike> @money_indo($price) </strike></h4>
 							<?php $price 	= 0;?>
 						@elseif($balance!=0)
-							<h4 class="text-product"><strike> @money_indo($price) </strike></h4>
+							<h4 class="text-product small-price"><strike> @money_indo($price) </strike></h4>
 							<?php $price 	= $price - $balance;?>
 						@endif
 
 						@if($price==$data['price'])
 							<h4 class="text-product"> @money_indo($price)</h4>
 						@else
-							<h4 class="text-product"> @money_indo($price) </h4>
+							<h4 class="text-product"><strong>@money_indo($price)</strong></h4>
 						@endif
 					</div>
 				</div>
