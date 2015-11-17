@@ -77,8 +77,7 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 										?>
 										<tr>
 											<td>{{ $ctr }}</td>
-											<td>{!! HTML::image($data->slider, 'slider', ['class' => 'img-responsive']) !!}</td>
-											</td>
+											<td class="text-center col-md-4">{!! HTML::image($data->slider, 'slider', ['class' => 'img-responsive']) !!}</td>
 											<td>
 												@if(isset($value['title']['slider_title']))
 													@if($value['title']['title_active'] == 1)
@@ -104,10 +103,10 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 													<h5><strong>Konten tidak aktif</strong></h5>
 												@endif		
 
-												@if(isset($value['button']['slider_button_text']))
+												@if(isset($value['button']['slider_button']))
 													@if($value['button']['button_active'] == 1)
 														<h5><strong>Tombol :</strong>
-															{{ $value['button']['slider_button_text'] }}
+															{{ $value['button']['slider_button'] }}
 														</h5>
 													@else
 														<h5><strong>Tombol tidak aktif</strong></h5>

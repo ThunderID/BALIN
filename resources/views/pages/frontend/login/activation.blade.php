@@ -4,11 +4,30 @@
 	<div class="container-fluid page-join" style="background-color: rgba(0, 0, 0, 0.62);">
 		<div class="container">
 			<div class="row" style="padding-top:60px">
-				<div class="col-md-4 col-md-offset-4">
-					<div class="row panel-hollow panel-default p-xs" style="margin-top:28%">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="row panel-hollow panel-default p-xs" style="margin-top:25%">
 						<div class="col-md-12">
-							<p>Point anda berhasil di claim.</p>
-							<p>Silahkan Login untuk mengecek buku tabungan anda.</p>
+							<div class="row">
+								<div class="col-md-12 text-center">
+									<h5>Point anda berhasil di claim.</h5>
+									<div class="col-md-6 col-md-offset-3">
+										<img class="img img-responsive"  src="http://lineofficial.blogimg.jp/en/imgs/2/b/2ba1b44b.png" alt="">
+									</div>
+								</div>
+								<div class="row panel-hollow panel-default p-xs" style="margin-top:28%">
+									<div class="row">
+										<div class="col-md-12 text-center">							
+											@if(Auth::check())
+												<p>Cek buku tabungan anda sekarang juga.</p>
+												<a href="{{ URL::route('frontend.profile.point') }}" class="btn-hollow hollow-black hollow-black-border" tabindex="6">Buku Tabungan</a>
+											@else
+												<p>Silahkan Sign in untuk mengecek buku tabungan anda.</p>
+												<a href="{{ URL::route('frontend.join.index') }}" class="btn-hollow hollow-black hollow-black-border" tabindex="6">Sign In</a>
+											@endif
+										</div>
+									</div>							
+								</div>							
+							</div>							
 						</div>	
 					</div>
 				</div>

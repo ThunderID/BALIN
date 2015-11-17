@@ -89,7 +89,7 @@ class CartController extends BaseController
 
 			if($result->getStatus()=='error')
 			{
-				return Redirect::route('frontend.cart.index')->withErrors($result->getErrorMessage());
+				return Redirect::route('frontend.cart.index')->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
 			}
 		}
 

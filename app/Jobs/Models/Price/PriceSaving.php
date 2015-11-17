@@ -20,7 +20,7 @@ class PriceSaving extends Job implements SelfHandling
 
     public function handle()
     {
-        if($this->price->started_at)
+        if($this->price->product->varians->count())
         {
             if(date('Y-m-d H:i:s') >= $this->price->started_at)
             {

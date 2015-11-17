@@ -48,6 +48,15 @@
            color:#888 !important;
         }
 
+        a.footer-link{
+            color:#bbb !important;
+        }
+
+        a.footer-link:hover{
+            color:#fff !important;
+        }
+
+
         .info-price{
             min-height: 43px;
             padding-bottom: 5px;
@@ -63,7 +72,24 @@
 
         .m-t-0{
             margin-top: 0px;
-        }             
+        }  
+
+
+        .m-b-0{
+            margin-bottom: 0px;
+        }         
+
+
+        .mb-100{
+            margin-bottom: 100px;
+        }
+        
+        .btn-share{
+            font-size: 12px !important; 
+            height: 20px;
+            padding: 1px 7px !important;
+            margin: 0px !important;
+        }           
     </style>
 
     <!-- Custom CSS -->
@@ -78,7 +104,11 @@
 </head>
 
 <body>
-    <div id="container" style="padding-bottom:90px;">
+    <?php $pb = 90; ?>
+    @if($controller_name == 'home') { $pb = 0;}@endif
+    
+    <div id="container" style="padding-bottom: {{$pb}} px;">
+
         <header class="page-header">
             @include('widgets.top_menu')
         </header>

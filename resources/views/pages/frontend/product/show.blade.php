@@ -133,9 +133,12 @@
 									</div>
 								</div>
 								<div class="row m-t-sm">
-									<div class="col-md-12">
+									<div class="col-sm-4 col-xs-4">
+										<a href="#" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border addto-cart"><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
+									</div>
+									<div class="col-sm-8 col-xs-8">
 										<div class="form-group text-right">
-											{!! Form::submit('ADD TO CART', ['class' => 'btn-hollow hollow-black-border m-t-sm addto-cart']) !!}
+											{!! Form::submit('ADD TO CART', ['class' => 'btn-hollow hollow-black-border addto-cart']) !!}
 										</div>	
 									</div>	
 								</div>
@@ -176,9 +179,19 @@
 			
 		@endif
 	</div>
+	<div id="fb-root"></div>
 @stop
 
 @section('script')
+	(function(d, s, id) {
+	 	var js, fjs = d.getElementsByTagName(s)[0];
+	 	if (d.getElementById(id)) return;
+	 	js = d.createElement(s); js.id = id;
+	 	js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+	 	fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+
+
 	$(document).ready(function() {
 		$('.canvasSource').click(function() {
 			  /* var image = $(this).attr('src');
