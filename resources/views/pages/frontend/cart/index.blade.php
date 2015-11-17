@@ -13,7 +13,7 @@
 		<div class="col-md-12">
 		<div class="clearfix">&nbsp;</div>
 			<div class="row">
-				<div class="col-xs-12 col-md-12 col-sm-12">
+				<div class="col-xs-12 col-md-12 col-sm-12 chart-div">
 					<div class="row chart-header">
 						<div class="col-md-1">
 							<p>Produk</p>

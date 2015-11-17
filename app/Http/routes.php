@@ -410,7 +410,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::any('update/cart/{cid?}/{vid?}',							['uses' => 'CartController@update', 'as' => 'frontend.cart.update']);
 
-	Route::any('remove/from/cart',						['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
+	Route::any('remove/from/cart',									['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
 	
 	Route::get('empty/cart',											['uses' => 'CartController@clean', 'as' => 'frontend.cart.empty']);
 	

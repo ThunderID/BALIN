@@ -16,7 +16,7 @@
 			<div class="col-md-7">
 			</div>
 			<div class="col-md-1">
-				<a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', $item_list_id) }}" class="btn-hollow btn-hollow-xs hollow-black pull-right m-t-sm btn-delete-item">
+				<a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', $item_list_id) }}" class="btn-hollow btn-hollow-xs hollow-black-border pull-right m-t-sm btn-delete-item" data-cid="{{ $item_list_id }}">
 					<i class="fa fa-times"></i>
 				</a>
 			</div>
