@@ -14,7 +14,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<label for="name">Nama Lengkap</label>
-							{!! Form::text('name', Auth::user()['name'], ['class' => 'form-control hollow mod_name', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nama lengkap customer'] ) !!}
+							{!! Form::text('name', Auth::user()['name'], ['class' => 'form-control hollow mod_name', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nama lengkap'] ) !!}
 						</div>
 					</div>
 				</div>
@@ -30,7 +30,11 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<label for="date_of_birth">Tanggal Lahir</label>
-							 {!!Form::input('date', 'date_of_birth', (!is_null(Auth::user()['date_of_birth']) ? Auth::user()['date_of_birth']->format('d-m-Y') : ''), ['class' => 'form-control hollow mod_dob', 'required' => 'required', 'tabindex' => '3'] ) !!}
+							<?php
+								$date = null;
+								if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"d-m-Y");}
+							?>
+							{!!Form::text('date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-picker', 'required' => 'required', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir'] ) !!}
 						</div>
 					</div>
 				</div>
@@ -65,7 +69,7 @@
 					<div class="col-md-12">
 						</br>
 						<div class="form-group text-right">
-							<button type="submit" class="btn-hollow hollow-black" tabindex="7">Simpan</button>
+							<button type="submit" class="btn-hollow hollow-black hollow-black-border" tabindex="7">Simpan</button>
 						</div>        
 					</div>        
 				</div>    
@@ -73,3 +77,7 @@
 		</div>
 	</div>
 @stop
+
+@section('script_plugin')
+	@include('plugins.datepicker')
+	@stop

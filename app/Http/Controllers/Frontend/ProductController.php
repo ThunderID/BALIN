@@ -7,7 +7,14 @@ use App\Models\Product;
 
 class ProductController extends BaseController 
 {
-
+	/**
+	* Instantiate a new UserController instance.
+	*/
+	public function __construct()
+	{
+		parent::__construct();
+	}
+	
 	protected $controller_name 					= 'product';
 
 	public function index()
@@ -62,6 +69,18 @@ class ProductController extends BaseController
 													;
 		$this->layout->controller_name			= $this->controller_name;
 
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= 'All Batiks';
+
+		$this->layout->page->metas 				= 	[
+														'og:type' 			=> 'website', 
+														'og:title' 			=> 'BALIN.ID', 
+														'og:description' 	=> 'All Batiks',
+														'og:url' 			=> route('frontend.product.index'),
+														'og:image' 			=> $this->stores['logo'],
+														'og:site_name' 		=> 'balin.id',
+													];
+
 		return $this->layout;
 	}
 
@@ -98,6 +117,17 @@ class ProductController extends BaseController
 														;
 		$this->layout->controller_name			= $this->controller_name;
 
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= $data->name;
+
+		$this->layout->page->metas 				= 	[
+														'og:type' 			=> 'website', 
+														'og:title' 			=> 'BALIN.ID', 
+														'og:description' 	=> $data->name,
+														'og:url' 			=> route('frontend.product.show', $data->slug),
+														'og:image' 			=> $data->default_image,
+														'og:site_name' 		=> 'balin.id',
+													];
 		return $this->layout;
 	}
 

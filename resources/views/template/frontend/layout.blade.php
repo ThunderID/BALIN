@@ -20,7 +20,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>BALIN</title>
+    @if(isset($page_subtitle))
+        <title>{{$page_subtitle}} - {{$page_title}}</title>
+    @else
+    <title>BALIN.ID</title>
+    @endif
+    @if(isset($metas))
+        @foreach ($metas as $k => $v)
+            <meta name="{{$k}}" content="{{strip_tags($v)}}">
+        @endforeach
+    @endif
 
     <style>
         a.unstyle{

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\BaseController;
 
-class AboutUsController extends BaseController 
+class WhyJoinController extends BaseController 
 {
 	/**
 	* Instantiate a new UserController instance.
@@ -12,24 +12,24 @@ class AboutUsController extends BaseController
 		parent::__construct();
 	}
 
-	protected $controller_name 					= 'aboutus';
+	protected $controller_name 					= 'whyjoin';
 
 	public function index()
 	{		
-		$breadcrumb								= ['About Us' => route('frontend.aboutus.index')];
-		$this->layout->page 					= view('pages.frontend.about_us.index')
+		$breadcrumb								= ['Why Join' => route('frontend.whyjoin.index')];
+		$this->layout->page 					= view('pages.frontend.why_join.index')
 													->with('controller_name', $this->controller_name)
 													->with('breadcrumb', $breadcrumb)
 													;
 
 		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'About Us';
+		$this->layout->page->page_subtitle 		= 'Why Join ?';
 
 		$this->layout->page->metas 				= 	[
 														'og:type' 			=> 'website', 
 														'og:title' 			=> 'BALIN.ID', 
-														'og:description' 	=> 'About Us',
-														'og:url' 			=> route('frontend.aboutus.index'),
+														'og:description' 	=> 'Why Join ?',
+														'og:url' 			=> route('frontend.whyjoin.index'),
 														'og:image' 			=> $this->stores['logo'],
 														'og:site_name' 		=> 'balin.id',
 													];

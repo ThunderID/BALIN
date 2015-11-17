@@ -27,6 +27,9 @@ class CheckOutController extends BaseController
 													->with('addresses', $addresses);
 		$this->layout->controller_name			= $this->controller_name;
 
+		$this->layout->page->page_title 		= 'BALIN.ID';
+		$this->layout->page->page_subtitle 		= 'Checkout';
+
 		return $this->layout;
 	}
 

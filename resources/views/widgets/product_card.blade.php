@@ -13,6 +13,7 @@
 			</div>
 			<div class="info-price">
 				<?php $price 	= $data['price'];?>
+
 				<p class="text-center normal-price small-price">
 					@if($data['discount']!=0)
 						<strike> @money_indo($data['price']) </strike>
@@ -29,15 +30,13 @@
 					@elseif($balance!=0)
 						<strike> @money_indo($price) </strike>
 						<?php $price 	= $price - $balance;?>
-					@else
-						&nbsp;
 					@endif
 				</p>
 
 				@if($price==$data->price)
 					<p class="text-center normal-price"> @money_indo($price)</p>
 				@else
-					<p class="text-center promo-price t-sm"> @money_indo($price) </p>
+					<p class="text-center promo-price"> @money_indo($price) </p>
 				@endif
 			</div>
 		</a>
