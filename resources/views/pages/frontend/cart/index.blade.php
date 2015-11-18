@@ -17,26 +17,26 @@
 					<div class="row">
 						<div class="col-xs-12 col-md-12 col-sm-12 chart-div">
 							<div class="row chart-header">
-								<div class="col-md-1 hidden-xs">
+								<div class="col-sm-1 col-md-1 hidden-xs">
 									<p>Produk</p>
 								</div>
 								<div class="col-xs-11 col-sm-11 col-md-11 hidden-xs">
 									<div class="row">
-										<div class="col-xs-4 col-md-4">
+										<div class="col-sm-4 col-md-4">
 										</div>
-										<div class="col-xs-1 col-md-1">
+										<div class="col-sm-1 col-md-1">
 											<p class="text-center">Kuantitas</p>
 										</div>
-										<div class="col-xs-2 col-md-2">
+										<div class="col-sm-2 col-md-2">
 											<p class="text-right">Harga</p>
 										</div>
-										<div class="col-xs-2 col-md-2">
+										<div class="col-sm-2 col-md-2">
 											<p class="text-right">Diskon</p>
 										</div>
-										<div class="col-xs-2col-md-2">
+										<div class="col-sm-2 col-md-2">
 											<p class="text-right">Total</p>
 										</div>
-										<div class="col-xs-1 col-md-1">
+										<div class="col-sm-1 col-md-1">
 											&nbsp;
 										</div>        	
 									</div>
@@ -124,14 +124,14 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
 							@if ($carts)
 								<div class="row">
-									<div class="col-md-1">
+									<div class="col-sm-1 col-md-1">
 									</div>
-									<div class="col-md-11">
+									<div class="col-sm-11 col-md-11">
 										<div class="row chart-footer">
-											<div class="col-md-9 col-sm-9">
+											<div class="col-md-9 col-sm-8">
 												<h4 class="text-right">SubTotal :</h4>
 											</div>
-											<div class="col-md-2 col-sm-2">
+											<div class="col-md-2 col-sm-3">
 												<h4 class="text-right label-total-all" data-total-item="{{ $total }}">
 													@if ($total)
 														<strong>@money_indo($total)</strong>
