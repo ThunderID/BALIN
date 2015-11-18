@@ -503,13 +503,37 @@ html {
 .thumbnail .caption-card {
   min-height: 95px;
 }
-.thumbnail .caption-card h4 {
-  font-weight: 300;
-  color: #000;
-}
 .thumbnail .caption-full {
   padding: 9px;
   color: #333;
+}
+.thumbnail .info-product {
+  min-height: 38px;
+}
+.thumbnail .info-product h4 {
+  font-weight: 300;
+  color: #000;
+  margin: 10px;
+}
+.thumbnail .info-price {
+  min-height: 43px;
+  padding-bottom: 5px;
+  text-align: center;
+}
+.thumbnail .info-price .small-price {
+  font-size: 8pt !important;
+  position: relative;
+}
+.thumbnail .info-price .small-price::after {
+  border-bottom: 0.225em solid rgba(255, 0, 0, 0.8);
+  content: "";
+  left: 0;
+  line-height: 1em;
+  margin-top: calc(-0.1125em);
+  position: absolute;
+  right: 0;
+  top: 50%;
+  max-width: inherit;
 }
 .thumbnail .promo-price {
   margin-bottom: 0px;

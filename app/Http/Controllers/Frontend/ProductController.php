@@ -67,7 +67,7 @@ class ProductController extends BaseController
 		$this->layout->controller_name			= $this->controller_name;
 
 		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'All Batiks';
+		$this->layout->page->page_subtitle 		= 'Produk Batik Modern';
 
 		$this->layout->page->metas 				= 	[
 														'og:type' 			=> 'website', 

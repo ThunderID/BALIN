@@ -220,15 +220,39 @@ html {
 	}
 	.caption-card {
 		min-height: 95px;
-		h4 {
-			font-weight: 300;
-			color: #000;
-		}
 	}
 	.caption-full {
 		padding: 9px;
 		color: #333;
 	}
+	.info-product {
+		min-height: 38px;
+		h4 {
+			font-weight: 300;
+			color: #000;
+			margin: 10px;
+		}
+	}
+	.info-price{
+		min-height: 43px;
+		padding-bottom: 5px;
+		text-align: center;
+	}      
+	.info-price .small-price{
+		font-size: 8pt !important;
+		position: relative;
+		&::after {
+			border-bottom: 0.225em solid rgba(255, 0, 0, 0.8);
+			content: "";
+			left: 0;
+			line-height: 1em;
+			margin-top: calc(0.225em / 2 * -1);
+			position: absolute;
+			right: 0;
+			top: 50%;
+			max-width: inherit;
+		}
+	}        
 	.promo-price{
 		// color: #222;
 		margin-bottom: 0px;
