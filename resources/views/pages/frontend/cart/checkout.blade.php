@@ -105,6 +105,11 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-xs-12 hidden-lg hidden-sm hidden-md">
+				<div class="row clearfix">
+					&nbsp;
+				</div>
+			</div>			
 			<div class="col-sm-4 col-sm-offset-1">
 			    {!! Form::open(['url' => route('frontend.post.checkout'), 'method' => 'POST']) !!}
 			    	<div class="row">
