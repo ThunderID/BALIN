@@ -33,7 +33,7 @@
 							<a href="{{ URL::route('frontend.home.index') }}" data-scroll>Home</a>
 						</li>
 						<li @if($controller_name == 'product') class=active @endif >
-							<a href="{{ URL::route('frontend.product.index') }}">Products</a>
+							<a href="{{ URL::route('frontend.product.index') }}">Produk</a>
 						</li>
 						<li @if($controller_name == 'whyjoin') class=active @endif>
 							<a href="{{ URL::route('frontend.whyjoin.index') }}" data-scroll>Why Join</a>
