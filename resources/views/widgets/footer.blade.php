@@ -14,7 +14,6 @@
 						<a href="{{ $storeinfo['twitter_url'] }}" class="btn-hollow hollow-social hollow-white btn-hollow-xs"><i class="fa fa-twitter"></i></a>
 					</div>
 				</div>
-		
 			</div>
 		</div>
 	</div>
