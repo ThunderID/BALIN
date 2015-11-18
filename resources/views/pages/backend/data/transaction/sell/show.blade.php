@@ -18,9 +18,11 @@
 					<tr>
 						<td>{{$transaction['user']['phone']}}</td>
 					</tr>
+					@if($transaction['user']['address']!='')
 					<tr>
 						<td>{{$transaction['user']['address']}}, {{$transaction['user']['zipcode']}}</td>
 					</tr>
+					@endif
 				</tbody>
 			</table>
 		</div>
@@ -142,7 +144,7 @@
 				<tbody>
 					@if($transaction['shipment'])
 						<tr>
-							<td>{{$transaction['shipment']['receive_name']}}</td>
+							<td>{{$transaction['shipment']['receiver_name']}}</td>
 						</tr>
 						<tr>
 							<td>{{$transaction['shipment']['address']['phone']}}</td>

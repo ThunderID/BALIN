@@ -27,9 +27,11 @@
 					<tr>
 						<td>{{$transaction['user']['phone']}}</td>
 					</tr>
+					@if($transaction['user']['address']!='')
 					<tr>
 						<td>{{$transaction['user']['address']}}, {{$transaction['user']['zipcode']}}</td>
 					</tr>
+					@endif
 				</tbody>
 			</table>
 		</div>
