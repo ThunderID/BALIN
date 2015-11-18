@@ -131,7 +131,7 @@ class ProductController extends BaseController
 
 	public function store($id = null)
 	{
-		$inputs 										= Input::only('category','name','upc','description','slug');
+		$inputs 										= Input::only('category','name','upc','description', 'fit','slug');
 		$labels											= Input::only('label');
 		$images											= Input::only('thumbnail', 'image_xs', 'image_sm', 'image_md', 'image_lg', 'default');
 
@@ -148,7 +148,7 @@ class ProductController extends BaseController
 			'name' 										=> $inputs['name'],
 			'upc' 										=> $inputs['upc'],
 			'slug' 										=> Str::slug($inputs['name'] . $inputs['upc']),
-			'description' 								=> $inputs['description'],
+			'description' 								=> json_encode(['description' => $inputs['description'], 'fit' => $inputs['fit']]),
 		]);
 
 
