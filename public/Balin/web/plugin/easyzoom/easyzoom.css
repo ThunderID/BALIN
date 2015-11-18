@@ -19,7 +19,7 @@
 }
 
 .easyzoom.is-ready img {
-	cursor: zoom-in;
+	cursor: pointer;
 }
 
 .easyzoom.is-error  img {

@@ -19,7 +19,7 @@
 					<div class="col-md-7 col-md-offset-3 text-center hidden-xs hidden-sm">
 						<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails m-t-md" style="width:100%; border:1px solid #eee">
 							<a class="img-large" href="{{ str_replace('.jpg', '-large.jpg', $data['default_image']) }}" >
-								<img class="img img-responsive myCanvas"  src="{{ $data['default_image'] }}" style="width:100%">
+								<img class="img img-responsive canvas-image"  src="{{ $data['default_image'] }}" style="width:100%">
 							</a>
 						</div>
 					 </div>
@@ -203,13 +203,9 @@
 
 
 	$(document).ready(function() {
-		$('.canvasSource').click(function() {
-			  /* var image = $(this).attr('src');
-			  var image_replace = image.replace('.jpg', '-large.jpg');
-			  console.log(image_replace);
-			  $('img.myCanvas').attr('src', image);
-			  $('a.img-large').attr('href', image_replace); */
-		 });
+		//$('.myCanvas').change(function() {
+		//	  alert()
+		 //});
 
 		<!-- Get Stock Varian -->
 		$('.select_varian').on('change', function() {

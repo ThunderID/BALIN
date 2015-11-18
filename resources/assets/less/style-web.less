@@ -287,6 +287,32 @@ html {
 	}
 }
 
+.myCanvas {
+	-webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+	       -moz-animation: fadein 2s; /* Firefox < 16 */
+	        -ms-animation: fadein 2s; /* Internet Explorer */
+	         -o-animation: fadein 2s; /* Opera < 12.1 */
+	            animation: fadein 2s;
+}
+.canvas-fadein {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+@keyframes fadein {.canvas-fadein;}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {.canvas-fadein;}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {.canvas-fadein;}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {.canvas-fadein;}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {.canvas-fadein;}
+
 .img-center {
 	margin: 0 auto;
 }
@@ -610,6 +636,13 @@ label.hollow-label {
 	}
 	@media screen and (max-width: 992px) {
 		top: 50%;
+		width: 35px;
+		height: 35px;
+		text-align: center;
+		i {
+			margin-right: 0;
+			margin-top: 10px;
+		}
 	}
 }
 .gallery-product .owl-controls .owl-nav .owl-next {
@@ -625,6 +658,13 @@ label.hollow-label {
 	}
 	@media screen and (max-width: 992px) {
 		top: 50%;
+		width: 35px;
+		height: 35px;
+		text-align: center;
+		i {
+			margin-right: 0;
+			margin-top: 10px;
+		}
 	}
 }
 .info-corporate {
@@ -684,7 +724,7 @@ select.form-control.hollow {
 }
 
 .qty-hollow {
-	margin: 0 auto;
+	// margin: 0 auto;
 	width: 61px;
 	position: relative;
 	.label-qty {
@@ -692,9 +732,10 @@ select.form-control.hollow {
 		background-color: #000;
 		border: 1px solid #000;
 		color: #eee;
-		top: -49px;
+		top: -28px;
 		width: 64px;
-		padding: 14px;
+		height: 28px;
+		padding: 4px;
 		display: block;
 		margin-bottom: -6px;
 		border-bottom: none;
@@ -702,7 +743,7 @@ select.form-control.hollow {
 	.form-qty {
 		text-align: center;
 		width: 61px;
-		height: 28px;
+		height: 40px;
 		border: 1px solid #000;
 		border-bottom: none;
 	}
@@ -715,18 +756,31 @@ select.form-control.hollow {
 		margin-top: -1px;
 		width: 32px;
 		height: 28px;
-		padding: 7px 3px;
+		padding: 7px 7px;
 		&.qty-minus {
 			left: 0px;
 			border-right: none;
+			&:hover {
+				background-color: #000;
+				color: #fff;
+			}
 		}
 		&.qty-plus {
 			right: 0px;
 			border-left: 1px solid #000;
+			&:hover {
+				background-color: #000;
+				color: #fff;
+			}
 		}
 		&:disabled {
 			color: #999;
 			border-color: #666;
+			&:hover {
+				background-color: #fff;
+				border-color: #666;
+				color: #999;
+			}
 		}
 	}
 }
