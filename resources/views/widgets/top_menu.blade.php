@@ -12,7 +12,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span> --}}
 					</button>
-					<a href="javascript:void(0);" class="hidden-sm hidden-md hidden-lg ico-cart" style="color: #fff;
+					<a href="{{ route('frontend.cart.index') }}" class="hidden-sm hidden-md hidden-lg ico-cart" style="color: #fff;
 					    position: absolute;
 					    right: 80px;
 					    top: 16px;">
@@ -52,7 +52,7 @@
 								<a href="{{ URL::route('frontend.profile.index') }}">Akun Saya</a>
 							</li> 
 						@endif
-						<li @if($controller_name == 'cart') class=active @endif class="dropdown">
+						<li @if($controller_name == 'cart') class=active @endif class="dropdown hidden-xs">
 							<a href="javascript:void(0);" class="dropdown-toggle ico-cart">
 								<i class="fa fa-shopping-cart fa-lg"></i>
 								<span class="m-l-xs">

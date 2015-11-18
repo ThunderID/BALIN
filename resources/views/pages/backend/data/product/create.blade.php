@@ -80,18 +80,41 @@
 				</div>
 			</div>                                         
 		</div>	 -->	
+		<?php
+			if(is_null($id))
+			{
+				$product['description'] = null;
+				$product['fit'] 		= null;
+			}
+			else
+			{
+				$product 				= json_decode($data['description'], true);
+			}
+		?>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="form-group">
-					<label for="description">Deskripsi Produk</label>
-					{!! Form::textarea('description', $data['description'], [
+					<label for="description">Deskripsi</label>
+					{!! Form::textarea('description', $product['description'], [
 								'class'         => 'summernote form-control', 
 								'placeholder'   => 'Masukkan deskripsi',
 								'rows'          => '2',
 								'tabindex'      => '5',
 								'style'         => 'resize:none;',
 					]) !!}
-				</div>            
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="fit">Ukuran & Fit</label>
+					{!! Form::textarea('fit', $product['fit'], [
+								'class'         => 'summernote form-control', 
+								'placeholder'   => 'Masukkan ukuran',
+								'rows'          => '2',
+								'tabindex'      => '6',
+								'style'         => 'resize:none;',
+					]) !!}
+				</div>
 			</div>
 		</div>
 		<div class="clearfix">&nbsp;</div>
@@ -108,7 +131,7 @@
 					<label for="category">Kategori</label>
 					{!! Form::text('category', null, [
 								'class'         => 'select-category', 
-								'tabindex'      => '6',
+								'tabindex'      => '7',
 								'id'            => 'find_category',
 								'style'         => 'width:100%',
 					]) !!}
@@ -132,7 +155,7 @@
 				@endif
 				{!! Form::checkbox('label[]' ,'new_item', $val, [
 								'class' 		=> '',
-								'tabindex'      => '7',
+								'tabindex'      => '8',
 				]) !!}
 				<label for="new_item">New Item</label>
 			</div>
@@ -144,7 +167,7 @@
 				@endif				
 				{!! Form::checkbox('label[]' ,'best_seller', $val, [
 								'class' 		=> '',
-								'tabindex'      => '8',
+								'tabindex'      => '9',
 				]) !!}	
 				<label for="best_seller">Best Seller</label>
 			</div>			
@@ -156,7 +179,7 @@
 				@endif					
 				{!! Form::checkbox('label[]' ,'sale', $val, [
 								'class' 		=> '',
-								'tabindex'      => '9',
+								'tabindex'      => '10',
 				]) !!}	
 				<label for="sale">Sale</label>
 			</div>			
@@ -168,7 +191,7 @@
 				@endif					
 				{!! Form::checkbox('label[]' ,'hot_item', $val, [
 								'class' 		=> '',
-								'tabindex'      => '10',
+								'tabindex'      => '11',
 				]) !!}	
 				<label for="hot_item">Hot Item</label>				
 			</div>
@@ -187,7 +210,7 @@
 					<label for="category">Harga</label>
 					{!! Form::text('price', $price, [
 								'class'        		=> 'form-control money', 
-								'tabindex'     		=> '11', 
+								'tabindex'     		=> '12', 
 								'placeholder'  		=> 'harga',
 					]) !!}
 				</div>  
@@ -197,7 +220,7 @@
 					<label for="category">Harga Promo</label>
 					{!! Form::text('promo_price', $promo_price, [
 								'class'         => 'form-control money', 
-								'tabindex'      => '12', 
+								'tabindex'      => '13', 
 								'placeholder'   => 'harga promo (kosongkan bila tidak ada harga promo)'
 					]) !!}
 				</div>  
@@ -207,7 +230,7 @@
 					<label for="category">Mulai</label>
 					{!! Form::text('started_at', $date, [
 								'class'         => 'form-control date-time-format',
-								'tabindex'      => '13', 
+								'tabindex'      => '14', 
 								'placeholder'   => 'Tanggal mulai'
 					]) !!}
 				</div>  
@@ -224,7 +247,7 @@
 							<label for="thumbnail" class="text-capitalize">URL Image Thumbnail</label>
 							{!! Form::text('thumbnail[]', null, [
 										'class'         => 'form-control input-image-thumbnail', 
-										'tabindex'      => '14',
+										'tabindex'      => '15',
 										'placeholder'   => 'Masukkan url image thumbnail',
 							]) !!}
 						</div>
@@ -234,7 +257,7 @@
 							<label for="logo" class="text-capitalize">URL Image XS</label>
 							{!! Form::text('image_xs[]', null, [
 										'class'         => 'form-control input-image-xs', 
-										'tabindex'      => '14',
+										'tabindex'      => '16',
 										'placeholder'   => 'Masukkan url image xs',
 							]) !!}
 						</div>
@@ -244,7 +267,7 @@
 							<label for="logo" class="text-capitalize">URL Image SM</label>
 							{!! Form::text('image_sm[]', null, [
 										'class'         => 'form-control input-image-sm', 
-										'tabindex'      => '14',
+										'tabindex'      => '17',
 										'placeholder'   => 'Masukkan url image sm',
 							]) !!}
 						</div>
@@ -254,7 +277,7 @@
 							<label for="logo" class="text-capitalize">URL Image MD</label>
 							{!! Form::text('image_md[]', null, [
 										'class'         => 'form-control input-image-md', 
-										'tabindex'      => '14',
+										'tabindex'      => '18',
 										'placeholder'   => 'Masukkan url image md',
 							]) !!}
 						</div>
@@ -264,7 +287,7 @@
 							<label for="logo" class="text-capitalize">URL Image LG</label>
 							{!! Form::text('image_lg[]', null, [
 										'class'         => 'form-control input-image-lg', 
-										'tabindex'      => '14',
+										'tabindex'      => '19',
 										'placeholder'   => 'Masukkan url image lg',
 							]) !!}							
 						</div>

@@ -75,16 +75,17 @@
 					</div>
 				</div>
 				<div class="clearfix">&nbsp;</div>
+				<?php $product = json_decode($data['description'], true);?>
 				<div class="row">
 					<div class="col-md-12">
 						<h4 class="caption-product">Deskripsi</h4>
-						<p class="text-product">{!! $data['description'] !!}</p>
+						<p class="text-product">{!! $product['description'] !!}</p>
 					</div> 					        				
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
 						<h4 class="caption-product">Ukuran & Fit</h4>
-						<p class="text-product">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ratione voluptatem fugiat ipsam explicabo repellat optio beatae corrupti obcaecati deleniti, laborum dolores. Placeat dolorem ipsam nostrum, inventore iste accusamus similique?</p>
+						<p class="text-product">{!! $product['fit'] !!}</p>
 					</div>
 				</div>
 				<div class="row">
