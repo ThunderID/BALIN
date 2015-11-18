@@ -47,6 +47,9 @@
         a.hover-gray:hover{
            color:#888 !important;
         }
+        a.hover-white:hover {
+            color: #fff !important;
+        }
 
         a.footer-link{
             color:#bbb !important;
@@ -91,7 +94,12 @@
             height: 20px;
             padding: 1px 7px !important;
             margin: 0px !important;
-        }           
+        }
+        @media(max-width: 767px) {
+            .dropdown-cart {
+                display: none !important;
+            }
+        }
     </style>
 
     <!-- Custom CSS -->

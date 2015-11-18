@@ -29,6 +29,11 @@ class CreditQuota extends Job implements SelfHandling
             throw new Exception('Sent variable must be object of a record.');
         }
 
+        if($this->voucher->quota - 1 < 0)
+        {
+            return new JSend('error', (array)$this->voucher, 'Voucher tidak dapat digunakan.');
+        }
+
         $result                             = new JSend('success', (array)$this->voucher);
 
         $prevquota                          = QuotaLog::notes($this->message)->first();
