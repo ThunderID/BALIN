@@ -9,13 +9,13 @@
 			<h3 class="page-title m-t-0">{{$title}}</h3>
 		</div>
 		<div class="col-sm-3">
-			<p class="text-right m-t-lg"><a class="link-grey hover-black unstyle" href="{{route('frontend.profile.order.index')}}">Kembali</a></p>
+			<p class="text-right m-t-lg"><a class="btn btn-hollow hollow-black hollow-black-border" href="{{route('frontend.profile.order.index')}}"><i class="fa fa-angle-left"></i>&nbsp;&nbsp;Kembali</a></p>
 		</div>
 	</div>
 
 	<div class="clearfix">&nbsp;</div>
 		<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-7 col-sm-7 col-xs-12">
 			<table>
 				<tbody>
 					<tr>
@@ -35,8 +35,13 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-6">
-			<table>
+		<div class="hidden-lg hidden-md hidden-sm col-xs-12">
+			<div class="row clearfix">
+				&nbsp;
+			</div>
+		</div>
+		<div class="col-md-5 col-sm-5 col-xs-12">
+			<table class="row">
 				<tbody>
 					<tr class="row">
 						<td class="col-sm-6"><strong>Invoice ID</strong></td>
