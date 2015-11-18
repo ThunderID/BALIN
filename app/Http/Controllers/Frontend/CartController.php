@@ -13,9 +13,11 @@ class CartController extends BaseController
 
 	public function index()
 	{	
+		$breadcrumb								= ['Cart' => route('frontend.cart.index')];
 		$carts 									= null;
 		$this->layout->page 					= view('pages.frontend.cart.index')
 													->with('controller_name', $this->controller_name)
+													->with('breadcrumb', $breadcrumb)
 													->with('carts', $carts);
 		$this->layout->controller_name			= $this->controller_name;
 
