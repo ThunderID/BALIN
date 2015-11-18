@@ -142,7 +142,7 @@
 				<tbody>
 					@if($transaction['shipment'])
 						<tr>
-							<td>{{$transaction['shipment']['receive_name']}}</td>
+							<td>{{$transaction['shipment']['receiver_name']}}</td>
 						</tr>
 						<tr>
 							<td>{{$transaction['shipment']['address']['phone']}}</td>

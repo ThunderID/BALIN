@@ -44,10 +44,8 @@ class AddQuotaForUpline extends Job implements SelfHandling
             $quotalog->fill([
                     'voucher_id'            => $upline->reference->voucher->id,
                     'amount'                => $quota->value,
-                    'notes'                 => 'Bonus belanja '.$this->transaction->user->name
+                    'notes'                 => 'Bonus belanja '.$this->transaction->user->name.' nomor nota #'.$this->transaction->ref_number,
                 ]);
-
-            $quotalog->reference()->associate($this->transaction);
 
             if(!$quotalog->save())
             {
