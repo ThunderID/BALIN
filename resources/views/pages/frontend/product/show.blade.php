@@ -234,6 +234,5 @@
 @section('script_plugin')
 	@include('plugins.owlCarousel')
 	@include('plugins.easyzoom')
-	@include('plugins.qty-hollow')
 	@include('plugins.cart-plugin')
 @stop
