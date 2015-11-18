@@ -10,7 +10,7 @@ var elixir = require('laravel-elixir');
  | file for our application, as well as publishing vendor resources.
  |
  */
-
+elixir.extend('sourcemaps', false);
 elixir(function(mix) {
     mix.less('style-web.less', 'public/Balin/web/css/style-web.css')
     	.version('public/Balin/web/css/style-web.css');

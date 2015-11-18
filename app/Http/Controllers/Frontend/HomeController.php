@@ -22,7 +22,7 @@ class HomeController extends BaseController
 		$this->layout->controller_name			= $this->controller_name;
 
 		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'Batik For Warrior';
+		$this->layout->page->page_subtitle 		= 'Fashionable and Modern Batik';
 
 		$this->layout->page->metas 				= 	[
 														'og:type' 			=> 'website', 

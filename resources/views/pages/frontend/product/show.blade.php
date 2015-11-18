@@ -145,11 +145,11 @@
 								</div>
 								<div class="row m-t-sm">
 									<div class="col-sm-4 col-xs-4">
-										<a href="#" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border addto-cart"><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
+										<a href="#" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
 									</div>
 									<div class="col-sm-8 col-xs-8">
 										<div class="form-group text-right">
-											{!! Form::submit('ADD TO CART', ['class' => 'btn-hollow hollow-black-border addto-cart']) !!}
+											<a href="javascript:void(0);" class="btn-hollow hollow-black-border addto-cart">ADD TO CART</a>
 										</div>	
 									</div>	
 								</div>
