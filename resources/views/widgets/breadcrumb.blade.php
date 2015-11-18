@@ -1,4 +1,4 @@
-<div class="col-md-12 col-sm-12 hidden-xs">
+<div class="hidden-xs">
 	<ol class="breadcrumb hollow m-t-md p-l-none" style="background:none">
 		<li>
 			<a class="hover-black" href="{{ route('frontend.home.index') }}">Home</a>

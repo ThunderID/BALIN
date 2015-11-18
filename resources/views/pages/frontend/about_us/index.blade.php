@@ -1,6 +1,6 @@
 @inject('about_us', 'App\Models\StoreSetting')
 <?php
-	$about_us = $about_us::where('type', 'about_us')->first();
+	$about_us = $about_us::type('about_us')->ondate('now')->orderby('started_at', 'desc')->first();
 ?>
 @extends('template.frontend.layout')
 @section('content')    

@@ -1,6 +1,6 @@
 @inject('points', 'App\Models\PointLog')
 <?php
-	$pointlogs 		= $points->userid(Auth::user()->id)->orderby('expired_at', 'desc')->paginate();
+	$pointlogs 		= $points->userid(Auth::user()->id)->orderby('created_at', 'asc')->paginate();
 ?>
 @extends('template.frontend.layout_account')
 
@@ -55,14 +55,14 @@
 						?>
 							<tr>
 								<td class="text-center">{!!(($key)+$number)!!}</td>
-								<td> @date_indo($value->created_at) </td>
+								<td> @datetime_indo($value->created_at) </td>
 								@if($value->amount >= 0)
 									<td class="text-right">@money_indo($value->amount)</td>
 								@else
 									<td class="text-right"></td>
 								@endif
 								@if($value->amount < 0)
-									<td class="text-right">@money_indo($value->amount)</td>
+									<td class="text-right">@money_indo(abs($value->amount))</td>
 								@else
 									<td class="text-right"></td>
 								@endif
