@@ -91,9 +91,15 @@
 		</div>	
 	</div>
 	</br>
+	<?php $product = json_decode($data['description'], true);?>
 	<div class="row">
 		<div class="col-md-12">
-			<h5><strong>Description &nbsp;</strong></h5>{!! $data['description'] !!}
+			<h5><strong>Deskripsi &nbsp;</strong></h5>{!! $product['description'] !!}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h5><strong>Ukuran & Fit &nbsp;</strong></h5>{!! $product['fit'] !!}
 		</div>
 	</div>
 	<div class="clearfix">&nbsp;</div>

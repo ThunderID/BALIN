@@ -76,7 +76,7 @@
         }  
 
         .m-t-0{
-            margin-top: 0px;
+            margin-top: 0px !important;
         }  
 
 
@@ -127,8 +127,8 @@
 
         @if($controller_name != 'home')
             <div id="footer">
-                @include('widgets.footer')
             </div>
+            @include('widgets.footer')
         @endif
     </div> 
 
