@@ -51,6 +51,11 @@ class CheckOutController extends BaseController
 				return Redirect::back()->withErrors('Tidak ada voucher.')->with('msg-type', 'danger');
 			}
 
+			if(!$vouchers->quota - 1 < 0)
+			{
+				return Redirect::back()->withErrors('Voucher tidak dapat digunakan.')->with('msg-type', 'danger');
+			}
+
 			$transaction->fill(['voucher_id' => $vouchers->id]);
 
 			if(!$transaction->save())

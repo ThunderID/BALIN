@@ -1,6 +1,6 @@
 @inject('why_join', 'App\Models\StoreSetting')
 <?php
-	$why_join = $why_join::where('type', 'why_join')->first();
+	$why_join = $why_join::type('why_join')->ondate('now')->orderby('started_at', 'desc')->first();
 ?>
 @extends('template.frontend.layout')
 @section('content')    

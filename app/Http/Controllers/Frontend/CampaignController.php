@@ -6,6 +6,7 @@ use Input, Redirect, Auth, Carbon, Validator, DB, App;
 
 use App\Models\User;
 use App\Models\PointLog;
+use App\Models\Voucher;
 
 class CampaignController extends BaseController 
 {
@@ -33,15 +34,25 @@ class CampaignController extends BaseController
 
 	public function postreference()
 	{		
-		$reference 								= User::referralcode(Input::get('referral_code'))->first();
+		$voucher 								= Voucher::code(Input::get('referral_code'))->type('referral_code')->first();
 
-		if(!$reference)
+		if(!$voucher || $voucher->user_id==0)
 		{
 			return Redirect::back()
 					->withInput()
 					->withErrors('Referral code tidak terdaftar')
 					->with('msg-type', 'danger');
 		}
+
+		if(!$voucher->quota - 1 < 0)
+		{
+			return Redirect::back()
+					->withInput()
+					->withErrors('Quota referral sudah habis.')
+					->with('msg-type', 'danger');
+		}
+
+		$reference 								= $voucher->user;
 
 		$expired_at 							=  new Carbon('+ 3 months');
 

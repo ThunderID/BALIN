@@ -195,6 +195,10 @@ class TransactionController extends BaseController
 					{
 						$errors->add('Transaction', 'Kode voucher tidak terdaftar.');
 					}
+					elseif(!$vouchers->quota - 1 < 0)
+					{
+						$errors->add('Transaction', 'Quota voucher tidak sudah habis.');
+					}
 					else
 					{
 						$voucher 			= $vouchers->id;

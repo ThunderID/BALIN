@@ -125,12 +125,15 @@
 
         @yield('content')
 
-        @if($controller_name != 'home')
-            <div id="footer">
-            </div>
-            @include('widgets.footer')
-        @endif
     </div> 
+    @if($controller_name != 'home')
+        <div class="row clearfix">
+            &nbsp;
+        </div>
+        <div id="footer">
+        </div>
+        @include('widgets.footer')
+    @endif
 
     <!-- /.container -->
 
