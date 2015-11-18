@@ -14,75 +14,77 @@
 	<div class="clearfix">&nbsp;</div>
 	<div class="row">
 		<div class="col-sm-12">
-			<table class="table table-bordered table-hover table-striped">
-				<thead>
-					<tr>
-						<th class="text-center">No</th>
-						<th class="text-center">Tanggal</th>
-						<th class="text-center">Debit</th>
-						<th class="text-center">Kredit</th>
-						<th class="text-center">Saldo</th>
-						<th class="text-center">Catatan</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php 
-						$amount = (Input::has('amount') ? Input::get('amount') : 0);
-						if(!Input::has('page') || Input::get('page')=='1')
-						{
-							$amount 	= 0;
-						}
-					?>
-					@forelse($pointlogs as $key => $value)
-					<?php         
-						$datetrans                          = Carbon::now();
-
-        				if($value->expired_at->lt($datetrans))
-        				{
-	        				$is_expired						= true;
-        				}
-        				else
-        				{
-        					$is_expired 					= false;
-        				}
-
-        				if(!$is_expired)
-        				{
-							$amount							= $amount + $value->amount;
-        				}
-						$number = (($pointlogs->currentPage() - 1) * $pointlogs->perPage())+1;
-					?>
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover table-striped">
+					<thead>
 						<tr>
-							<td class="text-center">{!!(($key)+$number)!!}</td>
-							<td> @date_indo($value->created_at) </td>
-							@if($value->amount >= 0)
-								<td class="text-right">@money_indo($value->amount)</td>
-							@else
-								<td class="text-right"></td>
-							@endif
-							@if($value->amount < 0)
-								<td class="text-right">@money_indo($value->amount)</td>
-							@else
-								<td class="text-right"></td>
-							@endif
-							@if(!$is_expired)
-								<td class="text-right">@money_indo($amount)</td>
-							@else
-								<td class="text-right"><i>Expired</i></td>
-							@endif
-							<td>
-								{!!$value->notes!!}
-								<br/>
-								<i>Expired @ @date_indo($value->expired_at)</i>
-							</td>
+							<th class="text-center">No</th>
+							<th class="text-center">Tanggal</th>
+							<th class="text-center">Debit</th>
+							<th class="text-center">Kredit</th>
+							<th class="text-center">Saldo</th>
+							<th class="text-center">Catatan</th>
 						</tr>
-					@empty
-						<tr>
-							<td colspan="6"> Tidak ada data </td>
-						</tr>
-					@endforelse
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<?php 
+							$amount = (Input::has('amount') ? Input::get('amount') : 0);
+							if(!Input::has('page') || Input::get('page')=='1')
+							{
+								$amount 	= 0;
+							}
+						?>
+						@forelse($pointlogs as $key => $value)
+						<?php         
+							$datetrans                          = Carbon::now();
+
+	        				if($value->expired_at->lt($datetrans))
+	        				{
+		        				$is_expired						= true;
+	        				}
+	        				else
+	        				{
+	        					$is_expired 					= false;
+	        				}
+
+	        				if(!$is_expired)
+	        				{
+								$amount							= $amount + $value->amount;
+	        				}
+							$number = (($pointlogs->currentPage() - 1) * $pointlogs->perPage())+1;
+						?>
+							<tr>
+								<td class="text-center">{!!(($key)+$number)!!}</td>
+								<td> @date_indo($value->created_at) </td>
+								@if($value->amount >= 0)
+									<td class="text-right">@money_indo($value->amount)</td>
+								@else
+									<td class="text-right"></td>
+								@endif
+								@if($value->amount < 0)
+									<td class="text-right">@money_indo($value->amount)</td>
+								@else
+									<td class="text-right"></td>
+								@endif
+								@if(!$is_expired)
+									<td class="text-right">@money_indo($amount)</td>
+								@else
+									<td class="text-right"><i>Expired</i></td>
+								@endif
+								<td>
+									{!!$value->notes!!}
+									<br/>
+									<i>Expired @ @date_indo($value->expired_at)</i>
+								</td>
+							</tr>
+						@empty
+							<tr>
+								<td colspan="6"> Tidak ada data </td>
+							</tr>
+						@endforelse
+					</tbody>
+				</table>
+			</div>
 			<div class="row">
                 <div class="col-md-12 hollow-pagination text-right">
                     {!! $pointlogs->appends(['amount' => $amount])->render() !!}
