@@ -174,20 +174,19 @@
 				</div> --}}
 			</div>
 		</div>
-		@if ($related)
+		@if(isset($related[0]))
 			<div class="row m-t-lg m-b-md related-product">
 				<div class="col-sm-12">
 					<h4>Produk Lainnya</h4>
 				</div>
 			</div>
 			<div class="row">
-					@foreach($related as $data)
-						<div class="col-sm-4 col-md-3">
-							@include('widgets.product_card')
-						</div>
-					@endforeach
-				</div>
-			
+				@foreach($related as $data)
+					<div class="col-sm-4 col-md-3">
+						@include('widgets.product_card')
+					</div>
+				@endforeach
+			</div>
 		@endif
 	</div>
 	<div id="fb-root"></div>
