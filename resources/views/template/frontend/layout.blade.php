@@ -119,8 +119,8 @@
 
         @if($controller_name != 'home')
             <div id="footer">
-                @include('widgets.footer')
             </div>
+            @include('widgets.footer')
         @endif
     </div> 
 
