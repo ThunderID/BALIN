@@ -63,7 +63,7 @@
 				<?php $content 		= json_decode($value->value, true); ?>
 
 				<?php $i = 0; ?>
-				<div class="col-xs-12 p-l-none p-r-none m-t-lg" style="position:relative; border-bottom: 1px solid #ccc">
+				<div class="col-xs-12 p-l-none p-r-none border-bottom" style="position:relative;">
 					<div class="caption-mobile">
 						@foreach ($content as $k => $v)
 							@if ($v[$k.'_active']=='1')

@@ -11,6 +11,10 @@ html {
 .orange-red {
   color: #FF3A00;
 }
+/* BORDER */
+.border-bottom {
+  border-bottom: 1px solid #ccc;
+}
 /* MARGINS & PADDINGS */
 .p-xxs {
   padding: 5px;
