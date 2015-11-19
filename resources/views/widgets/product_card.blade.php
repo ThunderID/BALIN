@@ -16,7 +16,7 @@
 		</div>
 	</a>
 
-	<div class="caption-card" >
+	<div class="caption-card m-t-0" >
 		<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">
 			<div class="info-product">
 				<h4 class="text-center">
