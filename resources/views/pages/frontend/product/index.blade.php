@@ -11,11 +11,11 @@
 		}
 	}
 
-    $totalItems 	= $datas->count();
+	$totalItems 	= $datas->currentprice(true)->DefaultImage(true)->sellable(true)->orderby('products.created_at','desc')->take($perpage)->skip(($page-1) * $perpage)->count();
 	
 	$paginator 		= new PrettyPaginate($totalItems , (int)$page, $perpage, count($datas));
 
-	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true)->orderby('created_at','desc')->take($perpage)->skip(($page-1) * $perpage)->get();
+	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true)->orderby('products.created_at','desc')->take($perpage)->skip(($page-1) * $perpage)->get();
 
 	$category      	= $category::where('category_id', 0)
 								->get();

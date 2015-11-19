@@ -80,9 +80,9 @@ trait HasStockTrait
 
 	public function scopeHavingCurrentStock($query, $variable)
 	{
-		if($variable <= 0)
+		if($variable < 0)
 		{
-			$param 					= '<=';
+			$param 					= '<';
 		}
 		else
 		{
