@@ -1,7 +1,7 @@
 @inject('product', 'App\Models\Product')
 <?php 
 	$data          = $product->slug($slug)->sellable(true)->with('varians')->with('images')->first();
-	$related 		= $product->notid($data['id'])->sellable(true)->currentprice(true)->DefaultImage(true)->take(4)->get();
+	$related 		= $product->notid($data['id'])->sellable(true)->currentprice(true)->DefaultImage(true)->take(6)->get();
 ?>
 
 @extends('template.frontend.layout')
@@ -72,47 +72,59 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h4 class="caption-product">Deskripsi</h4>
-						<p class="text-product">{!! $product['description'] !!}</p>
+						<div class="text-product">{!! $product['description'] !!}</div>
 					</div> 					        				
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
 						<h4 class="caption-product">Ukuran & Fit</h4>
-						<p class="text-product">{!! $product['fit'] !!}</p>
+						<div class="text-product">{!! $product['fit'] !!}</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 col-md-12">
+						<h4 class="caption-product">Pilih Ukuran Pesanan</h4>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
-						{!! Form::open(['url' => 'javascript:void(0);', 'class' => 'p-t-sm form-addtocart']) !!}
-							<?php $stock = $data['current_stock'];?>
-							@if ($stock==0)
-								<div class="row">
-									<div class="col-md-12 m-b-md">
-										<h4 class="text-center out-of-stock">
-											Sorry,</br>
-											Out of Stock
-										</h4>
-									</div>
+						<?php $stock = $data['current_stock'];?>
+						@if ($stock==0)
+							<div class="row">
+								<div class="col-md-12 m-b-md">
+									<h4 class="text-center out-of-stock">
+										Sorry,</br>
+										Out of Stock
+									</h4>
 								</div>
-							@else
-								{!! Form::hidden('product_slug', $slug, ['class' => 'pslug']) !!}
-								{!! Form::hidden('product_name', $data['name'], ['class' => 'pname']) !!}
-								{!! Form::hidden('product_price', $price, ['class' => 'pprice']) !!}
-								{!! Form::hidden('product_discount', $data['discount'], ['class' => 'pdiscount']) !!}
-								{!! Form::hidden('product_stock', 0, ['class' => 'prod_stock pstock']) !!}
-								{!! Form::hidden('product_image', $data['default_image'], ['class' => 'pimage']) !!}
-								{!! Form::hidden('product_size', '', ['class' => 'prod_size psize']) !!}
+							</div>
+						@else
 
-								@include('widgets.alerts')
-								<div class="row text-center m-t-xl">
+							@include('widgets.alerts')
+							<div class="row text-center m-t-xl">
+								{!! Form::open(['url' => 'javascript:void(0);', 'class' => 'p-t-sm form-addtocart']) !!}
+									{!! Form::hidden('product_slug', $slug, ['class' => 'pslug']) !!}
+									{!! Form::hidden('product_name', $data['name'], ['class' => 'pname']) !!}
+									{!! Form::hidden('product_price', $price, ['class' => 'pprice']) !!}
+									{!! Form::hidden('product_discount', $data['discount'], ['class' => 'pdiscount']) !!}
+									{!! Form::hidden('product_stock', 0, ['class' => 'prod_stock pstock']) !!}
+									{!! Form::hidden('product_image', $data['default_image'], ['class' => 'pimage']) !!}
+									{!! Form::hidden('product_size', '', ['class' => 'prod_size psize']) !!}
+
 									@foreach($data['varians'] as $k => $v)
 										@if ($k<=2)
 											<div class="col-xs-4 col-sm-4 col-md-4 text-center">
 												<div class="form-group">
 													<div class="qty-hollow m-b-lg">
-														<label class="label-qty">{{ $v['size'] }}</label>
+														<label class="label-qty">
+															@if (strlen($v['size'])>1)
+																{{ substr($v['size'], 0, 1).' &frac12;'}}
+															@else
+																{{ $v['size'] }}
+															@endif
+														</label>
 													  	<input type="hidden" name="varianids[{{$k}}]" class="form-control pvarians" value="{{$v['id']}}">
-													  	<input type="text" name="qty[{{$k}}]" class="form-control hollow form-qty input-number pqty" value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" data-stock="{{ $v['stock'] }}" data-id="{{ $v['id'] }}" data-name="qty-{{strtolower($v['size'])}}[1]" data-oldValue="">
+													  	<input type="text" name="qty[{{$k}}]" class="form-control hollow form-qty input-number pqty" value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" data-stock="{{ $v['stock'] }}" data-id="{{ $v['id'] }}" data-name="qty-{{strtolower($v['size'])}}[1]" data-oldValue="" data-toggle="tooltip" data-placement="right">
 														<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-minus btn-number" disabled="disabled" data-type="minus" data-field="qty-{{strtolower($v['size'])}}[1]">
 															<i class="fa fa-minus"></i>
 													  	</button>
@@ -124,31 +136,34 @@
 											</div>
 										@endif
 									@endforeach
-								</div>
-								<div class="row m-t-xl">
-									<div class="col-sm-12">
-										<div class="qty-total">
-											<h4 class="pull-left m-t-sm caption-product">
-												Total
-											</h4>
-											<?php $price 	= $data['price'];?>
-											<label class="text-right m-t-xs text-product tot_qty" data-price="{{ $price }}"> @money_indo('0')</label> 
-										</div>
+								{!! Form::close() !!}
+							</div>
+							<div class="row m-t-xl">
+								<div class="col-sm-12">
+									<div class="qty-total">
+										<h4 class="pull-left m-t-sm caption-product">
+											Total
+										</h4>
+										<?php $price 	= $data['price'];?>
+										@if($data['discount']!=0)
+											<?php $price 	= $data['promo_price'];?>
+										@endif
+										<label class="text-right m-t-xs text-product tot_qty" data-price="{{ $price }}"> @money_indo('0')</label> 
 									</div>
 								</div>
-								<div class="row m-t-sm">
-									<div class="col-sm-4 col-xs-4">
-										<a href="#" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
-									</div>
-									<div class="col-sm-8 col-xs-8">
-										<div class="form-group text-right">
-											<a href="javascript:void(0);" class="btn-hollow hollow-black-border addto-cart">ADD TO CART</a>
-										</div>	
+							</div>
+							<div class="row m-t-sm">
+								<div class="col-sm-4 col-xs-4">
+									<a href="#" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
+								</div>
+								<div class="col-sm-8 col-xs-8">
+									<div class="form-group text-right">
+										<a href="javascript:void(0);" class="btn-hollow hollow-black-border addto-cart">ADD TO CART</a>
 									</div>	
-								</div>
-								<div class="clearfix">&nbsp;</div>
-							@endif
-						{!! Form::close() !!}
+								</div>	
+							</div>
+							<div class="clearfix">&nbsp;</div>
+						@endif
 					</div>
 				</div>
 				<div class="clearfix">&nbsp;</div>
@@ -182,6 +197,7 @@
 			</div>
 		@endif
 	</div>
+
 	<div id="fb-root"></div>
 @stop
 

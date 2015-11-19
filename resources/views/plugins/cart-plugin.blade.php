@@ -10,7 +10,7 @@
 	var tot_qty_mobile = 0;
 
 	// FOR DESKTOP
-	$('.btn-number').click(function(e){
+	$('.btn-number').on('click',function(e){
 		e.preventDefault();
 		$(this).parent().parent().parent().attr('action', 'javascript:void(0);');
 
@@ -47,6 +47,11 @@
 					@else
 						$('.tot_qty').text('IDR '+number_format(tot_qty));
 					@endif
+					$(this).tooltip({trigger: 'manual', title: 'Maaf barang hanya tersedia'}).tooltip('hide');
+					$(input).tooltip({
+						title: 'Maaf anda hanya bisa',
+						viewport: {selector: '.viewport', padding: 3}
+					}).tooltip('hide');
 				} 
 				if(parseInt(input.val()) == input.attr('min')) {
 					$(this).attr('disabled', true);
@@ -68,9 +73,11 @@
 					@else
 						$('.tot_qty').text('IDR '+number_format(tot_qty));
 					@endif
+					$(this).tooltip({title: 'Maaf anda hanya bisa'}).tooltip('destroy');
 				}
 				if(parseInt(input.val()) == input.attr('max')) {
 					$(this).attr('disabled', true);
+					$(input).tooltip({delay: { "show": 500, "hide": 300 }, title: 'Maaf stock barang size ini hanya tersedia ' +input.attr('max')}).tooltip('show');
 				}
 			}
 
@@ -85,23 +92,22 @@
 	   $(this).attr('data-oldValue', $(this).val());
 	});
 	$('.input-number').change(function() {
-		
 		minValue =  parseInt($(this).attr('min'));
 		maxValue =  parseInt($(this).attr('max'));
 		valueCurrent = parseInt($(this).val());
-		
 		name = $(this).attr('data-name');
-		if(valueCurrent >= minValue) {
+		
+		if(valueCurrent > minValue) {
 			$(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
 		} else {
-			alert('Sorry, the minimum value was reached');
-			$(this).val($(this).data('oldValue'));
+			$(".btn-number[data-type='minus'][data-field='"+name+"']").attr('disabled', true);
+			$(this).val($(this).attr('min'));
 		}
-		if(valueCurrent <= maxValue) {
-			$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+		if(valueCurrent < maxValue) {
+			$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
 		} else {
-			alert('Sorry, the maximum value was reached');
-			$(this).val($(this).data('oldValue'));
+			$(this).val($(this).attr('max'));
+			$(".btn-number[data-type='plus'][data-field='"+name+"']").attr('disabled', true);
 		}
 	});
 
@@ -343,6 +349,7 @@
 				</div> \
 				<div class="row chart-topLine"></div>';
 		$('.chart-div').append(page);
-		$('.no-cart').remove();
+		$('.empty-cart').remove();
+		$('.checkout').remove();
 	}
 </script>

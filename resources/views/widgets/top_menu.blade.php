@@ -35,8 +35,9 @@
 						<li @if($controller_name == 'product') class=active @endif >
 							<a href="{{ URL::route('frontend.product.index') }}">Produk</a>
 						</li>
-						<li @if($controller_name == 'whyjoin') class=active @endif>
+						{{-- <li @if($controller_name == 'whyjoin') class=active @endif>
 							<a href="{{ URL::route('frontend.whyjoin.index') }}" data-scroll>Why Join</a>
+						</li> --}}
 						@if (!Auth::user())
 							<li @if($controller_name == 'join') class=active @endif >
 								<a href="{{ URL::route('frontend.join.index') }}" data-scroll>Sign In</a>
@@ -49,8 +50,9 @@
 							<a href="{{ URL::route('frontend.home.index') }}#contact-us" data-scroll>Contact Us</a>
 						</li> -->
 						@if (Auth::user())
-							<li @if($controller_name == 'profile') class=active @endif>
-								<a href="{{ URL::route('frontend.profile.index') }}">Akun Saya</a>
+							<li class="@if($controller_name == 'profile') active @endif dropdown">
+								<a href="javascript:void(0);" class="dropdown-toggle">Akun Saya</a>
+								@include('widgets.frontend.top_menu.user_dropdown')
 							</li> 
 						@endif
 						<li class="@if($controller_name == 'cart') active @endif dropdown dropdown-cart">

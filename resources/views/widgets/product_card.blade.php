@@ -17,13 +17,15 @@
 	</a>
 
 	<div class="caption-card" >
-		<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">
 			<div class="info-product">
 				<h4 class="text-center">
-					{{ $data['name'] }}
+					<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">
+						{{ $data['name'] }}
+					</a>
 				</h4>
 			</div>
 			<div class="info-price">
+				<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">
 				<?php $price 	= $data['price'];?>
 
 				@if($data['discount']!=0)
@@ -42,8 +44,8 @@
 				@else
 					<p class="text-center promo-price"><strong>@money_indo($price) </strong></p>
 				@endif
+				</a>
 			</div>
-		</a>
 	</div>
 
 	<a href="{{ route('frontend.product.show', $data['slug']) }}" type="button" class="btn-hollow hollow-black-border btn-block t-sm">DETAIL</a>

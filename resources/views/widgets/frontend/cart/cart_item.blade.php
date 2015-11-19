@@ -13,6 +13,9 @@
 					</div>
 				</div>
 				<div class="row" style="margin-top:0px;">
+					<div class="col-xs-12 m-b-xs">
+						<span class="info">Size</span>
+					</div>
 					<div class="col-xs-12">
 						@foreach($label_qty as $key => $value)
 						<div class="row">

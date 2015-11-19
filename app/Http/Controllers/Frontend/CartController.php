@@ -34,14 +34,22 @@ class CartController extends BaseController
 
 		$slug									= Input::get('product_slug');
 
-		$product 								= Product::slug($slug)->first();
+		$product 								= Product::slug($slug)->with('prices')->first();
 
 		$basket['slug']							= $product->slug;
 		$basket['name']							= $product->name;
-		$basket['price']						= $product->price;
 		$basket['discount']						= $product->discount;
 		$basket['stock']						= $product->stock;
 		$basket['images']						= $product->default_image;
+
+		$price 									= $product['price'];
+
+		if ($product['discount']!=0) 
+		{
+			$price 								= $product['promo_price'];
+		}
+
+		$basket['price']						= $price;
 
 		$varians 								= Input::get('varianids');
 		$qtys 									= Input::get('qty');
@@ -161,7 +169,7 @@ class CartController extends BaseController
 	// FUNCTION EMPTY CART
 	public function clean()
 	{
-		return Redirect::route('frontend.cart.index')
+		return Redirect::route('frontend.product.index')
 						->withSession(Session::forget('baskets'));		
 	}
 
