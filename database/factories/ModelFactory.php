@@ -15,27 +15,27 @@ $role 									= ['customer', 'staff', 'store_manager', 'admin', 'developer'];
 
 $factory->define(App\Models\User::class, function ($faker) use ($gender, $role)
 {
-	// if(!App\Models\User::count()==0)
-	// {
-		return 
-		[
-			'name'						=> 'BALIN',
-			'email'						=> 'cs@balin.id',
-			'password' 					=> bcrypt('admin'),
-			'role' 						=> 'admin',
-			'gender' 					=> 'male',
-			'remember_token' 			=> str_random(10),
-		];		
-	// }
-	// return 
-	// [
-	// 	'name'							=> $faker->name,
-	// 	'email'							=> $faker->email,
-	// 	'password' 						=> bcrypt('admin'),
-	// 	'role' 							=> $role[rand(0,4)],
-	// 	'gender' 						=> $gender[rand(0,1)],
-	// 	'remember_token' 				=> str_random(10),
-	// ];
+	if(!App\Models\User::count()==0)
+	{
+		// return 
+		// [
+		// 	'name'						=> 'BALIN',
+		// 	'email'						=> 'cs@balin.id',
+		// 	'password' 					=> bcrypt('admin'),
+		// 	'role' 						=> 'admin',
+		// 	'gender' 					=> 'male',
+		// 	'remember_token' 			=> str_random(10),
+		// ];		
+	}
+	return 
+	[
+		'name'							=> $faker->name,
+		'email'							=> $faker->email,
+		'password' 						=> bcrypt('admin'),
+		'role' 							=> $role[rand(0,4)],
+		'gender' 						=> $gender[rand(0,1)],
+		'remember_token' 				=> str_random(10),
+	];
 });
 
 $factory->define(App\Models\Voucher::class, function ($faker)
@@ -66,27 +66,6 @@ $factory->define(App\Models\PointLog::class, function ($faker)
 		'expired_at'				=> $faker->dateTimeBetween($startDate = '+ 3 months', $endDate = '+ 12 months'),
 	];
 });
-
-// $factory->define(App\Models\Supplier::class, function ($faker)
-// {
-// 	return 
-// 	[
-// 		'name'							=> $faker->company.' '.$faker->companySuffix,
-// 		'phone'							=> $faker->phoneNumber,
-// 		'address' 						=> $faker->address,
-// 	];
-// });
-
-$colors 								= ['ffcccc', 'ccccff', 'fffdcc', 'ddffcc', 'ffccfc', '000000', 'bababa', '00ffae', 'a0000a', '00fff0'];
-// $factory->define(App\Models\Courier::class, function ($faker) use ($colors)
-// {
-// 	return 
-// 	[
-// 		'name'							=> $faker->company.' '.$faker->companySuffix,
-// 		// 'logo_url' 						=> 'http://placehold.it/200x200/'.$colors[rand(0, count($colors)-1)].'/000000',
-// 		'address' 						=> $faker->address,
-// 	];
-// });
 
 $factory->define(App\Models\ShippingCost::class, function ($faker)
 {
@@ -121,7 +100,7 @@ $factory->define(App\Models\Transaction::class, function ($faker) use ($types, $
 		return 
 		[
 			'user_id' 					=> App\Models\User::all()->random()->id,
-			'voucher_id' 				=> App\Models\Voucher::all()->random()->id,
+			// 'voucher_id' 				=> App\Models\Voucher::all()->random()->id,
 			'ref_number' 				=> bin2hex(openssl_random_pseudo_bytes(8)),
 			'type' 						=> $types[$rand],
 			'transact_at' 				=> $faker->dateTimeThisYear,
@@ -139,39 +118,25 @@ $factory->define(App\Models\TransactionDetail::class, function ($faker)
 
 	$product 							= App\Models\Product::id($varian->product_id)->first();
 
-	// if(isset($product->dicounts[0]) && $product->dicounts[0]->promo_price!=0)
-	// {
-	// 	$price 							= $product->prices[0]->price;
-	// 	$discounts 						= $product->prices[0]->price - $product->discounts[0]->promo_price;
-	// }
-	// elseif(isset($product->prices[0]))
-	// {
-	// 	$price 							= $product->prices[0]->price;
-	// 	$discounts 						= 0;
-	// }
-	// else
-	// {
-	// 	$price 							= 0;
-	// 	$discounts 						= 0;
-	// }
+	$transaction 						= App\Models\Transaction::all()->random();
+
+	if($transaction->status=='sell')
+	{
+		$price 							= $product->price;
+		$discount 						= $product->discount;
+	}
+	else
+	{
+		$price 							= $product->price - ($product->price * 0.1);
+		$discount 						= 0;
+	}
 
 	return 
 	[
-		'transaction_id'				=> App\Models\Transaction::all()->random()->id,
+		'transaction_id'				=> $transaction->id,
 		'varian_id' 					=> $varian_id,
 		'quantity' 						=> rand(1, 50),
 		'price' 						=> $product->price,
 		'discount' 						=> $product->discount,
-	];
-});
-
-$factory->define(App\Models\FeaturedProduct::class, function ($faker)
-{
-	return 
-	[
-		'title'							=> App\Models\Product::all()->random()->name,
-		'description'					=> $faker->word,
-		'started_at' 					=> $faker->dateTimeBetween($startDate = '- 3 months', $endDate = 'now'),
-		'ended_at' 						=> $faker->dateTimeBetween($startDate = '+ 3 months', $endDate = '+ 12 months'),
 	];
 });

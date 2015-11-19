@@ -13,6 +13,20 @@
     @endif
         <label for="method" class="text-capitalize">Bank Transfer</label>
         <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="amount" class="text-capitalize">Jumlah Transfer</label>
+                    {!! Form::text('transaction', $data['transaction_id'], [
+                                'class'         => 'select-transaction', 
+                                'id'            => 'find_transaction',
+                                'tabindex'      => '3',
+                                'placeholder'   => 'Masukkan jumlah transfer',
+                                'style'         => 'width:100%',
+                    ]) !!}
+                </div>
+            </div>
+        </div>                        
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="account_name" class="text-capitalize">Nama Akun</label>
@@ -36,32 +50,6 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="transaction" class="text-capitalize">Pembayaran Transaksi</label><br/>
-                    {!! Form::text('transaction', $data['transaction_id'], [
-                                'class'         => 'select-transaction', 
-                                'id'            => 'find_transaction',
-                                'tabindex'      => '3',
-                                'placeholder'   => 'Masukkan jumlah transfer',
-                                'style'         => 'width:100%',
-                    ]) !!}
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="amount" class="text-capitalize">Jumlah Transfer</label>
-                    {!! Form::text('amount', $data['amount'], [
-                                'class'         => 'form-control', 
-                                'required'      => 'required', 
-                                'tabindex'      => '4',
-                                'placeholder'   => 'Masukkan jumlah transfer',
-                    ]) !!}
-                </div>
-            </div>
-            
-        </div>                        
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -99,10 +87,10 @@
 @stop
 
 @section('script')
-    @if(!$data['transaction'])
+    @if(!$transaction)
         var preload_data = [];
     @else
-        var preload_data = [{"id": {{$data['transaction_id']}}, "text":"{{$data['transaction']['user']['name'].' #'.$data['transaction']['ref_number'].' ('.$data['amount'].')'}}"}];
+        var preload_data = [{"id": {{$transaction['id']}}, "text":"{{$transaction['user']['name'].' #'.$transaction['ref_number'].' ('.$transaction['amount'].')'}}"}];
     @endif
 @stop
 

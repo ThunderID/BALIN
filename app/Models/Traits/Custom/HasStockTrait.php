@@ -80,9 +80,18 @@ trait HasStockTrait
 
 	public function scopeHavingCurrentStock($query, $variable)
 	{
+		if($variable < 0)
+		{
+			$param 					= '<';
+		}
+		else
+		{
+			$param 					= '>';
+		}
+
 		return $query->havingraw('IFNULL(SUM(
 									if(transactions.type ="sell", if(transaction_logs.status ="wait" OR transaction_logs.status ="paid" OR transaction_logs.status ="shipping" OR transaction_logs.status ="delivered", 0-quantity, 0), quantity)
-									),0) > '.$variable)
+									),0) '.$param.' '.$variable)
 		;
 	}
 }

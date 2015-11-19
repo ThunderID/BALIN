@@ -11,17 +11,17 @@ class TransactionLogTableSeeder extends Seeder
 {
 	function run()
 	{
-		DB::table('transaction_logs')->truncate();
+		// DB::table('transaction_logs')->truncate();
 		$faker 										= Factory::create();
-		$transactions 								= Transaction::all();
+		$transactions 								= Transaction::type('sell')->status('cart')->get();
 
-		$status 									= ['cart', 'wait', 'canceled'];
+		$status 									= ['wait', 'canceled'];
 
 		try
 		{
-			foreach($transactions as $key => $value)
+			foreach($transactions as $value)
 			{
-				$next 								= rand(0,2);
+				$next 								= rand(0,1);
 
 				foreach (range(0, $next) as $key2) 
 				{

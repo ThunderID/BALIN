@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 
-class Auditor extends Eloquent
+class GlobalCategory extends Eloquent
 {
+	use SingleTableInheritanceTrait;
 
 	use SoftDeletes;
 
@@ -16,16 +18,22 @@ class Auditor extends Eloquent
 	 * @var string
 	 */
 
-	use \App\Models\Traits\morphTo\HasTableTrait;
-	use \App\Models\Traits\belongsTo\HasUserTrait;
-
+	use \App\Models\Traits\belongsTo\HasCategoryTrait;
+	use \App\Models\Traits\hasMany\HasCategoriesTrait;
+	use \App\Models\Traits\hasMany\HasCategoryProductTrait;
+	use \App\Models\Traits\belongsToMany\HasProductsTrait;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'auditors';
+
+	protected $table 								= "categories";
+
+	protected static $singleTableTypeField	 		= 'type';
+
+	protected static $singleTableSubclasses 		= ['App\Models\Category', 'App\Models\Tag'];
 
 	// protected $timestamps			= true;
 
@@ -36,13 +44,10 @@ class Auditor extends Eloquent
 	 */
 
 	protected $fillable				=	[
-											'user_id'						,
-											'table_id'						,
-											'table_type'					,
-											'ondate'						,
+											'category_id'					,
 											'type'							,
-											'event'							,
-											'action'						,
+											'path'							,
+											'name'							,
 										];
 
 	/**
@@ -50,7 +55,7 @@ class Auditor extends Eloquent
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'ondate'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
 
 	/**
 	 * Basic rule of database
@@ -58,8 +63,9 @@ class Auditor extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'ondate'						=> 'date_format:"Y-m-d H:i:s"',
-											'event'							=> 'required',
+											'type'							=> 'required|in:tag,category',
+											'path'							=> 'required|max:255',
+											'name'							=> 'required|max:255',
 										];
 
 	/**
@@ -68,7 +74,6 @@ class Auditor extends Eloquent
 	 * @var array
 	 */
 	protected $appends				=	[
-											'address',
 										];
 
 	/**
@@ -84,7 +89,7 @@ class Auditor extends Eloquent
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
-
+		
 	/**
 	 * return errors
 	 *
@@ -95,7 +100,7 @@ class Auditor extends Eloquent
 	{
 		return $this->errors;
 	}
-
+	
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
@@ -104,29 +109,19 @@ class Auditor extends Eloquent
 	{
 		if(is_array($variable))
 		{
-			return 	$query->whereIn('auditors.id', $variable);
+			return 	$query->whereIn('id', $variable);
 		}
 
-		return 	$query->where('auditors.id', $variable);
+		return 	$query->where('id', $variable);
+	}
+	
+	public function scopeName($query, $variable)
+	{
+		return 	$query->where('name', 'like', '%'.$variable.'%');
 	}
 
 	public function scopeType($query, $variable)
 	{
-		if(is_array($variable))
-		{
-			return 	$query->whereIn('type', $variable);
-		}
-
 		return 	$query->where('type', $variable);
-	}
-
-	public  function scopeOndate($query, $variable)
-	{
-		if(!is_array($variable))
-		{
-			return $query->where('ondate', date('Y-m-d H:i:s', strtotime($variable)));
-		}
-
-		return $query->where('ondate', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('ondate', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
 	}
 }

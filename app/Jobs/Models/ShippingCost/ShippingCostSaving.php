@@ -7,7 +7,7 @@ use App\Libraries\JSend;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use App\Models\shippingcost;
+use App\Models\ShippingCost;
 
 class ShippingCostSaving extends Job implements SelfHandling
 {
@@ -29,7 +29,7 @@ class ShippingCostSaving extends Job implements SelfHandling
             $id = $this->shippingcost->id;
         }
 
-        $shippingCost                   = shippingCost::ShippingCost(
+        $shippingCost                   = ShippingCost::ShippingCost(
                                                     $this->shippingcost->start_postal_code,
                                                     $this->shippingcost->end_postal_code,
                                                     $this->shippingcost->started_at

@@ -19,6 +19,6 @@ trait HasProductsTrait
 
 	public function Products()
 	{
-		return $this->belongsToMany('App\Models\Product', 'categories_products');
+		return $this->belongsToMany('App\Models\Product', 'categories_products', 'category_id');
 	}
 }

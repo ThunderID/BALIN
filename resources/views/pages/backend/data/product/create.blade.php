@@ -138,6 +138,20 @@
 				</div>  
 			</div> 
 		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="tag">Tag</label>
+					{!! Form::text('tag', null, [
+								'class'         => 'select-tag', 
+								'tabindex'      => '7',
+								'id'            => 'find_tag',
+								'style'         => 'width:100%',
+					]) !!}
+				</div>  
+			</div> 
+		</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
 			<div class="col-md-12">
@@ -423,8 +437,23 @@
 	for (i = 0; i < selections.length; i++) { 
 		preload_data.push(selections[i]);         
 	}
+	
+	var preload_data_tag = [];
 
-			 
+	selections = [
+		@if ($data['tags'])
+			@foreach($data['tags'] as $category)
+				{ 
+					id:{{$category['id']}},
+					text:'{{$category['name']}}'
+				},
+			@endforeach
+		@endif
+	];
+
+	for (i = 0; i < selections.length; i++) { 
+		preload_data_tag.push(selections[i]);         
+	}		 
 @stop
 
 @section('script_plugin')

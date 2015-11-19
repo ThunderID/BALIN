@@ -204,6 +204,7 @@ return [
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Gate'      => Illuminate\Support\Facades\Gate::class,
+        'PrettyPaginate'=> App\Classes\PrettyPaginator::class,
     ],
 
 ];

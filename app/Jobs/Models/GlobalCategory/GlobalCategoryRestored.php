@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Jobs\Models\Category;
+namespace App\Jobs\Models\GlobalCategory;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use App\Models\Category;
+use App\Models\GlobalCategory;
 use App\Libraries\JSend;
 
-class CategoryDeleting extends Job implements SelfHandling
+class GlobalCategoryDeleting extends Job implements SelfHandling
 {
     protected $category;
 
-    public function __construct(Category $category)
+    public function __construct(GlobalCategory $category)
     {
         $this->category                 = $category;
     }
@@ -25,7 +25,7 @@ class CategoryDeleting extends Job implements SelfHandling
             return new Jsend('error', (array)$this->category,  'Tidak bisa menghapus kategori yang memiliki produk');
         }
 
-        $childs                         = Category::orderBy('path','desc')
+        $childs                         = GlobalCategory::orderBy('path','desc')
                                             ->where('path','like',$this->category->path . ',%')
                                             ->get();
 

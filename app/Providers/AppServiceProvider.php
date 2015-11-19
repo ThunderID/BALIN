@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Image::observe(new \App\Models\BaseObserver);
         \App\Models\Product::observe(new \App\Models\BaseObserver);
         \App\Models\Varian::observe(new \App\Models\BaseObserver);
-        \App\Models\Category::observe(new \App\Models\BaseObserver);
+        \App\Models\GlobalCategory::observe(new \App\Models\BaseObserver);
     }
 
     /**
@@ -67,6 +67,6 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Image::observe(new \App\Models\BaseObserver);
         \App\Models\Product::observe(new \App\Models\BaseObserver);
         \App\Models\Varian::observe(new \App\Models\BaseObserver);
-        \App\Models\Category::observe(new \App\Models\BaseObserver);
+        \App\Models\GlobalCategory::observe(new \App\Models\BaseObserver);
     }
 }

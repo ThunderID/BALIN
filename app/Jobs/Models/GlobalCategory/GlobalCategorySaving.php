@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Jobs\Models\Category;
+namespace App\Jobs\Models\GlobalCategory;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use App\Models\Category;
+use App\Models\GlobalCategory;
 use App\Libraries\JSend;
 
-class CategorySaving extends Job implements SelfHandling
+class GlobalCategorySaving extends Job implements SelfHandling
 {
     protected $category;
 
-    public function __construct(Category $category)
+    public function __construct(GlobalCategory $category)
     {
         $this->category                     = $category;
     }

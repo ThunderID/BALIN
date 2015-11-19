@@ -148,6 +148,7 @@ class StoreSetting extends Eloquent
 	public function scopeStorePage($query, $variable)
 	{
 		$variable = ['about_us', 'why_join', 'term_and_condition'];
+		
 		return $query->join(DB::raw('(SELECT tlogs1.type as typee, tlogs1.id as id2, tlogs1.started_at as start from tmp_store_settings as tlogs1 where tlogs1.started_at = (SELECT MAX(tlogs2.started_at) FROM tmp_store_settings AS tlogs2 WHERE tlogs1.id = tlogs2.id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by id) as tmp_store_settings2'), function ($join) use($variable) 
 			{
 				$join
@@ -159,7 +160,8 @@ class StoreSetting extends Eloquent
 
 	public function scopePolicies($query)
 	{
-		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift'];
+		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift', 'critical_stock', 'min_margin'];
+		
 		return $query->join(DB::raw('(SELECT tlogs1.type as typee, tlogs1.id as id2, tlogs1.started_at as start from tmp_store_settings as tlogs1 where tlogs1.started_at = (SELECT MAX(tlogs2.started_at) FROM tmp_store_settings AS tlogs2 WHERE tlogs1.id = tlogs2.id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by id) as tmp_store_settings2'), function ($join) use($variable) 
 			{
 				$join
@@ -173,7 +175,8 @@ class StoreSetting extends Eloquent
 
 	public function scopeAllPolicies($query)
 	{
-		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift'];
+		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift', 'critical_stock', 'min_margin'];
+		
 		return $query->type($variable);
 
 		// return 	$query->whereIn('type', $variable )->orderByRaw(DB::raw('started_at desc, type'))->take(count($variable));

@@ -26,4 +26,14 @@ trait HasCategoriesTrait
 	{
 		return $query->whereHas('categories', function($q)use($variable){$q;});
 	}
+
+	public function Tags()
+	{
+		return $this->hasMany('App\Models\Tag', 'category_id');
+	}
+
+	public function scopeHasTags($query, $variable)
+	{
+		return $query->whereHas('tags', function($q)use($variable){$q;});
+	}
 }
