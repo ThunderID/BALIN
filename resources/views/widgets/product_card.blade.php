@@ -16,7 +16,7 @@
 		</div>
 	</a>
 
-	<div class="caption-card" >
+	<div class="caption-card m-t-0" >
 		<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">
 			<div class="info-product">
 				<h4 class="text-center">
@@ -26,24 +26,16 @@
 			<div class="info-price">
 				<?php $price 	= $data['price'];?>
 
-				<p class="text-center normal-price small-price">
-					@if($data['discount']!=0)
-						<strike> @money_indo($data['price']) </strike>
+				@if($data['discount']!=0)
+					<span class="text-center normal-price small-price">
+						@money_indo($data['price'])
 						<?php $price 	= $data['promo_price'];?>
-					@else
+					</span>
+				@else
+					<p class="text-center normal-price">
 						&nbsp;
-					@endif
-				</p>
-				
-				<p class="text-center normal-price small-price">
-					@if($balance - $price >= 0)
-						<strike> @money_indo($price) </strike>
-						<?php $price 	= 0;?>
-					@elseif($balance!=0)
-						<strike> @money_indo($price) </strike>
-						<?php $price 	= $price - $balance;?>
-					@endif
-				</p>
+					</p>
+				@endif
 
 				@if($price==$data->price)
 					<p class="text-center normal-price"> @money_indo($price)</p>

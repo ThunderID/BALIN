@@ -356,9 +356,9 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	// PRODUCT
 	// ------------------------------------------------------------------------------------
 
-	Route::get('products', 												['uses' => 'ProductController@index', 'as' => 'frontend.product.index']);
+	Route::get('products/{page?}', 									['uses' => 'ProductController@index', 'as' => 'frontend.product.index']);
 
-	Route::get('products/{slug}', 										['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
+	Route::get('products/detail/{slug?}', 										['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
 
 	// ------------------------------------------------------------------------------------
 	// USER MENU

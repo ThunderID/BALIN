@@ -12,7 +12,10 @@
 		
 		e.preventDefault();
 
-		// Use EasyZoom's `swap` method
+		$('.canvas-image').addClass('myCanvas');
 		api1.swap($this.data('standard'), $this.attr('href'));
+		setTimeout(function() {
+			$('.canvas-image').removeClass('myCanvas');
+		}, 800);
 	});
 </script>

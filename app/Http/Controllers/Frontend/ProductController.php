@@ -17,7 +17,8 @@ class ProductController extends BaseController
 	
 	protected $controller_name 					= 'product';
 
-	public function index()
+
+	public function index($page = 1)
 	{
 		$breadcrumb								= ['Produk' => route('frontend.product.index')];
 
@@ -63,11 +64,12 @@ class ProductController extends BaseController
 													->with('searchResult', $searchResult)
 													->with('breadcrumb', $breadcrumb)
 													->with('balance', $balance)
+													->with('page', $page)
 													;
 		$this->layout->controller_name			= $this->controller_name;
 
 		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'All Batiks';
+		$this->layout->page->page_subtitle 		= 'Produk Batik Modern';
 
 		$this->layout->page->metas 				= 	[
 														'og:type' 			=> 'website', 

@@ -1,33 +1,33 @@
 <div class="hidden-xs">
-	<div class="row chart-item">
-		<div class="col-md-1 clearfix">
+	<div class="row chart-item " style="border-bottom: 0.09em solid #ccc">
+		<div class="col-sm-1 col-md-1 clearfix">
 			<a href="#">
-				<img class="m-t-sm" style="width:85px;"  src="{{ $item_list_image }}" >
+				<img class="img-responsive m-t-sm" style=""  src="{{ $item_list_image }}" >
 			</a>
 		</div>
-		<div class="col-md-11">
+		<div class="col-sm-11 col-md-11 p-b-sm">
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-sm-5 col-md-4">
 					<div class="row">
 						<div class="col-sm-12 col-xs-12">
 							<a href="{{ route('frontend.product.show', $item_list_slug) }}" class="title"><h4 class="m-b-xs">{{ $item_list_name }}</h4></a>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-7"></div>
-				<div class="col-md-1">
+				<div class="col-sm-6 col-md-7"></div>
+				<div class="col-sm-1 col-md-1">
 					<a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', $item_list_id) }}" class="btn-hollow btn-hollow-xs hollow-black-border pull-right m-t-sm btn-delete-item" data-cid="{{ $item_list_id }}">
 						<i class="fa fa-times"></i>
 					</a>
 				</div>
 			</div>
-			<div class="row clearfix">&nbsp;</div>
+			<div class="clearfix">&nbsp;</div>
 			<div class="row">
 				@foreach($item_list_size as $key => $value)
-					<div class="col-md-4 qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
-						<p>Size : {{ $value['size'] }} <a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}" data-cid="{{ $item_list_id }}" data-vid="{{ $key }}" class="btn-delete-varian">(Hapus)</a></p>
+					<div class="col-sm-4 col-md-4 qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
+						<p>Size : {{ $value['size'] }} <a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}" data-cid="{{ $item_list_id }}" data-vid="{{ $key }}" class="btn-delete-varian">(Batal)</a></p>
 					</div>
-					<div class="col-md-1 text-center qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
+					<div class="col-sm-1 col-md-1 text-center qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 						<div class="row qty-hollow-cart">
 							{!! Form::open(['url' => route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key] ), 'method' => 'POST', 'class' => 'form-cart']) !!}
 								{!! Form::hidden('cid', $item_list_id, ['class' => 'cid']) !!}
@@ -57,23 +57,22 @@
 							{!! Form::close() !!}   
 						</div>
 					</div>
-					<div class="col-md-2 text-right label-price qty-{{strtolower($value['size'])}}" data-price="{{ $item_list_normal_price }}" 
+					<div class="col-sm-2 col-md-2 text-right label-price qty-{{strtolower($value['size'])}}" data-price="{{ $item_list_normal_price }}" 
 						data-get-price="qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 						@money_indo($item_list_normal_price)
 					</div>
-					<div class="col-md-2 text-right qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
+					<div class="col-sm-2 col-md-2 text-right qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 						@money_indo($item_list_discount_price) 
 					</div>
-					<div class="col-md-2 text-right label-total qty-{{strtolower($value['size'])}}" 
+					<div class="col-sm-2 col-md-2 text-right label-total qty-{{strtolower($value['size'])}}" 
 						data-total="{{ ($item_list_normal_price - $item_list_discount_price) * $value['qty'] }}" data-get-total="qty-{{strtolower($value['size'])}}" 
 						data-get-flag="qty-{{strtolower($value['size'])}}">
 						@money_indo(($item_list_normal_price - $item_list_discount_price) * $value['qty'])
 					</div>	
-					<div class="col-md-1 qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
+					<div class="col-sm-1 col-md-1 qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 						<div class="clearfix">&nbsp;</div>	
-						<div class="clearfix">&nbsp;</div>	
+						<div class="clearfix">&nbsp;</div>
 					</div>
-					<div class="col-md-12 clearfix qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}"></div>
 				@endforeach
 			</div>
 		</div>
@@ -91,14 +90,14 @@
 </div>
 <div class="hidden-sm hidden-md hidden-lg">
 	<div class="row chart-item">
-		<div class="col-md-6 col-sm-6 col-xs-12">
+		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="row">
-				<div class="col-sm-5 col-xs-3">
+				<div class="col-sm-2 col-xs-2">
 					 <a href="#">
-						<img class="img-responsive m-t-sm" src="{{ $item_list_image }}" >
+						<img class="img-responsive m-t-sm" style="width:75px" src="{{ $item_list_image }}" >
 					 </a>
 				</div>
-				<div class="col-sm-7 col-xs-8">
+				<div class="col-sm-10 col-xs-8">
 					<div class="row">
 						<div class="col-sm-12 col-xs-12">
 							<h4 class="m-b-xs">{{ $item_list_name }}</h4>
@@ -107,11 +106,12 @@
 					</div>
 					@foreach($item_list_size as $key => $value)
 						<div class="row m-b-md">
-							<div class="col-sm-8 col-xs-10">
+							<div class="col-sm-9 col-xs-8">
 								<p class="m-t-xxs m-b-xxs">{{ $value['size'] }}</p>
 							</div>
-							<div class="col-sm-2 col-xs-2 text-right">
-								<div class="row qty-hollow-cart">
+							<div class="col-xs-1">&nbsp;</div>
+							<div class="col-xs-1">
+								<div class="row qty-hollow-cart text-right">
 									{!! Form::open(['url' => route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key] ), 'method' => 'POST', 'class' => 'form-cart']) !!}
 										{!! Form::hidden('cid', $item_list_id, ['class' => 'cid']) !!}
 										{!! Form::hidden('vid', $key, ['class' => 'vid']) !!}

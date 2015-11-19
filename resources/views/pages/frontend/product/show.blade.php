@@ -19,7 +19,7 @@
 					<div class="col-md-7 col-md-offset-3 text-center hidden-xs hidden-sm">
 						<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails m-t-md" style="width:100%; border:1px solid #eee">
 							<a class="img-large" href="{{ str_replace('.jpg', '-large.jpg', $data['default_image']) }}" >
-								<img class="img img-responsive myCanvas"  src="{{ $data['default_image'] }}" style="width:100%">
+								<img class="img img-responsive canvas-image"  src="{{ $data['default_image'] }}" style="width:100%">
 							</a>
 						</div>
 					 </div>
@@ -56,15 +56,8 @@
 						{{-- <h4 class="caption-product">Price</h4> --}}
 						<?php $price 	= $data['price'];?>
 						@if($data['discount']!=0)
-							<h4 class="text-product small-price"><strike> @money_indo($data['price']) </strike></h4>
+							<span class="text-product small-price">@money_indo($data['price'])</span>
 							<?php $price 	= $data['promo_price'];?>
-						@endif
-						@if($balance - $price >= 0)
-							<h4 class="text-product small-price"><strike> @money_indo($price) </strike></h4>
-							<?php $price 	= 0;?>
-						@elseif($balance!=0)
-							<h4 class="text-product small-price"><strike> @money_indo($price) </strike></h4>
-							<?php $price 	= $price - $balance;?>
 						@endif
 
 						@if($price==$data['price'])
@@ -145,11 +138,11 @@
 								</div>
 								<div class="row m-t-sm">
 									<div class="col-sm-4 col-xs-4">
-										<a href="#" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border addto-cart"><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
+										<a href="#" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
 									</div>
 									<div class="col-sm-8 col-xs-8">
 										<div class="form-group text-right">
-											{!! Form::submit('ADD TO CART', ['class' => 'btn-hollow hollow-black-border addto-cart']) !!}
+											<a href="javascript:void(0);" class="btn-hollow hollow-black-border addto-cart">ADD TO CART</a>
 										</div>	
 									</div>	
 								</div>
@@ -203,13 +196,9 @@
 
 
 	$(document).ready(function() {
-		$('.canvasSource').click(function() {
-			  /* var image = $(this).attr('src');
-			  var image_replace = image.replace('.jpg', '-large.jpg');
-			  console.log(image_replace);
-			  $('img.myCanvas').attr('src', image);
-			  $('a.img-large').attr('href', image_replace); */
-		 });
+		//$('.myCanvas').change(function() {
+		//	  alert()
+		 //});
 
 		<!-- Get Stock Varian -->
 		$('.select_varian').on('change', function() {
