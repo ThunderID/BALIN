@@ -1,11 +1,11 @@
 <div class="hidden-xs">
-	<div class="row chart-item">
+	<div class="row chart-item " style="border-bottom: 0.09em solid #ccc">
 		<div class="col-sm-1 col-md-1 clearfix">
 			<a href="#">
 				<img class="img-responsive m-t-sm" style=""  src="{{ $item_list_image }}" >
 			</a>
 		</div>
-		<div class="col-sm-11 col-md-11">
+		<div class="col-sm-11 col-md-11 p-b-sm">
 			<div class="row">
 				<div class="col-sm-5 col-md-4">
 					<div class="row">
@@ -21,11 +21,11 @@
 					</a>
 				</div>
 			</div>
-			<div class="row clearfix">&nbsp;</div>
+			<div class="clearfix">&nbsp;</div>
 			<div class="row">
 				@foreach($item_list_size as $key => $value)
 					<div class="col-sm-4 col-md-4 qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
-						<p>Size : {{ $value['size'] }} <a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}" data-cid="{{ $item_list_id }}" data-vid="{{ $key }}" class="btn-delete-varian">(Hapus)</a></p>
+						<p>Size : {{ $value['size'] }} <a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}" data-cid="{{ $item_list_id }}" data-vid="{{ $key }}" class="btn-delete-varian">(Batal)</a></p>
 					</div>
 					<div class="col-sm-1 col-md-1 text-center qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 						<div class="row qty-hollow-cart">
@@ -71,9 +71,8 @@
 					</div>	
 					<div class="col-sm-1 col-md-1 qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 						<div class="clearfix">&nbsp;</div>	
-						<div class="clearfix">&nbsp;</div>	
+						<div class="clearfix">&nbsp;</div>
 					</div>
-					<div class="col-sm-12 col-md-12 clearfix qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}"></div>
 				@endforeach
 			</div>
 		</div>

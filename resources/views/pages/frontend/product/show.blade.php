@@ -56,15 +56,8 @@
 						{{-- <h4 class="caption-product">Price</h4> --}}
 						<?php $price 	= $data['price'];?>
 						@if($data['discount']!=0)
-							<h4 class="text-product small-price"><strike> @money_indo($data['price']) </strike></h4>
+							<span class="text-product small-price">@money_indo($data['price'])</span>
 							<?php $price 	= $data['promo_price'];?>
-						@endif
-						@if($balance - $price >= 0)
-							<h4 class="text-product small-price"><strike> @money_indo($price) </strike></h4>
-							<?php $price 	= 0;?>
-						@elseif($balance!=0)
-							<h4 class="text-product small-price"><strike> @money_indo($price) </strike></h4>
-							<?php $price 	= $price - $balance;?>
 						@endif
 
 						@if($price==$data['price'])
