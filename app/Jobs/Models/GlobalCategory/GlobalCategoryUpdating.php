@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Jobs\Models\Category;
+namespace App\Jobs\Models\GlobalCategory;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-use App\Models\Category;
+use App\Models\GlobalCategory;
 use App\Libraries\JSend;
 
-class CategoryUpdating extends Job implements SelfHandling
+class GlobalCategoryUpdating extends Job implements SelfHandling
 {
     protected $category;
 
-    public function __construct(Category $category)
+    public function __construct(GlobalCategory $category)
     {
         $this->category                     = $category;
     }
@@ -32,7 +32,7 @@ class CategoryUpdating extends Job implements SelfHandling
 
             if(isset($this->category ->getOriginal()['path']))
             {
-                $childs                         = Category::orderBy('path','asc')
+                $childs                         = GlobalCategory::orderBy('path','asc')
                                                     ->where('path','like',$this->category->getOriginal()['path'] . ',%')
                                                     ->get();
                 foreach ($childs as $child) 

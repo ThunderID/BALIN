@@ -11,7 +11,8 @@
         "intervention/image": "^2.3@dev",
         "nesbot/carbon": "~1.14",
         "barryvdh/laravel-debugbar": "^2.1@dev",
-        "laravel/socialite": "^3.0@dev"
+        "laravel/socialite": "^3.0@dev",
+        "nanigans/single-table-inheritance": "0.5.*"
 
     },
     "require-dev": {

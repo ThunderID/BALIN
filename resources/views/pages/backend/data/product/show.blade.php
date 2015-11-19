@@ -65,6 +65,15 @@
 					@endif
 					{!! $value->name !!}
 				@endforeach
+				<br/>
+				<br/>
+				<i class = "fa fa-tags"></i>
+				@foreach($data->tags as $key => $value)
+					@if($key!=0)
+						,
+					@endif
+					{!! $value->name !!}
+				@endforeach
 			</h5>			
 			</br>
 		</div>	

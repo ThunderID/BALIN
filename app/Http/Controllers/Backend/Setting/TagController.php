@@ -1,12 +1,12 @@
 <?php namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\BaseController;
-use App\Models\Category;
+use App\Models\Tag;
 use Input, Session, DB, Redirect, Response;
 
-class CategoryController extends BaseController 
+class TagController extends BaseController 
 {
-	protected $view_name 							= 'Kategori';
+	protected $view_name 							= 'Tag';
 
     /**
      * Instantiate a new UserController instance.
@@ -22,7 +22,7 @@ class CategoryController extends BaseController
 	public function index()
 	{		
 		$breadcrumb									= 	[
-															'Pengaturan Kategori' 	=> route('backend.settings.category.index')
+															'Pengaturan Tag' 	=> route('backend.settings.tag.index')
 														];
 
 		$filters 									= null;
@@ -38,14 +38,14 @@ class CategoryController extends BaseController
 			$searchResult							= null;
 		}
 
-		$this->layout->page 						= view('pages.backend.settings.category.index')
+		$this->layout->page 						= view('pages.backend.settings.tag.index')
 															->with('WT_pagetitle', $this->view_name )
 															->with('WT_pageSubTitle','Index')
 															->with('WB_breadcrumbs', $breadcrumb)
 															->with('nav_active', 'settings')
 															->with('filters', $filters)
 															->with('searchResult', $searchResult)
-															->with('subnav_active', 'category')
+															->with('subnav_active', 'tag')
 														;
 
 		return $this->layout;		
@@ -53,21 +53,21 @@ class CategoryController extends BaseController
 
 	public function show($id)
 	{
-		$category 									= Category::findorfail($id);
+		$tag 									= Tag::findorfail($id);
 
 		$breadcrumb									= 	[
-															'Pengaturan Kategori' 	=> route('backend.settings.category.index'),
-															$category->name 		=> route('backend.settings.category.show', $id)
+															'Pengaturan Tag' 	=> route('backend.settings.tag.index'),
+															$tag->name 		=> route('backend.settings.tag.show', $id)
 														];
 
-		$this->layout->page 						= view('pages.backend.settings.category.show')
+		$this->layout->page 						= view('pages.backend.settings.tag.show')
 														->with('WT_pagetitle', $this->view_name )
-														->with('WT_pageSubTitle', $category->name)		
+														->with('WT_pageSubTitle', $tag->name)		
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('id', $id)
-														->with('category', $category)
+														->with('tag', $tag)
 														->with('nav_active', 'settings')
-														->with('subnav_active', 'category')
+														->with('subnav_active', 'tag')
 													;
 
 		return $this->layout;
@@ -79,33 +79,33 @@ class CategoryController extends BaseController
 
 		if($id)
 		{
-			$category 								= Category::findorfail($id);
-			$title 									= $category->name;
+			$tag 								= Tag::findorfail($id);
+			$title 									= $tag->name;
 
 			$breadcrumb								= 	[
-															'Pengaturan Kategori' 	=> route('backend.settings.category.index'),
-															$category->name 		=> route('backend.settings.category.edit', $id)
+															'Pengaturan Tag' 	=> route('backend.settings.tag.index'),
+															$tag->name 		=> route('backend.settings.tag.edit', $id)
 														];
 		}
 		else
 		{
-			$category 								= new Category;
+			$tag 								= new Tag;
 			$title 									= 'Baru';
 
 			$breadcrumb								= 	[
-															'Pengaturan Kategori' 	=> route('backend.settings.category.index'),
-															'Baru' 					=> route('backend.settings.category.create')
+															'Pengaturan Tag' 	=> route('backend.settings.tag.index'),
+															'Baru' 					=> route('backend.settings.tag.create')
 														];
 		}
 
-		$this->layout->page 						= view('pages.backend.settings.category.create')
+		$this->layout->page 						= view('pages.backend.settings.tag.create')
 																->with('WT_pagetitle', $this->view_name )
 																->with('WT_pageSubTitle',$title)		
 																->with('WB_breadcrumbs', $breadcrumb)
 																->with('id', $id)
-																->with('category', $category)
+																->with('tag', $tag)
 																->with('nav_active', 'settings')
-																->with('subnav_active', 'category');
+																->with('subnav_active', 'tag');
 
 		return $this->layout;		
 	}
@@ -121,12 +121,12 @@ class CategoryController extends BaseController
 
 		if ($id)
 		{
-			$data 									= Category::find($id);
+			$data 									= Tag::find($id);
 			$inputs['path']							= $data['path'];
 		}
 		else
 		{
-			$data 									= new Category;	
+			$data 									= new Tag;	
 			$inputs['path']							= 0;
 		}
 
@@ -165,8 +165,8 @@ class CategoryController extends BaseController
 		{
 			DB::commit();
 
-			return Redirect::route('backend.settings.category.index')
-				->with('msg','Kategori sudah disimpan')
+			return Redirect::route('backend.settings.tag.index')
+				->with('msg','Tag sudah disimpan')
 				->with('msg-type', 'success')
 				;
 		}
@@ -179,7 +179,7 @@ class CategoryController extends BaseController
 
 	public function destroy($id)
 	{
-		$data 											= Category::findorfail($id);
+		$data 											= Tag::findorfail($id);
 
 		DB::beginTransaction();
 
@@ -196,30 +196,30 @@ class CategoryController extends BaseController
 		{
 			DB::commit();
 
-			return Redirect::route('backend.settings.category.index')
-				->with('msg', 'Kategori telah dihapus')
+			return Redirect::route('backend.settings.tag.index')
+				->with('msg', 'Tag telah dihapus')
 				->with('msg-type','success')
 				;
 		}
 	}
 
-	public function getCategoryByName()
+	public function getTagByName()
 	{
-		$data 									= new Category;	
+		$data 									= new Tag;	
 
 		$name 									= Input::get('name');
 
-		$tmps 									= Category::where('name', 'like', "%$name%")
+		$tmps 									= Tag::where('name', 'like', "%$name%")
 																	->get();
 
 		 return json_decode(json_encode($tmps));
 	}	
 
-	public function getCategoryParentByName()
+	public function getTagParentByName()
 	{
 		$inputs 	= Input::only('name','path');
 			
-		$tmp 		=  Category::select(array('id', 'name', 'path'))
+		$tmp 		=  Tag::select(array('id', 'name', 'path'))
 									->where('name', 'like', "%" . $inputs['name'] . "%");
 		 
 		if(!empty($inputs['path']))
