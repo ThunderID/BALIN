@@ -1,6 +1,8 @@
 @inject('datas', 'App\Models\Product')
 @inject('category', 'App\Models\Category')
 <?php 
+    $perpage = 12;
+
 	if(!is_null($filters) && is_array($filters))
 	{
 		foreach ($filters as $key => $value) 
@@ -8,8 +10,14 @@
 			$datas 	= call_user_func([$datas, $key], $value);
 		}
 	}
-	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true)->orderby('created_at','desc')->paginate(12);
-	$category      = $category::where('category_id', 0)
+
+    $totalItems 	= $datas->count();
+	
+	$paginator 		= new PrettyPaginate($totalItems , (int)$page, $perpage, count($datas));
+
+	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true)->orderby('created_at','desc')->take($perpage)->skip(($page-1) * $perpage)->get();
+
+	$category      	= $category::where('category_id', 0)
 								->get();
 ?>
 
@@ -95,7 +103,16 @@
 
 				<div class="row">
 					<div class="col-md-12 hollow-pagination" style="text-align:right;">
-						{!! $datas->appends(Input::all())->render() !!}
+						<?Php 
+						// {!! $datas->appends(Input::all())->render() !!}
+						?>
+						<div class="mt-5">
+							@if(isset($route))
+								{!! $paginator->links(Route::currentRouteName(), $route) !!}
+							@else
+								{!! $paginator->links(Route::currentRouteName(), Input::all()) !!}
+							@endif
+						</div>						
 					</div>
 				</div>
 			</div>
