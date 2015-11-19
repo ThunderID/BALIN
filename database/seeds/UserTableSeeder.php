@@ -17,33 +17,33 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->truncate();
-        factory(App\Models\User::class, 1)->create();
+        // factory(App\Models\User::class, 1)->create();
 
-		// factory(App\Models\User::class, 20)->create()->each(function($q) 
-		// {
-		// 	$q->save();
-		// });
+		factory(App\Models\User::class, 20)->create()->each(function($q) 
+		{
+			$q->save();
+		});
 
-		// $faker                          = Faker\Factory::create();
+		$faker                          = Faker\Factory::create();
 
-		// $users                          = User::all();
+		$users                          = User::all();
 
-		// foreach ($users as $key => $value) 
-		// {
-		//     $address                    = new Address;
+		foreach ($users as $key => $value) 
+		{
+		    $address                    = new Address;
 
-		//     $address->fill([
-		//         'phone'             => $faker->phoneNumber,
-		//         'zipcode'           => $faker->postcode,
-		//         'address'           => $faker->address,
-		//     ]);
+		    $address->fill([
+		        'phone'             => $faker->phoneNumber,
+		        'zipcode'           => $faker->postcode,
+		        'address'           => $faker->address,
+		    ]);
 
-		//     $address->owner()->associate($value);
+		    $address->owner()->associate($value);
 
-		//     if(!$address->save())
-		//     {
-		//         dd($address->getError());
-		//     }
-		// }
+		    if(!$address->save())
+		    {
+		        dd($address->getError());
+		    }
+		}
     }
 }

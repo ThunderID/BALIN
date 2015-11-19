@@ -95,6 +95,8 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		// PAYMENT
 		// ------------------------------------------------------------------------------------
 		
+		Route::get('transaction/payments',								['uses' => 'PaymentController@getpaid', 'as' => 'backend.data.sell.getpaid']);
+		
 		Route::resource('payments',		'PaymentController',			['names' => ['index' => 'backend.data.payment.index', 'create' => 'backend.data.payment.create', 'store' => 'backend.data.payment.store', 'show' => 'backend.data.payment.show', 'edit' => 'backend.data.payment.edit', 'update' => 'backend.data.payment.update', 'destroy' => 'backend.data.payment.destroy']]);
 
 		// ------------------------------------------------------------------------------------

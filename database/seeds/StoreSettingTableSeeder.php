@@ -40,8 +40,8 @@ class StoreSettingTableSeeder extends Seeder
 		$slidevalues								= ['http://localhost:8000/Balin/web/image/slide-4-large.png', 'http://localhost:8000/Balin/web/image/slide-2-large.png', 'http://localhost:8000/Balin/web/image/slide-1-large.png'];
 		
 		//store setting related to policy
-		$policies 									= ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift'];
-		$polvals 									= [' + 1 day', ' + 2 days', '+ 5 days', '+ 1 year', '10000', '50000', '100', '+ 2 hours', '10', '10000', ' + 3 months', '1', '+ 3 months', '10000'];
+		$policies 									= ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift', 'critical_stock', 'min_margin'];
+		$polvals 									= [' + 1 day', ' - 2 days', '+ 5 days', '+ 1 year', '10000', '50000', '100', '+ 2 hours', '10', '10000', ' + 3 months', '1', '+ 3 months', '10000', '2', '50000'];
 
 		try
 		{

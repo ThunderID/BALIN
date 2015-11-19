@@ -3,8 +3,9 @@
 use App\Http\Controllers\BaseController;
 use App\Models\User;
 use App\Models\Payment;
+use App\Models\Transaction;
 use Illuminate\Support\MessageBag;
-use Input, Session, DB, Redirect, Carbon;
+use Input, Session, DB, Redirect, Carbon, App;
 
 class PaymentController extends BaseController
 {
@@ -66,10 +67,12 @@ class PaymentController extends BaseController
 										'Baru' 							=> route('backend.data.payment.create'),
 									];
 			$title 				= 'Baru';
+			$transaction 		= new Transaction;
 		}
 		else
 		{
 			$payment 			= Payment::findorfail($id);
+			$transaction 		= $payment->transaction;
 
 			$breadcrumb			= 	[ 	
 										'Nota Bayar' 					=> route('backend.data.payment.index'),
@@ -85,6 +88,7 @@ class PaymentController extends BaseController
 									->with('WB_breadcrumbs', $breadcrumb)
 									->with('id', $id)
 									->with('payment', $payment)
+									->with('transaction', $transaction)
 									->with('nav_active', 'data')
 									->with('subnav_active', 'payment');
 		return $this->layout;
@@ -117,13 +121,20 @@ class PaymentController extends BaseController
 			$trs 				= 0;
 		}
 
+		$transaction 			= Transaction::type('sell')->status('wait')->id($trs)->first();
+
+		if(!$transaction)
+		{
+			App::abort(404);
+		}
+
 		$ondate					= Carbon::createFromFormat('Y-m-d', $inputs['ondate'])->format('Y-m-d H:i:s');
 
 		$data->fill([
 			'transaction_id' 	=> $trs,
 			'account_name' 		=> $inputs['account_name'],
 			'account_number' 	=> $inputs['account_number'],
-			'amount' 			=> $inputs['amount'],
+			'amount' 			=> $transaction['amount'],
 			'ondate' 			=> $ondate,
 			'destination' 		=> $inputs['destination'],
 			'method' 			=> 'Bank Transfer',
@@ -152,7 +163,7 @@ class PaymentController extends BaseController
 			DB::commit();
 		
 			return Redirect::route('backend.data.payment.index')
-							->with('msg', 'Nota Bayar sudah disimpan')
+							->with('msg', 'Nota Bayar sudah disimpan. Kembali ke <a href="'.route('backend.home.index').'"> Home </a>')
 							->with('msg-type', 'success');
 		}
 	}
@@ -184,5 +195,37 @@ class PaymentController extends BaseController
 							->with('msg', 'Nota bayar sudah dihapus')
 							->with('msg-type','success');
 		}
+	}
+
+	public function getpaid()
+	{
+		$breadcrumb				= 	[ 	
+										'Nota Bayar' 					=> route('backend.data.payment.index'),
+										'Baru' 							=> route('backend.data.payment.create'),
+									];
+		$title 					= 'Baru';
+
+		$trsid 					= Input::get('trs_id');
+
+		$transaction 			= Transaction::type('sell')->status('wait')->id($trsid)->first();
+
+		if(!$transaction)
+		{
+			App::abort(404);
+		}
+
+		$payment				= new Payment;
+		$id 					= null;
+
+		$this->layout->page 	= view('pages.backend.data.payment.create')
+									->with('WT_pagetitle', $this->view_name )
+									->with('WT_pageSubTitle',$title)
+									->with('WB_breadcrumbs', $breadcrumb)
+									->with('id', $id)
+									->with('transaction', $transaction)
+									->with('payment', $payment)
+									->with('nav_active', 'data')
+									->with('subnav_active', 'payment');
+		return $this->layout;
 	}
 }

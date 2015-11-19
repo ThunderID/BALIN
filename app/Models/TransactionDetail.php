@@ -260,6 +260,7 @@ class TransactionDetail extends Eloquent
 				->selectraw('transaction_details.*')
 				->selectcurrentstock(true)
 				->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+				->HavingCurrentStock($variable)
 				->orderby('current_stock', 'asc')
 				->groupBy('varian_id')
 				;

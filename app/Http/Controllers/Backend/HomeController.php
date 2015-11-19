@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\BaseController;
 use App\Models\User;
-use Input, Session, DB, Redirect, Response;
+use Input, Session, DB, Redirect, Response, Auth;
 
 class HomeController extends BaseController
 {
@@ -19,9 +19,22 @@ class HomeController extends BaseController
 	
 	public function index()
 	{
+		switch(strtolower(Auth::user()->role))
+		{
+			case 'store_manager';
+				$view 			= 'store_manager';
+			break; 
+			case 'admin';
+				$view 			= 'admin';
+			break; 
+			default;
+				$view 			= 'staff';
+			break; 
+		}
+		
 		$breadcrumb				= [];
 
-		$this->layout->page 	= view('pages.backend.home.index')
+		$this->layout->page 	= view('pages.backend.home.'.$view.'.index')
 									->with('WT_pagetitle', $this->view_name)
 									->with('WT_pageSubTitle','')
 									->with('WB_breadcrumbs', $breadcrumb)

@@ -119,4 +119,14 @@ class Auditor extends Eloquent
 
 		return 	$query->where('type', $variable);
 	}
+
+	public  function scopeOndate($query, $variable)
+	{
+		if(!is_array($variable))
+		{
+			return $query->where('ondate', date('Y-m-d H:i:s', strtotime($variable)));
+		}
+
+		return $query->where('ondate', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('ondate', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
+	}
 }

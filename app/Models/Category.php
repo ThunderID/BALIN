@@ -38,6 +38,7 @@ class Category extends Eloquent
 
 	protected $fillable				=	[
 											'category_id'					,
+											'type'							,
 											'path'							,
 											'name'							,
 										];
@@ -55,6 +56,7 @@ class Category extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
+											'type'							=> 'required|in:tag,category',
 											'path'							=> 'required|max:255',
 											'name'							=> 'required|max:255',
 										];

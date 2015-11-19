@@ -11,6 +11,7 @@ class TransactionTableSeeder extends Seeder
 	function run()
 	{
 		DB::table('transactions')->truncate();
+		DB::table('transaction_logs')->truncate();
 		
 		factory(App\Models\Transaction::class, 5000)->create()->each(function($q) 
 		{

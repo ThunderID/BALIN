@@ -106,6 +106,7 @@ class CategoryTableSeeder extends Seeder
 				$data 								= new Category;
 				$data->fill([
 					'name'							=> $name,
+					'type'							=> 'category',
 					'path'							=> $i,
 				]);
 
@@ -133,6 +134,7 @@ class CategoryTableSeeder extends Seeder
 						$data->fill([
 							'category_id'					=> $j,
 							'name'							=> $name,
+							'type'							=> 'category',
 							'path'							=> $j.','.$i,
 						]);
 
@@ -159,6 +161,7 @@ class CategoryTableSeeder extends Seeder
 								$data->fill([
 									'category_id'					=> $k,
 									'name'							=> $name,
+									'type'							=> 'category',
 									'path'							=> $j.','.$k.','.$i,
 								]);
 
