@@ -19,20 +19,20 @@ class Mailman extends Job implements SelfHandling
 
     public function handle(Mailer $mail)
     {
-            $result                 = new JSend('success', null);
-        // try
-        // {
-        //     $mail->send($this->mail_data['view'], ['data' => $this->mail_data['datas']], function($message)
-        //     {
-        //         $message->to($this->mail_data['dest_email'], $this->mail_data['dest_name'])->subject($this->mail_data['subject']);
-        //     }); 
+            // $result                 = new JSend('success', null);
+        try
+        {
+            $mail->send($this->mail_data['view'], ['data' => $this->mail_data['datas']], function($message)
+            {
+                $message->to($this->mail_data['dest_email'], $this->mail_data['dest_name'])->subject($this->mail_data['subject']);
+            }); 
         
-        //     $result                 = new JSend('success', null);
-        // }
-        // catch (Exception $e) 
-        // {
-        //     $result                 = new JSend('error', null, $e);
-        // }
+            $result                 = new JSend('success', null);
+        }
+        catch (Exception $e) 
+        {
+            $result                 = new JSend('error', null, $e);
+        }
         
         return $result;        
     }
