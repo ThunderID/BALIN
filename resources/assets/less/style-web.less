@@ -226,7 +226,7 @@ html {
 		color: #333;
 	}
 	.info-product {
-		min-height: 38px;
+		min-height: 58px;
 		h4 {
 			font-weight: 300;
 			color: #000;
@@ -234,7 +234,7 @@ html {
 		}
 	}
 	.info-price{
-		min-height: 43px;
+		min-height: 30px;
 		padding-bottom: 5px;
 		text-align: center;
 	}      
@@ -284,6 +284,21 @@ html {
 	}
 	.text-product {
 		font-weight: 300;
+		&.small-price{
+			font-size: 8pt !important;
+			position: relative;
+			&::after {
+				border-bottom: 0.225em solid rgba(255, 0, 0, 0.8);
+				content: "";
+				left: 0;
+				line-height: 1em;
+				margin-top: calc(0.225em / 2 * -1);
+				position: absolute;
+				right: 0;
+				top: 50%;
+				max-width: inherit;
+			}
+		}
 	}
 }
 
@@ -325,7 +340,7 @@ html {
 }
 
 .chart-header{
-	border-bottom: 1px solid #ccc;
+	border-bottom: 0.2em solid #ccc;
 	p {
 		font-size: 16px;
 		font-weight: 300;
@@ -832,6 +847,21 @@ select.form-control.hollow {
 	.text-product {
 		font-size: 14px;
 		font-weight: 300;
+		&.small-price{
+			font-size: 8pt !important;
+			position: relative;
+			&::after {
+				border-bottom: 0.225em solid rgba(255, 0, 0, 0.8);
+				content: "";
+				left: 0;
+				line-height: 1em;
+				margin-top: calc(0.225em / 2 * -1);
+				position: absolute;
+				right: 0;
+				top: 50%;
+				max-width: inherit;
+			}
+		}
 	}
 }
 span.info {

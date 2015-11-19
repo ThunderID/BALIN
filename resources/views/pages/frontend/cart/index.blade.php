@@ -98,6 +98,15 @@
 								</div>
 							</div>
 							<div class="clearfix">&nbsp;</div>
+							@if (!empty($carts))
+								<div class="row no-cart">
+									<div class="col-xs-12">
+										<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-white btn-block">
+											Kosongkan Cart
+										</a>
+									</div>
+								</div>
+							@endif
 							<div class="row">
 								<div class="col-xs-12">
 									<a href="{{ route('frontend.product.index') }}" class="btn-hollow hollow-white btn-block">
@@ -105,14 +114,16 @@
 									</a>
 								</div>
 							</div>
-							<div class="clearfix">&nbsp;</div>
-							<div class="row">
-								<div class="col-xs-12">
-									<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-white btn-block">
-										Checkout
-									</a>
+							@if (!empty($carts))
+								<div class="clearfix">&nbsp;</div>
+								<div class="row no-cart">
+									<div class="col-xs-12">
+										<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-white btn-block">
+											Checkout
+										</a>
+									</div>
 								</div>
-							</div>
+							@endif
 							<div class="clearfix">&nbsp;</div>
 							<div class="clearfix">&nbsp;</div>
 							<div class="clearfix">&nbsp;</div>
@@ -150,12 +161,14 @@
 										<a href="{{ route('frontend.product.index') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
 											Lanjut Belanja
 										</a>
-										<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
-											Checkout
-										</a>
-										<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
-											Kosongkan Cart
-										</a>								
+										@if (!empty($carts))
+											<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-black-border pull-right m-r-sm no-cart">
+												Checkout
+											</a>
+											<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-black-border pull-right m-r-sm no-cart">
+												Kosongkan Cart
+											</a>				
+										@endif				
 									</div>
 								</div>
 								<div class="clearfix">&nbsp;</div>

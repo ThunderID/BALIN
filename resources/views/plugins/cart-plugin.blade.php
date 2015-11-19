@@ -343,5 +343,6 @@
 				</div> \
 				<div class="row chart-topLine"></div>';
 		$('.chart-div').append(page);
+		$('.no-cart').remove();
 	}
 </script>

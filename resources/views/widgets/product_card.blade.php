@@ -37,14 +37,6 @@
 					</p>
 				@endif
 
-				{{-- <p class="text-center normal-price small-price"> --}}
-					{{-- @if($balance - $price >= 0) --}}
-						{{-- <strike> @money_indo($price) </strike> --}}
-					{{-- @elseif($balance!=0) --}}
-						{{-- <strike> @money_indo($price) </strike> --}}
-					{{-- @endif --}}
-				{{-- </p> --}}
-
 				@if($price==$data->price)
 					<p class="text-center normal-price"> @money_indo($price)</p>
 				@else
