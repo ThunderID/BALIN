@@ -2,49 +2,25 @@
 @inject('trs', 'App\Models\Transaction')
 
 <?php 
-// $cancels            = $trs->auditingcanceled([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->with('user')->get();
-$cancels            = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->type('transaction_canceled')->with('user')->get();
-$carts              = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->type('abandoned_cart')->with('user')->get();
-$paids              = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->type('transaction_paid')->with('user')->get();
-$ship               = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->type('transaction_shipping')->with('user')->get();
-$deliver            = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->type('transaction_delivered')->with('user')->get();
-$voucher            = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->type('voucher_added')->with('user')->get();
-$point              = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->type('point_added')->with('user')->get();
-$quota              = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->type('quota_added')->with('user')->get();
-$prices             = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->type('price_changed')->with('user')->get();
-$policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->type('policy_changed')->with('user')->get();
+// $cancels            = $trs->auditingcanceled([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->with('user')->get();
+$carts              = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('abandoned_cart')->with(['user'])->get();
+$cancels            = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('transaction_canceled')->staff(true)->with(['user'])->get();
+$paids              = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('transaction_paid')->with(['user'])->get();
+$ship               = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('transaction_shipping')->with(['user'])->get();
+$deliver            = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('transaction_delivered')->with(['user'])->get();
+$voucher            = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('voucher_added')->vouchertype(['free_Shipping_cost', 'debit_point'])->with(['user'])->get();
+$point              = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('point_added')->with(['user'])->get();
+$quota              = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('quota_added')->with(['user'])->get();
+$prices             = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('price_changed')->with(['user'])->get();
+$policies           = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('policy_changed')->with(['user'])->get();
 ?>
 
 @extends('template.backend.layout') 
 
 @section('content')
     <div class="row">
-        @if($cancels->count())
-            <div class="col-sm-6">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th colspan="2">Transaksi yang dibatalkan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($cancels as $data)
-                            <tr>
-                                <td class="text-center">{{$data['user']['name']}} melakukan {{$data['event']}} </td>
-                                <td>
-                                    <a href="{{route('backend.data.transaction.show', [$data['id'], 'type' => $data['type']])}}">Proses Selanjutnya</a>
-                                </td>
-                            </tr>       
-                            @endforeach 
-                        </tbody>
-                    </table> 
-                </div>
-            </div>
-        @endif
-
         @if($carts->count())
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
@@ -55,9 +31,33 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
                         <tbody>
                             @foreach ($carts as $data)
                             <tr>
-                                <td class="text-center">{{$data['user']['name']}} melakukan {{$data['event']}} </td>
-                                <td>
-                                    <a href="{{route('backend.data.transaction.show', [$data['id'], 'type' => $data['type']])}}">Proses Selanjutnya</a>
+                                <td class="text-left col-sm-10">@if($data['user']) {{$data['user']['name']}} @else System @endif meninggalkan keranjang </td>
+                                <td class="col-sm-2">
+                                    <a href="{{route('backend.data.transaction.show', [$data['table_id'], 'type' => 'sell'])}}">Lihat</a>
+                                </td>
+                            </tr>       
+                            @endforeach 
+                        </tbody>
+                    </table> 
+                </div>
+            </div>
+        @endif
+
+        @if($cancels->count())
+            <div class="col-sm-6">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Pembatalan Transaksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($cancels as $data)
+                            <tr>
+                                <td class="col-sm-8 text-left">@if($data['user']) {{$data['user']['name']}} @else System @endif melakukan {{$data['event']}} </td>
+                                <td class="col-sm-4">
+                                    <a href="{{route('backend.data.transaction.show', [$data['table_id'], 'type' => 'sell'])}}">Lihat</a>
                                 </td>
                             </tr>       
                             @endforeach 
@@ -68,20 +68,20 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
         @endif
 
         @if($paids->count())
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
-                                <th colspan="2">Transaksi yang dibatalkan</th>
+                                <th colspan="2">Penanganan Pembayaran</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($paids as $data)
                             <tr>
-                                <td class="text-center">{{$data['user']['name']}} melakukan {{$data['event']}} </td>
-                                <td>
-                                    <a href="{{route('backend.data.transaction.show', [$data['id'], 'type' => $data['type']])}}">Proses Selanjutnya</a>
+                                <td class="col-sm-8 text-left">@if($data['user']) {{$data['user']['name']}} @else System @endif melakukan {{$data['event']}} </td>
+                                <td class="col-sm-4">
+                                    <a href="{{route('backend.data.transaction.show', [$data['table_id'], 'type' => 'sell'])}}">Lihat</a>
                                 </td>
                             </tr>       
                             @endforeach 
@@ -92,20 +92,20 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
         @endif
 
          @if($ship->count())
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
-                                <th colspan="2">Transaksi yang dibatalkan</th>
+                                <th colspan="2">Penanganan Pengiriman</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($ship as $data)
                             <tr>
-                                <td class="text-center">{{$data['user']['name']}} melakukan {{$data['event']}} </td>
-                                <td>
-                                    <a href="{{route('backend.data.transaction.show', [$data['id'], 'type' => $data['type']])}}">Proses Selanjutnya</a>
+                                <td class="col-sm-8 text-left">@if($data['user']) {{$data['user']['name']}} @else System @endif melakukan {{$data['event']}} </td>
+                                <td class="col-sm-4">
+                                    <a href="{{route('backend.data.transaction.show', [$data['table_id'], 'type' => 'sell'])}}">Lihat</a>
                                 </td>
                             </tr>       
                             @endforeach 
@@ -116,20 +116,20 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
         @endif
 
          @if($deliver->count())
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
-                                <th colspan="2">Transaksi yang dibatalkan</th>
+                                <th colspan="2">Penanganan Transaksi Lengkap</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($deliver as $data)
                             <tr>
-                                <td class="text-center">{{$data['user']['name']}} melakukan {{$data['event']}} </td>
-                                <td>
-                                    <a href="{{route('backend.data.transaction.show', [$data['id'], 'type' => $data['type']])}}">Proses Selanjutnya</a>
+                                <td class="col-sm-8 text-left">@if($data['user']) {{$data['user']['name']}} @else System @endif melakukan {{$data['event']}} </td>
+                                <td class="col-sm-4">
+                                    <a href="{{route('backend.data.transaction.show', [$data['table_id'], 'type' => 'sell'])}}">Lihat</a>
                                 </td>
                             </tr>       
                             @endforeach 
@@ -140,7 +140,7 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
         @endif
 
         @if($voucher->count())
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
@@ -151,9 +151,9 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
                         <tbody>
                             @foreach ($voucher as $data)
                             <tr>
-                                <td class="text-center">{{$data['user']['name']}} melakukan {{$data['event']}} </td>
-                                <td>
-                                    <a href="{{route('backend.settings.voucher.show', [$data['table_id']])}}">Proses Selanjutnya</a>
+                                <td class="col-sm-8 text-left">@if($data['user']) {{$data['user']['name']}} @else System @endif melakukan {{$data['event']}} </td>
+                                <td class="col-sm-4">
+                                    <a href="{{route('backend.settings.voucher.show', [$data['table_id']])}}">Lihat</a>
                                 </td>
                             </tr>       
                             @endforeach 
@@ -164,7 +164,7 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
         @endif
 
         @if($point->count())
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
@@ -175,9 +175,9 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
                         <tbody>
                             @foreach ($point as $data)
                             <tr>
-                                <td class="text-center">{{$data['user']['name']}} melakukan {{$data['event']}} </td>
-                                <td>
-                                    <a href="{{route('backend.data.customers.show', [$data['table_id']])}}">Proses Selanjutnya</a>
+                                <td class="col-sm-8 text-left">@if($data['user']) {{$data['user']['name']}} @else System @endif melakukan {{$data['event']}} </td>
+                                <td class="col-sm-4">
+                                    <a href="{{route('backend.data.customer.show', [$data['table_id']])}}">Lihat</a>
                                 </td>
                             </tr>       
                             @endforeach 
@@ -188,7 +188,7 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
         @endif
 
         @if($quota->count())
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
@@ -199,9 +199,9 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
                         <tbody>
                             @foreach ($quota as $data)
                             <tr>
-                                <td class="text-center">{{$data['user']['name']}} melakukan {{$data['event']}} </td>
-                                <td>
-                                    <a href="{{route('backend.data.customers.show', [$data['table_id']])}}">Proses Selanjutnya</a>
+                                <td class="col-sm-8 text-left">@if($data['user']) {{$data['user']['name']}} @else System @endif melakukan {{$data['event']}} </td>
+                                <td class="col-sm-4">
+                                    <a href="{{route('backend.settings.voucher.show', [$data['table_id']])}}">Lihat</a>
                                 </td>
                             </tr>       
                             @endforeach 
@@ -223,9 +223,9 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
                         <tbody>
                             @foreach ($prices as $data)
                             <tr>
-                                <td class="text-center">{{$data['user']['name']}} melakukan {{$data['event']}} </td>
-                                <td>
-                                    <a href="{{route('backend.data.product.show', [$data['table_id']])}}">Proses Selanjutnya</a>
+                                <td class="col-sm-8 text-left">@if($data['user']) {{$data['user']['name']}} @else System @endif melakukan {{$data['event']}} </td>
+                                <td class="col-sm-4">
+                                    <a href="{{route('backend.data.product.show', [$data['table_id']])}}">Lihat</a>
                                 </td>
                             </tr>       
                             @endforeach 
@@ -236,7 +236,7 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
         @endif
 
         @if($policies->count())
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
@@ -247,9 +247,9 @@ $policies           = $audit->ondate([Auth::user()->last_logged_at->format('Y-m-
                         <tbody>
                             @foreach ($policies as $data)
                             <tr>
-                                <td class="text-center">{{$data['user']['name']}} melakukan {{$data['event']}} </td>
-                                <td>
-                                    <a href="{{route('backend.settings.policies.index')}}">Proses Selanjutnya</a>
+                                <td class="col-sm-10 text-left">@if($data['user']) {{$data['user']['name']}} @else System @endif melakukan {{$data['event']}} </td>
+                                <td class="col-sm-2">
+                                    <a href="{{route('backend.settings.policies.index')}}">Lihat</a>
                                 </td>
                             </tr>       
                             @endforeach 

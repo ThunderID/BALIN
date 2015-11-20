@@ -35,7 +35,7 @@ class SaveAuditPrice extends Job implements SelfHandling
         {
             $price                          = $this->price->price;
 
-            if($this->price->promo_price=='' || $this->price->promo_price==0)
+            if($this->price->promo_price!='' || $this->price->promo_price!=0)
             {
                 $price                      = $this->price->promo_price;
             }

@@ -82,7 +82,7 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="3" class="text-center">
+                            <td colspan="3" class="text-center" class="col-sm-12">
                                 {!! Form::open(['url' => route('backend.data.sell.getpaid'), 'method' => 'GET']) !!}
                                     <div class="form-group">
                                         {!! Form::text('trs_id', null, [
@@ -94,7 +94,7 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                                         ]) !!}
                                     </div>
                                     <div class="form-group text-right">
-                                        <button type="submit" class="btn btn-md btn-primary" tabindex="2">Cek</button>
+                                        <button type="submit" class="btn btn-md btn-primary" tabindex="2">Proses Selanjutnya</button>
                                     </div>
                                 {!!Form::close()!!}
                             </td>

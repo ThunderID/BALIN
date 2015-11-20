@@ -33,7 +33,7 @@ class SaveAuditShipment extends Job implements SelfHandling
 
         $datetrans                          = Carbon::now();
 
-        $datepay                            = new Carbon($this->transaction->payment->ondate);
+        $datepay                            = $this->transaction->payment->ondate;
 
         $difference                         = $datepay->diff($datetrans)->days;
 
