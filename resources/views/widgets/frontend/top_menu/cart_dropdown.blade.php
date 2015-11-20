@@ -58,7 +58,7 @@
 		<li class=" chart-lowLine">
 			<div class="row">
 				<div class="col-xs-12 text-center" style=" ">
-					<h4>No Cart</h4>
+					<h4>Tidak ada item di Cart</h4>
 				</div>
 			</div>
 		</li>

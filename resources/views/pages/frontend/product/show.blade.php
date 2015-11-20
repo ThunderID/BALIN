@@ -117,7 +117,7 @@
 												<div class="form-group">
 													<div class="qty-hollow m-b-lg">
 														<label class="label-qty">
-															@if (strlen($v['size'])>1)
+															@if (strpos($v['size'], '.')==true)
 																{{ substr($v['size'], 0, 1).' &frac12;'}}
 															@else
 																{{ $v['size'] }}
