@@ -1,6 +1,6 @@
 @inject('product', 'App\Models\Product')
 <?php 
-	$data          = $product->slug($slug)->sellable(true)->with('varians')->with('images')->orderby('size')->first();
+	$data          	= $product->slug($slug)->sellable(true)->with('varians')->with('images')->orderby('size')->first();
 	$related 		= $product->notid($data['id'])->sellable(true)->currentprice(true)->DefaultImage(true)->take(4)->get();
 ?>
 
@@ -190,7 +190,7 @@
 			</div>
 			<div class="row">
 				@foreach($related as $data)
-					<div class="col-sm-4 col-md-3">
+					<div class="col-xs-6 col-sm-6 col-md-3">
 						@include('widgets.product_card')
 					</div>
 				@endforeach
