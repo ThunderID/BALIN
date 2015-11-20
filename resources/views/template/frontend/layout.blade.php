@@ -85,10 +85,128 @@
 			padding: 1px 7px !important;
 			margin: 0px !important;
 		}
+
+		.ribbon{
+		    border-bottom: 1px solid #999;
+		    border-top: 1px solid #999;
+		}
+
+		.ribbon-menu li {
+		    padding:0px !important;
+		} 
+
+		.ribbon-menu li a {
+		    padding-top: 12px;
+		    padding-bottom: 10px;
+		    padding-right: 20px !important;
+		    padding-left: 20px !important;
+		    text-decoration: none;
+		    display: block; 
+		    width: 100%; 
+		    height: 100%;
+		}
+
+		.ribbon-menu li a:hover{
+		    color: white;
+		}		
+
+		.ribbon-menu li i {
+		    padding-left: 10px;
+		    margin-top: 2px;
+		}
+
+		.ribbon-menu li:hover {
+			background-color: #000;
+			color: white;
+		} 	
+
+		.ribbon-menu li a.active {
+			background-color: black !important;
+			color: white;
+		} 		
+
+		.ribbon-menu li a.active i{
+			-ms-transform: rotate(180deg) scaleX(-1); /* IE 9 */
+		    -webkit-transform: rotate(180deg) scaleX(-1); /* Chrome, Safari, Opera */
+		    transform: rotate(180deg) scaleX(-1);
+		}
+
+		.ribbon-submenu li {
+		    padding:0px !important;
+		} 
+
+		.ribbon-submenu li a {
+		    padding-top: 12px;
+		    padding-bottom: 10px;
+		    padding-right: 20px !important;
+		    padding-left: 20px !important;
+		    text-decoration: none;
+		    display: block; 
+		    width: 100%; 
+		    height: 100%;
+		    background-color: #111;
+		    color: white;
+		}
+
+		.ribbon-submenu {
+		    background-color: #111;
+		}
+
+		.ribbon-submenu li i {
+		    padding-left: 10px;
+		    margin-top: 2px;
+		}
+
+		.ribbon-submenu li:hover {
+			background-color: #000;
+			color: white;
+		} 		
+
+		.ribbon-submenu li:hover a {
+			color: #fff;
+			background-color: #000;
+			text-decoration: underline;
+		}
+
+		.ribbon-mobile {
+			padding: 0px !important; 
+		}	
+
+		.ribbon-mobile-submenu {
+			padding: 0px !important; 
+		}		
+
 		@media(max-width: 767px) {
 			.dropdown-cart {
 				display: none !important;
 			}
+		}
+
+		.dialog-mobile{
+			width:90% !important;
+			border-radius: none !important;
+		}
+
+		.modal {
+		  text-align: center;
+		  padding: 0!important;
+		}
+
+		.modal:before {
+		  content: '';
+		  display: inline-block;
+		  height: 100%;
+		  vertical-align: middle;
+		  margin-right: -4px;
+		}
+
+		.modal-dialog {
+			display: inline-block;
+		  vertical-align: middle;
+		}
+
+		.modal-content {
+			border-radius: 0px !important;
 		}
 	</style>
 
@@ -118,7 +236,6 @@
 	</div>
 	
 	@if ($controller_name != 'home')
-
 		<div class="container">&nbsp;</div>
 		<div id="footer"></div>
 		@include('widgets.footer')
