@@ -137,7 +137,7 @@ class ShipmentController extends BaseController
 			DB::commit();
 		
 			return Redirect::route('backend.data.shipment.index')
-							->with('msg', 'Resi Pengiriman sudah disimpan')
+							->with('msg', 'Resi Pengiriman sudah disimpan. Kembali ke <a href="'.route('backend.home').'"> Home </a>')
 							->with('msg-type', 'success');
 		}
 	}

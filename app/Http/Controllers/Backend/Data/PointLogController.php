@@ -90,11 +90,13 @@ class PointLogController extends BaseController
 			$data 										= new PointLog;	
 		}
 
-		$expired_at 									= Carbon::createFromFormat('Y-m-d', $inputs['date'])->format('Y-m-d').' '.Carbon::createFromFormat('H:i', $inputs['time'])->format('H:i:s');
+		$amount 		  								=	str_replace('Rp ', '', str_replace('.', '', $inputs['amount']));
+
+		$expired_at 									= Carbon::createFromFormat('d-m-Y H:i', $inputs['date'])->format('Y-m-d H:i:s');
 
 		$data->fill([
 			'user_id' 									=> $inputs['user_id'],
-			'amount' 									=> $inputs['amount'],
+			'amount' 									=> $amount,
 			'notes' 									=> $inputs['notes'],
 			'expired_at'								=> $expired_at,
 		]);
@@ -107,6 +109,7 @@ class PointLogController extends BaseController
 			
 			return Redirect::back()
 					->withErrors($data->getError())
+					->withInput()
 					->with('msg-type', 'danger')
 					;
 		}

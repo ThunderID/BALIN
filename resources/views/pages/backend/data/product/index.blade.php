@@ -80,6 +80,7 @@ $datas 			= $datas->with('varians')->orderby('name')->paginate();
 												@foreach($data['varians'] as $varian)
 													{{ $varian['size'] }} &nbsp;
 												@endforeach
+												<a href="{{ URL::route('backend.data.product.varian.create', ['uid' => $data['id'] ]) }}"> Ukuran Lain </a>
 											</td>
 											<td class="text-center">
 												<a href="{{ route('backend.data.product.show', $data['id']) }}"> Detail </a>,

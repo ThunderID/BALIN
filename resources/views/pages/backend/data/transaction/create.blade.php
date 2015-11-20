@@ -16,6 +16,7 @@
 
 @section('script')
 	var preload_data = [];
+	var preload_data_tag = [];
 
 	$(document).ready(function() {
 		$('input:radio[name=address_choice]').change(function() {

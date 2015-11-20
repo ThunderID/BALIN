@@ -4,6 +4,7 @@ namespace App\Jobs\Models\TransactionLog;
 
 use App\Jobs\Job;
 use App\Jobs\CheckStock;
+use App\Jobs\CheckAddress;
 use App\Jobs\CheckPaid;
 use App\Jobs\CheckShipping;
 
@@ -43,6 +44,10 @@ class TransactionLogSaving extends Job implements SelfHandling
                 break;
                 case 'wait' :
                     $result                 = $this->dispatch(new CheckStock($this->transactionlog->transaction));
+                    if($result->getStatus()=='success')
+                    {
+                        $result             = $this->dispatch(new CheckAddress($this->transactionlog->transaction));
+                    }
                 break;
                 case 'paid' : 
                     $result                 = $this->dispatch(new CheckPaid($this->transactionlog->transaction, new Payment));

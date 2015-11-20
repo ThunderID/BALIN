@@ -33,13 +33,19 @@ class SaveAuditCanceled extends Job implements SelfHandling
 
         if(!Auth::check() || (Auth::check() && Auth::user()->id != $this->transaction->user_id))
         {
+            $datetrans                      = Carbon::now();
+
+            $datepay                        = $this->transaction->transact_at;
+
+            $difference                     = $datepay->diff($datetrans)->days;
+
             $audit                          = new Auditor;
 
             $audit->fill([
                     'user_id'               => (Auth::check() ? Auth::user()->id : '0'),
                     'type'                  => 'transaction_canceled',
-                    'ondate'                => Carbon::now()->format('Y-m-d H:i:s'),
-                    'event'                 => 'Pembatalan Pesanan',
+                    'ondate'                => $datetrans->format('Y-m-d H:i:s'),
+                    'event'                 => 'Pembatalan Pesanan. Selisih waktu checkout hingga pembatalan : '.$difference.' hari',
                 ]);
 
             $audit->table()->associate($this->transaction);

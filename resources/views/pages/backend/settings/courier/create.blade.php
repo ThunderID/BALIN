@@ -2,7 +2,14 @@
 
 <?php 
 	$data = $data::where('id',$id)->with('images')->first();
-	$images = $data['images'][0];
+	if(isset($data['images'][0]))
+	{
+		$images = $data['images'][0];
+	}
+	else
+	{
+		$images = new App\Models\Image;
+	}
 ?>
 
 @extends('template.backend.layout') 

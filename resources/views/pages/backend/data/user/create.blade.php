@@ -42,7 +42,7 @@
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					<label for="date_of_birth">Tanggal Lahir</label>
-					 {!!Form::input('date', 'date_of_birth', (!is_null($data['date_of_birth']) ? $data['date_of_birth']->format('d-m-Y') : ''), ['class' => 'form-control mod_dob', 'required' => 'required', 'tabindex' => '5'] ) !!}
+					 {!!Form::input('date', 'date_of_birth', (!is_null($data['date_of_birth']) ? $data['date_of_birth']->format('d-m-Y') : ''), ['class' => 'form-control date-format', 'required' => 'required', 'tabindex' => '5', 'placeholder' => 'dd-mm-yyyy'] ) !!}
 				</div>
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12">
@@ -77,4 +77,8 @@
 			</div>        
 		</div>    
 	{!! Form::close() !!}
+@stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
 @stop

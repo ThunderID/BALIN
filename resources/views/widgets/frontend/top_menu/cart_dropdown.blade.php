@@ -1,7 +1,7 @@
 <?php
 	$carts = Session::get('baskets');
 ?>
-<ul class="dropdown-menu dropdown-menu-right chart-dropdown m-t-md" aria-labelledby="dLabel" style="margin-top:3px">
+<ul class="dropdown-menu dropdown-menu-right chart-dropdown m-t-md" aria-labelledby="dLabel">
 	@if (!empty($carts))
 		<?php $total = 0; ?>
 		@foreach ($carts as $k => $item)
@@ -58,7 +58,7 @@
 		<li class=" chart-lowLine">
 			<div class="row">
 				<div class="col-xs-12 text-center" style=" ">
-					<h4>No Cart</h4>
+					<h4>Tidak ada item di Cart</h4>
 				</div>
 			</div>
 		</li>

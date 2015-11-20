@@ -34,7 +34,7 @@ class SaveAuditAbandonCart extends Job implements SelfHandling
 
         $previoustrans                      = Transaction::userid($this->transaction->user_id)->notid($this->transaction->id)->status('cart')->first();
 
-        if($previoustrans)
+        if(!is_null($previoustrans['id']))
         {
             $audit                          = new Auditor;
 

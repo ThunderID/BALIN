@@ -17,14 +17,14 @@ class CreateAuditorTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->integer('table_id')->unsigned()->index();
             $table->string('table_type', 255);
-            $table->date('ondate');
+            $table->datetime('ondate');
             $table->string('event', 255);
             $table->string('type', 255);
             $table->text('action');
             $table->timestamps();
             $table->softDeletes();
             
-            $table->index(['deleted_at', 'ondate', 'type']);
+            $table->index(['deleted_at', 'type', 'ondate']);
         });
     }
 

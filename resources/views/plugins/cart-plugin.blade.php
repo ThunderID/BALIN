@@ -1,8 +1,9 @@
 <script type="text/javascript">
-	var tot_qty = 0;
-	var gtotal = 0;
-	var item_qty = 0;
-	var pqty 			= [];
+	var tot_qty 	= 0;
+	var gtotal 		= 0;
+	var item_qty 	= 0;
+	var pqty 		= [];
+	var flg 		= 0;
 
 	@if (Route::is('frontend.cart.index'))
 	@endif
@@ -10,7 +11,7 @@
 	var tot_qty_mobile = 0;
 
 	// FOR DESKTOP
-	$('.btn-number').click(function(e){
+	$('.btn-number').on('click',function(e){
 		e.preventDefault();
 		$(this).parent().parent().parent().attr('action', 'javascript:void(0);');
 
@@ -47,6 +48,9 @@
 					@else
 						$('.tot_qty').text('IDR '+number_format(tot_qty));
 					@endif
+
+					flg = 0;
+					show_tooltip(input, flg);
 				} 
 				if(parseInt(input.val()) == input.attr('min')) {
 					$(this).attr('disabled', true);
@@ -68,9 +72,14 @@
 					@else
 						$('.tot_qty').text('IDR '+number_format(tot_qty));
 					@endif
+
+					flg = 0;
+					show_tooltip(input, flg);
 				}
 				if(parseInt(input.val()) == input.attr('max')) {
 					$(this).attr('disabled', true);
+					flg = 1;
+					show_tooltip(input, flg);
 				}
 			}
 
@@ -81,27 +90,47 @@
 			input.val(0);
 		}
 	});
+	$('.btn-number').hover(function(e){
+		e.preventDefault();
+		fieldName 				= $(this).attr('data-field');
+
+		@if (Route::is('frontend.cart.index'))
+			var input 			= $(this).parent().parent().find('.input-number').attr('data-name', fieldName);
+		@else
+			var input 			= $(this).parent().find('.input-number').attr('data-name', fieldName);
+		@endif
+
+		if (flg==1) {
+			flg = 0;
+			show_tooltip(input, flg);
+		}
+	});
 	$('.input-number').focusin(function(){
 	   $(this).attr('data-oldValue', $(this).val());
 	});
 	$('.input-number').change(function() {
-		
 		minValue =  parseInt($(this).attr('min'));
 		maxValue =  parseInt($(this).attr('max'));
 		valueCurrent = parseInt($(this).val());
-		
 		name = $(this).attr('data-name');
-		if(valueCurrent >= minValue) {
+		
+		if(valueCurrent > minValue) {
+			flg = 0;
+			show_tooltip($(this), flg);
 			$(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
 		} else {
-			alert('Sorry, the minimum value was reached');
-			$(this).val($(this).data('oldValue'));
+			$(".btn-number[data-type='minus'][data-field='"+name+"']").attr('disabled', true);
+			$(this).val($(this).attr('min'));
 		}
-		if(valueCurrent <= maxValue) {
-			$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+		if(valueCurrent < maxValue) {
+			flg = 0;
+			show_tooltip($(this), flg);
+			$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
 		} else {
-			alert('Sorry, the maximum value was reached');
-			$(this).val($(this).data('oldValue'));
+			flg = 1;
+			show_tooltip($(this), flg);
+			$(this).val($(this).attr('max'));
+			$(".btn-number[data-type='plus'][data-field='"+name+"']").attr('disabled', true);
 		}
 	});
 
@@ -230,6 +259,14 @@
 		});
 	}
 
+	function show_tooltip(input, flg)
+	{
+		if (flg == 1) {
+			$(input).tooltip({delay: { "show": 500, "hide": 300 }, title: 'Maaf stock barang size ini hanya tersedia ' +input.attr('max')}).tooltip('show');
+		} else {
+			$(input).tooltip('destroy');
+		}
+	}
 
 	// Add to Cart
 	$('.addto-cart').on('click', function() {
@@ -343,6 +380,7 @@
 				</div> \
 				<div class="row chart-topLine"></div>';
 		$('.chart-div').append(page);
-		$('.no-cart').remove();
+		$('.empty-cart').remove();
+		$('.checkout').remove();
 	}
 </script>

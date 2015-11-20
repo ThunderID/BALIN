@@ -124,7 +124,12 @@ class Transaction extends Eloquent
 
 	public function getStatusAttribute($value)
 	{
-		if($this->transactionlogs->count())
+		if(isset($this['current_status']))
+		{
+			return $this['current_status'];
+		}
+
+		if($this->transactionlogs()->count())
 		{
 			$status						= $this->transactionlogs[count($this->transactionlogs)-1]->status;
 		}
@@ -160,7 +165,7 @@ class Transaction extends Eloquent
 			return 	$query->whereIn('id', $variable);
 		}
 
-		return 	$query->where('id', $variable);
+		return 	$query->where('transactions.id', $variable);
 	}
 
 	public function scopeNotID($query, $variable)
@@ -170,7 +175,7 @@ class Transaction extends Eloquent
 			return 	$query->whereNotIn('id', $variable);
 		}
 
-		return 	$query->where('id', '<>', $variable);
+		return 	$query->where('transactions.id', '<>', $variable);
 	}
 
 	public function scopeType($query, $variable)
@@ -245,6 +250,32 @@ class Transaction extends Eloquent
 				;
 	}
 
+	public function scopeFrequentNegative($query, $variable)
+	{
+		return 	$query
+				->selectraw('users.*')
+				->selectraw('count(user_id) as frequent_negative')
+				->join('users', 'users.id', '=', 'transactions.user_id')
+				->status(['canceled', 'abandoned', 'cart'])
+				->TransactionLogChangedAt($variable)
+				->groupBy('user_id')
+				->orderby('frequent_negative')
+				;
+	}
+
+	public function scopeFrequentPositive($query, $variable)
+	{
+		return 	$query
+				->selectraw('users.*')
+				->selectraw('count(user_id) as frequent_postive')
+				->join('users', 'users.id', '=', 'transactions.user_id')
+				->status(['paid', 'delivered', 'shipping'])
+				->TransactionLogChangedAt($variable)
+				->groupBy('user_id')
+				->orderby('frequent_postive')
+				;
+	}
+
 	public function scopeUserCurrentCart($query, $variable)
 	{
 		return 	$query->selectraw('transactions.*')
@@ -253,6 +284,24 @@ class Transaction extends Eloquent
 					->userid($variable)
 					->orderby('transact_at', 'desc')
 					->with(['transactiondetails'])
+					;
+	}
+
+	public function scopeAuditingCanceled($query, $variable)
+	{
+		return 	$query->selectraw('transactions.*')
+					->selectraw('users.name as pic')
+					->selectraw('auditors.event')
+					->status('canceled')
+					->join('auditors', function ($join) use($variable) 
+					{
+						$join
+							->on('auditors.user_id', '<>', 'transactions.user_id')
+							->where('auditors.type', '=', 'transaction_canceled')
+							;
+					})
+					->TransactionLogChangedAt($variable)
+					->join('users', 'users.id', '=', 'auditors.user_id') 
 					;
 	}
 }

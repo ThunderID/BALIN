@@ -372,20 +372,24 @@ html {
 .page-header .navbar-nav.navbar-hollow {
   float: right;
 }
-.page-header .navbar-nav.navbar-hollow li a {
+.page-header .navbar-nav.navbar-hollow > li {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.page-header .navbar-nav.navbar-hollow > li a {
   color: #bbb;
   font-weight: 300;
 }
-.page-header .navbar-nav.navbar-hollow li a:hover {
+.page-header .navbar-nav.navbar-hollow > li a:hover {
   color: #fff;
 }
-.page-header .navbar-nav.navbar-hollow li a.btn-hollow {
+.page-header .navbar-nav.navbar-hollow > li a.btn-hollow {
   color: #fff;
 }
-.page-header .navbar-nav.navbar-hollow li a.btn-hollow:hover {
+.page-header .navbar-nav.navbar-hollow > li a.btn-hollow:hover {
   color: #000;
 }
-.page-header .navbar-nav.navbar-hollow li.active a {
+.page-header .navbar-nav.navbar-hollow > li.active a {
   border-bottom: none;
   color: #fff;
   font-weight: 500;
@@ -1048,6 +1052,10 @@ select.form-control.hollow {
   border: 1px solid #000;
   border-bottom: none;
 }
+.qty-hollow .form-qty:disabled {
+  background-color: #fff;
+  color: #999;
+}
 .qty-hollow .btn-qty {
   position: absolute;
   border: 1px solid #000;
@@ -1297,9 +1305,12 @@ footer .menu-footer a:hover {
   background: rgba(0, 0, 0, 0.8);
   text-align: center;
   color: #fff;
-  font-weight: 100;
+  font-weight: 500;
   font-size: 13px;
   line-height: 1;
+}
+.square-label.danger {
+  background-color: #de342e;
 }
 .text-label {
   font-size: 13px;
@@ -1317,4 +1328,21 @@ footer .menu-footer a:hover {
   padding-bottom: 100%;
   background: #4679BD;
   border-radius: 50%;
+}
+.tooltip-inner {
+  max-width: 200px;
+  padding: 3px 8px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  background-color: #D91E18;
+  border-radius: 0;
+  width: 80px;
+}
+.tooltip.right .tooltip-arrow {
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  border-width: 5px 5px 5px 0;
+  border-right-color: #D91E18;
 }

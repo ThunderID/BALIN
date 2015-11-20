@@ -48,6 +48,7 @@
 @stop
 
 @section('script')
+    var preload_data_tag    = [];
 	var preload_data = [];
 @stop
 

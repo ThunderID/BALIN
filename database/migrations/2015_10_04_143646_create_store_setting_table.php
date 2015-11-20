@@ -17,6 +17,7 @@ class CreateStoreSettingTable extends Migration
             $table->string('type', 255);
             $table->text('value');
             $table->datetime('started_at');
+            $table->datetime('ended_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
             

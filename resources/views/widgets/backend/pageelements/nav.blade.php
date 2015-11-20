@@ -39,6 +39,9 @@
 					<li class="@if($subnav_active=='category') active @endif">
 						<a href="{{ route('backend.settings.category.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Kategori</span></a>
 					</li>
+					<li class="@if($subnav_active=='tag') active @endif">
+						<a href="{{ route('backend.settings.tag.index') }}"><i class="fa fa-tags"></i> <span class="nav-label">Tag</span></a>
+					</li>
 					<li class="@if($subnav_active=='courier') active @endif">
 						<a href="{{ route('backend.settings.courier.index') }}"><i class="fa fa-truck"></i> <span class="nav-label">Kurir</span></a>
 					</li>

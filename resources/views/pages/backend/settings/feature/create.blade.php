@@ -30,13 +30,27 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="form-group">
 					<label for="started_at">Tanggal Mulai</label>
 					@if($data)
 						<?php $date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('d-m-Y H:i'); ?>					
 					@endif
 					{!! Form::text('started_at', $date, [
+								'tabindex'      => '1', 
+								'class'			=> 'date-time-format form-control' 
+					]) !!}					
+				</div>  
+			</div> 
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="ended_at">Tanggal Berakhir</label>
+					@if($data && !is_null($data['ended_at']))
+						<?php $date2 = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['ended_at'])->format('d-m-Y H:i'); ?>
+					@else
+						<?php $date2 = null;?>
+					@endif
+					{!! Form::text('ended_at', $date2, [
 								'tabindex'      => '1', 
 								'class'			=> 'date-time-format form-control' 
 					]) !!}					

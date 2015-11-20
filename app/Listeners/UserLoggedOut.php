@@ -41,7 +41,7 @@ class UserLoggedOut
             return false;
         }
 
-        Cookie::forget('baskets');
+        Session::forget('baskets');
 
         return true;
     }

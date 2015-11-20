@@ -114,9 +114,32 @@ class Auditor extends Eloquent
 	{
 		if(is_array($variable))
 		{
-			return 	$query->whereIn('type', $variable);
+			return 	$query->whereIn('auditors.type', $variable);
 		}
 
-		return 	$query->where('type', $variable);
+		return 	$query->where('auditors.type', $variable);
+	}
+
+	public  function scopeOndate($query, $variable)
+	{
+		if(!is_array($variable))
+		{
+			return $query->where('ondate', date('Y-m-d H:i:s', strtotime($variable)));
+		}
+
+		return $query->where('ondate', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('ondate', '<=', date('Y-m-d H:i:s', strtotime($variable[1])));
+	}
+
+	public  function scopeStaff($query, $variable)
+	{
+		return $query->wherehas('user', function($q){$q->role(['admin','staff','store_manager']);});
+	}
+
+
+	public  function scopeVoucherType($query, $variable)
+	{
+		return $query->selectraw('auditors.*')
+					->join('tmp_vouchers', 'tmp_vouchers.id', '=', 'table_id')
+					->whereIn('tmp_vouchers.type', $variable);
 	}
 }

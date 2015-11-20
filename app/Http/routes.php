@@ -95,6 +95,8 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		// PAYMENT
 		// ------------------------------------------------------------------------------------
 		
+		Route::get('transaction/payments',								['uses' => 'PaymentController@getpaid', 'as' => 'backend.data.sell.getpaid']);
+		
 		Route::resource('payments',		'PaymentController',			['names' => ['index' => 'backend.data.payment.index', 'create' => 'backend.data.payment.create', 'store' => 'backend.data.payment.store', 'show' => 'backend.data.payment.show', 'edit' => 'backend.data.payment.edit', 'update' => 'backend.data.payment.update', 'destroy' => 'backend.data.payment.destroy']]);
 
 		// ------------------------------------------------------------------------------------
@@ -119,6 +121,16 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		Route::any('ajax/get-category',									['uses' => 'CategoryController@getCategoryByName', 'as' => 'backend.category.ajax.getByName']);
 
 		Route::any('ajax/get-category-parent',							['uses' => 'CategoryController@getCategoryParentByName', 'as' => 'backend.category.ajax.getParent']);
+
+		// ------------------------------------------------------------------------------------
+		// TAG
+		// ------------------------------------------------------------------------------------
+		
+		Route::resource('tags', 	'TagController', 					['names' => ['index' => 'backend.settings.tag.index', 'create' => 'backend.settings.tag.create', 'store' => 'backend.settings.tag.store', 'show' => 'backend.settings.tag.show', 'edit' => 'backend.settings.tag.edit', 'update' => 'backend.settings.tag.update', 'destroy' => 'backend.settings.tag.destroy']]);
+		
+		Route::any('ajax/get-tag',										['uses' => 'TagController@getTagByName', 'as' => 'backend.tag.ajax.getByName']);
+
+		Route::any('ajax/get-tag-parent',								['uses' => 'TagController@getTagParentByName', 'as' => 'backend.tag.ajax.getParent']);
 
 		// ------------------------------------------------------------------------------------
 		// COURIER (Store, save image only if there were upload image. Need to sync with job)

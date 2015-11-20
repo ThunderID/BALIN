@@ -99,7 +99,7 @@
 							</div>
 							<div class="clearfix">&nbsp;</div>
 							@if (!empty($carts))
-								<div class="row no-cart">
+								<div class="row empty-cart-mobile">
 									<div class="col-xs-12">
 										<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-white btn-block">
 											Kosongkan Cart
@@ -110,13 +110,13 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<a href="{{ route('frontend.product.index') }}" class="btn-hollow hollow-white btn-block">
-										Lanjut Belanja
+										Pilih Produk Lain
 									</a>
 								</div>
 							</div>
 							@if (!empty($carts))
 								<div class="clearfix">&nbsp;</div>
-								<div class="row no-cart">
+								<div class="row empty-cart-mobile">
 									<div class="col-xs-12">
 										<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-white btn-block">
 											Checkout
@@ -159,13 +159,13 @@
 								<div class="col-lg-12 col-md-12 col-sm-12">
 									<div class="row">
 										<a href="{{ route('frontend.product.index') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
-											Lanjut Belanja
+											Pilih Produk Lain
 										</a>
 										@if (!empty($carts))
-											<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-black-border pull-right m-r-sm no-cart">
+											<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-black-border pull-right m-r-sm empty-cart">
 												Checkout
 											</a>
-											<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-black-border pull-right m-r-sm no-cart">
+											<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-black-border pull-right m-r-sm empty-cart">
 												Kosongkan Cart
 											</a>				
 										@endif				

@@ -36,6 +36,7 @@ class StoreSetting extends Eloquent
 											'type'								,
 											'value'								,
 											'started_at'						,
+											'ended_at'							,
 										];
 
 	/**
@@ -43,7 +44,7 @@ class StoreSetting extends Eloquent
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'started_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'started_at', 'ended_at'];
 
 	/**
 	 * Basic rule of database
@@ -133,6 +134,25 @@ class StoreSetting extends Eloquent
 		return $query->where('started_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('started_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])))->orderBy('started_at', 'asc');
 	}
 
+	public function scopeOnActive($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			$started_at 	= date('Y-m-d H:i:s', strtotime($variable[0]));
+			$ended_at 		= date('Y-m-d H:i:s', strtotime($variable[1]));
+			return $query->where('started_at', '<=', $started_at)
+						->where('ended_at', '>=', $ended_at)
+						;
+		}
+		else
+		{
+			$ondate 	= date('Y-m-d H:i:s', strtotime($variable));
+			return $query->where('started_at', '<=', $ondate)
+						->where('ended_at', '>=', $ondate)
+						;
+		}
+	}
+
 	public function scopeStoreInfo($query, $variable)
 	{
 		$variable = ['url', 'logo', 'facebook_url', 'twitter_url', 'email', 'phone', 'address', 'bank_information'];
@@ -148,6 +168,7 @@ class StoreSetting extends Eloquent
 	public function scopeStorePage($query, $variable)
 	{
 		$variable = ['about_us', 'why_join', 'term_and_condition'];
+		
 		return $query->join(DB::raw('(SELECT tlogs1.type as typee, tlogs1.id as id2, tlogs1.started_at as start from tmp_store_settings as tlogs1 where tlogs1.started_at = (SELECT MAX(tlogs2.started_at) FROM tmp_store_settings AS tlogs2 WHERE tlogs1.id = tlogs2.id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by id) as tmp_store_settings2'), function ($join) use($variable) 
 			{
 				$join
@@ -159,7 +180,8 @@ class StoreSetting extends Eloquent
 
 	public function scopePolicies($query)
 	{
-		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift'];
+		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift', 'critical_stock', 'min_margin'];
+		
 		return $query->join(DB::raw('(SELECT tlogs1.type as typee, tlogs1.id as id2, tlogs1.started_at as start from tmp_store_settings as tlogs1 where tlogs1.started_at = (SELECT MAX(tlogs2.started_at) FROM tmp_store_settings AS tlogs2 WHERE tlogs1.id = tlogs2.id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by id) as tmp_store_settings2'), function ($join) use($variable) 
 			{
 				$join
@@ -173,7 +195,8 @@ class StoreSetting extends Eloquent
 
 	public function scopeAllPolicies($query)
 	{
-		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift'];
+		$variable = ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift', 'critical_stock', 'min_margin'];
+		
 		return $query->type($variable);
 
 		// return 	$query->whereIn('type', $variable )->orderByRaw(DB::raw('started_at desc, type'))->take(count($variable));

@@ -157,4 +157,15 @@ class Varian extends Eloquent
 					;
 		;
 	}
+
+	public function scopeQuantityInCart($query, $variable)
+	{
+		return 	$query->selectraw('varians.*')
+					->selectstockincart(true)
+					->JoinTransactionDetailFromVarian(true)
+					->TransactionStockOn('cart')
+					->groupby('varians.id')
+					;
+		;
+	}
 }

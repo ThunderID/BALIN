@@ -42,7 +42,7 @@ class SaveAuditQuota extends Job implements SelfHandling
                     'event'                 => 'Penambahan quota sebesar '.$this->quota->amount.' voucher '.$this->quota->voucher->code,
                 ]);
 
-            $audit->table()->associate($this->quota);
+            $audit->table()->associate($this->quota->voucher);
 
             if(!$audit->save())
             {

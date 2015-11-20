@@ -35,7 +35,12 @@ class AddQuotaForUpline extends Job implements SelfHandling
         
         $quota                              = StoreSetting::type('downline_purchase_quota_bonus')->Ondate('now')->first();
 
-        $whoisupline                        = $upline->reference->voucher->value;
+        $whoisupline                        = 0;
+
+        if($upline && $upline->reference()->count())
+        {
+            $whoisupline                    = $upline->reference->voucher->value;
+        }
 
         if($upline && $quota && $whoisupline == 0)
         {

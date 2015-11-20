@@ -11,7 +11,14 @@
     @else
         {!! Form::open(['url' => route('backend.data.shipment.store'), 'method' => 'POST']) !!}
     @endif
-        <label for="method" class="text-capitalize">Resi Pengiriman {{$data['transaction']['ref_number']}}</label>
+        <label for="method" class="text-capitalize">Resi Pengiriman #{{$data['transaction']['ref_number']}}</label><br/>
+
+        @if($shipment)
+            <label for="receipt_number">a.n. {{$shipment['receiver_name']}}</label><br/>
+            <label for="phone">{{$shipment['address']['phone']}}</label><br/>
+            <label for="address">{{$shipment['address']['address']}}, {{$shipment['address']['zipcode']}}</label><br/>
+        @endif
+
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">

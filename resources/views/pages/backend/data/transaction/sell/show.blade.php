@@ -86,10 +86,10 @@
 								<strong> SKU </strong>{{$value['varian']['sku']}}
 							</td>
 							<td> {{$value['varian']['product']['name']}} {{$value['varian']['size']}}</td>
-							<td> {{$value['quantity']}} </td>
-							<td> @money_indo($value['price']) </td>
-							<td> @money_indo($value['discount']) </td>
-							<td> @money_indo((($value['price'] - $value['discount']) * $value['quantity'])) </td>
+							<td class="text-right"> {{$value['quantity']}} </td>
+							<td class="text-right"> @money_indo($value['price']) </td>
+							<td class="text-right"> @money_indo($value['discount']) </td>
+							<td class="text-right"> @money_indo((($value['price'] - $value['discount']) * $value['quantity'])) </td>
 						</tr>
 					@empty
 						<tr>
@@ -103,27 +103,27 @@
 						<tr>
 							<td colspan="5"></td>
 							<td><strong>Ongkos Kirim</strong></td>
-							<td>@money_indo($transaction['shipping_cost'])</td>
+							<td class="text-right">@money_indo($transaction['shipping_cost'])</td>
 						</tr>
 						<tr>
 							<td colspan="5"></td>
 							<td><strong>Diskon Referral</strong></td>
-							<td>@money_indo($transaction['voucher_discount'])</td>
+							<td class="text-right">@money_indo($transaction['voucher_discount'])</td>
 						</tr>
 						<tr>
 							<td colspan="5"></td>
 							<td><strong>Potongan Point</strong></td>
-							<td>@money_indo($discount_point - ($transaction['amount']))</td>
+							<td class="text-right">@money_indo($discount_point - ($transaction['amount']))</td>
 						</tr>
 						<tr>
 							<td colspan="5"></td>
 							<td><strong>Potongan Transfer</strong></td>
-							<td>@money_indo($transaction['unique_number'])</td>
+							<td class="text-right">@money_indo($transaction['unique_number'])</td>
 						</tr>
 						<tr>
 							<td colspan="5"></td>
 							<td><strong>Total</strong></td>
-							<td>@money_indo($transaction['amount'])</td>
+							<td class="text-right">@money_indo($transaction['amount'])</td>
 						</tr>
 					@endif
 				</tbody>

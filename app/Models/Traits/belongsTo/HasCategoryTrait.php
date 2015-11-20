@@ -19,7 +19,7 @@ trait HasCategoryTrait
 
 	public function Category()
 	{
-		return $this->belongsTo('App\Models\Category');
+		return $this->belongsTo('App\Models\GlobalCategory');
 	}
 
 	public function scopeHasCategory($query, $variable)

@@ -17,7 +17,9 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->truncate();
-        factory(App\Models\User::class, 1)->create();
+        factory(App\Models\User::class, 'admin', 1)->create();
+        factory(App\Models\User::class, 'staff', 1)->create();
+        factory(App\Models\User::class, 'store_manager', 1)->create();
 
 		// factory(App\Models\User::class, 20)->create()->each(function($q) 
 		// {

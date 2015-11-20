@@ -205,7 +205,7 @@ class Product extends Eloquent
 
 		if(isset($image[0]))
 		{
-			// return str_replace('localhost', '127.0.0.1', $image[0]->image_md);
+			// return str_replace('8000', '9900', $image[0]->image_md);
 			return $image[0]->image_md;
 		}
 	}
@@ -311,7 +311,7 @@ class Product extends Eloquent
 					->JoinTransactionDetailFromProduct(true)
 					->TransactionBuyOn(['paid', 'shipping', 'delivered'])
 					->join('suppliers', 'suppliers.id', '=', 'transactions.supplier_id')
-					->groupby('supplier_id')
+					->groupby('transactions.supplier_id')
 					;
 	}
 
@@ -319,8 +319,20 @@ class Product extends Eloquent
 	{
 		return 	$query
 					->select('products.*')
-					->selectraw('(SELECT IFNULL(avg(price),0) as total_hpp FROM transaction_details join varians on transaction_details.varian_id = varians.id WHERE varians.product_id = products.id and transaction_details.deleted_at is null and varians.deleted_at is null) as hpp')
-					->wherehas('transactiondetails.transaction', function($q)use($variable){$q->status(['paid','shipped','delivered'])->type('buy')->ondate($variable);})
+					->selectraw('IFNULL(avg(transaction_details.price),0) as hpp')
+					->JoinTransactionDetailFromProduct(true)
+					->TransactionBuyOn(['paid', 'shipping', 'delivered'])
 					;
 	}
+
+	public function scopeMargin($query, $variable)
+	{
+		return 	$query
+					->hpp(true)
+					->selectraw('(SELECT IF(promo_price = "0", price, promo_price) FROM products join prices on products.id = prices.id and products.deleted_at is null and prices.deleted_at is null limit 1) as current_price')
+					->havingraw('`current_price` - `hpp` < '.$variable)
+					->groupby('product_id')
+					;
+	}
+
 }

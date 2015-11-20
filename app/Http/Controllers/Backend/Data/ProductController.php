@@ -131,7 +131,7 @@ class ProductController extends BaseController
 
 	public function store($id = null)
 	{
-		$inputs 										= Input::only('category','name','upc','description', 'fit','slug');
+		$inputs 										= Input::only('category','name','upc','description', 'fit','slug', 'tag');
 		$labels											= Input::only('label');
 		$images											= Input::only('thumbnail', 'image_xs', 'image_sm', 'image_md', 'image_lg', 'default');
 
@@ -164,8 +164,12 @@ class ProductController extends BaseController
 		{
 			// category
 			$categories 								= explode(',', $inputs['category']);
+			// tag
+			$tags 										= explode(',', $inputs['tag']);
 
-			if(!$data->categories()->sync($categories))
+			$global										= array_merge($categories, $tags);
+
+			if(!$data->globalcategories()->sync($global))
 			{
 				$errors->add('Product', $data->getError());
 			}

@@ -36,7 +36,14 @@ class AddPointForUpline extends Job implements SelfHandling
 
         $expired                            = StoreSetting::type('downline_purchase_bonus_expired')->Ondate('now')->first();
 
-        $whoisupline                        = $upline->reference->voucher->value;
+
+        $whoisupline                        = 0;
+
+        if($upline && $upline->reference()->count())
+        {
+            $whoisupline                    = $upline->reference->voucher->value;
+        }
+        
 
         if($upline && $point && $expired  && $whoisupline == 0)
         {

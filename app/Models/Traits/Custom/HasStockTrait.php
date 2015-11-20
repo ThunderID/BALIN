@@ -15,6 +15,14 @@ trait HasStockTrait
 		//
 	}
 
+	public function scopeSelectStockInCart($query, $variable)
+	{
+		return $query->selectraw('IFNULL(SUM(
+									if(transactions.type ="sell", if(transaction_logs.status ="cart", quantity, 0), 0)
+									),0) as cart_item')
+		;
+	}
+	
 	public function scopeSelectCurrentStock($query, $variable)
 	{
 		return $query->selectraw('IFNULL(SUM(
@@ -80,9 +88,20 @@ trait HasStockTrait
 
 	public function scopeHavingCurrentStock($query, $variable)
 	{
+		if($variable < 0)
+		{
+			$param 					= '<=';
+			$variable 				= abs($variable);
+		}
+		else
+		{
+			$param 					= '>';
+			$variable 				= abs($variable);
+		}
+
 		return $query->havingraw('IFNULL(SUM(
 									if(transactions.type ="sell", if(transaction_logs.status ="wait" OR transaction_logs.status ="paid" OR transaction_logs.status ="shipping" OR transaction_logs.status ="delivered", 0-quantity, 0), quantity)
-									),0) > '.$variable)
+									),0) '.$param.' '.$variable)
 		;
 	}
 }

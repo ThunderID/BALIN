@@ -26,7 +26,7 @@ class CriticalController extends BaseController
 														'Laporan Gudang Stok Kritis' 	=> route('backend.report.critical.stock')
 													];
 
-		$filters 								= ['critical' => ['first day of this month', 'last day of this month']];
+		$filters 								= ['critical' => 1];
 
 		if(Input::has('q'))
 		{
