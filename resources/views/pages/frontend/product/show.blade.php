@@ -1,7 +1,7 @@
 @inject('product', 'App\Models\Product')
 <?php 
-	$data          = $product->slug($slug)->sellable(true)->with('varians')->with('images')->first();
-	$related 		= $product->notid($data['id'])->sellable(true)->currentprice(true)->DefaultImage(true)->take(6)->get();
+	$data          = $product->slug($slug)->sellable(true)->with('varians')->with('images')->orderby('size')->first();
+	$related 		= $product->notid($data['id'])->sellable(true)->currentprice(true)->DefaultImage(true)->take(4)->get();
 ?>
 
 @extends('template.frontend.layout')
@@ -81,7 +81,7 @@
 						<div class="text-product">{!! $product['fit'] !!}</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row m-t-sm m-b-md">
 					<div class="col-sm-12 col-md-12">
 						<h4 class="caption-product">Pilih Ukuran Pesanan</h4>
 					</div>
@@ -101,7 +101,7 @@
 						@else
 
 							@include('widgets.alerts')
-							<div class="row text-center m-t-xl">
+							<div class="row text-center">
 								{!! Form::open(['url' => 'javascript:void(0);', 'class' => 'p-t-sm form-addtocart']) !!}
 									{!! Form::hidden('product_slug', $slug, ['class' => 'pslug']) !!}
 									{!! Form::hidden('product_name', $data['name'], ['class' => 'pname']) !!}
@@ -124,11 +124,11 @@
 															@endif
 														</label>
 													  	<input type="hidden" name="varianids[{{$k}}]" class="form-control pvarians" value="{{$v['id']}}">
-													  	<input type="text" name="qty[{{$k}}]" class="form-control hollow form-qty input-number pqty" value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" data-stock="{{ $v['stock'] }}" data-id="{{ $v['id'] }}" data-name="qty-{{strtolower($v['size'])}}[1]" data-oldValue="" data-toggle="tooltip" data-placement="right">
+													  	<input type="text" name="qty[{{$k}}]" class="form-control hollow form-qty input-number pqty" value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" data-stock="{{ $v['stock'] }}" data-id="{{ $v['id'] }}" data-name="qty-{{strtolower($v['size'])}}[1]" data-oldValue="" data-toggle="tooltip" data-placement="right" @if($v['stock']==0){{'disabled'}}@endif>
 														<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-minus btn-number" disabled="disabled" data-type="minus" data-field="qty-{{strtolower($v['size'])}}[1]">
 															<i class="fa fa-minus"></i>
 													  	</button>
-													  	<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-plus btn-number" data-type="plus" data-field="qty-{{strtolower($v['size'])}}[1]">
+													  	<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-plus btn-number" data-type="plus" data-field="qty-{{strtolower($v['size'])}}[1]" @if($v['stock']==0){{'disabled="disabled"'}}@endif>
 														  	<i class="fa fa-plus"></i>
 													  	</button>
 													</div>
