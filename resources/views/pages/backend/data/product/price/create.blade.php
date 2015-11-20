@@ -45,7 +45,7 @@
 					{!! Form::text('start_at', $date, [
 								'class'         => 'form-control date-time-format',
 								'tabindex'      => '9', 
-								'placeholder'   => 'Y-m-d H:i:s'
+								'placeholder'   => 'dd-mm-yyyy hh:mm'
 					]) !!}
 				</div>
 			</div>

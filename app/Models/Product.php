@@ -205,7 +205,7 @@ class Product extends Eloquent
 
 		if(isset($image[0]))
 		{
-			// return str_replace('localhost', '127.0.0.1', $image[0]->image_md);
+			// return str_replace('8000', '9900', $image[0]->image_md);
 			return $image[0]->image_md;
 		}
 	}
@@ -311,7 +311,7 @@ class Product extends Eloquent
 					->JoinTransactionDetailFromProduct(true)
 					->TransactionBuyOn(['paid', 'shipping', 'delivered'])
 					->join('suppliers', 'suppliers.id', '=', 'transactions.supplier_id')
-					->groupby('supplier_id')
+					->groupby('transactions.supplier_id')
 					;
 	}
 

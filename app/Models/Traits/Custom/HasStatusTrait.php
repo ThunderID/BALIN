@@ -25,43 +25,34 @@ trait HasStatusTrait
 
 	public function scopeTransactionLogStatus($query, $variable)
 	{
+
 		if(!is_array($variable))
 		{
-			return $query->leftjoin('transaction_logs', function ($join) use($variable) 
-			{
-				$join
-					->on('transaction_logs.transaction_id', '=', 'transactions.id')
-					->where('transaction_logs.status', '=', $variable)
-					->Where('transaction_logs.changed_at', '=', DB::raw('(select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id )'))
-					;
-			});
-
-			// return $query->leftjoin(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
-			// {
-			// 	$join
-			// 		->on('transaction_logs.transaction_id', '=', 'transactions.id')
-			// 		->where('transaction_logs.status' ,'=' , $variable)
-			// 		;
-			// });
+			return $query
+			->selectraw('transactions.*')
+			->selectraw('transaction_logs.status as current_status')
+			 ->join('transaction_logs', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
+									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id))'), DB::raw(''), DB::raw(''))
+                                    ->where('transaction_logs.status', '=', $variable)
+                                    ;
+			})
+			;
 		}
 		else
 		{
-			return $query->leftjoin('transaction_logs', function ($join) use($variable) 
-			{
-				$join
-					->on('transaction_logs.transaction_id', '=', 'transactions.id')
-					->whereIn('transaction_logs.status' , $variable)
-					->Where('transaction_logs.changed_at', '=', DB::raw('(select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id )'))
-					;
-			});
-
-			// return $query->leftjoin(DB::raw('(SELECT status, transaction_id, changed_at from transaction_logs as tlogs1 where changed_at = (SELECT MAX(changed_at) FROM transaction_logs AS tlogs2 WHERE tlogs1.transaction_id = tlogs2.transaction_id and tlogs2.deleted_at is null) and tlogs1.deleted_at is null group by transaction_id) as transaction_logs'), function ($join) use($variable) 
-			// {
-			// 	$join
-			// 		->on('transaction_logs.transaction_id', '=', 'transactions.id')
-			// 		->whereIn('transaction_logs.status' , $variable)
-			// 		;
-			// });
+			return $query
+			->selectraw('transactions.*')
+			->selectraw('transaction_logs.status as current_status')
+			 ->join('transaction_logs', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
+									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id))'), DB::raw(''), DB::raw(''))
+                                    ->whereIn('transaction_logs.status', $variable)
+                                    ;
+			})
+			;
 		}
 	}
 	
@@ -75,6 +66,16 @@ trait HasStatusTrait
 		return $query->where('changed_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('changed_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])))->orderBy('changed_at', 'asc');
 	}
 	
+
+	public function scopeTransactionTransactAt($query, $variable)
+	{
+		if(!is_array($variable))
+		{
+			return $query->where('transact_at', '<=', date('Y-m-d H:i:s', strtotime($variable)))->orderBy('transact_at', 'desc');
+		}
+
+		return $query->where('transact_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('transact_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])))->orderBy('changed_at', 'asc');
+	}
 	public function scopeExtendTransactionType($query, $variable)
 	{
 		if(is_array($variable))

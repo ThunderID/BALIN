@@ -79,7 +79,7 @@ class ShippingCostController extends BaseController
 	{
 		$cou_id 										= Input::get('courier_id');
 
-		$inputs 										= Input::only('courier_id','start_postal_code','end_postal_code','cost','date','time');
+		$inputs 										= Input::only('courier_id','start_postal_code','end_postal_code','cost','date');
 
 		if (Input::get('id'))
 		{
@@ -90,7 +90,7 @@ class ShippingCostController extends BaseController
 			$data 										= new ShippingCost;	
 		}
 
-		$started_at 									= Carbon::createFromFormat('Y-m-d', $inputs['date'])->format('Y-m-d').' '.Carbon::createFromFormat('H:i', $inputs['time'])->format('H:i:s');
+		$started_at 									= Carbon::createFromFormat('d-m-Y H:i', $inputs['date'])->format('Y-m-d H:i:s');
 
 		$data->fill([
 			'courier_id' 								=> $inputs['courier_id'],

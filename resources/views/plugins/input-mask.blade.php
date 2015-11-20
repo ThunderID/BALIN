@@ -8,4 +8,9 @@
         placeholder: "dd-mm-yyyy hh:mm",
         alias: "datetime",
     }); 
+    $(".date-format").inputmask({
+        mask: "d-m-y",
+        placeholder: "dd-mm-yyyy",
+        alias: "date",
+    }); 
 </script>

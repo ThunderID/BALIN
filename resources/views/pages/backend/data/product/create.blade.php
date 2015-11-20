@@ -245,7 +245,7 @@
 					{!! Form::text('started_at', $date, [
 								'class'         => 'form-control date-time-format',
 								'tabindex'      => '14', 
-								'placeholder'   => 'Tanggal mulai'
+								'placeholder'   => 'dd-mm-yyyy hh:mm'
 					]) !!}
 				</div>  
 			</div> 

@@ -5,9 +5,9 @@
 <?php 
 $expired                = $store->ondate('now')->type('expired_paid')->first();
 $critical               = $store->ondate('now')->type('critical_stock')->first();
-$trs                    = $transaction->type('sell')->transactionlogchangedat([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), '+ 7 hours'])->status(['paid', 'shipping'])->get();
-$wait                   = $transaction->type('sell')->transactionlogchangedat([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), '+ 7 hours'])->status('wait')->count();
-$canceled               = $transaction->type('sell')->ondate($expired)->status('wait')->get();
+$trs                    = $transaction->type('sell')->status(['paid', 'shipping'])->with('user')->get();
+$wait                   = $transaction->type('sell')->status('wait')->count();
+$canceled               = $transaction->type('sell')->ondate($expired->value)->status('wait')->with('user')->get();
 $stocks                 = $td->critical((0 - $critical->value))->with(['varian', 'varian.product'])->get();
 ?>
 
@@ -21,7 +21,7 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
-                                <th colspan="4">Transaksi yang harus ditangani</th>
+                                <th colspan="3">Transaksi yang harus ditangani</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,13 +29,12 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                             <tr>
                                 <td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['ref_number']}}</a></td>
                                 <td>{{ $data['user']['name'] }}</td>
-                                <td class="text-center">@money_indo($data['amount']) </td>
                                 <td>
-                                    @if($data['status']=='wait')
+                                    @if($data['current_status']=='wait')
                                         <a href="{{route('backend.data.sell.getpaid', $data['id'])}}">Proses Selanjutnya</a>
-                                    @elseif($data['status']=='paid')
+                                    @elseif($data['current_status']=='paid')
                                         <a href="{{route('backend.data.shipment.edit', $data['shipment']['id'])}}">Proses Selanjutnya</a>
-                                    @elseif($data['status']=='shipping')
+                                    @elseif($data['current_status']=='shipping')
                                         <a href="{{route('backend.data.transaction.status', [$data['id'], 'status' => 'delivered'])}}">Proses Selanjutnya</a>
                                     @endif
                                 </td>
@@ -53,7 +52,7 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th colspan="4">Transaksi yang harus dibatalkan</th>
+                            <th colspan="3">Transaksi yang harus dibatalkan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,7 +60,6 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                         <tr>
                             <td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['ref_number']}}</a></td>
                             <td>{{ $data['user']['name'] }}</td>
-                            <td class="text-center">@money_indo($data['amount']) </td>
                             <td>
                                 <a href="{{route('backend.data.transaction.status', [$data['id'], 'status' => 'canceled'])}}">Proses Selanjutnya</a>
                             </td>
@@ -79,12 +77,12 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th colspan="4">Nota bayar baru</th>
+                            <th colspan="3">Nota bayar baru</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="4" class="text-center">
+                            <td colspan="3" class="text-center">
                                 {!! Form::open(['url' => route('backend.data.sell.getpaid'), 'method' => 'GET']) !!}
                                     <div class="form-group">
                                         {!! Form::text('trs_id', null, [
@@ -113,7 +111,7 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
-                                <th colspan="4">Barang yang harus di restock</th>
+                                <th colspan="3">Barang yang harus di restock</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,7 +119,6 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                             <tr>
                                 <td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['ref_number']}}</a></td>
                                 <td>{{ $data['user']['name'] }}</td>
-                                <td class="text-center">@money_indo($data['amount']) </td>
                                 <td>
                                     <a href="{{route('backend.data.transaction.create', ['type' => 'sell'])}}">Proses Selanjutnya</a>
                                 </td>
@@ -143,6 +140,7 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
 
 @section('script')
     var preload_data = [];
+    var preload_data_tag = [];
 @stop
 
 @section('script_plugin')

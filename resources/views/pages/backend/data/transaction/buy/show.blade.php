@@ -49,11 +49,11 @@
 			<table>
 				<tbody>
 					<tr class="row">
-						<td class="col-sm-6 text-right"><strong>Invoice ID</strong></td>
+						<td class="col-sm-6 text-left"><strong>Invoice ID</strong></td>
 						<td class="text-left"> {{$transaction['ref_number']}} </td>
 					</tr>
 					<tr class="row">
-						<td class="col-sm-6 text-right"><strong>Invoice Date</strong></td>
+						<td class="col-sm-6 text-left"><strong>Invoice Date</strong></td>
 						<td class="text-left">@date_indo($transaction['transact_at'])</td>
 					</tr>
 				</tbody>
@@ -87,10 +87,10 @@
 								<strong> SKU </strong>{{$value['varian']['sku']}}
 							</td>
 							<td> {{$value['varian']['product']['name']}} {{$value['varian']['size']}}</td>
-							<td> {{$value['quantity']}} </td>
-							<td> @money_indo($value['price']) </td>
-							<td> @money_indo($value['discount']) </td>
-							<td> @money_indo((($value['price'] - $value['discount']) * $value['quantity'])) </td>
+							<td class="text-right"> {{$value['quantity']}} </td>
+							<td class="text-right"> @money_indo($value['price']) </td>
+							<td class="text-right"> @money_indo($value['discount']) </td>
+							<td class="text-right"> @money_indo((($value['price'] - $value['discount']) * $value['quantity'])) </td>
 						</tr>
 					@empty
 						<tr>
@@ -101,12 +101,12 @@
 						<tr>
 							<td colspan="5"></td>
 							<td><strong>Ongkos Kirim</strong></td>
-							<td>@money_indo($transaction['shipping_cost'])</td>
+							<td class="text-right">@money_indo($transaction['shipping_cost'])</td>
 						</tr>
 						<tr>
 							<td colspan="5"></td>
 							<td><strong>Total</strong></td>
-							<td>@money_indo(($amount + $transaction['shipping_cost']))</td>
+							<td class="text-right">@money_indo(($amount + $transaction['shipping_cost']))</td>
 						</tr>
 					@endif
 				</tbody>

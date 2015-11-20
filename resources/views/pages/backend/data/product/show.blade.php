@@ -8,7 +8,6 @@
 	$stocks 	= $data::where('products.id', $id)->globalstock(true)->first();
 	$data 		= $data::where('products.id', $id)->first();
 
-
 	$lables		= $data['lables'];
 
 
