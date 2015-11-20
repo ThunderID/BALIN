@@ -75,7 +75,7 @@ class CartController extends BaseController
 			$price 								= ['price' => $basket['price'], 'discount' => $basket['discount']];
 			$transaction           	 			= Transaction::userid(Auth::user()->id)->status('cart')->first();
 
-			if($transaction)
+			if(!is_null($transaction['id']))
 			{
 	            $result                 		= $this->dispatch(new SaveToTransactionDetail($transaction, $varian, $price));
 			}
