@@ -46,6 +46,7 @@
 @stop
 
 @section('script')
+    var preload_data = [];
     @if($data['category_id'])
         var preload_data_tag    = [];
         var id              = {!! $data['category_id'] !!};
