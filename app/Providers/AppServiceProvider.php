@@ -44,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Product::observe(new \App\Models\BaseObserver);
         \App\Models\Varian::observe(new \App\Models\BaseObserver);
         \App\Models\GlobalCategory::observe(new \App\Models\BaseObserver);
+        \App\Models\Category::observe(new \App\Models\BaseObserver);
+        \App\Models\Tag::observe(new \App\Models\BaseObserver);
     }
 
     /**
@@ -68,5 +70,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Product::observe(new \App\Models\BaseObserver);
         \App\Models\Varian::observe(new \App\Models\BaseObserver);
         \App\Models\GlobalCategory::observe(new \App\Models\BaseObserver);
+        \App\Models\Category::observe(new \App\Models\BaseObserver);
+        \App\Models\Tag::observe(new \App\Models\BaseObserver);
     }
 }

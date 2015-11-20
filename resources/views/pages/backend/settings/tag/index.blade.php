@@ -71,7 +71,7 @@ $datas 			= $datas->orderby('path')->paginate();
 									@foreach ($datas as $data)
 										<tr>
 											<td>
-												@if ($data['tag_id'] == 0)
+												@if ($data['category_id'] == 0)
 													<i class="fa fa-circle" style="font-size:5px; margin-left:5px;"></i>
 												@endif
 											</td>

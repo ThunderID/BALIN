@@ -24,6 +24,8 @@ class GenerateTransactionUniqNumber extends Job implements SelfHandling
     {
         try
         {
+            $result                     = new JSend('success', (array)$this->transaction);
+            
             if(!is_null($this->transaction->unique_number))
             {
                 $i                          = 0;
@@ -43,14 +45,14 @@ class GenerateTransactionUniqNumber extends Job implements SelfHandling
                     }
 
                     $amount                 = Transaction::amount($this->transaction->amount - $unique_number)->notid($this->transaction->id)->first();
-                    
                     $i                      = $i++;
                 }
-                while(!$amount);
-            }
-            $this->transaction->unique_number    = $unique_number;
+                while(!is_null($amount));
 
-            $result                     = new JSend('success', (array)$this->transaction);
+                $this->transaction->unique_number    = $unique_number;
+
+                $result                     = new JSend('success', (array)$this->transaction);
+            }
         } 
         catch (Exception $e) 
         {
