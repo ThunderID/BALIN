@@ -102,7 +102,7 @@ class FeatureController extends BaseController
 	{
 		$action 										= Input::get('action');
 
-		$inputs 										= Input::only('title_active', 'slider_title_location', 'slider_title','content_active', 'slider_content_location', 'slider_content' , 'button_active' ,'slider_button_location','slider_button_text', 'slider_button_url', 'started_at');
+		$inputs 										= Input::only('title_active', 'slider_title_location', 'slider_title','content_active', 'slider_content_location', 'slider_content' , 'button_active' ,'slider_button_location','slider_button_text', 'slider_button_url', 'started_at', 'ended_at');
 		$images 										= Input::only('thumbnail', 'image_xs','image_sm','image_md','image_lg');
 
 
@@ -156,11 +156,13 @@ class FeatureController extends BaseController
 		}
 
 		$started_at 									= date("Y-m-d H:i:s", strtotime($inputs['started_at']));
+		$ended_at 										= date("Y-m-d H:i:s", strtotime($inputs['ended_at']));
 
 		$data->fill([
 			'type'										=> 'slider',
 			'value'										=> json_encode($value),
 			'started_at' 								=> $started_at,
+			'ended_at' 									=> $ended_at,
 		]);
 
 		DB::beginTransaction();

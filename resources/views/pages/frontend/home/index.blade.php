@@ -1,7 +1,7 @@
 @inject('store', 'App\Models\StoreSetting')
 
 <?php 
-	$stores				= $store->type('slider')->ondate('now')->orderby('started_at', 'desc')->take(3)->get();
+	$stores				= $store->type('slider')->onactive('now')->orderby('started_at', 'desc')->get();
 ?>
 @extends('template.frontend.layout')
 

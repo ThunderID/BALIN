@@ -70,6 +70,7 @@ class StoreSettingTableSeeder extends Seeder
 					'type'							=> $value,
 					'value'							=> $slidevals[$key],
 					'started_at'					=> date('Y-m-d H:i:s' , strtotime('- 1 day')),
+					'ended_at'						=> date('Y-m-d H:i:s' , strtotime('+ 1 year')),
 				]);
 
 				if (!$data->save())
