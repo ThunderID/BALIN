@@ -170,7 +170,7 @@ class Transaction extends Eloquent
 			return 	$query->whereNotIn('id', $variable);
 		}
 
-		return 	$query->where('id', '<>', $variable);
+		return 	$query->where('transactions.id', '<>', $variable);
 	}
 
 	public function scopeType($query, $variable)

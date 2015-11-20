@@ -136,6 +136,7 @@ class TagController extends BaseController
 		{
 			$data->fill([
 				'category_id' 						=> $inputs['parent'],
+				'type' 								=> 'tag',
 				'name' 								=> $inputs['name'],
 				'path'								=> $inputs['parent'],
 			]);
@@ -144,6 +145,7 @@ class TagController extends BaseController
 		{
 			$data->fill([
 				'name' 								=> $inputs['name'],
+				'type' 								=> 'tag',
 				'category_id' 						=> '0',
 				'path'								=> '0'
 			]);
