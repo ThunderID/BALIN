@@ -116,7 +116,7 @@
 		@yield('content')
 
 	</div>
-	
+
 	@if ($controller_name != 'home')
 
 		<div class="container">&nbsp;</div>

@@ -1,7 +1,7 @@
 <?php
 	$carts = Session::get('baskets');
 ?>
-<ul class="dropdown-menu dropdown-menu-right chart-dropdown m-t-md" aria-labelledby="dLabel" style="margin-top:3px">
+<ul class="dropdown-menu dropdown-menu-right chart-dropdown m-t-md" aria-labelledby="dLabel">
 	@if (!empty($carts))
 		<?php $total = 0; ?>
 		@foreach ($carts as $k => $item)
