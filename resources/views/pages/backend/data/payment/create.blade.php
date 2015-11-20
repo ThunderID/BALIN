@@ -87,7 +87,9 @@
 @stop
 
 @section('script')
-    @if(!$transaction)
+    var preload_data_tag = [];
+
+    @if(!is_null($transaction))
         var preload_data = [];
     @else
         var preload_data = [{"id": {{$transaction['id']}}, "text":"{{$transaction['user']['name'].' #'.$transaction['ref_number'].' ('.$transaction['amount'].')'}}"}];
