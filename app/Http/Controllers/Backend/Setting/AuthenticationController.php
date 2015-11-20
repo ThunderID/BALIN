@@ -52,7 +52,7 @@ class AuthenticationController extends BaseController
 
 	public function show($id)
 	{
-		$authentication 				= User::id($id)->with(['pointlogs' => function($q){$q->onactive('now');}])->first();
+		$authentication 				= User::id($id)->first();
 
 		if(!$authentication)
 		{
@@ -64,6 +64,19 @@ class AuthenticationController extends BaseController
 										$authentication->name 		=> route('backend.settings.authentication.show', $id),
 									];
 
+		switch(strtolower($authentication->role))
+		{
+			case 'store_manager';
+				$view 			= 'store_manager';
+			break; 
+			case 'admin';
+				$view 			= 'admin';
+			break; 
+			default;
+				$view 			= 'staff';
+			break; 
+		}
+
 		if(Input::has('q'))
 		{
 			$searchResult		= $search;
@@ -73,7 +86,7 @@ class AuthenticationController extends BaseController
 			$searchResult		= NULL;
 		}
 
-		$this->layout->page 	= view('pages.backend.settings.user.show')
+		$this->layout->page 	= view('pages.backend.settings.user.'.$view.'.show')
 									->with('WT_pagetitle', $this->view_name )
 									->with('WT_pageSubTitle',$authentication->name)
 									->with('WB_breadcrumbs', $breadcrumb)
