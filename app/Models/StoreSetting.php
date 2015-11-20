@@ -36,6 +36,7 @@ class StoreSetting extends Eloquent
 											'type'								,
 											'value'								,
 											'started_at'						,
+											'ended_at'							,
 										];
 
 	/**
@@ -43,7 +44,7 @@ class StoreSetting extends Eloquent
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'started_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'started_at', 'ended_at'];
 
 	/**
 	 * Basic rule of database
@@ -131,6 +132,25 @@ class StoreSetting extends Eloquent
 		}
 
 		return $query->where('started_at', '>=', date('Y-m-d H:i:s', strtotime($variable[0])))->where('started_at', '<=', date('Y-m-d H:i:s', strtotime($variable[1])))->orderBy('started_at', 'asc');
+	}
+
+	public function scopeOnActive($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			$started_at 	= date('Y-m-d H:i:s', strtotime($variable[0]));
+			$ended_at 		= date('Y-m-d H:i:s', strtotime($variable[1]));
+			return $query->where('started_at', '<=', $started_at)
+						->where('ended_at', '>=', $ended_at)
+						;
+		}
+		else
+		{
+			$ondate 	= date('Y-m-d H:i:s', strtotime($variable));
+			return $query->where('started_at', '<=', $ondate)
+						->where('ended_at', '>=', $ondate)
+						;
+		}
 	}
 
 	public function scopeStoreInfo($query, $variable)

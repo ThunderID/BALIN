@@ -10,12 +10,12 @@ if(!is_null($filters) && is_array($filters))
 
 if ($subnav_active == 'sell')
 {
-	$datas 		= $datas->type($subnav_active)->orderby('transact_at', 'desc')->with(['user', 'transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
+	$datas 		= $datas->type($subnav_active)->status(['cart', 'wait', 'abandoned', 'canceled', 'delivered', 'shipping', 'paid'])->orderby('transact_at', 'desc')->with(['user', 'transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
 	$type_user  = 'Kostumer';
 }
 else
 {
-	$datas 		= $datas->type($subnav_active)->orderby('transact_at', 'desc')->with(['supplier', 'transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
+	$datas 		= $datas->type($subnav_active)->status(['cart', 'wait', 'abandoned', 'canceled', 'delivered', 'shipping', 'paid'])->orderby('transact_at', 'desc')->with(['supplier', 'transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
 	$type_user  = 'Supplier';
 }
 ?>

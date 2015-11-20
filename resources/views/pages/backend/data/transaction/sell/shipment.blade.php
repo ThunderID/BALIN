@@ -62,7 +62,6 @@
 			{!! Form::textarea('address', null, [
 					'class' 		=> 'form-control transaction-input-address-new',
 					'rows'      => '2',
-					'tabindex'  => '3',
 					'style'     => 'resize:none;'
 			]) !!}
 		</div>

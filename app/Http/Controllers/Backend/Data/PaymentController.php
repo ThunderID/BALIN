@@ -128,7 +128,7 @@ class PaymentController extends BaseController
 			App::abort(404);
 		}
 
-		$ondate					= Carbon::createFromFormat('Y-m-d', $inputs['ondate'])->format('Y-m-d H:i:s');
+		$ondate 				= Carbon::createFromFormat('d-m-Y', $inputs['ondate'])->format('Y-m-d H:i:s');
 
 		$data->fill([
 			'transaction_id' 	=> $trs,
@@ -163,7 +163,7 @@ class PaymentController extends BaseController
 			DB::commit();
 		
 			return Redirect::route('backend.data.payment.index')
-							->with('msg', 'Nota Bayar sudah disimpan. Kembali ke <a href="'.route('backend.home.index').'"> Home </a>')
+							->with('msg', 'Nota Bayar sudah disimpan. Kembali ke <a href="'.route('backend.home').'"> Home </a>')
 							->with('msg-type', 'success');
 		}
 	}

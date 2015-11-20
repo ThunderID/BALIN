@@ -6,9 +6,9 @@
 
 $margin                 = $store->ondate('now')->type('min_margin')->first();
 $margins                = $product->margin($margin->value)->get();
-$negatives              = $trs->frequentnegative([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->get();
-$positives              = $trs->frequentpositive([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->get();
-$bought                 = $trs->ondate([Auth::user()->last_logged_at->format('Y-m-d H:i:s'), 'now'])->type('buy')->status('delivered')->get();
+$negatives              = $trs->frequentnegative([( !is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null ), 'now'])->get();
+$positives              = $trs->frequentpositive([( !is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null ), 'now'])->get();
+$bought                 = $trs->ondate([( !is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null ), 'now'])->type('buy')->status('delivered')->get();
 ?>
 @extends('template.backend.layout') 
 
@@ -26,10 +26,10 @@ $bought                 = $trs->ondate([Auth::user()->last_logged_at->format('Y-
                         <tbody>
                             @foreach ($margins as $data)
                             <tr>
-                                <td>{{ $data['name'] }}</td>
-                                <td>@money_indo($data['hpp']) </td>
-                                <td>@money_indo($data['current_price']) </td>
-                                <td>
+                                <td class="col-sm-3">{{ $data['name'] }}</td>
+                                <td class="col-sm-2">@money_indo($data['hpp']) </td>
+                                <td class="col-sm-2">@money_indo($data['current_price']) </td>
+                                <td class="col-sm-3">
                                     <a href="{{route('backend.data.product.price.index', $data['id'])}}">Proses Selanjutnya</a>
                                 </td>
                             </tr>       
@@ -52,8 +52,8 @@ $bought                 = $trs->ondate([Auth::user()->last_logged_at->format('Y-
                         <tbody>
                             @foreach ($negatives as $data)
                             <tr>
-                                <td>{{ $data['name'] }}</td>
-                                <td>
+                                <td class="col-sm-6">{{ $data['name'] }}</td>
+                                <td class="col-sm-6">
                                     <a href="{{route('backend.data.customer.show', $data['id'])}}">Proses Selanjutnya</a>
                                 </td>
                             </tr>       
@@ -76,8 +76,8 @@ $bought                 = $trs->ondate([Auth::user()->last_logged_at->format('Y-
                         <tbody>
                             @foreach ($positives as $data)
                             <tr>
-                                <td>{{ $data['name'] }}</td>
-                                <td>
+                                <td class="col-sm-6">{{ $data['name'] }}</td>
+                                <td class="col-sm-6">
                                     <a href="{{route('backend.data.customer.show', $data['id'])}}">Proses Selanjutnya</a>
                                 </td>
                             </tr>       
@@ -100,8 +100,8 @@ $bought                 = $trs->ondate([Auth::user()->last_logged_at->format('Y-
                         <tbody>
                             @if($bought->count())
                             <tr>
-                                <td>Saatnya update etalase!</td>
-                                <td>
+                                <td class="col-sm-6">Saatnya update etalase!</td>
+                                <td class="col-sm-6">
                                     <a href="{{route('backend.settings.feature.index')}}">Proses Selanjutnya</a>
                                 </td>
                             </tr>    

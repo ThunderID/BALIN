@@ -169,16 +169,16 @@
 									<td>{!!($key+1)!!}</td>
 									<td> @date_indo($value->created_at) </td>
 									@if($value->amount >= 0)
-										<td>@money_indo(abs($value->amount))</td>
+										<td class="text-right">@money_indo(abs($value->amount))</td>
 									@else
 										<td></td>
 									@endif
 									@if($value->amount < 0)
-										<td>@money_indo(abs($value->amount))</td>
+										<td class="text-right">@money_indo(abs($value->amount))</td>
 									@else
 										<td></td>
 									@endif
-									<td>@money_indo($amount)</td>
+									<td class="text-right">@money_indo($amount)</td>
 									<td>{!!$value->notes!!}</td>
 								</tr>
 							@empty

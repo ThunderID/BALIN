@@ -19,4 +19,9 @@ trait HasTableTrait
     {
         return $this->morphTo();
     }
+
+    public function tablereference()
+    {
+        return $this->morphTo('table');
+    }
 }

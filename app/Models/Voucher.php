@@ -148,6 +148,16 @@ class Voucher extends Eloquent
 		return 	$query->where('type', $variable);
 	}
 
+	public function scopeNotType($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereNotIn('type', $variable);
+		}
+
+		return 	$query->where('type', '<>', $variable);
+	}
+
 	public function scopeOnDate($query, $variable)
 	{
 		if(is_array($variable))

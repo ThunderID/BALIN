@@ -59,9 +59,9 @@
 				<div class="form-group">
 					<label for="start">Mulai</label>
 					{!! Form::text('started_at', $data['started_at'], [
-								'class'         => 'form-control',
+								'class'         => 'form-control date-time-format',
 								'tabindex'      => '4', 
-								'placeholder'   => 'Y-m-d H:i:s'
+								'placeholder'   => 'dd-mm-yyyy hh:mm'
 					]) !!}
 				</div>  
 			</div> 
@@ -69,9 +69,9 @@
 				<div class="form-group">
 					<label for="start">Expire</label>
 					{!! Form::text('expired_at', $data['expired_at'], [
-								'class'         => 'form-control',
+								'class'         => 'form-control date-time-format',
 								'tabindex'      => '5', 
-								'placeholder'   => 'Y-m-d H:i:s'
+								'placeholder'   => 'dd-mm-yyyy hh:mm'
 					]) !!}
 				</div>  
 			</div> 
@@ -86,4 +86,8 @@
 			</div>                                     
 		</div>
 	{!! Form::close() !!}
+@stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
 @stop

@@ -33,7 +33,7 @@ class SaveAuditDelivered extends Job implements SelfHandling
 
         $datetrans                          = Carbon::now();
 
-        $datepay                            = new Carbon($this->transaction->shipment->updated_at);
+        $datepay                            = $this->transaction->shipment->updated_at;
 
         $difference                         = $datepay->diff($datetrans)->days;
 
@@ -41,7 +41,7 @@ class SaveAuditDelivered extends Job implements SelfHandling
 
         $audit->fill([
                 'user_id'                   => (Auth::check() ? Auth::user()->id : '0'),
-                    'type'                  => 'transaction_delivered',
+                'type'                      => 'transaction_delivered',
                 'ondate'                    => Carbon::now()->format('Y-m-d H:i:s'),
                 'event'                     => 'Pesanan Lengkap. Selisih waktu pengiriman hingga barang tiba : '.$difference.' hari',
             ]);

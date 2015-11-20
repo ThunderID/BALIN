@@ -8,7 +8,6 @@
 	$stocks 	= $data::where('products.id', $id)->globalstock(true)->first();
 	$data 		= $data::where('products.id', $id)->first();
 
-
 	$lables		= $data['lables'];
 
 
@@ -38,46 +37,6 @@
 	</div>
 	<div class="row">
 		<div class="col-md-6">
-			<h2 style="margin-top:0px;">{{ $data['name'] }}</h2>
-			<h5><strong>UPC &nbsp;</strong>{{ $data['upc'] }}</h5>
-			<h5>
-				<strong>Harga</strong> 
-				@if($data->discount!=0)
-					<strike> @money_indo($data->price) </strike> 
-					@money_indo($data->promo_price)
-				@else 
-					@money_indo($data->price)
-				@endif 
-				<span>[ <a href="{{ route('backend.data.product.price.index', ['pid' => $product['id']]) }}">Histori Harga</a> ]</span>
-			</h5> 
-			<h5><strong>Diskon</strong> @money_indo($data->discount)</h5>
-			<h5><strong>Label &nbsp;</strong>
-				@foreach($lables as $lable)
-	                <label class="label label-success">{{ str_replace('_', ' ', ucfirst($lable['lable'] ) )}}</label> &nbsp;
-				@endforeach
-			</h5>
-			</br>
-			<h5>
-				<i class = "fa fa-tags"></i>
-				@foreach($data->categories as $key => $value)
-					@if($key!=0)
-						,
-					@endif
-					{!! $value->name !!}
-				@endforeach
-				<br/>
-				<br/>
-				<i class = "fa fa-tags"></i>
-				@foreach($data->tags as $key => $value)
-					@if($key!=0)
-						,
-					@endif
-					{!! $value->name !!}
-				@endforeach
-			</h5>			
-			</br>
-		</div>	
-		<div class="col-md-6">
 			<div class="row">
 				<div class="col-md-10">
 					<h5><strong>Galery</strong></h5>
@@ -97,192 +56,234 @@
 					</div>
 				</div>
 			</div>
-		</div>	
-	</div>
-	</br>
-	<?php $product = json_decode($data['description'], true);?>
-	<div class="row">
-		<div class="col-md-12">
-			<h5><strong>Deskripsi &nbsp;</strong></h5>{!! $product['description'] !!}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<h5><strong>Ukuran & Fit &nbsp;</strong></h5>{!! $product['fit'] !!}
-		</div>
-	</div>
-	<div class="clearfix">&nbsp;</div>
-	<div class="clearfix">&nbsp;</div>
-	
-	<div class="row">
-		<div class="col-md-12">
-			<h5><strong>Statistic &nbsp;</strong></h5>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-md-3">
-			<div class="panel panel-list panel-default">
-				<div class="panel-heading">Stok Display</div>
-				<div class="panel-body">
-					<h4 class="m-r-sm m-t-sm text-right">
-						@if($stocks['current_stock'])
-							{!! $stocks['current_stock'] !!}
-						@else
-							0
-						@endif
-					</h4>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-3">
-			<div class="panel panel-list panel-default">
-				<div class="panel-heading">Stok Gudang</div>
-				<div class="panel-body">
-					<h4 class="m-r-sm m-t-sm text-right">
-						@if($stocks['inventory_stock'])
-							{!! $stocks['inventory_stock'] !!}
-						@else
-							0
-						@endif
-					</h4>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-3">
-			<div class="panel panel-list panel-default">
-				<div class="panel-heading">Stok Dibayar</div>
-				<div class="panel-body">
-					<h4 class="m-r-sm m-t-sm text-right">
-						@if($stocks['reserved_stock'])
-							{!! $stocks['reserved_stock'] !!}
-						@else
-							0
-						@endif						
-					</h4>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-3">
-			<div class="panel panel-list panel-default">
-				<div class="panel-heading">Stok Dipesan</div>
-				<div class="panel-body">
-					<h4 class="m-r-sm m-t-sm text-right">
-						@if($stocks['on_hold_stock'])
-							{!! $stocks['on_hold_stock'] !!}
-						@else
-							0
-						@endif						
-					</h4>
-				</div>
-			</div>
-		</div>		
-
-		<div class="col-md-12">
-			<div class="panel panel-list panel-default">
-				<div class="panel-heading">Daftar Supplier</div>
-				<div class="panel-body">
-					@if(!isset($suppliers[0]))
-						<p class="m-l-sm m-t-sm text-center">Tidak ada supplier</p>
-					@else
-						<ul>
-						@foreach($suppliers as $key => $value)
-							<li>
-								{!! $value['supplier_name'] !!} <a href="{{route('backend.data.supplier.show', $value['supplier_id'])}}"> detail </a>
-							</li>
-						@endforeach
-						</ul>
-					@endif
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="clearfix">&nbsp;</div>
-
-	<div class="row">
-		<div class="col-md-12">
-			<h4 class="sub-header">
-				Varian Produk
-			</h4>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-8 col-sm-4 hidden-xs">
-			<a class="btn btn-default" href="{{ URL::route('backend.data.product.varian.create', ['uid' => $data['id'] ]) }}"> Data Baru </a>
-		</div>
-		<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-			<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.product.varian.create', ['uid' => $data['id'] ]) }}"> Data Baru </a>
-		</div>
-		<div class="col-md-4 col-sm-8 col-xs-12">
-			{!! Form::open(['url' => route('backend.data.product.show', ['uid' => $id] ), 'method' => 'get']) !!}
 			<div class="row">
-				<div class="col-md-2 col-sm-3 hidden-xs">
-				</div>
-				<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
-					{!! Form::input('text', 'q', Null , [
-								'class'         => 'form-control',
-								'placeholder'   => 'Cari sesuatu',
-								'required'      => 'required',
-								'style'         =>'text-align:right'
-						]) !!}                                          
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
-					<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
+				<div class="col-md-12">
+					</br>
+					<h2 style="margin-top:0px;">{{ $data['name'] }}</h2>
+					<h5><strong>UPC &nbsp;</strong>{{ $data['upc'] }}</h5>
+					<h5>
+						<strong>Harga</strong> 
+						@if($data->discount!=0)
+							<strike> @money_indo($data->price) </strike> 
+							@money_indo($data->promo_price)
+						@else 
+							@money_indo($data->price)
+						@endif 
+						<span>[ <a href="{{ route('backend.data.product.price.index', ['pid' => $product['id']]) }}">Histori Harga</a> ]</span>
+					</h5> 
+					<h5><strong>Diskon</strong> @money_indo($data->discount)</h5>
+					<h5><strong>Label &nbsp;</strong>
+						@foreach($lables as $lable)
+			                <label class="label label-success">{{ str_replace('_', ' ', ucfirst($lable['lable'] ) )}}</label> &nbsp;
+						@endforeach
+					</h5>
+					</br>
+					<h5>
+						<i class = "fa fa-tags"></i>
+						@foreach($data->categories as $key => $value)
+							@if($key!=0)
+								,
+							@endif
+							{!! $value->name !!}
+						@endforeach
+						<br/>
+						<br/>
+						<i class = "fa fa-tags"></i>
+						@foreach($data->tags as $key => $value)
+							@if($key!=0)
+								,
+							@endif
+							{!! $value->name !!}
+						@endforeach
+					</h5>			
+					</br>
+					<?php $product = json_decode($data['description'], true);?>
+					<div class="row">
+						<div class="col-md-12">
+							<h5><strong>Deskripsi &nbsp;</strong></h5>{!! $product['description'] !!}
+						</div>
+					</div>
+					</br>
+					<div class="row">
+						<div class="col-md-12">
+							<h5><strong>Ukuran & Fit &nbsp;</strong></h5>{!! $product['fit'] !!}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<h5><strong> Supplier &nbsp;</strong></h5>
+							@if(!isset($suppliers[0]))
+								<p class="m-l-sm m-t-sm text-center">Tidak ada supplier</p>
+							@else
+								<ul>
+								@foreach($suppliers as $key => $value)
+									<li>
+										{!! $value['supplier_name'] !!} <a href="{{route('backend.data.supplier.show', $value['supplier_id'])}}"> detail </a>
+									</li>
+								@endforeach
+								</ul>
+							@endif
+						</div>
+					</div>
+					</br>
+				</div>	
+			</div>	
+		</div>	
+
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12">
+					<h5><strong>Statistic &nbsp;</strong></h5>
 				</div>
 			</div>
-			{!! Form::close() !!}
-		</div>  
-	</div>
-	@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.product.show', ['id' => $data['id']]) ])
-	<div class="table-responsive">
-		</br>
-		<table class="table table-bordered table-hover table-striped">
-			<thead>
-				<tr>
-					<th>No</th>
-					<th class="col-md-5 text-center">SKU</th>
-					<th class="col-md-4 text-center">Ukuran</th>
-					<th class="text-center">Kontrol</th>
-				</tr>
-			</thead>
-			<tbody>
-				@if (count($products) == 0)
-					<tr>
-						<td colspan="6">
-							<p class="text-center">Tidak ada data</p>
-						</td>
-					</tr>
-				@else
-					@foreach($products as $ctr => $product)
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="panel panel-list panel-default">
+						<div class="panel-heading">Stok Display</div>
+						<div class="panel-body">
+							<h4 class="m-r-sm m-t-sm text-right">
+								@if($stocks['current_stock'])
+									{!! $stocks['current_stock'] !!}
+								@else
+									0
+								@endif
+							</h4>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="panel panel-list panel-default">
+						<div class="panel-heading">Stok Gudang</div>
+						<div class="panel-body">
+							<h4 class="m-r-sm m-t-sm text-right">
+								@if($stocks['inventory_stock'])
+									{!! $stocks['inventory_stock'] !!}
+								@else
+									0
+								@endif
+							</h4>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="panel panel-list panel-default">
+						<div class="panel-heading">Stok Dibayar</div>
+						<div class="panel-body">
+							<h4 class="m-r-sm m-t-sm text-right">
+								@if($stocks['reserved_stock'])
+									{!! $stocks['reserved_stock'] !!}
+								@else
+									0
+								@endif						
+							</h4>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="panel panel-list panel-default">
+						<div class="panel-heading">Stok Dipesan</div>
+						<div class="panel-body">
+							<h4 class="m-r-sm m-t-sm text-right">
+								@if($stocks['on_hold_stock'])
+									{!! $stocks['on_hold_stock'] !!}
+								@else
+									0
+								@endif						
+							</h4>
+						</div>
+					</div>
+				</div>		
+			</div>		
+			<div class="row">
+				<div class="col-md-12">
+					<h4 class="sub-header">
+						Varian Produk
+					</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 hidden-xs">
+					<a class="btn btn-default" href="{{ URL::route('backend.data.product.varian.create', ['uid' => $data['id'] ]) }}"> Data Baru </a>
+				</div>
+				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
+					<a class="btn btn-default btn-block" href="{{ URL::route('backend.data.product.varian.create', ['uid' => $data['id'] ]) }}"> Data Baru </a>
+				</div>
+				<div class="col-md-6 col-xs-12">
+					{!! Form::open(['url' => route('backend.data.product.show', ['uid' => $id] ), 'method' => 'get']) !!}
+					<div class="row">
+						<div class="col-md-2 col-sm-3 hidden-xs">
+						</div>
+						<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
+							{!! Form::input('text', 'q', Null , [
+										'class'         => 'form-control',
+										'placeholder'   => 'Cari sesuatu',
+										'required'      => 'required',
+										'style'         =>'text-align:right'
+								]) !!}                                          
+						</div>
+						<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
+							<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
+						</div>
+					</div>
+					{!! Form::close() !!}
+				</div>  
+			</div>
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.product.show', ['id' => $data['id']]) ])
+			<div class="table-responsive">
+				</br>
+				<table class="table table-bordered table-hover table-striped">
+					<thead>
 						<tr>
-							<td>{{ $ctr+1 }}</td>
-							<td class="text-center">{{ $product['sku']  }}</td>
-							<td class="text-center">{{ $product['size'] }}</td>
-							<td class="text-center"> 
-								<a href="{{ route('backend.data.product.varian.show', ['pid' => $id, 'id' => $product['id'] ]) }}"> Detail </a>,
-								<a href="{{ route('backend.data.product.varian.edit', ['pid' => $id, 'id' => $product['id'] ]) }}"> Edit </a>,
-								
-								<a href="javascript:void(0);" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#var_del"
-									data-id="{{$data['id']}}"
-									data-title="Hapus Data Produk Varian {{$product['size']}}"
-									data-action="{{ route('backend.data.product.varian.destroy', ['pid' => $id, 'id' => $product['id']]) }}">
-									Hapus
-								</a> 								  
-							</td>
+							<th>No</th>
+							<th class="col-md-5 text-center">SKU</th>
+							<th class="col-md-4 text-center">Ukuran</th>
+							<th class="text-center">Kontrol</th>
 						</tr>
-					@endforeach
-					@include('widgets.pageelements.formmodaldelete', [
-							'modal_id'      => 'var_del', 
-							'modal_route'   => route('backend.data.product.varian.destroy', 0)
-					])					
-				@endif
-			</tbody>
-		</table>
-	</div>  
+					</thead>
+					<tbody>
+						@if (count($products) == 0)
+							<tr>
+								<td colspan="6">
+									<p class="text-center">Tidak ada data</p>
+								</td>
+							</tr>
+						@else
+							@foreach($products as $ctr => $product)
+								<tr>
+									<td>{{ $ctr+1 }}</td>
+									<td class="text-center">{{ $product['sku']  }}</td>
+									<td class="text-center">{{ $product['size'] }}</td>
+									<td class="text-center"> 
+										<a href="{{ route('backend.data.product.varian.show', ['pid' => $id, 'id' => $product['id'] ]) }}"> Detail </a>,
+										<a href="{{ route('backend.data.product.varian.edit', ['pid' => $id, 'id' => $product['id'] ]) }}"> Edit </a>,
+										
+										<a href="javascript:void(0);" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#var_del"
+											data-id="{{$data['id']}}"
+											data-title="Hapus Data Produk Varian {{$product['size']}}"
+											data-action="{{ route('backend.data.product.varian.destroy', ['pid' => $id, 'id' => $product['id']]) }}">
+											Hapus
+										</a> 								  
+									</td>
+								</tr>
+							@endforeach
+							@include('widgets.pageelements.formmodaldelete', [
+									'modal_id'      => 'var_del', 
+									'modal_route'   => route('backend.data.product.varian.destroy', 0)
+							])					
+						@endif
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="clearfix">&nbsp;</div>
+
+	  
 @stop
 
 @section('script')

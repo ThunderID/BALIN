@@ -13,29 +13,53 @@
 $gender 								= ['male', 'female'];
 $role 									= ['customer', 'staff', 'store_manager', 'admin', 'developer'];
 
-$factory->define(App\Models\User::class, function ($faker) use ($gender, $role)
+$factory->defineAs(App\Models\User::class, 'global', function ($faker) use ($gender, $role)
 {
-	if(!App\Models\User::count()==0)
-	{
-		// return 
-		// [
-		// 	'name'						=> 'BALIN',
-		// 	'email'						=> 'cs@balin.id',
-		// 	'password' 					=> bcrypt('admin'),
-		// 	'role' 						=> 'admin',
-		// 	'gender' 					=> 'male',
-		// 	'remember_token' 			=> str_random(10),
-		// ];		
-	}
 	return 
 	[
 		'name'							=> $faker->name,
 		'email'							=> $faker->email,
 		'password' 						=> bcrypt('admin'),
-		'role' 							=> $role[rand(0,4)],
+		'role' 							=> 'customer',
 		'gender' 						=> $gender[rand(0,1)],
 		'remember_token' 				=> str_random(10),
 	];
+});
+
+$factory->defineAs(App\Models\User::class, 'admin', function ($faker) 
+{
+    return [
+        'name'							=> 'BALIN',
+		'email'							=> 'cs@balin.id',
+		'password' 						=> bcrypt('admin'),
+		'role' 							=> 'admin',
+		'gender' 						=> 'male',
+		'remember_token' 				=> str_random(10),
+    ];
+});
+
+$factory->defineAs(App\Models\User::class, 'staff', function ($faker) 
+{
+    return [
+        'name'							=> 'Staff',
+		'email'							=> 'staff@balin.id',
+		'password' 						=> bcrypt('admin'),
+		'role' 							=> 'staff',
+		'gender' 						=> 'female',
+		'remember_token' 				=> str_random(10),
+    ];
+});
+
+$factory->defineAs(App\Models\User::class, 'store_manager', function ($faker) 
+{
+    return [
+        'name'							=> 'Manager',
+		'email'							=> 'manager@balin.id',
+		'password' 						=> bcrypt('admin'),
+		'role' 							=> 'store_manager',
+		'gender' 						=> 'female',
+		'remember_token' 				=> str_random(10),
+    ];
 });
 
 $factory->define(App\Models\Voucher::class, function ($faker)

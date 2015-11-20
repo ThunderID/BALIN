@@ -124,7 +124,12 @@ class Transaction extends Eloquent
 
 	public function getStatusAttribute($value)
 	{
-		if($this->transactionlogs->count())
+		if(isset($this['current_status']))
+		{
+			return $this['current_status'];
+		}
+
+		if($this->transactionlogs()->count())
 		{
 			$status						= $this->transactionlogs[count($this->transactionlogs)-1]->status;
 		}
@@ -160,7 +165,7 @@ class Transaction extends Eloquent
 			return 	$query->whereIn('id', $variable);
 		}
 
-		return 	$query->where('id', $variable);
+		return 	$query->where('transactions.id', $variable);
 	}
 
 	public function scopeNotID($query, $variable)

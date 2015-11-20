@@ -65,11 +65,11 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="ondate" class="text-capitalize">Tanggal Bayar</label>
-                    {!! Form::text('ondate', (!is_null($data['ondate']) ? $data['ondate']->format('Y-m-d') : ''), [
-                                'class'         => 'form-control', 
+                    {!! Form::text('ondate', (!is_null($data['ondate']) ? $data['ondate']->format('d-m-Y') : ''), [
+                                'class'         => 'form-control  date-format', 
                                 'required'      => 'required', 
                                 'tabindex'      => '6',
-                                'placeholder'   => 'yyyy-mm-dd'
+                                'placeholder'   => 'dd-mm-yyyy'
                     ]) !!}
                 </div>
             </div>
@@ -89,7 +89,7 @@
 @section('script')
     var preload_data_tag = [];
 
-    @if(!is_null($transaction))
+    @if(is_null($transaction['id']))
         var preload_data = [];
     @else
         var preload_data = [{"id": {{$transaction['id']}}, "text":"{{$transaction['user']['name'].' #'.$transaction['ref_number'].' ('.$transaction['amount'].')'}}"}];
@@ -98,4 +98,5 @@
 
 @section('script_plugin')
     @include('plugins.select2')
+    @include('plugins.input-mask')
 @stop
