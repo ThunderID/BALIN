@@ -165,7 +165,7 @@ class Transaction extends Eloquent
 			return 	$query->whereIn('id', $variable);
 		}
 
-		return 	$query->where('id', $variable);
+		return 	$query->where('transactions.id', $variable);
 	}
 
 	public function scopeNotID($query, $variable)

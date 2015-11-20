@@ -82,11 +82,13 @@ trait HasStockTrait
 	{
 		if($variable < 0)
 		{
-			$param 					= '<';
+			$param 					= '<=';
+			$variable 				= abs($variable);
 		}
 		else
 		{
 			$param 					= '>';
+			$variable 				= abs($variable);
 		}
 
 		return $query->havingraw('IFNULL(SUM(

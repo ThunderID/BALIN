@@ -7,7 +7,7 @@ $expired                = $store->ondate('now')->type('expired_paid')->first();
 $critical               = $store->ondate('now')->type('critical_stock')->first();
 $trs                    = $transaction->type('sell')->status(['paid', 'shipping'])->with('user')->get();
 $wait                   = $transaction->type('sell')->status('wait')->count();
-$canceled               = $transaction->type('sell')->ondate($expired->value)->status('wait')->with('user')->get();
+$canceled               = $transaction->type('sell')->ondate([null , $expired->value])->status('wait')->with('user')->get();
 $stocks                 = $td->critical((0 - $critical->value))->with(['varian', 'varian.product'])->get();
 ?>
 
@@ -27,7 +27,7 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                         <tbody>
                             @foreach ($trs as $data)
                             <tr>
-                                <td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['ref_number']}}</a></td>
+                                <td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['id'], 'type' => 'sell'])}}">{{$data['ref_number']}}</a></td>
                                 <td>{{ $data['user']['name'] }}</td>
                                 <td>
                                     @if($data['current_status']=='wait')
@@ -58,7 +58,7 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                     <tbody>
                         @foreach ($canceled as $data)
                         <tr>
-                            <td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['ref_number']}}</a></td>
+                            <td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['id'], 'type' => 'sell'])}}">{{$data['ref_number']}}</a></td>
                             <td>{{ $data['user']['name'] }}</td>
                             <td>
                                 <a href="{{route('backend.data.transaction.status', [$data['id'], 'status' => 'canceled'])}}">Proses Selanjutnya</a>
@@ -115,12 +115,12 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($canceled as $data)
+                            @foreach ($stocks as $data)
                             <tr>
-                                <td class="text-left"><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['ref_number']}}</a></td>
-                                <td>{{ $data['user']['name'] }}</td>
+                                <td class="text-left"><a href="{{route('backend.data.product.varian.show', ['pid' => $data['varian']['product']['id'], 'id' => $data['varian']['id']])}}">{{$data['varian']['sku']}}</a></td>
+                                <td>{{ $data['varian']['product']['name'] }} {{ $data['varian']['size'] }}</td>
                                 <td>
-                                    <a href="{{route('backend.data.transaction.create', ['type' => 'sell'])}}">Proses Selanjutnya</a>
+                                    <a href="{{route('backend.data.transaction.create', ['type' => 'buy'])}}">Proses Selanjutnya</a>
                                 </td>
                             </tr>       
                             @endforeach 
