@@ -176,6 +176,25 @@
 			padding: 0px !important; 
 		}		
 
+		.ribbon-mobile-title {
+			padding-top: 5px;
+		   	width: 100%; 
+		   	text-align: center; 
+		   	border-bottom: 1px solid #444; 
+		   	line-height: 0.1em;
+		   	margin: 10px 0 20px; 
+		} 
+
+		.ribbon-mobile-title span { 
+		    background:#fff; 
+		    padding:0 10px; 
+		}
+
+		.ribbon-title  {
+			padding : 5px;
+		} 
+
+
 		@media(max-width: 767px) {
 			.dropdown-cart {
 				display: none !important;
@@ -202,11 +221,16 @@
 
 		.modal-dialog {
 			display: inline-block;
-		  vertical-align: middle;
+			 vertical-align: middle;
 		}
 
 		.modal-content {
 			border-radius: 0px !important;
+		}
+
+		.text-white {
+			color:#888;
+		    font-size: 13px;
 		}
 	</style>
 
