@@ -79,7 +79,7 @@
 					</h5>
 					</br>
 					<h5>
-						<i class = "fa fa-tags"></i>
+						<i class = "fa fa-folder"></i>
 						@foreach($data->categories as $key => $value)
 							@if($key!=0)
 								,
@@ -113,7 +113,7 @@
 						<div class="col-md-12">
 							<h5><strong> Supplier &nbsp;</strong></h5>
 							@if(!isset($suppliers[0]))
-								<p class="m-l-sm m-t-sm text-center">Tidak ada supplier</p>
+								<p class="m-l-sm m-t-sm text-left">Tidak ada supplier</p>
 							@else
 								<ul>
 								@foreach($suppliers as $key => $value)

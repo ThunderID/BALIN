@@ -32,6 +32,13 @@ class ProductController extends BaseController
 			$searchResult						= $searchResult.'kategori '.Input::get('q').' ';
 		}
 
+		if(Input::has('tagname'))
+		{
+			$filters 							= ['tagsname' => Input::get('tagname')];
+
+			$searchResult						= $searchResult.'tag '.Input::get('tagname').' ';
+		}
+
 		if(Input::has('name'))
 		{
 			$filters['name']					= Input::get('name');
@@ -66,6 +73,7 @@ class ProductController extends BaseController
 													->with('balance', $balance)
 													->with('page', $page)
 													;
+
 		$this->layout->controller_name			= $this->controller_name;
 
 		$this->layout->page->page_title 		= 'BALIN.ID';

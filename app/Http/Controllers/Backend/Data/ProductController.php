@@ -175,8 +175,8 @@ class ProductController extends BaseController
 			}
 
 			//price
-			$in_price  			=	str_replace('Rp ', '', str_replace('.', '', Input::get('price')));
-			$in_promo_price  	=	str_replace('Rp ', '', str_replace('.', '', Input::get('promo_price')));
+			$in_price  			=	str_replace('IDR ', '', str_replace('.', '', Input::get('price')));
+			$in_promo_price  	=	str_replace('IDR ', '', str_replace('.', '', Input::get('promo_price')));
 
 			if($data->price != $in_price || $data->promo_price != $in_promo_price)
 			{
@@ -211,12 +211,24 @@ class ProductController extends BaseController
 			{
 				foreach ($labels['label'] as $value) 
 				{
+					switch ($value) 
+					{
+						case 'new_item': case 'best_seller' :
+							$class 							= 'square-label';
+							break;
+						case 'sale':
+							$class 							= 'circle-label';
+							break;
+						default:
+							$class 							= 'tag-label';
+							break;
+					}
 					$label 									= new Lable;
 
 					$label->fill([
 						'product_id'						=> $data->id,
-						'lable'								=> $value,
-						'value'								=> 'value',
+						'lable'								=> str_replace('_', ' ', $value),
+						'value'								=> json_encode(['class' => $class, 'color' => 'red']),
 						'started_at'						=> date('Y-m-d H:i:s'),
 					]);
 

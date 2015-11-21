@@ -58,28 +58,6 @@
 				</div>
 			</div>                                         
 		</div>
-<!-- 		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					<label for="color">Warna</label>
-					{!! Form::text('color', $data['color'], [
-								'class'         => 'form-control', 
-								'tabindex'      => '3', 
-								'placeholder'   => 'Masukkan warna'
-					]) !!}
-				</div>  
-			</div> 
-			<div class="col-md-6">
-				<div class="form-group">
-					<label for="size">Ukuran</label>
-					{!! Form::text('size', $data['size'], [
-								'class'         => 'form-control', 
-								'placeholder'   => 'Masukkan ukuran',
-								'tabindex'      => '4', 
-					]) !!}
-				</div>
-			</div>                                         
-		</div>	 -->	
 		<?php
 			if(is_null($id))
 			{
@@ -92,26 +70,26 @@
 			}
 		?>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<div class="form-group">
 					<label for="description">Deskripsi</label>
 					{!! Form::textarea('description', $product['description'], [
 								'class'         => 'summernote form-control', 
 								'placeholder'   => 'Masukkan deskripsi',
-								'rows'          => '2',
-								'tabindex'      => '5',
+								'rows'          => '1',
+								'tabindex'      => '3',
 								'style'         => 'resize:none;',
 					]) !!}
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<div class="form-group">
 					<label for="fit">Ukuran & Fit</label>
 					{!! Form::textarea('fit', $product['fit'], [
 								'class'         => 'summernote form-control', 
 								'placeholder'   => 'Masukkan ukuran',
-								'rows'          => '2',
-								'tabindex'      => '6',
+								'rows'          => '1',
+								'tabindex'      => '4',
 								'style'         => 'resize:none;',
 					]) !!}
 				</div>
@@ -121,17 +99,17 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Kategori
+					Filter
 				</h4>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="category">Kategori</label>
+					<label for="category">Kategori <small><a href="{{route('backend.settings.category.create')}}" target="blank">Baru</a></small></label>
 					{!! Form::text('category', null, [
 								'class'         => 'select-category', 
-								'tabindex'      => '7',
+								'tabindex'      => '5',
 								'id'            => 'find_category',
 								'style'         => 'width:100%',
 					]) !!}
@@ -142,73 +120,15 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="tag">Tag</label>
+					<label for="tag">Tag <small><a href="{{route('backend.settings.tag.create')}}" target="blank">Baru</a></small></label>
 					{!! Form::text('tag', null, [
 								'class'         => 'select-tag', 
-								'tabindex'      => '7',
+								'tabindex'      => '6',
 								'id'            => 'find_tag',
 								'style'         => 'width:100%',
 					]) !!}
 				</div>  
 			</div> 
-		</div>
-		<div class="clearfix">&nbsp;</div>
-		<div class="row">
-			<div class="col-md-12">
-				<h4 class="sub-header">
-					Label
-				</h4>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-3 col-sm-3 col-xs-6">
-				@if (in_array("new_item", $lables))
-					<?php $val = true; ?>
-				@else
-					<?php $val = false; ?>
-				@endif
-				{!! Form::checkbox('label[]' ,'new_item', $val, [
-								'class' 		=> '',
-								'tabindex'      => '8',
-				]) !!}
-				<label for="new_item">New Item</label>
-			</div>
-			<div class="col-md-3 col-sm-3 col-xs-6">
-				@if (in_array("best_seller", $lables))
-					<?php $val = true; ?>
-				@else
-					<?php $val = false; ?>
-				@endif				
-				{!! Form::checkbox('label[]' ,'best_seller', $val, [
-								'class' 		=> '',
-								'tabindex'      => '9',
-				]) !!}	
-				<label for="best_seller">Best Seller</label>
-			</div>			
-			<div class="col-md-3 col-sm-3 col-xs-6">
-				@if (in_array("sale", $lables))
-					<?php $val = true; ?>
-				@else
-					<?php $val = false; ?>
-				@endif					
-				{!! Form::checkbox('label[]' ,'sale', $val, [
-								'class' 		=> '',
-								'tabindex'      => '10',
-				]) !!}	
-				<label for="sale">Sale</label>
-			</div>			
-			<div class="col-md-3 col-sm-3 col-xs-6">
-				@if (in_array("hot_item", $lables))
-					<?php $val = true; ?>
-				@else
-					<?php $val = false; ?>
-				@endif					
-				{!! Form::checkbox('label[]' ,'hot_item', $val, [
-								'class' 		=> '',
-								'tabindex'      => '11',
-				]) !!}	
-				<label for="hot_item">Hot Item</label>				
-			</div>
 		</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
@@ -224,7 +144,7 @@
 					<label for="category">Harga</label>
 					{!! Form::text('price', $price, [
 								'class'        		=> 'form-control money', 
-								'tabindex'     		=> '12', 
+								'tabindex'     		=> '7', 
 								'placeholder'  		=> 'harga',
 					]) !!}
 				</div>  
@@ -234,8 +154,8 @@
 					<label for="category">Harga Promo</label>
 					{!! Form::text('promo_price', $promo_price, [
 								'class'         => 'form-control money', 
-								'tabindex'      => '13', 
-								'placeholder'   => 'harga promo (kosongkan bila tidak ada harga promo)'
+								'tabindex'      => '8', 
+								'placeholder'   => '(kosongkan bila tidak ada promo)'
 					]) !!}
 				</div>  
 			</div> 		
@@ -244,64 +164,121 @@
 					<label for="category">Mulai</label>
 					{!! Form::text('started_at', $date, [
 								'class'         => 'form-control date-time-format',
-								'tabindex'      => '14', 
+								'tabindex'      => '9', 
 								'placeholder'   => 'dd-mm-yyyy hh:mm'
 					]) !!}
 				</div>  
 			</div> 
-			<div class="col-md-6">
-			</div> 
 		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="sub-header">
+					Campaign
+				</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 col-sm-3 col-xs-6">
+				@if (in_array("new_item", $lables))
+					<?php $val = true; ?>
+				@else
+					<?php $val = false; ?>
+				@endif
+				{!! Form::checkbox('label[]' ,'new_item', $val, [
+								'class' 		=> '',
+								'tabindex'      => '10',
+				]) !!}
+				<label for="new_item">New Item</label>
+			</div>
+			<div class="col-md-3 col-sm-3 col-xs-6">
+				@if (in_array("best_seller", $lables))
+					<?php $val = true; ?>
+				@else
+					<?php $val = false; ?>
+				@endif				
+				{!! Form::checkbox('label[]' ,'best_seller', $val, [
+								'class' 		=> '',
+								'tabindex'      => '11',
+				]) !!}	
+				<label for="best_seller">Best Seller</label>
+			</div>			
+			<div class="col-md-3 col-sm-3 col-xs-6">
+				@if (in_array("sale", $lables))
+					<?php $val = true; ?>
+				@else
+					<?php $val = false; ?>
+				@endif					
+				{!! Form::checkbox('label[]' ,'sale', $val, [
+								'class' 		=> '',
+								'tabindex'      => '12',
+				]) !!}	
+				<label for="sale">Sale</label>
+			</div>			
+			<div class="col-md-3 col-sm-3 col-xs-6">
+				@if (in_array("hot_item", $lables))
+					<?php $val = true; ?>
+				@else
+					<?php $val = false; ?>
+				@endif					
+				{!! Form::checkbox('label[]' ,'hot_item', $val, [
+								'class' 		=> '',
+								'tabindex'      => '13',
+				]) !!}	
+				<label for="hot_item">Hot Item</label>
+			</div>
+		</div>
+		<div class="clearfix">&nbsp;</div>
 
 		<div class="hidden">
 			<div id="tmplt">
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="thumbnail" class="text-capitalize">URL Image Thumbnail</label>
+							<label for="thumbnail" class="text-capitalize">URL Image (320 X 463 px)</label>
 							{!! Form::text('thumbnail[]', null, [
 										'class'         => 'form-control input-image-thumbnail', 
-										'tabindex'      => '15',
+										'tabindex'      => '14',
 										'placeholder'   => 'Masukkan url image thumbnail',
 							]) !!}
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="logo" class="text-capitalize">URL Image XS</label>
+							<label for="logo" class="text-capitalize">URL Image (320 X 463 px)</label>
 							{!! Form::text('image_xs[]', null, [
 										'class'         => 'form-control input-image-xs', 
-										'tabindex'      => '16',
+										'tabindex'      => '15',
 										'placeholder'   => 'Masukkan url image xs',
 							]) !!}
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="logo" class="text-capitalize">URL Image SM</label>
+							<label for="logo" class="text-capitalize">URL Image (320 X 463 px)</label>
 							{!! Form::text('image_sm[]', null, [
 										'class'         => 'form-control input-image-sm', 
-										'tabindex'      => '17',
+										'tabindex'      => '16',
 										'placeholder'   => 'Masukkan url image sm',
 							]) !!}
 						</div>
 					</div>											
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="logo" class="text-capitalize">URL Image MD</label>
+							<label for="logo" class="text-capitalize">URL Image (772 X 1043 px)</label>
 							{!! Form::text('image_md[]', null, [
 										'class'         => 'form-control input-image-md', 
-										'tabindex'      => '18',
+										'tabindex'      => '17',
 										'placeholder'   => 'Masukkan url image md',
 							]) !!}
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="logo" class="text-capitalize">URL Image LG</label>
+							<label for="logo" class="text-capitalize">URL Image (992 X 1434 px)</label>
 							{!! Form::text('image_lg[]', null, [
 										'class'         => 'form-control input-image-lg', 
-										'tabindex'      => '19',
+										'tabindex'      => '18',
 										'placeholder'   => 'Masukkan url image lg',
 							]) !!}							
 						</div>
@@ -309,7 +286,7 @@
 					<div class="col-md-3">
 						<div class="form-group">					
 							<label for="default" class="text-capitalize">Default</label>
-							<select name="default[]" class="form-control default">
+							<select name="default[]" class="form-control default" tabindex="19">
 						        <option value="0" selected="selected">False</option>
 						        <option value="1" >True</option>
 							</select>							
@@ -342,8 +319,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group text-right">
-					<a href="{{ URL::route('backend.data.product.show') }}" class="btn btn-md btn-default" tabindex="6">Batal</a>
-					<button type="submit" class="btn btn-md btn-primary" tabindex="9">Simpan</button>
+					<a href="{{ URL::route('backend.data.product.show') }}" class="btn btn-md btn-default" tabindex="20">Batal</a>
+					<button type="submit" class="btn btn-md btn-primary" tabindex="21">Simpan</button>
 				</div>        
 			</div>        
 		</div>        

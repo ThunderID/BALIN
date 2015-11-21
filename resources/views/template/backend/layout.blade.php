@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>Balin</title>
+	<title>CMS - BALIN.ID</title>
 
 	<!-- Custom CSS -->
    {!! HTML::style('Balin/admin/css/bootstrap.min.css') !!}

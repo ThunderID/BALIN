@@ -31,6 +31,11 @@ class ChangeStatus extends Job implements SelfHandling
 
         $result                             = new JSend('success', (array)$this->transaction);
 
+        if($this->transaction->status == $this->status)
+        {
+            return new JSend('error', (array)$this->transaction, 'Tidak ada perubahan status.');
+        }
+
         $translog                           = new TransactionLog;
 
         $translog->fill([

@@ -117,8 +117,8 @@ class PriceController extends BaseController
 		}
 
 
-		$in_price  								=	str_replace('Rp ', '', str_replace('.', '', Input::get('price')));
-		$in_promo_price  						=	str_replace('Rp ', '', str_replace('.', '', Input::get('promo_price')));
+		$in_price  								=	str_replace('IDR ', '', str_replace('.', '', Input::get('price')));
+		$in_promo_price  						=	str_replace('IDR ', '', str_replace('.', '', Input::get('promo_price')));
 		$date 									= 	date('Y-m-d H:i:s', strtotime(Input::get('start_at')));
 
 		$data->fill([
