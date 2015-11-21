@@ -29,8 +29,6 @@ trait HasStatusTrait
 		if(!is_array($variable))
 		{
 			return $query
-			->selectraw('transactions.*')
-			->selectraw('transaction_logs.status as current_status')
 			 ->join('transaction_logs', function ($join) use($variable) 
 			 {
                                     $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
@@ -43,8 +41,6 @@ trait HasStatusTrait
 		else
 		{
 			return $query
-			->selectraw('transactions.*')
-			->selectraw('transaction_logs.status as current_status')
 			 ->join('transaction_logs', function ($join) use($variable) 
 			 {
                                     $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
