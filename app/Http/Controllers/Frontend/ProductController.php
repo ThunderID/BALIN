@@ -77,12 +77,12 @@ class ProductController extends BaseController
 		$this->layout->controller_name			= $this->controller_name;
 
 		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'Produk Batik Modern';
+		$this->layout->page->page_subtitle 		= 'Produk Batik Modern - ' . $page;
 
 		$this->layout->page->metas 				= 	[
 														'og:type' 			=> 'website', 
 														'og:title' 			=> 'BALIN.ID', 
-														'og:description' 	=> 'All Batiks',
+														'og:description' 	=> 'Produk Batik Modern - '. $page,
 														'og:url' 			=> route('frontend.product.index'),
 														'og:image' 			=> $this->stores['logo'],
 														'og:site_name' 		=> 'balin.id',
