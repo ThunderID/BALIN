@@ -103,7 +103,7 @@
 											@foreach ($tag as $tmp)
 												@if($tg->id == $tmp->category_id)
 													<div class="col-md-3 col-sm-4">
-														<li><a href="{{ route('frontend.product.index', array_merge(['tagname' => $tmp->name], Input::all())) }}">{{ $tmp->name }}</a></li>
+														<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagname' => $tmp->name])) }}">{{ $tmp->name }}</a></li>
 													</div>
 										      	@endif
 											@endforeach													
