@@ -1,5 +1,6 @@
 @inject('datas', 'App\Models\Product')
 @inject('category', 'App\Models\Category')
+@inject('tag', 'App\Models\tag')
 <?php 
 	$perpage = 12;
 
@@ -19,6 +20,9 @@
 
 	$category      	= $category::where('category_id', 0)
 								->get();
+
+	$tag      		= $tag::orderby('path', 0)
+								->get();								
 ?>
 
 @extends('template.frontend.layout')
@@ -76,22 +80,37 @@
 					<div class="row collapse collapse-category" id="collapseOne" data-collapse="collapse1" aria-expanded="true">
 						<div class="col-md-12 p-l-xxs ribbon-submenu">
 							<div class="row p-sm">
-							<ul class="list-inline m-b-none">
-							@foreach ($category as $cat)
-								<div class="col-md-3 col-sm-4">
-									<li><a href="{{ route('frontend.product.index', array_merge(['q' => $cat->name], Input::all())) }}">{{ $cat->name }}</a></li>
-								</div>
-							@endforeach	
-							</ul>					
+								<ul class="list-inline m-b-none">
+								@foreach ($category as $cat)
+									<div class="col-md-3 col-sm-4">
+										<li><a href="{{ route('frontend.product.index', array_merge(['q' => $cat->name], Input::all())) }}">{{ $cat->name }}</a></li>
+									</div>
+								@endforeach	
+								</ul>					
 							</div>
 						</div>						
 					</div>
 
 					<div class="row collapse collapse-category" id="collapseTwo" data-collapse="collapse2" aria-expanded="true">
 						<div class="col-md-12 p-l-xxs ribbon-submenu">
-							<ul class="list-inline m-b-none">
-								<li><a href="#">Dummmyyyyy</a></li>
-							</ul>					
+							<div class="row p-sm">
+								<ul class="list-inline m-b-none">
+									@foreach ($tag as $tg)
+										@if($tg->category_id == 0)
+											<div class="col-md-12 col-sm-12 text-white">
+												<p class="ribbon-title">{{ strtoupper($tg->name) }}</p>
+											</div>
+											@foreach ($tag as $tmp)
+												@if($tg->id == $tmp->category_id)
+													<div class="col-md-3 col-sm-4">
+														<li><a href="{{ route('frontend.product.index', array_merge(['tagname' => $tmp->name], Input::all())) }}">{{ $tmp->name }}</a></li>
+													</div>
+										      	@endif
+											@endforeach													
+								      	@endif
+									@endforeach											
+								</ul>					
+							</div>						
 						</div>						
 					</div>
 
@@ -106,10 +125,16 @@
 
 					<div class="row collapse collapse-category" id="collapseFour" data-collapse="collapse4" aria-expanded="true">
 						<div class="col-md-12 p-l-xxs ribbon-submenu">
-							<ul class="list-inline m-b-none">
-								<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'asc'], Input::all())) }}">A-Z</a></li>
-								<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'desc'], Input::all())) }}">Z-A</a></li>
-							</ul>					
+							<div class="row p-sm">
+								<ul class="list-inline m-b-none">
+									<div class="col-md-3 col-sm-4">
+										<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'asc'], Input::all())) }}">A-Z</a></li>
+									</div>
+									<div class="col-md-3 col-sm-4">
+										<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'desc'], Input::all())) }}">Z-A</a></li>
+									</div>
+								</ul>					
+							</div>						
 						</div>						
 					</div>					
 
@@ -179,10 +204,25 @@
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				       		<h4 class="modal-title" id="exampleModalLabel">Tag</h4>
 				      	</div>
-				      	<div class="modal-body ribbon-menu">
-							<ul class="list-inline m-b-none">
-								hfhg
-							</ul>						      		
+				      	<div class="modal-body ribbon-menu p-t-0">
+							@foreach ($tag as $tg)
+								@if($tg->category_id == 0)
+									<ul class="list-inline m-b-none">
+										<div class="col-xs-12 m-t-xs">
+											<p class="ribbon-mobile-title"><span>{{ strtoupper($tg->name) }}</span></p>
+										</div>
+									</ul>									
+									@foreach ($tag as $tmp)
+										@if($tg->id == $tmp->category_id)
+											<ul class="list-inline m-b-none">
+												<div class="col-xs-12">
+													<li><a href="{{ route('frontend.product.index', array_merge(['tagname' => $tmp->name], Input::all())) }}">{{ $tmp->name }}</a></li>
+												</div>
+											</ul>
+										@endif
+									@endforeach						      		
+						      	@endif
+							@endforeach	
 				      	</div>
 			   		</div>
 			  	</div>
