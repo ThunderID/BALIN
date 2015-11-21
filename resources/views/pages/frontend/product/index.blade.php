@@ -83,7 +83,7 @@
 								<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(['q' => $cat->name], Input::all())) }}">{{ $cat->name }}</a></li>
+										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'q' => $cat->name])) }}">{{ $cat->name }}</a></li>
 									</div>
 								@endforeach	
 								</ul>					
