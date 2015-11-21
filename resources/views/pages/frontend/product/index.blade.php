@@ -15,7 +15,7 @@
 	
 	$paginator 		= new PrettyPaginate($totalItems , (int)$page, $perpage, count($datas));
 
-	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true)->orderby('created_at','desc')->take($perpage)->skip(($page-1) * $perpage)->get();
+	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true)->orderby('products.created_at','desc')->take($perpage)->skip(($page-1) * $perpage)->get();
 
 	$category      	= $category::where('category_id', 0)
 								->get();
@@ -75,11 +75,15 @@
 
 					<div class="row collapse collapse-category" id="collapseOne" data-collapse="collapse1" aria-expanded="true">
 						<div class="col-md-12 p-l-xxs ribbon-submenu">
+							<div class="row p-sm">
 							<ul class="list-inline m-b-none">
 							@foreach ($category as $cat)
-								<li><a href="{{ route('frontend.product.index', array_merge(['q' => $cat->name], Input::all())) }}">{{ $cat->name }}</a></li>
+								<div class="col-md-3 col-sm-4">
+									<li><a href="{{ route('frontend.product.index', array_merge(['q' => $cat->name], Input::all())) }}">{{ $cat->name }}</a></li>
+								</div>
 							@endforeach	
 							</ul>					
+							</div>
 						</div>						
 					</div>
 
