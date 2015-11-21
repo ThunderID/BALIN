@@ -23,7 +23,7 @@
 						</div>
 					</div>	
 				@endforeach
-				<div class="row chart-item-mobile">
+				<div class="row chart-item-mobile m-t-sm">
 					<div class="hidden-lg hidden-md hidden-sm col-xs-12">
 						<div class="row">
 							<div class="col-xs-3">

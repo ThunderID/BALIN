@@ -601,6 +601,32 @@ html {
 .canvas-fadein to {
   opacity: 1;
 }
+.canvas-fadeout from {
+  opacity: 1;
+}
+.canvas-fadeout to {
+  opacity: 0;
+}
+.new-address-hide {
+  display: none;
+  -webkit-animation: fadeout 2s;
+  /* Safari, Chrome and Opera > 12.1 */
+  /* Firefox < 16 */
+  -ms-animation: fadeout 2s;
+  /* Internet Explorer */
+  /* Opera < 12.1 */
+  animation: fadeout 2s;
+}
+.new-address-show {
+  display: block;
+  -webkit-animation: fadein 2s;
+  /* Safari, Chrome and Opera > 12.1 */
+  /* Firefox < 16 */
+  -ms-animation: fadein 2s;
+  /* Internet Explorer */
+  /* Opera < 12.1 */
+  animation: fadein 2s;
+}
 @keyframes fadein {
   from {
     opacity: 0;
@@ -626,6 +652,34 @@ html {
   }
   to {
     opacity: 1;
+  }
+}
+/* Opera < 12.1 */
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* Firefox < 16 */
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* Internet Explorer */
+@-ms-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 /* Opera < 12.1 */
@@ -728,6 +782,20 @@ html {
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
+}
+.user-dropdown {
+  color: #000;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.user-dropdown li a {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  color: #000 !important;
+}
+.user-dropdown li a:hover {
+  background-color: #000 !important;
+  color: #fff !important;
 }
 .btn-hollow {
   display: inline-block;
@@ -839,10 +907,9 @@ html {
   text-decoration: none;
 }
 .hollow-social.btn-hollow-xs {
-  width: 30px;
-  height: 28px;
-  font-size: 12px;
-  padding: 6px 4px;
+  width: 40px;
+  height: 38px;
+  padding: 8px 6px;
 }
 .dropdown-menu.category-list {
   margin-top: 30px;
@@ -1160,6 +1227,9 @@ span.info {
   color: #888;
   font-size: 12px;
   padding-bottom: 10px;
+}
+.checkout-bottom span {
+  line-height: 30px;
 }
 footer {
   background: black !important;

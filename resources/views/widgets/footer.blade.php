@@ -10,8 +10,7 @@
 						</ul>
 					</div>
 					<div class="col-md-4 col-sm-4 col-xs-6 text-right">
-						<a href="{{ $storeinfo['facebook_url'] }}" class="btn-hollow hollow-social hollow-white btn-hollow-xs"><i class="fa fa-facebook"></i></a>
-						<a href="{{ $storeinfo['twitter_url'] }}" class="btn-hollow hollow-social hollow-white btn-hollow-xs"><i class="fa fa-twitter"></i></a>
+						<a href="{{ $storeinfo['facebook_url'] }}" class="btn-hollow hollow-social hollow-white btn-hollow-xs"><i class="fa fa-facebook fa-2x"></i></a>
 					</div>
 				</div>
 			</div>

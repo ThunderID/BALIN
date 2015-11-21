@@ -16,6 +16,8 @@ class CheckOutController extends BaseController
 	public function getCheckout()
 	{	
 		//get transaction
+		$breadcrumb								= ['Produk' => route('frontend.product.index')];
+
 		$baskets 								= Session::get('baskets');
 		$addresses 								= Address::oldershipmentbycustomer(Auth::user()->id)->get()->toArray();
 		$address 								= Address::ownerid(Auth::user()->id)->ownertype('App\Models\User')->first();
@@ -24,7 +26,9 @@ class CheckOutController extends BaseController
 		$this->layout->page 					= view('pages.frontend.cart.checkout')
 													->with('controller_name', $this->controller_name)
 													->with('carts', $baskets)
-													->with('addresses', $addresses);
+													->with('addresses', $addresses)
+													->with('breadcrumb', $breadcrumb);
+													
 		$this->layout->controller_name			= $this->controller_name;
 
 		$this->layout->page->page_title 		= 'BALIN.ID';

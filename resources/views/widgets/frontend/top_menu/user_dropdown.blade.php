@@ -1,11 +1,11 @@
-<ul class="dropdown-menu dropdown-menu-right user-dropdown p-t-md" aria-labelledby="dLabel">
+<ul class="dropdown-menu dropdown-menu-right user-dropdown m-t-md p-t-none p-b-none" aria-labelledby="dLabel">
 	<li>
 		<a href="{{ URL::route('frontend.profile.index') }}">Profile</a>
 	</li>                           
 	<li>
-		<a href="">Ubah Password</a>
+		<a href="" class="">Ubah Password</a>
 	</li>                           
 	<li>
-		<a href="">Log out</a>
+		<a href="{{ route('frontend.dologout') }}">Log out</a>
 	</li>                                                              
 </ul>
