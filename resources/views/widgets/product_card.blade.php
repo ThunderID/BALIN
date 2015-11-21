@@ -24,7 +24,7 @@
 		</div>
 		<div class="info-price">
 			<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">
-			<?php $price 	= $data['price'];?>
+			<?php $price 	= $data['price']; ?>
 
 			@if($data['discount']!=0)
 				<span class="text-center normal-price small-price">

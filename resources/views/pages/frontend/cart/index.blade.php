@@ -20,14 +20,14 @@
 								<div class="col-sm-1 col-md-1 hidden-xs">
 									<p>Produk</p>
 								</div>
-								<div class="col-xs-11 col-sm-11 col-md-11 hidden-xs">
+								<div class="col-sm-11 col-md-11 hidden-xs">
 									<div class="row">
 										<div class="col-sm-4 col-md-4">
 										</div>
-										<div class="col-sm-1 col-md-1">
-											<p class="text-center">Kuantitas</p>
+										<div class="col-sm-1 col-md-2">
+											<p class="text-left">Kuantitas</p>
 										</div>
-										<div class="col-sm-2 col-md-2">
+										<div class="col-sm-3 col-md-2">
 											<p class="text-right">Harga</p>
 										</div>
 										<div class="col-sm-2 col-md-2">
@@ -35,10 +35,7 @@
 										</div>
 										<div class="col-sm-2 col-md-2">
 											<p class="text-right">Total</p>
-										</div>
-										<div class="col-sm-1 col-md-1">
-											&nbsp;
-										</div>        	
+										</div> 	
 									</div>
 								</div>
 							</div>
@@ -198,6 +195,5 @@
 @stop
 
 @section('script_plugin')
-	@include('plugins.qty-hollow')
 	@include('plugins.cart-plugin')
 @stop

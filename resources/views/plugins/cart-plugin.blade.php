@@ -90,7 +90,7 @@
 			input.val(0);
 		}
 	});
-	$('.btn-number').hover(function(e){
+	$('.btn-number').mouseleave(function(e){
 		e.preventDefault();
 		fieldName 				= $(this).attr('data-field');
 
@@ -100,10 +100,10 @@
 			var input 			= $(this).parent().find('.input-number').attr('data-name', fieldName);
 		@endif
 
-		if (flg==1) {
-			flg = 0;
-			show_tooltip(input, flg);
-		}
+		// if (flg==1) {
+		// 	flg = 0;
+		// 	show_tooltip(input, flg);
+		// }
 	});
 	$('.input-number').focusin(function(){
 	   $(this).attr('data-oldValue', $(this).val());
@@ -115,8 +115,6 @@
 		name = $(this).attr('data-name');
 		
 		if(valueCurrent > minValue) {
-			flg = 0;
-			show_tooltip($(this), flg);
 			$(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
 		} else {
 			$(".btn-number[data-type='minus'][data-field='"+name+"']").attr('disabled', true);
@@ -262,25 +260,41 @@
 	function show_tooltip(input, flg)
 	{
 		if (flg == 1) {
-			$(input).tooltip({delay: { "show": 500, "hide": 300 }, title: 'Maaf stock barang size ini hanya tersedia ' +input.attr('max')}).tooltip('show');
+			$(input).tooltip({delay: { "show": 800, "hide": 800 }, title: 'Maaf stock barang size ini hanya tersedia ' +input.attr('max')}).tooltip('show');
 		} else {
-			$(input).tooltip('destroy');
+			setTimeout( function() {
+				$(input).tooltip('hide');
+			}, 2500);
 		}
 	}
 
 	// Add to Cart
-	$('.addto-cart').on('click', function() {
+	$('.addto-cart').on('click', function(e) {
 		var pvarians 	= [];
 		var pqty 		= [];
 		var fcart 		= $('.form-addtocart');
 		var pslug 		= $('.pslug').val();
 		var pname 		= $('.pname').val();
 		var count_cart 	= 0;
+		var check 		= 0;
+
 
 		fcart.attr('action', 'javascript:void(0);');
 		$('.pqty').each( function() {
+			var value = parseInt($(this).val());
 			pqty.push($(this).val());
+			check += value;
 		});
+			
+		if (check===0) {
+			flg = 1;
+			$('.input-number').tooltip({trigger: 'manual', title: 'Isi salah satu kuantitas'}).tooltip('show');
+			setTimeout( function() {
+				$('.input-number').tooltip('hide');
+			}, 2500);
+			
+			return false;
+		}
 		$('.pvarians').each( function() {
 			pvarians.push($(this).val());
 		});
@@ -294,9 +308,19 @@
 				$('.addto-cart').val('ADDING...');
 			},
 			success: function(result) {
-				count_cart = Object.keys(result.carts).length; 
+				count_cart 	= Object.keys(result.carts).length; 
 				$('.addto-cart').val('ADD TO CART');
 				$('.ico-cart').find('span').html(count_cart);
+
+					$.each(result.carts, function(k, v) {
+						$.each(v.varians, function(k2, v2) {
+							if (v2.message!=='') {
+								flg = 1;
+								show_tooltip($('.input-number').find('[data-id="'+v2.varian_id+'"]'), flg);
+							}
+						});
+					});
+				
 				$.ajax({
 					url: '{{ route('frontend.cart.listBasket.ajax') }}',
 					beforeSend: function() {

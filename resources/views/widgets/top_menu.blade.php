@@ -51,7 +51,7 @@
 						</li> -->
 						@if (Auth::user())
 							<li class="@if($controller_name == 'profile') active @endif dropdown">
-								<a href="javascript:void(0);" class="dropdown-toggle">Akun Saya</a>
+								<a href="javascript:void(0);" class="dropdown-toggle">Akun Saya <span class="caret"></span></a>
 								@include('widgets.frontend.top_menu.user_dropdown')
 							</li> 
 						@endif
