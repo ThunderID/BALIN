@@ -270,10 +270,10 @@ class Product extends Eloquent
 	public function scopeSellable($query, $variable)
 	{
 		return 	$query->selectraw('products.*')
-					->selectcurrentstock(true)
-					->JoinTransactionDetailFromProduct(true)
-					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
-					->HavingCurrentStock(0)
+					// ->selectcurrentstock(true)
+					// ->JoinTransactionDetailFromProduct(true)
+					// ->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					// ->HavingCurrentStock(0)
 					->groupby('products.id')
 					;
 		;
