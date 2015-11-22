@@ -4,6 +4,8 @@
 <script type="text/javascript">
 	$('.date-picker').datepicker({
 	    format: "dd-mm-yyyy",
-	    autoclose: true
+	    autoclose: true,
+	    clearBtn: true,
+	    orientation: 'bottom auto'
 	});	
 </script>

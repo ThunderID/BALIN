@@ -16,7 +16,7 @@ class CheckOutController extends BaseController
 	public function getCheckout()
 	{	
 		//get transaction
-		$breadcrumb								= ['Produk' => route('frontend.product.index')];
+		$breadcrumb								= ['Checkout' => route('frontend.get.checkout')];
 
 		$baskets 								= Session::get('baskets');
 		$addresses 								= Address::oldershipmentbycustomer(Auth::user()->id)->get()->toArray();
