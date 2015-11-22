@@ -49,7 +49,7 @@ class PrettyPaginator {
         {
             $result .= '<li>
                                 <a href="javascript:;" class="disabled">
-                                    <i class="fa fa-angle-left blue"></i>
+                                    <i class="fa fa-angle-left black"></i>
                                 </a>
                         </li>';
         }
@@ -57,7 +57,7 @@ class PrettyPaginator {
         {
             $result .= '<li>
                                 <a href="'.URL::route($route, array_merge($param, array($this->page_param => $this->cur_page-1))).'">
-                                    <i class="fa fa-angle-left blue"></i>
+                                    <i class="fa fa-angle-left black"></i>
                                 </a>
                         </li>'; 
         }
@@ -70,7 +70,7 @@ class PrettyPaginator {
         {
             for ($i = 1; $i <= 2; $i++)
             {
-                $result .= '<li ' .($i == $this->cur_page ? 'class="active"' : ''). '>
+                $result .= '<li ' .($i == $this->cur_page ? 'class="hollow-active"' : ''). '>
                                 <a href="'.URL::route($route, array_merge($param, array($this->page_param => ($i == 1 ? '' : $i)))).'">
                                     '.$i.'
                                 </a>
@@ -88,7 +88,7 @@ class PrettyPaginator {
         //center
         for ($i = $start; $i <= $end; $i++)
         {
-            $result .= '<li ' .($i == $this->cur_page ? 'class="active"' : ''). '>
+            $result .= '<li ' .($i == $this->cur_page ? 'class="hollow-active"' : ''). '>
                             <a href="'.URL::route($route, array_merge($param, array($this->page_param => ($i == 1 ? '' : $i)))).'">
                                 '.$i.'
                             </a>
@@ -107,7 +107,7 @@ class PrettyPaginator {
 
             for ($i = $total_page-1; $i <= $total_page; $i++)
             {
-                $result .= '<li ' .($i == $this->cur_page ? 'class="active"' : ''). '>
+                $result .= '<li ' .($i == $this->cur_page ? 'class="hollow-active"' : ''). '>
                                 <a href="'.URL::route($route, array_merge($param, array($this->page_param => ($i == 1 ? '' : $i)))).'">
                                     '.$i.'
                                 </a>
@@ -120,7 +120,7 @@ class PrettyPaginator {
         {
             $result .= '<li >
                                 <a href="javascript:;">
-                                    <i class="fa fa-angle-right blue"></i>
+                                    <i class="fa fa-angle-right black"></i>
                                 </a>
                         </li>';
         }
@@ -128,7 +128,7 @@ class PrettyPaginator {
         {
             $result .= '<li>
                                 <a href="'.URL::route($route, array_merge($param, array($this->page_param => $this->cur_page+1))).'">
-                                    <i class="fa fa-angle-right blue"></i>
+                                    <i class="fa fa-angle-right black"></i>
                                 </a>
                         </li>'; 
         }
