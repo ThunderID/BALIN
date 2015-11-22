@@ -16,7 +16,9 @@
 	
 	$paginator 		= new PrettyPaginate($totalItems , (int)$page, $perpage, count($datas));
 
-	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true)->orderby('products.created_at','desc')->take($perpage)->skip(($page-1) * $perpage)->get();
+	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true)->take($perpage)->skip(($page-1) * $perpage)->get();
+
+	//cek ada sort? sort kalo ada
 
 	$category      	= $category::where('category_id', 0)
 								->get();
@@ -51,11 +53,13 @@
 										TAG <i class="fa fa-chevron-circle-down pull-right"></i>
 									</a>
 								</li>
-								<li>
-							        <a role="button" id="collapse3" class="menu-accordion"  data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-										FILTER <i class="fa fa-chevron-circle-down pull-right"></i>
-									</a>
-								</li>
+								<?php
+								// <li>
+								//  	<a role="button" id="collapse3" class="menu-accordion"  data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								// 		FILTER <i class="fa fa-chevron-circle-down pull-right"></i>
+								// 	</a>
+								// </li>
+								?>
 								<li>
 							        <a role="button" id="collapse4" class="menu-accordion"  data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
 										SORT BY <i class="fa fa-chevron-circle-down pull-right"></i>
@@ -83,7 +87,7 @@
 								<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'q' => $cat->name])) }}">{{ $cat->name }}</a></li>
+										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'categoriesname' => $cat->name])) }}">{{ $cat->name }}</a></li>
 									</div>
 								@endforeach	
 								</ul>					
@@ -103,7 +107,7 @@
 											@foreach ($tag as $tmp)
 												@if($tg->id == $tmp->category_id)
 													<div class="col-md-3 col-sm-4">
-														<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagname' => $tmp->name])) }}">{{ $tmp->name }}</a></li>
+														<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagsname' => $tmp->name])) }}">{{ $tmp->name }}</a></li>
 													</div>
 										      	@endif
 											@endforeach													
@@ -128,11 +132,25 @@
 							<div class="row p-sm">
 								<ul class="list-inline m-b-none">
 									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'asc'], Input::all())) }}">A-Z</a></li>
+										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'name-asc'])) }}">Nama Produk A-Z</a></li>
 									</div>
 									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'desc'], Input::all())) }}">Z-A</a></li>
+										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'name-desc'])) }}">Nama Produk Z-A</a></li>
 									</div>
+
+									<div class="col-md-3 col-sm-4">
+										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'price-asc'])) }}">Harga Produk Termurah</a></li>
+									</div>
+									<div class="col-md-3 col-sm-4">
+										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'price-desc'])) }}">Harga Produk Termahal</a></li>
+									</div>
+
+									<div class="col-md-3 col-sm-4">
+										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'date-desc'])) }}">Produk Terbaru</a></li>
+									</div>
+									<div class="col-md-3 col-sm-4">
+										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'date-asc'])) }}">Produk Terlama</a></li>
+									</div>																			
 								</ul>					
 							</div>						
 						</div>						
@@ -141,8 +159,6 @@
 				</div>
 			</div>
 		</div>
-
-
 
 		<div class="row  ribbon-mobile">
 			<div class="hidden-lg hidden-md hidden-sm col-xs-12">
@@ -158,11 +174,13 @@
 							TAG <i class="fa fa-chevron-circle-right pull-right"></i>
 							</a>
 						</li>
-						<li>
-							<a href="#" data-toggle="modal" data-target="#modalFilter">									
-							FILTER <i class="fa fa-chevron-circle-right pull-right"></i>
-							</a>
-						</li>
+						<?php
+						// <li>
+						// 	<a href="#" data-toggle="modal" data-target="#modalFilter">									
+						// 	FILTER <i class="fa fa-chevron-circle-right pull-right"></i>
+						// 	</a>
+						// </li>
+						?>
 						<li>
 							<a href="#" data-toggle="modal" data-target="#modalSort">									
 							SORT BY <i class="fa fa-chevron-circle-right pull-right"></i>
@@ -188,7 +206,7 @@
 							<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-xs-12">
-										<li><a href="{{ route('frontend.product.index', array_merge(['q' => $cat->name], Input::all())) }}">{{ $cat->name }}</a></li>
+										<li><a href="{{ route('frontend.product.index', array_merge(['categoriesname' => $cat->name], Input::all())) }}">{{ $cat->name }}</a></li>
 									</div>
 								@endforeach	
 							</ul>						      		
@@ -216,7 +234,7 @@
 										@if($tg->id == $tmp->category_id)
 											<ul class="list-inline m-b-none">
 												<div class="col-xs-12">
-													<li><a href="{{ route('frontend.product.index', array_merge(['tagname' => $tmp->name], Input::all())) }}">{{ $tmp->name }}</a></li>
+													<li><a href="{{ route('frontend.product.index', array_merge(['tagsname' => $tmp->name], Input::all())) }}">{{ $tmp->name }}</a></li>
 												</div>
 											</ul>
 										@endif
@@ -254,11 +272,23 @@
 				      	<div class="modal-body ribbon-menu">
 							<ul class="list-inline m-b-none">
 								<div class="col-xs-12">
-									<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'asc'], Input::all())) }}">A-Z</a></li>
+									<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'name-asc'], Input::all())) }}">Nama Produk A-Z</a></li>
 								</div>
 								<div class="col-xs-12">
-									<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'desc'], Input::all())) }}">Z-A</a></li>
+									<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'name-desc'], Input::all())) }}">Nama Produk Z-A</a></li>
 								</div>
+								<div class="col-xs-12">
+									<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'price-asc'], Input::all())) }}">Harga Produk Termurah</a></li>
+								</div>
+								<div class="col-xs-12">
+									<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'price-desc'], Input::all())) }}">Harga Produk Termahal</a></li>
+								</div>
+								<div class="col-xs-12">
+									<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'date-desc'], Input::all())) }}">Produk Terbaru</a></li>
+								</div>
+								<div class="col-xs-12">
+									<li><a href="{{ route('frontend.product.index', array_merge(['sort' => 'date-asc'], Input::all())) }}">Produk Terlama</a></li>
+								</div>																
 							</ul>						      		
 				      	</div>
 			   		</div>

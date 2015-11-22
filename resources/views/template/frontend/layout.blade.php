@@ -232,6 +232,16 @@
 			color:#888;
 		    font-size: 13px;
 		}
+
+		.hollow-active a{
+			background-color: black !important;
+			color: #aaa !important;
+		}
+
+		.hollow-active a:hover{
+			color: white !important;
+		}
+
 	</style>
 
 	<!-- Custom CSS -->
@@ -261,7 +271,7 @@
 
 	@if ($controller_name != 'home')
 		<div class="container">&nbsp;</div>
-		<div id="footer"></div>
+		<!-- <div id="footer"></div> -->
 		@include('widgets.footer')
 	@endif
 
