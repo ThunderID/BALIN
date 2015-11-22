@@ -376,27 +376,33 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::group(['prefix' => 'profile', 'middleware' => 'customer'], function() 
 	{
-		Route::get('/', 												['uses' => 'ProfileController@index', 'as' => 'frontend.profile.index']);
+		Route::get('/', 												['uses' => 'UserController@index', 'as' => 'frontend.user.index']);
 		
-		Route::get('/setting', 											['uses' => 'ProfileController@edit', 'as' => 'frontend.profile.edit']);
+		Route::get('/setting', 											['uses' => 'UserController@edit', 'as' => 'frontend.user.edit']);
 
-		Route::post('/setting', 										['uses' => 'ProfileController@update', 'as' => 'frontend.profile.update']);
+		Route::get('/change/password',									['uses' => 'UserController@changePassword', 'as' => 'frontend.user.change.password']);
+
+		Route::post('/setting', 										['uses' => 'UserController@update', 'as' => 'frontend.user.update']);
 		
-		Route::get('/points', 											['uses' => 'ProfileController@point', 'as' => 'frontend.profile.point']);
+		Route::get('/points', 											['uses' => 'UserController@point', 'as' => 'frontend.user.point']);
 
-		Route::get('/downline', 										['uses' => 'ProfileController@downline', 'as' => 'frontend.profile.downline']);
+		Route::get('/downline', 										['uses' => 'UserController@downline', 'as' => 'frontend.user.downline']);
 
-		Route::resource('address',  									'AddressController',			['names' => ['index' => 'frontend.profile.address.index', 'create' => 'frontend.profile.address.create', 'store' => 'frontend.profile.address.store', 'show' => 'frontend.profile.address.show', 'edit' => 'frontend.profile.address.edit', 'update' => 'frontend.profile.address.update', 'destroy' => 'frontend.profile.address.destroy']]);
+		Route::resource('address',  									'AddressController',			
+																		['names' => ['index' => 'frontend.user.address.index', 'create' => 'frontend.user.address.create', 
+																		'store' => 'frontend.user.address.store', 'show' => 'frontend.user.address.show', 
+																		'edit' => 'frontend.user.address.edit', 'update' => 'frontend.user.address.update', 
+																		'destroy' => 'frontend.user.address.destroy']]);
 		
-		Route::get('/orders', 											['uses' => 'ProfileController@orders', 'as' => 'frontend.profile.order.index']);
+		Route::get('/orders', 											['uses' => 'UserController@orders', 'as' => 'frontend.user.order.index']);
 
-		Route::get('/order/{ref}', 										['uses' => 'ProfileController@order', 'as' => 'frontend.profile.order.show']);
+		Route::get('/order/{ref}', 										['uses' => 'UserController@order', 'as' => 'frontend.user.order.show']);
 		
-		Route::get('/order/delete/{ref}', 								['uses' => 'ProfileController@orderdestroy', 'as' => 'frontend.profile.order.destroy']);
+		Route::get('/order/delete/{ref}', 								['uses' => 'UserController@orderdestroy', 'as' => 'frontend.user.order.destroy']);
 	
-		Route::get('/reference', 										['uses' => 'CampaignController@getreference', 'as' => 'frontend.profile.reference.get']);
+		Route::get('/reference', 										['uses' => 'CampaignController@getreference', 'as' => 'frontend.user.reference.get']);
 
-		Route::post('/reference', 										['uses' => 'CampaignController@postreference', 'as' => 'frontend.profile.reference.post']);
+		Route::post('/reference', 										['uses' => 'CampaignController@postreference', 'as' => 'frontend.user.reference.post']);
 
 		Route::get('edit/cart', 											['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
 	});

@@ -2,9 +2,7 @@
 <?php
 	$pointlogs 		= $points->userid(Auth::user()->id)->orderby('created_at', 'asc')->paginate();
 ?>
-@extends('template.frontend.layout_account')
 
-@section('right_content')
 	<div class="row">
 		<div class="col-sm-12">
 			<h3 class="page-title m-t-0">{{$title}}</h3>
@@ -92,4 +90,3 @@
             </div>
 		</div>
 	</div>
-@stop

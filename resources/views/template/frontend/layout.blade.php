@@ -38,6 +38,9 @@
 		a.link-grey{
 			color:#999!important;
 		}
+		a.link-black {
+			color: #000 !important;
+		}
 		a.unstyle:hover{
 			 text-decoration: none;
 		}
@@ -152,6 +155,12 @@
 		    background-color: #111;
 		}
 
+		.ribbon-submenu .head-ribbon {
+			padding-left: 20px;
+			color: #999;
+			border-bottom: 1px solid #999;
+		}
+
 		.ribbon-submenu li i {
 		    padding-left: 10px;
 		    margin-top: 2px;
@@ -245,7 +254,7 @@
 
 	<!-- jQuery -->
 	{!! HTML::script('Balin/web/js/jquery.js') !!}
-	{!! HTML::script('Balin/web/js//bootstrap.min.js') !!}
+	{!! HTML::script('Balin/web/js/bootstrap.min.js') !!}
 
 	<!-- Script to Activate the Carousel -->
 	<script>
