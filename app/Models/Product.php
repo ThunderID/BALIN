@@ -342,15 +342,15 @@ class Product extends Eloquent
 		switch ($tmp[0]) 
 		{
 			case 'name':
-				return $query->sort('products.name',$tmp[1]);
+				return $query->orderBy('products.name',$tmp[1]);
 				break;
 
 			case 'price':
-				return $query->sort('products.price',$tmp[1]);
+				return $query->orderBy('products.price',$tmp[1]);
 				break;
 
 			case 'date':
-				return $query->sort('products.craeted_at',$tmp[1]);
+				return $query->orderBy('products.created_at',$tmp[1]);
 				break;
 
 			default:
