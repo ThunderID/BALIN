@@ -90,7 +90,7 @@ class PointLogController extends BaseController
 			$data 										= new PointLog;	
 		}
 
-		$amount 		  								=	str_replace('Rp ', '', str_replace('.', '', $inputs['amount']));
+		$amount 		  								=	str_replace('IDR ', '', str_replace('.', '', $inputs['amount']));
 
 		$expired_at 									= Carbon::createFromFormat('d-m-Y H:i', $inputs['date'])->format('Y-m-d H:i:s');
 

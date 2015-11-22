@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="form-group">
-			<label>Supplier</label>
+			<label for="supplier">Supplier <small><a href="{{route('backend.data.supplier.create')}}" target="blank">Baru</a></small></label>
 			{!! Form::text('supplier', null, [
 						'class' => 'select-supplier-by-name',
 						'style'	=> 'width:100%'

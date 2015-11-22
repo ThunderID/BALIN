@@ -1,6 +1,7 @@
 @inject('transaction', 'App\Models\Transaction')
 @inject('store', 'App\Models\StoreSetting')
 @inject('td', 'App\Models\TransactionDetail')
+@inject('product', 'App\Models\Product')
 
 <?php 
 $expired                = $store->ondate('now')->type('expired_paid')->first();
@@ -9,6 +10,7 @@ $trs                    = $transaction->type('sell')->status(['paid', 'shipping'
 $wait                   = $transaction->type('sell')->status('wait')->count();
 $canceled               = $transaction->type('sell')->ondate([null , $expired->value])->status('wait')->with('user')->get();
 $stocks                 = $td->critical((0 - $critical->value))->with(['varian', 'varian.product'])->get();
+$totalproduct           = $product->get();
 ?>
 
 @extends('template.backend.layout') 
@@ -129,7 +131,32 @@ $stocks                 = $td->critical((0 - $critical->value))->with(['varian',
                 </div>
             </div>
         @endif
-        @if(!$trs->count() && !$canceled->count() && !$wait && !$stocks->count())
+
+        @if(!$product->count())
+            <div class="col-sm-6">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Yang harus di lakukan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(!$product->count())
+                            <tr>
+                                <td class="col-sm-6">Tambahkan Produk!</td>
+                                <td class="col-sm-6">
+                                    <a href="{{route('backend.data.product.create')}}">Proses Selanjutnya</a>
+                                </td>
+                            </tr>    
+                            @endif   
+                        </tbody>
+                    </table> 
+                </div>
+            </div>
+        @endif
+
+        @if(!$trs->count() && !$canceled->count() && !$wait && !$stocks->count() && $product->count())
             <div class="col-sm-12 text-center">
                 <h3>There is nothing to do</h3>
                 <h2>Keep your dashboard clean</h2>

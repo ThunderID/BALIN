@@ -32,6 +32,13 @@ class ProductController extends BaseController
 			$searchResult						= $searchResult.'kategori '.Input::get('q').' ';
 		}
 
+		if(Input::has('tagname'))
+		{
+			$filters 							= ['tagsname' => Input::get('tagname')];
+
+			$searchResult						= $searchResult.'tag '.Input::get('tagname').' ';
+		}
+
 		if(Input::has('name'))
 		{
 			$filters['name']					= Input::get('name');
@@ -66,15 +73,16 @@ class ProductController extends BaseController
 													->with('balance', $balance)
 													->with('page', $page)
 													;
+
 		$this->layout->controller_name			= $this->controller_name;
 
 		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'Produk Batik Modern';
+		$this->layout->page->page_subtitle 		= 'Produk Batik Modern - ' . $page;
 
 		$this->layout->page->metas 				= 	[
 														'og:type' 			=> 'website', 
 														'og:title' 			=> 'BALIN.ID', 
-														'og:description' 	=> 'All Batiks',
+														'og:description' 	=> 'Produk Batik Modern - '. $page,
 														'og:url' 			=> route('frontend.product.index'),
 														'og:image' 			=> $this->stores['logo'],
 														'og:site_name' 		=> 'balin.id',
