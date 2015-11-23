@@ -9,7 +9,7 @@ if(!is_null($filters) && is_array($filters))
 	}
 }
 
-$datas 			= $datas->with('addresses')->DefaultImage(true);
+$datas 			= $datas->with(['addresses', 'images']);
 
 if(Input::has('asc'))
 {
@@ -118,7 +118,7 @@ $datas 				= $datas->paginate();
 									@foreach($datas as $data)
 										<tr>
 											<td class="text-center">{{ $ctr }}</td>
-											<td>{!! HTML::image($data->logo, 'logo', ['class' => 'img-responsive', 'style' => 'max-width:200px;']) !!}</td>
+											<td class="text-center">{!! HTML::image($data->logo, 'logo', ['class' => 'img-responsive', 'style' => 'max-width:100px;']) !!}</td>
 											<td>{{ $data['name'] }}</td>
 											<td>
 												{{ $data['address']['address'] }}

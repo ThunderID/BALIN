@@ -75,6 +75,7 @@ class varianController extends BaseController
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('id', $id)
 														->with('pid', $pid)
+														->with('product', $product)
 														->with('nav_active', 'data')
 														->with('subnav_active', 'products');
 		return $this->layout;		

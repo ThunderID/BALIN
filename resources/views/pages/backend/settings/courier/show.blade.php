@@ -68,9 +68,9 @@ $shippingcosts = $shippingcosts->courierid($courier['id'])->get();
 							<thead>
 								<tr>
 									<!-- <th>No</th> -->
-									<th class="col-md-3">#</th>
-									<th class="col-md-7">Tanggal</th>
-									<th class="col-md-7">Penerima</th>
+									<th class="">#</th>
+									<th class="">Tanggal</th>
+									<th class="">Penerima</th>
 									<th>Alamat</th>
 								</tr>
 							</thead>

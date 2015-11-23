@@ -201,15 +201,15 @@ class TransactionController extends BaseController
 			default:
 				if(Input::has('voucher_code'))
 				{
-					$vouchers 				= Voucher::code(Input::get('voucher_code'))->ondate('now')->first();
+					$vouchers 				= Voucher::code(Input::get('voucher_code'))->ondate('now')->currentquota(true)->first();
 
 					if(!$vouchers)
 					{
 						$errors->add('Transaction', 'Kode voucher tidak terdaftar.');
 					}
-					elseif(!$vouchers->quota - 1 < 0)
+					elseif($vouchers->current_quota - 1 < 0)
 					{
-						$errors->add('Transaction', 'Quota voucher tidak sudah habis.');
+						$errors->add('Transaction', 'Quota voucher sudah habis.');
 					}
 					else
 					{
