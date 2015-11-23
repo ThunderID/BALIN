@@ -14,12 +14,13 @@
 		}
 	}
 
-	$totalItems 	= $datas->count();
-	
-	$paginator 		= new PrettyPaginate($totalItems , (int)$page, $perpage, count($datas));
+	$totalItems 	= $datas->get();
+
+	$paginator 		= new PrettyPaginate(count($totalItems) , (int)$page, $perpage, count($datas));
 
 
 	$datas 			= $datas->take($perpage)->skip(($page-1) * $perpage)->get();
+
 	//cek ada sort? sort kalo ada
 
 	$category      	= $category::where('category_id', 0)
