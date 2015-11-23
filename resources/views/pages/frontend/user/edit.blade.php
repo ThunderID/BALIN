@@ -24,7 +24,7 @@
 								$date = null;
 								if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"d-m-Y");}
 							?>
-							{!! Form::text('date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-picker', 'id' => 'coba', 'required' => 'required', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
+							{!! Form::input('date', 'date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-picker', 'id' => 'coba', 'required' => 'required', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
 						</div>
 					</div>
 					<div class="col-md-6">

@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="container-fluid page-join">
-		<div class="row mt-75" style="padding-top:60px">
+		<div class="row mt-75" style="padding-top:20px">
 			<div class="col-md-12">
 				<div class="container">
 					<div class="row">
@@ -86,4 +86,8 @@
 		$('.sign-in').hide();
 		$('.forgot').show();
 	});
+@stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
 @stop
