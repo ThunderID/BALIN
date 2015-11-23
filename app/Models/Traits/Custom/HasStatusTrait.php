@@ -164,9 +164,9 @@ trait HasStatusTrait
 			 ->rightjoin('categories', function ($join) use($variable) 
 			 {
                                     $join->on ( 'categories.category_id', '=', 'categories_products.category_id' )
-                                    ->oron('categories.id', '=', 'categories_products.category_id')
-                                    ->where('categories.category_id', '=', $variable)
-                                    ->orwhere('categories.id', '=', $variable)
+                                    // ->oron('categories.id', '=', 'categories_products.category_id')
+                                    // ->where('categories.category_id', '=', $variable)
+                                    ->where('categories.id', '=', $variable)
                                     ->wherenull('categories.deleted_at')
                                     ;
 			})
