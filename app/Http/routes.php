@@ -450,6 +450,9 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	Route::get('why/join',												['uses' => 'WhyJoinController@index', 'as' => 'frontend.whyjoin.index']);
 	
 	Route::get('about/us', 												['uses' => 'AboutUsController@index', 'as' => 'frontend.aboutus.index']);
+	
+	Route::get('contact/us', 											['uses' => 'ContactUsController@index', 'as' => 'frontend.contactus.index']);
+	Route::post('contact/us', 											['uses' => 'ContactUsController@submit', 'as' => 'contactus.dosubmit']);
 
 	Route::get('join', 													['uses' => 'JoinController@index', 'as' => 'frontend.join.index']);
 	
