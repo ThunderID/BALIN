@@ -40,7 +40,7 @@ class AddressController extends BaseController
 			$subtitle 							= 'ubah';
 		}
 	
-		$this->layout->page 					= view('pages.frontend.user.address.create')
+		return view('pages.frontend.user.address.create')
 													->with('controller_name', $this->controller_name)
 													->with('subnav_active', 'account_address')
 													->with('title', 'Buku Alamat')
@@ -48,13 +48,6 @@ class AddressController extends BaseController
 													->with('address', $address)
 													->with('id', $id)
 													;
-
-		$this->layout->controller_name			= $this->controller_name;
-
-		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'Buku Alamat';
-
-		return $this->layout;
 	}
 
 	public function store($id = null)
@@ -74,7 +67,7 @@ class AddressController extends BaseController
 							;
 		}
 
-		return Redirect::route('frontend.profile.address.index')
+		return Redirect::route('frontend.user.index')
 				->with('msg','Alamat sudah disimpan')
 				->with('msg-type', 'success');
 	}

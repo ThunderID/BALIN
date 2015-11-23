@@ -33,18 +33,12 @@ class UserController extends BaseController
 	{		
 		$breadcrumb								= ['Ubah Profile' => route('frontend.user.edit')];
 
-		$this->layout->page 					= view('pages.frontend.user.edit')
+		return  view('pages.frontend.user.edit')
 													->with('controller_name', $this->controller_name)
 													->with('subnav_active', 'account_setting')
 													->with('title', 'Ubah Pengaturan Akun')
 													->with('breadcrumb', $breadcrumb);
 
-		$this->layout->controller_name			= $this->controller_name;
-
-		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'Pengaturan Akun';
-
-		return $this->layout;
 	}
 
 	public function update()
@@ -190,17 +184,10 @@ class UserController extends BaseController
 	{		
 		$breadcrumb								= ['Ubah Password' => route('frontend.user.edit')];
 
-		$this->layout->page 					= view('pages.frontend.user.change_password')
+		return view('pages.frontend.user.change_password')
 													->with('controller_name', $this->controller_name)
 													->with('subnav_active', 'account_setting')
 													->with('title', 'Ubah Password')
 													->with('breadcrumb', $breadcrumb);
-
-		$this->layout->controller_name			= $this->controller_name;
-
-		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'Pengaturan Akun';
-
-		return $this->layout;
 	}
 }

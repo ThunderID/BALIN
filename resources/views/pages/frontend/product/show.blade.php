@@ -7,7 +7,7 @@
 @extends('template.frontend.layout')
 
 @section('content')
-	<div class="container mt-75 m-b-xl">
+	<div class="container m-t-sm m-b-xl">
 		<div class="row">
 			<div class="col-lg-12 m-b-md">
 				@include('widgets.breadcrumb')

@@ -6,7 +6,7 @@
 			<p class="m-t-md user-hello">
 				<strong>Halo, @if(Auth::user()->gender=='female')Ms. @else Mr. @endif {{Auth::user()->name}}!</strong>
 				<span class="">
-					<a href="" class="link-black hover-gray unstyle"><strong><i class="fa fa-sign-out"></i> Logout</strong></a>
+					<a href="{{ route('frontend.dologout') }}" class="link-black hover-gray unstyle"><strong><i class="fa fa-sign-out"></i> Logout</strong></a>
 				</span>
 			</p>
 			<p class="m-t-md">
@@ -26,7 +26,7 @@
 			<h5 class="title-info m-t-md">
 				Informasi Umum 
 				<small>
-					<a class="link-grey hover-black unstyle" href="{{route('frontend.user.edit')}}" class="balin-link">
+					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.edit') }}" data-modal-title="Ubah Informasi User" data-view="modal-lg" class="balin-link">
 						<i class="fa fa-pencil"></i> Ubah
 					</a>
 				</small>
@@ -39,16 +39,16 @@
 			</p>
 			<p class="label-info">Email <span>{{ Auth::user()->email }}</span></p>
 			<p class="label-info">Tanggal lahir <span>@date_indo(Auth::user()->date_of_birth)</span></p>
-			<p class="clearfix">&nbsp;</p>
-			<a href="{{ route('frontend.user.change.password') }}" class="btn-hollow hollow-black-border">Ubah Password</a>
-			<p class="clearfix m-b-xxs">&nbsp;</p>
+			{{-- <a href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.change.password') }}" data-modal-title="Ubah Password" class="btn-hollow hollow-black-border">Ubah Password</a> --}}
+			<p class="clearfix p-b-xs">&nbsp;</p>
+			<p class="clearfix p-b-xs">&nbsp;</p>
 		</div>
 		<div class="col-sm-6">
 			<h5 class="title-info m-t-md">Keanggotaan</h5>
 			<p class="label-info">
 				Pointku <strong> @money_indo(Auth::user()->balance) </strong>
 				<small>
-					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="Histori Pointku">[ Histori ]</a>
+					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="Histori Pointku" data-view="modal-lg">[ Histori ]</a>
 				</small>
 			</p>
 			<p class="label-info">
@@ -60,7 +60,7 @@
 			<p class="label-info">
 				Downline 
 				<strong>{{Auth::user()->downline}} </strong> 
-				<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Refferal Saya">[ Lihat Daftar ]</a></small>
+				<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Refferal Saya" data-view="modal-md">[ Lihat Daftar ]</a></small>
 			</p>
 			@if (!is_null(Auth::user()->reference))
 				<p class="label-info">
@@ -81,7 +81,7 @@
 			<h5 class="title-info m-t-md">
 				Alamat Pengiriman
 				<small>
-					<a class="link-grey hover-black unstyle" href="{{route('frontend.user.address.index')}}" class="balin-link">
+					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.address.index')}}" data-modal-title="Ubah Alamat Pengiriman" class="balin-link">
 						<i class="fa fa-pencil"> Ubah</i>
 					</a>
 				</small>
@@ -101,13 +101,13 @@
 
 	<!-- Modal Balance -->
 	<div id="modal-balance" class="modal modal-user-information" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-	  	<div class="modal-dialog modal-md">
+	  	<div class="modal-dialog">
 	    	<div class="modal-content">
 				<div class="modal-header">
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		       		<h5 class="modal-title" id="exampleModalLabel">Histori Balance</h5>
 		      	</div>
-		      	<div class="modal-body ribbon-menu">
+		      	<div class="modal-body ribbon-menu" style="text-align:left">
 					
 		      	</div>
 	   		</div>
@@ -116,16 +116,25 @@
 @stop
 
 @section('script')
+	var view_mode = '';
+
 	$('.modal-user-information').on('show.bs.modal', function(e) {
 		var action = $(e.relatedTarget).attr('data-action');
 		var title = $(e.relatedTarget).attr('data-modal-title');
+		var view_mode = $(e.relatedTarget).attr('data-view');
 
 		$(this).find('.modal-body').html('loading...');
 		$(this).find('.modal-title').html(title);
+		$(this).find('.modal-dialog').addClass(view_mode);
 		$(this).find('.modal-body').load(action);
 	});
 
 	$('.modal-balance').on('hide.bs.modal', function(e) {
+		$('.modal-dialog').removeClass(view_mode);
 		$(this).find('.modal-body').removeData('bs.modal');
 	});
+@stop
+
+@section('script_plugin')
+	@include('plugins.datepicker')
 @stop
