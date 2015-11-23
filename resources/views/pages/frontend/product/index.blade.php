@@ -4,6 +4,8 @@
 <?php 
 	$perpage = 12;
 
+	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true);
+
 	if(!is_null($filters) && is_array($filters))
 	{
 		foreach ($filters as $key => $value) 
@@ -16,8 +18,8 @@
 	
 	$paginator 		= new PrettyPaginate($totalItems , (int)$page, $perpage, count($datas));
 
-	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true)->take($perpage)->skip(($page-1) * $perpage)->get();
 
+	$datas 			= $datas->take($perpage)->skip(($page-1) * $perpage)->get();
 	//cek ada sort? sort kalo ada
 
 	$category      	= $category::where('category_id', 0)

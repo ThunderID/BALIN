@@ -379,7 +379,7 @@ class Product extends Eloquent
 					;
 	}
 
-	public function scopesort($query, $variable)
+	public function scopeSort($query, $variable)
 	{
 		$tmp 	= explode('-', $variable);
 
@@ -390,7 +390,7 @@ class Product extends Eloquent
 				break;
 
 			case 'price':
-				return $query->orderBy('products.price',$tmp[1]);
+				return $query->orderBy('prices.price',$tmp[1]);
 				break;
 
 			case 'date':
