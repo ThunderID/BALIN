@@ -18,7 +18,7 @@
 				<div class="row">
 					<div class="col-md-7 col-md-offset-3 text-center hidden-xs hidden-sm">
 						<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails m-t-md" style="width:100%; border:1px solid #eee">
-							<a class="img-large" href="{{ str_replace('.jpg', '-large.jpg', $data['default_image']) }}" >
+							<a class="img-large" href="{{ $data['default_image'] }}" >
 								<img class="img img-responsive canvas-image"  src="{{ $data['default_image'] }}" style="width:100%">
 							</a>
 						</div>
@@ -29,7 +29,7 @@
 						<div class="owl-carousel gallery-product">
 							@foreach ($data['images'] as $k => $v)
 								<div class="item">
-									<a href="{{ str_replace('.jpg', '-large.jpg', $v['image_md']) }}" data-standard="{{ $v['image_md'] }}">
+									<a href="{{ $v['image_md'] }}" data-standard="{{ $v['image_md'] }}">
 										<img class="img img-responsive canvasSource" id="canvasSource{{$k}}" src="{{$v['image_md']}}" alt="">
 									</a>
 								</div>
