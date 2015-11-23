@@ -32,8 +32,7 @@ $datas 			= $datas->with(['reference'])->paginate();
 											'class'         => 'form-control',
 											'placeholder'   => 'Cari sesuatu',
 											'required'      => 'required',
-											'style'         =>'text-align:right'
-								]) !!}
+																]) !!}
 								{!! Form::hidden('type', Input::get('type')) !!}
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">

@@ -4,7 +4,7 @@
 	        <div class="alert alert-{{Session::get('msg-type')}} alert-dismissable">
 	            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 @if(Session::has('msg'))
-	                {{Session::get('msg')}}
+	                {!!Session::get('msg')!!}
                 @else
     	            @foreach ($errors->all('<p>:message</p>') as $error)
 		                {!! $error !!}

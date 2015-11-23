@@ -9,7 +9,38 @@ if(!is_null($filters) && is_array($filters))
 	}
 }
 
-$datas 			= $datas->with('addresses')->DefaultImage(true)->orderby('name')->paginate();
+$datas 			= $datas->with('addresses')->DefaultImage(true);
+
+if(Input::has('asc'))
+{
+	switch (Input::get('asc')) 
+	{
+			case 'name':
+				$datas 			= $datas->orderby('name', 'asc');
+				break;
+			default:
+				$datas 			= $datas->orderby('name', 'asc');
+				break;
+		}	
+}
+elseif(Input::has('desc'))
+{
+	switch (Input::get('desc')) 
+	{
+			case 'name':
+				$datas 			= $datas->orderby('name', 'desc');
+				break;
+			default:
+				$datas 			= $datas->orderby('name', 'desc');
+				break;
+		}	
+}
+else
+{
+	$datas 			= $datas->orderby('name', 'asc');
+}
+
+$datas 				= $datas->paginate();
 
 ?>
 
@@ -34,9 +65,8 @@ $datas 			= $datas->with('addresses')->DefaultImage(true)->orderby('name')->pagi
 						<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
 							{!! Form::input('text', 'q', Null , [
 										'class'         => 'form-control',
-										'placeholder'   => 'Cari sesuatu',
+										'placeholder'   => 'Cari nama kurir',
 										'required'      => 'required',
-										'style'         =>'text-align:right'
 							]) !!}                                          
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
@@ -54,10 +84,22 @@ $datas 			= $datas->with('addresses')->DefaultImage(true)->orderby('name')->pagi
 						<table class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
-									<th>No.</th>
+									<th class="text-center">No.</th>
 									<th class="text-center">Logo</th>
-									<th class="col-md-2">Nama</th>
-									<th class="col-md-6">Alamat</th>
+									<th class="col-md-2 text-center">
+										Nama
+										@if(!Input::has('asc') || Input::get('asc')!='name')
+										<a href="{{route('backend.settings.courier.index', array_merge(Input::all(), ['asc' => 'name']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@else
+										<i class="fa fa-arrow-up"></i>
+										@endif
+										@if(!Input::has('desc') || Input::get('desc')!='name')
+										<a href="{{route('backend.settings.courier.index', array_merge(Input::all(), ['desc' => 'name']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@else
+										<i class="fa fa-arrow-down"></i>
+										@endif
+									</th>
+									<th class="col-md-6 text-center">Alamat</th>
 									<th class="col-md-2 text-center">Kontrol</th>
 								</tr>
 							</thead>
@@ -75,7 +117,7 @@ $datas 			= $datas->with('addresses')->DefaultImage(true)->orderby('name')->pagi
 									?> 
 									@foreach($datas as $data)
 										<tr>
-											<td>{{ $ctr }}</td>
+											<td class="text-center">{{ $ctr }}</td>
 											<td>{!! HTML::image($data->logo, 'logo', ['class' => 'img-responsive', 'style' => 'max-width:200px;']) !!}</td>
 											<td>{{ $data['name'] }}</td>
 											<td>
@@ -84,8 +126,8 @@ $datas 			= $datas->with('addresses')->DefaultImage(true)->orderby('name')->pagi
 												<i class="fa fa-phone"></i> {{ $data['address']['phone'] }}
 											</td>
 											<td class="text-center">
-												<a href="{{ route('backend.settings.courier.show', $data['id']) }}"> Detail </a>, 
-												<a href="{{ route('backend.settings.courier.edit', $data['id']) }}"> Edit </a>, 
+												<a href="{{ route('backend.settings.courier.show', $data['id']) }}"> Detail</a>, 
+												<a href="{{ route('backend.settings.courier.edit', $data['id']) }}"> Edit</a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#courier_del"
 													data-id="{{$data['id']}}"
 													data-title="Hapus Data Produk {{$data['name']}}"

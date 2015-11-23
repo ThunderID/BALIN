@@ -30,7 +30,7 @@
 		<div class="col-md-2">
 			<div class="form-group">
 				<label for="harga">Jumlah Harga</label>
-				<input type="text" name="tot_price" class="form-control text-right transaction-input-jum-price" />
+				{!! Form::label('tot_price', null, ['class' => 'form-control text-right transaction-input-jum-price']) !!}
 			</div>
 		</div>
 		<div class="col-md-1">
@@ -48,7 +48,7 @@
 	<div class="col-md-2 col-md-offset-9">
 		<div class="form-group">
 			<label for="harga">Total Harga</label>
-			{!! Form::text('total_price', null, ['class' => 'form-control text-right', 'id' => 'total_price']) !!}
+			{!! Form::label('total_harga', null, ['class' => 'form-control text-right', 'id' => 'total_price']) !!}
 		</div>
 	</div>
 </div>

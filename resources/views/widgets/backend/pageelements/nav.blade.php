@@ -59,12 +59,14 @@
 							<li><a href="{{ route('backend.settings.store.edit', 9) }}">Mengapa bergabung</a></li>
 						</ul>
 					</li>
-					<li class="@if($subnav_active=='policy') active @endif">
-						<a href="{{ route('backend.settings.policies.index') }}"><i class="fa fa-lock"></i> <span class="nav-label">Policy</span></a>
-					</li>
 					<li class="@if($subnav_active=='authentication') active @endif">
 						<a href="{{ route('backend.settings.authentication.index') }}"><i class="fa fa-key"></i> <span class="nav-label">Otentikasi</span></a>
 					</li>				
+					@endcan
+					@can('admin')
+					<li class="@if($subnav_active=='policy') active @endif">
+						<a href="{{ route('backend.settings.policies.index') }}"><i class="fa fa-lock"></i> <span class="nav-label">Policy</span></a>
+					</li>
 					@endcan
 				</ul>
 			</li>

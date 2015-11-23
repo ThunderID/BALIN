@@ -11,32 +11,23 @@
 		{!! Form::open(['url' => route('backend.settings.quota.store', ['vou_id' => $vou_id, 'id' => $id]), 'method' => 'POST']) !!}
 	@endif
         {!! Form::hidden('id',$data['id']) !!}    
-		<div class="row">
-			<div class="col-md-12">
-				<h4 class="sub-header">
-					Voucher
-				</h4>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="form-group">
-					<label for="voucher_id">#{{$voucher['code']}}</label>
-					{!! Form::hidden('voucher_id', $vou_id, [
-								'class'         => 'form-control', 
-					]) !!}
-				</div>  
-			</div>                                        
-		</div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="sub-header">
+                    Voucher @if($voucher['type']=='referral') {{$voucher['type']}} @endif  #{{$voucher['code']}}
+                </h4>
+            </div>
+        </div>
+		{!! Form::hidden('voucher_id', $vou_id, ['class'         => 'form-control', ]) !!}
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="amount">Jumlah</label>
-					{!! Form::text('amount', $data['amount'], [
+					<label for="amount">Quota</label>
+					{!! Form::input('number', 'amount', $data['amount'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '1', 
-								'placeholder'   => 'Masukkan jumlah quota'
+								'placeholder'   => 'Masukkan jumlah quota (gunakan (-) untuk pengurangan quota)'
 					]) !!}	
 				</div>  
 			</div> 

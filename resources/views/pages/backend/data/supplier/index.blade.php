@@ -31,10 +31,9 @@ $datas 			= $datas->with('addresses')->orderby('name')->paginate();
 							<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
 								{!! Form::input('text', 'q', Null ,[
 											'class'         => 'form-control',
-											'placeholder'   => 'Cari sesuatu',
+											'placeholder'   => 'Cari nama supplier',
 											'required'      => 'required',
-											'style'         =>'text-align:right'
-								]) !!}
+																]) !!}
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
 								<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
@@ -51,10 +50,10 @@ $datas 			= $datas->with('addresses')->orderby('name')->paginate();
 						<table class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
-									<th>No.</th>
-									<th>Nama</th>
+									<th class="text-center">No.</th>
+									<th class="text-center">Nama</th>
 									<th class="text-center">Telepon</th>
-									<th class="text-center">Zip Code</th>
+									<th class="text-center">Kode Pos</th>
 									<th class="text-center">Alamat</th>
 									<th class="text-center">Kontrol</th>
 								</tr>
@@ -74,14 +73,14 @@ $datas 			= $datas->with('addresses')->orderby('name')->paginate();
 									@foreach($datas as $data)
 									<?php $address =  $data['address'];?>
 									<tr>
-										<td>{{$ctr}}</td>
+										<td class="text-center">{{$ctr}}</td>
 										<td>{{$data['name']}}</td>
 										<td class="text-center">{{$address['phone']}}</td>
 										<td class="text-center">{{$address['zipcode']}}</td>
 										<td class="text-center">{{$address['address']}}</td>
 										<td class="text-center">
-											<a href="{{ URL::route('backend.data.supplier.show', ['id' => $data['id']]) }}"> Detail </a>, 
-											<a href="{{ URL::route('backend.data.supplier.edit', ['id' => $data['id']]) }}"> Edit </a>, 
+											<a href="{{ URL::route('backend.data.supplier.show', ['id' => $data['id']]) }}"> Detail</a>, 
+											<a href="{{ URL::route('backend.data.supplier.edit', ['id' => $data['id']]) }}"> Edit</a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#supplier_del"
 												data-id="{{ $data['id'] }}"
 												data-ti

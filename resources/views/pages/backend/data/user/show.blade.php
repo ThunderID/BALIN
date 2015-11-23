@@ -146,19 +146,18 @@
 		<div class="col-md-12">
 			<div class="panel panel-list">
 				<div class="panel-heading">
-					Buku Tabungan&nbsp;&nbsp;&nbsp;
-					<a href="{{route('backend.data.pointlog.create', $customer['id'])}}" class="btn btn-xs btn-primary text-right">+ Point</a>
+					Point {{$user['name']}}<small><a href="{{route('backend.data.pointlog.create', $customer['id'])}}">Tambah Point</a></small>
 				</div>
 				<div class="panel-body">
 					<table class="table table-bordered table-hover table-striped">
 						<thead>
 							<tr>
-								<th>No</th>
-								<th>Tanggal</th>
-								<th>Debit</th>
-								<th>Kredit</th>
-								<th>Saldo</th>
-								<th>Catatan</th>
+								<th class="text-center">No</th>
+								<th class="text-center">Tanggal</th>
+								<th class="text-center">Debit</th>
+								<th class="text-center">Kredit</th>
+								<th class="text-center">Saldo</th>
+								<th class="text-center">Catatan</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -166,7 +165,7 @@
 							@forelse($customer->pointlogs as $key => $value)
 								<?php $amount = $amount + $value->amount;?>
 								<tr>
-									<td>{!!($key+1)!!}</td>
+									<td class="text-center">{!!($key+1)!!}</td>
 									<td> @date_indo($value->created_at) </td>
 									@if($value->amount >= 0)
 										<td class="text-right">@money_indo(abs($value->amount))</td>

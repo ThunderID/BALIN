@@ -27,19 +27,13 @@ $datas 			= $datas->orderby('path')->paginate();
 						<div class="col-md-2 col-sm-3 hidden-xs">
 						</div>
 						<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
-							{!!
-								Form::input(
-									'text', 
-									'q', 
-									Null ,
+							{!! Form::input('text', 'q', Null ,
 									[
 										'class'         => 'form-control',
-										'placeholder'   => 'Cari sesuatu',
+										'placeholder'   => 'Cari kategori',
 										'required'      => 'required',
-										'style'         =>'text-align:right'
 									]
-								)
-							!!}                                          
+								) !!}                                          
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
 							<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
@@ -84,8 +78,8 @@ $datas 			= $datas->orderby('path')->paginate();
 												</p>
 											</td>
 											<td class="text-center">
-												<a href="{{ route('backend.settings.category.show',  $data['id']) }}"> Detail </a>,
-												<a href="{{ route('backend.settings.category.edit', ['id' => $data['id']]) }}"> Edit </a>, 
+												<a href="{{ route('backend.settings.category.show',  $data['id']) }}"> Detail</a>,
+												<a href="{{ route('backend.settings.category.edit', ['id' => $data['id']]) }}"> Edit</a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#category_del"
 													data-id="{{$data['id']}}"
 													data-title="Hapus Data Kategori {{$data['name']}}"

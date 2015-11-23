@@ -43,7 +43,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label for="thumbnail" class="text-capitalize">URL Image Thumbnail</label>
+					<label for="thumbnail" class="text-capitalize">URL Image (320 X 463 px)</label>
 					{!! Form::text('thumbnail', $images['thumbnail'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '2',
@@ -53,7 +53,7 @@
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
-					<label for="logo" class="text-capitalize">URL Image XS</label>
+					<label for="logo" class="text-capitalize">URL Image (320 X 463 px)</label>
 					{!! Form::text('image_xs', $images['image_xs'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '3',
@@ -63,7 +63,7 @@
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
-					<label for="logo" class="text-capitalize">URL Image SM</label>
+					<label for="logo" class="text-capitalize">URL Image (320 X 463 px)</label>
 					{!! Form::text('image_sm', $images['image_sm'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '4',
@@ -75,7 +75,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label for="logo" class="text-capitalize">URL Image MD</label>
+					<label for="logo" class="text-capitalize">URL Image (772 X 1043 px)</label>
 					{!! Form::text('image_md', $images['image_md'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '5',
@@ -85,7 +85,7 @@
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
-					<label for="logo" class="text-capitalize">URL Image LG</label>
+					<label for="logo" class="text-capitalize">URL Image (992 X 1434 px)</label>
 					{!! Form::text('image_lg', $images['image_lg'], [
 								'class'         => 'form-control', 
 								'tabindex'      => '6',

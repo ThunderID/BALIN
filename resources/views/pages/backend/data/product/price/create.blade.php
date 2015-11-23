@@ -1,5 +1,7 @@
 @inject('data', 'App\Models\Price')
+@inject('store', 'App\Models\StoreSetting')
 <?php
+	$margin				= $store->ondate('now')->type('min_margin')->first();
 	$data				= $data::where('id', $id)->first();
 	$date 				= null;
 ?>
@@ -18,6 +20,17 @@
 	@else
 		{!! Form::open(['url' => route('backend.data.product.price.store', ['pid' => $pid]), 'method' => 'POST', 'id' => 'my-awesome-dropzone', 'class' => 'dropzone']) !!}
 	@endif
+		<div class="row">
+			<div class="col-md-2">
+				HPP (Weighted Average)<br/>
+				Minimum Margin
+			</div>
+			<div class="col-md-2 text-right">
+				<strong>@money_indo($product['hpp'])</strong><br/>
+				<strong>@money_indo($margin['value'])</strong>
+			</div>
+		</div>
+		<div class="clearfix">&nbsp;</div>
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">

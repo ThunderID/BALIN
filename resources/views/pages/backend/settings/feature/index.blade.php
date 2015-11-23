@@ -9,6 +9,7 @@ if(!is_null($filters) && is_array($filters))
 	}
 }
 $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
+
 ?>
 
 
@@ -31,11 +32,10 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 						</div>
 						<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
 							{!! Form::input('text', 'q', Null , [
-										'class'         => 'form-control',
-										'placeholder'   => 'Cari sesuatu',
+										'class'         => 'form-control date-format',
+										'placeholder'   => 'Tanggal',
 										'required'      => 'required',
-										'style'         =>'text-align:right'
-							]) !!}                                          
+							]) !!}
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
 							<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
@@ -52,11 +52,11 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 						<table class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
-									<th>No.</th>
+									<th class="text-center">No.</th>
 									<th class="text-center col-md-4">Slide</th>
-									<th class="col-md-5">Konten</th>
-									<th class="col-md-2">Tanggal Mulai</th>
-									<th class="col-md-2">Kontrol</th>
+									<th class="text-center col-md-5">Konten</th>
+									<th class="text-center col-md-2">Tanggal Mulai</th>
+									<th class="text-center col-md-2">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -76,13 +76,13 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 											$value = (array)json_decode($data['value'], true);
 										?>
 										<tr>
-											<td>{{ $ctr }}</td>
-											<td class="text-center col-md-4">{!! HTML::image($data->slider, 'slider', ['class' => 'img-responsive']) !!}</td>
+											<td class="text-center">{{ $ctr }}</td>
+											<td class="text-center col-md-4">{!! HTML::image($data->slider, 'slider', ['class' => 'img-responsive', 'style' => 'max-width:300px;']) !!}</td>
 											<td>
 												@if(isset($value['title']['slider_title']))
 													@if($value['title']['title_active'] == 1)
 														<h5><strong>Judul :</strong>
-															{{ $value['title']['slider_title'] }}
+															{!! $value['title']['slider_title'] !!}
 														</h5>
 													@else
 														<h5><strong>Judul tidak aktif</strong></h5>
@@ -94,7 +94,7 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 												@if(isset($value['content']['slider_content']))
 													@if($value['content']['content_active'] == 1)
 														<h5><strong>Konten :</strong>
-															{{ $value['content']['slider_content'] }}
+															{!! $value['content']['slider_content'] !!}
 														</h5>
 													@else
 														<h5><strong>Konten tidak aktif</strong></h5>
@@ -106,7 +106,7 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 												@if(isset($value['button']['slider_button']))
 													@if($value['button']['button_active'] == 1)
 														<h5><strong>Tombol :</strong>
-															{{ $value['button']['slider_button'] }}
+															{!! $value['button']['slider_button'] !!}
 														</h5>
 													@else
 														<h5><strong>Tombol tidak aktif</strong></h5>
@@ -118,9 +118,9 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 											<td>
 												{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('d-m-Y H:i') }}
 											</td>
-											<td>
-												<a href="{{ route('backend.settings.feature.show.preview', $data['id']) }}"> Preview </a>, 
-												<a href="{{ route('backend.settings.feature.edit', $data['id']) }}"> Edit </a>, 
+											<td class="text-center">
+												<a href="{{ route('backend.settings.feature.show.preview', $data['id']) }}"> Preview</a>, 
+												<a href="{{ route('backend.settings.feature.edit', $data['id']) }}"> Edit</a>, 
 												<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#feature_del"
 													data-id="{{$data['id']}}"
 													data-title="Hapus Data Produk {{$data['name']}}"
@@ -152,4 +152,8 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 			@endif
 		</div>
 	</div>
+@stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
 @stop

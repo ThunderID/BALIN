@@ -11,12 +11,45 @@
     @else
         {!! Form::open(['url' => route('backend.data.shipment.store'), 'method' => 'POST']) !!}
     @endif
-        <label for="method" class="text-capitalize">Resi Pengiriman #{{$data['transaction']['ref_number']}}</label><br/>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="sub-header">
+                    Resi Pengiriman #{{$data['transaction']['ref_number']}}
+                </h4>
+            </div>
+        </div>
 
         @if($shipment)
-            <label for="receipt_number">a.n. {{$shipment['receiver_name']}}</label><br/>
-            <label for="phone">{{$shipment['address']['phone']}}</label><br/>
-            <label for="address">{{$shipment['address']['address']}}, {{$shipment['address']['zipcode']}}</label><br/>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4 text-left">
+                        <p class="text-capitalize">A.N.<span class="pull-right">:</span></p>
+                    </div>
+                    <div class="col-md-8">
+                        <p class="text-capitalize">{{ $shipment['receiver_name'] }}</p>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-md-4 text-left">
+                        <p class="text-capitalize">Telepon<span class="pull-right">:</span></p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{!!$shipment['address']['phone']!!}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 text-left">
+                        <p class="text-capitalize">Alamat<span class="pull-right">:</span></p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{!!$shipment['address']['address']!!}</p>
+                        <p>{!!$shipment['address']['zipcode']!!}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </br>
         @endif
 
         <div class="row">
