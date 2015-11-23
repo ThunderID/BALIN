@@ -3,35 +3,45 @@
 	$downlines 		= $points->referenceid(Auth::user()->id)->referencetype('App\Models\User')->with(['reference'])->paginate();
 ?>
 
-	<div class="clearfix">&nbsp;</div>
-	<div class="row">
-		<div class="col-sm-12">
-			<table class="table table-bordered table-hover table-striped">
-				<thead>
-					<tr>
-						<th class="text-center">No</th>
-						<th class="text-center">Tanggal</th>
-						<th class="text-center">Downline</th>
-					</tr>
-				</thead>
-				<tbody>
-					@forelse($downlines as $key => $value)
-						<tr>
-							<td>{!!(($key)+1)!!}</td>
-							<td> @date_indo($value->created_at) </td>
-							<td> {{$value['reference']['name']}} </td>
-						</tr>
-					@empty
-						<tr>
-							<td class="text-center" colspan="3"> Tidak ada data </td>
-						</tr>
-					@endforelse
-				</tbody>
-			</table>
-			<div class="row">
-                <div class="col-md-12" style="text-align:right;">
-                    {!! $downlines->appends(Input::all())->render() !!}
-                </div>
-            </div>
+<div class="row m-t-n" style="background-color:#000; color:#fff; letter-spacing: 0.1em;">
+	<div class="col-sm-1">
+		<h5>No</h5>
+	</div>
+	<div class="col-sm-3">
+		<h5>Tanggal</h5>
+	</div>
+	<div class="col-sm-8">
+		<h5>Downline</h5>
+	</div>
+</div>
+@forelse($downlines as $key => $value)
+	<div class="row m-t-sm @if($key+1!=count($downlines)) border-bottom @endif">
+		<div class="col-sm-1"> 
+			<p class="text-left">
+				{!!(($key)+1)!!}
+			</p>
+		</div>
+		<div class="col-sm-3">
+			<p class="text-left">
+				@date_indo($value->created_at)
+			</p>
+		</div>
+		<div class="col-sm-8">
+			<p class="text-left">
+				{{ $value['reference']['name'] }}
+			</p>
 		</div>
 	</div>
+@empty
+	<div class="row m-t-sm">
+		<div class="col-sm-12">
+			<p class="text-center"> Tidak ada data </p>
+		</div>
+	</div>
+@endforelse
+
+<div class="row">
+    <div class="col-md-12" style="text-align:right;">
+        {!! $downlines->appends(Input::all())->render() !!}
+    </div>
+</div>

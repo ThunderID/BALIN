@@ -404,6 +404,12 @@ p {
   color: #fff;
   font-weight: 500;
 }
+@media (min-width: 767px) and (max-width: 992px) {
+  .page-header .navbar-nav.navbar-hollow > li {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
 @media (max-width: 767px) {
   .page-header .navbar-nav.navbar-hollow {
     float: left;
@@ -532,6 +538,7 @@ p {
   font-weight: 300;
   color: #000;
   margin: 10px;
+  letter-spacing: 0.04em;
 }
 .thumbnail .info-price {
   min-height: 30px;
@@ -570,6 +577,9 @@ p {
 .thumbnail .out-of-stock {
   font-size: 24px;
   font-weight: 300;
+}
+.thumbnail .detail {
+  letter-spacing: 0.06em;
 }
 .product-info .title-product {
   font-size: 28px;
@@ -802,8 +812,9 @@ p {
 .user-dropdown li a {
   padding-top: 6px;
   padding-bottom: 6px;
-  color: #000 !important;
+  color: #888 !important;
   font-weight: 300;
+  font-size: 13px;
 }
 .user-dropdown li a:hover {
   background-color: #000 !important;
@@ -1009,6 +1020,7 @@ h3.hollow-label {
 }
 label.hollow-label {
   font-weight: 300;
+  letter-spacing: 0.04em;
 }
 .gallery-product .owl-controls .owl-nav .owl-prev {
   position: absolute;
@@ -1087,6 +1099,9 @@ label.hollow-label {
 }
 .tag-categories a {
   font-weight: 300;
+}
+.form-group span.help-block {
+  font-size: 12px;
 }
 label.text {
   color: #999;

@@ -19,9 +19,21 @@
 	$paginator 		= new PrettyPaginate(count($totalItems) , (int)$page, $perpage, count($datas));
 
 
+<<<<<<< HEAD
 	$datas 			= $datas->take($perpage)->skip(($page-1) * $perpage)->get();
 
 	//cek ada sort? sort kalo ada
+=======
+	$datas 			= $datas->take($perpage)->skip(($page-1) * $perpage);
+	if(Input::get('sort'))
+	{
+		$datas 		= $datas->orderby('products.created_at','desc')->get();
+	}
+	else
+	{
+		$datas 		= $datas->get();
+	}
+>>>>>>> f557f82fe29c3dd7d56893dc94e4c661240c156d
 
 	$category      	= $category::where('category_id', 0)
 								->get();

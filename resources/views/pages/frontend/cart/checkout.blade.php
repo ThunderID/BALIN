@@ -191,8 +191,13 @@
 						</div>
 					</div>
 					<div class="row">
+			    		<div class="col-md-12">
+			    			Term & Condition
+			    		</div>
+			    	</div>
+			    	<div class="clearfix">&nbsp;</div>
+					<div class="row">
 						<div class="col-md-12">
-							</br>
 							<div class="form-group text-right">
 								<button type="submit" class="btn-hollow hollow-black-border" tabindex="7">Checkout</button>
 							</div>        
