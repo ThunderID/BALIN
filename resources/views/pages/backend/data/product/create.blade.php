@@ -165,7 +165,7 @@
 					{!! Form::text('started_at', $date, [
 								'class'         => 'form-control date-time-format',
 								'tabindex'      => '9', 
-								'placeholder'   => 'dd-mm-yyyy hh:mm'
+								'placeholder'   => 'Isikan tanggal dan waktu mulai'
 					]) !!}
 				</div>  
 			</div> 
