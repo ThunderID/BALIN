@@ -1,6 +1,6 @@
 @inject('points', 'App\Models\PointLog')
 <?php
-	$downlines 		= $points->referenceid(Auth::user()->id)->referencetype('App\Models\User')->with(['reference'])->paginate();
+	$downlines 		= $points->referenceid(Auth::user()->id)->referencetype('App\Models\User')->with(['user'])->paginate();
 ?>
 
 <div class="row m-t-n" style="background-color:#000; color:#fff; letter-spacing: 0.1em;">
@@ -28,7 +28,7 @@
 		</div>
 		<div class="col-sm-8">
 			<p class="text-left">
-				{{ $value['reference']['name'] }}
+				{{ $value['user']['name'] }}
 			</p>
 		</div>
 	</div>

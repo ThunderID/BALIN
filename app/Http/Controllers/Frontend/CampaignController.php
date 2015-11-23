@@ -20,6 +20,7 @@ class CampaignController extends BaseController
 		{
 			return Redirect::route('frontend.profile.index');
 		}
+		$breadcrumb								= ['Profile' => route('frontend.user.index')];
 
 		return view('pages.frontend.user.reference')
 													->with('controller_name', $this->controller_name)
@@ -30,7 +31,7 @@ class CampaignController extends BaseController
 
 	public function postreference()
 	{		
-		$voucher 								= Voucher::code(Input::get('referral_code'))->type('referral_code')->first();
+		$voucher 								= Voucher::code(Input::get('referral_code'))->type('referral')->first();
 
 		if(!$voucher || $voucher->user_id==0)
 		{
@@ -40,7 +41,7 @@ class CampaignController extends BaseController
 					->with('msg-type', 'danger');
 		}
 
-		if(!$voucher->quota - 1 < 0)
+		if($voucher->quota - 1 < 0)
 		{
 			return Redirect::back()
 					->withInput()
@@ -75,7 +76,7 @@ class CampaignController extends BaseController
 
 		DB::commit();
 
-			return Redirect::route('frontend.profile.index')
+			return Redirect::route('frontend.user.index')
 				->with('msg','Pemberi referensi sudah disimpan')
 				->with('msg-type', 'success');
 	}
