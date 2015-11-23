@@ -19,7 +19,7 @@
 										<div class="col-md-12 text-center">							
 											@if(Auth::check())
 												<p>Cek buku tabungan anda sekarang juga.</p>
-												<a href="{{ URL::route('frontend.profile.point') }}" class="btn-hollow hollow-black hollow-black-border" tabindex="6">Buku Tabungan</a>
+												<a href="{{ URL::route('frontend.user.point') }}" class="btn-hollow hollow-black hollow-black-border" tabindex="6">Buku Tabungan</a>
 											@else
 												<p>Silahkan Sign in untuk mengecek buku tabungan anda.</p>
 												<a href="{{ URL::route('frontend.join.index') }}" class="btn-hollow hollow-black hollow-black-border" tabindex="6">Sign In</a>
