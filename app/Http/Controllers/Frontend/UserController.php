@@ -3,8 +3,11 @@
 use App\Http\Controllers\BaseController;
 
 use Input, Redirect, Auth, Carbon, Validator, DB, App;
+use Illuminate\Support\MessageBag;
 
 use App\Models\Transaction;
+use App\Models\User;
+use App\Models\Address;
 use App\Jobs\ChangeStatus;
 
 class UserController extends BaseController 
@@ -27,6 +30,84 @@ class UserController extends BaseController
 		$this->layout->page->page_subtitle 		= 'Profile';
 
 		return $this->layout;
+	}
+
+	public function store($id = null)
+	{
+		$inputs 								= Input::only('name', 'email', 'date_of_birth', 'gender', 'address');
+		
+		if (!is_null($id))
+		{
+			$data								= User::find($id);
+		}
+		else
+		{
+			$data								= new User;
+		}
+		
+		$dob 									= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+		
+		if (Input::has('password') || is_null($id))
+		{
+			$validator 							= Validator::make(Input::only('password', 'password_confirmation'), ['password' => 'required|min:8|confirmed']);
+
+			if (!$validator->passes())
+			{
+				return Redirect::back()
+					->withInput()
+					->withErrors($validator->errors())
+					->with('msg-type', 'danger');
+			}
+		}
+
+		DB::beginTransaction();
+		
+		$errors 								= new MessageBag();
+		
+		$data->fill([
+			'name' 								=> $inputs['name'],
+			'email'								=> $inputs['email'],
+			'date_of_birth'						=> $dob,
+			'role'								=> 'customer',
+			'gender'							=> $inputs['gender'],
+			'password'							=> Input::get('password'),
+		]);
+
+		if (!$data->save())
+		{
+			$errors->add('Customer', $data->getError());
+		}
+
+		if(!$errors->count())
+		{
+			$address							= new Address;
+			$address->fill([
+				'address' 						=> $inputs['address'],
+			]);
+
+			$address->owner()->associate($data);
+			
+			if (!$address->save())
+			{
+				$errors->add('Address', $address->getError());
+			}
+		}
+		if ($errors->count())
+		{
+			DB::rollback();
+
+			return Redirect::back()
+				->withInput()
+				->withErrors($errors)
+				->with('msg-type', 'danger');
+		}
+		else
+		{
+			DB::commit();
+			return Redirect::route('frontend.user.index')
+				->with('msg', 'Data sudah disimpan')
+				->with('msg-type', 'success');
+		}
 	}
 
 	public function edit()
