@@ -379,4 +379,28 @@ class Product extends Eloquent
 					;
 	}
 
+	public function scopesort($query, $variable)
+	{
+		$tmp 	= explode('-', $variable);
+
+		switch ($tmp[0]) 
+		{
+			case 'name':
+				return $query->orderBy('products.name',$tmp[1]);
+				break;
+
+			case 'price':
+				return $query->orderBy('products.price',$tmp[1]);
+				break;
+
+			case 'date':
+				return $query->orderBy('products.created_at',$tmp[1]);
+				break;
+
+			default:
+				return $query;
+				break;
+		}
+	}
+
 }

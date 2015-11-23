@@ -9,17 +9,15 @@
 	<div class="clearfix">&nbsp;</div>
 	<div class="row">
 		<div class="col-sm-12">
-		    {!! Form::open(['url' => route('frontend.profile.update'), 'method' => 'POST']) !!}
+		    {!! Form::open(['url' => route('frontend.user.update'), 'method' => 'POST', 'class' => 'form']) !!}
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							<label for="name">Nama Lengkap</label>
 							{!! Form::text('name', Auth::user()['name'], ['class' => 'form-control hollow mod_name', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nama lengkap'] ) !!}
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							<label for="email">Email</label>
 							{!! Form::text('email', Auth::user()['email'], ['class' => 'form-control hollow mod_email', 'tabindex' => '2', 'placeholder' => 'Masukkan email', 'disable']) !!}
@@ -29,12 +27,12 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-							<label for="date_of_birth">Tanggal Lahir</label>
+							<label>Tanggal Lahir</label>
 							<?php
 								$date = null;
 								if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"d-m-Y");}
 							?>
-							{!!Form::text('date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-picker', 'required' => 'required', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir'] ) !!}
+							{!! Form::text('date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-picker', 'id' => 'coba', 'required' => 'required', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
 						</div>
 					</div>
 				</div>
@@ -80,4 +78,4 @@
 
 @section('script_plugin')
 	@include('plugins.datepicker')
-	@stop
+@stop

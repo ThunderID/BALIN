@@ -23,38 +23,131 @@ class ProductController extends BaseController
 		$breadcrumb								= ['Produk' => route('frontend.product.index')];
 
 		$filters 								= null;
-		$searchResult							= null;
+		$searchResult							= [];
+		$links									= [];
+		$sorts									= [];
 
-		if(Input::has('q'))
+		$inputOnly 								= ['categoriesname','tagsname','name','sort'];
+
+		$inputs 								= Input::all();
+
+		foreach ($inputs as $key => $input) 
 		{
-			$filters 							= ['categoriesname' => Input::get('q')];
+			if(in_array($key, $inputOnly))
+			{
+				$filters[$key] 					= $input;
+				array_push($links, ["page" => $page, 'id' => $key] );
 
-			$searchResult						= $searchResult.'kategori '.Input::get('q').' ';
+				switch ($key) {
+					case 'categoriesname':
+						$searchResult[]			= 'kategori '. $input;
+						break;
+					case 'tagsname':
+						$searchResult[]			= 'tag '. $input;
+						break;
+					case 'name':
+						$searchResult[]			= 'nama '. $input;
+						break;	
+					case 'sort':
+						$tmp 					= explode('-', $input);
+
+						switch ($tmp[0]) {
+							case 'name':
+								if($tmp[1] == 'asc')
+								{
+									$searchResult[]			= 'mengurutkan nama produk A-Z';
+								}
+								else if($tmp[1] == 'desc')
+								{
+									$searchResult[]			= 'mengurutkan nama produk Z-A';
+								}
+								break;
+							case 'price':
+
+								if($tmp[1] == 'asc')
+								{
+									$searchResult[]			= 'mengurutkan produk termurah';
+								}
+								else if($tmp[1] == 'desc')
+								{
+									$searchResult[]			= 'mengurutkan produk termahal';
+								}	
+								break;
+							case 'date':
+								if($tmp[1] == 'asc')
+								{
+									$searchResult[]			= 'mengurutkan produk terlama';
+								}
+								else if($tmp[1] == 'desc')
+								{
+									$searchResult[]			= 'mengurutkan produk terbaru';
+								}															
+								break;								
+							default:
+								$searchResult[]			= 'mengurutkan ' . $tmp[0];
+								break;
+						}
+						break;																		
+					default:
+						$searchResult[]			= null;
+						break;
+				}
+			}
 		}
 
-		if(Input::has('tagname'))
+		foreach ($links as $key => $link) 
 		{
-			$filters 							= ['tagsname' => Input::get('tagname')];
-
-			$searchResult						= $searchResult.'tag '.Input::get('tagname').' ';
+			$tmplink							= [];
+			foreach ($filters as $key2 => $filter) 
+			{
+				if($link['id'] != $key2)
+				{
+					$tmplink[$key2] 			= $filter; 
+				}
+			}
+			$links[$key] 						= array_merge($links[$key], $tmplink);
+			unset($links[$key]['id']);
 		}
 
-		if(Input::has('name'))
-		{
-			$filters['name']					= Input::get('name');
-			$searchResult						= $searchResult.'nama '.Input::get('name').' ';
-		}
+		// dd($links);
+		// if(Input::has('categoriesname'))
+		// {
+		// 	$filters['categoriesname'] 			= Input::get('categoriesname');
 
-		if(Input::has('sort') && Input::get('sort')=='desc')
-		{
-			$filters['orderbyraw']				= 'name desc';
-			$searchResult						= $searchResult.' di urutkan Z-A';
-		}
-		elseif(Input::has('sort') && Input::get('sort')=='asc')
-		{
-			$filters['orderbyraw']				= 'name asc';
-			$searchResult						= $searchResult.' di urutkan A-Z';
-		}
+		// 	$searchResult[]						= 'kategori '.Input::get('categoriesname');
+		// 	// array_push($searchResult, 'kategori '.Input::get('categoriesname') );
+		// 	$filters2 							= $filters;
+		// 	unset($filters2['categoriesname']);
+		// 	$link[]								= array_merge(["page" => $page], $filters2);
+		// }
+
+		// if(Input::has('tagsname'))
+		// {
+		// 	$filters['tagsname'] 				= Input::get('tagsname');
+
+		// 	$searchResult[]						= 'tag '.Input::get('tagsname');
+		// 	// array_push($searchResult, 'tag '.Input::get('tagsname') );
+		// 	$filters2 							= $filters;
+		// 	unset($filters2['tagsname']);
+		// 	$link[]								= array_merge(["page" => $page], $filters2);
+		// }
+
+		// if(Input::has('name'))
+		// {
+		// 	$filters['name']					= Input::get('name');
+		// 	array_push($searchResult, 'nama '.Input::get('name') );
+		// }
+
+		// if(Input::has('sort') && Input::get('sort')=='desc')
+		// {
+		// 	$filters['orderbyraw']				= 'name desc';
+		// 	array_push($searchResult, 'di urutkan Z-A' );
+		// }
+		// elseif(Input::has('sort') && Input::get('sort')=='asc')
+		// {
+		// 	$filters['orderbyraw']				= 'name asc';
+		// 	array_push($searchResult, 'di urutkan A-Z' );
+		// }
 
 		if(Auth::check())
 		{
@@ -65,6 +158,7 @@ class ProductController extends BaseController
 			$balance 							= 0;
 		}
 
+
 		$this->layout->page 					= view('pages.frontend.product.index')
 													->with('controller_name', $this->controller_name)
 													->with('filters', $filters)
@@ -72,6 +166,7 @@ class ProductController extends BaseController
 													->with('breadcrumb', $breadcrumb)
 													->with('balance', $balance)
 													->with('page', $page)
+													->with('links', $links)
 													;
 
 		$this->layout->controller_name			= $this->controller_name;
@@ -79,10 +174,26 @@ class ProductController extends BaseController
 		$this->layout->page->page_title 		= 'BALIN.ID';
 		$this->layout->page->page_subtitle 		= 'Produk Batik Modern - ' . $page;
 
+		$meta_desc								= null;
+		if(count($searchResult) > 0)
+		{
+			foreach ($filters as $key => $filter) 
+			{
+				$meta_desc						= $meta_desc . $filter ;
+
+				if (end($filters) != $filter)
+				{
+					$meta_desc 					= $meta_desc . ' - ';
+				}
+			}
+
+			$meta_desc 							= ' - ' . $meta_desc;
+		}
+
 		$this->layout->page->metas 				= 	[
 														'og:type' 			=> 'website', 
 														'og:title' 			=> 'BALIN.ID', 
-														'og:description' 	=> 'Produk Batik Modern - '. $page,
+														'og:description' 	=> 'Produk Batik Modern - '. $page . $meta_desc,
 														'og:url' 			=> route('frontend.product.index'),
 														'og:image' 			=> $this->stores['logo'],
 														'og:site_name' 		=> 'balin.id',
