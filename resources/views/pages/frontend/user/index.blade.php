@@ -85,7 +85,7 @@
 				Alamat Pengiriman
 				<small>
 					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.address.index')}}" data-modal-title="Ubah Alamat Pengiriman" class="balin-link">
-						<i class="fa fa-pencil"> Ubah</i>
+						<i class="fa fa-pencil"></i> Ubah
 					</a>
 				</small>
 			</h5>

@@ -11,7 +11,6 @@
 				@include('widgets.pageelements.pagetitle', ['pagetitle' => ''])
 			</div>
 		</div>
-		<div class="col-md-12">
 			<div class="row">
 				<div class="col-xs-12 col-md-12 col-sm-12 chart-div">
 					<div class="row chart-header">
@@ -134,17 +133,16 @@
 							</div>
 							<div class="col-sm-11 col-md-11">
 								<div class="row chart-footer">
-									<div class="col-md-9 col-sm-8">
+									<div class="col-md-9 col-sm-9">
 										<h4 class="text-right">SubTotal :</h4>
 									</div>
-									<div class="col-md-2 col-sm-3">
+									<div class="col-md-3 col-sm-3">
 										<h4 class="text-right label-total-all" data-total-item="{{ $total }}">
 											@if ($total)
 												<strong>@money_indo($total)</strong>
 											@endif
 										</h4>
 									</div>	
-									<div class="col-md-1 col-sm-1"></div>	
 								</div>
 							</div>
 						</div>
@@ -172,7 +170,6 @@
 					<div class="clearfix">&nbsp;</div>
 				</div>
 			</div>
-		</div>
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>

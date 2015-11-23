@@ -14,20 +14,32 @@
 		</div>
 		{!! Form::open(['url' => route('frontend.post.checkout'), 'method' => 'POST']) !!}
 			<div class="row">
-				<div class="col-sm-7">
-					<div class="row chart-header">
-						<div class="col-md-6 col-sm-6 hidden-xs">
-							<p>Produk</p>
-						</div>
-						<div class="col-md-3 col-sm-3 hidden-xs">
-							<p class="text-right">Harga</p>
-						</div>
-						<div class="col-md-3 col-sm-3 hidden-xs">
-							<p class="text-right">Total</p>
-						</div>    	
-					</div>
+				<div class="col-sm-7 col-md-7">
 					<div class="row">
-						<div class="col-sm-12 col-md-12">
+						<div class="col-xs-12 col-md-12 col-sm-12 chart-div">
+							<div class="row chart-header">
+								<div class="col-md-1 col-sm-1 hidden-xs">
+									<p>Produk</p>
+								</div>
+								<div class="col-md-11 col-sm-11 hidden-xs">
+									<div class="row">
+										<div class="col-sm-3 col-md-3"></div>
+										<div class="col-sm-3 col-md-3">
+											<p class="text-center">Kuantitas</p>
+										</div>
+										<div class="col-sm-2 col-md-2">
+											<p class="text-left">Harga</p>
+										</div>
+										<div class="col-sm-2 col-md-2">
+											<p class="text-left">Diskon</p>
+										</div>
+										<div class="col-md-2 col-sm-2">
+											<p class="text-center">Total</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
 							@if ($carts)
 								<?php $total = 0; ?>
 								@foreach ($carts as $k => $item)
@@ -48,6 +60,7 @@
 										"item_list_discount_price"		=> $item['discount'],
 										"item_list_total_price"			=> ($item['price']*$qty),
 										"item_varians"					=> $item['varians'],
+										"item_list_slug"				=> $item['slug'],
 										"item_mode"						=> 'new',
 									))
 									<?php $total += ($item['price']*$qty); ?>
@@ -64,8 +77,9 @@
 							</div>
 						</div>
 					</div>
+
 					<!-- mobile -->
-					<div class="row" style="background-color:black;">
+					<div class="row hidden-sm hidden-md hidden-lg" style="background-color:black;">
 						<div class="hidden-lg hidden-md hidden-sm col-xs-12" >
 							<div class="row p-t-xs m-b-none">
 								<div class="col-xs-12">
@@ -85,41 +99,46 @@
 						</div>
 					</div>
 
-					<!-- normal -->
+						<!-- normal -->
 					<div class="row m-t-sm">
-						<div class="col-lg-12 col-md-12 col-sm-12 hidden-xs checkout-bottom">
-							@if ($carts)
+						@if ($carts)
+							<div class="col-lg-5 col-md-4 col-sm-12 hidden-xs panel-voucher">
+								<div class="row p-b-sm">
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<span class="voucher-title">Masukkan Kode Voucher</span>
+									</div>	
+								</div>
 								<div class="row">
-									<div class="col-lg-8 col-md-8 col-sm-8 text-right">
+									<div class="col-md-12">
+										{!! Form::input('text', 'voucher_code', null, [
+												'class' => 'form-control hollow transaction-input-voucher-code m-b-sm'
+										]) !!}
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-7 col-md-8 col-sm-12 hidden-xs checkout-bottom panel-subtotal">
+								<div class="clearfix">&nbsp;</div>
+								<div class="row">
+									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
 										<span class="">Point Kamu</span>
 									</div>
-									<div class="col-lg-4 col-md-4 col-sm-4">
-										<span class="text-right"></span>
+									<div class="col-lg-5 col-md-5 col-sm-5 text-right p-r-lg">
+										<span class="text-right">@money_indo(Auth::user()->balance)</span>
 									</div>	
 								</div>
 								<div class="row">
-									<div class="col-lg-8 col-md-8 col-sm-8 text-right">
+									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
 										<span >Biaya Pengiriman</span>
 									</div>
-									<div class="col-lg-4 col-md-4 col-sm-4">
+									<div class="col-lg-5 col-md-5 col-sm-5 p-r-lg">
 										<span class="text-right"></span>
 									</div>	
 								</div>
 								<div class="row">
-									<div class="col-lg-8 col-md-8 col-sm-8 text-right">
-										<span class="">Masukkan Kode Voucher</span>
-									</div>
-									<div class="col-lg-4 col-md-4 col-sm-4 text-right">
-										{!! Form::input('text', 'voucher_code', null, [
-												'class' 		=> 'form-control hollow transaction-input-voucher-code',
-										]) !!}
-									</div>	
-								</div>
-								<div class="row">
-									<div class="col-lg-8 col-md-8 col-sm-8 text-right">
+									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
 										<h4>SubTotal</h4>
 									</div>
-									<div class="col-lg-4 col-md-4 col-sm-4">
+									<div class="col-lg-5 col-md-5 col-sm-5 p-r-lg">
 										<h4 class="text-right">
 											@if ($total)
 												<strong>@money_indo($total)</strong>
@@ -127,16 +146,13 @@
 										</h4>
 									</div>	
 								</div>
-							@endif
-							<div class="clearfix">&nbsp;</div>
-						</div>
+							</div>
+						@endif
 					</div>
-				</div>
-				<div class="col-xs-12 hidden-lg hidden-sm hidden-md">
 					<div class="row clearfix">
 						&nbsp;
 					</div>
-				</div>			
+				</div>
 				<div class="col-sm-4 col-sm-offset-1">
 			    	<div class="row">
 			    		<div class="col-md-12">
@@ -192,7 +208,12 @@
 					</div>
 					<div class="row">
 			    		<div class="col-md-12">
-			    			Term & Condition
+			    			<div class="checkbox">
+			    				<label>
+			    					{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
+					    			Term & Condition
+					    		</label>
+			    			</div>
 			    		</div>
 			    	</div>
 			    	<div class="clearfix">&nbsp;</div>
@@ -202,8 +223,7 @@
 								<button type="submit" class="btn-hollow hollow-black-border" tabindex="7">Checkout</button>
 							</div>        
 						</div>        
-					</div>    
-					
+					</div>    	
 				</div>
 			</div>
 		{!! Form::close() !!}

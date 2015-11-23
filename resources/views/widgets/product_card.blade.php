@@ -17,11 +17,13 @@
 	</a>
 
 	<div class="caption-card m-t-0" >
-		<div class="info-product">
-			<h4 class="text-center">
+		<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">
+ 			<div class="info-product">
+				<h4 class="text-center">
 					{{ $data['name'] }}
-			</h4>
-		</div>
+				</h4>
+			</div>
+		</a>
 		<div class="info-price">
 			<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">
 			<?php $price 	= $data['price']; ?>
