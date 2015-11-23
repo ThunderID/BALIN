@@ -100,6 +100,9 @@
 		</div>
 		<div class="col-sm-6">
 			<h5 class="title-info m-t-md">Tracking Order</h4>
+			<?php
+				$orders 			= App\Models\Transaction::userid(Auth::user()->id)->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->paginate();
+			?>
 		</div>
 	</div>
 
