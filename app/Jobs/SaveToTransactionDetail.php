@@ -29,7 +29,16 @@ class SaveToTransactionDetail extends Job implements SelfHandling
 
         foreach ($this->cart as $key => $value)
         {
-            $trsdetail                  = new TransactionDetail;
+            $prev                           = TransactionDetail::transactionid($this->transaction->id)->varianid($value['varian_id'])->first();
+
+            if($prev)
+            {
+                $trsdetail                  = $prev;
+            }
+            else
+            {
+                $trsdetail                  = new TransactionDetail;
+            }
 
             $trsdetail->fill([
                 'transaction_id'        => $this->transaction['id'],
