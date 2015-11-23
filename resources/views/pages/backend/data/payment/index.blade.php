@@ -141,13 +141,13 @@ $datas 				= $datas->paginate();
 										<td class="text-center">@date_indo($data['ondate'])</td>                                                                               
 										<td class="text-center">
 											<!-- <a href="{{ URL::route('backend.data.payment.show', ['id' => $data['id']]) }}"> Detail </a>,  -->
-											<a href="{{ URL::route('backend.data.payment.edit', ['id' => $data['id']]) }}"> Edit</a>, 
+											<!-- <a href="{{ URL::route('backend.data.payment.edit', ['id' => $data['id']]) }}"> Edit</a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#payment_del"
 												data-id="{{ $data['id'] }}"
 												data-title="Hapus Data Pembayaran {{$data['name']}}"
 												data-action="{{ route('backend.data.payment.destroy', $data->id) }}">
 												Hapus
-											</a>  
+											</a>   -->
 										</td>    
 									</tr>       
 									<?php $ctr += 1; ?>                     
