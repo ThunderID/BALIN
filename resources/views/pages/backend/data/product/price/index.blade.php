@@ -9,42 +9,9 @@ if(!is_null($filters) && is_array($filters))
 }
 $datas 			= $datas->where('product_id', $pid);
 
-
-if(Input::has('asc'))
+if(Input::has('sort'))
 {
-	switch (Input::get('asc')) 
-	{
-			case 'startedat':
-				$datas 			= $datas->orderby('started_at', 'asc');
-				break;
-			case 'price':
-				$datas 			= $datas->orderby('price', 'asc');
-				break;
-			case 'promo':
-				$datas 			= $datas->orderby('promo_price', 'asc');
-				break;
-			default:
-				$datas 			= $datas->orderby('started_at', 'asc');
-				break;
-		}	
-}
-elseif(Input::has('desc'))
-{
-	switch (Input::get('desc')) 
-	{
-			case 'startedat':
-				$datas 			= $datas->orderby('started_at', 'desc');
-				break;
-			case 'price':
-				$datas 			= $datas->orderby('price', 'desc');
-				break;
-			case 'promo':
-				$datas 			= $datas->orderby('promo_price', 'asc');
-				break;				
-			default:
-				$datas 			= $datas->orderby('started_at', 'desc');
-				break;
-		}	
+	$datas 			= $datas->sort(Input::get('sort'));
 }
 else
 {
@@ -96,39 +63,39 @@ $datas 				= $datas->paginate();
 									<th class="text-center">No.</th>
 									<th class="col-md-3 text-center">
 										Tanggal Mulai
-										@if(!Input::has('asc') || Input::get('asc')!='startedat')
-										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'asc' => 'startedat']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='startedat-asc')
+										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'sort' => 'startedat-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='startedat')
-										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'desc' => 'startedat']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='startedat-desc')
+										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'sort' => 'startedat-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif
 									</th>
 									<th class="col-md-3 text-center">
 										Harga
-										@if(!Input::has('asc') || Input::get('asc')!='price')
-										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'asc' => 'price']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='price-asc')
+										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'sort' => 'price-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='price')
-										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'desc' => 'price']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='price-desc')
+										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'sort' => 'price-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif
 									</th>
 									<th class="col-md-3 text-center">
 										Harga Promo
-										@if(!Input::has('asc') || Input::get('asc')!='promo')
-										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'asc' => 'promo']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='promo-asc')
+										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'sort' => 'promo-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='promo')
-										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'desc' => 'promo']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='promo-desc')
+										<a href="{{route('backend.data.product.price.index', array_merge(Input::all(), ['pid' => $pid,'sort' => 'promo-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif

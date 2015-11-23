@@ -120,4 +120,25 @@ class Price extends Eloquent
 
 		return 	$query->where('started_at', '<=', $started_at)->orderBy('started_at', 'desc');
 	}
+
+	public function scopeSort($query, $variable)
+	{
+		$tmp 	= explode('-', $variable);
+
+		switch ($tmp[0]) 
+		{
+			case 'price':
+				return $query->orderBy('prices.price',$tmp[1]);
+				break;
+			case 'promo':
+				return $query->orderBy('prices.promo_price',$tmp[1]);
+				break;
+			case 'startedat':
+				return $query->orderBy('prices.started_at',$tmp[1]);
+				break;
+			default:
+				return $query;
+				break;
+		}
+	}
 }

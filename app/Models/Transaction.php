@@ -321,4 +321,20 @@ class Transaction extends Eloquent
 					})
 					;
 	}
+
+	public function scopeSort($query, $variable)
+	{
+		$tmp 	= explode('-', $variable);
+
+		switch ($tmp[0]) 
+		{
+			case 'transactat':
+				return $query->orderBy('transactions.transact_at',$tmp[1]);
+				break;
+
+			default:
+				return $query;
+				break;
+		}
+	}
 }

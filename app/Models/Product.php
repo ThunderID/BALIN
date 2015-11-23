@@ -102,6 +102,18 @@ class Product extends Eloquent
 		{
 			return $this->current_price;
 		}
+		else
+		{
+			$price 						= Price::productid($this->id)->ondate('now')->first();
+			if($price)
+			{
+				return $price->price;
+			}
+			else
+			{
+				return 0;
+			}
+		}
 
 		return 0;
 	}
@@ -126,7 +138,15 @@ class Product extends Eloquent
 		}
 		else
 		{
-			$price 						= 0;
+			$promo 						= Price::productid($this->id)->ondate('now')->first();
+			if($promo)
+			{
+				$price 					= $promo->promo_price;
+			}
+			else
+			{
+				$price 					= 0;
+			}
 		}
 
 		// if(Auth::check())
@@ -395,6 +415,10 @@ class Product extends Eloquent
 
 			case 'date':
 				return $query->orderBy('products.created_at',$tmp[1]);
+				break;
+
+			case 'stock':
+				return $query->orderBy('current_stock',$tmp[1]);
 				break;
 
 			default:

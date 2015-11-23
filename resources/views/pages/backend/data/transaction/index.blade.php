@@ -10,38 +10,18 @@ if(!is_null($filters) && is_array($filters))
 
 if ($subnav_active == 'sell')
 {
-	$datas 		= $datas->type($subnav_active)->orderby('transact_at', 'desc')->with(['user', 'transactiondetails', 'pointlogs', 'transactionlogs']);
+	$datas 		= $datas->type($subnav_active)->with(['user', 'transactiondetails', 'pointlogs', 'transactionlogs']);
 	$type_user  = 'Kostumer';
 }
 else
 {
-	$datas 		= $datas->type($subnav_active)->orderby('transact_at', 'desc')->with(['supplier', 'transactiondetails', 'pointlogs', 'transactionlogs']);
+	$datas 		= $datas->type($subnav_active)->with(['supplier', 'transactiondetails', 'pointlogs', 'transactionlogs']);
 	$type_user  = 'Supplier';
 }
 
-if(Input::has('asc'))
+if(Input::has('sort'))
 {
-	switch (Input::get('asc')) 
-	{
-			case 'transactat':
-				$datas 			= $datas->orderby('transact_at', 'asc');
-				break;
-			default:
-				$datas 			= $datas->orderby('updated_at', 'asc');
-				break;
-		}	
-}
-elseif(Input::has('desc'))
-{
-	switch (Input::get('desc')) 
-	{
-			case 'transactat':
-				$datas 			= $datas->orderby('transact_at', 'desc');
-				break;
-			default:
-				$datas 			= $datas->orderby('updated_at', 'desc');
-				break;
-		}	
+	$datas 			= $datas->sort(Input::get('sort'));
 }
 else
 {
@@ -96,13 +76,13 @@ $datas 				= $datas->paginate();
 									<th class="text-center">{{ $type_user }}</th>
 									<th class="text-center">
 										Tanggal Transaksi
-										@if(!Input::has('asc') || Input::get('asc')!='transactat')
-										<a href="{{route('backend.data.transaction.index', array_merge(Input::all(), ['asc' => 'transactat']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='transactat-asc')
+										<a href="{{route('backend.data.transaction.index', array_merge(Input::all(), ['sort' => 'transactat-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='transactat')
-										<a href="{{route('backend.data.transaction.index', array_merge(Input::all(), ['desc' => 'transactat']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='transactat-desc')
+										<a href="{{route('backend.data.transaction.index', array_merge(Input::all(), ['sort' => 'transactat-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif

@@ -115,4 +115,22 @@ class Payment extends Eloquent
 	{
 		return 	$query->where('amount', $variable);
 	}
+
+	public function scopeSort($query, $variable)
+	{
+		$tmp 	= explode('-', $variable);
+
+		switch ($tmp[0]) 
+		{
+			case 'name':
+				return $query->orderBy('payments.account_name',$tmp[1]);
+				break;
+			case 'ondate':
+				return $query->orderBy('payments.ondate',$tmp[1]);
+				break;
+			default:
+				return $query;
+				break;
+		}
+	}
 }
