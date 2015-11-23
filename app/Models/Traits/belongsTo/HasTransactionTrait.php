@@ -54,6 +54,14 @@ trait HasTransactionTrait
 	
 	public function scopeTransactionStatus($query, $variable)
 	{
-		return $query->whereHas('transaction', function($q)use($variable){$q->status($variable);});
+		return $query
+					->join('transactions', function ($join) use($variable) 
+						{
+							$join->on ( 'shipments.transaction_id', '=', 'transactions.id' )
+							->wherenull('transactions.deleted_at')
+							;
+						})
+					->TransactionLogStatus($variable)
+					;
 	}
 }

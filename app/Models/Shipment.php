@@ -19,6 +19,7 @@ class Shipment extends Eloquent
 	use \App\Models\Traits\belongsTo\HasTransactionTrait;
 	use \App\Models\Traits\belongsTo\HasCourierTrait;
 	use \App\Models\Traits\belongsTo\HasAddressTrait;
+	use \App\Models\Traits\Custom\HasStatusTrait;
 
 	/**
 	 * The database table used by the model.
@@ -104,5 +105,15 @@ class Shipment extends Eloquent
 		}
 
 		return 	$query->where('id', $variable);
+	}
+
+	public function scopeReceiverName($query, $variable)
+	{
+		return 	$query->where('receiver_name', 'like', '%'.$variable.'%');
+	}
+
+	public function scopeReceiptNumber($query, $variable)
+	{
+		return 	$query->where('receipt_number', $variable);
 	}
 }

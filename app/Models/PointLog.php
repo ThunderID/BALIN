@@ -60,7 +60,7 @@ class PointLog extends Eloquent
 	 */
 	protected $rules				=	[
 											'amount'						=> 'numeric',
-											'expired_at'					=> 'required|date_format:"Y-m-d H:i:s"',
+											'expired_at'					=> 'required|date_format:"Y-m-d H:i:s"|after:now',
 										];
 
 	/**

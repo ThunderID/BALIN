@@ -255,7 +255,12 @@ class Transaction extends Eloquent
 		return 	$query
 				->selectraw('users.*')
 				->selectraw('count(user_id) as frequent_negative')
-				->join('users', 'users.id', '=', 'transactions.user_id')
+				->join('users', function ($join) use($variable) 
+				{
+					$join->on ( 'users.id', '=', 'transactions.user_id' )
+					->wherenull('users.deleted_at')
+					;
+				})
 				->status(['canceled', 'abandoned', 'cart'])
 				->TransactionLogChangedAt($variable)
 				->groupBy('user_id')
@@ -268,7 +273,12 @@ class Transaction extends Eloquent
 		return 	$query
 				->selectraw('users.*')
 				->selectraw('count(user_id) as frequent_postive')
-				->join('users', 'users.id', '=', 'transactions.user_id')
+				->join('users', function ($join) use($variable) 
+				{
+					$join->on ( 'users.id', '=', 'transactions.user_id' )
+					->wherenull('users.deleted_at')
+					;
+				})
 				->status(['paid', 'delivered', 'shipping'])
 				->TransactionLogChangedAt($variable)
 				->groupBy('user_id')
@@ -298,10 +308,17 @@ class Transaction extends Eloquent
 						$join
 							->on('auditors.user_id', '<>', 'transactions.user_id')
 							->where('auditors.type', '=', 'transaction_canceled')
+							->wherenull('auditors.deleted_at')
 							;
 					})
 					->TransactionLogChangedAt($variable)
-					->join('users', 'users.id', '=', 'auditors.user_id') 
+					->join('users', function ($join) use($variable) 
+					{
+						$join
+							->on('users.id', '=', 'auditors.user_id')
+							->wherenull('users.deleted_at')
+							;
+					})
 					;
 	}
 }
