@@ -154,7 +154,7 @@
 							</div>
 							<div class="row m-t-sm">
 								<div class="col-sm-4 col-xs-4">
-									<a href="#" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
+									<a onclick="facebookShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
 								</div>
 								<div class="col-sm-8 col-xs-8">
 									<div class="form-group text-right">
@@ -202,14 +202,9 @@
 @stop
 
 @section('script')
-	(function(d, s, id) {
-	 	var js, fjs = d.getElementsByTagName(s)[0];
-	 	if (d.getElementById(id)) return;
-	 	js = d.createElement(s); js.id = id;
-	 	js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
-	 	fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-
+	function facebookShare() {
+	    var myWindow = window.open("http://www.facebook.com/sharer/sharer.php?u={{ route('frontend.product.show', $data['slug']) }}#&title={{$data['name']}}", "Balin", "width=600", "height=580", "top=10", "left=10");
+	};
 
 	$(document).ready(function() {
 		//$('.myCanvas').change(function() {
