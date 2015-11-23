@@ -22,7 +22,7 @@ class CreateProductLableTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            $table->index(['deleted_at', 'product_id', 'started_at']);
+            $table->index(['deleted_at', 'lable', 'started_at']);
         });
     }
 
