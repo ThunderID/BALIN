@@ -55,12 +55,12 @@
 								"item_list_normal_price"		=> $item['price'],
 								"item_list_size"				=> $item['varians'],
 								"item_list_discount_price"		=> $item['discount'],
-								"item_list_total_price"			=> ($item['price']*$qty),
+								"item_list_total_price"			=> (($item['price']-$item['discount'])*$qty),
 								"item_varians"					=> $item['varians'],
 								"item_list_slug"				=> $item['slug'],
 								"item_mode"						=> 'new',
 							))
-							<?php $total += ($item['price']*$qty); ?>
+							<?php $total += (($item['price']-$item['discount'])*$qty); ?>
 						@endforeach
 					@else
 						<div class="row chart-item">
