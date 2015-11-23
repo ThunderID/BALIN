@@ -12,35 +12,9 @@ if(!is_null($filters) && is_array($filters))
 }
 $datas 			= $datas->with(['varians', 'lables'])->currentprice(true)->currentstock(true);
 
-if(Input::has('asc'))
+if(Input::has('sort'))
 {
-	switch (Input::get('asc')) 
-	{
-			case 'price':
-				$datas 			= $datas->orderby('prices.price', 'asc');
-				break;
-			case 'stock':
-				$datas 			= $datas->orderby('current_stock', 'asc');
-				break;
-			default:
-				$datas 			= $datas->orderby('name', 'asc');
-				break;
-	}	
-}
-elseif(Input::has('desc'))
-{
-	switch (Input::get('desc')) 
-	{
-			case 'price':
-				$datas 			= $datas->orderby('prices.price', 'desc');
-				break;
-			case 'stock':
-				$datas 			= $datas->orderby('current_stock', 'desc');
-				break;
-			default:
-				$datas 			= $datas->orderby('name', 'desc');
-				break;
-	}	
+	$datas 			= $datas->sort(Input::get('sort'));
 }
 else
 {
@@ -93,26 +67,26 @@ $datas 				= $datas->paginate();
 									<!-- <th class="col-md-2 text-center">UPC</th> -->
 									<th class="col-md-3">
 										Nama Produk
-										@if(!Input::has('asc') || Input::get('asc')!='name')
-										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['asc' => 'name']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='name-asc')
+										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['sort' => 'name-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='name')
-										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['desc' => 'name']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='name-desc')
+										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['sort' => 'name-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif
 									</th>
 									<th class="col-md-2 text-center">
 										Harga 
-										@if(!Input::has('asc') || Input::get('asc')!='price')
-										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['asc' => 'price']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='price-asc')
+										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['sort' => 'price-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='price')
-										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['desc' => 'price']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='price-desc')
+										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['sort' => 'price-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif
@@ -121,13 +95,13 @@ $datas 				= $datas->paginate();
 									<th class="col-md-2 text-center">Ukuran</th>
 									<th class="col-md-2 text-center">
 										Stok Display
-										@if(!Input::has('asc') || Input::get('asc')!='stock')
-										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['asc' => 'stock']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='stock-asc')
+										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['sort' => 'stock-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='stock')
-										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['desc' => 'stock']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='stock-desc')
+										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['sort' => 'stock-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif

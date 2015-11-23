@@ -116,4 +116,19 @@ class Shipment extends Eloquent
 	{
 		return 	$query->where('receipt_number', $variable);
 	}
+
+	public function scopeSort($query, $variable)
+	{
+		$tmp 	= explode('-', $variable);
+
+		switch ($tmp[0]) 
+		{
+			case 'name':
+				return $query->orderBy('shipments.receiver_name',$tmp[1]);
+				break;
+			default:
+				return $query;
+				break;
+		}
+	}
 }

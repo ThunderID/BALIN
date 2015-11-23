@@ -397,6 +397,10 @@ class Product extends Eloquent
 				return $query->orderBy('products.created_at',$tmp[1]);
 				break;
 
+			case 'stock':
+				return $query->orderBy('current_stock',$tmp[1]);
+				break;
+
 			default:
 				return $query;
 				break;
