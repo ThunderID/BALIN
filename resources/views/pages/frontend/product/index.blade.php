@@ -81,7 +81,7 @@
 							<div class="row">
 							{!! Form::open(array('url' => route('frontend.product.index', Input::all()), 'method' => 'get', 'id' => 'form1', 'class' => 'form-group' )) !!}
 								<div class="col-xs-10 p-r-none">
-									{!! Form::text('name', null, ['class' => 'form-control hollow', 'id' => 'input-search', 'style' => 'border-right:0; border-top:0; border-bottom:0; height: 42px; padding-top:6px;','placeholder' => 'Search']) !!}
+									{!! Form::text('name', null, ['class' => 'form-control hollow', 'id' => 'input-search', 'style' => 'border-right:0; border-top:0; border-bottom:0; height: 42px; padding-top:6px;','placeholder' => 'Cari nama produk']) !!}
 								</div>
 								<div class="col-xs-2 p-l-none p-r-none p-b-none">
 									<a href="#" onclick="form1.submit();" type="button" class="btn-hollow hollow-white-border btn-block t-sm" style="border-left:0; border: 1px solid #999; border-top:0; border-bottom:0; height: 42px;"><i class="fa fa-search" style="padding-top:6px;"></i></a>
@@ -316,7 +316,7 @@
 				      		<div class="row">
 							{!! Form::open(array('url' => route('frontend.product.index', Input::all()), 'method' => 'get', 'id' => 'form2', 'class' => 'form-group' )) !!}
 								<div class="col-xs-9 p-r-none">
-									{!! Form::text('name', null, ['class' => 'form-control hollow', 'style' => 'border-right:0;','placeholder' => 'Search']) !!}
+									{!! Form::text('name', null, ['class' => 'form-control hollow', 'style' => 'border-right:0;','placeholder' => 'Cari nama produk']) !!}
 								</div>
 								<div class="col-xs-3 p-l-none">
 									<a href="#" onclick="form2.submit();" type="button" class="btn-hollow hollow-white-border btn-block t-sm" style="border-left:0; border: 1px solid #999;"><i class="fa fa-search"></i></a>
