@@ -199,4 +199,25 @@ class Voucher extends Eloquent
 					->groupby('voucher_id')
 					;
 	}
+
+	public function scopeSort($query, $variable)
+	{
+		$tmp 	= explode('-', $variable);
+
+		switch ($tmp[0]) 
+		{
+			case 'type':
+				return $query->orderBy('tmp_vouchers.type',$tmp[1]);
+				break;
+			case 'quota':
+				return $query->orderBy('current_quota',$tmp[1]);
+				break;
+			case 'startedat':
+				return $query->orderBy('tmp_vouchers.started_at',$tmp[1]);
+				break;
+			default:
+				return $query;
+				break;
+		}
+	}
 }

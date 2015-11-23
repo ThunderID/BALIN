@@ -35,7 +35,7 @@
 						'label_price'			=> $item['price'],
 						'label_total'			=> $qty*$item['price']
 					])
-				</li>                        
+				</li>
 			@endif
 			<?php $total += ($item['price']*$qty); ?>
 		@endforeach
@@ -64,5 +64,11 @@
 				</div>
 			</div>
 		</li>
+
+		RECOMENDED
+
+		<?php
+			$products 			= App\Models\Product::currentprice(true)->DefaultImage(true)->sellable(true)->orderby('products.created_at','desc')->take(2)->get();
+		?>
 	@endif                                                                
 </ul>

@@ -146,4 +146,19 @@ class Courier extends Eloquent
 	{
 		return 	$query->where('name', 'like', '%'.$variable.'%');
 	}
+
+	public function scopeSort($query, $variable)
+	{
+		$tmp 	= explode('-', $variable);
+
+		switch ($tmp[0]) 
+		{
+			case 'name':
+				return $query->orderBy('couriers.name',$tmp[1]);
+				break;
+			default:
+				return $query;
+				break;
+		}
+	}
 }

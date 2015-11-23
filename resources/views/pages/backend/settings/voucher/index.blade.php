@@ -11,35 +11,10 @@ if(!is_null($filters) && is_array($filters))
 
 $datas 			= $datas->currentquota(true);
 
-if(Input::has('asc'))
+
+if(Input::has('sort'))
 {
-	switch (Input::get('asc')) 
-	{
-			case 'quota':
-				$datas 			= $datas->orderby('current_quota', 'asc');
-				break;
-			case 'startedat':
-				$datas 			= $datas->orderby('started_at', 'asc');
-				break;
-			default:
-				$datas 			= $datas->orderby('type', 'asc');
-				break;
-		}	
-}
-elseif(Input::has('desc'))
-{
-	switch (Input::get('desc')) 
-	{
-			case 'quota':
-				$datas 			= $datas->orderby('current_quota', 'desc');
-				break;
-			case 'startedat':
-				$datas 			= $datas->orderby('started_at', 'desc');
-				break;
-			default:
-				$datas 			= $datas->orderby('type', 'desc');
-				break;
-		}	
+	$datas 			= $datas->sort(Input::get('sort'));
 }
 else
 {
@@ -93,39 +68,39 @@ $datas 				= $datas->paginate();
 									<th class="text-center">Code</th>
 									<th class="text-center">
 										Tipe
-										@if(!Input::has('asc') || Input::get('asc')!='type')
-										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['asc' => 'type']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='type-asc')
+										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['sort' => 'type-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='type')
-										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['desc' => 'type']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='type-desc')
+										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['sort' => 'type-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif
 									</th>
 									<th class="text-center">
 										Quota
-										@if(!Input::has('asc') || Input::get('asc')!='quota')
-										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['asc' => 'quota']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='quota-asc')
+										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['sort' => 'quota-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='quota')
-										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['desc' => 'quota']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='quota-desc')
+										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['sort' => 'quota-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif
 									</th>
 									<th class="col-md-4 text-center">
 										Masa Berlaku
-										@if(!Input::has('asc') || Input::get('asc')!='startedat')
-										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['asc' => 'startedat']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='startedat-asc')
+										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['sort' => 'startedat-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='startedat')
-										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['desc' => 'startedat']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='startedat-desc')
+										<a href="{{route('backend.settings.voucher.index', array_merge(Input::all(), ['sort' => 'startedat-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif

@@ -8,12 +8,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>Balin</title>
+	<title>CMS - BALIN.ID</title>
 
 	<!-- Custom CSS -->
-	 {!! HTML::style('Balin/admin/css/bootstrap.min.css') !!}
-	 {!! HTML::style('Balin/admin/css/font-awesome.min.css') !!}
-	 {!! HTML::style('Balin/admin/css/style.css') !!}
+	{!! HTML::style('Balin/admin/css/bootstrap.min.css') !!}
+	{!! HTML::style('Balin/admin/css/font-awesome.min.css') !!}
+	{!! HTML::style('Balin/admin/css/style.css') !!}
+   <link rel="shortcut icon" href="{{ url('Balin/web/image/favicon.ico') }} "/>
 
 </head>
 

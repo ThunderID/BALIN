@@ -9,35 +9,9 @@ if(!is_null($filters) && is_array($filters))
 }
 $datas 			= $datas->with(['transaction']);
 
-if(Input::has('asc'))
+if(Input::has('sort'))
 {
-	switch (Input::get('asc')) 
-	{
-			case 'ondate':
-				$datas 			= $datas->orderby('ondate', 'asc');
-				break;
-			case 'name':
-				$datas 			= $datas->orderby('account_name', 'asc');
-				break;
-			default:
-				$datas 			= $datas->orderby('ondate', 'asc');
-				break;
-		}	
-}
-elseif(Input::has('desc'))
-{
-	switch (Input::get('desc')) 
-	{
-			case 'ondate':
-				$datas 			= $datas->orderby('ondate', 'desc');
-				break;
-			case 'name':
-				$datas 			= $datas->orderby('account_name', 'desc');
-				break;
-			default:
-				$datas 			= $datas->orderby('ondate', 'desc');
-				break;
-		}	
+	$datas 			= $datas->sort(Input::get('sort'));
 }
 else
 {
@@ -90,13 +64,13 @@ $datas 				= $datas->paginate();
 									<th>#</th>
 									<th class="text-center">
 										A.N
-										@if(!Input::has('asc') || Input::get('asc')!='name')
-										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['asc' => 'name']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='name-asc')
+										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['sort' => 'name-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='name')
-										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['desc' => 'name']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='name-desc')
+										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['sort' => 'name-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif
@@ -105,13 +79,13 @@ $datas 				= $datas->paginate();
 									<th class="text-center">Jumlah</th>
 									<th class="text-center">
 										Tanggal Bayar
-										@if(!Input::has('asc') || Input::get('asc')!='ondate')
-										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['asc' => 'ondate']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='ondate-asc')
+										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['sort' => 'ondate-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='ondate')
-										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['desc' => 'ondate']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='ondate-desc')
+										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['sort' => 'ondate-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif

@@ -11,33 +11,13 @@ if(!is_null($filters) && is_array($filters))
 
 $datas 			= $datas->with(['addresses', 'images']);
 
-if(Input::has('asc'))
+if(Input::has('sort'))
 {
-	switch (Input::get('asc')) 
-	{
-			case 'name':
-				$datas 			= $datas->orderby('name', 'asc');
-				break;
-			default:
-				$datas 			= $datas->orderby('name', 'asc');
-				break;
-		}	
-}
-elseif(Input::has('desc'))
-{
-	switch (Input::get('desc')) 
-	{
-			case 'name':
-				$datas 			= $datas->orderby('name', 'desc');
-				break;
-			default:
-				$datas 			= $datas->orderby('name', 'desc');
-				break;
-		}	
+	$datas 			= $datas->sort(Input::get('sort'));
 }
 else
 {
-	$datas 			= $datas->orderby('name', 'asc');
+	$datas 			= $datas->orderby('name', 'desc');
 }
 
 $datas 				= $datas->paginate();
@@ -88,13 +68,13 @@ $datas 				= $datas->paginate();
 									<th class="text-center">Logo</th>
 									<th class="col-md-2 text-center">
 										Nama
-										@if(!Input::has('asc') || Input::get('asc')!='name')
-										<a href="{{route('backend.settings.courier.index', array_merge(Input::all(), ['asc' => 'name']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='name-asc')
+										<a href="{{route('backend.settings.courier.index', array_merge(Input::all(), ['sort' => 'name-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
 										@else
 										<i class="fa fa-arrow-up"></i>
 										@endif
-										@if(!Input::has('desc') || Input::get('desc')!='name')
-										<a href="{{route('backend.settings.courier.index', array_merge(Input::all(), ['desc' => 'name']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@if(!Input::has('sort') || Input::get('sort')!='name-desc')
+										<a href="{{route('backend.settings.courier.index', array_merge(Input::all(), ['sort' => 'name-desc']))}}"> <i class="fa fa-arrow-down"></i> </a>
 										@else
 										<i class="fa fa-arrow-down"></i>
 										@endif

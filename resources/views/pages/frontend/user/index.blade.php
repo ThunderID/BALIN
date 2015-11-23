@@ -58,15 +58,20 @@
 				Kuota Invite Refferal <strong>{{Auth::user()->quota}} </strong>
 			</p>
 			<p class="label-info">
+				Upline
+				@if (!is_null(Auth::user()->reference))
+					Upline 
+					<strong>{{Auth::user()->reference}} </strong> 
+				@else
+					<strong>Tidak ada</strong>
+					<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Upline Saya" data-view="modal-md">[ Masukkan Referral ]</a></small>
+				@endif
+			</p>
+			<p class="label-info">
 				Downline 
 				<strong>{{Auth::user()->downline}} </strong> 
-				<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Refferal Saya" data-view="modal-md">[ Lihat Daftar ]</a></small>
+				<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Downline Saya" data-view="modal-md">[ Lihat Daftar ]</a></small>
 			</p>
-			@if (!is_null(Auth::user()->reference))
-				<p class="label-info">
-					Referensi dari <strong>{{Auth::user()->reference}} </strong>
-				</p>
-			@endif
 		</div>
 	</div>
 
@@ -82,7 +87,7 @@
 				Alamat Pengiriman
 				<small>
 					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.address.index')}}" data-modal-title="Ubah Alamat Pengiriman" class="balin-link">
-						<i class="fa fa-pencil"> Ubah</i>
+						<i class="fa fa-pencil"></i> Ubah
 					</a>
 				</small>
 			</h5>
