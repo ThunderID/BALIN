@@ -61,39 +61,35 @@
 
 	<section class="container-fluid hidden-sm hidden-md hidden-lg">
 		<div class="row">
-			@foreach($stores as $key => $value)
-				<?php $content 		= json_decode($value->value, true); ?>
+			<?php $i = 0; ?>
+			<div class="col-xs-12 p-l-none p-r-none m-t-lg" style="position:relative">
+				<div class="caption-mobile">
+					@foreach ($value as $k => $v)
+						@if ($v[$k.'_active']=='1')
+							<?php 
+								$loc = explode('-', $v['slider_'. $k .'_location']); 
+								$loc_x = strtolower($loc[1]);
+								$loc_y = strtolower($loc[0]);
+							?>
+							<div class="@if($loc_x=='left') left @else right @endif">
+								@if ($k=='title')
+									<h3>{!! $v['slider_'. $k] !!} </h3>
+								@elseif ($k=='content')
+									<p class="m-t-sm">{!! $v['slider_'. $k] !!} </p>
+								@else
+									<a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black btn-hollow-xs">
+										{!! $v['slider_'. $k] !!} 
+									</a>
+								@endif
+							</div>
 
-				<?php $i = 0; ?>
-				<div class="col-xs-12 p-l-none p-r-none m-t-lg" style="position:relative">
-					<div class="caption-mobile">
-						@foreach ($content as $k => $v)
-							@if ($v[$k.'_active']=='1')
-								<?php 
-									$loc = explode('-', $v['slider_'. $k .'_location']); 
-									$loc_x = strtolower($loc[1]);
-									$loc_y = strtolower($loc[0]);
-								?>
-								<div class="@if($loc_x=='left') left @else right @endif">
-									@if ($k=='title')
-										<h3>{!! $v['slider_'. $k] !!} </h3>
-									@elseif ($k=='content')
-										<p class="m-t-sm">{!! $v['slider_'. $k] !!} </p>
-									@else
-										<a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black btn-hollow-xs">
-											{!! $v['slider_'. $k] !!} 
-										</a>
-									@endif
-								</div>
-
-							@endif
-						@endforeach
-					</div>
-					@if(isset($value['images'][0]))
-						<img src="{!!$value['images'][0]['image_lg']!!}" style="" class="img-responsive">
-					@endif
+						@endif
+					@endforeach
 				</div>
-			@endforeach
+				@if(isset($value['images'][0]))
+					<img src="{!!$value['images'][0]['image_lg']!!}" style="" class="img-responsive">
+				@endif
+			</div>
 		</div>
 	</section>
 	<!-- /#wrapper -->

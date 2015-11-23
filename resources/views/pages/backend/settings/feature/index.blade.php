@@ -8,7 +8,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
+$datas 			= $datas->orderby('started_at', 'desc')->Type('slider')->paginate();
 
 ?>
 
@@ -55,7 +55,7 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 									<th class="text-center">No.</th>
 									<th class="text-center col-md-4">Slide</th>
 									<th class="text-center col-md-5">Konten</th>
-									<th class="text-center col-md-2">Tanggal Mulai</th>
+									<th class="text-center col-md-2">Ditampilkan</th>
 									<th class="text-center col-md-2">Kontrol</th>
 								</tr>
 							</thead>
@@ -116,7 +116,8 @@ $datas 			= $datas->orderby('started_at')->Type('slider')->paginate();
 												@endif																						
 											</td>
 											<td>
-												{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('d-m-Y H:i') }}
+												@datetime_indo($data['started_at']) - 
+												@datetime_indo($data['ended_at'])
 											</td>
 											<td class="text-center">
 												<a href="{{ route('backend.settings.feature.show.preview', $data['id']) }}"> Preview</a>, 
