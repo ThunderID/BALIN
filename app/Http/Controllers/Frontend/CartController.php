@@ -90,6 +90,20 @@ class CartController extends BaseController
 		$cid 										= Input::get('cid');
 		$vid 										= Input::get('vid');
 
+		if (Auth::check())
+		{
+			$transaction           	 			= Transaction::userid(Auth::user()->id)->status('cart')->first();
+
+			foreach ($transaction->transactiondetails as $key => $value) 
+			{
+				if($value->varian_id == $vid && !$value->delete())
+				{
+					dd($value->getError());
+					return Redirect::route('frontend.cart.index')->withErrors($value->getError())->with('msg-type', 'danger');
+				}
+			}
+		}
+
 		if (isset($cid) && !isset($vid))
 		{
 			// remove selected item from cart
@@ -118,6 +132,19 @@ class CartController extends BaseController
 	// FUNCTION EMPTY CART
 	public function clean()
 	{
+		if (Auth::check())
+		{
+			$transaction           	 			= Transaction::userid(Auth::user()->id)->status('cart')->first();
+
+			foreach ($transaction->transactiondetails as $key => $value) 
+			{
+				if(!$value->delete())
+				{
+					return Redirect::route('frontend.cart.index')->withErrors($value->getError())->with('msg-type', 'danger');
+				}
+			}
+		}
+
 		return Redirect::route('frontend.product.index')
 						->withSession(Session::forget('baskets'));		
 	}
