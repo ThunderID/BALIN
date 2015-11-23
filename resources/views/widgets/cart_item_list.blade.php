@@ -104,41 +104,39 @@
 					</div>
 					@foreach($item_list_size as $key => $value)
 						<div class="row m-b-md">
-							<div class="col-sm-9 col-xs-8">
+							<div class="col-xs-3">
 								<p class="m-t-xxs m-b-xxs">{{ $value['size'] }}</p>
 							</div>
-							<div class="col-xs-1">&nbsp;</div>
-							<div class="col-xs-1">
-								<div class="row qty-hollow-cart text-right">
-									{!! Form::open(['url' => route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key] ), 'method' => 'POST', 'class' => 'form-cart']) !!}
-										{!! Form::hidden('cid', $item_list_id, ['class' => 'cid']) !!}
-										{!! Form::hidden('vid', $key, ['class' => 'vid']) !!}
-										<div class="input-group">
-											<input type="hidden" name="varianids[{{$key}}]" class="form-control" value="{{$value['varian_id']}}">
-											<span class="input-group-btn">
-												<button type="button" class="btn-hollow btn-hollow-sm btn-hollow-cart btn-number" 
-													@if($value['qty'] <= 0)disabled="disabled"@endif data-type="minus" data-field="qty-{{strtolower($value['size'])}}[1]" 
-													data-get-flag="qty-{{strtolower($value['size'])}}" data-price="{{ $item_list_normal_price }}" 
-													data-action-update="{{ route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key]) }}" >
-													<i class="fa fa-minus"></i>
-												</button>
-											</span>
-											<input type="text" name="qty[{{$key}}]" class="form-control input-hollow-cart input-number qty pqty" value="{{ $value['qty'] }}" 
-												min="0" max="@if(50<=$value['stock']){{ '50' }}@else{{ $value['stock'] }}@endif" 
-												data-stock="{{ $value['stock'] }}" data-id="{{ $value['varian_id'] }}" data-name="qty-{{strtolower($value['size'])}}[1]"
-												data-oldValue="" data-toggle="tooltip" data-placement="top" @if($value['stock']==0){{'disabled'}}@endif>
-											<span class="input-group-btn">
-												<button type="button" class="btn-hollow btn-hollow-sm btn-hollow-cart btn-number" data-type="plus" 
-												data-field="qty-{{strtolower($value['size'])}}[1]" data-get-flag="qty-{{strtolower($value['size'])}}" 
-												data-price="{{ $item_list_normal_price }}" 
-												data-action-update="{{ route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key]) }}">
-													<i class="fa fa-plus"></i>
-												</button>
-											</span>
-										</div>
-									{!! Form::close() !!}   
+							<div class="col-xs-2">&nbsp;</div>
+							{!! Form::open(['url' => route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key] ), 'method' => 'POST', 'class' => 'form-cart']) !!}
+								{!! Form::hidden('cid', $item_list_id, ['class' => 'cid']) !!}
+								{!! Form::hidden('vid', $key, ['class' => 'vid']) !!}
+								<div class="col-xs-1 qty-hollow-cart">
+									<button type="button" class="btn-hollow btn-block btn-hollow-sm btn-hollow-cart btn-number-mobile pull-right" 
+										@if($value['qty'] <= 0)disabled="disabled"@endif data-type="minus" data-field="qty-{{strtolower($value['size'])}}[1]" 
+										data-get-flag="qty-{{strtolower($value['size'])}}" data-price="{{ $item_list_normal_price }}" 
+										data-action-update="{{ route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key]) }}" >
+										<i class="fa fa-minus"></i>
+									</button>
 								</div>
-							</div>
+								<div class="col-xs-2 qty-hollow-cart" style="padding-left: 0px; padding-right: 0px;">
+									<div class="form-group">
+									<input type="text" name="qty[{{$key}}]" style="width:100%;" class="form-control input-hollow-cart input-number-mobile qty pqty" value="{{ $value['qty'] }}" 
+										min="0" max="@if(50<=$value['stock']){{ '50' }}@else{{ $value['stock'] }}@endif" 
+										data-stock="{{ $value['stock'] }}" data-id="{{ $value['varian_id'] }}" data-name="qty-{{strtolower($value['size'])}}[1]"
+										data-oldValue="" data-toggle="tooltip" data-placement="top" @if($value['stock']==0){{'disabled'}}@endif>
+									</div>	
+								</div>	
+								<div class="col-xs-1 qty-hollow-cart">
+									<button type="button" class="btn-hollow btn-hollow-sm btn-hollow-cart btn-number-mobile pull-left" data-type="plus" 
+									data-field="qty-{{strtolower($value['size'])}}[1]" data-get-flag="qty-{{strtolower($value['size'])}}" 
+									data-price="{{ $item_list_normal_price }}" 
+									data-action-update="{{ route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key]) }}">
+										<i class="fa fa-plus"></i>
+									</button>
+								</div>
+								<input type="hidden" name="varianids[{{$key}}]" class="form-control" value="{{$value['varian_id']}}">
+							{!! Form::close() !!}   
 						</div>	
 					@endforeach
 					<div class="row chart-item-mobile">
