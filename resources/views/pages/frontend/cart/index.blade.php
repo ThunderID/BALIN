@@ -100,6 +100,7 @@
 								</a>
 							</div>
 						</div>
+						<div class="clearfix">&nbsp;</div>
 					@endif
 					<div class="row">
 						<div class="col-xs-12">
@@ -149,10 +150,10 @@
 					@endif
 					<div class="clearfix">&nbsp;</div>
 					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12">
+						<div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
 							<div class="row">
 								<a href="{{ route('frontend.product.index') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
-									Pilih Produk Lain
+									Pilih Produk Lainnya
 								</a>
 								@if (!empty($carts))
 									<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-black-border pull-right m-r-sm empty-cart">
