@@ -82,9 +82,9 @@ class Courier extends Eloquent
 	public function getLogoAttribute($value)
 	{
 		$image 						= $this->images;
-		if(isset($image[0]))
+		if(isset($image[count($image)-1]))
 		{
-			return $image[0]->image_md;
+			return $image[count($image)-1]->image_md;
 		}
 
 		return 'https://browshot.com/static/images/not-found.png';

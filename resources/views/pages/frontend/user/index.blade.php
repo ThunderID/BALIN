@@ -60,13 +60,16 @@
 			<p class="label-info">
 				Downline 
 				<strong>{{Auth::user()->downline}} </strong> 
-				<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Refferal Saya" data-view="modal-md">[ Lihat Daftar ]</a></small>
+				<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Downline Saya" data-view="modal-md">[ Lihat Daftar ]</a></small>
 			</p>
+			<p class="label-info">
 			@if (!is_null(Auth::user()->reference))
-				<p class="label-info">
-					Referensi dari <strong>{{Auth::user()->reference}} </strong>
-				</p>
+				Upline 
+				<strong>{{Auth::user()->reference}} </strong> 
+			@else
+				<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Upline Saya" data-view="modal-md">[ Masukkan Referral ]</a></small>
 			@endif
+			</p>
 		</div>
 	</div>
 

@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\BaseController;
+use Auth, Redirect;
 
 class JoinController extends BaseController 
 {
@@ -8,6 +9,11 @@ class JoinController extends BaseController
 
 	public function index()
 	{	
+		if(Auth::check())
+		{
+			return Redirect::route('frontend.user.index');
+		}
+
 		$breadcrumb										= ['Sign In' => route('frontend.join.index')];
 		$this->layout->page 							= view('pages.frontend.login.index')
 																->with('controller_name', $this->controller_name)
