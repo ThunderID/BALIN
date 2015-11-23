@@ -29,7 +29,7 @@ class QuotaController extends BaseController
 
 		if($voucher->user()->count())
 		{
-			$title 										= 'Voucher '.$voucher->user->name;
+			$title 										= 'Voucher Referral '.$voucher->user->name;
 			if($voucher->user->role=='customer')
 			{
 				$url 									= route('backend.data.customer.show', $voucher->user->id);
@@ -41,13 +41,14 @@ class QuotaController extends BaseController
 		}
 		else
 		{
-			$title 										= $voucher->code;
+			$title 										= 'Voucher '.$voucher->code;
 			$url 										= route('backend.settings.voucher.show', $vou_id);
 		}
 
 		$breadcrumb										= 	[	
-																$title 			=> $url,
-																'Quota' 		=> route('backend.settings.quota.index', ['vou_id', $vou_id])
+																'Pengaturan Voucher' 	=> route('backend.settings.voucher.index'),
+																$title 					=> $url,
+																'Quota' 				=> route('backend.settings.quota.index', ['vou_id', $vou_id])
 															];
 
 
@@ -69,16 +70,17 @@ class QuotaController extends BaseController
 
 		if($voucher->user()->count())
 		{
-			$title 										= 'Voucher '.$voucher->user->name;
+			$title 										= 'Voucher Referral '.$voucher->user->name;
 		}
 		else
 		{
-			$title 										= $voucher->code;
+			$title 										= 'Voucher '.$voucher->code;
 		}
 
 		$breadcrumb										= 	[	
-																$title 		=> route('backend.settings.voucher.show', $vou_id),
-																'Quota' 	=> route('backend.settings.quota.index', ['vou_id', $vou_id])
+																'Pengaturan Voucher' 	=> route('backend.settings.voucher.index'),
+																$title 					=> route('backend.settings.voucher.show', $vou_id),
+																'Quota' 				=> route('backend.settings.quota.index', ['vou_id', $vou_id])
 															];
 
 		if($id) 
@@ -156,7 +158,7 @@ class QuotaController extends BaseController
 			DB::commit();
 
 			return Redirect::route('backend.settings.quota.index', ['vou_id' => $vou_id])
-					->with('msg','Data sudah disimpan')
+					->with('msg','Quota sudah disimpan')
 					->with('msg-type', 'success')
 					;
 		}

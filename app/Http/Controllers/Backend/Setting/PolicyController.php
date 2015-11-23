@@ -26,13 +26,25 @@ class PolicyController extends BaseController
 														'Pengaturan Policy' 	=> route('backend.settings.policies.index')
 													];
 
-		$searchResult							= NULL;
+		$filters								= null;
+
+		if(Input::has('q'))
+		{
+			$filters 							= ['ondate' => Input::get('q')];
+			
+			$searchResult						= Input::get('q');
+		}
+		else
+		{
+			$searchResult						= null;
+		}
 
 		$this->layout->page 					= view('pages.backend.settings.policy.index')
 													->with('WT_pagetitle', $this->view_name )
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('searchResult', $searchResult)
+													->with('filters', $filters)
 													->with('nav_active', 'settings')
 													->with('subnav_active', 'policy')
 													;

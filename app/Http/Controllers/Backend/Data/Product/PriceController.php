@@ -66,7 +66,7 @@ class PriceController extends BaseController
 
 	public function create($pid = null, $id = null)
 	{
-		$product 								= Product::findorfail($pid);
+		$product 								= Product::id($pid)->hpp(true)->first();
 
 
 		$breadcrumb								= 	[	'Data Produk' 			=> route('backend.data.product.index'),
@@ -93,6 +93,7 @@ class PriceController extends BaseController
 														->with('WB_breadcrumbs', $breadcrumb)
 														->with('id', $id)
 														->with('pid', $pid)
+														->with('product', $product)
 														->with('nav_active', 'data')
 														->with('subnav_active', 'products');
 		return $this->layout;		

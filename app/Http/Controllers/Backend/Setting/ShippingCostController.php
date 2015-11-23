@@ -91,12 +91,13 @@ class ShippingCostController extends BaseController
 		}
 
 		$started_at 									= Carbon::createFromFormat('d-m-Y H:i', $inputs['date'])->format('Y-m-d H:i:s');
+		$cost  											= str_replace('IDR ', '', str_replace('.', '', $inputs['cost']));
 
 		$data->fill([
 			'courier_id' 								=> $inputs['courier_id'],
 			'start_postal_code' 						=> $inputs['start_postal_code'],
 			'end_postal_code' 							=> $inputs['end_postal_code'],
-			'cost' 										=> $inputs['cost'],
+			'cost' 										=> $cost,
 			'started_at'								=> $started_at,
 		]);
 

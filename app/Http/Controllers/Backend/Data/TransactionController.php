@@ -36,10 +36,21 @@ class TransactionController extends BaseController
 													];
 
 		$filters 								= null;
+		if(Input::has('status') && Input::get('status') != '')
+		{
+			$filters 							= ['status' => Input::get('status')];
+			$searchResult						= Input::get('status');
+		}
+		else
+		{
+			$filters 							= ['status' => ['cart', 'wait', 'abandoned', 'canceled', 'delivered', 'shipping', 'paid']];
+			$searchResult						= null;
+		}
 
 		if(Input::has('q'))
 		{
-			$filters 							= ['refnumber' => Input::get('q')];
+			$amount  							= str_replace('IDR ', '', str_replace('.', '', Input::get('q')));
+			$filters 							= ['amount' => $amount];
 			$searchResult						= Input::get('q');
 		}
 		else
@@ -76,6 +87,7 @@ class TransactionController extends BaseController
 													->with('WT_pageSubTitle','Index')
 													->with('WB_breadcrumbs', $breadcrumb)
 													->with('searchResult', $searchResult)
+													->with('type', Input::get('type'))
 													->with('filters', $filters)
 													->with('nav_active', 'data')
 													->with('subnav_active', $subnav_active)

@@ -59,7 +59,7 @@ class VoucherController extends BaseController
 
 		if($voucher->user()->count())
 		{
-			$title 									= 'Voucher '.$voucher->user->name;
+			$title 									= 'Voucher Referral '.$voucher->user->name;
 			if($voucher->user->role=='customer')
 			{
 				$url 								= route('backend.data.customer.show', $voucher->user->id);
@@ -117,7 +117,7 @@ class VoucherController extends BaseController
 
 			$breadcrumb								= 	[
 															'Pengaturan Voucher' 			=> route('backend.settings.voucher.index'),
-															'Baru'						=> route('backend.settings.voucher.create'),
+															'Baru'							=> route('backend.settings.voucher.create'),
 														];
 
 			$title 									= 'Baru';
@@ -126,12 +126,29 @@ class VoucherController extends BaseController
 		{
 			$voucher 								= Voucher::findorfail($id);
 
+			if($voucher->user()->count())
+			{
+				$title 									= 'Voucher Referral '.$voucher->user->name;
+				if($voucher->user->role=='customer')
+				{
+					$url 								= route('backend.data.customer.show', $voucher->user->id);
+				}
+				else
+				{
+					$url 								= route('backend.settings.authentication.show', $voucher->user->id);
+				}
+			}
+			else
+			{
+				$title 									= $voucher->code;
+				$url 									= route('backend.settings.voucher.show', $id);
+			}
+
 			$breadcrumb								= 	[
 															'Pengaturan Voucher' 			=> route('backend.settings.voucher.index'),
-															'Edit '.$voucher->code 		=> route('backend.settings.voucher.edit', $id),
+															'Edit '.$title 					=> $url,
 														];
 
-			$title 									= $voucher->code;
 		}
 
 		$this->layout->page 						= view('pages.backend.settings.voucher.create')
