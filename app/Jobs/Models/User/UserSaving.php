@@ -38,7 +38,7 @@ class UserSaving extends Job implements SelfHandling
 
 		$user 								= User::email($this->user->email)->notid($id)->first();
 
-		if($user->count())
+		if($user)
 		{
 			$result							= new JSend('error', (array)$this->user, 'Email sudah terdaftar.');
 		}
