@@ -177,17 +177,21 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 	
 		Route::get('features/{id}/preview', 							['uses' => 'FeatureController@showPreview', 'as' => 'backend.settings.feature.show.preview']);
 
-		// ------------------------------------------------------------------------------------
-		// POLICY
-		// ------------------------------------------------------------------------------------
-
-		Route::resource('policies',		'PolicyController',				['names' => ['index' => 'backend.settings.policies.index', 'create' => 'backend.settings.policies.create', 'store' => 'backend.settings.policies.store', 'show' => 'backend.settings.policies.show', 'edit' => 'backend.settings.policies.edit', 'update' => 'backend.settings.policies.update', 'destroy' => 'backend.settings.policies.destroy']]);
 
 		// ------------------------------------------------------------------------------------
 		// AUTHENTICATION
 		// ------------------------------------------------------------------------------------
 
 		Route::resource('authentications', 'AuthenticationController',	['names' => ['index' => 'backend.settings.authentication.index', 'create' => 'backend.settings.authentication.create', 'store' => 'backend.settings.authentication.store', 'show' => 'backend.settings.authentication.show', 'edit' => 'backend.settings.authentication.edit', 'update' => 'backend.settings.authentication.update', 'destroy' => 'backend.settings.authentication.destroy']]);
+		});
+
+		Route::group(['middleware' => 'admin'], function()
+		{
+		// ------------------------------------------------------------------------------------
+		// POLICY
+		// ------------------------------------------------------------------------------------
+
+		Route::resource('policies',		'PolicyController',				['names' => ['index' => 'backend.settings.policies.index', 'create' => 'backend.settings.policies.create', 'store' => 'backend.settings.policies.store', 'show' => 'backend.settings.policies.show', 'edit' => 'backend.settings.policies.edit', 'update' => 'backend.settings.policies.update', 'destroy' => 'backend.settings.policies.destroy']]);
 		});
 	});
 

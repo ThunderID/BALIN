@@ -28,25 +28,36 @@ class AppServiceProvider extends ServiceProvider
         {
             return "<?php echo 'IDR '.number_format($expression, 0, ',', '.'); ?>";
         });
+ 
+
+        \App\Models\User::observe(new \App\Models\BaseObserver);
+        \App\Models\Supplier::observe(new \App\Models\BaseObserver);
+        \App\Models\Courier::observe(new \App\Models\BaseObserver);
+        \App\Models\ShippingCost::observe(new \App\Models\BaseObserver);
+        \App\Models\Address::observe(new \App\Models\BaseObserver);
+        
+        \App\Models\Product::observe(new \App\Models\BaseObserver);
+        \App\Models\GlobalCategory::observe(new \App\Models\BaseObserver);
+        \App\Models\Category::observe(new \App\Models\BaseObserver);
+        \App\Models\Tag::observe(new \App\Models\BaseObserver);
+        \App\Models\Price::observe(new \App\Models\BaseObserver);
+        \App\Models\Varian::observe(new \App\Models\BaseObserver);
+        \App\Models\Lable::observe(new \App\Models\BaseObserver);
+        \App\Models\Image::observe(new \App\Models\BaseObserver);
+        
+        \App\Models\Voucher::observe(new \App\Models\BaseObserver);
+        \App\Models\PointLog::observe(new \App\Models\BaseObserver);
+        \App\Models\QuotaLog::observe(new \App\Models\BaseObserver);
 
         \App\Models\Transaction::observe(new \App\Models\BaseObserver);
         \App\Models\TransactionDetail::observe(new \App\Models\BaseObserver);
         \App\Models\TransactionLog::observe(new \App\Models\BaseObserver);
-        \App\Models\User::observe(new \App\Models\BaseObserver);
-        \App\Models\PointLog::observe(new \App\Models\BaseObserver);
-        \App\Models\QuotaLog::observe(new \App\Models\BaseObserver);
-        \App\Models\Voucher::observe(new \App\Models\BaseObserver);
+
         \App\Models\Payment::observe(new \App\Models\BaseObserver);
-        \App\Models\StoreSetting::observe(new \App\Models\BaseObserver);
-        \App\Models\ShippingCost::observe(new \App\Models\BaseObserver);
         \App\Models\Shipment::observe(new \App\Models\BaseObserver);
-        \App\Models\Price::observe(new \App\Models\BaseObserver);
-        \App\Models\Image::observe(new \App\Models\BaseObserver);
-        \App\Models\Product::observe(new \App\Models\BaseObserver);
-        \App\Models\Varian::observe(new \App\Models\BaseObserver);
-        \App\Models\GlobalCategory::observe(new \App\Models\BaseObserver);
-        \App\Models\Category::observe(new \App\Models\BaseObserver);
-        \App\Models\Tag::observe(new \App\Models\BaseObserver);
+
+        \App\Models\StoreSetting::observe(new \App\Models\BaseObserver);
+        \App\Models\Auditor::observe(new \App\Models\BaseObserver);
     }
 
     /**
@@ -56,23 +67,33 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        \App\Models\Transaction::observe(new \App\Models\BaseObserver);
-        \App\Models\TransactionDetail::observe(new \App\Models\BaseObserver);
-        \App\Models\TransactionLog::observe(new \App\Models\BaseObserver);
         \App\Models\User::observe(new \App\Models\BaseObserver);
-        \App\Models\PointLog::observe(new \App\Models\BaseObserver);
-        \App\Models\QuotaLog::observe(new \App\Models\BaseObserver);
-        \App\Models\Voucher::observe(new \App\Models\BaseObserver);   
-        \App\Models\Payment::observe(new \App\Models\BaseObserver);
-        \App\Models\StoreSetting::observe(new \App\Models\BaseObserver);
+        \App\Models\Supplier::observe(new \App\Models\BaseObserver);
+        \App\Models\Courier::observe(new \App\Models\BaseObserver);
         \App\Models\ShippingCost::observe(new \App\Models\BaseObserver);
-        \App\Models\Shipment::observe(new \App\Models\BaseObserver);
-        \App\Models\Price::observe(new \App\Models\BaseObserver);
-        \App\Models\Image::observe(new \App\Models\BaseObserver);
+        \App\Models\Address::observe(new \App\Models\BaseObserver);
+        
         \App\Models\Product::observe(new \App\Models\BaseObserver);
-        \App\Models\Varian::observe(new \App\Models\BaseObserver);
         \App\Models\GlobalCategory::observe(new \App\Models\BaseObserver);
         \App\Models\Category::observe(new \App\Models\BaseObserver);
         \App\Models\Tag::observe(new \App\Models\BaseObserver);
+        \App\Models\Price::observe(new \App\Models\BaseObserver);
+        \App\Models\Varian::observe(new \App\Models\BaseObserver);
+        \App\Models\Lable::observe(new \App\Models\BaseObserver);
+        \App\Models\Image::observe(new \App\Models\BaseObserver);
+        
+        \App\Models\Voucher::observe(new \App\Models\BaseObserver);
+        \App\Models\PointLog::observe(new \App\Models\BaseObserver);
+        \App\Models\QuotaLog::observe(new \App\Models\BaseObserver);
+
+        \App\Models\Transaction::observe(new \App\Models\BaseObserver);
+        \App\Models\TransactionDetail::observe(new \App\Models\BaseObserver);
+        \App\Models\TransactionLog::observe(new \App\Models\BaseObserver);
+
+        \App\Models\Payment::observe(new \App\Models\BaseObserver);
+        \App\Models\Shipment::observe(new \App\Models\BaseObserver);
+
+        \App\Models\StoreSetting::observe(new \App\Models\BaseObserver);
+        \App\Models\Auditor::observe(new \App\Models\BaseObserver);
     }
 }
