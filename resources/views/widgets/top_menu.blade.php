@@ -50,10 +50,16 @@
 							<a href="{{ URL::route('frontend.home.index') }}#contact-us" data-scroll>Contact Us</a>
 						</li> -->
 						@if (Auth::user())
-							<li class="@if($controller_name == 'user') active @endif dropdown">
+							<li class="@if($controller_name == 'user') active @endif dropdown hidden-xs">
 								<a href="javascript:void(0);" class="dropdown-toggle">Akun Saya <span class="caret"></span></a>
 								@include('widgets.frontend.top_menu.user_dropdown')
 							</li> 
+							<li class="@if($controller_name == 'user') active @endif dropdown hidden-sm hidden-md hidden-lg">
+								<a href="{{ URL::route('frontend.user.index') }}" class="dropdown-toggle">Akun Saya</a>
+							</li> 
+							<li class="hidden-sm hidden-md hidden-lg">
+								<a href="{{ route('frontend.dologout') }}">Log out</a>
+							</li>
 						@endif
 						<li class="@if($controller_name == 'cart') active @endif dropdown dropdown-cart">
 							<a href="javascript:void(0);" class="dropdown-toggle ico-cart">

@@ -208,6 +208,9 @@
 			.dropdown-cart {
 				display: none !important;
 			}
+			.user-dropdown {
+				display: none !important;
+			}
 		}
 
 		.dialog-mobile{
@@ -290,12 +293,7 @@
 	{!! HTML::script('Balin/web/js/jquery.js') !!}
 	{!! HTML::script('Balin/web/js/bootstrap.min.js') !!}
 
-	<!-- Script to Activate the Carousel -->
 	<script>
-	// $('.carousel').carousel({
-	//     interval: 5000 //changes the speed
-	// })
-	
 	@yield('script')
 
 	@include('widgets.scripts.inputNumberValidator')

@@ -1,7 +1,6 @@
 <?php
 	$carts = Session::get('baskets'); ;
 ?>
-
 	
 <ul class="dropdown-menu dropdown-menu-right chart-dropdown m-t-md" aria-labelledby="dLabel">
 	@if (!empty($carts))

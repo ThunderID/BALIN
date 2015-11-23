@@ -7,7 +7,7 @@
 						{!! HTML::image('Balin/web/image/logo.png','', ['class' => 'img-responsive']) !!}
 						<ul class="list-inline menu-footer">
 							<li><a href="{{ URL::route('frontend.aboutus.index') }}" class="footer-link">&copy; 2015 Balin.</a></li>
-							<!-- <li><a href="{{ URL::route('frontend.home.index') }}#contact-us">Contact US</a></li> -->
+							<li><a href="{{ URL::route('frontend.home.index') }}#contact-us">Contact US</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4 col-sm-4 col-xs-6 text-right">
