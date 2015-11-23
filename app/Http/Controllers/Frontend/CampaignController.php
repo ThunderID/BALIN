@@ -14,22 +14,18 @@ class CampaignController extends BaseController
 
 	public function getreference()
 	{
+		$breadcrumb								= ['Referensi' => route('frontend.user.reference.get')];
+
 		if(!is_null(Auth::user()->reference))
 		{
 			return Redirect::route('frontend.profile.index');
 		}
 
-		$this->layout->page 					= view('pages.frontend.user.reference')
+		return view('pages.frontend.user.reference')
 													->with('controller_name', $this->controller_name)
 													->with('subnav_active', 'account_reference')
-													->with('title', 'Referensi');
-
-		$this->layout->controller_name			= $this->controller_name;
-
-		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'Referensi';
-
-		return $this->layout;
+													->with('title', 'Referensi')
+													->with('breadcrumb', $breadcrumb);
 	}
 
 	public function postreference()
