@@ -1,7 +1,10 @@
 @extends('template.backend.layout') 
 @inject('datas', 'App\Models\StoreSetting')
 
-<?php $datas = $datas::policies()->get(); ?>
+<?php 
+$datas 		= $datas::policies()->get(); 
+$polvals 	= ['expired_cart' => ' + 1 day', 'expired_paid' => ' - 2 days', 'expired_shipped' => '+ 5 days', 'expired_point' => '+ 1 year', 'referral_royalty' => '10000', 'invitation_royalty' =>'50000', 'limit_unique_number' =>'100', 'expired_link_duration' => '+ 2 hours', 'first_quota' => '10', 'downline_purchase_bonus' => '10000', 'downline_purchase_bonus_expired' => ' + 3 months', 'downline_purchase_quota_bonus' => '1', 'voucher_point_expired' => '+ 3 months', 'welcome_gift' => '10000', 'critical_stock' => '2', 'min_margin' => '50000'];
+?>
 
 @section('content')
 	{!! Form::open(array('url' => route('backend.settings.policies.store'), 'method' => 'POST')) !!}
@@ -10,7 +13,7 @@
 				{!! Form::hidden('id['.$key.']', $value['id']) !!}			
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="parent" class="text-capitalize">{{str_replace('_', ' ', $value['type'])}}</label>
+						<label for="parent" class="text-capitalize">{{str_replace('_', ' ', $value['type'])}} @if(isset($polvals[$value['type']])) <small><i>ex: {{$polvals[$value['type']]}}</i></small> @endif</label>
 						{!! Form::text('value['.$key.']', $value['value'], [
 									'class'			=> 'form-control', 
 									'tabindex'		=> $key+1
@@ -19,7 +22,7 @@
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="parent" class="text-capitalize">&nbsp;</label>
+						<label for="parent" class="text-capitalize">Mulai Tanggal</label>
 						{!! Form::hidden('type['.$key.']', $value['type'], [
 									'class'			=> 'form-control'
 						]) !!}

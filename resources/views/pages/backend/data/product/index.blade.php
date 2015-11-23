@@ -25,7 +25,7 @@ if(Input::has('asc'))
 			default:
 				$datas 			= $datas->orderby('name', 'asc');
 				break;
-		}	
+	}	
 }
 elseif(Input::has('desc'))
 {
@@ -35,12 +35,12 @@ elseif(Input::has('desc'))
 				$datas 			= $datas->orderby('prices.price', 'desc');
 				break;
 			case 'stock':
-				$datas 			= $datas->orderby('`current_stock`', 'desc');
+				$datas 			= $datas->orderby('current_stock', 'desc');
 				break;
 			default:
 				$datas 			= $datas->orderby('name', 'desc');
 				break;
-		}	
+	}	
 }
 else
 {

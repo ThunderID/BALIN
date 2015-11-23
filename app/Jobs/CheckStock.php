@@ -31,7 +31,7 @@ class CheckStock extends Job implements SelfHandling
         {
             if($value->quantity > $value->varian->stock)
             {
-                return new JSend('error', (array)$this->transaction, "Stok ".$value->varian->product->name.' '.$value->varian->size." tinggal ".$value->product->varian);
+                return new JSend('error', (array)$this->transaction, "Stok ".$value->varian->product->name.' '.$value->varian->size." tinggal ".$value->varian->stock);
             }
         }
 

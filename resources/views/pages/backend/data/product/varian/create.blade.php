@@ -14,7 +14,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Varian
+					Varian [UPC {{$product['upc']}}]
 				</h4>
 			</div>
 		</div>

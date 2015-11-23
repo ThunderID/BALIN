@@ -28,12 +28,14 @@ class AuditController extends BaseController
 
 		$filters 								= ['type' => 'abandoned_cart'];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
-		}
+			$filters['ondate']					= [Input::get('q'), Input::get('q').' + 1 day'];
 
-		$searchResult							= NULL;
+			$searchResult 						= Input::get('q');
+		}
 
 		$this->layout->page 					= view('pages.backend.report.audit.index')
 													->with('WT_pagetitle', $this->view_name )
@@ -56,12 +58,14 @@ class AuditController extends BaseController
 
 		$filters 								= ['type' => 'transaction_paid'];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
+			$filters['ondate']					= [Input::get('q'), Input::get('q').' + 1 day'];
+			
+			$searchResult 						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.audit.index')
 													->with('WT_pagetitle', $this->view_name )
@@ -84,12 +88,14 @@ class AuditController extends BaseController
 
 		$filters 								= ['type' => 'transaction_shipping'];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
+			$filters['ondate']					= [Input::get('q'), Input::get('q').' + 1 day'];
+			
+			$searchResult 						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.audit.index')
 													->with('WT_pagetitle', $this->view_name )
@@ -112,12 +118,14 @@ class AuditController extends BaseController
 
 		$filters 								= ['type' => 'transaction_delivered'];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
+			$filters['ondate']					= [Input::get('q'), Input::get('q').' + 1 day'];
+			
+			$searchResult 						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.audit.index')
 													->with('WT_pagetitle', $this->view_name )
@@ -140,12 +148,14 @@ class AuditController extends BaseController
 
 		$filters 								= ['type' => 'transaction_canceled'];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
+			$filters['ondate']					= [Input::get('q'), Input::get('q').' + 1 day'];
+			
+			$searchResult 						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.audit.index')
 													->with('WT_pagetitle', $this->view_name )
@@ -168,12 +178,14 @@ class AuditController extends BaseController
 
 		$filters 								= ['type' => 'price_changed'];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
+			$filters['ondate']					= [Input::get('q'), Input::get('q').' + 1 day'];
+			
+			$searchResult 						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.audit.index')
 													->with('WT_pagetitle', $this->view_name )
@@ -196,12 +208,14 @@ class AuditController extends BaseController
 
 		$filters 								= ['type' => 'voucher_added'];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
+			$filters['ondate']					= [Input::get('q'), Input::get('q').' + 1 day'];
+			
+			$searchResult 						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.audit.index')
 													->with('WT_pagetitle', $this->view_name )
@@ -224,12 +238,14 @@ class AuditController extends BaseController
 
 		$filters 								= ['type' => 'policy_changed'];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
+			$filters['ondate']					= [Input::get('q'), Input::get('q').' + 1 day'];
+			
+			$searchResult 						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.audit.index')
 													->with('WT_pagetitle', $this->view_name )
@@ -252,12 +268,14 @@ class AuditController extends BaseController
 
 		$filters 								= ['type' => 'point_added'];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
+			$filters['ondate']					= [Input::get('q'), Input::get('q').' + 1 day'];
+			
+			$searchResult 						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.audit.index')
 													->with('WT_pagetitle', $this->view_name )
@@ -281,12 +299,14 @@ class AuditController extends BaseController
 
 		$filters 								= ['type' => 'quota_added'];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
+			$filters['ondate']					= [Input::get('q'), Input::get('q').' + 1 day'];
+			
+			$searchResult 						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.audit.index')
 													->with('WT_pagetitle', $this->view_name )
