@@ -29,8 +29,8 @@ $datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 							</div>
 							<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
 								{!! Form::input('text', 'q', Null ,[
-											'class'         => 'form-control',
-											'placeholder'   => 'Cari sesuatu',
+											'class'         => 'form-control date-format',
+											'placeholder'   => 'Tanggal',
 											'required'      => 'required',
 																]) !!}
 								{!! Form::hidden('type', Input::get('type')) !!}
@@ -92,5 +92,8 @@ $datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 			@endif
 		</div>
 	</div>
-	
+@stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
 @stop

@@ -26,14 +26,15 @@ class CustomerController extends BaseController
 														'Laporan Downline Kostumer' 	=> route('backend.report.customer.downline')
 													];
 
+		$searchResult							= NULL;
+
 		$filters 								= ['downline' => ['first day of this month', 'last day of this month']];
 
 		if(Input::has('q'))
 		{
-			$filters 							= ['downline' => Input::get('q')];
+			$filters 							= ['downline' => [Input::get('q').' + 1 day', Input::get('q')]];
+			$searchResult						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.market.downline')
 													->with('WT_pagetitle', $this->view_name )
@@ -54,14 +55,15 @@ class CustomerController extends BaseController
 														'Laporan Kostumer Paling Banyak Belanja' 	=> route('backend.report.customer.mostbuy')
 													];
 
+		$searchResult							= NULL;
+		
 		$filters 								= ['mostbuy' => ['first day of this month', 'last day of this month']];
 
 		if(Input::has('q'))
 		{
-			$filters 							= ['mostbuy' => Input::get('q')];
+			$filters 							= ['mostbuy' => [Input::get('q').' + 1 day', Input::get('q')]];
+			$searchResult						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.market.customer')
 													->with('WT_pagetitle', $this->view_name )
@@ -83,13 +85,15 @@ class CustomerController extends BaseController
 													];
 
 		$filters 								= ['frequentbuy' => ['first day of this month', 'last day of this month']];
+		
+		$searchResult							= NULL;
 
 		if(Input::has('q'))
 		{
-			$filters 							= ['frequentbuy' => Input::get('q')];
+			$filters 							= ['frequentbuy' => [Input::get('q').' + 1 day', Input::get('q')]];
+			$searchResult						= Input::get('q');
 		}
 
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.market.customer')
 													->with('WT_pagetitle', $this->view_name )
@@ -111,13 +115,13 @@ class CustomerController extends BaseController
 													];
 
 		$filters 								= ['balance' => 'today'];
+		$searchResult							= NULL;
 
 		if(Input::has('q'))
 		{
 			$filters 							= ['balance' => Input::get('q')];
+			$searchResult						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.market.balance')
 													->with('WT_pagetitle', $this->view_name )
