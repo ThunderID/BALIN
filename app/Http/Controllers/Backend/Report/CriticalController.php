@@ -26,14 +26,27 @@ class CriticalController extends BaseController
 														'Laporan Gudang Stok Kritis' 	=> route('backend.report.critical.stock')
 													];
 
-		$filters 								= ['critical' => 1];
+		$setting               					= StoreSetting::ondate('now')->type('critical_stock')->first();
+
+		$searchResult							= NULL;
+		
+		if(!$setting)
+		{
+			$critical 							= 0;
+		}
+		else
+		{
+			$critical 							= $setting->value;
+		}
+
+		$filters 								= ['critical' => $critical];
 
 		if(Input::has('q'))
 		{
-			$filters 							= ['critical' => Input::get('q')];
+			$filters['transactionlogchangedat'] = Input::get('q');
+			$searchResult						= Input::get('q');
 		}
 
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.inventory.stock')
 													->with('WT_pagetitle', $this->view_name )

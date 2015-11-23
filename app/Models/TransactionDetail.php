@@ -248,7 +248,7 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 				->selectraw('transaction_details.*')
-				->selectraw('count(transaction_id) as frequent_buy')
+				->selectraw('count(transactions.id) as frequent_buy')
 				->selectraw('varians.product_id')
 				->transactionsellon(['paid','shipping','delivered'])
 				->transactiontransactat($variable)

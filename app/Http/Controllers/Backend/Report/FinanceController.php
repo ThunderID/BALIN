@@ -28,12 +28,15 @@ class FinanceController extends BaseController
 
 		$filters 								= ['ondate' => ['first day of this month', 'last day of this month']];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
+			$filters 							= ['ondate' => [Input::get('q'), Input::get('q').' + 1 day']];
+
+			$searchResult						= Input::get('q');
 		}
 
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.finance.point')
 													->with('WT_pagetitle', $this->view_name )
@@ -56,12 +59,14 @@ class FinanceController extends BaseController
 
 		$filters 								= ['ondate' => ['first day of this month', 'last day of this month']];
 
+		$searchResult							= NULL;
+
 		if(Input::has('q'))
 		{
-			$filters 							= ['ondate' => Input::get('q')];
+			$filters 							= ['ondate' => [Input::get('q'), Input::get('q').' + 1 day']];
+			
+			$searchResult						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.finance.transaction')
 													->with('WT_pagetitle', $this->view_name )
@@ -83,13 +88,15 @@ class FinanceController extends BaseController
 													];
 
 		$filters 								= ['hpp' => ['first day of this month', 'last day of this month']];
+		
+		$searchResult							= NULL;
 
 		if(Input::has('q'))
 		{
-			$filters 							= ['hpp' => Input::get('q')];
+			$filters 							= ['hpp' => [Input::get('q'), Input::get('q').' + 1 day']];
+			
+			$searchResult						= Input::get('q');
 		}
-
-		$searchResult							= NULL;
 
 		$this->layout->page 					= view('pages.backend.report.finance.price')
 													->with('WT_pagetitle', $this->view_name )
