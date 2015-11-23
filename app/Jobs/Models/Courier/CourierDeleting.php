@@ -27,7 +27,7 @@ class CourierDeleting extends Job implements SelfHandling
     {
         if($this->courier->shipments()->count() || $this->courier->shippingcosts()->count())
         {
-            $result                 = new JSend('error', (array)$this->courier, ['Tidak dapat menghapus kurir yang pernah melakukan transaksi atau memiliki daftar biaya pengiriman']);
+            $result                 = new JSend('error', (array)$this->courier, 'Tidak dapat menghapus kurir yang pernah melakukan transaksi atau memiliki daftar biaya pengiriman');
         }
         else
         {

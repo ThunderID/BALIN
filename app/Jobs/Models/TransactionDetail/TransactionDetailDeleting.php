@@ -20,6 +20,16 @@ class TransactionDetailDeleting extends Job implements SelfHandling
 
     public function handle()
     {
+    	// if($this->transactiondetail->transaction->type=='buy')
+    	// {
+	    // 	$varian 						= TransactionDetail::varianid($this->transactiondetail->varian_id)->TransactionType('sell')->count();
+
+	    // 	if($varian)
+	    // 	{
+		   //      return new JSend('error', (array)$this->transactiondetail, 'Tidak dapat menghapus transaksi restock barang yang sudah pernah dibeli pelanggan.' );
+	    // 	}
+    	// }
+
         return new JSend('success', (array)$this->transactiondetail );
     }
 }
