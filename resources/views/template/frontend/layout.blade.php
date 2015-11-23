@@ -1,11 +1,3 @@
-@inject('settings', 'App\Models\StoreSetting')
-<?php
-	$tmp = $settings->storeinfo(true)->get();
-	foreach ($tmp as $key => $value) {
-	   $storeinfo[$value->type]   = $value->value; 
-	}
-?>
-
 @extends('template.layout')
 
 @section('content_layout')
