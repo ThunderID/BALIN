@@ -158,6 +158,18 @@ class Varian extends Eloquent
 		;
 	}
 
+	public function scopeLeftGlobalStock($query, $variable)
+	{
+		return 	$query->selectraw('varians.*')
+					->selectglobalstock(true)
+					->LeftJoinTransactionDetailFromVarian(true)
+					->LeftJoinTransaction(true)
+					->LeftTransactionLogStatus(['wait', 'paid', 'shipping', 'delivered'])
+					->groupby('varians.id')
+					;
+		;
+	}
+
 	public function scopeQuantityInCart($query, $variable)
 	{
 		return 	$query->selectraw('varians.*')
@@ -167,5 +179,24 @@ class Varian extends Eloquent
 					->groupby('varians.id')
 					;
 		;
+	}
+
+	public function scopeCustomers($query, $variable)
+	{
+		return 	$query
+					->selectraw('varians.*')
+					->selectraw('count(quantity) as total_buy')
+					->selectraw('users.name as customer_name')
+					->selectraw('users.id as customer_id')
+					->JoinTransactionDetailFromVarian(true)
+					->TransactionSellOn(['paid', 'shipping', 'delivered'])
+					->join('users', function ($join) use($variable) 
+					{
+						$join->on ( 'users.id', '=', 'transactions.user_id' )
+						->wherenull('users.deleted_at')
+						;
+					})
+					->groupby('transactions.user_id')
+					;
 	}
 }

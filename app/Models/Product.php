@@ -62,7 +62,7 @@ class Product extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:255',
+											'name'							=> 'required|max:50',
 											'upc'							=> 'required|max:255',
 											'slug'							=> 'required|max:255',
 										];
@@ -96,11 +96,11 @@ class Product extends Eloquent
 
 	public function getPriceAttribute($value)
 	{
-		$price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
+		// $price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 
-		if(isset($price[0]))
+		if(isset($this->current_price))
 		{
-			return $price[count($this->prices)-1]->price;
+			return $this->current_price;
 		}
 
 		return 0;
@@ -118,15 +118,15 @@ class Product extends Eloquent
 
 	public function getPromoPriceAttribute($value)
 	{
-		$price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
+		// $price 						= $this->prices;//Price::productid($this->id)->ondate('now')->first();
 		
-		if(isset($price[0]))
+		if(isset($this->current_price))
 		{
-			$price 					= $price[count($this->prices)-1]->promo_price;
+			$price 						= $this->current_promo_price;
 		}
 		else
 		{
-			$price 					= 0;
+			$price 						= 0;
 		}
 
 		// if(Auth::check())
@@ -234,7 +234,7 @@ class Product extends Eloquent
 			return 	$query->whereIn('id', $variable);
 		}
 
-		return 	$query->where('id', $variable);
+		return 	$query->where('products.id', $variable);
 	}
 
 	public function scopeName($query, $variable)
@@ -290,6 +290,50 @@ class Product extends Eloquent
 		;
 	}
 
+	public function scopeCurrentStock($query, $variable)
+	{
+		return 	$query->selectraw('products.*')
+					->selectcurrentstock(true)
+					->leftjoin('varians', function ($join) use($variable) 
+					{
+						$join->on ( 'varians.product_id', '=', 'products.id' )
+						->wherenull('varians.deleted_at')
+						;
+					})
+					->leftjoin('transaction_details', function ($join) use($variable) 
+					{
+						$join->on ( 'transaction_details.varian_id', '=', 'varians.id' )
+						->wherenull('transaction_details.deleted_at')
+						;
+					})
+					->leftjoin('transactions', function ($join) use($variable) 
+					{
+						$join->on ( 'transactions.id', '=', 'transaction_details.transaction_id' )
+						->wherenull('transactions.deleted_at')
+						;
+					})
+					->LeftTransactionLogStatus(['wait', 'paid', 'shipping', 'delivered'])
+					->groupby('products.id')
+					;
+		;
+	}
+
+	public function scopeProductPrice($query, $variable)
+	{
+		return $query
+			->selectraw('prices.price as current_price')
+			->selectraw('prices.promo_price as current_promo_price')
+			 ->leftjoin('prices', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'prices.product_id', '=', 'products.id' )
+									->on(DB::raw('(prices.started_at = (select max(started_at) from prices as tl2 where tl2.product_id = prices.product_id and tl2.deleted_at is null and tl2.started_at <= "'.date('Y-m-d H:i:s').'"))'), DB::raw(''), DB::raw(''))
+                                    ->where('prices.started_at', '<=', date('Y-m-d H:i:s'))
+                                    ->wherenull('prices.deleted_at')
+                                    ;
+			})
+			;
+	}
+
 	public function scopeTotalSell($query, $variable)
 	{
 		return 	$query
@@ -335,7 +379,7 @@ class Product extends Eloquent
 					;
 	}
 
-	public function scopesort($query, $variable)
+	public function scopeSort($query, $variable)
 	{
 		$tmp 	= explode('-', $variable);
 
@@ -346,7 +390,7 @@ class Product extends Eloquent
 				break;
 
 			case 'price':
-				return $query->orderBy('products.price',$tmp[1]);
+				return $query->orderBy('prices.price',$tmp[1]);
 				break;
 
 			case 'date':

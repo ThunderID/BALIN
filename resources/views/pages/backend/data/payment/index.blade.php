@@ -7,7 +7,44 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->orderby('account_name')->with(['transaction'])->paginate();
+$datas 			= $datas->with(['transaction']);
+
+if(Input::has('asc'))
+{
+	switch (Input::get('asc')) 
+	{
+			case 'ondate':
+				$datas 			= $datas->orderby('ondate', 'asc');
+				break;
+			case 'name':
+				$datas 			= $datas->orderby('account_name', 'asc');
+				break;
+			default:
+				$datas 			= $datas->orderby('ondate', 'asc');
+				break;
+		}	
+}
+elseif(Input::has('desc'))
+{
+	switch (Input::get('desc')) 
+	{
+			case 'ondate':
+				$datas 			= $datas->orderby('ondate', 'desc');
+				break;
+			case 'name':
+				$datas 			= $datas->orderby('account_name', 'desc');
+				break;
+			default:
+				$datas 			= $datas->orderby('ondate', 'desc');
+				break;
+		}	
+}
+else
+{
+	$datas 			= $datas->orderby('ondate', 'desc');
+}
+
+$datas 				= $datas->paginate();
 ?>
 
 @extends('template.backend.layout') 
@@ -29,11 +66,10 @@ $datas 			= $datas->orderby('account_name')->with(['transaction'])->paginate();
 							</div>
 							<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
 								{!! Form::input('text', 'q', Null ,[
-											'class'         => 'form-control',
-											'placeholder'   => 'Cari sesuatu',
+											'class'         => 'form-control money',
+											'placeholder'   => 'Cari berdasarkan jumlah',
 											'required'      => 'required',
-											'style'         =>'text-align:right'
-								]) !!}
+																]) !!}
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
 								<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
@@ -50,18 +86,43 @@ $datas 			= $datas->orderby('account_name')->with(['transaction'])->paginate();
 						<table class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
-									<th>No.</th>
+									<th class="text-center">No.</th>
 									<th>#</th>
-									<th>Nomor Akun</th>
-									<th class="text-right">Jumlah</th>
-									<th class="text-center">Tanggal Bayar</th>
+									<th class="text-center">
+										A.N
+										@if(!Input::has('asc') || Input::get('asc')!='name')
+										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['asc' => 'name']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@else
+										<i class="fa fa-arrow-up"></i>
+										@endif
+										@if(!Input::has('desc') || Input::get('desc')!='name')
+										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['desc' => 'name']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@else
+										<i class="fa fa-arrow-down"></i>
+										@endif
+									</th>
+									<th class="text-center">Nomor Akun [BANK]</th>
+									<th class="text-center">Jumlah</th>
+									<th class="text-center">
+										Tanggal Bayar
+										@if(!Input::has('asc') || Input::get('asc')!='ondate')
+										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['asc' => 'ondate']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@else
+										<i class="fa fa-arrow-up"></i>
+										@endif
+										@if(!Input::has('desc') || Input::get('desc')!='ondate')
+										<a href="{{route('backend.data.payment.index', array_merge(Input::all(), ['desc' => 'ondate']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@else
+										<i class="fa fa-arrow-down"></i>
+										@endif
+									</th>
 									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
 								@if(count($datas) == 0)
 									<tr>
-										<td colspan="6" class="text-center">
+										<td colspan="7" class="text-center">
 											Tidak ada data (silahkan periksa melalui transaksi)
 										</td>
 									</tr>
@@ -72,14 +133,15 @@ $datas 			= $datas->orderby('account_name')->with(['transaction'])->paginate();
 									?> 
 									@foreach($datas as $data)
 									<tr>
-										<td>{{$ctr}}</td>
+										<td class="text-center">{{$ctr}}</td>
 										<td><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['transaction']['ref_number']}}</a></td>
-										<td>{{$data['account_number']}}</td>                                                                               
+										<td>{{$data['account_name']}}</td>                                                                               
+										<td>{{$data['account_number']}} [{{$data['destination']}}]</td>                                                                               
 										<td class="text-right">@money_indo($data['amount'])</td>                                                                               
 										<td class="text-center">@date_indo($data['ondate'])</td>                                                                               
 										<td class="text-center">
 											<!-- <a href="{{ URL::route('backend.data.payment.show', ['id' => $data['id']]) }}"> Detail </a>,  -->
-											<a href="{{ URL::route('backend.data.payment.edit', ['id' => $data['id']]) }}"> Edit </a>, 
+											<a href="{{ URL::route('backend.data.payment.edit', ['id' => $data['id']]) }}"> Edit</a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#payment_del"
 												data-id="{{ $data['id'] }}"
 												data-title="Hapus Data Pembayaran {{$data['name']}}"
@@ -109,4 +171,8 @@ $datas 			= $datas->orderby('account_name')->with(['transaction'])->paginate();
 			@endif
 		</div>
 	</div>
+@stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
 @stop

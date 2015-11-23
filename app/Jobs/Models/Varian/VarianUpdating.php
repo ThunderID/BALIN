@@ -22,7 +22,7 @@ class VarianUpdating extends Job implements SelfHandling
     {
 		if($this->varian->transactiondetails->count())
         {
-            return new JSend('error', (array)$this->varian, ['message' => 'Produk memiliki transaksi']);
+            return new JSend('error', (array)$this->varian, 'Tidak dapat mengubah varian yang memiliki transaksi.');
         }
 
         return new JSend('success', (array)$this->varian);

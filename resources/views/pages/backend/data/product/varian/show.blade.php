@@ -9,6 +9,8 @@
 
 	$data 			= $data::find($id);
 
+	$customers 		= $data::size($data['size'])->customers(true)->get();
+
 	$td 			= $trsd->varianid($id)->CountSoldItemByProduct(true);
 
 	$cart			= $data::where('varians.id', $id)->quantityincart(true)->first();
@@ -17,24 +19,41 @@
 @extends('template.backend.layout') 
 
 @section('content')
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-md-12">
 			<h4 class="sub-header">
 				Varian
 			</h4>
 		</div>
-	</div>
+	</div> -->
 	<div class="row">
 		<div class="col-md-12">
-			<h2 style="margin-top:0px;">{{ $product['name'] }} - Ukuran {{ $data['size'] }}</h2>
-			<h5><strong>SKU &nbsp;</strong>{{ $data['sku'] }}</h5>
+			<h2 class="sub-header">{{ $product['name'] }} - Ukuran {{ $data['size'] }}</h2>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<h5><strong> Customer Yang Pernah Membeli Ukuran {{$data['size']}} &nbsp;</strong></h5>
+			@if(!isset($customers[0]))
+				<p class="m-l-sm m-t-sm text-left">Tidak ada customer</p>
+			@else
+				<ul>
+				@foreach($customers as $key => $value)
+					<li>
+						{!! $value['customer_name'] !!} - {{$value['total_buy']}} item(s) <a href="{{route('backend.data.customer.show', $value['customer_id'])}}"> detail </a>
+					</li>
+				@endforeach
+				</ul>
+			@endif
+		</div>
+	</div>
+
 	<div class="clearfix">&nbsp;</div>
 
 	<div class="row">
 		<div class="col-md-12">
-			<h5><strong>Statistics &nbsp;</strong></h5>
+			<h5><strong>Stok [SKU {{$data['sku']}}] &nbsp;</strong></h5>
 		</div>
 	</div>
 

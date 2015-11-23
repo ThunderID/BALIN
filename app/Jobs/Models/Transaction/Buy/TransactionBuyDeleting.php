@@ -24,7 +24,27 @@ class TransactionBuyDeleting extends Job implements SelfHandling
     public function handle()
     {
         //need to check user active or not
-        $result                          = new JSend('success', (array)$this->transaction);
+        $result                             = new JSend('success', (array)$this->transaction);
+
+        foreach ($this->transaction->transactiondetails as $key => $value) 
+        {
+            if(!$value->delete())
+            {
+                $result                     = new JSend('error', (array)$this->transaction, $value->getError());
+
+                return $result;
+            }
+        }
+
+        foreach ($this->transaction->transactionlogs as $key => $value) 
+        {
+            if(!$value->delete())
+            {
+                $result                     = new JSend('error', (array)$this->transaction, $value->getError());
+
+                return $result;
+            }
+        }
 
         return $result;
     }

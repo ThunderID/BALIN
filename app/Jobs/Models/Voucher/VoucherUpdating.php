@@ -19,6 +19,11 @@ class VoucherUpdating extends Job implements SelfHandling
 
     public function handle()
     {
+        if(isset($this->voucher->getDirty()['type']))
+        {
+            return new JSend('error', (array)$this->voucher, 'Tidak dapat mengubah tipe voucher.');
+        }
+
         return new JSend('success', (array)$this->voucher);
     }
 }

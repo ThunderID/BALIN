@@ -28,15 +28,18 @@ class ShipmentController extends BaseController
 
 		// $filters 				= ['doesnthavetransaction' => true];
 		$filters 				= null;
+		$searchResult			= null;
 
 		if(Input::has('q'))
 		{
-			$filters['amount'] 	= Input::get('q');
-			$searchResult		= Input::get('q');
+			$filters['receivername'] 	= Input::get('q');
+			$searchResult				= Input::get('q');
 		}
-		else
+
+		if(Input::has('receiptnumber'))
 		{
-			$searchResult		= null;
+			$filters['receiptnumber'] 	= Input::get('receiptnumber');
+			$searchResult				= Input::get('receiptnumber');
 		}
 
 		$this->layout->page 	= view('pages.backend.data.shipment.index')

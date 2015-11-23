@@ -12,24 +12,14 @@
 	@else
 		{!! Form::open(['url' => route('backend.settings.shippingCost.store', ['cou_id' => $cou_id, 'id' => $id]), 'method' => 'POST']) !!}
 	@endif
-        {!! Form::hidden('id',$data['id']) !!}    
+        {!! Form::hidden('id',$data['id']) !!}  
+        {!! Form::hidden('courier_id', $cou_id) !!}  
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="sub-header">
-					Kurir
+					{{$courier['name']}}
 				</h4>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="form-group">
-					<label for="courier_id">{{$courier['name']}}</label>
-					{!! Form::hidden('courier_id', $cou_id, [
-								'class'         => 'form-control', 
-								'tabindex'      => '1', 
-					]) !!}
-				</div>  
-			</div>                                        
 		</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
@@ -45,7 +35,7 @@
 					<label for="start_postal_code">Awal Kode pos</label>
 					{!! Form::text('start_postal_code', $data['start_postal_code'], [
 								'class'         => 'form-control', 
-								'tabindex'      => '2', 
+								'tabindex'      => '1', 
 								'placeholder'   => 'Masukkan kode pos'
 					]) !!}					
 				</div>
@@ -55,7 +45,7 @@
 					<label for="end_postal_code">Akhir Kode pos</label>
 					{!! Form::text('end_postal_code', $data['end_postal_code'], [
 								'class'         => 'form-control', 
-								'tabindex'      => '3', 
+								'tabindex'      => '2', 
 								'placeholder'   => 'Masukkan kode pos'
 					]) !!}					
 				</div>
@@ -74,8 +64,8 @@
 				<div class="form-group">
 					<label for="cost">Biaya Kirim</label>
 					{!! Form::text('cost', $data['cost'], [
-								'class'         => 'form-control', 
-								'tabindex'      => '4', 
+								'class'         => 'form-control money', 
+								'tabindex'      => '3', 
 								'placeholder'   => 'Masukkan biaya kirim'
 					]) !!}	
 				</div>  
@@ -149,9 +139,7 @@
 
 	for (i = 0; i < selections.length; i++) { 
 		preload_data.push(selections[i]);         
-	}
-
-			 
+	}	 
 @stop
 
 @section('script_plugin')

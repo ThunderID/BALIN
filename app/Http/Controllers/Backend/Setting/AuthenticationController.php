@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\BaseController;
 use App\Models\User;
-use Input, Session, DB, Redirect, Response, App, Validator, Carbon;
+use Input, Session, DB, Redirect, Response, App, Validator, Carbon, Auth;
 
 class AuthenticationController extends BaseController
 {
@@ -55,6 +55,11 @@ class AuthenticationController extends BaseController
 		$authentication 				= User::id($id)->first();
 
 		if(!$authentication)
+		{
+			App::abort(404);
+		}
+
+		if(Auth::user()->role!='admin' && $authentication->role=='admin')
 		{
 			App::abort(404);
 		}

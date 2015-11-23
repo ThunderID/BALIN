@@ -10,14 +10,45 @@ if(!is_null($filters) && is_array($filters))
 
 if ($subnav_active == 'sell')
 {
-	$datas 		= $datas->type($subnav_active)->status(['cart', 'wait', 'abandoned', 'canceled', 'delivered', 'shipping', 'paid'])->orderby('transact_at', 'desc')->with(['user', 'transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
+	$datas 		= $datas->type($subnav_active)->orderby('transact_at', 'desc')->with(['user', 'transactiondetails', 'pointlogs', 'transactionlogs']);
 	$type_user  = 'Kostumer';
 }
 else
 {
-	$datas 		= $datas->type($subnav_active)->status(['cart', 'wait', 'abandoned', 'canceled', 'delivered', 'shipping', 'paid'])->orderby('transact_at', 'desc')->with(['supplier', 'transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
+	$datas 		= $datas->type($subnav_active)->orderby('transact_at', 'desc')->with(['supplier', 'transactiondetails', 'pointlogs', 'transactionlogs']);
 	$type_user  = 'Supplier';
 }
+
+if(Input::has('asc'))
+{
+	switch (Input::get('asc')) 
+	{
+			case 'transactat':
+				$datas 			= $datas->orderby('transact_at', 'asc');
+				break;
+			default:
+				$datas 			= $datas->orderby('updated_at', 'asc');
+				break;
+		}	
+}
+elseif(Input::has('desc'))
+{
+	switch (Input::get('desc')) 
+	{
+			case 'transactat':
+				$datas 			= $datas->orderby('transact_at', 'desc');
+				break;
+			default:
+				$datas 			= $datas->orderby('updated_at', 'desc');
+				break;
+		}	
+}
+else
+{
+	$datas 			= $datas->orderby('updated_at', 'desc');
+}
+
+$datas 				= $datas->paginate();
 ?>
 
 @extends('template.backend.layout')
@@ -35,25 +66,24 @@ else
 				<div class="col-md-4 col-sm-8 col-xs-12">
 					{!! Form::open(array('route' => 'backend.data.transaction.index', 'method' => 'get' )) !!}
 						<div class="row">
-							<div class="col-md-2 col-sm-3 hidden-xs">
+							<div class="col-md-5 col-sm-5 col-xs-12" style="padding-right:2px;">
+								{!! Form::select('status', ['' => 'Status','abandoned' => 'Terabaikan','cart' => 'Keranjang', 'wait' => 'Proses, Menunggu Pembayaran', 'paid' => 'Sudah dibayar, belum dikirim', 'shipping' => 'Sedang dalam pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pembatalan Pesanan'], Input::get('status'), ['class' => 'form-control', 'tabindex' => '1']) !!}
 							</div>
-							<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
+							<div class="col-md-5 col-sm-5 col-xs-12" style="padding-right:2px;">
 								{!! Form::input('text', 'q', Null ,[
-											'class'         => 'form-control',
-											'placeholder'   => 'Cari sesuatu',
-											'required'      => 'required',
-											'style'         =>'text-align:right'
+											'class'         => 'form-control money',
+											'placeholder'   => 'Total transaksi',
 								]) !!}
 								{!! Form::hidden('type', Input::get('type')) !!}
 							</div>
-							<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
+							<div class="col-md-2 col-sm-2 col-xs-12" style="padding-left:2px;">
 								<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
 							</div>
 						</div>
 					{!! Form::close() !!}
 				</div>            
 			</div>
-			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.supplier.index') ])
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.data.transaction.index', ['type' => $type]) ])
 			<div class="clearfix">&nbsp;</div>
 			<div class="row">
 				<div class="col-lg-12">
@@ -62,11 +92,23 @@ else
 							<thead>
 								<tr>
 									<th class="text-center">No.</th>
-									<th class=" text-left">#</th>
-									<th class="">{{ $type_user }}</th>
-									<th class=" text-center">Tanggal Transaksi</th>
-									<th class=" text-center">Status</th>
-									<th class="text-right">Total</th>
+									<th class="text-left">#</th>
+									<th class="text-center">{{ $type_user }}</th>
+									<th class="text-center">
+										Tanggal Transaksi
+										@if(!Input::has('asc') || Input::get('asc')!='transactat')
+										<a href="{{route('backend.data.transaction.index', array_merge(Input::all(), ['asc' => 'transactat']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@else
+										<i class="fa fa-arrow-up"></i>
+										@endif
+										@if(!Input::has('desc') || Input::get('desc')!='transactat')
+										<a href="{{route('backend.data.transaction.index', array_merge(Input::all(), ['desc' => 'transactat']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@else
+										<i class="fa fa-arrow-down"></i>
+										@endif
+									</th>
+									<th class="text-center">Status</th>
+									<th class="text-center">Total</th>
 									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
@@ -169,4 +211,8 @@ else
 		$('.mod_title').html(title);
 		$('.mod_button').html(button);
 	})     
+@stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
 @stop

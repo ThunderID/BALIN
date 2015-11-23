@@ -8,6 +8,14 @@ if(!is_null($filters) && is_array($filters))
         $datas = call_user_func([$datas, $key], $value);
     }
 }
+if(Auth::user()->role == 'admin')
+{
+    $datas      = $datas->role(['staff', 'store_manager', 'admin']);
+}
+else
+{
+    $datas      = $datas->role(['staff', 'store_manager']);
+}
 $datas          = $datas->with(['addresses'])->orderby('name')->paginate();
 ?>
 
@@ -28,7 +36,7 @@ $datas          = $datas->with(['addresses'])->orderby('name')->paginate();
                         <div class="col-md-2 col-sm-3 hidden-xs">
                         </div>
                         <div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
-                            {!!Form::input('text', 'q', Null , ['class' => 'form-control', 'placeholder' => 'Cari sesuatu', 'required' => 'required', 'style'=>'text-align:right']) !!}                                          
+                            {!!Form::input('text', 'q', Null , ['class' => 'form-control', 'placeholder' => 'Cari nama', 'required' => 'required']) !!}                                          
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
                             <button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
@@ -46,11 +54,11 @@ $datas          = $datas->with(['addresses'])->orderby('name')->paginate();
                             <thead>
                                 <tr>
                                     <th class="text-center">No.</th>
-                                    <th class="col-md-3">Nama</th>
-                                    <th class="col-md-2">Role</th>
-                                    <th class="col-md-2">Nomor Telepon</th>
-                                    <th class="col-md-2">Email</th>
-                                    <th>Kontrol</th>
+                                    <th class="text-center col-md-3">Nama</th>
+                                    <th class="text-center col-md-2">Role</th>
+                                    <th class="text-center col-md-2">Nomor Telepon</th>
+                                    <th class="text-center col-md-2">Email</th>
+                                    <th class="text-center">Kontrol</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,7 +87,7 @@ $datas          = $datas->with(['addresses'])->orderby('name')->paginate();
                                         <td>{!!str_replace('_', ' ', $data->role)!!}</td>
                                         <td>{{$data['phone']}}</td>
                                         <td>{{$data['email']}}</td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="{{ route('backend.settings.authentication.show', $data['id']) }}">Detail</a>, 
                                             <a href="{{ route('backend.settings.authentication.edit', $data['id']) }}">Edit</a>, 
                                             <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#cus_del"

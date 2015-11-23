@@ -57,8 +57,9 @@ class Voucher extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'code'							=> 'required|max:255',
+											'code'							=> 'required|max:255|min:8',
 											'type'							=> 'required|max:255',
+											'value'							=> 'numeric',
 											'started_at'					=> 'date_format:"Y-m-d H:i:s"|after:now',
 											'expired_at'					=> 'date_format:"Y-m-d H:i:s"|after:now',
 										];
@@ -86,7 +87,14 @@ class Voucher extends Eloquent
 	
 	public function getQuotaAttribute($value)
 	{
-		$quota 						= QuotaLog::voucherid($this->id)->sum('amount');
+		if(isset($this->current_quota))
+		{
+			$quota					= $this->current_quota;
+		}
+		else
+		{
+			$quota					= QuotaLog::voucherid($this->id)->sum('amount');
+		}	
 			
 		return $quota;
 	}
@@ -175,5 +183,20 @@ class Voucher extends Eloquent
 						->where('expired_at', '>=', $ondate)
 						;
 		}
+	}
+
+	public function scopeCurrentQuota($query, $variable)
+	{
+		return 	$query
+					->selectraw('tmp_vouchers.*')
+					->selectraw('sum(quota_logs.amount) as current_quota')
+					->leftjoin('quota_logs', function($join)
+					{
+						$join->on('quota_logs.voucher_id', '=', 'tmp_vouchers.id')
+						->wherenull('quota_logs.deleted_at')
+						;
+					})
+					->groupby('voucher_id')
+					;
 	}
 }

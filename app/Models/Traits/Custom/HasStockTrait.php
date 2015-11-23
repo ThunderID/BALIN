@@ -34,7 +34,7 @@ trait HasStockTrait
 	public function scopeSelectOnHoldStock($query, $variable)
 	{
 		return $query->selectraw('IFNULL(SUM(
-									if(transactions.type ="sell", if(transaction_logs.status ="wait" OR transaction_logs.status ="paid", quantity, 0), 0)
+									if(transactions.type ="sell", if(transaction_logs.status ="wait", quantity, 0), 0)
 									),0) as on_hold_stock')
 		;
 	}
@@ -69,20 +69,56 @@ trait HasStockTrait
 
 	public function scopeJoinTransactionDetailFromProduct($query, $variable)
 	{
-		return $query->join('varians', 'varians.product_id', '=', 'products.id')
-					->join('transaction_details', 'transaction_details.varian_id', '=', 'varians.id')
+		return $query
+		->join('varians', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'varians.product_id', '=', 'products.id' )
+                                    ->wherenull('varians.deleted_at')
+                                    ;
+			})
+		->join('transaction_details', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'transaction_details.varian_id', '=', 'varians.id' )
+                                    ->wherenull('transaction_details.deleted_at')
+                                    ;
+			})
+		;
+	}
+
+
+	public function scopeLeftJoinTransactionDetailFromVarian($query, $variable)
+	{
+		return $query
+		->leftjoin('transaction_details', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'transaction_details.varian_id', '=', 'varians.id' )
+                                    ->wherenull('transaction_details.deleted_at')
+                                    ;
+			})
 		;
 	}
 
 	public function scopeJoinTransactionDetailFromVarian($query, $variable)
 	{
-		return $query->join('transaction_details', 'transaction_details.varian_id', '=', 'varians.id')
+		return $query
+		->join('transaction_details', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'transaction_details.varian_id', '=', 'varians.id' )
+                                    ->wherenull('transaction_details.deleted_at')
+                                    ;
+			})
 		;
 	}
 
 	public function scopeJoinVarianFromTransactionDetail($query, $variable)
 	{
-		return $query->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
+		return $query
+		->join('varians', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'varians.id', '=', 'transaction_details.varian_id' )
+                                    ->wherenull('varians.deleted_at')
+                                    ;
+			})
 		;
 	}
 

@@ -20,27 +20,35 @@ class ShippingCostSaving extends Job implements SelfHandling
     
     public function handle()
     {
-        if(!$this->shippingcost->id)
+        if($this->shippingcost->start_postal_code > $this->shippingcost->end_postal_code)
         {
-            $id = 0;
+            return new JSend('error', (array)$this->shippingcost, 'Kode pos awal harus lebih kecil dari kode pos akhir.');
         }
-        else
+        if(isset($this->shippingcost->courier_id) && $this->shippingcost->courier_id!=0)
         {
-            $id = $this->shippingcost->id;
-        }
+            if(!$this->shippingcost->id)
+            {
+                $id = 0;
+            }
+            else
+            {
+                $id = $this->shippingcost->id;
+            }
 
-        $shippingCost                   = ShippingCost::ShippingCost(
-                                                    $this->shippingcost->start_postal_code,
-                                                    $this->shippingcost->end_postal_code,
-                                                    $this->shippingcost->started_at
-                                                )
-                                            ->where('started_at','=',date('Y-m-d h:i:s', strtotime($this->shippingcost->started_at)))
-                                            ->notid($id)
-                                            ->count();
+            $shippingCost                   = ShippingCost::ShippingCost(
+                                                        $this->shippingcost->start_postal_code,
+                                                        $this->shippingcost->end_postal_code,
+                                                        $this->shippingcost->started_at
+                                                    )
+                                                ->where('started_at','=',date('Y-m-d h:i:s', strtotime($this->shippingcost->started_at)))
+                                                ->notid($id)
+                                                ->couriernotid($this->shippingcost->courier_id)
+                                                ->count();
 
-        if($shippingCost)
-        {
-            return new JSend('error', (array)$this->shippingcost, 'Tidak dapat menyimpan data yang tanggal berlakunya telah berlalu');
+            if($shippingCost)
+            {
+                return new JSend('error', (array)$this->shippingcost, 'Tidak dapat menyimpan data yang tanggal berlakunya telah berlalu.');
+            }
         }
 
         return new JSend('success', (array)$this->shippingcost);

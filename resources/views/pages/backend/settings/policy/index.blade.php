@@ -1,6 +1,17 @@
 @inject('datas', 'App\Models\StoreSetting')
 
-<?php $datas = $datas::allpolicies()->orderByRaw(DB::raw('started_at desc, type'))->paginate(); ?>
+<?php 
+
+if(!is_null($filters) && is_array($filters))
+{
+	foreach ($filters as $key => $value) 
+	{
+		$datas 	= call_user_func([$datas, $key], $value);
+	}
+}
+
+$datas 			= $datas->allpolicies()->orderByRaw(DB::raw('started_at desc, type'))->paginate(); 
+?>
 
 @extends('template.backend.layout') 
 
@@ -21,11 +32,10 @@
 						</div>
 						<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
 							{!! Form::input('text', 'q', Null , [
-										'class'         => 'form-control',
-										'placeholder'   => 'Cari sesuatu',
+										'class'         => 'form-control date-format',
+										'placeholder'   => 'Tanggal',
 										'required'      => 'required',
-										'style'         =>'text-align:right'
-								]) !!}                                          
+							]) !!}
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
 							<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>
@@ -42,16 +52,16 @@
 						<table class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
-									<th>No.</th>
-									<th>Policy</th>
-									<th>Value</th>
-									<th>Tangal Mulai</th>
+									<th class="text-center">No.</th>
+									<th class="text-center">Policy</th>
+									<th class="text-center">Value</th>
+									<th class="text-center">Tangal Mulai</th>
 								</tr>
 							</thead>
 							<tbody>
 								@if(count($datas) == 0)
 									<tr>
-										<td colspan="5" class="text-center">
+										<td colspan="4" class="text-center">
 											Tidak ada data
 										</td>
 									</tr>
@@ -62,11 +72,11 @@
 									?> 
 									@foreach($datas as $data)
 										<tr>
-											<td>{{ $ctr }}</td>
+											<td class="text-center">{{ $ctr }}</td>
 											<td>{{str_replace('_', ' ', $data['type'])}}</td>
 											<td>{{ $data['value'] }}</td>
-											<td>
-												{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['started_at'])->format('d-m-Y H:i') }}
+											<td class="text-center">
+												@datetime_indo($data['started_at'])
 											</td>
 										</tr>       
 										<?php $ctr += 1; ?>                     
@@ -92,4 +102,8 @@
 			@endif
 		</div>
 	</div>
+@stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
 @stop

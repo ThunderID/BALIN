@@ -7,7 +7,38 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->with(['transaction'])->paginate();
+$datas 			= $datas->with(['transaction', 'courier', 'address']);
+
+if(Input::has('asc'))
+{
+	switch (Input::get('asc')) 
+	{
+			case 'name':
+				$datas 			= $datas->orderby('receiver_name', 'asc');
+				break;
+			default:
+				$datas 			= $datas->orderby('updated_at', 'asc');
+				break;
+		}	
+}
+elseif(Input::has('desc'))
+{
+	switch (Input::get('desc')) 
+	{
+			case 'name':
+				$datas 			= $datas->orderby('receiver_name', 'desc');
+				break;
+			default:
+				$datas 			= $datas->orderby('updated_at', 'desc');
+				break;
+		}	
+}
+else
+{
+	$datas 			= $datas->orderby('updated_at', 'desc');
+}
+
+$datas 				= $datas->paginate();
 ?>
 
 @extends('template.backend.layout') 
@@ -30,9 +61,8 @@ $datas 			= $datas->with(['transaction'])->paginate();
 							<div class="col-md-7 col-sm-6 col-xs-8" style="padding-right:2px;">
 								{!! Form::input('text', 'q', Null ,[
 											'class'         => 'form-control',
-											'placeholder'   => 'Cari sesuatu',
+											'placeholder'   => 'Cari nama penerima',
 											'required'      => 'required',
-											'style'         =>'text-align:right'
 								]) !!}
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
@@ -50,17 +80,31 @@ $datas 			= $datas->with(['transaction'])->paginate();
 						<table class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
-									<th>No.</th>
+									<th class="text-center">No.</th>
 									<th>#</th>
-									<th>Nomor Resi</th>
+									<th class="text-center">Nomor Resi</th>
+									<th class="text-center">
+										A.N.
+										@if(!Input::has('asc') || Input::get('asc')!='name')
+										<a href="{{route('backend.data.shipment.index', array_merge(Input::all(), ['asc' => 'name']))}}"> <i class="fa fa-arrow-up"></i> </a>
+										@else
+										<i class="fa fa-arrow-up"></i>
+										@endif
+										@if(!Input::has('desc') || Input::get('desc')!='name')
+										<a href="{{route('backend.data.shipment.index', array_merge(Input::all(), ['desc' => 'name']))}}"> <i class="fa fa-arrow-down"></i> </a>
+										@else
+										<i class="fa fa-arrow-down"></i>
+										@endif
+									</th>
 									<th class="text-center">Alamat</th>
+									<th class="text-center">Kurir</th>
 									<th class="text-center">Kontrol</th>
 								</tr>
 							</thead>
 							<tbody>
 								@if(count($datas) == 0)
 									<tr>
-										<td colspan="5" class="text-center">
+										<td colspan="6" class="text-center">
 											Tidak ada data (silahkan periksa melalui transaksi)
 										</td>
 									</tr>
@@ -71,13 +115,15 @@ $datas 			= $datas->with(['transaction'])->paginate();
 									?> 
 									@foreach($datas as $data)
 									<tr>
-										<td>{{$ctr}}</td>
+										<td class="text-center">{{$ctr}}</td>
 										<td><a href="{{route('backend.data.transaction.show', ['id' => $data['transaction_id'], 'type' => 'sell'])}}">{{$data['transaction']['ref_number']}}</a></td>
 										<td>{{$data['receipt_number']}}</td>
+										<td>{{$data['receiver_name']}}</td>
 										<td class="text-center">{{$data['address']['address']}}</td>
+										<td class="text-center">{{$data['courier']['name']}}</td>
 										<td class="text-center">
 											<!-- <a href="{{ URL::route('backend.data.shipment.show', ['id' => $data['id']]) }}"> Detail </a>,  -->
-											<a href="{{ URL::route('backend.data.shipment.edit', ['id' => $data['id']]) }}"> Edit </a>, 
+											<a href="{{ URL::route('backend.data.shipment.edit', ['id' => $data['id']]) }}"> Edit</a>, 
 											<a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#shipment_del"
 												data-id="{{ $data['id'] }}"
 												data-title="Hapus Data Pembayaran {{$data['name']}}"

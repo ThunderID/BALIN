@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                    <label for="parent" class="text-capitalize">Termasuk dalam Tag</label>
+                    <label for="parent" class="text-capitalize">Kategori Tag</label>
                     {!! Form::text('parent', $data['category_id'], [
                                 'class'         => 'select-tag', 
                                 'tabindex'      => '1', 

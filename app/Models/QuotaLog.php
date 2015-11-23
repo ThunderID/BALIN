@@ -52,7 +52,7 @@ class QuotaLog extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'amount'						=> 'numeric',
+											'amount'						=> 'required|numeric',
 										];
 
 	/**

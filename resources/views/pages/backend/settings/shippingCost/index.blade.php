@@ -29,8 +29,7 @@ $datas 			= $datas
 											'class'         => 'form-control',
 											'placeholder'   => 'Cari sesuatu',
 											'required'      => 'required',
-											'style'         =>'text-align:right'
-								]) !!}
+																]) !!}
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-4" style="padding-left:2px;">
 								<button type="submit" class="btn btn-default pull-right btn-block">Cari</button>

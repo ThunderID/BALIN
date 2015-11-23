@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Models\Address;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -11,13 +11,13 @@ use App\Models\Address;
 
 class AddressRestored extends Job implements SelfHandling
 {
-    public function __construct(address $address)
+    public function __construct(Address $address)
     {
         $this->address              = $address;
     }
 
     public function handle()
     {
-        return new JSend('success', (array)$this->courier);
+        return new JSend('success', (array)$this->address);
     }
 }

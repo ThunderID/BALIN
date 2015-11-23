@@ -19,7 +19,25 @@ trait HasStatusTrait
 
 	public function scopeJoinTransaction($query, $variable)
 	{
-		return $query->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
+		return $query
+		 ->join('transactions', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'transaction_details.transaction_id', '=', 'transactions.id' )
+                                    ->wherenull('transactions.deleted_at')
+                                    ;
+			})
+		;
+	}
+
+	public function scopeLeftJoinTransaction($query, $variable)
+	{
+		return $query
+		 ->leftjoin('transactions', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'transaction_details.transaction_id', '=', 'transactions.id' )
+                                    ->wherenull('transactions.deleted_at')
+                                    ;
+			})
 		;
 	}
 
@@ -32,8 +50,9 @@ trait HasStatusTrait
 			 ->join('transaction_logs', function ($join) use($variable) 
 			 {
                                     $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
-									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id))'), DB::raw(''), DB::raw(''))
+									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null))'), DB::raw(''), DB::raw(''))
                                     ->where('transaction_logs.status', '=', $variable)
+                                    ->wherenull('transaction_logs.deleted_at')
                                     ;
 			})
 			;
@@ -44,8 +63,40 @@ trait HasStatusTrait
 			 ->join('transaction_logs', function ($join) use($variable) 
 			 {
                                     $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
-									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id))'), DB::raw(''), DB::raw(''))
+									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null))'), DB::raw(''), DB::raw(''))
                                     ->whereIn('transaction_logs.status', $variable)
+                                    ->wherenull('transaction_logs.deleted_at')
+                                    ;
+			})
+			;
+		}
+	}
+	
+	public function scopeLeftTransactionLogStatus($query, $variable)
+	{
+
+		if(!is_array($variable))
+		{
+			return $query
+			 ->leftjoin('transaction_logs', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
+									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null))'), DB::raw(''), DB::raw(''))
+                                    ->where('transaction_logs.status', '=', $variable)
+                                    ->wherenull('transaction_logs.deleted_at')
+                                    ;
+			})
+			;
+		}
+		else
+		{
+			return $query
+			 ->leftjoin('transaction_logs', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
+									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null))'), DB::raw(''), DB::raw(''))
+                                    ->whereIn('transaction_logs.status', $variable)
+                                    ->wherenull('transaction_logs.deleted_at')
                                     ;
 			})
 			;
@@ -103,4 +154,38 @@ trait HasStatusTrait
 		return $query->jointransaction(true)->transactionlogstatus($variable)->extendtransactiontype('buy')
 		;
 	}
+
+	public function scopeCategoryAncestorSuccessor($query, $variable)
+	{
+
+		if(!is_array($variable))
+		{
+			return $query
+			 ->rightjoin('categories', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'categories.category_id', '=', 'categories_products.category_id' )
+                                    ->oron('categories.id', '=', 'categories_products.category_id')
+                                    ->where('categories.category_id', '=', $variable)
+                                    ->orwhere('categories.id', '=', $variable)
+                                    ->wherenull('categories.deleted_at')
+                                    ;
+			})
+			;
+		}
+		else
+		{
+			return $query
+			 ->rightjoin('categories', function ($join) use($variable) 
+			 {
+                                    $join->on ( 'categories.category_id', '=', 'categories_products.category_id' )
+                                    ->oron('categories.id', 'categories_products.category_id')
+                                    ->where('categories.category_id', '=', $variable)
+                                    ->orwhere('categories.id', '=', $variable)
+                                    ->wherenull('categories.deleted_at')
+                                    ;
+			})
+			;
+		}
+	}
+	
 }

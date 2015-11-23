@@ -31,7 +31,7 @@ class FeatureController extends BaseController
 
 		if(Input::has('q'))
 		{
-			$filters 								= ['title' => Input::get('q')];
+			$filters 								= ['ondate' => Input::get('q')];
 			
 			$searchResult							= Input::get('q');
 		}

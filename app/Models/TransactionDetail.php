@@ -22,6 +22,7 @@ class TransactionDetail extends Eloquent
 	use \App\Models\Traits\belongsTo\HasTransactionTrait;
 	use \App\Models\Traits\Custom\HasStockTrait;
 	use \App\Models\Traits\Custom\HasStatusTrait;
+	use \App\Models\Traits\Custom\HasFilterTrait;
 
 	/**
 	 * The database table used by the model.
@@ -115,6 +116,7 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 				->selectraw('transaction_details.*')
+				->selectraw('IFNULL(avg(price - discount), 0) as hb')
 				->transactionbuyon(['paid','shipping','delivered'])
 				->where('transactions.supplier_id', $variable)
 				->groupBy('varian_id')
@@ -128,10 +130,10 @@ class TransactionDetail extends Eloquent
 				->selectraw('varians.product_id')
 				->selectraw('sum(quantity) as total_buy')
 				->transactionsellon(['paid','shipping','delivered'])
+				->JoinVarianFromTransactionDetail(true)
 				->where('transactions.user_id', $variable)
-				->orderby('total_buy', 'desc')
-				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
 				->groupBy('product_id')
+				->orderby('total_buy', 'desc')
 				;
 	}
 
@@ -141,11 +143,35 @@ class TransactionDetail extends Eloquent
 				->selectraw('transaction_details.*')
 				->selectraw('varians.product_id')
 				->selectraw('sum(quantity) as total_buy')
-				->wherehas('product.categoryproduct', function($q)use($variable){$q->categoryid($variable);})
+				->JoinVarianFromTransactionDetail(true)
+				->JoinCPFromVarian(true)
 				->transactionsellon(['paid','shipping','delivered'])
 				->orderby('total_buy', 'desc')
-				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
+				->CategoryAncestorSuccessor($variable)
 				->groupBy('product_id')
+				;
+	}
+
+	public function scopeMostBuyByCustomerInCategory($query, $variable)
+	{
+		return 	$query
+				->selectraw('transaction_details.*')
+				->selectraw('sum(quantity) as total_buy')
+				->selectraw('users.name as user_name')
+				->selectraw('transactions.user_id')
+				->transactionsellon(['paid','shipping','delivered'])
+				->JoinVarianFromTransactionDetail(true)
+				->JoinCPFromVarian(true)
+				->join('users', function ($join) use($variable) 
+				{
+					$join->on ( 'users.id', '=', 'transactions.user_id' )
+					->wherenull('users.deleted_at')
+					;
+				})
+				->CategoryAncestorSuccessor($variable)
+				->orderby('total_buy', 'desc')
+				->groupBy('user_id')
+				// ->groupBy('transaction_id')
 				;
 	}
 
@@ -158,7 +184,7 @@ class TransactionDetail extends Eloquent
 				->transactionsellon(['paid','shipping','delivered'])
 				->where('transactions.user_id', $variable)
 				->orderby('frequent_buy', 'desc')
-				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
+				->JoinVarianFromTransactionDetail(true)
 				->groupBy('product_id')
 				// ->groupBy('transaction_id')
 				;
@@ -168,13 +194,37 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 				->selectraw('transaction_details.*')
-				->selectraw('count(transaction_id) as frequent_buy')
+				->selectraw('count(transaction_details.transaction_id) as frequent_buy')
 				->selectraw('varians.product_id')
-				->wherehas('product.categoryproduct', function($q)use($variable){$q->categoryid($variable);})
 				->transactionsellon(['paid','shipping','delivered'])
+				->JoinVarianFromTransactionDetail(true)
+				->JoinCPFromVarian(true)
+				->CategoryAncestorSuccessor($variable)
 				->orderby('frequent_buy', 'desc')
-				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
 				->groupBy('product_id')
+				// ->groupBy('transaction_id')
+				;
+	}
+
+	public function scopeFrequentBuyByCustomerInCategory($query, $variable)
+	{
+		return 	$query
+				->selectraw('transaction_details.*')
+				->selectraw('count(transactions.user_id) as frequent_buy')
+				->selectraw('users.name as user_name')
+				->selectraw('transactions.user_id')
+				->transactionsellon(['paid','shipping','delivered'])
+				->JoinVarianFromTransactionDetail(true)
+				->JoinCPFromVarian(true)
+				->join('users', function ($join) use($variable) 
+				{
+					$join->on ( 'users.id', '=', 'transactions.user_id' )
+					->wherenull('users.deleted_at')
+					;
+				})
+				->CategoryAncestorSuccessor($variable)
+				->orderby('frequent_buy', 'desc')
+				->groupBy('user_id')
 				// ->groupBy('transaction_id')
 				;
 	}
@@ -187,9 +237,9 @@ class TransactionDetail extends Eloquent
 				->selectraw('varians.product_id')
 				->transactionsellon(['paid','shipping','delivered'])
 				->transactiontransactat($variable)
-				->orderby('total_buy', 'desc')
-				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
+				->JoinVarianFromTransactionDetail(true)
 				->groupBy('product_id')
+				->orderby('total_buy', 'desc')
 
 				;
 	}
@@ -202,23 +252,10 @@ class TransactionDetail extends Eloquent
 				->selectraw('varians.product_id')
 				->transactionsellon(['paid','shipping','delivered'])
 				->transactiontransactat($variable)
+				->JoinVarianFromTransactionDetail(true)
+				->groupBy('product_id')
 				->orderby('frequent_buy', 'desc')
-				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
-				->groupBy('product_id')
 				// ->groupBy('transaction_id')
-				;
-	}
-
-	public function scopeLeastBuy($query, $date)
-	{
-		return 	$query
-				->selectraw('transaction_details.*')
-				->selectraw('varians.product_id')
-				->selectraw('sum(quantity) as total_buy')
-				->whereDoesntHave('transaction', function($q)use($date){$q->status(['paid','shipping','delivered'])->type('sell')->where('transacted_at','>=',$date);})
-				->orderby('total_buy', 'desc')
-				->join('varians', 'varians.id', '=', 'transaction_details.varian_id')
-				->groupBy('product_id')
 				;
 	}
 

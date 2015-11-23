@@ -32,7 +32,8 @@ class PaymentController extends BaseController
 
 		if(Input::has('q'))
 		{
-			$filters['amount'] 	= Input::get('q');
+			$amount  			= str_replace('IDR ', '', str_replace('.', '', Input::get('q')));
+			$filters 			= ['amount' => $amount];
 			$searchResult		= Input::get('q');
 		}
 		else

@@ -25,7 +25,17 @@ class QuotaLogDeleting extends Job implements SelfHandling
 
     public function handle()
     {
-        $result                 = new JSend('success', (array)$this->quotalog);
+        $result                     = new JSend('success', (array)$this->quotalog);
+
+        if($this->quotalog->voucher->transactions()->count())
+        {
+            $result                 = new JSend('error', (array)$this->quotalog, 'Tidak dapat menghapus quota voucher yang telah digunakan dalam transaksi. Silahkan kurangi quota secara manual.');
+        }
+
+        if($this->quotalog->voucher->user()->count())
+        {
+            $result                 = new JSend('error', (array)$this->quotalog, 'Tidak dapat menghapus quota voucher yang telah digunakan dalam transaksi. Silahkan kurangi quota secara manual.');
+        }
 
         return $result;
     }
