@@ -63,7 +63,7 @@
 										"item_list_slug"				=> $item['slug'],
 										"item_mode"						=> 'new',
 									))
-									<?php $total += ($item['price']*$qty); ?>
+									<?php $total += (($item['price']-$item['discount'])*$qty); ?>
 								@endforeach
 							@else
 								<div class="row chart-item">
