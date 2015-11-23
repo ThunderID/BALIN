@@ -29,20 +29,32 @@ class SaveToTransactionDetail extends Job implements SelfHandling
 
         foreach ($this->cart as $key => $value)
         {
-            $trsdetail                  = new TransactionDetail;
-
-            $trsdetail->fill([
-                'transaction_id'        => $this->transaction['id'],
-                'varian_id'             => $value['varian_id'],
-                'quantity'              => $value['qty'],
-                'price'                 => $this->price['price'],
-                'discount'              => $this->price['discount'],
-            ]);
-
-            //cek apa punya error
-            if(!$trsdetail->save())
+            if($value['qty']>0)
             {
-                $errors->add('Transaction', $trsdetail->getError());
+                $prev                           = TransactionDetail::transactionid($this->transaction->id)->varianid($value['varian_id'])->first();
+
+                if($prev)
+                {
+                    $trsdetail                  = $prev;
+                }
+                else
+                {
+                    $trsdetail                  = new TransactionDetail;
+                }
+
+                $trsdetail->fill([
+                    'transaction_id'        => $this->transaction['id'],
+                    'varian_id'             => $value['varian_id'],
+                    'quantity'              => $value['qty'],
+                    'price'                 => $this->price['price'],
+                    'discount'              => $this->price['discount'],
+                ]);
+
+                //cek apa punya error
+                if(!$trsdetail->save())
+                {
+                    $errors->add('Transaction', $trsdetail->getError());
+                }
             }
         } 
 

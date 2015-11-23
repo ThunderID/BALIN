@@ -72,8 +72,21 @@ class CartController extends BaseController
 
 	public function update($cid = null, $vid = null)
 	{
-		$baskets 									= Session::get('baskets');
-		$baskets[$cid]['varians'][$vid]['qty']		= Input::get('qty');
+		$baskets 								= Session::get('baskets');
+		$baskets[$cid]['varians'][$vid]['qty']	= Input::get('qty');
+
+		$varian[] 								= $baskets[$cid]['varians'][$vid];
+		$price 									= ['price' => $baskets[$cid]['price'], 'discount' => $baskets[$cid]['discount']];
+
+		if (Auth::check())
+		{
+			$transaction           	 			= Transaction::userid(Auth::user()->id)->status('cart')->first();
+
+			if (!is_null($transaction['id']))
+			{
+				$result                 		= $this->dispatch(new SaveToTransactionDetail($transaction, $varian, $price));
+			}
+		}
 
 		Session::forget('baskets');
 
@@ -89,6 +102,19 @@ class CartController extends BaseController
 		$baskets 									= Session::get('baskets');
 		$cid 										= Input::get('cid');
 		$vid 										= Input::get('vid');
+
+		if (Auth::check())
+		{
+			$transaction           	 			= Transaction::userid(Auth::user()->id)->status('cart')->first();
+
+			foreach ($transaction->transactiondetails as $key => $value) 
+			{
+				if($value->varian_id == $vid && !$value->delete())
+				{
+					return Redirect::route('frontend.cart.index')->withErrors($value->getError())->with('msg-type', 'danger');
+				}
+			}
+		}
 
 		if (isset($cid) && !isset($vid))
 		{
@@ -118,6 +144,19 @@ class CartController extends BaseController
 	// FUNCTION EMPTY CART
 	public function clean()
 	{
+		if (Auth::check())
+		{
+			$transaction           	 			= Transaction::userid(Auth::user()->id)->status('cart')->first();
+
+			foreach ($transaction->transactiondetails as $key => $value) 
+			{
+				if(!$value->delete())
+				{
+					return Redirect::route('frontend.cart.index')->withErrors($value->getError())->with('msg-type', 'danger');
+				}
+			}
+		}
+
 		return Redirect::route('frontend.product.index')
 						->withSession(Session::forget('baskets'));		
 	}
