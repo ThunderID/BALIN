@@ -279,7 +279,7 @@
 	</div>
 
 	@if ($controller_name != 'home')
-		<div class="container">&nbsp;</div>
+		<div class="container"></div>
 		<!-- <div id="footer"></div> -->
 		@include('widgets.footer')
 	@endif
