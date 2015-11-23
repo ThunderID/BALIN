@@ -86,9 +86,8 @@
 		$('.sign-in').hide();
 		$('.forgot').show();
 	});
-	$(".date-format").inputmask({
-	    mask: "d-m-y",
-	    placeholder: "dd-mm-yyyy",
-	    alias: "date",
-	}); 
+@stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
 @stop

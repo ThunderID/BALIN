@@ -1,11 +1,3 @@
-@inject('settings', 'App\Models\StoreSetting')
-<?php
-	$tmp = $settings->storeinfo(true)->get();
-	foreach ($tmp as $key => $value) {
-	   $storeinfo[$value->type]   = $value->value; 
-	}
-?>
-
 @extends('template.layout')
 
 @section('content_layout')
@@ -282,7 +274,7 @@
 	</div>
 
 	@if ($controller_name != 'home')
-		<div class="container">&nbsp;</div>
+		<div class="container"></div>
 		<!-- <div id="footer"></div> -->
 		@include('widgets.footer')
 	@endif

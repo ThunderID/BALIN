@@ -205,7 +205,7 @@ class ProductController extends BaseController
 
 	public function show($slug = null)
 	{
-		$data          							= Product::slug($slug)->sellable(true)->first();
+		$data          							= Product::slug($slug)->sellable(true)->currentprice(true)->with('varians')->with('images')->first();
 
 		if(!$data)
 		{

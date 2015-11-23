@@ -67,7 +67,10 @@
 		RECOMENDED
 
 		<?php
-			$products 			= App\Models\Product::currentprice(true)->DefaultImage(true)->sellable(true)->orderby('products.created_at','desc')->take(2)->get();
+			$products 	= Cache::remember('recommended_batik', 30, function() 
+			{
+						return App\Models\Product::currentprice(true)->DefaultImage(true)->sellable(true)->orderby('products.created_at','desc')->take(2)->get();
+			});
 		?>
 	@endif                                                                
 </ul>

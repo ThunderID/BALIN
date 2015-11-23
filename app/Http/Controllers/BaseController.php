@@ -17,11 +17,13 @@ abstract class BaseController extends Controller
 	{
 		$store 									= StoreSetting::storeinfo(true)->get();
 
-		$this->stores 							= null;
+		$stores 							= null;
 		foreach ($store as $key => $value) 
 		{
-			$this->stores[$value->type] 		= $value->value;
+			$stores[$value->type] 		= $value->value;
 		}
+
+		view()->share('storeinfo', $stores);
 
 		$this->layout = view('template.layout');
 	}

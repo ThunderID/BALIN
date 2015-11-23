@@ -27,7 +27,7 @@ class HomeController extends BaseController
 		$this->layout->page->metas 				= 	[
 														'og:type' 			=> 'website', 
 														'og:title' 			=> 'BALIN.ID', 
-														'og:description' 	=> 'Batik For Warrior',
+														'og:description' 	=> 'Fashionable and Modern Batik',
 														'og:url' 			=> $this->stores['url'],
 														'og:image' 			=> $this->stores['logo'],
 														'og:site_name' 		=> 'balin.id',

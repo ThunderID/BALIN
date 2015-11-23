@@ -55,9 +55,9 @@ class Address extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'phone'							=> 'required',
+											// 'phone'							=> 'required',
 											'address'						=> 'required',
-											'zipcode'						=> 'required',
+											// 'zipcode'						=> 'required',
 										];
 
 	/**
