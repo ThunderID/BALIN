@@ -87,3 +87,7 @@
 		$('.forgot').show();
 	});
 @stop
+
+@section('script_plugin')
+	@include('plugins.input-mask')
+@stop

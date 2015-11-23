@@ -17,7 +17,7 @@
 	</div>
 	<div class="form-group">
 		<label for="">Tanggal Lahir</label>
-		{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Tanggal Lahir']) !!}
+		{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow date-format', 'placeholder' => 'Masukkan Tanggal Lahir']) !!}
 	</div>
 	<div class="form-group">
 		<label for="">Jenis Kelamin</label>

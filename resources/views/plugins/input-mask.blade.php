@@ -1,4 +1,5 @@
-{!! HTML::script('Balin/admin/plugin/input-mask/jquery.mask.min.js') !!}
+{!! HTML::script('Balin/plugins/inputmask.js') !!}
+
 
 <script>
 	$(".money").inputmask({ rightAlign: false, alias: "numeric", prefix: 'IDR ', radixPoint: '', placeholder: "", autoGroup: !0, digitsOptional: !1, groupSeparator: '.', groupSize: 3, repeat: 15 });              
