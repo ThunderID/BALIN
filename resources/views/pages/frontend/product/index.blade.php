@@ -21,7 +21,6 @@
 
 	$datas 			= $datas->take($perpage)->skip(($page-1) * $perpage);
 
-	//cek ada sort? sort kalo ada
 	if(!Input::has('sort'))
 	{
 		$datas 		= $datas->orderby('products.created_at','desc')->get();
@@ -82,7 +81,7 @@
 							<div class="row">
 							{!! Form::open(array('url' => route('frontend.product.index', Input::all()), 'method' => 'get', 'id' => 'form1', 'class' => 'form-group' )) !!}
 								<div class="col-xs-10 p-r-none">
-									{!! Form::text('name', null, ['class' => 'form-control hollow', 'style' => 'border-right:0; border-top:0; border-bottom:0; height: 42px; padding-top:6px;','placeholder' => 'Search']) !!}
+									{!! Form::text('name', null, ['class' => 'form-control hollow', 'id' => 'input-search', 'style' => 'border-right:0; border-top:0; border-bottom:0; height: 42px; padding-top:6px;','placeholder' => 'Cari nama produk']) !!}
 								</div>
 								<div class="col-xs-2 p-l-none p-r-none p-b-none">
 									<a href="#" onclick="form1.submit();" type="button" class="btn-hollow hollow-white-border btn-block t-sm" style="border-left:0; border: 1px solid #999; border-top:0; border-bottom:0; height: 42px;"><i class="fa fa-search" style="padding-top:6px;"></i></a>
@@ -317,7 +316,7 @@
 				      		<div class="row">
 							{!! Form::open(array('url' => route('frontend.product.index', Input::all()), 'method' => 'get', 'id' => 'form2', 'class' => 'form-group' )) !!}
 								<div class="col-xs-9 p-r-none">
-									{!! Form::text('name', null, ['class' => 'form-control hollow', 'style' => 'border-right:0;','placeholder' => 'Search']) !!}
+									{!! Form::text('name', null, ['class' => 'form-control hollow', 'style' => 'border-right:0;','placeholder' => 'Cari nama produk']) !!}
 								</div>
 								<div class="col-xs-3 p-l-none">
 									<a href="#" onclick="form2.submit();" type="button" class="btn-hollow hollow-white-border btn-block t-sm" style="border-left:0; border: 1px solid #999;"><i class="fa fa-search"></i></a>
@@ -410,6 +409,11 @@ $('.collapse-category').on('show.bs.collapse', function(e){
 });
 
 $('.collapse-category').on('hide.bs.collapse', function(e){
+	$('.menu-accordion').removeClass('active');
+});
+
+$('#input-search').click(function(){
+	$('.collapse-category').collapse("hide");
 	$('.menu-accordion').removeClass('active');
 });
 
