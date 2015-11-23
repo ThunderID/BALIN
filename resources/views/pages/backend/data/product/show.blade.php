@@ -51,7 +51,7 @@
 				<div class="col-md-12">
 					<div class="backend-owl-carousel gallery-product">
 						@foreach ($data->images as $i => $img)
-							<img class="img img-responsive canvasSource hidden galery" src="{{$data->images[0]['image_xs']}}" alt="">
+							<img class="img img-responsive canvasSource hidden galery" src="{{$img['image_xs']}}" alt="">
 						@endforeach
 					</div>
 				</div>
