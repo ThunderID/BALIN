@@ -14,7 +14,7 @@
    {!! HTML::style('Balin/admin/css/bootstrap.min.css') !!}
    {!! HTML::style('Balin/admin/css/font-awesome.min.css') !!}
    {!! HTML::style('Balin/admin/css/style.css') !!}
-
+   <link rel="shortcut icon" href="{{ url('Balin/web/image/favicon.ico') }} "/>
 </head>
 
 <body>
