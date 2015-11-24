@@ -39,8 +39,8 @@ class ProductTableSeeder extends Seeder
 					$data->fill([
 						'name'						=> $value->name.' '.$brand.' '.$color,
 						'upc'						=> $faker->ean8,
-						'slug'						=> $faker->slug($nbWords = 3),			
-						'description'				=> $faker->sentence($nbWords = 6),			
+						'slug'						=> $faker->slug($nbWords = 3),
+						'description'				=> $faker->sentence($nbWords = 6),
 					]);
 
 					if (!$data->save())

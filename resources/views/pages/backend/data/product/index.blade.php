@@ -10,7 +10,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->with(['varians', 'lables'])->currentprice(true)->currentstock(true);
+$datas 			= $datas->with(['varians', 'lables', 'images'])->currentprice(true)->currentstock(true);
 
 if(Input::has('sort'))
 {
@@ -64,8 +64,8 @@ $datas 				= $datas->paginate();
 							<thead>
 								<tr>
 									<th class="text-center">No.</th>
-									<!-- <th class="col-md-2 text-center">UPC</th> -->
-									<th class="col-md-3">
+									<th class="col-md-1 text-center">Thumbnail</th>
+									<th class="col-md-2">
 										Nama Produk
 										@if(!Input::has('sort') || Input::get('sort')!='name-asc')
 										<a href="{{route('backend.data.product.index', array_merge(Input::all(), ['sort' => 'name-asc']))}}"> <i class="fa fa-arrow-up"></i> </a>
@@ -113,7 +113,7 @@ $datas 				= $datas->paginate();
 							<tbody>
 								@if(count($datas) == 0)
 									<tr>
-										<td colspan="6" class="text-center">
+										<td colspan="7" class="text-center">
 											Tidak ada data
 										</td>
 									</tr>
@@ -126,6 +126,9 @@ $datas 				= $datas->paginate();
 										<tr>
 											<td class="text-center">{{ $ctr }}</td>
 											<!-- <td class="text-center">{{ $data['upc'] }}</td> -->
+											<td>
+												{!! HTML::image($data['default_image'], 'default', ['class' => 'img-responsive', 'style' => 'max-width:100px;']) !!}
+											</td>
 											<td>
 												{{ $data['name'] }}
 												<br/>
@@ -153,7 +156,7 @@ $datas 				= $datas->paginate();
 											<td class="text-right">
 												{{$data['current_stock']}}
 												 <br/>
-												@if($data['current_stock'] < $stock->value && $data->varians()->count())
+												@if($data['current_stock'] < $stock->value && count($data->varians))
 												<a href="{{ route('backend.data.transaction.create', ['type' => 'buy']) }}">Stok Barang</a>
 												@endif
 											</td>

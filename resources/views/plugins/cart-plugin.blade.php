@@ -19,7 +19,12 @@
 		type      				= $(this).attr('data-type');
 
 		@if (Route::is('frontend.cart.index'))
+
 			var input 			= $(this).parent().parent().find('.input-number').attr('data-name', fieldName);
+			var lab_total  		= input.parent().parent().parent().parent().parent().find('.label-total');
+			var action_update 	= $(this).attr('data-action-update');
+			var varian_qty 		= 0;
+
 			var qty   			= parseInt($(this).attr('data-price'));
 			var get_flag		= $(this).attr('data-get-flag');
 			var cid 			= $(this).parent().parent().parent().find('.cid');
@@ -39,12 +44,15 @@
 					tot_qty -= qty;
 
 					@if (Route::is('frontend.cart.index'))
-						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').text('IDR '+number_format(tot_qty));
-						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').attr('data-total', tot_qty);
+						qty_minus(input, currentVal, lab_total, type);
+						varian_qty = currentVal-1;
+
+						//$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').text('IDR '+number_format(tot_qty));
+						//$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').attr('data-total', tot_qty);
 						
-						gtotal 		= grand_total();
-						item_qty 	= (currentVal - 1);
-						$('.label-total-all').html('<strong>IDR '+number_format(gtotal)+'</strong>');
+						//gtotal 		= grand_total();
+						//item_qty 	= (currentVal - 1);
+						//$('.label-total-all').html('<strong>IDR '+number_format(gtotal)+'</strong>');
 					@else
 						$('.tot_qty').text('IDR '+number_format(tot_qty));
 					@endif
@@ -63,12 +71,15 @@
 					tot_qty += qty;
 
 					@if (Route::is('frontend.cart.index'))
-						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').text('IDR '+number_format(tot_qty));
-						$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').attr('data-total', tot_qty);
-						gtotal 		= grand_total();
+						qty_plus(input, currentVal, lab_total, type);
+						varian_qty = currentVal+1;
+
+						//$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').text('IDR '+number_format(tot_qty));
+						//$(this).parent().parent().parent().parent().parent().parent().find('div[data-get-total="'+get_flag+'"]').attr('data-total', tot_qty);
+						//gtotal 		= grand_total();
 						item_qty 	= (currentVal + 1);
 
-						$('.label-total-all').html('<strong>IDR '+number_format(gtotal)+'</strong>');
+						//$('.label-total-all').html('<strong>IDR '+number_format(gtotal)+'</strong>');
 					@else
 						$('.tot_qty').text('IDR '+number_format(tot_qty));
 					@endif
@@ -154,39 +165,41 @@
 		
 		fieldName = $(this).attr('data-field');
 		type      = $(this).attr('data-type');
-		// var input = $("input[name='"+fieldName+"']");
-		var input = $(this).parent().find('.input-number-mobile').attr('data-name', fieldName);
-		var currentVal = parseInt(input.val());
-		// var qty   = parseInt($('.tot_qty').data('price'));
+
+		var input_mobile = $(this).parent().siblings().find('.input-number-mobile').attr('data-name', fieldName);
+		var lab_total_mobile = input_mobile.parent().parent().parent().parent().parent().find('.label-total-mobile');
+		var action_update = $(this).attr('data-action-update');
+		var varian_qty = 0;
+
+		var currentVal = parseInt(input_mobile.val());
 
 		if (!isNaN(currentVal)) {
 			if(type == 'minus') {
-				if(currentVal > input.attr('min')) {
-					input.val(currentVal - 1).change();
-					// tot_qty -= qty;
-					// $('.tot_qty').text('IDR '+number_format(tot_qty));
+				if(currentVal > input_mobile.attr('min')) {
+					qty_minus_mobile(input_mobile, currentVal, lab_total_mobile, type);
+					varian_qty = currentVal-1;
 				} 
-				if(parseInt(input.val()) == input.attr('min')) {
+				if(parseInt(input_mobile.val()) == input_mobile.attr('min')) {
 					$(this).attr('disabled', true);
 				}
 
 			} else if(type == 'plus') {
 
-				if(currentVal < input.attr('max')) {
-					input.val(currentVal + 1).change();
-					// tot_qty += qty;
-					// $('.tot_qty').text('IDR '+number_format(tot_qty));
+				if(currentVal < input_mobile.attr('max')) {
+					qty_plus_mobile(input_mobile, currentVal, lab_total_mobile, type);
+					varian_qty = currentVal+1;
 				}
-				if(parseInt(input.val()) == input.attr('max')) {
+				if(parseInt(input_mobile.val()) == input_mobile.attr('max')) {
 					$(this).attr('disabled', true);
 				}
 			}
+			send_ajax_update(varian_qty, action_update);
 		} else {
-			input.val(0);
+			input_mobile.val(0);
 		}
 	});
 	$('.input-number-mobile').focusin(function(){
-	   $(this).data('oldValue', $(this).val());
+	   $(this).attr('data-oldValue', $(this).val());
 	});
 	$('.input-number-mobile').change(function() {
 		
@@ -195,17 +208,17 @@
 		valueCurrent = parseInt($(this).val());
 		
 		name = $(this).attr('data-name');
-		if(valueCurrent >= minValue) {
+		if(valueCurrent > minValue) {
 			$(".btn-number-mobile[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
 		} else {
 			alert('Sorry, the minimum value was reached');
-			$(this).val($(this).data('oldValue'));
+			$(this).val($(this).attr('data-oldValue'));
 		}
-		if(valueCurrent <= maxValue) {
+		if(valueCurrent < maxValue) {
 			$(".btn-number-mobile[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
 		} else {
 			alert('Sorry, the maximum value was reached');
-			$(this).val($(this).data('oldValue'));
+			$(this).val($(this).attr('data-oldValue'));
 		}
 		
 		
@@ -226,21 +239,118 @@
 		}
 	});
 
-	function grand_total()
+	function qty_plus_mobile(e, current_val, lab_total_mobile, type)
 	{
-		var tot = 0;
-		$('.label-total').each( function() {
-			tot += parseInt($(this).attr('data-total'));
-		});
+		var old_value = 0;
+		var sumtotal_mobile = 0;
 
-		return tot;
+		old_value = current_val;
+		e.val(current_val + 1).change();
+		total(e, type);
+		sumtotal_mobile += sum_total_mobile(e);
+		lab_total_mobile.attr('data-subtotal', sumtotal_mobile);
+		lab_total_mobile.text('IDR '+number_format(sumtotal_mobile));
+		e.attr('data-oldValue', old_value);
+		grand_total_mobile();
 	}
 
-	function grand_qty()
+	function qty_minus_mobile(e, current_val, lab_total_mobile, type) {
+		var old_value = 0;
+		var sumtotal_mobile = 0;
+
+		old_value = current_val;
+		e.val(current_val - 1).change();
+		total(e, type);
+		sumtotal_mobile += sum_total_mobile(e);
+		lab_total_mobile.attr('data-subtotal', sumtotal_mobile);
+		lab_total_mobile.text('IDR '+number_format(sumtotal_mobile));
+		e.attr('data-oldValue', old_value);
+		grand_total_mobile();
+	}
+
+	function qty_plus(e, current_val, lab_total, type)
 	{
-		$('.pqty').each( function() {
-			pqty.push($(this).val());
+		var old_value = 0;
+		var sumtotal = 0;
+
+		old_value = current_val;
+		e.val(current_val + 1).change();
+		total(e, type);
+		sumtotal += sum_total(e);
+		lab_total.attr('data-subtotal', sumtotal);
+		lab_total.text('IDR '+number_format(sumtotal));
+		e.attr('data-oldValue', old_value);
+		grand_total();
+	}
+
+	function qty_minus(e, current_val, lab_total, type)
+	{
+		var old_value = 0;
+		var sumtotal = 0;
+
+		old_value = current_val;
+		e.val(current_val - 1).change();
+		total(e, type);
+		sumtotal += sum_total(e);
+		lab_total.attr('data-subtotal', sumtotal);
+		lab_total.text('IDR '+number_format(sumtotal));
+		e.attr('data-oldValue', old_value);
+		grand_total();
+	}
+
+	function total(e, flag)
+	{
+		var qty = parseInt(e.val());
+		var price = parseInt(e.attr('data-price'));
+		var discount = parseInt(e.attr('data-discount'));
+		var total_price_qty = 0;
+		
+		total_price_qty = (price-discount)*qty;
+		e.attr('data-total', total_price_qty);
+	}
+
+	function sum_total_mobile(e)
+	{
+		var cid = e.attr('data-cid');
+		var total_all = 0;
+
+		$('.input-number-mobile[data-cid="'+cid+'"]').each( function() {
+			var temp = parseInt($(this).attr('data-total'));
+			total_all += temp;
 		});
+		return total_all;
+	}
+
+	function sum_total(e)
+	{
+		var cid = e.attr('data-cid');
+		var total_all = 0;
+
+		$('.input-number[data-cid="'+cid+'"]').each( function() {
+			var temp = parseInt($(this).attr('data-total'));
+			total_all += temp;
+		});
+		return total_all;
+	}
+
+	function grand_total_mobile() 
+	{
+		var grandtotal = 0;
+		$('.label-total-mobile').each( function() {
+			var temp = parseInt($(this).attr('data-subtotal'));
+			grandtotal += temp;
+		});
+		$('.grand-total-mobile').text('IDR ' +number_format(grandtotal));
+	}
+
+	function grand_total()
+	{
+		var grandtotal = 0;
+		$('.label-total').each( function() {
+			var temp = parseInt($(this).attr('data-subtotal'));
+			grandtotal += temp;
+		});
+		$('.grand-total').html('<strong>IDR ' +number_format(grandtotal)+'</strong>');	
 	}
 
 	function send_ajax_update(item_qty, action)
@@ -266,6 +376,32 @@
 				$(input).tooltip('hide');
 			}, 2500);
 		}
+	}
+
+	function number_format(number, decimals, dec_point, thousands_sep) {
+	  number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+
+	  var n = !isFinite(+number) ? 0 : +number,
+			prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+			sep = (typeof thousands_sep === 'undefined') ? '.' : thousands_sep,
+			dec = (typeof dec_point === 'undefined') ? ',' : dec_point,
+			s = '',
+			toFixedFix = function (n, prec) {
+				var k = Math.pow(10, prec);
+				return '' + (Math.round(n * k) / k).toFixed(prec);
+			};
+
+	  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+		s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+		if (s[0].length > 3) {
+			s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+		}
+
+		if ((s[1] || '').length < prec) {
+			s[1] = s[1] || '';
+			s[1] += new Array(prec - s[1].length + 1).join('0');
+		}
+		return s.join(dec);
 	}
 
 	// Add to Cart

@@ -17,7 +17,7 @@ if(Input::has('sort'))
 }
 else
 {
-	$datas 			= $datas->orderby('name', 'desc');
+	$datas 			= $datas->orderby('name', 'asc');
 }
 
 $datas 				= $datas->paginate();

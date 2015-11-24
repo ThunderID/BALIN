@@ -23,6 +23,9 @@ html {
 .border-right {
 	border-right: 1px solid #ccc;
 }
+.border-left {
+	border-left: 1px solid #ccc;
+}
 
 /* MARGINS & PADDINGS */
 @import "margin-padding.less";
@@ -415,6 +418,9 @@ p {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	a.title {
+		font-size: 20px;
+		font-weight: 300;
+		letter-spacing: 0.05em;
 		color: #888;
 		text-decoration: none;
 		&:hover {
@@ -936,11 +942,15 @@ select.form-control.hollow {
 		padding: 5px 5px;
 		background-color: #000;
 		color: #fff;
+		font-size: 6px;
 		&:disabled {
 			background-color: #666;
 			color: #aaa;
 			border-color: #666;
 		}
+	}
+	@media (min-width: 767px) {
+		width: 88px;
 	}
 }
 .related-product {
@@ -1251,6 +1261,39 @@ footer {
 					font-weight: 500;
 				}
 			}
+		}
+	}
+	.tracking-order {
+		position: relative;
+		.tracking-cancel {
+			position:absolute;
+			right: 0;
+			top:-10px; 
+			font-size:12px; 
+			font-weight:300;
+			letter-spacing:0.08em;
+		}
+		span.label-hollow {
+			padding: 2px 8px;
+			border-radius: 0;
+			font-size: 12px;
+			font-weight: 300;
+			letter-spacing: 0.08em;
+		}
+		.date-time {
+			font-size: 11px;
+			margin-bottom: 0px;
+			letter-spacing: 0.06em;
+		}
+		.ref-number {
+			font-size: 16px;
+			font-weight: bold;
+			letter-spacing: 0.08em;
+		}
+		a.tracking-detail {
+			font-size:12px; 
+			font-weight:300;
+			letter-spacing:0.08em;
 		}
 	}
 }
