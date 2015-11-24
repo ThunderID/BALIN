@@ -42,7 +42,7 @@ class SaveToCookie extends Job implements SelfHandling
                 $tempb['images']                           = $value['varian']['product']['default_image'];
                 $tempb['varians'][]                        = ['varian_id' => $value->varian_id, 'qty' => $value->quantity, 'size' => $value->varian->size, 'stock' => $value->varian->stock];
 
-                $basket[$key]                              = $tempb;
+                $basket[$value->varian->product_id]         = $tempb;
             }
             else
             {
