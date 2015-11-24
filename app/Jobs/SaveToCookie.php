@@ -44,6 +44,13 @@ class SaveToCookie extends Job implements SelfHandling
 
                 $basket[$key]                              = $tempb;
             }
+            else
+            {
+                if(!$value->delete())
+                {
+                    $result                                 = new JSend('error', (array)$basket, $value->getError());
+                }
+            }
         }
 
         Session::forget('baskets');
