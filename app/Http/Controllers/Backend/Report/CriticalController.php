@@ -36,7 +36,7 @@ class CriticalController extends BaseController
 		}
 		else
 		{
-			$critical 							= $setting->value;
+			$critical 							= 0 - $setting->value;
 		}
 
 		$filters 								= ['critical' => $critical];
