@@ -50,7 +50,7 @@ $datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 							<thead>
 								<tr>
 									<th class="text-center">No.</th>
-									<th class=" text-left">Produk</th>
+									<th class=" text-center">Produk</th>
 									<th class=" text-center">Jumlah</th>
 								</tr>
 							</thead>
@@ -70,7 +70,7 @@ $datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 									<tr>
 										<td class="text-center">{{ $ctr }}</td>
 										<td class="text-left">{{ $data['varian']['product']['name'] }}</td>
-										<td class="text-center">{{ (is_null($data['total_buy']) ? $data['frequent_buy'] : $data['total_buy']) }}</td>
+										<td class="text-right">{{ (is_null($data['total_buy']) ? $data['frequent_buy'] : $data['total_buy']) }}</td>
 									</tr>       
 									<?php $ctr += 1; ?>                     
 									@endforeach 

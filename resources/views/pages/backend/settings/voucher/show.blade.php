@@ -47,11 +47,11 @@ $data = $data::id($id)->with(['transactions', 'transactions.user'])->first();
 		<table class="table table-bordered table-hover table-striped">
 			<thead>
 				<tr>
-					<th>No</th>
+					<th class="text-center">No</th>
 					<th class="col-md-2">#</th>
-					<th class="col-md-3">Tanggal</th>
-					<th class="col-md-3">Amount</th>
-					<th class="col-md-3">Kostumer</th>
+					<th class="text-center col-md-3">Tanggal</th>
+					<th class="text-center col-md-3">Amount</th>
+					<th class="text-center col-md-3">Kostumer</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -68,9 +68,9 @@ $data = $data::id($id)->with(['transactions', 'transactions.user'])->first();
 							<td><a href="{{route('backend.data.transaction.show', ['id' => $transaction['transaction_id'], 'type' => 'sell'])}}">{{$transaction['ref_number']}}</a></td>
 							<td>@date_indo($transaction['transact_at'])</td>
 							@if($data['type']=='free_shipping_cost')
-								<td>@money_indo($transaction['referral_discount'])</td>
+								<td class="text-right">@money_indo($transaction['referral_discount'])</td>
 							@else
-								<td>@money_indo($data['value'])</td>
+								<td class="text-right">@money_indo($data['value'])</td>
 							@endif
 							<td>{{$transaction['user']['name']}}</td>
 						</tr>
