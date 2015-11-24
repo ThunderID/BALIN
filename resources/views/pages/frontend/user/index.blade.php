@@ -143,7 +143,7 @@
 
 
 	<!-- Modal Balance -->
-	<div id="modal-balance" class="modal modal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div id="modal-balance" class="modal modal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
 				<div class="modal-header">

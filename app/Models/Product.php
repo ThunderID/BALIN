@@ -383,7 +383,7 @@ class Product extends Eloquent
 	{
 		return 	$query
 					->select('products.*')
-					->selectraw('IFNULL(avg(transaction_details.price),0) as hpp')
+					->selectraw('IFNULL(avg(transaction_details.price - transaction_details.discount),0) as hpp')
 					->JoinTransactionDetailFromProduct(true)
 					->TransactionBuyOn(['paid', 'shipping', 'delivered'])
 					;

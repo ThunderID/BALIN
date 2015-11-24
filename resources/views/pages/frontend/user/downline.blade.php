@@ -62,8 +62,8 @@
 </div>
 
 
-<div class="row">
-    <div class="col-md-12" style="text-align:center;">
+<div class="col-md-12" style="text-align:center;">
+	<div class="row">
         {!! $downlines->appends(Input::all())->render() !!}
     </div>
 </div>

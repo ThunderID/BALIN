@@ -296,6 +296,14 @@
 	.mobile-m-t-0 {
 		margin-top: 0px !important;
 	}
+
+	.mobile-m-t-25 {
+		margin-top: 25px !important;
+	}	
+
+	.mobile-m-t-10 {
+		margin-top: 10px !important;
+	}	
 }
 
 

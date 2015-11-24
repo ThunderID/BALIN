@@ -53,10 +53,10 @@
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
-						<th>No</th>
-						<th class="col-md-6">Produk</th>
-						<th class="col-md-3">Rerata Harga Beli</th>
-						<th class="col-md-2">Kontrol</th>
+						<th class="text-center">No</th>
+						<th class="text-center col-md-6">Produk</th>
+						<th class="text-center col-md-3">Rerata Harga Beli</th>
+						<th class="text-center col-md-2">Kontrol</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -65,8 +65,8 @@
 							<td>{{ $ctr+1 }}</td>
 							<td>{{ $product['varian']['product']['name'] }} ukuran {{ $product['varian']['size'] }}</td>
 							<td class="text-right">@money_indo($product['hb'])</td>
-							<td>
-								<a href="{{ route('backend.data.product.varian.show', ['pid' => $product['product']['id'], 'id' => $product['varian_id'] ]) }}"> Detail </a>,
+							<td class="text-center">
+								<a href="{{ route('backend.data.product.varian.show', ['pid' => $product['product']['id'], 'id' => $product['varian_id'] ]) }}"> Detail </a>
 							</td>
 						</tr>
 					@empty
