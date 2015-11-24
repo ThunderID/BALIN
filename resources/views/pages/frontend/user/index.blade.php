@@ -60,7 +60,6 @@
 			<p class="label-info">
 				Upline
 				@if (!is_null(Auth::user()->reference))
-					Upline 
 					<strong>{{Auth::user()->reference}} </strong> 
 				@else
 					<strong>Tidak ada</strong>
