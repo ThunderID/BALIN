@@ -25,15 +25,32 @@
 				</div>
 				<div class="row">
 					<div class="col-md-7 col-md-offset-3">
-						<div class="owl-carousel gallery-product">
-							@foreach ($data['images'] as $k => $v)
-								<div class="item">
-									<a href="{{ $v['image_lg'] }}" data-standard="{{ $v['image_lg'] }}">
-										<img class="img img-responsive canvasSource" id="canvasSource{{$k}}" src="{{$v['image_md']}}" alt="">
-									</a>
+						@if (count($data['images'])!=1)
+							<div class="owl-carousel gallery-product">
+								@foreach ($data['images'] as $k => $v)
+									<div class="item">
+										<a href="{{ $v['image_lg'] }}" data-standard="{{ $v['image_lg'] }}">
+											<img class="img img-responsive canvasSource" id="canvasSource{{$k}}" src="{{$v['image_md']}}" alt="">
+										</a>
+									</div>
+								@endforeach
+							</div>      
+						@else
+							<div class="owl-carousel gallery-product hidden-xs hidden-sm">
+								@foreach ($data['images'] as $k => $v)
+									<div class="item">
+										<a href="{{ $v['image_lg'] }}" data-standard="{{ $v['image_lg'] }}">
+											<img class="img img-responsive canvasSource" id="canvasSource{{$k}}" src="{{$v['image_md']}}" alt="">
+										</a>
+									</div>
+								@endforeach
+							</div>
+							<div class="row">
+								<div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2">
+									<img class="img img-responsive canvas-image hidden-md hidden-lg"  src="{{ $data['images'][0]['image_md'] }}">
 								</div>
-							@endforeach
-						</div>      
+							</div>  
+						@endif
 					</div>        				
 				</div>
 			</div>
