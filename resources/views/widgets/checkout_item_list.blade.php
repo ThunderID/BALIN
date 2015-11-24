@@ -17,10 +17,15 @@
 				</div>
 				<div class="col-sm-8 col-md-8">&nbsp;</div>
 			</div>
-			<div class="row">
-				@foreach($item_list_size as $key => $value)
+			@foreach($item_list_size as $key => $value)
+				<div class="row">
 					<div class="col-sm-3 col-md-3">
-						{{ $value['size'] }}
+						@if (strpos($value['size'], '.')==true)
+							<?php $frac = explode('.', $value['size']); ?>
+							{{ $frac[0].' &frac12;'}}
+						@else
+							{{ $value['size'] }}
+						@endif
 					</div>
 					<div class="col-sm-1 col-md-1 text-right">
 						{{ $value['qty'] }}
@@ -34,8 +39,8 @@
 					<div class="col-sm-3 col-md-3 text-right">
 						@money_indo($item_list_total_price)
 					</div>
-				@endforeach
-			</div>
+				</div>
+			@endforeach
 		</div>
 	</div>
 </div>
@@ -58,9 +63,15 @@
 					@foreach($item_list_size as $key => $value)
 						<div class="row">
 							<div class="col-sm-9 col-xs-3">
-								<p class="m-t-xxs m-b-xxs">{{ $value['size'] }}</p>
+								<p class="m-t-xxs m-b-xxs">
+									@if (strpos($value['size'], '.')==true)
+										<?php $frac = explode('.', $value['size']); ?>
+										{{ $frac[0].' &frac12;'}}
+									@else
+										{{ $value['size'] }}
+									@endif
+								</p>
 							</div>
-							<div class="col-xs-1">&nbsp;</div>
 							<div class="col-xs-8 text-right">
 								<label class="m-b-sm label-item m-r-sm">
 									{{ $value['qty'] }}
@@ -75,7 +86,7 @@
 						<div class="col-xs-1 text-right">
 							<h4>:</h4>
 						</div>
-						<div class="col-xs-8 text-right">
+						<div class="col-xs-7 text-right">
 							<label class="m-b-sm label-item m-r-sm">
 								@money_indo($item_list_normal_price) 
 							</label>
@@ -88,7 +99,7 @@
 						<div class="col-xs-1 text-right">
 							<h4>:</h4>
 						</div>
-						<div class="col-xs-8 text-right">
+						<div class="col-xs-7 text-right">
 							<label class="m-b-sm label-item m-r-sm">
 								@money_indo($item_list_discount_price) 
 							</label>
@@ -107,7 +118,7 @@
 						<div class="col-xs-1 text-right">
 							<h4>:</h4>
 						</div>
-						<div class="col-xs-8 text-right">
+						<div class="col-xs-7 text-right">
 							<label class="label-item m-r-sm">
 								@money_indo($item_list_total_price)
 							</label>

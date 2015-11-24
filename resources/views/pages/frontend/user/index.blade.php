@@ -100,7 +100,7 @@
 		<div class="col-sm-6 border-left">
 			<h5 class="title-info m-t-md">Tracking Order
 				<small>
-					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.address.index')}}" data-modal-title="Ubah Alamat Pengiriman" class="balin-link">
+					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.order.index')}}" data-modal-title="Lihat Histori Orderan" class="balin-link">
 						Daftar Order
 					</a>
 				</small>
@@ -110,11 +110,23 @@
 			?>
 
 			@foreach ($orders as $k => $v)
-				<div class="tracking-order border-bottom p-b-xs">
-					<span class="tracking-cancel">
-					    <a class="link-grey hover-red unstyle" href="#">Cancel</a>
-					</span>
-					<span class="label label-default label-hollow">{{ $v['current_status'] }}
+				<div class="tracking-order @if(count($orders)-1!=$k) border-bottom @endif p-b-xs">
+					@if($v['status']=='wait')
+						<span class="tracking-cancel">
+						    <a class="link-grey hover-red unstyle link-cancel-tracking" href="#" data-toggle="modal" 
+						    data-target=".modal-user-information" data-action="{{ route('frontend.user.order.confirm') }}" data-action-parsing="{{ route('frontend.user.order.destroy', ['ref' => $v['ref_number']])  }}" data-modal-title="Pembatalan Pesanan">
+						    	Batal
+						    </a>
+						</span>
+					@endif
+					<span class="label 
+						@if ($v['current_status']=='wait') label-default 
+						@elseif ($v['current_status']=='paid') label-info
+						@elseif ($v['current_status']=='shipping') label-primary
+						@elseif ($v['current_status']=='delivered') label-success
+						@else label-warning @endif
+					label-hollow">
+						{{ $v['current_status'] }}
 					</span>
 					<p class="label-info datetime m-t-xs m-b-xxs" style="">
 						@datetime_indo($v['transact_at'])
@@ -122,7 +134,7 @@
 					<p class="label-info m-b-xxs ref-number">
 						{{ $v['ref_number'] }}{{ $v['unique_number'] }}	
 					</p>
-					<a href="#" class="link-grey hover-black unstyle tracking-detail">(Detail)</a>
+					<a class="link-grey hover-black unstyle tracking-detail" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.order.show', ['ref' => $v['ref_number']]) }}" data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">(Detail)</a>
 				</div>
 				<div class="clearfix">&nbsp;</div>
 			@endforeach
@@ -144,23 +156,59 @@
 	   		</div>
 	  	</div>
 	</div>
+	<!-- Modal Balance -->
+	<div id="submodal-balance" class="modal submodal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+				<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		       		<h5 class="modal-title" id="exampleModalLabel">Histori Balance</h5>
+		      	</div>
+		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
+					
+		      	</div>
+	   		</div>
+	  	</div>
+	</div>
 @stop
 
 @section('script')
 	var view_mode = '';
+	var parsing = '';
 
 	$('.modal-user-information').on('show.bs.modal', function(e) {
 		var action = $(e.relatedTarget).attr('data-action');
 		var title = $(e.relatedTarget).attr('data-modal-title');
 		var view_mode = $(e.relatedTarget).attr('data-view');
+		parsing = $(e.relatedTarget).attr('data-action-parsing');
 
 		$(this).find('.modal-body').html('loading...');
 		$(this).find('.modal-title').html(title);
 		$(this).find('.modal-dialog').addClass(view_mode);
-		$(this).find('.modal-body').load(action);
+		$(this).find('.modal-body').load(action, function() {
+			if (parsing !== null && parsing !== undefined) {
+				change_action($(this), parsing);
+			}
+		});
 	});
 
-	$('.modal-balance').on('hide.bs.modal', function(e) {
+	$('.submodal-user-information').on('show.bs.modal', function(e) {
+		var action = $(e.relatedTarget).attr('data-action');
+		var title = $(e.relatedTarget).attr('data-modal-title');
+		var view_mode = $(e.relatedTarget).attr('data-view');
+		parsing = $(e.relatedTarget).attr('data-action-parsing');
+
+		$(this).find('.modal-body').html('loading...');
+		$(this).find('.modal-title').html(title);
+		$(this).find('.modal-dialog').addClass(view_mode);
+		$(this).find('.modal-body').load(action, function() {
+			if (parsing !== null && parsing !== undefined) {
+				change_action($(this), parsing);
+			}
+		});
+	});
+
+	$('.modal-balance').on('hidden.bs.modal', function(e) {
 		$('.modal-dialog').removeClass(view_mode);
 		$(this).find('.modal-body').removeData('bs.modal');
 	});
@@ -174,6 +222,10 @@
 		$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
 	});
 
+	// After load event
+	function change_action(e) {
+		e.context.firstChild.action = parsing;
+	}
 @stop
 
 @section('script_plugin')

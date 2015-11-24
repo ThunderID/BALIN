@@ -117,7 +117,8 @@
 													<div class="qty-hollow m-b-lg">
 														<label class="label-qty">
 															@if (strpos($v['size'], '.')==true)
-																{{ substr($v['size'], 0, 1).' &frac12;'}}
+																<?php $frac = explode('.', $v['size']); ?>
+																{{ $frac[0].' &frac12;'}}
 															@else
 																{{ $v['size'] }}
 															@endif

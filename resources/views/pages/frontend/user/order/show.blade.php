@@ -1,19 +1,6 @@
 <?php 
 	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Proses, Menunggu Pembayaran', 'paid' => 'Sudah dibayar, belum dikirim', 'shipping' => 'Sedang dalam pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
-@extends('template.frontend.layout_account')
-
-@section('right_content')
-	<div class="row">
-		<div class="col-sm-9">
-			<h3 class="page-title m-t-0">{{$title}}</h3>
-		</div>
-		<div class="col-sm-3">
-			<p class="text-right m-t-lg"><a class="btn btn-hollow hollow-black hollow-black-border" href="{{route('frontend.profile.order.index')}}"><i class="fa fa-angle-left"></i>&nbsp;&nbsp;Kembali</a></p>
-		</div>
-	</div>
-
-	<div class="clearfix">&nbsp;</div>
 		<div class="row">
 		<div class="col-md-7 col-sm-7 col-xs-12">
 			<table>
@@ -57,7 +44,7 @@
 							{{$status[$transaction['status']]}} 
 							@if($transaction['status']=='wait')
 								<small>
-									<a class="link-grey hover-black unstyle" href="{{ route('frontend.profile.order.destroy', $transaction['ref_number']) }}">Batal</a>
+									<a class="link-grey hover-black unstyle" href="{{ route('frontend.user.order.destroy', $transaction['ref_number']) }}">Batal</a>
 								</small>
 							@endif
 						</td>
@@ -268,4 +255,3 @@
 			</table>
 		</div>
 	</div>
-@stop
