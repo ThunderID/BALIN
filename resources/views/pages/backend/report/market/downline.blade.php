@@ -50,7 +50,7 @@ $datas 			= $datas->with(['reference'])->paginate();
 							<thead>
 								<tr>
 									<th class="text-center">No.</th>
-									<th class=" text-left">Kostumer</th>
+									<th class=" text-center">Kostumer</th>
 									<th class=" text-center">Sisa Quota</th>
 									<th class=" text-center">Jumlah Downline</th>
 								</tr>
@@ -71,8 +71,8 @@ $datas 			= $datas->with(['reference'])->paginate();
 									<tr>
 										<td class="text-center">{{ $ctr }}</td>
 										<td class="text-left">{{ $data['reference']['name'] }}</td>
-										<td class="text-center">{{ $data['reference']['quota'] }}</td>
-										<td class="text-center">{{ $data['downline'] }}</td>
+										<td class="text-right">{{ $data['reference']['quota'] }}</td>
+										<td class="text-right">{{ $data['downline'] }}</td>
 									</tr>       
 									<?php $ctr += 1; ?>                     
 									@endforeach 

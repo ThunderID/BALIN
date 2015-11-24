@@ -49,12 +49,12 @@ $datas 			= $datas->with(['user'])->orderby('created_at', 'desc')->paginate();
 						<table class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
-									<th>No</th>
+									<th class="text-center">No</th>
 									<th class="text-center">Tanggal</th>
-									<th class="text-right">Debit</th>
-									<th class="text-right">Kredit</th>
-									<th class="text-right">Saldo</th>
-									<th>Catatan</th>
+									<th class="text-center">Debit</th>
+									<th class="text-center">Kredit</th>
+									<th class="text-center">Saldo</th>
+									<th class="text-center">Catatan</th>
 								</tr>
 							</thead>
 							<tbody>

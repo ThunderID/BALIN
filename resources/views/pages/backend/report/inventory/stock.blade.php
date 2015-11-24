@@ -52,7 +52,7 @@ $datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 								<tr>
 									<th class="text-center">No.</th>
 									<th class=" text-left">#</th>
-									<th class="">Item</th>
+									<th class="text-center">Item</th>
 									<th class=" text-center">Stok</th>
 								</tr>
 							</thead>
@@ -73,7 +73,7 @@ $datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 										<td class="text-center">{{ $ctr }}</td>
 										<td class="text-left">{{ $data['varian']['sku'] }}</td>
 										<td class="text-left">{{ $data['varian']['product']['name'] }} {{ $data['varian']['size'] }}</td>
-										<td class="text-center">{{ $data['current_stock'] }} </td>
+										<td class="text-right">{{ $data['current_stock'] }} </td>
 									</tr>       
 									<?php $ctr += 1; ?>                     
 									@endforeach 
