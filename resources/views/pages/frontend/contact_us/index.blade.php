@@ -1,6 +1,6 @@
 @extends('template.frontend.layout')
 @section('content')    
-	<div class="container mt-75">
+	<div class="container mt-75 mobile-m-t-10">
 		<div class="row">
 			<div class="col-md-7 col-sm-7 col-xs-12">
 				@include('widgets.breadcrumb')
