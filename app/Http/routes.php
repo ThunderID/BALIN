@@ -402,13 +402,15 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 		Route::get('/order/{ref}', 										['uses' => 'UserController@order', 'as' => 'frontend.user.order.show']);
 		
-		Route::get('/order/delete/{ref}', 								['uses' => 'UserController@orderdestroy', 'as' => 'frontend.user.order.destroy']);
+		Route::post('/order/delete/{ref}', 								['uses' => 'UserController@orderdestroy', 'as' => 'frontend.user.order.destroy']);
+
+		Route::get('/order/show/confirm',								['uses' => 'UserController@orderconfirmdestroy', 'as' => 'frontend.user.order.confirm']);
 	
 		Route::get('/reference', 										['uses' => 'CampaignController@getreference', 'as' => 'frontend.user.reference.get']);
 
 		Route::post('/reference', 										['uses' => 'CampaignController@postreference', 'as' => 'frontend.user.reference.post']);
 
-		Route::get('edit/cart', 											['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
+		Route::get('edit/cart', 										['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
 	});
 	
 	Route::get('do/logout',												['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
