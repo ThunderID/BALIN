@@ -52,7 +52,7 @@ class CustomerController extends BaseController
 
 	public function show($id)
 	{
-		$customer 				= User::id($id)->with(['pointlogs' => function($q){$q->onactive('now');}])->first();
+		$customer 				= User::id($id)->first();
 
 		if(!$customer)
 		{

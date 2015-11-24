@@ -2,11 +2,13 @@
 @inject('transaction', 'App\Models\Transaction')
 @inject('td', 'App\Models\TransactionDetail')
 @inject('payment', 'App\Models\Payment')
+@inject('point', 'App\Models\PointLog')
 <?php 
 	$transaction 	= $transaction->userid($id)->status(['paid', 'delivered', 'shipped'])->type('sell')->count();
 	$payment 		= $payment->transactionuserid($id)->sum('amount');
 	$mostbuy		= $td->mostbuybycustomer($id)->with(['product'])->get();
 	$frequentbuy	= $td->frequentbuybycustomer($id)->with(['product'])->get();
+	$pointlogs		= $point->userid($id)->orderby('created_at', 'asc')->paginate();
 ?>
 
 @extends('template.backend.layout') 
@@ -162,11 +164,11 @@
 						</thead>
 						<tbody>
 							<?php $amount = 0;?>
-							@forelse($customer->pointlogs as $key => $value)
+							@forelse($pointlogs as $key => $value)
 								<?php $amount = $amount + $value->amount;?>
 								<tr>
 									<td class="text-center">{!!($key+1)!!}</td>
-									<td> @date_indo($value->created_at) </td>
+									<td> @datetime_indo($value->created_at) </td>
 									@if($value->amount >= 0)
 										<td class="text-right">@money_indo(abs($value->amount))</td>
 									@else
@@ -188,6 +190,13 @@
 						</tbody>
 					</table>
 				</div>
+				@if(count($pointlogs) > 0)
+					<div class="row">
+						<div class="col-md-12" style="text-align:right;">
+							{!! $pointlogs->appends(Input::all())->render() !!}
+						</div>
+					</div>
+				@endif
 			</div>
 		</div>
 	</div>
