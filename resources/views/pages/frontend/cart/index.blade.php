@@ -37,7 +37,7 @@
 						</div>
 					</div>
 				
-					<?php $total = 0; ?>
+					<?php $total = 0;?>
 					@if (!empty($carts))
 						@foreach ($carts as $k => $item)
 							<?php
@@ -84,7 +84,7 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12">
-							<h2 style="color:#fff;" class="text-center m-t-none total-all" data-get-total="{{ $total }}">
+							<h2 style="color:#fff;" class="text-center m-t-none total-all grand-total-mobile" data-get-total="{{ $total }}">
 								@if (isset($total))
 									@money_indo($total)
 								@endif
@@ -121,7 +121,6 @@
 					@endif
 					<div class="clearfix">&nbsp;</div>
 					<div class="clearfix">&nbsp;</div>
-					<div class="clearfix">&nbsp;</div>
 				</div>
 			</div>
 
@@ -138,7 +137,7 @@
 										<h4 class="text-right">SubTotal :</h4>
 									</div>
 									<div class="col-md-3 col-sm-3">
-										<h4 class="text-right label-total-all" data-total-item="{{ $total }}">
+										<h4 class="text-right label-total-all grand-total" data-total-item="{{ $total }}">
 											@if ($total)
 												<strong>@money_indo($total)</strong>
 											@endif
@@ -172,9 +171,11 @@
 				</div>
 			</div>
 	</div>
-	<div class="clearfix">&nbsp;</div>
-	<div class="clearfix">&nbsp;</div>
-	<div class="clearfix">&nbsp;</div>
+	<div class="hidden-xs">
+		<div class="clearfix">&nbsp;</div>
+		<div class="clearfix">&nbsp;</div>
+		<div class="clearfix">&nbsp;</div>
+	</div>
 @stop
 
 @section('script')

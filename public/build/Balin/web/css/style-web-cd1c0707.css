@@ -20,6 +20,9 @@ html {
 .border-right {
   border-right: 1px solid #ccc;
 }
+.border-left {
+  border-left: 1px solid #ccc;
+}
 /* MARGINS & PADDINGS */
 .p-xxs {
   padding: 5px;
@@ -728,6 +731,9 @@ p {
   padding-bottom: 10px;
 }
 .chart-item a.title {
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
   color: #888;
   text-decoration: none;
 }
@@ -1239,11 +1245,17 @@ select.form-control.hollow {
   padding: 5px 5px;
   background-color: #000;
   color: #fff;
+  font-size: 6px;
 }
 .qty-hollow-cart .btn-hollow-cart:disabled {
   background-color: #666;
   color: #aaa;
   border-color: #666;
+}
+@media (min-width: 767px) {
+  .qty-hollow-cart {
+    width: 88px;
+  }
 }
 .related-product {
   font-weight: 400;
@@ -1542,4 +1554,37 @@ footer .menu-footer a:hover {
 }
 .user-page .content-info p.label-info small {
   font-weight: 500;
+}
+.user-page .tracking-order {
+  position: relative;
+}
+.user-page .tracking-order .tracking-cancel {
+  position: absolute;
+  right: 0;
+  top: -10px;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+.user-page .tracking-order span.label-hollow {
+  padding: 2px 8px;
+  border-radius: 0;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+.user-page .tracking-order .date-time {
+  font-size: 11px;
+  margin-bottom: 0px;
+  letter-spacing: 0.06em;
+}
+.user-page .tracking-order .ref-number {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+}
+.user-page .tracking-order a.tracking-detail {
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
 }
