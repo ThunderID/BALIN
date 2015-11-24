@@ -252,7 +252,7 @@
 /* .modal-fullscreen */
 
 .modal-fullscreen {
-	background: transparent;
+	background-color: rgba(255, 255, 255, 0.95);
 }
 .modal-fullscreen .modal-content {
 	background: transparent;

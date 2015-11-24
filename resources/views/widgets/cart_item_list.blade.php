@@ -20,7 +20,14 @@
 			<div class="row">
 				@foreach($item_list_size as $key => $value)
 					<div class="col-sm-1 col-md-1 qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
-						<p>{{ $value['size'] }}</p>
+						<p>
+							@if (strpos($value['size'], '.')==true)
+								<?php $frac = explode('.', $value['size']); ?>
+								{{ $frac[0].' &frac12;'}}
+							@else
+								{{ $value['size'] }}
+							@endif
+						</p>
 					</div>
 					<div class="col-sm-2 col-md-3" data-get-flag="qty-{{strtolower($value['size'])}}">
 						<a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}" data-cid="{{ $item_list_id }}" data-vid="{{ $key }}" class="btn-delete-varian">(Batal)</a>
@@ -116,7 +123,14 @@
 					@foreach($item_list_size as $key => $value)
 						<div class="row m-b-md">
 							<div class="col-xs-2">
-								<p class="m-t-xxs m-b-xxs">{{ $value['size'] }}</p>
+								<p class="m-t-xxs m-b-xxs">
+									@if (strpos($value['size'], '.')==true)
+										<?php $frac = explode('.', $value['size']); ?>
+										{{ $frac[0].' &frac12;'}}
+									@else
+										{{ $value['size'] }}
+									@endif
+								</p>
 							</div>
 							<div class="col-xs-3">
 								<a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}" data-cid="{{ $item_list_id }}" data-vid="{{ $key }}" class="btn-delete-varian">(Batal)</a>

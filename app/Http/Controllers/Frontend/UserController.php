@@ -200,18 +200,12 @@ class UserController extends BaseController
 	public function orders()
 	{		
 		$breadcrumb								= ['Ubah Profile' => route('frontend.user.edit')];
-		$this->layout->page 					= view('pages.frontend.user.order.index')
+		return view('pages.frontend.user.order.index')
 													->with('controller_name', $this->controller_name)
 													->with('subnav_active', 'account_order')
 													->with('title', 'Riwayat Pesanan')
 													->with('breadcrumb', $breadcrumb);
 
-		$this->layout->controller_name			= $this->controller_name;
-
-		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'Riwayat Pesanan';
-		
-		return $this->layout;
 	}
 
 	public function order($ref = null)
@@ -224,19 +218,13 @@ class UserController extends BaseController
 			App::abort(404);
 		}
 		
-		$this->layout->page 					= view('pages.frontend.user.order.show')
+		return view('pages.frontend.user.order.show')
 													->with('controller_name', $this->controller_name)
 													->with('subnav_active', 'account_order')
 													->with('title', 'Riwayat Pesanan #'.$ref)
 													->with('transaction', $transaction)
 													->with('breadcrumb', $breadcrumb);
 
-		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'Riwayat Pesanan';
-		
-		$this->layout->controller_name			= $this->controller_name;
-
-		return $this->layout;
 	}
 
 	public function orderdestroy($ref = null)
@@ -261,6 +249,12 @@ class UserController extends BaseController
 							->withErrors($result->getErrorMessage())
 							->with('msg-type', 'danger');
 	}
+
+	public function orderconfirmdestroy()
+	{
+		return view('widgets.dialog_confirm');
+	}
+
 	public function changePassword()
 	{		
 		$breadcrumb								= ['Ubah Password' => route('frontend.user.edit')];

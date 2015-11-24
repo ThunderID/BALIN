@@ -20,7 +20,14 @@
 						@foreach($label_qty as $key => $value)
 						<div class="row">
 							<div class="col-xs-4">
-								<span class="info">{{ $value['size'] }}</span>
+								<span class="info">
+									@if (strpos($value['size'], '.')==true)
+										<?php $frac = explode('.', $value['size']); ?>
+										{{ $frac[0].'&frac12;'}}
+									@else
+										{{ $value['size'] }}
+									@endif
+								</span>
 							</div>
 							<div class="col-xs-1">
 								<span class="info">:</span>

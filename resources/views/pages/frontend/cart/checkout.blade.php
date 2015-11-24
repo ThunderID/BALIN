@@ -14,7 +14,7 @@
 		</div>
 		{!! Form::open(['url' => route('frontend.post.checkout'), 'method' => 'POST']) !!}
 			<div class="row">
-				<div class="col-sm-7 col-md-7">
+				<div class="col-xs-12 col-sm-12 col-md-7">
 					<div class="row">
 						<div class="col-xs-12 col-md-12 col-sm-12 chart-div">
 							<div class="row chart-header">
@@ -95,12 +95,12 @@
 									</h2>
 								</div>
 							</div>
-							<div class="clearfix">&nbsp;</div>
+						<div class="clearfix hidden-xs">&nbsp;</div>
 						</div>
 					</div>
 
 						<!-- normal -->
-					<div class="row m-t-sm">
+					<div class="row">
 						@if ($carts)
 							<div class="col-lg-5 col-md-4 col-sm-12 hidden-xs panel-voucher">
 								<div class="row p-b-sm">
@@ -149,11 +149,12 @@
 							</div>
 						@endif
 					</div>
-					<div class="row clearfix">
+					<div class="row clearfix hidden-xs">
 						&nbsp;
 					</div>
 				</div>
-				<div class="col-sm-4 col-sm-offset-1">
+				<div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1 p-t-sm" style="background-color:#fff">
+					<div class="row m-t-md hidden-xs hidden-md hidden-lg">&nbsp;</div>
 			    	<div class="row">
 			    		<div class="col-md-12">
 			    			<h3 class="m-t-none m-b-md hollow-label">ALAMAT PENGIRIMAN</h3>
@@ -225,6 +226,7 @@
 						</div>        
 					</div>    	
 				</div>
+				<div class="clearfix hidden-xs">&nbsp;</div>
 			</div>
 		{!! Form::close() !!}
 	</div>
