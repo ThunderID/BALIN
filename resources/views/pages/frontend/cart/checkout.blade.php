@@ -244,9 +244,4 @@
 			$('.new-address').addClass('new-address-hide');
 		}
 	});
-
-	$( "#choice_address").keypress(function() {
-	  $("#choice_address").trigger("change");
-	});
-
 @stop
