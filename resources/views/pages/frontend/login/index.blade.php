@@ -1,8 +1,14 @@
+@inject('store', 'App\Models\StoreSetting')
+
+<?php 
+	$stores				= $store->type('why_join')->Ondate('now')->first();
+?>
+
 @extends('template.frontend.layout')
 
 @section('content')
 	<div class="container-fluid page-join">
-		<div class="row mt-75" style="padding-top:20px">
+		<div class="row mt-75 mobile-m-t-25" style="padding-top:20px">
 			<div class="col-md-12">
 				<div class="container">
 					<div class="row">
@@ -11,13 +17,7 @@
 								<div class="col-md-5 col-xs-12 hidden-xs">
 									 <div class="row">
 										<div class="col-md-12">
-											<div class="info-corporate">
-												<p class="t-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus iure ratione maiores ducimus nulla cumque qui voluptatem dolores distinctio odit? Dolore praesentium officia distinctio itaque corporis quidem quod officiis iste.</p>
-
-												<p class="t-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus iure ratione maiores ducimus nulla cumque qui voluptatem dolores distinctio odit? Dolore praesentium officia distinctio itaque corporis quidem quod officiis iste.</p>
-
-												<p class="t-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus iure ratione maiores ducimus nulla cumque qui voluptatem dolores distinctio odit? Dolore praesentium officia distinctio itaque corporis quidem quod officiis iste.</p>
-											</div>
+											{!! $stores['value'] !!}
 										</div>
 									</div>
 									<div class="clearfix">&nbsp;</div>
