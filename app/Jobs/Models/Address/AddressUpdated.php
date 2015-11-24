@@ -2,7 +2,6 @@
 
 namespace App\Jobs\Models\Address;
 
-use App\Jobs\Models\AddressJob;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Libraries\JSend;

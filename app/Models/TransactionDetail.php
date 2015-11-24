@@ -144,10 +144,9 @@ class TransactionDetail extends Eloquent
 				->selectraw('varians.product_id')
 				->selectraw('sum(quantity) as total_buy')
 				->JoinVarianFromTransactionDetail(true)
-				->JoinCPFromVarian(true)
+				->JoinVarianAndCategory($variable)
 				->transactionsellon(['paid','shipping','delivered'])
 				->orderby('total_buy', 'desc')
-				->CategoryAncestorSuccessor($variable)
 				->groupBy('product_id')
 				;
 	}
@@ -161,14 +160,13 @@ class TransactionDetail extends Eloquent
 				->selectraw('transactions.user_id')
 				->transactionsellon(['paid','shipping','delivered'])
 				->JoinVarianFromTransactionDetail(true)
-				->JoinCPFromVarian(true)
+				->JoinVarianAndCategory($variable)
 				->join('users', function ($join) use($variable) 
 				{
 					$join->on ( 'users.id', '=', 'transactions.user_id' )
 					->wherenull('users.deleted_at')
 					;
 				})
-				->CategoryAncestorSuccessor($variable)
 				->orderby('total_buy', 'desc')
 				->groupBy('user_id')
 				// ->groupBy('transaction_id')
@@ -198,8 +196,7 @@ class TransactionDetail extends Eloquent
 				->selectraw('varians.product_id')
 				->transactionsellon(['paid','shipping','delivered'])
 				->JoinVarianFromTransactionDetail(true)
-				->JoinCPFromVarian(true)
-				->CategoryAncestorSuccessor($variable)
+				->JoinVarianAndCategory($variable)
 				->orderby('frequent_buy', 'desc')
 				->groupBy('product_id')
 				// ->groupBy('transaction_id')
@@ -215,14 +212,13 @@ class TransactionDetail extends Eloquent
 				->selectraw('transactions.user_id')
 				->transactionsellon(['paid','shipping','delivered'])
 				->JoinVarianFromTransactionDetail(true)
-				->JoinCPFromVarian(true)
+				->JoinVarianAndCategory($variable)
 				->join('users', function ($join) use($variable) 
 				{
 					$join->on ( 'users.id', '=', 'transactions.user_id' )
 					->wherenull('users.deleted_at')
 					;
 				})
-				->CategoryAncestorSuccessor($variable)
 				->orderby('frequent_buy', 'desc')
 				->groupBy('user_id')
 				// ->groupBy('transaction_id')

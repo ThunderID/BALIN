@@ -26,7 +26,7 @@ class ContactUsController extends BaseController
 
 	public function index()
 	{		
-		$breadcrumb								= ['contact Us' => route('frontend.contactus.index')];
+		$breadcrumb								= ['Contact Us' => route('frontend.contactus.index')];
 		$this->layout->page 					= view('pages.frontend.contact_us.index')
 													->with('controller_name', $this->controller_name)
 													->with('breadcrumb', $breadcrumb)
