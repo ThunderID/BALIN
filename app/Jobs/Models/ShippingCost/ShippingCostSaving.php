@@ -47,7 +47,7 @@ class ShippingCostSaving extends Job implements SelfHandling
 
             if($shippingCost)
             {
-                return new JSend('error', (array)$this->shippingcost, 'Tidak dapat menyimpan data yang tanggal berlakunya telah berlalu.');
+                return new JSend('error', (array)$this->shippingcost, 'Tidak dapat menyimpan biaya pengiriman yang tanggal berlakunya telah berlalu.');
             }
         }
 

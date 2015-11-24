@@ -72,7 +72,9 @@ $totalproduct           = $product->get();
             </div>
         </div>
         @endif
-
+    </div>
+    
+    <div class="row">
         @if($wait)
         <div class="col-sm-6">
             <div class="table-responsive">

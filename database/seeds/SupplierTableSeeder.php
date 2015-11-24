@@ -19,7 +19,8 @@ class SupplierTableSeeder extends Seeder
 		// 	$q->save();
 		// });
 
-		for ($i=0; $i < 100 ; $i++) { 
+		for ($i=0; $i < 100 ; $i++) 
+		{ 
 			$data 					= new Supplier;
 
 			$data->fill([

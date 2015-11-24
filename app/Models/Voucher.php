@@ -189,14 +189,14 @@ class Voucher extends Eloquent
 	{
 		return 	$query
 					->selectraw('tmp_vouchers.*')
-					->selectraw('sum(quota_logs.amount) as current_quota')
+					->selectraw('IFNULL(sum(quota_logs.amount),0) as current_quota')
 					->leftjoin('quota_logs', function($join)
 					{
 						$join->on('quota_logs.voucher_id', '=', 'tmp_vouchers.id')
 						->wherenull('quota_logs.deleted_at')
 						;
 					})
-					->groupby('voucher_id')
+					->groupby('tmp_vouchers.id')
 					;
 	}
 

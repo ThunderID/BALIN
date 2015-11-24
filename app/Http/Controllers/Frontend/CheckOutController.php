@@ -55,7 +55,7 @@ class CheckOutController extends BaseController
 				return Redirect::back()->withErrors('Tidak ada voucher.')->with('msg-type', 'danger');
 			}
 
-			if(!$vouchers->quota - 1 < 0)
+			if($vouchers->quota - 1 < 0)
 			{
 				return Redirect::back()->withErrors('Voucher tidak dapat digunakan.')->with('msg-type', 'danger');
 			}
@@ -113,7 +113,7 @@ class CheckOutController extends BaseController
 		{
 			$cookie = Session::forget('baskets');
 
-			return Redirect::route('frontend.profile.order.show', $transaction->ref_number);
+			return Redirect::route('frontend.user.order.show', $transaction->ref_number);
 		}
 
 		return Redirect::back()->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
