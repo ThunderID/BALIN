@@ -19,7 +19,7 @@ trait HasCategoriesTrait
 
 	public function Categories()
 	{
-		return $this->belongsToMany('App\Models\Category', 'categories_products', 'category_id', 'product_id');
+		return $this->belongsToMany('App\Models\Category', 'categories_products', 'product_id', 'category_id');
 	}
 
 	public function scopeCategoriesName($query, $variable)
@@ -29,7 +29,7 @@ trait HasCategoriesTrait
 
 	public function Tags()
 	{
-		return $this->belongsToMany('App\Models\Tag', 'categories_products', 'category_id', 'product_id');
+		return $this->belongsToMany('App\Models\Tag', 'categories_products', 'product_id', 'category_id');
 	}
 
 	public function scopeTagsName($query, $variable)
@@ -39,6 +39,6 @@ trait HasCategoriesTrait
 
 	public function GlobalCategories()
 	{
-		return $this->belongsToMany('App\Models\GlobalCategory', 'categories_products', 'category_id', 'product_id');
+		return $this->belongsToMany('App\Models\GlobalCategory', 'categories_products', 'product_id', 'category_id');
 	}
 }

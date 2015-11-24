@@ -157,16 +157,15 @@ trait HasStatusTrait
 
 	public function scopeCategoryAncestorSuccessor($query, $variable)
 	{
-
 		if(!is_array($variable))
 		{
 			return $query
 			 ->rightjoin('categories', function ($join) use($variable) 
 			 {
-                                    $join->on ( 'categories.category_id', '=', 'categories_products.category_id' )
-                                    ->oron('categories.id', '=', 'categories_products.category_id')
-                                    ->where('categories.category_id', '=', $variable)
-                                    ->orwhere('categories.id', '=', $variable)
+                                    $join->on( 'categories.id', '=', 'categories_products.category_id' )
+                                    // ->oron('categories.id', '=', 'categories_products.category_id')
+                                    // ->where('categories.category_id', '=', $variable)
+                                    ->where('categories.id', '=', $variable)
                                     ->wherenull('categories.deleted_at')
                                     ;
 			})
@@ -177,7 +176,7 @@ trait HasStatusTrait
 			return $query
 			 ->rightjoin('categories', function ($join) use($variable) 
 			 {
-                                    $join->on ( 'categories.category_id', '=', 'categories_products.category_id' )
+                                    $join->on ( 'categories.id', '=', 'categories_products.category_id' )
                                     ->oron('categories.id', 'categories_products.category_id')
                                     ->where('categories.category_id', '=', $variable)
                                     ->orwhere('categories.id', '=', $variable)
@@ -187,5 +186,4 @@ trait HasStatusTrait
 			;
 		}
 	}
-	
 }

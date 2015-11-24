@@ -42,7 +42,7 @@ class GenerateTransactionRefNumber extends Job implements SelfHandling
                     }
                     else
                     {
-                        $number                     = 1 + (int)substr($latest_transaction['ref_number'],6);
+                        $number                     = 1 + (int)substr($latest_transaction['ref_number'],7);
                     }
 
                     $ref_number                     = str_pad($number,4,"0",STR_PAD_LEFT);

@@ -64,13 +64,34 @@
 			</div>
 		</li>
 
-		RECOMENDED
+		<li class=" chart-lowLine">
+			<div class="row">
+				<div class="col-xs-12 text-center" style=" ">
+					&nbsp;
+					<h4>Penawaran Kami</h4>
+					&nbsp;
+				</div>
+			</div>
+		</li>
 
 		<?php
-			$products 	= Cache::remember('recommended_batik', 30, function() 
+			$recom 		= Cache::remember('recommended_batik', 30, function() 
 			{
 						return App\Models\Product::currentprice(true)->DefaultImage(true)->sellable(true)->orderby('products.created_at','desc')->take(2)->get();
 			});
 		?>
+		@foreach($recom as $k => $item)
+			<li class="chart-dropdown-item-grid">
+				@include('widgets.frontend.cart.cart_recommended', [
+					'label_id'				=> $k,
+					'label_image'			=> $item['default_image'],
+					'label_name'			=> $item['name'],
+					'label_price'			=> $item['price'],
+					'label_qty'				=> $item['varians'],
+					'label_promo'			=> $item['promo_price'],
+					'label_slug'			=> $item['slug'],
+				])
+			</li>
+		@endforeach
 	@endif                                                                
 </ul>

@@ -85,32 +85,32 @@
 		}
 
 		.ribbon{
-		    border-bottom: 1px solid #999;
-		    border-top: 1px solid #999;
+			border-bottom: 1px solid #999;
+			border-top: 1px solid #999;
 		}
 
 		.ribbon-menu li {
-		    padding:0px !important;
+			padding:0px !important;
 		} 
 
 		.ribbon-menu li a {
-		    padding-top: 12px;
-		    padding-bottom: 10px;
-		    padding-right: 20px !important;
-		    padding-left: 20px !important;
-		    text-decoration: none;
-		    display: block; 
-		    width: 100%; 
-		    height: 100%;
+			padding-top: 12px;
+			padding-bottom: 10px;
+			padding-right: 20px !important;
+			padding-left: 20px !important;
+			text-decoration: none;
+			display: block; 
+			width: 100%; 
+			height: 100%;
 		}
 
 		.ribbon-menu li a:hover{
-		    color: white;
+			color: white;
 		}		
 
 		.ribbon-menu li i {
-		    padding-left: 10px;
-		    margin-top: 2px;
+			padding-left: 10px;
+			margin-top: 2px;
 		}
 
 		.ribbon-menu li:hover {
@@ -125,29 +125,29 @@
 
 		.ribbon-menu li a.active i{
 			-ms-transform: rotate(180deg) scaleX(-1); /* IE 9 */
-		    -webkit-transform: rotate(180deg) scaleX(-1); /* Chrome, Safari, Opera */
-		    transform: rotate(180deg) scaleX(-1);
+			-webkit-transform: rotate(180deg) scaleX(-1); /* Chrome, Safari, Opera */
+			transform: rotate(180deg) scaleX(-1);
 		}
 
 		.ribbon-submenu li {
-		    padding:0px !important;
+			padding:0px !important;
 		} 
 
 		.ribbon-submenu li a {
-		    padding-top: 12px;
-		    padding-bottom: 10px;
-		    padding-right: 20px !important;
-		    padding-left: 20px !important;
-		    text-decoration: none;
-		    display: block; 
-		    width: 100%; 
-		    height: 100%;
-		    background-color: #111;
-		    color: white;
+			padding-top: 12px;
+			padding-bottom: 10px;
+			padding-right: 20px !important;
+			padding-left: 20px !important;
+			text-decoration: none;
+			display: block; 
+			width: 100%; 
+			height: 100%;
+			background-color: #111;
+			color: white;
 		}
 
 		.ribbon-submenu {
-		    background-color: #111;
+			background-color: #111;
 		}
 
 		.ribbon-submenu .head-ribbon {
@@ -157,8 +157,8 @@
 		}
 
 		.ribbon-submenu li i {
-		    padding-left: 10px;
-		    margin-top: 2px;
+			padding-left: 10px;
+			margin-top: 2px;
 		}
 
 		.ribbon-submenu li:hover {
@@ -182,16 +182,16 @@
 
 		.ribbon-mobile-title {
 			padding-top: 5px;
-		   	width: 100%; 
-		   	text-align: center; 
-		   	border-bottom: 1px solid #444; 
-		   	line-height: 0.1em;
-		   	margin: 10px 0 20px; 
+			width: 100%; 
+			text-align: center; 
+			border-bottom: 1px solid #444; 
+			line-height: 0.1em;
+			margin: 10px 0 20px; 
 		} 
 
 		.ribbon-mobile-title span { 
-		    background:#fff; 
-		    padding:0 10px; 
+			background:#fff; 
+			padding:0 10px; 
 		}
 
 		.ribbon-title  {
@@ -213,31 +213,31 @@
 			border-radius: none !important;
 		}
 
-		.modal {
-		  text-align: center;
+		.modal-center.modal {
+		  text-align: center !important;
 		  padding: 0!important;
 		}
 
-		.modal:before {
-		  content: '';
-		  display: inline-block;
-		  height: 100%;
-		  vertical-align: middle;
-		  margin-right: -4px;
+		.modal-center.modal:before {
+		  content: '' !important;
+		  display: inline-block !important;
+		  height: 100% !important;
+		  vertical-align: middle !important;
+		  margin-right: -4px !important;
 		}
 
-		.modal-dialog {
-			display: inline-block;
-			 vertical-align: middle;
+		.modal-center .modal-dialog {
+			display: inline-block !important;
+			 vertical-align: middle !important;
 		}
 
-		.modal-content {
+		.modal-center .modal-content {
 			border-radius: 0px !important;
 		}
 
 		.text-white {
 			color:#888;
-		    font-size: 13px;
+			font-size: 13px;
 		}
 
 		.hollow-active a{
@@ -248,6 +248,57 @@
 		.hollow-active a:hover{
 			color: white !important;
 		}
+
+/* .modal-fullscreen */
+
+.modal-fullscreen {
+	background: transparent;
+}
+.modal-fullscreen .modal-content {
+	background: transparent;
+	border: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.modal-backdrop.modal-backdrop-fullscreen {
+	background: #ffffff;
+}
+.modal-backdrop.modal-backdrop-fullscreen.in {
+	opacity: .97;
+	filter: alpha(opacity=97);
+}
+
+/* .modal-fullscreen size: we use Bootstrap media query breakpoints */
+
+.modal-fullscreen .modal-dialog {
+	margin: 0;
+	margin-right: auto;
+	margin-left: auto;
+	width: 100%;
+}
+@media (min-width: 768px) {
+	.modal-fullscreen .modal-dialog {
+		width: 750px;
+	}
+}
+@media (min-width: 992px) {
+	.modal-fullscreen .modal-dialog {
+		width: 970px;
+	}
+}
+@media (min-width: 1200px) {
+	.modal-fullscreen .modal-dialog {
+		width: 1170px;
+	}
+}
+
+@media (max-width: 768px) {
+	.mobile-m-t-0 {
+		margin-top: 0px !important;
+	}
+}
+
+
 
 	</style>
 

@@ -205,7 +205,7 @@
 				</div>
 			</div>
 
-			<div id="modalCategory" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div id="modalCategory" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  	<div class="modal-dialog modal-sm dialog-mobile">
 			    	<div class="modal-content">
 						<div class="modal-header">
@@ -225,7 +225,7 @@
 			  	</div>
 			</div>
 
-			<div id="modalTag" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div id="modalTag" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  	<div class="modal-dialog modal-sm dialog-mobile">
 			    	<div class="modal-content">
 						<div class="modal-header">
@@ -256,7 +256,7 @@
 			  	</div>
 			</div>		
 
-			<div id="modalFilter" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div id="modalFilter" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  	<div class="modal-dialog modal-sm dialog-mobile">
 			    	<div class="modal-content">
 						<div class="modal-header">
@@ -272,7 +272,7 @@
 			  	</div>
 			</div>					
 
-			<div id="modalSort" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div id="modalSort" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  	<div class="modal-dialog modal-sm dialog-mobile">
 			    	<div class="modal-content">
 						<div class="modal-header">
@@ -305,7 +305,7 @@
 			  	</div>
 			</div>
 
-			<div id="modalSearch" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div id="modalSearch" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  	<div class="modal-dialog modal-sm dialog-mobile">
 			    	<div class="modal-content">
 						<div class="modal-header">

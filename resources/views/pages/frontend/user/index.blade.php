@@ -132,14 +132,14 @@
 
 
 	<!-- Modal Balance -->
-	<div id="modal-balance" class="modal modal-user-information" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div id="modal-balance" class="modal modal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
 				<div class="modal-header">
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		       		<h5 class="modal-title" id="exampleModalLabel">Histori Balance</h5>
 		      	</div>
-		      	<div class="modal-body ribbon-menu" style="text-align:left">
+		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
 					
 		      	</div>
 	   		</div>
@@ -165,6 +165,16 @@
 		$('.modal-dialog').removeClass(view_mode);
 		$(this).find('.modal-body').removeData('bs.modal');
 	});
+
+	$(".modal-fullscreen").on('show.bs.modal', function () {
+	  	setTimeout( function() {
+	    	$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
+	  	}, 0);
+	});
+	$(".modal-fullscreen").on('hidden.bs.modal', function () {
+		$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
+	});
+
 @stop
 
 @section('script_plugin')

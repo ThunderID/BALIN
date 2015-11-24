@@ -29,9 +29,11 @@ class GenerateTransactionUniqNumber extends Job implements SelfHandling
             if(!is_null($this->transaction->unique_number))
             {
                 $i                          = 0;
-                do
+                $amount                     = true;
+
+                while($amount)
                 {
-                    $prev_number            = Transaction::orderBy('id', 'DESC')->first();
+                    $prev_number            = Transaction::orderBy('id', 'DESC')->status('wait')->type('sell')->first();
 
                     $limit                  = StoreSetting::type('limit_unique_number')->ondate('now')->first();
 
@@ -44,10 +46,9 @@ class GenerateTransactionUniqNumber extends Job implements SelfHandling
                         $unique_number      = $i+ 1;
                     }
 
-                    $amount                 = Transaction::amount($this->transaction->amount - $unique_number)->notid($this->transaction->id)->first();
-                    $i                      = $i++;
+                    $amount                 = Transaction::amount($this->transaction->amount - $unique_number)->status('wait')->notid($this->transaction->id)->first();
+                    $i                      = $i+1;
                 }
-                while(!is_null($amount));
 
                 $this->transaction->unique_number    = $unique_number;
 
