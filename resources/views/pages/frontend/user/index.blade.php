@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<div class="row content-info m-l-none m-r-none">
-		<div class="col-sm-6 border-right">
+		<div class="col-sm-6">
 			<h5 class="title-info m-t-md">
 				Informasi Umum 
 				<small>
@@ -43,7 +43,7 @@
 			<p class="clearfix p-b-xs">&nbsp;</p>
 			<p class="clearfix p-b-xs">&nbsp;</p>
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-6 border-left">
 			<h5 class="title-info m-t-md">Keanggotaan</h5>
 			<p class="label-info">
 				Pointku <strong> @money_indo(Auth::user()->balance) </strong>
@@ -82,7 +82,7 @@
 		</div>
 	</div>
 	<div class="row content-info m-l-none m-r-none">
-		<div class="col-sm-6 border-right">
+		<div class="col-sm-6">
 			<h5 class="title-info m-t-md">
 				Alamat Pengiriman
 				<small>
@@ -91,18 +91,42 @@
 					</a>
 				</small>
 			</h5>
-			<p class="label-info">Alamat <span>{{ Auth::user()->address }}</span></p>
 			<p class="label-info">No Hp <span>{{ Auth::user()->phone }}</span></p>
 			<p class="label-info">Kode Pos <span>{{ Auth::user()->zipcode }}</span></p>
+			<p class="label-info">Alamat <span>{{ Auth::user()->address }}</span></p>
 				<!-- <a class="link-grey hover-black unstyle" href="" class="balin-link text-right">Atur Buku Alamat</a><br/> -->
 			</p>
 			<p class="clearfix m-b-xxs">&nbsp;</p>
 		</div>
-		<div class="col-sm-6">
-			<h5 class="title-info m-t-md">Tracking Order</h4>
+		<div class="col-sm-6 border-left">
+			<h5 class="title-info m-t-md">Tracking Order
+				<small>
+					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.address.index')}}" data-modal-title="Ubah Alamat Pengiriman" class="balin-link">
+						Daftar Order
+					</a>
+				</small>
+			</h5>
 			<?php
-				$orders 			= App\Models\Transaction::userid(Auth::user()->id)->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->paginate();
+				$orders 	= App\Models\Transaction::userid(Auth::user()->id)->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->paginate();
 			?>
+
+			@foreach ($orders as $k => $v)
+				<div class="tracking-order border-bottom p-b-xs">
+					<span class="tracking-cancel">
+					    <a class="link-grey hover-red unstyle" href="#">Cancel</a>
+					</span>
+					<span class="label label-default label-hollow">{{ $v['current_status'] }}
+					</span>
+					<p class="label-info datetime m-t-xs m-b-xxs" style="">
+						@datetime_indo($v['transact_at'])
+					</p>	
+					<p class="label-info m-b-xxs ref-number">
+						{{ $v['ref_number'] }}{{ $v['unique_number'] }}	
+					</p>
+					<a href="#" class="link-grey hover-black unstyle tracking-detail">(Detail)</a>
+				</div>
+				<div class="clearfix">&nbsp;</div>
+			@endforeach
 		</div>
 	</div>
 
