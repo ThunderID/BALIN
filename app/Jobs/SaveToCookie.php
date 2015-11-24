@@ -32,7 +32,7 @@ class SaveToCookie extends Job implements SelfHandling
             {
                 $basket[$value['product_id']]['varians'][]  = ['varian_id' => $value->varian_id, 'qty' => $value->quantity, 'size' => $value->varian->size, 'stock' => $value->varian->stock];
             }
-            else
+            elseif($value->varian)
             {
                 $tempb['slug']                             = $value['varian']['product']['slug'];
                 $tempb['name']                             = $value['varian']['product']['name'];
@@ -45,7 +45,6 @@ class SaveToCookie extends Job implements SelfHandling
                 $basket[$key]                              = $tempb;
             }
         }
-        // dd($basket);exit;
 
         Session::forget('baskets');
         $baskets                                           = Session::put('baskets', $basket);
