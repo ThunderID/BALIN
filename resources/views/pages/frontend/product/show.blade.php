@@ -121,7 +121,7 @@
 								{!! Form::open(['url' => 'javascript:void(0);', 'class' => 'p-t-sm form-addtocart']) !!}
 									{!! Form::hidden('product_slug', $slug, ['class' => 'pslug']) !!}
 									{!! Form::hidden('product_name', $data['name'], ['class' => 'pname']) !!}
-									{!! Form::hidden('product_price', $price, ['class' => 'pprice']) !!}
+									{!! Form::hidden('product_price', $data['price'], ['class' => 'pprice']) !!}
 									{!! Form::hidden('product_discount', $data['discount'], ['class' => 'pdiscount']) !!}
 									{!! Form::hidden('product_stock', 0, ['class' => 'prod_stock pstock']) !!}
 									{!! Form::hidden('product_image', $data['default_image'], ['class' => 'pimage']) !!}

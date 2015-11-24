@@ -176,10 +176,10 @@ class CartController extends BaseController
 		$price 									= $product['price'];
 		$msg 									= null; 						
 
-		if ($product['discount']!=0) 
-		{
-			$price 								= $product['promo_price'];
-		}
+		// if ($product['discount']!=0) 
+		// {
+		// 	$price 								= $product['promo_price'];
+		// }
 
 		$basket['price']						= $price;
 
