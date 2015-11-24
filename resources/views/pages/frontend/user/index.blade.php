@@ -115,7 +115,7 @@
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		       		<h5 class="modal-title" id="exampleModalLabel">Histori Balance</h5>
 		      	</div>
-		      	<div class="modal-body ribbon-menu" style="text-align:left">
+		      	<div class="modal-body ribbon-menu mt-75 mobile-m-t-0" style="text-align:left">
 					
 		      	</div>
 	   		</div>
