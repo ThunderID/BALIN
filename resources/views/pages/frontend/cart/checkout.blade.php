@@ -233,7 +233,7 @@
 @stop
 
 @section('script')
-	$('.choice_address').change(function() {
+	$('.choice_address').on('change', function() {
 		var val = $(this).val();
 		if (val == 0) {
 			$('.new-address').removeClass('new-address-hide');

@@ -55,6 +55,57 @@
 						</div>
 					</div>
 				</div>
+				<div class="col-md-6 col-sm-6 hide-xs">
+					<div class="row">
+						<div class="col-md-12 text-center">					
+							<h3>We'd love to help!</h3>
+						</div>
+					</div>
+					<div class="row clearfix">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-12 text-center">						
+							<p><i class="fa fa-map-marker"></i> &nbsp;{{ $storeinfo['address'] }}</p>
+						</div>						
+					</div>		
+					<div class="row">
+						<div class="col-md-12 text-center">						
+							<p><i class="fa fa-phone"></i> &nbsp;{{ $storeinfo['phone'] }}</p>
+						</div>						
+					</div>	
+					<div class="row">
+						<div class="col-md-12 text-center">						
+							<p><i class="fa fa-envelope"></i> &nbsp;{{ $storeinfo['email'] }}</p>
+						</div>						
+					</div>														
+					<div class="row clearfix">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-12 text-center">					
+							<h3>Also find us on</h3>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<a href="{{ $storeinfo['facebook_url'] }}" class="btn btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;Facebook</a>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<p style="margin-bottom:0px;">or</p>					
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<a href="{{ $storeinfo['twitter_url'] }}" class="btn btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-twitter"></i>&nbsp;&nbsp;Twitter</a>
+						</div>
+					</div>					
+				</div>
+
+
+
+
 <!-- 				<div class="col-md-6 col-sm-6 hide-xs">
 					<div class="row">
 						<div class="col-md-12 text-center">
@@ -82,7 +133,7 @@
 					</div>					
 				</div> -->
 			</div>
-		</div>
+ 		</div>
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
