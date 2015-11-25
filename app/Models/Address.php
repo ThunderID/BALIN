@@ -108,6 +108,16 @@ class Address extends Eloquent
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
 
+	public function scopeID($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereIn('id', $variable);
+		}
+
+		return 	$query->where('id', $variable);
+	}
+	
 	public function scopeOlderShipmentByCustomer($query, $variable)
 	{
 		return $query->selectraw('addresses.id')
