@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-xs-3">
 				<a href="#">
-					<img class="image-responsive" style="height:80px;width:60px;"  src="{{ $label_image }}" >
+					<img class="image-responsive" style="height:80px;width:60px;z-index:-1;"  src="{{ $label_image }}" >
 				</a>
 			</div>
 			<div class="col-xs-8">

@@ -122,8 +122,8 @@
 				<div class="col-sm-10 col-xs-12">
 					<div class="row">
 						<div class="col-sm-12 col-xs-12">
-							<a href="{{ route('frontend.product.show', $item_list_slug) }}" class="title"><h4 class="m-b-xs">{{ $item_list_name }}</h4></a>
-							<p class="m-t-sm m-b-sm">Size :</p>
+							<a href="{{ route('frontend.product.show', $item_list_slug) }}" class="title link-black hover-grey"><h4 class="m-b-xs">{{ $item_list_name }}</h4></a>
+							<p class="m-t-sm m-b-sm"><strong>Size : </strong></p>
 						</div>
 					</div>
 					@foreach($item_list_size as $key => $value)
