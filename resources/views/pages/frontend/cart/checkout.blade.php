@@ -1,5 +1,7 @@
+@inject('tc', 'App\Models\StoreSetting')
 <?php 	
 	$carts = Session::get('baskets'); 
+	$tc = $tc::type('term_and_condition')->ondate('now')->orderby('started_at', 'desc')->first();
 ?>
 @extends('template.frontend.layout')
 
@@ -155,21 +157,21 @@
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1 p-t-sm" style="background-color:#fff">
 					<div class="row m-t-md hidden-xs hidden-md hidden-lg">&nbsp;</div>
-			    	<div class="row">
-			    		<div class="col-md-12">
-			    			<h3 class="m-t-none m-b-md hollow-label">ALAMAT PENGIRIMAN</h3>
-			    		</div>
-			    	</div>
-			    	<div class="row">
-			    		<div class="col-md-12">
-			    			<div class="form-group">
-			    				<label class="hollow-label" for="">Nama Penerima</label>
-			    				{!! Form::input('text', 'receiver_name', null, [
-			    						'class' 		=> 'form-control hollow transaction-input-postal-code',
-			    				]) !!}
-			    			</div>
-			    		</div>
-			    	</div>
+					<div class="row">
+						<div class="col-md-12">
+							<h3 class="m-t-none m-b-md hollow-label">ALAMAT PENGIRIMAN</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="hollow-label" for="">Nama Penerima</label>
+								{!! Form::input('text', 'receiver_name', null, [
+										'class' 		=> 'form-control hollow transaction-input-postal-code',
+								]) !!}
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
@@ -208,16 +210,16 @@
 						</div>
 					</div>
 					<div class="row">
-			    		<div class="col-md-12">
-			    			<div class="checkbox">
-			    				<label>
-			    					{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
-					    			Term & Condition
-					    		</label>
-			    			</div>
-			    		</div>
-			    	</div>
-			    	<div class="clearfix">&nbsp;</div>
+						<div class="col-md-12">
+							<div class="checkbox">
+								<label>
+									{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
+									I have read the <a href="#" data-toggle="modal" data-target="#tnc"><strong>Term & Condition</strong></a> and willing to process this transaction 
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group text-right">
@@ -230,6 +232,33 @@
 			</div>
 		{!! Form::close() !!}
 	</div>
+
+
+	<div id="tnc" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel">Term & Condition</h4>
+				</div>
+				<div class="modal-body ribbon-menu">
+					<div class="row">
+						<div class="col-md-12">
+							{!! $tc['value'] !!}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<button type="button" class="btn-hollow hollow-black-border" data-dismiss="modal" aria-label="Close">Ok</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>			
+</div>		
+
+
 @stop
 
 @section('script')
@@ -245,8 +274,32 @@
 		}
 	});
 
-	$( "#choice_address").keypress(function() {
-	  $("#choice_address").trigger("change");
+	function setModalMaxHeight(element) {
+		this.$element     = $(element);
+		var dialogMargin  = $(window).width() > 767 ? 62 : 22;
+		var contentHeight = $(window).height() - dialogMargin;
+		var headerHeight  = this.$element.find('.modal-header').outerHeight() || 2;
+		var footerHeight  = this.$element.find('.modal-footer').outerHeight() || 2;
+		var maxHeight     = contentHeight - (headerHeight + footerHeight);
+
+		this.$element.find('.modal-content').css({
+			'overflow': 'hidden'
+		});
+
+		this.$element.find('.modal-body').css({
+			'max-height': maxHeight,
+			'overflow-y': 'auto'
+		});
+	}
+
+	$('.modal').on('show.bs.modal', function() {
+		$(this).show();
+		setModalMaxHeight(this);
 	});
 
+	$(window).resize(function() {
+		if ($('.modal.in').length != 0) {
+			setModalMaxHeight($('.modal.in'));
+		}
+	});
 @stop
