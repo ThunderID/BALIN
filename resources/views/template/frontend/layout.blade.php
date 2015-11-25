@@ -315,6 +315,7 @@
 
 .footer-title-logo {
 	letter-spacing: 0.25em !important;
+	font-size: 12px;
 }
 
 .footer-title-logo a{
