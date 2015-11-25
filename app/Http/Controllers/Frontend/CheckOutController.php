@@ -5,6 +5,7 @@ use App\Models\Transaction;
 use App\Models\Address;
 use App\Models\Voucher;
 use App\Models\Shipment;
+use App\Models\ShippingCost;
 use App\Models\Courier;
 use App\Jobs\ChangeStatus;
 use Input, Response, Redirect, Session, Auth, Request;
@@ -139,7 +140,7 @@ class CheckOutController extends BaseController
 		$zipcode 		= Input::get('zipcode');
 		$courier 		= Courier::first();
     	$shippingcost 	= ShippingCost::courierid($courier->id)->postalcode($zipcode)->first();
-	    		
-	    return json_decode(json_encode($shippingcost));
+	    
+	    return json_decode(json_encode($shippingcost['attributes']['cost']));
 	}
 }

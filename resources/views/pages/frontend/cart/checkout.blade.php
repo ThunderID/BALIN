@@ -272,6 +272,7 @@
 			$('.new-address').removeClass('new-address-show');
 			$('.new-address').addClass('new-address-hide');
 		}
+		GetShippingCost();
 	});
 
 	function setModalMaxHeight(element) {
@@ -302,4 +303,13 @@
 			setModalMaxHeight($('.modal.in'));
 		}
 	});
+
+   function GetShippingCost(){
+		$.post( "{{route('frontend.any.zipcode')}}", { zipcode: "'John'" })
+			.done(function( data ) {
+		    alert( "Data Loaded: " + data );
+		});        
+    };
+</script>
+
 @stop
