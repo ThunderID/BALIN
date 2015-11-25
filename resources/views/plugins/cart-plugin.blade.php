@@ -34,7 +34,6 @@
 			var varian_qty 			= 0;
 		@else
 			var input 				= $(this).parent().find('.input-number').attr('data-name', fieldName);
-			var qty   				= parseInt($('.tot_qty').data('price'));
 		@endif
 
 		var currentVal = parseInt(input.val());
@@ -49,7 +48,8 @@
 
 						varian_qty = currentVal-1;
 					@else
-						$('.tot_qty').text('IDR '+number_format(tot_qty));
+						qty_minus_product(input, currentVal, type);
+						disable_btn_product($(this), input);
 					@endif
 
 					// flg = 0;
@@ -69,7 +69,8 @@
 
 						varian_qty = currentVal+1;
 					@else
-						$('.tot_qty').text('IDR '+number_format(tot_qty));
+						qty_plus_product(input, currentVal, type);
+						disable_btn_product($(this), input);
 					@endif
 
 					// flg = 0;
@@ -200,8 +201,91 @@
 		}
 	});
 
-	function disable_btn(e, t, vid, cid) 
+	//===== IN PRODUCT =====
+	function disable_btn_product(e, t) 
 	{		
+		minValue =  parseInt($(t).attr('min'));
+		maxValue =  parseInt($(t).attr('max'));
+		valueCurrent = parseInt($(t).val());
+			
+		name = $(e).attr('data-field');
+
+		if(valueCurrent > minValue) {
+			$(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled');
+		} else {
+			$(".btn-number[data-type='minus'][data-field='"+name+"']").attr('disabled', true);
+			// $(e).val($(this).attr('data-oldValue'));
+		}
+		if(valueCurrent < maxValue) {
+			flg = 0;
+			show_tooltip(t, flg);
+			// show_tooltip(list_cart.find('.input-number-mobile[data-field="'+name+'"]'), flg);
+
+			$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
+		} else {
+			flg = 1;
+			show_tooltip(t, flg);
+			// show_tooltip(list_cart.find('.input-number-mobile[data-field="'+name+'"]'), flg);
+
+			$(".btn-number[data-type='plus'][data-field='"+name+"']").attr('disabled', true);
+			// $(this).val($(this).attr('data-oldValue'));
+		}
+	}
+	function qty_plus_product(e, current_val, type)
+	{
+		var old_value = 0;
+		var sumtotal = 0;
+
+		old_value = current_val;
+		e.val(current_val + 1).change();
+		total_product(e, type);
+		sumtotal += sumtotal_product(e);
+
+		$('.price-all-product').text('IDR '+number_format(sumtotal))
+		e.attr('data-oldValue', old_value);
+	}
+
+	function total_product(e, flag)
+	{
+		var qty = parseInt(e.val());
+		var price = parseInt(e.attr('data-price'));
+		var discount = parseInt(e.attr('data-discount'));
+		var total_price_qty = 0;
+		
+		total_price_qty = (price-discount)*qty;
+		e.attr('data-total', total_price_qty);
+	}
+
+	function sumtotal_product(e)
+	{
+		var total_all = 0;
+
+		$('.input-number').each( function() {
+			var temp = parseInt($(this).attr('data-total'));
+			total_all += temp;
+		});
+		return total_all;
+	}
+
+	function qty_minus_product(e, current_val, type)
+	{
+		var old_value = 0;
+		var sumtotal = 0;
+
+		old_value = current_val;
+		e.val(current_val - 1).change();
+		total_product(e, type);
+		sumtotal -= sumtotal_product(e);
+
+		$('.price-all-product').text('IDR '+number_format(sumtotal))
+		e.attr('data-oldValue', old_value);
+	}
+
+	//===== STOP IN PRODUCT =====
+
+	//===== IN CART ======
+	function disable_btn(e, t, vid, cid)
+	{
 		minValue =  parseInt($(t).attr('min'));
 		maxValue =  parseInt($(t).attr('max'));
 		valueCurrent = parseInt($(t).val());
@@ -233,7 +317,7 @@
 			list_cart_mobile.find(".btn-number-mobile[data-type='plus'][data-field='"+name+"']").attr('disabled', true);
 			list_cart.find(".btn-number[data-type='plus'][data-field='"+name+"']").attr('disabled', true);
 			// $(this).val($(this).attr('data-oldValue'));
-		}
+		}	
 	}
 
 	function qty_plus_mobile(e, current_val, lab_total_mobile, type)
@@ -384,46 +468,6 @@
 		});
 	}
 
-	function show_tooltip(input, flg)
-	{
-		if (flg == 1) {
-			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf stock barang size ini hanya tersedia ' +input.attr('max')}).tooltip('show');
-			setTimeout( function() {
-				$(input).tooltip('hide');
-			}, 2000);
-		} else {
-			setTimeout( function() {
-				$(input).tooltip('hide');
-			}, 2500);
-		}
-	}
-
-	function number_format(number, decimals, dec_point, thousands_sep) {
-	  number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
-
-	  var n = !isFinite(+number) ? 0 : +number,
-			prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-			sep = (typeof thousands_sep === 'undefined') ? '.' : thousands_sep,
-			dec = (typeof dec_point === 'undefined') ? ',' : dec_point,
-			s = '',
-			toFixedFix = function (n, prec) {
-				var k = Math.pow(10, prec);
-				return '' + (Math.round(n * k) / k).toFixed(prec);
-			};
-
-	  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-		s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-		if (s[0].length > 3) {
-			s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-		}
-
-		if ((s[1] || '').length < prec) {
-			s[1] = s[1] || '';
-			s[1] += new Array(prec - s[1].length + 1).join('0');
-		}
-		return s.join(dec);
-	}
-
 	// Add to Cart
 	$('.addto-cart').on('click', function(e) {
 		var pvarians 	= [];
@@ -492,6 +536,7 @@
 
 	$('.btn-delete-item').on('click', function() {
 		var cid 	= $(this).data('cid');
+		var vid 	= $(this).data('vid');
 		var row 	= $(this).parent().parent().parent().parent();
 		
 		$.ajax({
@@ -500,18 +545,35 @@
 			dataType:"json",
 			data: { cid: cid },
 			success: function(result) {
-				count_cart = Object.keys(result.carts).length; 
-				if (count_cart>0) {
-					$(row).remove();
-					$('.ico-cart').find('span').html(count_cart);
+				count_cart = Object.keys(result.carts).length;
+				if (count_cart>=1) {
+					var list_cart = $('.list-vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+					var list_cart_mobile = $('.list-vid-mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
 
-					gtotal 	= grand_total();
-					$('.label-total-all').html('<strong>IDR '+number_format(gtotal)+'</strong>');
+					
+
+					list_cart.parent().parent().remove();
+					list_cart_mobile.parent().parent().parent().parent().remove();
+
+					grand_total();
+					grand_total_mobile();
+
+					$.ajax({
+						url: '{{ route('frontend.cart.listBasket.ajax') }}',
+						beforeSend: function() {
+							$('chart-dropdown').html("<img src='/Balin/web/image/loading.gif'/>");
+						},
+						success: function(msg) {
+							$('.chart-dropdown').html(msg);
+						}
+					});
 				}
-				else {
-					$('.ico-cart').find('span').html(count_cart);
+				else
+				{
 					delete_item_last();
 				}
+
+				$('.ico-cart').find('span').html(count_cart);
 			}
 
 		});
@@ -530,29 +592,29 @@
 			dataType:"json",
 			data: {cid: cid, vid: vid},
 			success: function(result) {
-					count_cart = Object.keys(result.carts).length;
-					check_varians = result.carts[cid];
+				count_cart = Object.keys(result.carts).length;
+				check_varians = result.carts[cid];
 
-					if (count_cart>=1) {
-						var list_cart = $('.list-vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
-						var list_cart_mobile = $('.list-vid-mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
-						var inputmobile = list_cart_mobile.find('.input-number-mobile[data-name="'+fieldName+'"]');
-						var lab_total_mobile = inputmobile.parent().parent().parent().parent().parent().find('.label-total-mobile');
+				if (count_cart>=1) {
+					var list_cart = $('.list-vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+					var list_cart_mobile = $('.list-vid-mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+					var inputmobile = list_cart_mobile.find('.input-number-mobile[data-name="'+fieldName+'"]');
+					var lab_total_mobile = inputmobile.parent().parent().parent().parent().parent().find('.label-total-mobile');
 
-						if (typeof check_varians != 'undefined')
-						{
-							list_cart.remove();
-							list_cart_mobile.remove();
-						}
-						else
-						{
-							list_cart.parent().parent().remove();
-							list_cart_mobile.parent().parent().parent().parent().remove();
-						}
-
-						grand_total();
-						delete_varian_mobile(inputmobile, lab_total_mobile);
+					if (typeof check_varians != 'undefined')
+					{
+						list_cart.remove();
+						list_cart_mobile.remove();
 					}
+					else
+					{
+						list_cart.parent().parent().remove();
+						list_cart_mobile.parent().parent().parent().parent().remove();
+					}
+
+					grand_total();
+					delete_varian_mobile(inputmobile, lab_total_mobile);
+				}
 
 				else {
 					$('.ico-cart').find('span').html(0);
@@ -588,6 +650,50 @@
 				<div class="row chart-topLine"></div>';
 		$('.chart-div').append(page);
 		$('.empty-cart').remove();
+		$('.empty-cart-mobile').remove();
 		$('.checkout').remove();
 	}
+
+	// ======= STOP IN CART =======
+
+	function show_tooltip(input, flg)
+	{
+		if (flg == 1) {
+			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf stock barang size ini hanya tersedia ' +input.attr('max')}).tooltip('show');
+			setTimeout( function() {
+				$(input).tooltip('hide');
+			}, 2000);
+		} else {
+			setTimeout( function() {
+				$(input).tooltip('hide');
+			}, 2500);
+		}
+	}
+
+	function number_format(number, decimals, dec_point, thousands_sep) {
+	  number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+
+	  var n = !isFinite(+number) ? 0 : +number,
+			prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+			sep = (typeof thousands_sep === 'undefined') ? '.' : thousands_sep,
+			dec = (typeof dec_point === 'undefined') ? ',' : dec_point,
+			s = '',
+			toFixedFix = function (n, prec) {
+				var k = Math.pow(10, prec);
+				return '' + (Math.round(n * k) / k).toFixed(prec);
+			};
+
+	  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+		s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+		if (s[0].length > 3) {
+			s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+		}
+
+		if ((s[1] || '').length < prec) {
+			s[1] = s[1] || '';
+			s[1] += new Array(prec - s[1].length + 1).join('0');
+		}
+		return s.join(dec);
+	}
+
 </script>

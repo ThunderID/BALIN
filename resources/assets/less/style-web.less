@@ -16,9 +16,8 @@ html {
 	color: #FF3A00;
 }
 
-.ltr-space-08 {
-	letter-spacing: 0.08em;
-}
+.font-weight-300 { font-weight: 300; }
+.ltr-space-08 { letter-spacing: 0.08em; }
 
 /* BORDER */
 .border-bottom {
@@ -272,11 +271,11 @@ p {
 		font-size: 8pt !important;
 		position: relative;
 		&::after {
-			border-bottom: 0.225em solid rgba(255, 0, 0, 0.8);
+			border-bottom: 0.180em solid rgba(255, 0, 0, 0.8);
 			content: "";
 			left: 0;
 			line-height: 1em;
-			margin-top: calc(0.225em / 2 * -1);
+			margin-top: calc(0.200em / 2 * -1);
 			position: absolute;
 			right: 0;
 			top: 50%;
@@ -572,6 +571,16 @@ p {
 		color: #fff;
 		&:hover {
 			background-color: #fff;
+			color: #000;
+			border-color: #000;
+			text-decoration: none;
+		}
+	}
+	&.hollow-black-border-transaparent{
+		background-color: #000;
+		color: #fff;
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.5);
 			color: #000;
 			border-color: #000;
 			text-decoration: none;
