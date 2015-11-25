@@ -26,7 +26,7 @@
 				<div class="row">
 					<div class="col-md-7 col-md-offset-3">
 						@if (count($data['images'])!=1)
-							<div class="owl-carousel gallery-product">
+							<div class="owl-carousel gallery-product" style="z-index:-1">
 								@foreach ($data['images'] as $k => $v)
 									<div class="item">
 										<a href="{{ $v['image_lg'] }}" data-standard="{{ $v['image_lg'] }}">
@@ -36,7 +36,7 @@
 								@endforeach
 							</div>      
 						@else
-							<div class="owl-carousel gallery-product hidden-xs hidden-sm">
+							<div class="owl-carousel gallery-product hidden-xs hidden-sm" style="z-index:-1">
 								@foreach ($data['images'] as $k => $v)
 									<div class="item">
 										<a href="{{ $v['image_lg'] }}" data-standard="{{ $v['image_lg'] }}">
@@ -87,9 +87,7 @@
 																	
 				</div>
 				<div class="row">
-					<div class="col-md-12">															
-
-
+					<div class="col-md-12">
 						<div class="clearfix">&nbsp;</div>
 						{{-- <h4 class="caption-product">Price</h4> --}}
 						<?php $price 	= $data['price'];?>
