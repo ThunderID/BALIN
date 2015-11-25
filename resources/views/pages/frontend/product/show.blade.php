@@ -58,24 +58,38 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h3 class="title-product caption-product">{{ $data['name'] }}</h3>
-						@if(!empty($data->label))
-						@switch(str_replace(' ', '', strtoupper($data->label)))
-							@case('SALE')
-								<div class="circle-label">
-							@break;
-							@case('HOTITEM')
-								<div class="square-label">
-							@break;
-							@case('BESTSELLER')
-								<div class="text-label">
-							@break;
-							@default
-								<div class="circle-non-label">
-				            @break				
-						@endswitch
-						{{ strtoupper($data->label) }}
+					</div>
+				</div>
+				<div class="row">
+
+					@foreach($data['lables'] as $label)
+						<div class="col-md-2 col-sm-1 col-xs-3 p-b-sm">
+						<?php
+
+						switch (str_replace('_', '', strtoupper($label['lable']))) {
+							case "SALE":
+								echo "<div class='circle-label black'><div>SALE</div></div>";
+								break;
+							case "HOTITEM":
+								echo "<div class='circle-label black'><div><p style='margin-top: -6px;''>HOT ITEM</p></div></div>";
+								break;	
+							case "BESTSELLER":
+								echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>BEST SELLER</p></div></div>";
+								break;															
+							default:
+								echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</p></div></div>";
+								break;
+						}
+
+						?>
 						</div>
-						@endif
+					@endforeach									
+																	
+				</div>
+				<div class="row">
+					<div class="col-md-12">															
+
+
 						<div class="clearfix">&nbsp;</div>
 						{{-- <h4 class="caption-product">Price</h4> --}}
 						<?php $price 	= $data['price'];?>
