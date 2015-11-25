@@ -125,15 +125,15 @@
 										<span class="">Point Kamu</span>
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5 text-right p-r-lg">
-										<span class="text-right">@money_indo(Auth::user()->balance)</span>
+										<span class="text-right" id="point">@money_indo(Auth::user()->balance)</span>
 									</div>	
 								</div>
 								<div class="row">
 									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
 										<span >Biaya Pengiriman</span>
 									</div>
-									<div class="col-lg-5 col-md-5 col-sm-5 p-r-lg">
-										<span class="text-right" id="shippingcost"></span>
+									<div class="col-lg-5 col-md-5 col-sm-5 text-right p-r-lg">
+										<span class="text-right" id="shippingcost">@money_indo(0)</span>
 									</div>	
 								</div>
 								<div class="row">
@@ -143,7 +143,7 @@
 									<div class="col-lg-5 col-md-5 col-sm-5 p-r-lg">
 										<h4 class="text-right">
 											@if ($total)
-												<strong>@money_indo($total)</strong>
+												<strong id="subtotal">@money_indo($total)</strong>
 											@endif
 										</h4>
 									</div>	
@@ -313,6 +313,19 @@
 		$.post( "{{route('frontend.any.zipcode')}}", e)
 			.done(function( data ) {
 			$("#shippingcost").text(data);
+			countSubTotal();
 		});        
     };
+
+    function countSubTotal(){
+    	var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
+    	var sc = ($("#shippingcost").text().replace(/./g, '')).substring(4);
+    	var yp = ($("#point").text().replace(/\./g, '')).substring(4);
+    	console.log(to);
+    	console.log(sc);
+    	console.log(yp);
+
+    	var st = 'IDR ' + (to + sc - yp);
+    	console.log(st);
+	}
 @stop
