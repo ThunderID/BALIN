@@ -43,7 +43,7 @@ class CheckOutController extends BaseController
 		
 		if(!$transaction)
 		{
-			return Redirect::back()->withErrors('Tidak ada keranjang.');
+			return Redirect::back()->withInput()->withErrors('Tidak ada keranjang.');
 		}
 
 		if(Input::has('voucher_code') && Input::Get('voucher_code')!='')
@@ -64,7 +64,7 @@ class CheckOutController extends BaseController
 
 			if(!$transaction->save())
 			{
-				return Redirect::back()->withErrors($transaction->getError())->with('msg-type', 'danger');
+				return Redirect::back()->withInput()->withErrors($transaction->getError())->with('msg-type', 'danger');
 			}
 		}
 
@@ -82,7 +82,7 @@ class CheckOutController extends BaseController
 
 			if(!$address->save())
 			{
-				return Redirect::back()->withErrors($address->getError())->with('msg-type', 'danger');
+				return Redirect::back()->withInput()->withErrors($address->getError())->with('msg-type', 'danger');
 			}
 		}
 
@@ -103,7 +103,7 @@ class CheckOutController extends BaseController
 
 		if(!$shipment->save())
 		{
-			return Redirect::back()->withErrors($shipment->getError())->with('msg-type', 'danger');
+			return Redirect::back()->withInput()->withErrors($shipment->getError())->with('msg-type', 'danger');
 		}
 
 		//bisa jadi setelah term and condition
@@ -113,9 +113,9 @@ class CheckOutController extends BaseController
 		{
 			$cookie = Session::forget('baskets');
 
-			return Redirect::route('frontend.user.order.show', $transaction->ref_number);
+			return Redirect::route('frontend.user.index', ['ref' => $transaction->ref_number]);
 		}
 
-		return Redirect::back()->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
+		return Redirect::back()->withInput()->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
 	}
 }
