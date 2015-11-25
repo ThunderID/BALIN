@@ -8,7 +8,7 @@ use App\Models\Shipment;
 use App\Models\ShippingCost;
 use App\Models\Courier;
 use App\Jobs\ChangeStatus;
-use Input, Response, Redirect, Session, Auth, Request;
+use APP, Input, Response, Redirect, Session, Auth, Request;
 
 class CheckOutController extends BaseController 
 {

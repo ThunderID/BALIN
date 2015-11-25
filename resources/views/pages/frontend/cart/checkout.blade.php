@@ -90,7 +90,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12">
-									<h2 style="color:#fff;" class="text-center m-t-none">
+									<h2 style="color:#fff;" class="text-center m-t-none subtotal">
 										@if (isset($total))
 											@money_indo($total)
 										@endif
@@ -125,15 +125,15 @@
 										<span class="">Point Kamu</span>
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5 text-right p-r-lg">
-										<span class="text-right">@money_indo(Auth::user()->balance)</span>
+										<span class="text-right" id="point">@money_indo(Auth::user()->balance)</span>
 									</div>	
 								</div>
 								<div class="row">
 									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
 										<span >Biaya Pengiriman</span>
 									</div>
-									<div class="col-lg-5 col-md-5 col-sm-5 p-r-lg">
-										<span class="text-right" id="shippingcost"></span>
+									<div class="col-lg-5 col-md-5 col-sm-5 text-right p-r-lg">
+										<span class="text-right" id="shippingcost">@money_indo(0)</span>
 									</div>	
 								</div>
 								<div class="row">
@@ -141,9 +141,9 @@
 										<h4>SubTotal</h4>
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5 p-r-lg">
-										<h4 class="text-right">
+										<h4 class="text-right subtotal" style="font-weight: bold;">
 											@if ($total)
-												<strong>@money_indo($total)</strong>
+												@money_indo($total)
 											@endif
 										</h4>
 									</div>	
@@ -276,7 +276,7 @@
 		else {
 			$('.new-address').removeClass('new-address-show');
 			$('.new-address').addClass('new-address-hide');
-			GetShippingCost( {'id' : $( "#address_id" ).val()} );
+			GetShippingCost( {'address' : $( "#address_id" ).val()} );
 		}
 	});
 
@@ -313,6 +313,34 @@
 		$.post( "{{route('frontend.any.zipcode')}}", e)
 			.done(function( data ) {
 			$("#shippingcost").text(data);
+			countSubTotal();
 		});        
     };
+
+    function countSubTotal(){
+    	var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
+    	var sc = ($("#shippingcost").text().replace(/\./g, '')).substring(4);
+    	var yp = ($("#point").text().replace(/\./g, '')).substring(4);
+    	to = parseInt(to);
+    	sc = parseInt(sc);
+    	yp = parseInt(yp);
+
+    	var st = 'IDR ' + (to + sc - yp);
+
+		$(".subtotal").text(addCommas(st));
+
+
+		function addCommas(nStr)
+		{
+			nStr += '';
+			x = nStr.split('.');
+			x1 = x[0];
+			x2 = x.length > 1 ? '.' + x[1] : '';
+			var rgx = /(\d+)(\d{3})/;
+			while (rgx.test(x1)) {
+				x1 = x1.replace(rgx, '$1' + '.' + '$2');
+			}
+			return x1 + x2;
+		};
+	}
 @stop
