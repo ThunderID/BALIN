@@ -2,7 +2,7 @@
 	$carts = Session::get('baskets');
 ?>
 	@if (!empty($carts))
-		<?php $total = 0; ?>
+		<?php $total = 0; $i=0; ?>
 		<div class="cart-content">
 			@foreach ($carts as $k => $item)
 				<?php

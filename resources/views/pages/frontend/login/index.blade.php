@@ -1,7 +1,8 @@
 @inject('store', 'App\Models\StoreSetting')
 
 <?php 
-	$stores				= $store->type('why_join')->Ondate('now')->first();
+	$stores			= $store->type('why_join')->Ondate('now')->first();
+	$tc 			= $store->type('term_and_condition')->ondate('now')->orderby('started_at', 'desc')->first();
 ?>
 
 @extends('template.frontend.layout')
@@ -52,6 +53,31 @@
 		</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="clearfix">&nbsp;</div>
+
+		<div id="tnc" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="exampleModalLabel">Term & Condition</h4>
+					</div>
+					<div class="modal-body ribbon-menu">
+						<div class="row">
+							<div class="col-md-12">
+								{!! $tc['value'] !!}
+							</div>
+						</div>
+						<div class="clearfix">&nbsp;</div>
+						<div class="row">
+							<div class="col-md-12 text-left">
+								<button type="button" class="btn-hollow hollow-black-border" data-dismiss="modal" aria-label="Close">Tutup</button>
+							</div>
+						</div>
+						<div class="clearfix">&nbsp;</div>
+					</div>
+				</div>
+			</div>
+		</div>		
 	</div>
 @stop
 
@@ -85,6 +111,35 @@
 		$('.sign-up').hide();
 		$('.sign-in').hide();
 		$('.forgot').show();
+	});
+
+	function setModalMaxHeight(element) {
+		this.$element     = $(element);
+		var dialogMargin  = $(window).width() > 767 ? 62 : 22;
+		var contentHeight = $(window).height() - dialogMargin;
+		var headerHeight  = this.$element.find('.modal-header').outerHeight() || 2;
+		var footerHeight  = this.$element.find('.modal-footer').outerHeight() || 2;
+		var maxHeight     = contentHeight - (headerHeight + footerHeight);
+
+		this.$element.find('.modal-content').css({
+			'overflow': 'hidden'
+		});
+
+		this.$element.find('.modal-body').css({
+			'max-height': maxHeight,
+			'overflow-y': 'auto'
+		});
+	}
+
+	$('.modal').on('show.bs.modal', function() {
+		$(this).show();
+		setModalMaxHeight(this);
+	});
+
+	$(window).resize(function() {
+		if ($('.modal.in').length != 0) {
+			setModalMaxHeight($('.modal.in'));
+		}
 	});
 @stop
 

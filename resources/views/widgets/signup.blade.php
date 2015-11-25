@@ -1,30 +1,30 @@
 {!! Form::open(['url' => route('frontend.user.store')]) !!}
 	<div class="form-group">
-		<label for="">Name</label>
+		<label for="" style="font-weight:400">Name</label>
 		{!! Form::text('name', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Nama']) !!}
 	</div>
 	<div class="form-group">
-		<label for="">Email</label>
+		<label for="" style="font-weight:400">Email</label>
 		{!! Form::email('email', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Email']) !!}
 	</div>
 	<div class="form-group">
-		<label for="">Password</label>
+		<label for="" style="font-weight:400">Password</label>
 		{!! Form::password('password', ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Password']) !!}
 	</div>
 	<div class="form-group">
-		<label for="">Konfirmasi Password</label>
+		<label for="" style="font-weight:400">Konfirmasi Password</label>
 		{!! Form::password('password_confirmation', ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Konfirmasi Password']) !!}
 	</div>
 	<div class="form-group">
-		<label for="">Tanggal Lahir</label>
+		<label for="" style="font-weight:400">Tanggal Lahir</label>
 		{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow date-format', 'placeholder' => 'Masukkan Tanggal Lahir']) !!}
 	</div>
 	<div class="form-group">
-		<label for="">Jenis Kelamin</label>
+		<label for="" style="font-weight:400">Jenis Kelamin</label>
 		{!! Form::select('gender', ['male' => 'Laki-laki', 'female' => "Perempuan"], null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Jenis Kelamin']) !!}
 	</div>
 	<div class="form-group">
-		<label for="">Alamat</label>
+		<label for="" style="font-weight:400">Alamat</label>
 		{!! Form::textarea('address', null, [
 				'class' => 'form-control hollow', 
 				'placeholder' => 'Masukkan Alamat', 
@@ -34,7 +34,8 @@
 	</div>
 	<div class="checkbox">
 		<label class="t-xs" style="color:#666">
-			<input type="checkbox" tabindex="1" required>Setuju dengan Terms & Conditions
+			<input type="checkbox" tabindex="1" required>
+			I have read the <a href="#" class="link-black hover-grey unstyle" data-toggle="modal" data-target="#tnc"><strong>Term & Condition</strong></a> and willing to process signup. 
 		</label>
 	</div>
 	<div class="form-group">
