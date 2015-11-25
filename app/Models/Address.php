@@ -112,11 +112,21 @@ class Address extends Eloquent
 	{
 		return $query->selectraw('addresses.id')
 					->selectraw('shipments.receiver_name as receiver_name')
-					->join('shipments', 'shipments.address_id', '=', 'addresses.id')
-					->join('transactions', 'transactions.id', '=', 'shipments.transaction_id')
+					->join('shipments', function ($join) use($variable) 
+					{
+						$join->on ( 'shipments.address_id', '=', 'addresses.id' )
+						->wherenull('shipments.deleted_at')
+						;
+					})
+					->join('transactions', function ($join) use($variable) 
+					{
+						$join->on ( 'transactions.id', '=', 'shipments.transaction_id' )
+						->where('transactions.user_id', '=', $variable)
+						->wherenull('transactions.deleted_at')
+						;
+					})
 					->transactionlogstatus(['wait', 'paid', 'shipping', 'delivered'])
 					->extendtransactiontype('sell')
-					->where('transactions.user_id', $variable)
 				;
 	}
 }
