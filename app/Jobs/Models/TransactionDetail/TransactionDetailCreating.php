@@ -20,13 +20,6 @@ class TransactionDetailCreating extends Job implements SelfHandling
 
     public function handle()
     {
-        if($this->transactiondetail->transaction->status=='cart' || $this->transactiondetail->transaction->type=='buy')
-    	{
-	        return new JSend('success', (array)$this->transactiondetail );
-    	}
-    	else
-    	{
-	        return new JSend('error', (array)$this->transactiondetail, 'Tidak dapat menambahkan item baru. Silahkan membuat nota baru' );
-    	}
+        return new JSend('success', (array)$this->transactiondetail );
     }
 }
