@@ -252,6 +252,10 @@
 			color: white !important;
 		}
 
+		.circle-label.black:after{
+			background: #333 !important;
+		}		
+
 /* .modal-fullscreen */
 
 .modal-fullscreen {
