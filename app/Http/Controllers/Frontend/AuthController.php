@@ -109,24 +109,24 @@ class AuthController extends BaseController
 
 		Session::forget('login_redirect');
 		
-		$transaction           	 		= Transaction::userid(Auth::user()->id)->status('cart')->wherehas('transactiondetails', function($q){$q;})->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->first();
+        $transaction           	 	= Transaction::userid(Auth::user()->id)->status('cart')->wherehas('transactiondetails', function($q){$q;})->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->first();
 
-	    if($transaction)
-	    {
-	        $result             		= $this->dispatch(new SaveToCookie($transaction));
+        if($transaction)
+        {
+            $result             	= $this->dispatch(new SaveToCookie($transaction));
 
-	        if($result->getStatus()=='success' && !is_null($result->getData()))
-	        {
-	        	$baskets 				= $result->getData();
+            if($result->getStatus()=='success' && !is_null($result->getData()))
+            {
+            	$baskets 			= $result->getData();
 				Session::put('baskets', $baskets);
 
 				return Redirect::intended($redirect);
-	        }
-	        else
-	        {
+            }
+            else
+            {
 				return Redirect::back()->withErrors(['Tidak bisa login.'])->with('msg-type', 'danger');
-	        }
-	    }
+            }
+        }
 
 		return Redirect::intended($redirect);
 	}

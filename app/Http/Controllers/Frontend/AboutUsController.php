@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\BaseController;
+use Config;
 
 class AboutUsController extends BaseController 
 {
@@ -32,6 +33,7 @@ class AboutUsController extends BaseController
 														'og:url' 			=> route('frontend.aboutus.index'),
 														'og:image' 			=> $this->stores['logo'],
 														'og:site_name' 		=> 'balin.id',
+														'fb:app_id' 		=> Config::get('fb_app.id'),
 													];
 
 		$this->layout->controller_name			= $this->controller_name;

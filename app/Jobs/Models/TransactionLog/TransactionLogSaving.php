@@ -32,14 +32,14 @@ class TransactionLogSaving extends Job implements SelfHandling
     {
         $result                             = new JSend('success', (array)$this->transactionlog );
 
-        if($this->transactionlog->transaction->type=='sell')
+        if($this->transactionlog->transaction->type=='sell' && !in_array($this->transactionlog->transaction->status, ['canceled', 'abandoned', 'delivered']))
         {
             switch($this->transactionlog->status)
             {
                 case 'abandoned' :
                     if($this->transactionlog->transaction->status!='cart')
                     {
-                       $result              = new JSend('error', (array)$this->transactionlog, 'Tidak dapat mengabaikan transaksi yang bukan di keranjang');
+                       $result              = new JSend('error', (array)$this->transactionlog, 'Tidak dapat mengabaikan transaksi yang bukan di keranjang.');
                     }
                 break;
                 case 'wait' :
@@ -50,7 +50,15 @@ class TransactionLogSaving extends Job implements SelfHandling
                     }
                 break;
                 case 'paid' : 
-                    $result                 = $this->dispatch(new CheckPaid($this->transactionlog->transaction, new Payment));
+                    if(in_array($this->transactionlog->transaction->status, ['cart']))
+                    {
+                       $result              = new JSend('error', (array)$this->transactionlog, 'Tidak dapat mengabaikan transaksi yang bukan belum di checkout.');
+                    }
+
+                    if($result->getStatus()=='success')
+                    {
+                        $result             = $this->dispatch(new CheckPaid($this->transactionlog->transaction, new Payment));
+                    }
                 break;
                 case 'shipping': case 'delivered' :
                     $result                 = $this->dispatch(new CheckPaid($this->transactionlog->transaction, new Payment));
@@ -63,7 +71,11 @@ class TransactionLogSaving extends Job implements SelfHandling
                     $result                 = $this->dispatch(new CheckPaid($this->transactionlog->transaction, new Payment));
                     if($result->getStatus()=='success')
                     {
-                        $result             = new JSend('error', (array)$this->transactionlog, 'Tidak dapat membatalkan transaksi yang sudah dibayar');
+                        $result             = new JSend('error', (array)$this->transactionlog, 'Tidak dapat membatalkan transaksi yang sudah dibayar.');
+                    }
+                    elseif($this->transactionlog->transaction->status!='wait')
+                    {
+                       $result              = new JSend('error', (array)$this->transactionlog, 'Tidak dapat mengabaikan transaksi yang bukan belum di checkout.');
                     }
                     else
                     {

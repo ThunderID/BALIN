@@ -10,7 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Libraries\JSend;
 
-use Input, Redirect;
+use Input, Redirect, Config;
 
 class ContactUsController extends BaseController 
 {
@@ -42,6 +42,7 @@ class ContactUsController extends BaseController
 														'og:url' 			=> route('frontend.contactus.index'),
 														'og:image' 			=> $this->stores['logo'],
 														'og:site_name' 		=> 'balin.id',
+														'fb:app_id' 		=> Config::get('fb_app.id'),
 													];
 
 		$this->layout->controller_name			= $this->controller_name;

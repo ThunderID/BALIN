@@ -1,4 +1,5 @@
-<?php 	
+@inject('tc', 'App\Models\StoreSetting')
+<?php	
 	$carts = Session::get('baskets'); 
 	$tc = $tc::type('term_and_condition')->ondate('now')->orderby('started_at', 'desc')->first();
 ?>
@@ -132,7 +133,7 @@
 										<span >Biaya Pengiriman</span>
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5 p-r-lg">
-										<span class="text-right"></span>
+										<span class="text-right" id="shippingcost"></span>
 									</div>	
 								</div>
 								<div class="row">
@@ -175,7 +176,7 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label class="hollow-label" for="name">Pilih Alamat</label>
-								<select class="form-control hollow choice_address" name="address_id">
+								<select class="form-control hollow choice_address" name="address_id" id="address_id">
 									@foreach($addresses as $key => $value)
 										<option value={{$value['id']}}>{{$value['receiver_name']}}</option>
 									@endforeach
@@ -198,6 +199,7 @@
 								<label class="hollow-label" for="">Kode Pos</label>
 								{!! Form::input('number', 'zipcode', null, [
 										'class' 		=> 'form-control hollow transaction-input-postal-code',
+										'id'			=> 'zipcode'
 								]) !!}
 							</div>
 							<div class="form-group">
@@ -266,10 +268,15 @@
 		if (val == 0) {
 			$('.new-address').removeClass('new-address-hide');
 			$('.new-address').addClass('new-address-show');
+
+			jQuery('#zipcode').on('input propertychange paste', function() {
+				GetShippingCost( {'zipcode' : $( "#zipcode" ).val()} );
+			});			
 		}
 		else {
 			$('.new-address').removeClass('new-address-show');
 			$('.new-address').addClass('new-address-hide');
+			GetShippingCost( {'id' : $( "#address_id" ).val()} );
 		}
 	});
 
@@ -301,4 +308,11 @@
 			setModalMaxHeight($('.modal.in'));
 		}
 	});
+
+   function GetShippingCost(e){
+		$.post( "{{route('frontend.any.zipcode')}}", e)
+			.done(function( data ) {
+			$("#shippingcost").text(data);
+		});        
+    };
 @stop

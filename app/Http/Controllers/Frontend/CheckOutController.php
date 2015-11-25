@@ -5,6 +5,7 @@ use App\Models\Transaction;
 use App\Models\Address;
 use App\Models\Voucher;
 use App\Models\Shipment;
+use App\Models\ShippingCost;
 use App\Models\Courier;
 use App\Jobs\ChangeStatus;
 use Input, Response, Redirect, Session, Auth, Request;
@@ -21,6 +22,12 @@ class CheckOutController extends BaseController
 		$baskets 								= Session::get('baskets');
 		$addresses 								= Address::oldershipmentbycustomer(Auth::user()->id)->get()->toArray();
 		$address 								= Address::ownerid(Auth::user()->id)->ownertype('App\Models\User')->first();
+		if($address)
+		{
+			$address 							= $address['attributes'];
+			$address['receiver_name']			= Auth::user()->name;
+		}
+
 		$addresses[]							= $address;
 
 		$this->layout->page 					= view('pages.frontend.cart.checkout')
@@ -43,7 +50,7 @@ class CheckOutController extends BaseController
 		
 		if(!$transaction)
 		{
-			return Redirect::back()->withErrors('Tidak ada keranjang.');
+			return Redirect::back()->withInput()->withErrors('Tidak ada keranjang.');
 		}
 
 		if(Input::has('voucher_code') && Input::Get('voucher_code')!='')
@@ -64,14 +71,22 @@ class CheckOutController extends BaseController
 
 			if(!$transaction->save())
 			{
-				return Redirect::back()->withErrors($transaction->getError())->with('msg-type', 'danger');
+				return Redirect::back()->withInput()->withErrors($transaction->getError())->with('msg-type', 'danger');
 			}
 		}
 
 		if(Input::has('address_id') && Input::Get('address_id')!=0)
 		{
+			if(Input::has('receiver_name'))
+			{
+				$receiver_name 					= Input::get('receiver_name');
+			}
+			else
+			{
+				$receiver_name 					= Auth::user()->name;
+			}
+
 			$address 							= Address::findorfail(Input::get('address_id'));
-			$receiver_name 						= Auth::user()->name;
 		}
 		else
 		{
@@ -82,7 +97,7 @@ class CheckOutController extends BaseController
 
 			if(!$address->save())
 			{
-				return Redirect::back()->withErrors($address->getError())->with('msg-type', 'danger');
+				return Redirect::back()->withInput()->withErrors($address->getError())->with('msg-type', 'danger');
 			}
 		}
 
@@ -103,7 +118,7 @@ class CheckOutController extends BaseController
 
 		if(!$shipment->save())
 		{
-			return Redirect::back()->withErrors($shipment->getError())->with('msg-type', 'danger');
+			return Redirect::back()->withInput()->withErrors($shipment->getError())->with('msg-type', 'danger');
 		}
 
 		//bisa jadi setelah term and condition
@@ -113,9 +128,40 @@ class CheckOutController extends BaseController
 		{
 			$cookie = Session::forget('baskets');
 
-			return Redirect::route('frontend.user.order.show', $transaction->ref_number);
+			return Redirect::route('frontend.user.index', ['ref' => $transaction->ref_number]);
 		}
 
-		return Redirect::back()->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
+		return Redirect::back()->withInput()->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
+	}
+
+	public function getShippingCost()
+	{	
+		//get shipping cost
+		if(Input::has('zipcode'))
+		{
+			$zipcode 	= Input::get('zipcode');
+		}
+		elseif(Input::has('address'))
+		{
+			$address 	= Address::id(Input::get('address'))->first();
+			$zipcode 	= $address['zipcode'];
+		}
+		else
+		{
+			App::abort(404);
+		}
+		
+		$courier 		= Courier::first();
+    	$shippingcost 	= ShippingCost::courierid($courier->id)->postalcode($zipcode)->first();
+	    
+    	if($shippingcost['attributes']['cost'] > 0)
+    	{
+		    return json_decode(json_encode('IDR '.number_format($shippingcost['attributes']['cost'])));
+    	}
+    	else
+    	{
+		    return json_decode(json_encode('IDR '.number_format('20000')));
+    	}
+
 	}
 }

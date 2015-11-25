@@ -447,6 +447,8 @@ Route::group(['namespace' => 'Frontend\\'], function()
 		Route::get('checkout',											['uses' => 'CheckOutController@getCheckout', 'as' => 'frontend.get.checkout']);
 		
 		Route::post('checkout',											['uses' => 'CheckOutController@postCheckout', 'as' => 'frontend.post.checkout']);
+		
+		Route::any('ship/cost',											['uses' => 'CheckOutController@getShippingCost', 'as' => 'frontend.any.zipcode']);
 	});
 
 	Route::get('why/join',												['uses' => 'WhyJoinController@index', 'as' => 'frontend.whyjoin.index']);
