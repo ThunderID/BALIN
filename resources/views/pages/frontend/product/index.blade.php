@@ -14,6 +14,7 @@
 		}
 	}
 
+
 	$totalItems 	= $datas->get();
 
 	$paginator 		= new PrettyPaginate(count($totalItems) , (int)$page, $perpage, count($datas));
@@ -321,8 +322,8 @@
 								<div class="col-xs-3 p-l-none">
 									<a href="#" onclick="form2.submit();" type="button" class="btn-hollow hollow-white-border btn-block t-sm" style="border-left:0; border: 1px solid #999;"><i class="fa fa-search"></i></a>
 								</div>
-					      	</div>
 							{!! Form::close() !!}					      		
+					      	</div>
 				      	</div>
 			   		</div>
 			  	</div>

@@ -58,16 +58,24 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h3 class="title-product caption-product">{{ $data['name'] }}</h3>
-						{{-- <div class="circle-label">
-							<div>SALE</div>
-						</div> --}}
-						<div class="square-label">
-							<div>HOT ITEM</div>
+						@if(!empty($data->label))
+						@switch(str_replace(' ', '', strtoupper($data->label)))
+							@case('SALE')
+								<div class="circle-label">
+							@break;
+							@case('HOTITEM')
+								<div class="square-label">
+							@break;
+							@case('BESTSELLER')
+								<div class="text-label">
+							@break;
+							@default
+								<div class="circle-non-label">
+				            @break				
+						@endswitch
+						{{ strtoupper($data->label) }}
 						</div>
-						{{-- <div class="text-label">
-							<div>BEST SALLER</div>
-						</div> --}}
-						{{-- <div class="circle-non-label"></div> --}}
+						@endif
 						<div class="clearfix">&nbsp;</div>
 						{{-- <h4 class="caption-product">Price</h4> --}}
 						<?php $price 	= $data['price'];?>

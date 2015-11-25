@@ -21,4 +21,9 @@ trait HasLablesTrait
 	{
 		return $this->hasMany('App\Models\Lable');
 	}
+
+	public function ScopeCurrentLables($query, $variable)
+	{
+		return $query->whereHas('lables', function($q)use($variable){$q->ondate('now');})->with(['lables' => function($q){$q->ondate('now');}]);
+	}
 }

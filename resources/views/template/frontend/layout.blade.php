@@ -309,6 +309,28 @@
 	}	
 }
 
+.footer-title-logo {
+	letter-spacing: 0.25em !important;
+}
+
+.footer-title-logo a{
+	color:white !important;
+}
+
+.footer-title-logo a:hover{
+	text-decoration: none !important;
+}
+
+@media (max-width: 352px) {
+	.footer-title-logo {
+		letter-spacing: 0.09em !important;
+	}	
+}
+
+.hover-none a:hover{
+	text-decoration: none;
+}
+
 
 
 	</style>

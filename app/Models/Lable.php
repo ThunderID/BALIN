@@ -94,4 +94,22 @@ class Lable extends Eloquent
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
 
+	public function scopeOnDate($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			$started_at 	= date('Y-m-d H:i:s', strtotime($variable[0]));
+			$ended_at 		= date('Y-m-d H:i:s', strtotime($variable[1]));
+			return $query->where('started_at', '<=', $started_at)
+						->where('ended_at', '>=', $ended_at)
+						;
+		}
+		else
+		{
+			$ondate 	= date('Y-m-d H:i:s', strtotime($variable));
+			return $query->where('started_at', '<=', $ondate)
+						->where('ended_at', '>=', $ondate)
+						;
+		}
+	}
 }
