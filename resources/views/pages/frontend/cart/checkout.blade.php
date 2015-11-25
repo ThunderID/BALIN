@@ -90,7 +90,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12">
-									<h3 style="color:#fff;" class="text-center m-t-none">
+									<h3 style="color:#fff;" class="text-center m-t-none" id="total">
 										@if (isset($total))
 											@money_indo($total)
 										@endif
@@ -310,6 +310,12 @@
 @section('script')
 	$( document ).ready(function() {
 		<!-- pre load shipping cost -->
+		if($('.choice_address').val == 0){
+			GetShippingCost( {'zipcode' : $( "#zipcode" ).val()} );
+		}else{
+			GetShippingCost( {'address' : $( "#address_id" ).val()} );
+		}
+
 		countSubTotal();
 	});
 

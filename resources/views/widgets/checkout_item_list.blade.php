@@ -36,7 +36,7 @@
 					<div class="col-sm-2 col-md-2 text-right">
 						@money_indo($item_list_discount_price) 
 					</div>
-					<div class="col-sm-3 col-md-3 text-right" id="total">
+					<div class="col-sm-3 col-md-3 text-right">
 						@money_indo($item_list_total_price)
 					</div>
 				</div>
