@@ -132,7 +132,7 @@
 						@datetime_indo($v['transact_at'])
 					</p>	
 					<p class="label-info m-b-xxs ref-number">
-						{{ $v['ref_number'] }}{{ $v['unique_number'] }}	
+						{{ $v['ref_number'] }}	
 					</p>
 					<a class="link-grey hover-black unstyle tracking-detail" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.order.show', ['ref' => $v['ref_number']]) }}" data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">(Detail)</a>
 				</div>
@@ -173,6 +173,33 @@
 @stop
 
 @section('script')
+	@if(Input::has('ref'))
+	var event = new Event('build');
+	var actions 	= "{!! route('frontend.user.order.show', ['ref' => Input::get('ref')]) !!}";
+	// Listen for the event.
+	document.addEventListener('build', function (e) 
+	{
+		var action = actions;
+		var title = "Detail Pesanan {!!Input::get('ref')!!}";
+		var view_mode = '';
+		parsing = '';
+
+		$('#modal-balance').find('.modal-body').html('loading...');
+		$('#modal-balance').find('.modal-title').html(title);
+		$('#modal-balance').find('.modal-dialog').addClass(view_mode);
+		$('#modal-balance').find('.modal-body').load(action, function() {
+			if (parsing !== null && parsing !== undefined) {
+				change_action($(this), parsing);
+			}
+		});
+
+		$('#modal-balance').modal('show');
+	}, false);
+
+	// Dispatch the event.
+	document.dispatchEvent(event);
+	@endif
+
 	var view_mode = '';
 	var parsing = '';
 
