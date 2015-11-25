@@ -16,6 +16,10 @@ html {
 	color: #FF3A00;
 }
 
+.ltr-space-08 {
+	letter-spacing: 0.08em;
+}
+
 /* BORDER */
 .border-bottom {
 	border-bottom: 1px solid #ccc;
@@ -437,7 +441,14 @@ p {
 	}
 	.label-item {
 		font-size: 16px;
+		font-weight: 300;
+		letter-spacing: 0.03em;
+	}
+	.label-caption {
+		font-size: 16px;
 		font-weight: 400;
+		letter-spacing: 0.1em;
+		line-height: 2px;
 	}
 	&:first-of-type {
 		border-top: none;
@@ -949,9 +960,9 @@ select.form-control.hollow {
 			border-color: #666;
 		}
 	}
-	@media (min-width: 767px) {
-		width: 88px;
-	}
+	// @media (min-width: 767px) {
+	// 	width: 88px;
+	// }
 }
 .related-product {
 	font-weight: 400;
@@ -1129,7 +1140,7 @@ footer {
 	}
 }
 .circle-label {
-	width:18%;
+	width:38px;
 	&:after {
 		content: "";
 		display: block;
@@ -1193,16 +1204,23 @@ footer {
     color: #fff;
     text-align: center;
     text-decoration: none;
-    background-color: #D91E18;
+    background-color: #d91e18;
     border-radius: 0;
     width: 80px;
+}
+.tooltip.top .tooltip-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #d91e18;
 }
 .tooltip.right .tooltip-arrow {
     top: 50%;
     left: 0;
     margin-top: -5px;
     border-width: 5px 5px 5px 0;
-    border-right-color: #D91E18;
+    border-right-color: #d91e18;
 }
 
 .user-page {

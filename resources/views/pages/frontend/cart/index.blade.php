@@ -19,18 +19,18 @@
 						</div>
 						<div class="col-sm-11 col-md-11 hidden-xs">
 							<div class="row">
-								<div class="col-sm-4 col-md-4">
+								<div class="col-sm-3 col-md-3">
 								</div>
-								<div class="col-sm-1 col-md-2">
-									<p class="text-left">Kuantitas</p>
+								<div class="col-sm-2 col-md-3 text-right p-r-none">
+									<p class="text-center">Kuantitas</p>
 								</div>
-								<div class="col-sm-3 col-md-2">
+								<div class="col-sm-2 col-md-2">
 									<p class="text-right">Harga</p>
 								</div>
 								<div class="col-sm-2 col-md-2">
 									<p class="text-right">Diskon</p>
 								</div>
-								<div class="col-sm-2 col-md-2">
+								<div class="col-sm-3 col-md-2">
 									<p class="text-right">Total</p>
 								</div> 	
 							</div>
@@ -75,7 +75,7 @@
 			</div>
 
 			<!-- mobile -->
-			<div class="row" style="background-color:black;">
+			<div class="row hidden-lg hidden-md hidden-sm" style="background-color:black; border-bottom:1px solid rgba(255, 255, 255, 0.2)">
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12" >
 					<div class="row p-t-xs m-b-none">
 						<div class="col-xs-12">
