@@ -141,6 +141,14 @@ class CheckOutController extends BaseController
 		$courier 		= Courier::first();
     	$shippingcost 	= ShippingCost::courierid($courier->id)->postalcode($zipcode)->first();
 	    
-	    return json_decode(json_encode($shippingcost['attributes']['cost']));
+    	if($shippingcost['attributes']['cost'] > 0)
+    	{
+		    return json_decode(json_encode($shippingcost['attributes']['cost']));
+    	}
+    	else
+    	{
+		    return json_decode(json_encode('20000'));
+    	}
+
 	}
 }
