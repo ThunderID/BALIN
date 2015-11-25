@@ -137,7 +137,20 @@ class CheckOutController extends BaseController
 	public function getShippingCost()
 	{	
 		//get shipping cost
-		$zipcode 		= Input::get('zipcode');
+		if(Input::has('zipcode'))
+		{
+			$zipcode 	= Input::get('zipcode');
+		}
+		elseif(Input::has('address'))
+		{
+			$address 	= Address::id(Input::get('address'))->first();
+			$zipcode 	= $address['zipcode'];
+		}
+		else
+		{
+			App::abort(404);
+		}
+		
 		$courier 		= Courier::first();
     	$shippingcost 	= ShippingCost::courierid($courier->id)->postalcode($zipcode)->first();
 	    
