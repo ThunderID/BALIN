@@ -212,7 +212,7 @@ class UserController extends BaseController
 	{		
 		$breadcrumb								= ['Ubah Profile' => route('frontend.user.edit')];
 		$transaction 							= Transaction::userid(Auth::user()->id)->type('sell')->refnumber($ref)->first();
-		
+
 		if(!$transaction)
 		{
 			App::abort(404);

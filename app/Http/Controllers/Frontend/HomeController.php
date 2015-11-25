@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\BaseController;
+use Config;
 
 class HomeController extends BaseController 
 {
@@ -31,6 +32,7 @@ class HomeController extends BaseController
 														'og:url' 			=> $this->stores['url'],
 														'og:image' 			=> $this->stores['logo'],
 														'og:site_name' 		=> 'balin.id',
+														'fb:app_id' 		=> Config::get('fb_app.id'),
 													];
 
 		return $this->layout;

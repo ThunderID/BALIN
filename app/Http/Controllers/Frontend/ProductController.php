@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\BaseController;
 
-use Cookie, Response, Input, Auth, App;
+use Cookie, Response, Input, Auth, App, Config;
 use App\Models\Product;
 
 class ProductController extends BaseController 
@@ -197,6 +197,7 @@ class ProductController extends BaseController
 														'og:url' 			=> route('frontend.product.index'),
 														'og:image' 			=> $this->stores['logo'],
 														'og:site_name' 		=> 'balin.id',
+														'fb:app_id' 		=> Config::get('fb_app.id'),
 													];
 
 		return $this->layout;
@@ -245,14 +246,8 @@ class ProductController extends BaseController
 														'og:url' 			=> route('frontend.product.show', $data->slug),
 														'og:image' 			=> $data->default_image,
 														'og:site_name' 		=> 'balin.id',
+														'fb:app_id' 		=> Config::get('fb_app.id'),
 													];
 		return $this->layout;
 	}
-
-	public function detail()
-	{
-		$baskets = Cookie::get('basketss');
-
-		dd($baskets);
-	}	
 }

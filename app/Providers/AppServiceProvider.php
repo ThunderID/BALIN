@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Blade;
+use Blade, Config;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo 'IDR '.number_format($expression, 0, ',', '.'); ?>";
         });
  
+        Config::set('fb_app.id', '491225264379551');
 
         \App\Models\User::observe(new \App\Models\BaseObserver);
         \App\Models\Supplier::observe(new \App\Models\BaseObserver);
