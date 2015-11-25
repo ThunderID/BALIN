@@ -156,11 +156,11 @@ class CheckOutController extends BaseController
 	    
     	if($shippingcost['attributes']['cost'] > 0)
     	{
-		    return json_decode(json_encode('IDR '.number_format($shippingcost['attributes']['cost'])));
+		    return json_decode(json_encode('IDR '.number_format($shippingcost['attributes']['cost'], 0, ',', '.')));
     	}
     	else
     	{
-		    return json_decode(json_encode('IDR '.number_format('20000')));
+		    return json_decode(json_encode('IDR '.number_format('20000', 0, ',', '.')));
     	}
 
 	}
