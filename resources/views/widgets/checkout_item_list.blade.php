@@ -112,11 +112,13 @@
 						</div>
 					</div>
 					<div class="row chart-item-mobile">
-						<div class="col-xs-3">
+						<div class="col-xs-3 hidden-xs">
 							<h4>Total</h4>
 						</div>
-						<div class="col-xs-1 text-right">
+						<div class="col-xs-1 hidden-xs text-right">
 							<h4>:</h4>
+						</div>
+						<div class="hidden-lg hidden-md hidden-sm col-xs-4">
 						</div>
 						<div class="col-xs-7 text-right">
 							<label class="label-item m-r-sm">

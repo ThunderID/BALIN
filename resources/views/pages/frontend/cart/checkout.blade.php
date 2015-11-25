@@ -85,6 +85,51 @@
 						<div class="hidden-lg hidden-md hidden-sm col-xs-12" >
 							<div class="row p-t-xs m-b-none">
 								<div class="col-xs-12">
+									<h4 style="color:#FFF;" class="text-center">Total</h4>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<h3 style="color:#fff;" class="text-center m-t-none">
+										@if (isset($total))
+											@money_indo($total)
+										@endif
+									</h3>
+								</div>
+							</div>
+
+
+							<div class="row p-t-xs m-b-none">
+								<div class="col-xs-12">
+									<h4 style="color:#FFF;" class="text-center">Poin Anda</h4>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<h3 style="color:#fff;" class="text-center m-t-none">
+										@money_indo(Auth::user()->balance)
+									</h3>
+								</div>
+							</div>
+
+
+
+							<div class="row p-t-xs m-b-none">
+								<div class="col-xs-12">
+									<h4 style="color:#FFF;" class="text-center">Biaya Pengiriman</h4>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<h3 style="color:#fff;" class="text-center m-t-none shippingcost">
+										@money_indo(0)
+									</h3>
+								</div>
+							</div>
+
+
+							<div class="row p-t-xs m-b-none">
+								<div class="col-xs-12">
 									<h3 style="color:#FFF;" class="text-center">SubTotal</h3>
 								</div>
 							</div>
@@ -101,7 +146,7 @@
 						</div>
 					</div>
 
-						<!-- normal -->
+					<!-- normal -->
 					<div class="row">
 						@if ($carts)
 							<div class="col-lg-5 col-md-4 col-sm-12 hidden-xs panel-voucher">
@@ -122,7 +167,7 @@
 								<div class="clearfix">&nbsp;</div>
 								<div class="row">
 									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
-										<span class="">Point Kamu</span>
+										<span class="">Poin Anda</span>
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5 text-right p-r-lg">
 										<span class="text-right" id="point">@money_indo(Auth::user()->balance)</span>
@@ -133,7 +178,7 @@
 										<span >Biaya Pengiriman</span>
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5 text-right p-r-lg">
-										<span class="text-right" id="shippingcost">@money_indo(0)</span>
+										<span class="text-right shippingcost">@money_indo(0)</span>
 									</div>	
 								</div>
 								<div class="row">
@@ -263,6 +308,11 @@
 @stop
 
 @section('script')
+	$( document ).ready(function() {
+		<!-- pre load shipping cost -->
+		countSubTotal();
+	});
+
 	$('.choice_address').on('change', function() {
 		var val = $(this).val();
 		if (val == 0) {
@@ -312,18 +362,22 @@
    function GetShippingCost(e){
 		$.post( "{{route('frontend.any.zipcode')}}", e)
 			.done(function( data ) {
-			$("#shippingcost").text(data);
+			$(".shippingcost").text(data);
 			countSubTotal();
 		});        
     };
 
     function countSubTotal(){
     	var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
-    	var sc = ($("#shippingcost").text().replace(/\./g, '')).substring(4);
+    	var sc = ($(".shippingcost").first().text().replace(/\./g, '')).substring(4);
     	var yp = ($("#point").text().replace(/\./g, '')).substring(4);
     	to = parseInt(to);
     	sc = parseInt(sc);
     	yp = parseInt(yp);
+
+		if(isNaN(sc)) {
+			sc = 0;
+		}
 
     	var st = 'IDR ' + (to + sc - yp);
 
