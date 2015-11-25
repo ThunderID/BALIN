@@ -1,4 +1,3 @@
-@inject('tc', 'App\Models\StoreSetting')
 <?php 	
 	$carts = Session::get('baskets'); 
 	$tc = $tc::type('term_and_condition')->ondate('now')->orderby('started_at', 'desc')->first();
