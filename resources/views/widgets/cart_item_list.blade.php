@@ -11,7 +11,11 @@
 					<div class="row">
 						<div class="col-sm-12 col-xs-12">
 							<a href="{{ route('frontend.product.show', $item_list_slug) }}" class="title link-black hover-grey"><h4 class="m-b-xs">{{ $item_list_name }}</h4></a>
-							<p class="m-b-sm"><a href="" class="link-grey hover-black unstyle ltr-space-08"><i class="fa fa-times-circle"></i> Hapus Item</a></p>
+							<p class="m-b-sm">
+								<a href="#" class="link-grey hover-black unstyle ltr-space-08 btn-delete-item" data-vid="{{ $key }}" data-cid="{{ $item_list_id }}" data->
+									<i class="fa fa-times-circle"></i> Hapus Item
+								</a>
+							</p>
 							<p class="m-b-sm"><strong>Size</strong></p>
 						</div>
 					</div>
@@ -23,7 +27,7 @@
 					<div class="col-sm-2 col-md-3 qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 						<div class="row">
 							<div class="col-sm-7 col-md-4 p-r-none">
-								<p>
+								<p class="m-b-none" style="line-height:20px">
 									@if (strpos($value['size'], '.')==true)
 										<?php $frac = explode('.', $value['size']); ?>
 										{{ $frac[0].' &frac12;'}}
@@ -33,7 +37,7 @@
 								</p>
 							</div>
 							<div class="col-sm-5 col-md-8 p-l-none">
-								<a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}" data-cid="{{ $item_list_id }}" data-vid="{{ $key }}" data-field="qty-{{strtolower($value['size'])}}[1]"  class="btn-delete-varian">(Batal)</a>
+								<a href="javascript:void(0);" data-action="{{ route('frontend.cart.destroy', ['cid' => $item_list_id, 'vid' => $key] ) }}" data-cid="{{ $item_list_id }}" data-vid="{{ $key }}" data-field="qty-{{strtolower($value['size'])}}[1]"  class="btn-delete-varian t-xs link-grey hover-black unstyle">(Batal)</a>
 							</div>
 						</div>
 					</div>
@@ -103,16 +107,6 @@
 					</div>	
 				</div>
 			@endforeach
-		</div>
-		<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-			<div class="row">
-				<div class="col-xs-12">
-					<a href="{{ route('frontend.cart.destroy', ['cid' => $item_list_id] ) }}" class="btn-hollow hollow-black btn-block m-t-md">
-						<i class="fa fa-times"></i> Hapus dari Cart
-					</a>
-				</div>
-				<div class="clearfix">&nbsp;</div>
-			</div>
 		</div>
 	</div>
 </div>
@@ -231,6 +225,15 @@
 							</div>
 						</div>
 					</div>						
+					<div class="row">
+						<div class="col-xs-12">
+							<a href="#" class="btn-hollow hollow-black-border-transaparent btn-block m-t-md font-weight-300 ltr-space-08 btn-delete-item"
+								data-vid="{{ $key }}" data-cid="{{ $item_list_id }}">
+								HAPUS ITEM
+							</a>
+						</div>
+						<div class="clearfix">&nbsp;</div>
+					</div>
 				</div>
 			</div>
 		</div>
