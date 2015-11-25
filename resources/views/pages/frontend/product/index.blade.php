@@ -14,6 +14,7 @@
 		}
 	}
 
+
 	$totalItems 	= $datas->get();
 
 	$paginator 		= new PrettyPaginate(count($totalItems) , (int)$page, $perpage, count($datas));
