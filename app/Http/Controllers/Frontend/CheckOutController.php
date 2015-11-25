@@ -132,4 +132,14 @@ class CheckOutController extends BaseController
 
 		return Redirect::back()->withInput()->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
 	}
+
+	public function getShippingCost()
+	{	
+		//get shipping cost
+		$zipcode 		= Input::get('zipcode');
+		$courier 		= Courier::first();
+    	$shippingcost 	= ShippingCost::courierid($courier->id)->postalcode($zipcode)->first();
+	    		
+	    return json_decode(json_encode($shippingcost));
+	}
 }
