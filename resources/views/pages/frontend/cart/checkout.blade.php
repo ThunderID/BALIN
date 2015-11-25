@@ -90,7 +90,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12">
-									<h2 style="color:#fff;" class="text-center m-t-none">
+									<h2 style="color:#fff;" class="text-center m-t-none subtotal">
 										@if (isset($total))
 											@money_indo($total)
 										@endif
@@ -141,9 +141,9 @@
 										<h4>SubTotal</h4>
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5 p-r-lg">
-										<h4 class="text-right">
+										<h4 class="text-right subtotal" style="font-weight: bold;">
 											@if ($total)
-												<strong id="subtotal">@money_indo($total)</strong>
+												@money_indo($total)
 											@endif
 										</h4>
 									</div>	
@@ -276,7 +276,7 @@
 		else {
 			$('.new-address').removeClass('new-address-show');
 			$('.new-address').addClass('new-address-hide');
-			GetShippingCost( {'id' : $( "#address_id" ).val()} );
+			GetShippingCost( {'address' : $( "#address_id" ).val()} );
 		}
 	});
 
@@ -319,13 +319,28 @@
 
     function countSubTotal(){
     	var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
-    	var sc = ($("#shippingcost").text().replace(/./g, '')).substring(4);
+    	var sc = ($("#shippingcost").text().replace(/\./g, '')).substring(4);
     	var yp = ($("#point").text().replace(/\./g, '')).substring(4);
-    	console.log(to);
-    	console.log(sc);
-    	console.log(yp);
+    	to = parseInt(to);
+    	sc = parseInt(sc);
+    	yp = parseInt(yp);
 
     	var st = 'IDR ' + (to + sc - yp);
-    	console.log(st);
+
+		$(".subtotal").text(addCommas(st));
+
+
+		function addCommas(nStr)
+		{
+			nStr += '';
+			x = nStr.split('.');
+			x1 = x[0];
+			x2 = x.length > 1 ? '.' + x[1] : '';
+			var rgx = /(\d+)(\d{3})/;
+			while (rgx.test(x1)) {
+				x1 = x1.replace(rgx, '$1' + '.' + '$2');
+			}
+			return x1 + x2;
+		};
 	}
 @stop
