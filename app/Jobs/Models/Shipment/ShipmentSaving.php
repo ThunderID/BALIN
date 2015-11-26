@@ -34,7 +34,7 @@ class ShipmentSaving extends Job implements SelfHandling
     	{
     		$transaction 			= Transaction::findorfail($this->shipment->transaction_id);
 
-            $result                = $this->dispatch(new CountShippingCost($transaction->transactiondetails, $shippingcost->cost));
+            $result                = $this->dispatch(new CountShippingCost($transaction->transactiondetails, $shippingcost['cost']));
     		if($result->getStatus()=='success')
             {
                 $transaction->fill(['shipping_cost' => $result->getData()['shipping_cost']]);
