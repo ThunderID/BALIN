@@ -3,7 +3,7 @@
 
 <?php 
 $datas 		= $datas::policies()->get(); 
-$polvals 	= ['expired_cart' => ' + 1 day', 'expired_paid' => ' - 2 days', 'expired_shipped' => '+ 5 days', 'expired_point' => '+ 1 year', 'referral_royalty' => '10000', 'invitation_royalty' =>'50000', 'limit_unique_number' =>'100', 'expired_link_duration' => '+ 2 hours', 'first_quota' => '10', 'downline_purchase_bonus' => '10000', 'downline_purchase_bonus_expired' => ' + 3 months', 'downline_purchase_quota_bonus' => '1', 'voucher_point_expired' => '+ 3 months', 'welcome_gift' => '10000', 'critical_stock' => '2', 'min_margin' => '50000'];
+$polvals 	= [' + 1 day', ' - 2 days', '+ 5 days', '+ 1 year', '10000', '50000', '100', '+ 2 hours', '10', '10000', ' + 3 months', '1', '+ 3 months', '10000', '2', '50000', '2'];
 ?>
 
 @section('content')

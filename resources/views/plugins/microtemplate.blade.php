@@ -36,7 +36,7 @@
 						<div class="col-md-2"> \
 							<div class="form-group"> \
 								<label for="harga[]">Jumlah Harga</label> \
-								<label type="text" name="tot_price[]" class="form-control text-right transaction-input-jum-price" /> \
+								<label name="tot_price[]" class="form-control text-right transaction-input-jum-price" /> \
 							</div> \
 						</div> \
 						<div class="col-md-1"> \
