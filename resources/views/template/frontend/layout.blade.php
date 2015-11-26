@@ -387,6 +387,16 @@
     letter-spacing: 0.02em;
 }
 
+.social-mobile{
+	width: 30px;
+	height: 30px;
+	padding: 4px 5px !important;
+}
+
+.social-mobile i{
+    font-size: 1.5em;
+}
+
 	</style>
 
 	<!-- Custom CSS -->
