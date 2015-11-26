@@ -86,6 +86,13 @@ class ContactUsController extends BaseController
 					;
         }
 
+
+        return Redirect::route('contactus.thanks');
+	}
+
+
+	public function thanks()
+	{
 		//return thanks page
 		$breadcrumb								= ['contact Us' => route('frontend.contactus.index')];
 		$this->layout->page 					= view('pages.frontend.contact_us.thanks')
@@ -109,4 +116,5 @@ class ContactUsController extends BaseController
 
 		return $this->layout;		
 	}
+
 }

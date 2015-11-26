@@ -457,6 +457,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	
 	Route::get('contact/us', 											['uses' => 'ContactUsController@index', 'as' => 'frontend.contactus.index']);
 	Route::post('contact/us', 											['uses' => 'ContactUsController@submit', 'as' => 'contactus.dosubmit']);
+	Route::get('contact/us/thanks', 									['uses' => 'ContactUsController@thanks', 'as' => 'contactus.thanks']);
 
 	Route::get('join', 													['uses' => 'JoinController@index', 'as' => 'frontend.join.index']);
 	

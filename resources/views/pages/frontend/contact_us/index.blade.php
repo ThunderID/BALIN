@@ -21,7 +21,8 @@
 									{!! Form::text('name', null, [
 												'class'         => 'form-control hollow', 
 												'tabindex'      => '1', 
-												'placeholder'   => 'Masukkan nama anda'
+												'placeholder'   => 'Masukkan nama anda',
+												'required' 		=> 'required'
 									]) !!}
 							    </div>
 							    <div class="form-group">
@@ -29,7 +30,8 @@
 									{!! Form::email('email', null, [
 												'class'         => 'form-control hollow', 
 												'tabindex'      => '2', 
-												'placeholder'   => 'Masukkan email anda'
+												'placeholder'   => 'Masukkan email anda',
+												'required' 		=> 'required'
 									]) !!}
 							    </div>
 
@@ -41,6 +43,7 @@
 												'rows'          => '5',
 												'tabindex'      => '3',
 												'style'         => 'resize:none;',
+												'required' 		=> 'required'
 									]) !!}
 								</div>
 								<p class="t-xs" style="color:#666">
