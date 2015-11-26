@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				@include('widgets.breadcrumb')
-				<div class="clearfix">&nbsp;</div>
+				<div class="clearfix hidden-xs">&nbsp;</div>
 				@include('widgets.alerts')
 			</div>
 		</div>
@@ -80,73 +80,7 @@
 						</div>
 					</div>
 
-					<!-- mobile -->
-					<div class="row hidden-sm hidden-md hidden-lg" style="background-color:black;">
-						<div class="hidden-lg hidden-md hidden-sm col-xs-12" >
-							<div class="row p-t-xs m-b-none">
-								<div class="col-xs-12">
-									<h4 style="color:#FFF;" class="text-center">Total</h4>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-12">
-									<h3 style="color:#fff;" class="text-center m-t-none" id="total">
-										@if (isset($total))
-											@money_indo($total)
-										@endif
-									</h3>
-								</div>
-							</div>
-
-
-							<div class="row p-t-xs m-b-none">
-								<div class="col-xs-12">
-									<h4 style="color:#FFF;" class="text-center">Poin Anda</h4>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-12">
-									<h3 style="color:#fff;" class="text-center m-t-none">
-										@money_indo(Auth::user()->balance)
-									</h3>
-								</div>
-							</div>
-
-
-
-							<div class="row p-t-xs m-b-none">
-								<div class="col-xs-12">
-									<h4 style="color:#FFF;" class="text-center">Biaya Pengiriman</h4>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-12">
-									<h3 style="color:#fff;" class="text-center m-t-none shippingcost">
-										@money_indo(0)
-									</h3>
-								</div>
-							</div>
-
-
-							<div class="row p-t-xs m-b-none">
-								<div class="col-xs-12">
-									<h3 style="color:#FFF;" class="text-center">SubTotal</h3>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-12">
-									<h2 style="color:#fff;" class="text-center m-t-none subtotal">
-										@if (isset($total))
-											@money_indo($total)
-										@endif
-									</h2>
-								</div>
-							</div>
-						<div class="clearfix hidden-xs">&nbsp;</div>
-						</div>
-					</div>
-
-					<!-- normal -->
+					<!-- total normal -->
 					<div class="row">
 						@if ($carts)
 							<div class="col-lg-5 col-md-4 col-sm-12 hidden-xs panel-voucher">
@@ -200,10 +134,14 @@
 						&nbsp;
 					</div>
 				</div>
+
 				<div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1 p-t-sm" style="background-color:#fff">
 					<div class="row m-t-md hidden-xs hidden-md hidden-lg">&nbsp;</div>
 					<div class="row">
-						<div class="col-md-12">
+						<div class="m-t-sm hidden-lg hidden-md hidden-sm col-xs-12">
+							<h3 class="m-t-none m-b-md hollow-label">ALAMAT PENGIRIMAN</h3>
+						</div>						
+						<div class="col-md-12 hidden-xs">
 							<h3 class="m-t-none m-b-md hollow-label">ALAMAT PENGIRIMAN</h3>
 						</div>
 					</div>
@@ -256,7 +194,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 hidden-xs">
 							<div class="checkbox">
 								<label>
 									{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
@@ -267,19 +205,130 @@
 					</div>
 					<div class="clearfix">&nbsp;</div>
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 hidden-xs">
 							<div class="form-group text-right">
 								<button type="submit" class="btn-hollow hollow-black-border" tabindex="7">Checkout</button>
 							</div>        
 						</div>        
-					</div>    	
+					</div>  
 				</div>
+
 				<div class="clearfix hidden-xs">&nbsp;</div>
 			</div>
+
+			<!-- total mobile -->
+			<div class="row" style="background-color:black;">
+				<div class="hidden-lg hidden-md hidden-sm col-xs-12 panel-voucher" style="background-color:#111;">
+					<div class="row p-b-sm">
+						<div class="col-xs-12">
+							<span class="voucher-title">Masukkan Kode Voucher</span>
+						</div>	
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							{!! Form::input('text', 'voucher_code', null, [
+									'class' => 'form-control hollow transaction-input-voucher-code m-b-sm'
+							]) !!}
+						</div>
+					</div>
+				</div>	
+
+				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
+					<div class="row p-t-xs m-b-none">
+						<div class="col-xs-12">
+							<h4 style="color:#FFF;" class="text-center">Sub Total</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<h3 style="color:#fff;" class="text-center m-t-none" id="total">
+								@if (isset($total))
+									@money_indo($total)
+								@endif
+							</h3>
+						</div>
+					</div>
+
+
+					<div class="row p-t-xs m-b-none">
+						<div class="col-xs-12">
+							<h4 style="color:#FFF;" class="text-center">Poin Anda</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<h3 style="color:#fff;" class="text-center m-t-none">
+								@money_indo(Auth::user()->balance)
+							</h3>
+						</div>
+					</div>
+
+
+
+					<div class="row p-t-xs m-b-none">
+						<div class="col-xs-12">
+							<h4 style="color:#FFF;" class="text-center">Biaya Pengiriman</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<h3 style="color:#fff;" class="text-center m-t-none shippingcost">
+								@money_indo(0)
+							</h3>
+						</div>
+					</div>
+
+
+					<div class="row p-t-xs m-b-none">
+						<div class="col-xs-12">
+							<h3 style="color:#FFF;" class="text-center">Total</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<h2 style="color:#fff;" class="text-center m-t-none subtotal">
+								@if (isset($total))
+									@money_indo($total)
+								@endif
+							</h2>
+						</div>
+					</div>
+					<div class="row m-t-sm">
+						<div class="col-xs-12" style="border-bottom: 1px solid white">
+						</div>
+					</div>
+				<div class="clearfix hidden-xs">&nbsp;</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 hidden-lg hidden-md hidden-sm">
+					<div class="row p-t-lg">
+						<div class="col-md-12">
+							<div class="checkbox">
+								<label>
+									{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
+									Saya menyetujui <a href="#" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin 
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix">&nbsp;</div>
+					<div class="row p-b-md p-t-xs">
+						<div class="col-md-12">
+							<div class="form-group text-right">
+								<button type="submit" class="btn-hollow btn-block hollow-black-border" tabindex="7">Checkout</button>
+							</div>        
+						</div>        
+					</div>  			
+				</div>
+			</div>
+
 		{!! Form::close() !!}
 	</div>
 
 
+	<!-- Term and Condition -->
 	<div id="tnc" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 		<div class="modal-dialog modal-md">
 			<div class="modal-content">
