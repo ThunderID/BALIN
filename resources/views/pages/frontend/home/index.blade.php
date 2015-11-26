@@ -60,7 +60,7 @@
 	<section class="container-fluid hidden-sm hidden-md hidden-lg">
 		<div class="row">
 			@forelse($stores as $key => $value)
-				<?php $content 		= json_decode($value->value, true); ?>
+				<?php $content 		= json_decode($value->value, true); $action=''?>
 
 				<?php $i = 0; ?>
 				<div class="col-xs-12 p-l-none p-r-none border-bottom" style="position:relative;">
@@ -75,21 +75,19 @@
 								<div class="@if($loc_x=='left') left @else right @endif">
 									@if ($k=='title')
 										<h3>{!! $v['slider_'. $k] !!} </h3>
-									@elseif ($k=='content')
-										<p class="m-t-sm">{!! $v['slider_'. $k] !!} </p>
-									@else
-										<a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black btn-hollow-xs">
-											{!! $v['slider_'. $k] !!} 
-										</a>
+									@elseif ($k=='slider_button_url')
+										<?php $action=$v['slider_button_url']; ?>
 									@endif
 								</div>
 
 							@endif
 						@endforeach
 					</div>
-					@if(isset($value['images'][0]))
-						<img src="{!!$value['images'][0]['image_lg']!!}" style="" class="img-responsive">
-					@endif
+					<a href="{{ $action }}">
+						@if(isset($value['images'][0]))
+							<img src="{!!$value['images'][0]['image_lg']!!}" class="img-responsive" style="width:100%;">
+						@endif
+					</a>
 				</div>
 			@empty
 			@endforelse
@@ -112,6 +110,11 @@
 		$('.sign-up').hide();
 		$('.sign-in').hide();
 		$('.forgot').show();
+	});
+
+	$(document).ready(function () {
+		var width = $(window).height();
+		console.log(width);
 	});
 @stop
 
