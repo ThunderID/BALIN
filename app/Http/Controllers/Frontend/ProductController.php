@@ -20,7 +20,18 @@ class ProductController extends BaseController
 
 	public function index($page = 1)
 	{
-		$breadcrumb								= ['Produk' => route('frontend.product.index')];
+		if($page && $page > 1)
+		{
+			$breadcrumb							= 	[
+														'Produk' => route('frontend.product.index'),
+														'Page ' . $page  => route('frontend.product.index', ['page' => $page])
+													];
+		}
+		else
+		{
+			$breadcrumb							= ['Produk' => route('frontend.product.index')];
+		}
+
 
 		$filters 								= null;
 		$searchResult							= [];
