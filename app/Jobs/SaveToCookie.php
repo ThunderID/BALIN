@@ -30,17 +30,18 @@ class SaveToCookie extends Job implements SelfHandling
         {
             if(isset($basket[$value['product_id']]))
             {
-                $basket[$value['product_id']]['varians'][]  = ['varian_id' => $value->varian_id, 'qty' => $value->quantity, 'size' => $value->varian->size, 'stock' => $value->varian->stock];
+                $basket[$value['product_id']]['varians'][$value->varian_id]  = ['varian_id' => $value->varian_id, 'qty' => $value->quantity, 'size' => $value->varian->size, 'stock' => $value->varian->stock];
             }
             elseif($value->varian)
             {
-                $tempb['slug']                             = $value['varian']['product']['slug'];
-                $tempb['name']                             = $value['varian']['product']['name'];
-                $tempb['price']                            = $value['varian']['product']['price'];
-                $tempb['discount']                         = $value['varian']['product']['discount'];
-                $tempb['stock']                            = $value['varian']['product']['stock'];
-                $tempb['images']                           = $value['varian']['product']['default_image'];
-                $tempb['varians'][]                        = ['varian_id' => $value->varian_id, 'qty' => $value->quantity, 'size' => $value->varian->size, 'stock' => $value->varian->stock];
+                $tempb                                      = [];
+                $tempb['slug']                              = $value['varian']['product']['slug'];
+                $tempb['name']                              = $value['varian']['product']['name'];
+                $tempb['price']                             = $value['varian']['product']['price'];
+                $tempb['discount']                          = $value['varian']['product']['discount'];
+                $tempb['stock']                             = $value['varian']['product']['stock'];
+                $tempb['images']                            = $value['varian']['product']['default_image'];
+                $tempb['varians'][$value->varian_id]        = ['varian_id' => $value->varian_id, 'qty' => $value->quantity, 'size' => $value->varian->size, 'stock' => $value->varian->stock];
 
                 $basket[$value->varian->product_id]         = $tempb;
             }

@@ -63,7 +63,6 @@ class SaveToCart extends Job implements SelfHandling
 
         if($errors->count())
         {
-            dd($errors);
             $result                         = new JSend('error', (array)$this->cart, $errors);
         }
 
