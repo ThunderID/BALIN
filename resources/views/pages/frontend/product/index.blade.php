@@ -61,7 +61,7 @@
 								</li>						
 								<li>
 							        <a role="button" id="collapse2" class="menu-accordion"  data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-										TAG <i class="fa fa-chevron-circle-down pull-right"></i>
+										FILTER <i class="fa fa-chevron-circle-down pull-right"></i>
 									</a>
 								</li>
 								<?php
@@ -73,7 +73,7 @@
 								?>
 								<li>
 							        <a role="button" id="collapse4" class="menu-accordion"  data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-										SORT BY <i class="fa fa-chevron-circle-down pull-right"></i>
+										URUTKAN <i class="fa fa-chevron-circle-down pull-right"></i>
 									</a>
 								</li>
 							</ul>
@@ -182,7 +182,7 @@
 						</li>
 						<li>
 							<a href="#" data-toggle="modal" data-target="#modalTag">									
-							TAG <i class="fa fa-chevron-circle-right pull-right"></i>
+							FILTER <i class="fa fa-chevron-circle-right pull-right"></i>
 							</a>
 						</li>
 						<?php
@@ -194,12 +194,12 @@
 						?>
 						<li>
 							<a href="#" data-toggle="modal" data-target="#modalSort">									
-							SORT BY <i class="fa fa-chevron-circle-right pull-right"></i>
+							URUTKAN <i class="fa fa-chevron-circle-right pull-right"></i>
 							</a>
 						</li>
 						<li>
 							<a href="#" data-toggle="modal" data-target="#modalSearch">									
-							SEARCH <i class="fa fa-search pull-right"></i>
+							CARI <i class="fa fa-search pull-right"></i>
 							</a>
 						</li>
 					</ul>
@@ -231,7 +231,7 @@
 			    	<div class="modal-content">
 						<div class="modal-header">
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				       		<h4 class="modal-title" id="exampleModalLabel">Tag</h4>
+				       		<h4 class="modal-title" id="exampleModalLabel">Filter</h4>
 				      	</div>
 				      	<div class="modal-body ribbon-menu p-t-0">
 							@foreach ($tag as $tg)
@@ -278,7 +278,7 @@
 			    	<div class="modal-content">
 						<div class="modal-header">
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				       		<h4 class="modal-title" id="exampleModalLabel">Sort By</h4>
+				       		<h4 class="modal-title" id="exampleModalLabel">Urutkan</h4>
 				      	</div>
 				      	<div class="modal-body ribbon-menu">
 							<ul class="list-inline m-b-none">
@@ -311,7 +311,7 @@
 			    	<div class="modal-content">
 						<div class="modal-header">
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				       		<h4 class="modal-title" id="exampleModalLabel">Search</h4>
+				       		<h4 class="modal-title" id="exampleModalLabel">Cari</h4>
 				      	</div>
 				      	<div class="modal-body ribbon-menu">
 				      		<div class="row">
