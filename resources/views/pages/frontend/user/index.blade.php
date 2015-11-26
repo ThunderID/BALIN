@@ -46,16 +46,16 @@
 		<div class="col-sm-6 border-left">
 			<h5 class="title-info m-t-md">Keanggotaan</h5>
 			<p class="label-info">
-				Pointku <strong> @money_indo(Auth::user()->balance) </strong>
+				Point Balin Anda <strong> @money_indo(Auth::user()->balance) </strong>
 				<small>
-					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="Histori Pointku" data-view="modal-lg">[ Histori ]</a>
+					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Point Balin Anda" data-view="modal-lg">[ History ]</a>
 				</small>
 			</p>
 			<p class="label-info">
 				Referral Code <strong class="text-uppercase"> {{Auth::user()->referral_code}} </strong>
 			</p>
 			<p class="label-info">
-				Kuota Invite Refferal <strong>{{Auth::user()->quota}} </strong>
+				Kuota Invite Referral <strong>{{Auth::user()->quota}} </strong>
 			</p>
 			<p class="label-info">
 				Upline
@@ -63,13 +63,13 @@
 					<strong>{{Auth::user()->reference}} </strong> 
 				@else
 					<strong>Tidak ada</strong>
-					<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Upline Saya" data-view="modal-md">[ Masukkan Referral ]</a></small>
+					<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Upline Anda" data-view="modal-md">[ Masukkan Referral ]</a></small>
 				@endif
 			</p>
 			<p class="label-info">
 				Downline 
 				<strong>{{Auth::user()->downline}} </strong> 
-				<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Downline Saya" data-view="modal-md">[ Lihat Daftar ]</a></small>
+				<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Downline Anda" data-view="modal-md">[ Lihat Daftar ]</a></small>
 			</p>
 		</div>
 	</div>
@@ -100,7 +100,7 @@
 		<div class="col-sm-6 border-left">
 			<h5 class="title-info m-t-md">Tracking Order
 				<small>
-					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.order.index')}}" data-modal-title="Lihat Histori Orderan" class="balin-link">
+					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.order.index')}}" data-modal-title="Lihat History Orderan" class="balin-link">
 						Daftar Order
 					</a>
 				</small>
@@ -148,7 +148,7 @@
 	    	<div class="modal-content">
 				<div class="modal-header">
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		       		<h5 class="modal-title" id="exampleModalLabel">Histori Balance</h5>
+		       		<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
 		      	</div>
 		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
 					
@@ -162,7 +162,7 @@
 	    	<div class="modal-content">
 				<div class="modal-header">
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		       		<h5 class="modal-title" id="exampleModalLabel">Histori Balance</h5>
+		       		<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
 		      	</div>
 		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
 					

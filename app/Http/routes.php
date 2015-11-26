@@ -364,6 +364,8 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	// HOME
 	// ------------------------------------------------------------------------------------
 
+	Route::group(['middleware' => 'redirectsave'], function() 
+	{
 	Route::get('/', 													['uses' => 'HomeController@index', 'as' => 'frontend.home.index']);
 
 	// ------------------------------------------------------------------------------------
@@ -373,6 +375,7 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	Route::get('products/{page?}', 									['uses' => 'ProductController@index', 'as' => 'frontend.product.index']);
 
 	Route::get('products/detail/{slug?}', 										['uses' => 'ProductController@show', 'as' => 'frontend.product.show']);
+	});
 
 	// ------------------------------------------------------------------------------------
 	// USER MENU
@@ -421,6 +424,8 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::get('/mail/activation/{activation_link}', 					['uses' => 'AuthController@activateAccount' ,'as' => 'balin.claim.voucher']);
 
+	Route::group(['middleware' => 'redirectsave'], function() 
+	{
 	// ------------------------------------------------------------------------------------
 	// CART
 	// ------------------------------------------------------------------------------------
@@ -450,18 +455,22 @@ Route::group(['namespace' => 'Frontend\\'], function()
 		
 		Route::any('ship/cost',											['uses' => 'CheckOutController@getShippingCost', 'as' => 'frontend.any.zipcode']);
 	});
+	});
 
 	Route::get('why/join',												['uses' => 'WhyJoinController@index', 'as' => 'frontend.whyjoin.index']);
 	
 	Route::get('about/us', 												['uses' => 'AboutUsController@index', 'as' => 'frontend.aboutus.index']);
 	
 	Route::get('contact/us', 											['uses' => 'ContactUsController@index', 'as' => 'frontend.contactus.index']);
+	
 	Route::post('contact/us', 											['uses' => 'ContactUsController@submit', 'as' => 'contactus.dosubmit']);
+	
+	Route::get('contact/us/thanks', 									['uses' => 'ContactUsController@thanks', 'as' => 'contactus.thanks']);
 
 	Route::get('join', 													['uses' => 'JoinController@index', 'as' => 'frontend.join.index']);
 	
-	Route::get('/a', 													['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
+	Route::get('/term/condition', 										['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
 	
-	Route::get('/ab', 													['uses' => 'HomeController@index', 		'as' => 'balin.about.us']);
+	Route::get('/about/use', 											['uses' => 'AboutUsController@index', 		'as' => 'balin.about.us']);
 	
 });

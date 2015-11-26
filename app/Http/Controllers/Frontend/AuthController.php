@@ -105,7 +105,7 @@ class AuthController extends BaseController
 
 		Auth::loginUsingId($registered->id);
 
-		$redirect 						= Session::get('login_redirect');
+		$redirect 					= Session::get('login_redirect');
 
 		Session::forget('login_redirect');
 		

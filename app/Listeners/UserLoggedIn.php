@@ -31,9 +31,9 @@ class UserLoggedIn
      */
     public function handle()
     {
-        if(Session::has('baskets') && !is_null(Session::Get('baskets')) && !empty(Session::Get('baskets')))
+        if(Session::has('baskets') && !is_null(Session::get('baskets')) && !empty(Session::get('baskets')))
         {
-            $result                 = $this->dispatch(new SaveToCart(Session::Get('baskets')));
+            $result                 = $this->dispatch(new SaveToCart(Session::get('baskets')));
 
             if($result->getStatus()=='success')
             {

@@ -214,7 +214,6 @@
 							</div>
 							<div class="row m-t-sm">
 								<div class="col-xs-4">
-									<label class="label-caption">Total</label>
 								</div>
 								<div class="col-xs-7 text-right">
 									<label class="label-item label-total-mobile" data-subtotal="{{ $item_list_total_price }}">

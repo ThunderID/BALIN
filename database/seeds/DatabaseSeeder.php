@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
         
-        $this->call('SoftLaunchTableSeeder');
-        // $this->call('StoreSettingTableSeeder');
+        // $this->call('SoftLaunchTableSeeder');
+        $this->call('StoreSettingTableSeeder');
 
         // $this->call('VoucherTableSeeder');
         

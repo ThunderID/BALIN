@@ -51,11 +51,11 @@
 						</li> -->
 						@if (Auth::user())
 							<li class="@if($controller_name == 'user') active @endif dropdown hidden-xs">
-								<a href="javascript:void(0);" class="dropdown-toggle">Akun Saya <span class="caret"></span></a>
+								<a href="javascript:void(0);" class="dropdown-toggle">Akun Anda <span class="caret"></span></a>
 								@include('widgets.frontend.top_menu.user_dropdown')
 							</li> 
 							<li class="@if($controller_name == 'user') active @endif dropdown hidden-sm hidden-md hidden-lg">
-								<a href="{{ URL::route('frontend.user.index') }}" class="dropdown-toggle">Akun Saya</a>
+								<a href="{{ URL::route('frontend.user.index') }}" class="dropdown-toggle">Akun Anda</a>
 							</li> 
 							<li class="hidden-sm hidden-md hidden-lg">
 								<a href="{{ route('frontend.dologout') }}">Log out</a>

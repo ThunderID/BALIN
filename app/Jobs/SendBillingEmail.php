@@ -47,7 +47,7 @@ class SendBillingEmail extends Job implements SelfHandling
 		}
 		$transaction['discount_point']	= $point;
 
-        $info           = StoreSetting::storeinfo(true)->take(8)->get();
+        $info           = StoreSetting::storeinfo(true)->get();
         $infos          = [];
 
         foreach ($info as $key => $value) 

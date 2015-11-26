@@ -221,12 +221,15 @@ class CartController extends BaseController
 					$msg 			= null;
 				}
 
-				$varian[]						= [	'varian_id' => $varianp->id, 
+				if($validqty > 0)
+				{
+					$varian[$varianp->id]		= [	'varian_id' => $varianp->id, 
 													'qty' 		=> $validqty, 
 													'size' 		=> $varianp->size, 
 													'stock' 	=> $varianp->stock,
 													'message'   => $msg
 													];
+				}
 		}
 		$basket['varians']						= $varian;
 

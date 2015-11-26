@@ -7,8 +7,10 @@ use App\Models\Voucher;
 use App\Models\Shipment;
 use App\Models\ShippingCost;
 use App\Models\Courier;
+use App\Models\StoreSetting;
 use App\Jobs\ChangeStatus;
-use APP, Input, Response, Redirect, Session, Auth, Request;
+use App\Jobs\CountShippingCost;
+use App, Input, Response, Redirect, Session, Auth, Request;
 
 class CheckOutController extends BaseController 
 {
@@ -139,28 +141,46 @@ class CheckOutController extends BaseController
 		//get shipping cost
 		if(Input::has('zipcode'))
 		{
-			$zipcode 	= Input::get('zipcode');
+			$zipcode 			= Input::get('zipcode');
 		}
 		elseif(Input::has('address'))
 		{
-			$address 	= Address::id(Input::get('address'))->first();
-			$zipcode 	= $address['zipcode'];
+			$address 			= Address::id(Input::get('address'))->first();
+			$zipcode 			= $address['zipcode'];
 		}
 		else
 		{
 			App::abort(404);
 		}
 		
-		$courier 		= Courier::first();
-    	$shippingcost 	= ShippingCost::courierid($courier->id)->postalcode($zipcode)->first();
-	    
-    	if($shippingcost['attributes']['cost'] > 0)
+		$courier 				= Courier::first();
+    	$shippingcost 			= ShippingCost::courierid($courier->id)->postalcode($zipcode)->first();
+
+		$transaction    		= Transaction::userid(Auth::user()->id)->status('cart')->first();
+
+		if(!$transaction)
+		{
+			App::abort(404);
+		}
+
+		if($shippingcost['attributes']['cost']==0)
+		{
+			$cost 				= 20000;
+		}
+		else
+		{
+			$cost 				= $shippingcost['attributes']['cost'];
+		}
+        
+        $result                	= $this->dispatch(new CountShippingCost($transaction->transactiondetails, $cost));
+    	
+    	if(!$result->getStatus()=='success')
     	{
-		    return json_decode(json_encode('IDR '.number_format($shippingcost['attributes']['cost'], 0, ',', '.')));
+    		App::abort();
     	}
     	else
     	{
-		    return json_decode(json_encode('IDR '.number_format('20000', 0, ',', '.')));
+		    return json_decode(json_encode('IDR '.number_format($result->getData()['shipping_cost'], 0, ',', '.')));
     	}
 
 	}
