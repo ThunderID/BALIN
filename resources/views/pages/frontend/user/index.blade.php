@@ -2,13 +2,28 @@
 
 @section('right_content')
 	<div class="row">
-		<div class="col-sm-12">
+		<div class="col-md-8 col-sm-10 col-xs-12">
 			<p class="m-t-md user-hello">
 				<strong>Halo, @if(Auth::user()->gender=='female')Ms. @else Mr. @endif {{Auth::user()->name}}!</strong>
+			</p>
+		</div>
+		<div class="col-md-4 col-sm-2 hidden-xs">
+			<p class="m-t-md user-hello">
 				<span class="">
 					<a href="{{ route('frontend.dologout') }}" class="link-black hover-gray unstyle"><strong><i class="fa fa-sign-out"></i> Logout</strong></a>
 				</span>
 			</p>
+		</div>
+		<div class="hidden-lg hidden-sm hidden-md col-xs-12 m-t-none">
+			<p class="user-hello" style="margin-top:-10px;">
+				<span class="">
+					<a href="{{ route('frontend.dologout') }}" class="link-black hover-gray unstyle"><strong><i class="fa fa-sign-out"></i> Logout</strong></a>
+				</span>
+			</p>
+		</div>		
+	<div class="row">
+	</div>
+		<div class="col-md-12">
 			<p class="m-t-md">
 			Melalui halaman profile anda, anda dapat melihat aktivitas akun anda dan mengubah informasi akun. Klik link yang tersedia untuk melihat atau mengubah profil anda.
 			</p>
