@@ -2,26 +2,36 @@
 	<a href="{{ route('frontend.product.show', $data['slug']) }}" title="{{ $data['name'] }}">
 		<img class="img img-responsive"  src="{{$data['default_image']}}" alt="">
 		<div class="hover"></div>
-		<div class="tag-label">
-			@if(!empty($data->label))
-			@switch(str_replace(' ', '', strtoupper($data->label)))
-				@case('SALE')
-					<div class="circle-label">
-				@break;
-				@case('HOTITEM')
-					<div class="square-label">
-				@break;
-				@case('BESTSELLER')
-					<div class="text-label">
-				@break;
-				@default
-					<div class="circle-non-label">
-	            @break				
-			@endswitch
-			{{ strtoupper($data->label) }}
+		@if (count($data->lables)!=0)
+			<div class="tag-label">
+				@foreach ($data->lables as $label)
+					<?php
+						switch (str_replace('_', '', strtoupper($label['lable']))) {
+							case "SALE":
+								// echo "<div class='circle-label black'><div>SALE</div></div>";
+								echo "<div class='square-label black'><div>SALE</div></div>";
+								break;
+							case "HOTITEM":
+								// echo "<div class='circle-label black'><div><p style='margin-top: -6px;''>HOT ITEM</p></div></div>";
+								echo "<div class='square-label black'><div>HOT ITEM</div></div>";
+								break;	
+							case "BESTSELLER":
+								// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>BEST SELLER</p></div></div>";
+								echo "<div class='square-label black'><div>BEST SELLER</div></div>";
+								break;															
+							default:
+								// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</p></div></div>";
+								echo "<div class='square-label black'><div>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</div></div>";
+								break;
+						}
+					?>
+				@endforeach
 			</div>
-			@endif
-		</div>
+		@endif
+		
+			{{-- <div class="tag-sale" style="">
+				<p style="">Beli 2 Gratis 1</p>
+			</div> --}}
 	</a>
 
 	<div class="caption-card m-t-0" >
