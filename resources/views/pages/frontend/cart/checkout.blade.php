@@ -260,7 +260,7 @@
 							<div class="checkbox">
 								<label>
 									{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
-									I have read the <a href="#" data-toggle="modal" data-target="#tnc"><strong>Term & Condition</strong></a> and willing to process this transaction 
+									Saya menyetujui <a href="#" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin 
 								</label>
 							</div>
 						</div>
@@ -285,7 +285,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="exampleModalLabel">Term & Condition</h4>
+					<h4 class="modal-title" id="exampleModalLabel">Syarat & Ketentuan</h4>
 				</div>
 				<div class="modal-body ribbon-menu">
 					<div class="row">
@@ -295,7 +295,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<button type="button" class="btn-hollow hollow-black-border" data-dismiss="modal" aria-label="Close">Ok</button>
+							<button type="button" class="btn-hollow hollow-black-border" data-dismiss="modal" aria-label="Close">Tutup</button>
 						</div>
 					</div>
 				</div>
