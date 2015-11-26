@@ -8,7 +8,7 @@
 		<ul class="list-unstyled menu-info">
 			<li class="">
 				<a href="{{route('frontend.user.index')}}" 
-					class="@if($subnav_active=='account_index') active @endif">Dashboard Saya</a>
+					class="@if($subnav_active=='account_index') active @endif">Dashboard Anda</a>
 			</li>
 			<li class="">
 				<a href="{{route('frontend.user.edit')}}" 

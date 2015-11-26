@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-<div class="row">
-	<div class="col-md-12">
-		<p>
-			Pesan anda telah kami terima. </br> Customer Service kami akan segera membalas pesan Anda. 
-		</p>
-=======
 @extends('template.frontend.layout')
 @section('content')    
 	<div class="container mt-75">
@@ -35,7 +28,6 @@
 				</div>
 			</div>
 		</div>
->>>>>>> 65b98b0fbe616e025fabdf80bcba2beba72784e1
 	</div>
 </div>
 <div class="row clearfix">&nbsp;</div>
@@ -44,3 +36,4 @@
 		<a href="{{ URL::route('frontend.home.index')}}" type="submit" class="btn-hollow hollow-black-border " tabindex="1">Home</a>
 	</div>
 </div>
+@stop

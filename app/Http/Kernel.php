@@ -26,6 +26,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'redirectsave'  => \App\Http\Middleware\RedirectSave::class,
         'customer'      => \App\Http\Middleware\CustomerAndAccessor::class,
         'auth'          => \App\Http\Middleware\Authenticate::class,
         'staff'         => \App\Http\Middleware\StaffAndAccessor::class,
