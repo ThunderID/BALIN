@@ -209,11 +209,11 @@
 			<div id="modalCategory" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  	<div class="modal-dialog modal-sm dialog-mobile">
 			    	<div class="modal-content">
-						<div class="modal-header">
+						<div class="modal-header modal-filter-title">
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				       		<h4 class="modal-title" id="exampleModalLabel">Pilih Kategori</h4>
 				      	</div>
-				      	<div class="modal-body ribbon-menu">
+				      	<div class="modal-body ribbon-menu ribbon-menu-mobile">
 							<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-xs-12">
@@ -229,7 +229,7 @@
 			<div id="modalTag" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  	<div class="modal-dialog modal-sm dialog-mobile">
 			    	<div class="modal-content">
-						<div class="modal-header">
+						<div class="modal-header modal-filter-title">
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				       		<h4 class="modal-title" id="exampleModalLabel">Filter</h4>
 				      	</div>
@@ -260,7 +260,7 @@
 			<div id="modalFilter" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  	<div class="modal-dialog modal-sm dialog-mobile">
 			    	<div class="modal-content">
-						<div class="modal-header">
+						<div class="modal-header modal-filter-title">
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				       		<h4 class="modal-title" id="exampleModalLabel">Filter</h4>
 				      	</div>
@@ -276,7 +276,7 @@
 			<div id="modalSort" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  	<div class="modal-dialog modal-sm dialog-mobile">
 			    	<div class="modal-content">
-						<div class="modal-header">
+						<div class="modal-header modal-filter-title">
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				       		<h4 class="modal-title" id="exampleModalLabel">Urutkan</h4>
 				      	</div>
@@ -309,7 +309,7 @@
 			<div id="modalSearch" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  	<div class="modal-dialog modal-sm dialog-mobile">
 			    	<div class="modal-content">
-						<div class="modal-header">
+						<div class="modal-header modal-filter-title">
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				       		<h4 class="modal-title" id="exampleModalLabel">Cari</h4>
 				      	</div>
