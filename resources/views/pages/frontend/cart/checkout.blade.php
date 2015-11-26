@@ -148,16 +148,6 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label class="hollow-label" for="">Nama Penerima</label>
-								{!! Form::input('text', 'receiver_name', null, [
-										'class' 		=> 'form-control hollow transaction-input-postal-code',
-								]) !!}
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
 								<label class="hollow-label" for="name">Pilih Alamat</label>
 								<select class="form-control hollow choice_address" name="address_id" id="address_id">
 									@foreach($addresses as $key => $value)
@@ -165,6 +155,16 @@
 									@endforeach
 									<option value="0">Tambah Alamat Baru</option>
 								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="hollow-label" for="">Nama Penerima</label>
+								{!! Form::input('text', 'receiver_name', null, [
+										'class' 		=> 'form-control hollow transaction-input-postal-code',
+								]) !!}
 							</div>
 						</div>
 					</div>
