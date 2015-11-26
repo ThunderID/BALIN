@@ -3,7 +3,10 @@
 namespace App\Jobs\Models\Shipment;
 
 use App\Jobs\Job;
+use App\Jobs\CountShippingCost;
+
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use App\Libraries\JSend;
 
@@ -13,6 +16,8 @@ use App\Models\Transaction;
 
 class ShipmentSaving extends Job implements SelfHandling
 {
+    use DispatchesJobs;
+
     protected $shipment;
 
     public function __construct(Shipment $shipment)
@@ -29,20 +34,24 @@ class ShipmentSaving extends Job implements SelfHandling
     	{
     		$transaction 			= Transaction::findorfail($this->shipment->transaction_id);
 
-    		$transaction->fill(['shipping_cost' => $shippingcost->cost]);
+            $result                = $this->dispatch(new CountShippingCost($transaction->transactiondetails, $shippingcost->cost));
+    		if($result->getStatus()=='success')
+            {
+                $transaction->fill(['shipping_cost' => $result->getData()['shipping_cost']]);
 
-    		if($transaction->save())
-    		{
-	    		$result 			=  new JSend('success', (array)$this->shipment);
-    		}
-    		else
-    		{
-	    		$result 			=  new JSend('error', (array)$this->shipment, $transaction->getError());
-    		}
+        		if($transaction->save())
+        		{
+    	    		$result 			=  new JSend('success', (array)$this->shipment);
+        		}
+        		else
+        		{
+    	    		$result 			=  new JSend('error', (array)$this->shipment, $transaction->getError());
+        		}
+            }
     	}
     	else
     	{
-    		$result 				=  new JSend('error', (array)$this->shipment, 'Tidak ada kurir ke tempat anda (Silahkan periksa kembali kode pos anda)');
+    		$result 				=  new JSend('error', (array)$this->shipment, 'Tidak ada kurir ke tempat anda (Silahkan periksa kembali kode pos anda).');
     	}
 
         return $result;
