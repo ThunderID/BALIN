@@ -118,8 +118,12 @@
 						<div class="col-xs-1 hidden-xs text-right">
 							<h4>:</h4>
 						</div>
-						<div class="hidden-lg hidden-md hidden-sm col-xs-4">
+						<div class="hidden-lg hidden-md hidden-sm col-xs-3">
+							&nbsp;
 						</div>
+						<div class="hidden-lg hidden-md hidden-sm col-xs-1">
+							&nbsp;
+						</div>						
 						<div class="col-xs-7 text-right">
 							<label class="label-item m-r-sm">
 								@money_indo($item_list_total_price)
@@ -130,7 +134,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="clearfix">&nbsp;</div>
+	<div class="clearfix hidden-xs">&nbsp;</div>
 </div>
 					{{-- <div class="row chart-item-mobile m-t-sm">
 						<div class="hidden-lg hidden-md hidden-sm col-xs-12">

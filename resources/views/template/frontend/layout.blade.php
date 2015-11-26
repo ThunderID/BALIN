@@ -127,7 +127,7 @@
 		} 	
 
 		.ribbon-menu-mobile li a.active {
-			background-color: #333 !important;
+			background-color: #111 !important;
 			color: white;
 		} 	
 
@@ -387,6 +387,16 @@
     letter-spacing: 0.02em;
 }
 
+.social-mobile{
+	width: 30px;
+	height: 30px;
+	padding: 4px 5px !important;
+}
+
+.social-mobile i{
+    font-size: 1.5em;
+}
+
 	</style>
 
 	<!-- Custom CSS -->
@@ -406,7 +416,7 @@
 	
 	<div id="container" style="padding-bottom: {{$pb}} px;">
 
-		<header class="page-header @if($controller_name=='home') m-n @endif">
+		<header class="page-header">
 			@include('widgets.top_menu')
 		</header>
 

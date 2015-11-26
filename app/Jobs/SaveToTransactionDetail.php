@@ -56,6 +56,19 @@ class SaveToTransactionDetail extends Job implements SelfHandling
                     $errors->add('Transaction', $trsdetail->getError());
                 }
             }
+            elseif($value['qty']==0)
+            {
+                $prev                           = TransactionDetail::transactionid($this->transaction->id)->varianid($value['varian_id'])->first();
+
+                if($prev)
+                {
+                    //cek apa punya error
+                    if(!$prev->delete())
+                    {
+                        $errors->add('Transaction', $prev->getError());
+                    }
+                }
+            }
         } 
 
         if($errors->count())

@@ -19,7 +19,7 @@
 					<div class="col-xs-12">
 						@foreach($label_qty as $key => $value)
 						<div class="row">
-							<div class="col-xs-4">
+							<div class="col-xs-2">
 								<span class="info">
 									@if (strpos($value['size'], '.')==true)
 										<?php $frac = explode('.', $value['size']); ?>
@@ -32,7 +32,7 @@
 							<div class="col-xs-1">
 								<span class="info">:</span>
 							</div>
-							<div class="col-xs-6" style="padding-left: 2px;">
+							<div class="col-xs-8 text-right" style="padding-left: 2px;">
 								<span class="info">{{ $value['qty'] }}</span>
 							</div>
 						</div>
@@ -42,13 +42,13 @@
 				<div class="row" style="margin-top:0px;">
 					<div class="col-xs-12">
 						<div class="row">
-							<div class="col-xs-4">
-								<span class="info">Harga/Item</span>
+							<div class="col-xs-2">
+								<span class="info">@</span>
 							</div>
 							<div class="col-xs-1">
 								<span class="info">:</span>
 							</div>
-							<div class="col-xs-6" style="padding-left: 2px;">
+							<div class="col-xs-8 text-right" style="padding-left: 2px;">
 								<span class="info">@money_indo($label_price)</span>
 							</div>                                                                                                                
 						</div>                                                    
@@ -57,13 +57,13 @@
 				<div class="row" style="margin-top:0px;">
 					<div class="col-xs-12"> 
 						<div class="row">
-							<div class="col-xs-4">
+							<div class="col-xs-2">
 								<span class="info">Total</span>
 							</div>
 							<div class="col-xs-1">
 								<span class="info">:</span>
 							</div>
-							<div class="col-xs-6" style="padding-left: 2px;">
+							<div class="col-xs-8 text-right" style="padding-left: 2px;">
 								<span class="info">@money_indo($label_total)</span>
 							</div>
 						</div>                                             

@@ -21,8 +21,8 @@
 							'label_image'			=> $item['images'],
 							'label_name'			=> $item['name'],
 							'label_qty'				=> $item['varians'],
-							'label_price'			=> $item['price'],
-							'label_total'			=> $qty*$item['price']
+							'label_price'			=> ($item['discount']!=0 ? ($item['price'] - $item['discount']) : $item['price']),
+							'label_total'			=> $qty*($item['discount']!=0 ? ($item['price'] - $item['discount']) : $item['price'])
 						])
 					</li>
 				@else
@@ -32,12 +32,12 @@
 							'label_image'			=> $item['images'],
 							'label_name'			=> $item['name'],
 							'label_qty'				=> $item['varians'],
-							'label_price'			=> $item['price'],
-							'label_total'			=> $qty*$item['price']
+							'label_price'			=> ($item['discount']!=0 ? ($item['price'] - $item['discount']) : $item['price']),
+							'label_total'			=> $qty*($item['discount']!=0 ? ($item['price'] - $item['discount']) : $item['price'])
 						])
 					</li>
 				@endif
-				<?php $total += ($item['price']*$qty); $i++; ?>
+				<?php $total += (($item['discount']!=0 ? ($item['price'] - $item['discount']) : $item['price'])*$qty); $i++; ?>
 			@endforeach
 		</div>
 		<div class="cart-bottom">
@@ -70,7 +70,7 @@
 					<h4 style="margin-bottom: 10px;
     font-weight: 500;
     font-size: 14px;
-    letter-spacing: 0.1em;">Penawaran Kami</h4>
+    letter-spacing: 0.1em;">Anda Mungkin Suka</h4>
 				</div>
 			</div>
 		</li>
@@ -78,7 +78,7 @@
 		<?php
 			$recom 		= Cache::remember('recommended_batik', 30, function() 
 			{
-						return App\Models\Product::currentprice(true)->DefaultImage(true)->sellable(true)->orderby('products.created_at','desc')->take(2)->get();
+						return App\Models\Product::currentprice(true)->DefaultImage(true)->sellable(true)->orderByRaw("RAND()")->take(2)->get();
 			});
 
 		?>
