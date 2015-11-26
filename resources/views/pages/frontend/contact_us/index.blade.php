@@ -21,7 +21,8 @@
 									{!! Form::text('name', (Auth::check() ? Auth::user()->name : ''), [
 												'class'         => 'form-control hollow', 
 												'tabindex'      => '1', 
-												'placeholder'   => 'Masukkan nama anda'
+												'placeholder'   => 'Masukkan nama anda',
+												'required' 		=> 'required'
 									]) !!}
 							    </div>
 							    <div class="form-group">
@@ -29,7 +30,8 @@
 									{!! Form::email('email', (Auth::check() ? Auth::user()->email : ''), [
 												'class'         => 'form-control hollow', 
 												'tabindex'      => '2', 
-												'placeholder'   => 'Masukkan email anda'
+												'placeholder'   => 'Masukkan email anda',
+												'required' 		=> 'required'
 									]) !!}
 							    </div>
 
@@ -41,6 +43,7 @@
 												'rows'          => '5',
 												'tabindex'      => '3',
 												'style'         => 'resize:none;',
+												'required' 		=> 'required'
 									]) !!}
 								</div>
 								<p class="t-xs" style="color:#666">
@@ -83,7 +86,6 @@
 							<h3>Also find us on</h3>
 						</div>
 					</div>
-					<div class="clearfix">&nbsp;</div>
 					<div class="clearfix">&nbsp;</div>
 					<div class="row">
 						<div class="col-md-12 text-center">
@@ -178,7 +180,6 @@
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
 @stop
-
 
 @section('script')
 	@if(Input::has('success'))

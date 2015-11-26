@@ -122,9 +122,15 @@
 		} 	
 
 		.ribbon-menu li a.active {
-			background-color: black !important;
+			background-color: black;
 			color: white;
-		} 		
+		} 	
+
+		.ribbon-menu-mobile li a.active {
+			background-color: #333 !important;
+			color: white;
+		} 	
+
 
 		.ribbon-menu li a.active i{
 			-ms-transform: rotate(180deg) scaleX(-1); /* IE 9 */
@@ -215,6 +221,21 @@
 			width:90% !important;
 			border-radius: none !important;
 		}
+
+		.modal-filter-title{
+			background-color: black;
+			color:white;
+		}
+
+		.modal-filter-title button{
+			color:#ddd !important;
+			opacity: 1 !important;
+		}	
+
+		.modal-filter-title button:hover{
+			color:white !important;
+			opacity: 1 !important;
+		}				
 
 		.modal-center.modal {
 		  text-align: center !important;
