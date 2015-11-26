@@ -357,7 +357,45 @@
 	text-decoration: none;
 }
 
+.tag-sale {
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(117, 170, 219, 0.81);
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    line-height: 16px;
+    font-size: 16px;
+}
+.tag-sale p {
+	margin-bottom: 0;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+}
+.tag-info {
+	background-color: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	top: 0;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+.tag-info p{
+    margin-bottom: 0;
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+}
 
+.social-mobile{
+	width: 30px;
+	height: 30px;
+	padding: 4px 5px !important;
+}
+
+.social-mobile i{
+    font-size: 1.5em;
+}
 
 	</style>
 

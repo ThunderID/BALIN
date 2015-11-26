@@ -12,13 +12,13 @@
 
 		   revapi = jQuery('.tp-banner').revolution(
 			{
-				delay:6000,
+				delay:11111110,
 				startwidth:1170,
 				startheight:500,
 				hideThumbs:10,
 				fullWidth:"off",
 				fullScreen:"on",
-				fullScreenOffsetContainer: "",
+				fullScreenOffsetContainer: ".page-header",
 				touchenabled:"on",
 				navigationType:"bullet",
 				soloArrowLeftHOffset:80,
