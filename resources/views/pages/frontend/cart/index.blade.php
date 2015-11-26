@@ -95,14 +95,14 @@
 				@endif
 				<div class="clearfix">&nbsp;</div>
 				@if (!empty($carts))
-					<div class="row empty-cart-mobile">
+				<!-- 	<div class="row empty-cart-mobile">
 						<div class="col-xs-12">
 							<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-white btn-block">
 								Kosongkan Cart
 							</a>
 						</div>
 					</div>
-					<div class="clearfix">&nbsp;</div>
+					<div class="clearfix">&nbsp;</div> -->
 				@endif
 				<div class="row">
 					<div class="col-xs-12">
@@ -160,9 +160,9 @@
 								<a href="{{ route('frontend.get.checkout') }}" class="btn-hollow hollow-black-border pull-right m-r-sm empty-cart">
 									Checkout
 								</a>
-								<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-black-border pull-right m-r-sm empty-cart">
+<!-- 								<a href="{{ route('frontend.cart.empty') }}" class="btn-hollow hollow-black-border pull-right m-r-sm empty-cart">
 									Kosongkan Cart
-								</a>				
+								</a> -->				
 							@endif				
 						</div>
 					</div>

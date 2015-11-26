@@ -31,28 +31,25 @@ class CartController extends BaseController
 	public function store($slug = null)
 	{
 		$baskets 								= Session::get('baskets');
+		
 		$slug									= Input::get('product_slug');
-		$product 								= Product::slug($slug)->with('prices')->first();
+
+		$product 								= Product::slug($slug)->currentprice(true)->sellable(true)->defaultimage(true)->first();
+
 		$qty 									= Input::get('qty');
 		$varianids 								= Input::get('varianids');
 
-		if (empty($baskets))
+		$varians 								= [];
+		$qtys 									= [];
+
+		foreach ($varianids as $key => $value) 
 		{
-			$temp_basket 						= $this->addToCart($baskets, $product, $qty, $varianids);
+			$varians[$value] 					= $value;
+			$qtys[$value]						= $qty[$key];
 		}
-		else
-		{
-			if (in_array($product['id'], $baskets)) 
-			{
-				$temp_basket 					= $this->addToCart($baskets, $product, $qty, $varianids);
-			}
-			else 
-			{
-				$temp_basket 					= $this->addToCart($baskets, $product, $qty, $varianids);		
-			}
-		}
-			
-			//update baskets
+
+		$temp_basket 							= $this->addToCart($baskets, $product, $qtys, $varians);
+
 		$carts 									= Session::put('baskets', $temp_basket);
 
 		return Response::json(['carts' => $temp_basket], 200);
@@ -74,25 +71,16 @@ class CartController extends BaseController
 	{
 		$baskets 								= Session::get('baskets');
 		$baskets[$cid]['varians'][$vid]['qty']	= Input::get('qty');
+		$product 								= Product::id($cid)->currentprice(true)->sellable(true)->defaultimage(true)->first();
+		$varianids[] 							= $vid;
 
-		$varian[] 								= $baskets[$cid]['varians'][$vid];
-		$price 									= ['price' => $baskets[$cid]['price'], 'discount' => $baskets[$cid]['discount']];
-
-		if (Auth::check())
-		{
-			$transaction           	 			= Transaction::userid(Auth::user()->id)->status('cart')->first();
-
-			if (!is_null($transaction['id']))
-			{
-				$result                 		= $this->dispatch(new SaveToTransactionDetail($transaction, $varian, $price));
-			}
-		}
+		$temp_basket 							= $this->addToCart($baskets, $product, Input::get('qty'), $varianids);
 
 		Session::forget('baskets');
 
-		$carts 										= Session::put('baskets', $baskets);
+		$carts 									= Session::put('baskets', $temp_basket);
 
-		return Response::json(['carts' => $baskets], 200);
+		return Response::json(['carts' => $temp_basket], 200);
 	}
 
 	// FUNCTION REMOVE CART
@@ -166,108 +154,101 @@ class CartController extends BaseController
 		return View('widgets.frontend.top_menu.item_cart_dropdown');
 	}
 
-	function addToCart($baskets, $product, $qty, $varianids) 
+	function addToCart($temp_basket, $product, $qtys, $varianids) 
 	{
-		$basket['slug']							= $product->slug;
-		$basket['name']							= $product->name;
-		$basket['discount']						= $product->discount;
-		$basket['stock']						= $product->stock;
-		$basket['images']						= $product->default_image;
-		$price 									= $product['price'];
-		$msg 									= null; 						
+		$basket['slug']							= $product['slug'];
+		$basket['name']							= $product['name'];
+		$basket['discount']						= $product['discount'];
+		$basket['stock']						= $product['stock'];
+		$basket['images']						= $product['default_image'];
+		$basket['price']						= $product['price'];
 
-		// if ($product['discount']!=0) 
-		// {
-		// 	$price 								= $product['promo_price'];
-		// }
-
-		$basket['price']						= $price;
-
-		$varians 								= Input::get('varianids');
-
-		$qtys 									= Input::get('qty');
-
+		$msg 									= null;
 		$varian 								= [];
-		$temp_basket 							= Session::get('baskets');
 
-		foreach ($varians as $key => $value) 
+		foreach ($varianids as $key => $value) 
 		{
-			// if(isset($temp_basket[$product->id]))
-			// {
-			// 	$now_qty 						= $qtys[$key]+$temp_basket[$product['id']]['varians'][$key]['qty']
-			// }
-				if (isset($qtys[$key]) && $qtys[$key]!=0 && isset($temp_basket[$product['id']]['varians'][$key]))
-				{
-					$validqty 		= $qtys[$key]+$temp_basket[$product['id']]['varians'][$key]['qty'];
-				}
-				elseif(isset($temp_basket[$product['id']]['varians'][$key]))
-				{
-					$validqty 		= $temp_basket[$product['id']]['varians'][$key]['qty']; 
-				}
-				else
-				{
-					$validqty 		= $qtys[$key];
-				}
-
-				$varianp 			= Varian::findorfail($value);
-
-				if ($varianp->stock < $validqty && ($varianp->stock!=0))
-				{
-					$msg 			= 'Maaf stock tidak mencukupi';
-					$validqty 		= $qtys[$key];
-				}
-				else
-				{
-					$msg 			= null;
-				}
-
-				if($validqty > 0)
-				{
-					$varian[$varianp->id]		= [	'varian_id' => $varianp->id, 
-													'qty' 		=> $validqty, 
-													'size' 		=> $varianp->size, 
-													'stock' 	=> $varianp->stock,
-													'message'   => $msg
-													];
-				}
-		}
-		$basket['varians']						= $varian;
-
-		$baskets[$product->id]					= $basket;
-
-		if (Auth::check())
-		{
-			$price 								= ['price' => $basket['price'], 'discount' => $basket['discount']];
-			$transaction           	 			= Transaction::userid(Auth::user()->id)->status('cart')->first();
-
-			if (!is_null($transaction['id']))
+			if (isset($qtys[$value]) && $qtys[$value]!=0 && isset($temp_basket[$product['id']]['varians'][$value]))
 			{
-				$result                 		= $this->dispatch(new SaveToTransactionDetail($transaction, $varian, $price));
+				$validqty 		= $qtys[$value]+$temp_basket[$product['id']]['varians'][$value]['qty'];
+			}
+			elseif(isset($temp_basket[$product['id']]['varians'][$value]))
+			{
+				$validqty 		= $temp_basket[$product['id']]['varians'][$value]['qty']; 
 			}
 			else
 			{
-				$transaction 					= new Transaction;
-				$transaction->fill([
-					'user_id'               	=> Auth::user()->id,
-					'type'                  	=> 'sell',
-					]);
-
-				if($transaction->save())
-				{
-					$result                 	= $this->dispatch(new SaveToTransactionDetail($transaction, $varian, $price));
-				}
-				else
-				{
-					$result 					= new JSend('success', (array)$transaction);
-				}
+				$validqty 		= $qtys[$value];
 			}
 
-			if ($result->getStatus()=='error')
+			$varianp 			= Varian::findorfail($value);
+
+			if ($varianp['stock'] < $validqty && ($varianp['stock']!=0))
 			{
-				return Redirect::route('frontend.cart.index')->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
+				$msg 			= 'Maaf stock tidak mencukupi';
+				$validqty 		= $qtys[$value];
+			}
+			else
+			{
+				$msg 			= null;
+			}
+
+			if($validqty >= 0)
+			{
+				$varian[$varianp['id']]		= [	'varian_id' => $varianp['id'], 
+												'qty' 		=> $validqty, 
+												'size' 		=> $varianp['size'], 
+												'stock' 	=> $varianp['stock'],
+												'message'   => $msg
+												];
+				if (Auth::check())
+				{
+					$price 								= ['price' => $basket['price'], 'discount' => $basket['discount']];
+					$transaction           	 			= Transaction::userid(Auth::user()->id)->status('cart')->first();
+
+					if (!is_null($transaction['id']))
+					{
+						$result                 		= $this->dispatch(new SaveToTransactionDetail($transaction, $varian, $price));
+					}
+					else
+					{
+						$transaction 					= new Transaction;
+						$transaction->fill([
+							'user_id'               	=> Auth::user()->id,
+							'type'                  	=> 'sell',
+							]);
+
+						if($transaction->save())
+						{
+							$result                 	= $this->dispatch(new SaveToTransactionDetail($transaction, $varian, $price));
+						}
+						else
+						{
+							$result 					= new JSend('success', (array)$transaction);
+						}
+					}
+
+					if ($result->getStatus()=='error')
+					{
+						return Redirect::route('frontend.cart.index')->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
+					}
+				}
+
+				if($validqty==0)
+				{
+					unset($varian[$varianp['id']]);
+				}
 			}
 		}
 
-		return $baskets;
+		$basket['varians']						= $varian;
+		$temp_basket[$product['id']]			= $basket;
+
+		if(count($temp_basket[$product['id']]['varians'])==0)
+		{
+			unset($temp_basket[$product['id']]);
+		}
+
+		return $temp_basket;
 	}
 }

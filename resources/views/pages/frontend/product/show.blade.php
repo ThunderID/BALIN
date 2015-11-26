@@ -160,8 +160,8 @@
 																{{ $v['size'] }}
 															@endif
 														</label>
-													  	<input type="hidden" name="varianids[{{$k}}]" class="form-control pvarians" value="{{$v['id']}}">
-													  	<input type="text" name="qty[{{$k}}]" class="form-control hollow form-qty input-number pqty" 
+													  	<input type="hidden" name="varianids[{{$v['id']}}]" class="form-control pvarians" value="{{$v['id']}}">
+													  	<input type="text" name="qty[{{$v['id']}}]" class="form-control hollow form-qty input-number pqty" 
 													  	value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" 
 													  	data-stock="{{ $v['stock'] }}" 
 													  	data-id="{{ $v['id'] }}" 

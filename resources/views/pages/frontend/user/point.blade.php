@@ -1,6 +1,6 @@
 @inject('points', 'App\Models\PointLog')
 <?php
-	$pointlogs 		= $points->userid(Auth::user()->id)->orderby('created_at', 'asc')->paginate();
+	$pointlogs 		= $points->selectraw('point_logs.*')->selectraw('IFNULL(SUM(point_logs.amount),0) as amount')->userid(Auth::user()->id)->orderby('created_at', 'asc')->groupby(['reference_type', 'reference_id'])->paginate();
 ?>
 <div class="col-md-12 col-sm-12 hidden-xs">
 	<div class="row m-t-n" style="background-color:#000; color:#fff; letter-spacing: 0.1em;">
@@ -64,7 +64,7 @@
 					@else
 						dikurangkan 
 					@endif
-					@money_indo($value->amount)
+					@money_indo(abs($value->amount))
 				</p>
 			</div>
 			<div class="col-sm-2">
@@ -97,9 +97,9 @@
 							<div class="col-xs-12 text-center">
 								<p style="font-size:12px; margin-bottom: 5px;">@datetime_indo($value->created_at)</p>
 								@if($value->amount >= 0)
-									<p style="font-size:16px; margin-bottom: 2px; color:green;"><span>(+)</span> &nbsp;@money_indo($value->amount)</p>
+									<p style="font-size:16px; margin-bottom: 2px; color:green;"><span>(+)</span> &nbsp;@money_indo(abs($value->amount))</p>
 								@else
-									<p style="font-size:16px; margin-bottom: 2px; color:green;"><span>(-)</span> &nbsp;@money_indo($value->amount)</p>
+									<p style="font-size:16px; margin-bottom: 2px; color:red;"><span>(-)</span> &nbsp;@money_indo(abs($value->amount))</p>
 								@endif
 								<p style="font-size:9px; margin-bottom: 0px;">Poin Anda sekarang</p>
 								<p style="margin-top: 0px; margin-bottom: 0px;">
