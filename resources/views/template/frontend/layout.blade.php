@@ -127,7 +127,7 @@
 		} 	
 
 		.ribbon-menu-mobile li a.active {
-			background-color: #333 !important;
+			background-color: #111 !important;
 			color: white;
 		} 	
 

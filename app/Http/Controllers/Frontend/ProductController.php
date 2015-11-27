@@ -51,13 +51,13 @@ class ProductController extends BaseController
 
 				switch ($key) {
 					case 'categoriesname':
-						$searchResult[]			= 'kategori '. $input;
+						$searchResult[]			= $input;
 						break;
 					case 'tagsname':
-						$searchResult[]			= 'tag '. $input;
+						$searchResult[]			= $input;
 						break;
 					case 'name':
-						$searchResult[]			= 'nama '. $input;
+						$searchResult[]			= $input;
 						break;	
 					case 'sort':
 						$tmp 					= explode('-', $input);
@@ -66,36 +66,36 @@ class ProductController extends BaseController
 							case 'name':
 								if($tmp[1] == 'asc')
 								{
-									$searchResult[]			= 'mengurutkan nama produk A-Z';
+									$searchResult[]			= 'diurutkan nama produk A-Z';
 								}
 								else if($tmp[1] == 'desc')
 								{
-									$searchResult[]			= 'mengurutkan nama produk Z-A';
+									$searchResult[]			= 'diurutkan nama produk Z-A';
 								}
 								break;
 							case 'price':
 
 								if($tmp[1] == 'asc')
 								{
-									$searchResult[]			= 'mengurutkan produk termurah';
+									$searchResult[]			= 'diurutkan produk termurah';
 								}
 								else if($tmp[1] == 'desc')
 								{
-									$searchResult[]			= 'mengurutkan produk termahal';
+									$searchResult[]			= 'diurutkan produk termahal';
 								}	
 								break;
 							case 'date':
 								if($tmp[1] == 'asc')
 								{
-									$searchResult[]			= 'mengurutkan produk terlama';
+									$searchResult[]			= 'diurutkan produk terlama';
 								}
 								else if($tmp[1] == 'desc')
 								{
-									$searchResult[]			= 'mengurutkan produk terbaru';
+									$searchResult[]			= 'diurutkan produk terbaru';
 								}															
 								break;								
 							default:
-								$searchResult[]			= 'mengurutkan ' . $tmp[0];
+								$searchResult[]			= 'diurutkan ' . $tmp[0];
 								break;
 						}
 						break;																		

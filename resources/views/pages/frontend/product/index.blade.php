@@ -48,7 +48,7 @@
 			</div>
 		</div>
 
-		<div class="row m-t-0 m-b-sm">
+		<div class="row">
 			<div class="container">
 				<div class="col-md-12 col-sm12 hidden-xs">
 					<div class="row ribbon">
@@ -81,11 +81,11 @@
 						<div class="col-md-5 col-sm-3 p-l-xxs text-right">
 							<div class="row">
 							{!! Form::open(array('url' => route('frontend.product.index', Input::all()), 'method' => 'get', 'id' => 'form1', 'class' => 'form-group' )) !!}
-								<div class="col-xs-10 p-r-none">
-									{!! Form::text('name', null, ['class' => 'form-control hollow', 'id' => 'input-search', 'style' => 'border-right:0; border-top:0; border-bottom:0; height: 42px; padding-top:6px;','placeholder' => 'Cari nama produk', 'required' => 'required'] ) !!}
+								<div class="col-xs-7 col-xs-offset-4 p-r-none">
+									{!! Form::text('name', null, ['class' => 'form-control hollow search', 'id' => 'input-search','placeholder' => 'Cari nama produk', 'required' => 'required'] ) !!}
 								</div>
-								<div class="col-xs-2 p-l-none p-r-none p-b-none">
-									<button type="submit"  class="btn-hollow hollow-white-border btn-block t-sm" tabindex="21" style="border-left:0; border: 1px solid #999; border-top:0; border-bottom:0; height: 42px;"><i class="fa fa-search" style="padding-top:3px;"></i>&nbsp;</button>
+								<div class="col-xs-1 p-l-none p-r-none p-b-xxs" style="background-color: #fff; border-right:1px solid #999">
+									<button type="submit"  class="btn-hollow btn-block btn-search t-sm" tabindex="21"><i class="fa fa-search" style="padding-top:3px;"></i></button>
 								</div>
 					      	</div>
 							{!! Form::close() !!}

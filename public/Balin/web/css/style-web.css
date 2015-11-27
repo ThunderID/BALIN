@@ -975,6 +975,21 @@ p {
   font-size: 8px;
   font-weight: 100;
 }
+.btn-hollow.btn-search {
+  background-color: #fff;
+  border: 1px solid #000;
+  color: #000;
+  height: 32px;
+  width: 34px;
+  padding: 0;
+  transition: all 0.2s ease-in-out;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+.btn-hollow.btn-search:hover {
+  background-color: #000;
+  color: #fff;
+}
 .hollow-social.hollow-white {
   background-color: #000;
   color: #fff;
@@ -1198,6 +1213,18 @@ label.text {
 }
 .form-control.hollow:focus {
   border-color: #999;
+}
+.form-control.hollow.search {
+  border: 0;
+  border-left: 1px solid #999;
+  padding-top: 6px;
+  height: 42px;
+  background-color: #000;
+  transition: all 0.3s ease-in-out;
+}
+.form-control.hollow.search:focus {
+  background-color: #fff;
+  color: #000;
 }
 select.form-control.hollow {
   border-radius: 0;
@@ -1482,7 +1509,6 @@ footer .menu-footer a:hover {
   position: absolute;
   top: 0;
   margin-top: 10px;
-  width: 85%;
 }
 .tag-label.right {
   right: 0;
@@ -1517,8 +1543,7 @@ footer .menu-footer a:hover {
 }
 .square-label {
   position: relative;
-  width: 72px;
-  padding: 5px;
+  padding: 10px;
   background: rgba(0, 0, 0, 0.8);
   text-align: center;
   color: #fff;
