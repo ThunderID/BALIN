@@ -100,7 +100,7 @@
 		</div>
 	</div>
 
-	<div class="row content-info m-l-none m-r-none p-b-sm">
+	<div class="row content-info m-l-none m-r-none" style="padding-bottom:20px">
 		<div class="col-sm-12 border-bottom">
 			<h5 class="title-info m-t-md">Tracking Order
 				<small>
