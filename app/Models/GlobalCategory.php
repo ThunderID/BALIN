@@ -109,10 +109,10 @@ class GlobalCategory extends Eloquent
 	{
 		if(is_array($variable))
 		{
-			return 	$query->whereIn('id', $variable);
+			return 	$query->whereIn('categories.id', $variable);
 		}
 
-		return 	$query->where('id', $variable);
+		return 	$query->where('categories.id', $variable);
 	}
 	
 	public function scopeName($query, $variable)

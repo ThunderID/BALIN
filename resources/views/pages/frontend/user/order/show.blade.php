@@ -1,5 +1,5 @@
 <?php 
-	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Proses, Menunggu Pembayaran', 'paid' => 'Sudah dibayar, belum dikirim', 'shipping' => 'Sedang dalam pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 		<div class="row">
 		<div class="col-md-7 col-sm-7 col-xs-12">
@@ -31,16 +31,16 @@
 			<table class="row">
 				<tbody>
 					<tr class="row">
-						<td class="col-sm-6"><strong>Invoice ID</strong></td>
-						<td> {{$transaction['ref_number']}} </td>
+						<td class="col-sm-6" valign="middle"><strong>Invoice ID</strong></td>
+						<td valign="middle"> {{$transaction['ref_number']}} </td>
 					</tr>
 					<tr class="row">
-						<td class="col-sm-6"><strong>Invoice Date</strong></td>
-						<td>@date_indo($transaction['transact_at'])</td>
+						<td class="col-sm-6" valign="middle"><strong>Invoice Date</strong></td>
+						<td valign="middle">@date_indo($transaction['transact_at'])</td>
 					</tr>
 					<tr class="row">
-						<td class="col-sm-6"><strong>Status</strong></td>
-						<td> 
+						<td class="col-sm-6" valign="middle"><strong>Status</strong></td>
+						<td valign="middle"> 
 							{{$status[$transaction['status']]}} 
 							@if($transaction['status']=='wait')
 								<small>
@@ -181,6 +181,7 @@
 					@endif
 				</tbody>
 			</table>
+			@if($transaction['shipment'] && !is_null($transaction['shipment']['receipt_number']))
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
@@ -188,17 +189,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					@if($transaction['shipment'] && !is_null($transaction['shipment']['receipt_number']))
 						<tr>
 							<td><strong>{{$transaction['shipment']['receipt_number']}}</strong></td>
 						</tr>
-					@else
-						<tr>
-							<td>Belum ada resi pengiriman</td>
-						</tr>
-					@endif
 				</tbody>
 			</table>
+			@endif
 		</div>
 		<div class="col-md-4">
 			<table class="table table-bordered table-hover table-striped">
@@ -242,10 +238,12 @@
 				</thead>
 				<tbody>
 					@forelse($transaction['transactionlogs'] as $key => $value)
+						@if(in_array($value['status'], ['wait', 'paid', 'ship', 'delivered', 'canceled']))
 						<tr>
 							<td> <strong> {{$status[$value['status']]}} </strong></td>
 							<td> @datetime_indo($value['changed_at']) </td>
 						</tr>
+						@endif
 					@empty
 						<tr>
 							<td colspan="2"> Tidak ada riwayat pesanan </td>

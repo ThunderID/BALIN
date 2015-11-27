@@ -4,6 +4,8 @@ use App\Http\Controllers\BaseController;
 
 use Cookie, Response, Input, Auth, App, Config;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Tag;
 
 class ProductController extends BaseController 
 {
@@ -38,7 +40,7 @@ class ProductController extends BaseController
 		$links									= [];
 		$sorts									= [];
 
-		$inputOnly 								= ['categoriesname','tagsname','name','sort'];
+		$inputOnly 								= ['categoriesid','tagsid','name','sort'];
 
 		$inputs 								= Input::all();
 
@@ -49,12 +51,14 @@ class ProductController extends BaseController
 				$filters[$key] 					= $input;
 				array_push($links, ["page" => $page, 'id' => $key] );
 
-				switch ($key) {
-					case 'categoriesname':
-						$searchResult[]			= $input;
+				switch ($key) 
+				{
+					case 'categoriesid':
+						$searchResult[]			= Category::id($input)->first()['name'];
 						break;
-					case 'tagsname':
-						$searchResult[]			= $input;
+					case 'tagsid':
+						$tag 					= Tag::id($input)->with(['category'])->first();
+						$searchResult[]			= $tag['category']['name'].' '.$tag['name'];
 						break;
 					case 'name':
 						$searchResult[]			= $input;
@@ -66,36 +70,36 @@ class ProductController extends BaseController
 							case 'name':
 								if($tmp[1] == 'asc')
 								{
-									$searchResult[]			= 'diurutkan nama produk A-Z';
+									$searchResult[]			= 'urutan nama produk A-Z';
 								}
 								else if($tmp[1] == 'desc')
 								{
-									$searchResult[]			= 'diurutkan nama produk Z-A';
+									$searchResult[]			= 'urutan nama produk Z-A';
 								}
 								break;
 							case 'price':
 
 								if($tmp[1] == 'asc')
 								{
-									$searchResult[]			= 'diurutkan produk termurah';
+									$searchResult[]			= 'urutan produk termurah';
 								}
 								else if($tmp[1] == 'desc')
 								{
-									$searchResult[]			= 'diurutkan produk termahal';
+									$searchResult[]			= 'urutan produk termahal';
 								}	
 								break;
 							case 'date':
 								if($tmp[1] == 'asc')
 								{
-									$searchResult[]			= 'diurutkan produk terlama';
+									$searchResult[]			= 'urutan produk terlama';
 								}
 								else if($tmp[1] == 'desc')
 								{
-									$searchResult[]			= 'diurutkan produk terbaru';
+									$searchResult[]			= 'urutan produk terbaru';
 								}															
 								break;								
 							default:
-								$searchResult[]			= 'diurutkan ' . $tmp[0];
+								$searchResult[]			= 'urutan ' . $tmp[0];
 								break;
 						}
 						break;																		
@@ -119,46 +123,6 @@ class ProductController extends BaseController
 			$links[$key] 						= array_merge($links[$key], $tmplink);
 			unset($links[$key]['id']);
 		}
-
-		// dd($links);
-		// if(Input::has('categoriesname'))
-		// {
-		// 	$filters['categoriesname'] 			= Input::get('categoriesname');
-
-		// 	$searchResult[]						= 'kategori '.Input::get('categoriesname');
-		// 	// array_push($searchResult, 'kategori '.Input::get('categoriesname') );
-		// 	$filters2 							= $filters;
-		// 	unset($filters2['categoriesname']);
-		// 	$link[]								= array_merge(["page" => $page], $filters2);
-		// }
-
-		// if(Input::has('tagsname'))
-		// {
-		// 	$filters['tagsname'] 				= Input::get('tagsname');
-
-		// 	$searchResult[]						= 'tag '.Input::get('tagsname');
-		// 	// array_push($searchResult, 'tag '.Input::get('tagsname') );
-		// 	$filters2 							= $filters;
-		// 	unset($filters2['tagsname']);
-		// 	$link[]								= array_merge(["page" => $page], $filters2);
-		// }
-
-		// if(Input::has('name'))
-		// {
-		// 	$filters['name']					= Input::get('name');
-		// 	array_push($searchResult, 'nama '.Input::get('name') );
-		// }
-
-		// if(Input::has('sort') && Input::get('sort')=='desc')
-		// {
-		// 	$filters['orderbyraw']				= 'name desc';
-		// 	array_push($searchResult, 'di urutkan Z-A' );
-		// }
-		// elseif(Input::has('sort') && Input::get('sort')=='asc')
-		// {
-		// 	$filters['orderbyraw']				= 'name asc';
-		// 	array_push($searchResult, 'di urutkan A-Z' );
-		// }
 
 		if(Auth::check())
 		{

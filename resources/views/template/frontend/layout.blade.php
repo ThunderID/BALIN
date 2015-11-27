@@ -418,10 +418,9 @@
 </head>
 
 <body>
-	<?php $pb = 90; ?>
 	@if($controller_name == 'home') <?php $pb = 0; ?>@endif
 	
-	<div id="container" style="padding-bottom: {{$pb}}px;">
+	<div id="container">
 
 		<header class="page-header" @if($controller_name == 'home') style="margin:0" @endif>
 			@include('widgets.top_menu')
