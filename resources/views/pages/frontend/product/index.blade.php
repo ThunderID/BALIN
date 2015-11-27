@@ -1,6 +1,6 @@
 @inject('datas', 'App\Models\Product')
 @inject('category', 'App\Models\Category')
-@inject('tagging', 'App\Models\tag')
+@inject('tagged', 'App\Models\tag')
 <?php 
 	$perpage = 12;
 
@@ -10,7 +10,15 @@
 	{
 		foreach ($filters as $key => $value) 
 		{
-			$datas 	= call_user_func([$datas, $key], $value);
+			if($key=='tagging')
+			{
+				$tagging = explode(',', $value);
+				$datas 	= call_user_func([$datas, $key], $tagging);
+			}
+			else
+			{
+				$datas 	= call_user_func([$datas, $key], $value);
+			}
 		}
 	}
 
@@ -34,10 +42,10 @@
 	$category      	= $category::where('category_id', 0)->orderby('name', 'asc')
 								->get();
 
-	$tag      		= $tagging::where('category_id', 0)->orderby('name', 'asc')
+	$tag      		= $tagged::where('category_id', 0)->orderby('name', 'asc')
 								->get();
 
-	$tags      		= $tagging::where('category_id', '<>', 0)->orderby('name', 'asc')
+	$tags      		= $tagged::where('category_id', '<>', 0)->orderby('name', 'asc')
 								->get();
 ?>
 
@@ -121,7 +129,17 @@
 											@foreach ($tags as $tmp)
 												@if($tg->id == $tmp->category_id)
 													<div class="col-md-3 col-sm-4">
-														<li><a  @if(Input::has('tagsid') && Input::get('tagsid')==$tmp['id']) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagsid' => $tmp->id])) }}">{{ $tmp->name }}</a></li>
+														<?php 
+															if(Input::has('tagging'))
+															{
+																$tagging 		= Input::get('tagging').','.$tmp['id'];
+															}
+															else
+															{
+																$tagging 		= $tmp['id'];
+															}
+														?>
+														<li><a @if(Input::has('tagging') && Input::get('tagging')==$tmp['id']) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagging' => $tagging])) }}">{{ $tmp->name }}</a></li>
 													</div>
 										      	@endif
 											@endforeach													
@@ -239,7 +257,17 @@
 										@if($tg->id == $tmp->category_id)
 											<ul class="list-inline m-b-none">
 												<div class="col-xs-12">
-													<li><a @if(Input::has('tagsid') && Input::get('tagsid')==$tmp['id']) class="active" @endif  href="{{ route('frontend.product.index', array_merge(['page' => $page, 'tagsid' => $tmp->id], Input::all())) }}">{{ $tmp->name }}</a></li>
+													<?php 
+														if(Input::has('tagging'))
+														{
+															$tagging 		= Input::get('tagging').','.$tmp['id'];
+														}
+														else
+														{
+															$tagging 		= $tmp['id'];
+														}
+													?>
+													<li><a @if(Input::has('tagging') && Input::get('tagging')==$tmp['id']) class="active" @endif  href="{{ route('frontend.product.index', array_merge(['page' => $page, 'tagging' => $tagging], Input::all())) }}">{{ $tmp->name }}</a></li>
 												</div>
 											</ul>
 										@endif
