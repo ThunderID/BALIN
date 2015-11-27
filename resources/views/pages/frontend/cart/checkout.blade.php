@@ -155,7 +155,7 @@
 								<label class="hollow-label" for="name">Pilih Alamat</label>
 								<select class="form-control hollow choice_address" name="address_id" id="address_id">
 									@foreach($addresses as $key => $value)
-										<option value={{$value['id']}}>{{$value['receiver_name']}}</option>
+										<option value={{$value['id']}} selected>{{$value['address']}}</option>
 									@endforeach
 									<option value="0">Tambah Alamat Baru</option>
 								</select>
