@@ -454,6 +454,10 @@ Route::group(['namespace' => 'Frontend\\'], function()
 		Route::post('checkout',											['uses' => 'CheckOutController@postCheckout', 'as' => 'frontend.post.checkout']);
 		
 		Route::any('ship/cost',											['uses' => 'CheckOutController@getShippingCost', 'as' => 'frontend.any.zipcode']);
+		
+		Route::any('check/voucher',										['uses' => 'CheckOutController@checkvoucher', 'as' => 'frontend.any.check.voucher']);
+		
+		Route::any('checked/out',										['uses' => 'CheckOutController@checkedout', 'as' => 'frontend.any.checked.out']);
 	});
 	});
 
