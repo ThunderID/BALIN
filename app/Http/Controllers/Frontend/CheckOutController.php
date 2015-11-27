@@ -23,14 +23,14 @@ class CheckOutController extends BaseController
 
 		$baskets 								= Session::get('baskets');
 		$addresses 								= Address::oldershipmentbycustomer(Auth::user()->id)->get()->toArray();
-		$address 								= Address::ownerid(Auth::user()->id)->ownertype('App\Models\User')->first();
-		if($address)
-		{
-			$address 							= $address['attributes'];
-			$address['receiver_name']			= Auth::user()->name;
-		}
+		// $address 								= Address::ownerid(Auth::user()->id)->ownertype('App\Models\User')->first();
+		// if($address)
+		// {
+		// 	$address 							= $address['attributes'];
+		// 	$address['receiver_name']			= Auth::user()->name;
+		// }
 
-		$addresses[]							= $address;
+		// $addresses[]							= $address;
 
 		$this->layout->page 					= view('pages.frontend.cart.checkout')
 													->with('controller_name', $this->controller_name)
