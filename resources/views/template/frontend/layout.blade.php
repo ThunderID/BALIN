@@ -88,8 +88,9 @@
 		}
 
 		.ribbon{
-			border-bottom: 1px solid #999;
-			border-top: 1px solid #999;
+			/*border-bottom: 1px solid #999;*/
+			/*border-top: 1px solid #999;*/
+			border: 2px solid #ddd;
 		}
 
 		.ribbon-menu li {
@@ -108,7 +109,7 @@
 		}
 
 		.ribbon-menu li a:hover{
-			color: white;
+			color: #222;
 		}		
 
 		.ribbon-menu li i {
@@ -117,13 +118,14 @@
 		}
 
 		.ribbon-menu li:hover {
-			background-color: #000;
+			/*background-color: #000;*/
+			background-color: #ddd;
 			color: white;
 		} 	
 
 		.ribbon-menu li a.active {
-			background-color: black;
-			color: white;
+			background-color: #ddd;
+			color: #222;
 		} 	
 
 		.ribbon-menu-mobile li a.active {
@@ -153,6 +155,11 @@
 			height: 100%;
 			background-color: #111;
 			color: white;
+		}
+		.ribbon-submenu li a.active {
+			border: 1px solid #ddd;
+		    color: #ddd;
+		    font-weight: 600;
 		}
 
 		.ribbon-submenu {
@@ -404,7 +411,7 @@
    {!! HTML::style('Balin/web/css/layout.css') !!}
    <link rel="stylesheet" href="{{ elixir('Balin/web/css/style-web.css') }}">
    {!! HTML::style('Balin/web/plugin/fontawesome/css/font-awesome.min.css') !!}
-   {!! HTML::style('https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700') !!}
+   {{-- {!! HTML::style('https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700') !!} --}}
 
    <link rel="shortcut icon" href="{{ url('Balin/web/image/favicon.ico') }} "/>
 
@@ -414,9 +421,9 @@
 	<?php $pb = 90; ?>
 	@if($controller_name == 'home') <?php $pb = 0; ?>@endif
 	
-	<div id="container" style="padding-bottom: {{$pb}} px;">
+	<div id="container" style="padding-bottom: {{$pb}}px;">
 
-		<header class="page-header">
+		<header class="page-header" @if($controller_name == 'home') style="margin:0" @endif>
 			@include('widgets.top_menu')
 		</header>
 

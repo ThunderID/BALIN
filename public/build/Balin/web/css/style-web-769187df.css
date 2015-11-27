@@ -13,6 +13,7 @@ a:active,
 a:visited,
 a:focus {
   text-decoration: none;
+  outline: none;
 }
 /* COLOR */
 .orange-red {
@@ -348,6 +349,9 @@ a:focus {
 }
 .m-b-n-xxs {
   margin-bottom: -1px;
+}
+.m-b-n-3 {
+  margin-bottom: -3px;
 }
 .m-b-n-xs {
   margin-bottom: -5px;
@@ -825,15 +829,16 @@ p {
   margin-bottom: 0px;
 }
 .chart-dropdown .cart-content {
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
-  height: 275px;
+  height: 295px;
 }
 .chart-dropdown .cart-bottom {
   position: absolute;
   bottom: 0;
   margin-bottom: 10px;
   width: 100%;
+  background-color: #fff;
 }
 .chart-dropdown .cart-divider {
   background: linear-gradient(top, rgba(255, 255, 255, 0), #ffffff);
@@ -976,8 +981,7 @@ p {
   font-weight: 100;
 }
 .btn-hollow.btn-search {
-  background-color: #fff;
-  border: 1px solid #000;
+  background-color: transparent;
   color: #000;
   height: 32px;
   width: 34px;
@@ -1006,6 +1010,80 @@ p {
   height: 38px;
   padding: 8px 6px;
 }
+.hollow-login label {
+  font-weight: 400;
+}
+h3.hollow-label {
+  font-weight: 400;
+}
+label.hollow-label {
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+.tag-categories a {
+  font-weight: 300;
+}
+.form-group span.help-block {
+  font-size: 12px;
+}
+label.text {
+  color: #999;
+  font-weight: 300;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+  margin: 0;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: textfield;
+  -o-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
+}
+input.text-hollow {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #333;
+  margin-right: 18px;
+  outline: none;
+}
+input.text-hollow:focus {
+  outline: none;
+  box-shadow: none;
+}
+.form-control.hollow {
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+}
+.form-control.hollow:focus {
+  border-color: #999;
+}
+.form-control.hollow.search {
+  border: 0;
+  padding-top: 6px;
+  height: 42px;
+  background-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+.f-searching {
+  background: transparent;
+  transition: background 0.4s ease-in;
+}
+.f-searching.focus {
+  background-color: #fff;
+  border-left: 2px solid #ddd;
+}
+select.form-control.hollow {
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  overflow: hidden;
+  background: #fff url("../../../../Balin/web/image/select2x2.png") no-repeat right -90px top -6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
 .dropdown-menu.category-list {
   margin-top: 30px;
   width: 180px;
@@ -1028,17 +1106,6 @@ p {
   background-color: #000;
   color: #fff;
 }
-input.text-hollow {
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid #333;
-  margin-right: 18px;
-  outline: none;
-}
-input.text-hollow:focus {
-  outline: none;
-  box-shadow: none;
-}
 .hollow-pagination ul.pagination {
   border-radius: 0px;
 }
@@ -1059,41 +1126,6 @@ input.text-hollow:focus {
   color: #000;
   font-weight: bold;
 }
-.panel-hollow {
-  margin-bottom: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 0;
-  /*-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);*/
-}
-.panel-hollow input {
-  outline: none;
-  border: 1px solid #ddd;
-  border-radius: 0;
-  box-shadow: none;
-}
-.panel-hollow h1,
-.panel-hollow h2,
-.panel-hollow h3,
-.panel-hollow h4,
-.panel-hollow h5 {
-  color: #333;
-}
-.panel-hollow a {
-  color: #000;
-  text-decoration: none;
-}
-.hollow-login label {
-  font-weight: 400;
-}
-h3.hollow-label {
-  font-weight: 400;
-}
-label.hollow-label {
-  font-weight: 300;
-  letter-spacing: 0.04em;
-}
 .gallery-product {
   z-index: -1;
 }
@@ -1104,6 +1136,7 @@ label.hollow-label {
   background-color: rgba(0, 0, 0, 0.65);
   padding-left: 5px;
   padding-right: 5px;
+  z-index: 1;
 }
 .gallery-product .owl-controls .owl-nav .owl-prev i {
   color: #eee;
@@ -1140,6 +1173,7 @@ label.hollow-label {
   background-color: rgba(0, 0, 0, 0.65);
   padding-left: 5px;
   padding-right: 5px;
+  z-index: 1;
 }
 .gallery-product .owl-controls .owl-nav .owl-next i {
   color: #eee;
@@ -1195,45 +1229,6 @@ label.hollow-label {
 .menu-info li a:hover,
 .menu-info li a.active {
   color: #222;
-}
-.tag-categories a {
-  font-weight: 300;
-}
-.form-group span.help-block {
-  font-size: 12px;
-}
-label.text {
-  color: #999;
-  font-weight: 300;
-}
-.form-control.hollow {
-  border-radius: 0;
-  outline: none;
-  box-shadow: none;
-}
-.form-control.hollow:focus {
-  border-color: #999;
-}
-.form-control.hollow.search {
-  border: 0;
-  border-left: 1px solid #999;
-  padding-top: 6px;
-  height: 42px;
-  background-color: #000;
-  transition: all 0.3s ease-in-out;
-}
-.form-control.hollow.search:focus {
-  background-color: #fff;
-  color: #000;
-}
-select.form-control.hollow {
-  border-radius: 0;
-  outline: none;
-  box-shadow: none;
-  overflow: hidden;
-  background: #fff url("../../../../Balin/web/image/select2x2.png") no-repeat right -90px top -6px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
 }
 .qty-hollow {
   width: 61px;
@@ -1387,6 +1382,31 @@ span.info {
   color: #888;
   font-size: 12px;
   padding-bottom: 10px;
+}
+.panel-hollow {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  /*-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);*/
+}
+.panel-hollow input {
+  outline: none;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  box-shadow: none;
+}
+.panel-hollow h1,
+.panel-hollow h2,
+.panel-hollow h3,
+.panel-hollow h4,
+.panel-hollow h5 {
+  color: #333;
+}
+.panel-hollow a {
+  color: #000;
+  text-decoration: none;
 }
 .panel-voucher {
   background-color: #000;

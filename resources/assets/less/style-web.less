@@ -13,6 +13,7 @@ html {
 a {
 	&:active, &:visited, &:focus {
 		text-decoration: none;
+		outline: none;
 	}
 }
 
@@ -512,15 +513,16 @@ p {
 		margin-bottom:0px;
 	}
 	.cart-content {
-		overflow-y: scroll;
+		overflow-y: auto;
 		overflow-x: hidden;
-		height: 275px;
+		height: 295px;
 	}
 	.cart-bottom {
 		position:absolute;
 		bottom: 0;
 		margin-bottom: 10px;
 		width: 100%;
+		background-color: #fff;
 	}
 	.cart-divider {
 		background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), rgb(255, 255, 255));
@@ -677,8 +679,8 @@ p {
 		}
 	}
 	&.btn-search {
-		background-color: #fff;
-		border: 1px solid #000;
+		background-color: transparent;
+		// border: 1px solid #000;
 		color: #000;
 	    height: 32px;
 	    width: 34px;
@@ -710,6 +712,100 @@ p {
 		padding: 8px 6px;
 	}
 }
+.hollow-login {
+	label {
+		font-weight: 400;
+	}
+}
+h3.hollow-label {
+	font-weight: 400;
+}
+label.hollow-label {
+	font-weight: 300;
+	letter-spacing: 0.04em;
+}
+.tag-categories a {
+	font-weight: 300;
+}
+.form-group span.help-block {
+	font-size: 12px;
+}
+label.text {
+	color: #999;
+	font-weight: 300;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
+	margin: 0; 
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: textfield; 
+  -o-appearance: textfield;
+  appearance: textfield;
+  margin: 0; 
+}
+input.text-hollow {
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #333;
+	margin-right: 18px;
+	outline: none;
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+}
+.form-control.hollow {
+	border-radius: 0;
+	outline: none;
+	box-shadow: none;
+	// border-color: #ccc;
+	&:focus {
+		border-color: #999;
+	}
+	&.search {
+		border: 0;
+	    padding-top: 6px;
+	    height: 42px;
+	    background-color: transparent;
+	    transition: all 0.3s ease-in-out;
+	    // &:focus {
+	    // 	background-color: #000;
+	    // 	color: #fff;
+	    // }
+	}
+}
+.f-searching {
+	background: transparent;
+    transition: background 0.4s ease-in;
+	&.focus {
+		background-color: #fff;
+		border-left: 2px solid #ddd;
+	}
+	// .inp {
+	// 	background-color: transparent;
+	// }
+	// .bt {
+	// 	background-color: transparent;	
+	//     transition: all 0.3s ease-in;	
+	// 	&.focus {
+	// 		background-color: #fff;
+	// 		// border-right: 1px solid #999;
+	// 	}
+	// }
+}
+
+select.form-control.hollow {
+	border-radius: 0;
+	outline: none;
+	box-shadow: none;
+	overflow: hidden;
+	background: #fff url("../../../../Balin/web/image/select2x2.png") no-repeat right -90px top -6px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
 .dropdown-menu.category-list {
 	margin-top: 30px;
 	width: 180px;
@@ -732,17 +828,6 @@ p {
 		}
 	}
 }
-input.text-hollow {
-	background-color: transparent;
-	border: none;
-	border-bottom: 1px solid #333;
-	margin-right: 18px;
-	outline: none;
-	&:focus {
-		outline: none;
-		box-shadow: none;
-	}
-}
 
 .hollow-pagination ul.pagination {
 	border-radius: 0px;
@@ -762,39 +847,6 @@ input.text-hollow {
 		font-weight: bold;
 	}
 }
-.panel-hollow {
-	margin-bottom: 20px;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	border-radius: 0;
-	/*-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);*/
-	input {
-		outline: none;
-		border: 1px solid #ddd;
-		border-radius: 0;
-		box-shadow: none;
-	}
-	h1, h2, h3, h4, h5 {
-		color: #333;
-	}
-	a {
-		color: #000;
-		text-decoration: none;
-	}
-}
-.hollow-login {
-	label {
-		font-weight: 400;
-	}
-}
-h3.hollow-label {
-	font-weight: 400;
-}
-label.hollow-label {
-	font-weight: 300;
-	letter-spacing: 0.04em;
-}
 .gallery-product {
 	z-index: -1;
 	.owl-controls .owl-nav .owl-prev {
@@ -804,6 +856,7 @@ label.hollow-label {
 		background-color: rgba(0, 0, 0, 0.65);
 		padding-left: 5px;
 		padding-right: 5px;
+		z-index: 1;
 		i {
 			color: #eee;
 			margin-right: 4px;
@@ -836,6 +889,7 @@ label.hollow-label {
 		background-color: rgba(0, 0, 0, 0.65);
 		padding-left: 5px;
 		padding-right: 5px;
+		z-index: 1;
 		i {
 			color: #eee;
 			margin-left: 4px;
@@ -888,53 +942,6 @@ label.hollow-label {
 			color: #222;
 		}
 	}
-}
-// .menu-info li a {
-// }
-// .menu-info li.last-child {
-// 	margin-top: 30px;
-// 	margin-bottom: 50px;
-// }
-.tag-categories a {
-	font-weight: 300;
-}
-.form-group span.help-block {
-	font-size: 12px;
-}
-label.text {
-	color: #999;
-	font-weight: 300;
-}
-.form-control.hollow {
-	border-radius: 0;
-	outline: none;
-	box-shadow: none;
-	// border-color: #ccc;
-	&:focus {
-		border-color: #999;
-	}
-	&.search {
-		border: 0;
-	    border-left: 1px solid #999;
-	    padding-top: 6px;
-	    height: 42px;
-	    background-color: #000;
-	    transition: all 0.3s ease-in-out;
-	    &:focus {
-	    	background-color: #fff;
-	    	color: #000;
-	    }
-	}
-}
-
-select.form-control.hollow {
-	border-radius: 0;
-	outline: none;
-	box-shadow: none;
-	overflow: hidden;
-	background: #fff url("../../../../Balin/web/image/select2x2.png") no-repeat right -90px top -6px;
-	-webkit-appearance: none;
-	-moz-appearance: none;
 }
 
 .qty-hollow {
@@ -1097,7 +1104,27 @@ span.info {
 	font-size: 12px;
 	padding-bottom: 10px;
 }
-
+.panel-hollow {
+	margin-bottom: 20px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 0;
+	/*-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);*/
+	input {
+		outline: none;
+		border: 1px solid #ddd;
+		border-radius: 0;
+		box-shadow: none;
+	}
+	h1, h2, h3, h4, h5 {
+		color: #333;
+	}
+	a {
+		color: #000;
+		text-decoration: none;
+	}
+}
 .panel-voucher {
 	background-color: #000;
 	color: #fff;
@@ -1263,7 +1290,7 @@ footer {
 }
 .square-label {
 	position: relative;
-	// width: 72px;
+	// width: 140px;
 	padding: 10px;
 	background: rgba(0, 0, 0, 0.8);
 	text-align: center;

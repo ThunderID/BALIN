@@ -64,7 +64,7 @@
 										value="{{ $value['qty'] }}" 
 										min="0" max="@if(50<=$value['stock']){{ '50' }}@else{{ $value['stock'] }}@endif" 
 										data-stock="{{ $value['stock'] }}" 
-										data-id="{{ $value['varian_id'] }}" 
+										data-action-update="{{ route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key]) }}" 
 										data-name="qty-{{strtolower($value['size'])}}[1]"
 										data-cid="{{ $item_list_id }}"
 										data-id="{{ $value['varian_id'] }}" 
@@ -111,7 +111,7 @@
 	</div>
 </div>
 <div class="hidden-sm hidden-md hidden-lg">
-	<div class="row chart-item">
+	<div class="row chart-item" style="border-bottom: 0.09em solid #ccc">
 		<div class="col-md-12 col-sm-12 col-xs-10 col-xs-offset-1">
 			<div class="row">
 				<div class="col-sm-2 col-xs-8 col-xs-offset-2">
@@ -161,6 +161,7 @@
 										data-stock="{{ $value['stock'] }}" 
 										data-cid="{{ $item_list_id }}"
 										data-id="{{ $value['varian_id'] }}" 
+										data-action-update="{{ route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key]) }}"
 										data-name="qty-{{strtolower($value['size'])}}[1]"
 										data-oldValue="{{ $value['qty'] }}" 
 										data-price="{{ $item_list_normal_price }}"

@@ -52,7 +52,7 @@
 			<div class="container">
 				<div class="col-md-12 col-sm12 hidden-xs">
 					<div class="row ribbon">
-						<div class="col-md-7 col-sm-9 p-l-xxs">
+						<div class="col-md-9 col-sm-9 p-l-xxs">
 							<ul class="list-inline ribbon-menu m-b-none">
 								<li>
 							        <a role="button" id="collapse1" class="menu-accordion"  data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -78,17 +78,17 @@
 								</li>
 							</ul>
 						</div>
-						<div class="col-md-5 col-sm-3 p-l-xxs text-right">
-							<div class="row">
-							{!! Form::open(array('url' => route('frontend.product.index', Input::all()), 'method' => 'get', 'id' => 'form1', 'class' => 'form-group' )) !!}
-								<div class="col-xs-7 col-xs-offset-4 p-r-none">
-									{!! Form::text('name', null, ['class' => 'form-control hollow search', 'id' => 'input-search','placeholder' => 'Cari nama produk', 'required' => 'required'] ) !!}
-								</div>
-								<div class="col-xs-1 p-l-none p-r-none p-b-xxs" style="background-color: #fff; border-right:1px solid #999">
-									<button type="submit"  class="btn-hollow btn-block btn-search t-sm" tabindex="21"><i class="fa fa-search" style="padding-top:3px;"></i></button>
-								</div>
+						<div class="col-md-3 col-sm-3 p-l-xxs text-right">
+							<div class="row f-searching">
+								{!! Form::open(array('url' => route('frontend.product.index', Input::all()), 'method' => 'get', 'id' => 'form1', 'class' => 'form-group' )) !!}
+									<div class="col-xs-10 p-r-none p-l-none">
+										{!! Form::text('name', null, ['class' => 'form-control hollow search inp-search', 'id' => 'input-search','placeholder' => 'Cari nama produk', 'required' => 'required'] ) !!}
+									</div>
+									<div class="col-xs-2 p-l-none p-r-none p-b-xxs bt">
+										<button type="submit"  class="btn-hollow btn-block btn-search t-sm" tabindex="21"><i class="fa fa-search" style="padding-top:3px;"></i></button>
+									</div>
+								{!! Form::close() !!}
 					      	</div>
-							{!! Form::close() !!}
 						</div>																								
 					</div>
 
@@ -370,34 +370,32 @@
 
 @section('script')
 function setModalMaxHeight(element) {
-  this.$element     = $(element);
-  var dialogMargin  = $(window).width() > 767 ? 62 : 22;
-  var contentHeight = $(window).height() - dialogMargin;
-  var headerHeight  = this.$element.find('.modal-header').outerHeight() || 2;
-  var footerHeight  = this.$element.find('.modal-footer').outerHeight() || 2;
-  var maxHeight     = contentHeight - (headerHeight + footerHeight);
+	this.$element     = $(element);
+	var dialogMargin  = $(window).width() > 767 ? 62 : 22;
+	var contentHeight = $(window).height() - dialogMargin;
+	var headerHeight  = this.$element.find('.modal-header').outerHeight() || 2;
+	var footerHeight  = this.$element.find('.modal-footer').outerHeight() || 2;
+	var maxHeight     = contentHeight - (headerHeight + footerHeight);
 
-  this.$element
-    .find('.modal-content').css({
-      'overflow': 'hidden'
-  });
+	this.$element.find('.modal-content').css({
+		'overflow': 'hidden'
+	});
   
-  this.$element
-    .find('.modal-body').css({
-      'max-height': maxHeight,
-      'overflow-y': 'auto'
-  });
+	this.$element.find('.modal-body').css({
+		'max-height': maxHeight,
+		'overflow-y': 'auto'
+	});
 }
 
 $('.modal').on('show.bs.modal', function() {
-  	$(this).show();
-  	setModalMaxHeight(this);
+	$(this).show();
+	setModalMaxHeight(this);
 });
 
 $(window).resize(function() {
-  if ($('.modal.in').length != 0) {
-    setModalMaxHeight($('.modal.in'));
-  }
+	if ($('.modal.in').length != 0) {
+		setModalMaxHeight($('.modal.in'));
+	}
 });
 
 $('.menu-accordion').click(function(){
@@ -416,6 +414,13 @@ $('.collapse-category').on('hide.bs.collapse', function(e){
 $('#input-search').click(function(){
 	$('.collapse-category').collapse("hide");
 	$('.menu-accordion').removeClass('active');
+});
+
+$('.inp-search').focus( function() {
+	$('.f-searching').addClass('focus');
+
+}).focusout( function(){
+	$('.f-searching').removeClass('focus');
 });
 
 @stop

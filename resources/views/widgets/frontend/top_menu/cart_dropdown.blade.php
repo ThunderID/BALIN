@@ -41,7 +41,6 @@
 			@endforeach
 		</div>
 		<div class="cart-bottom">
-			<div class="cart-divider">&nbsp;</div>
 			<li class="chart-dropdown-subtotal border-top border-bottom">
 				<div class="row">
 					<div class="col-sm-12">

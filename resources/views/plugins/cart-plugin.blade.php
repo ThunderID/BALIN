@@ -108,6 +108,66 @@
 	$('.input-number').focusin(function(){
 	   $(this).attr('data-oldValue', $(this).val());
 	});
+	$('.input-number').change(function(){
+		minValue =  parseInt($(this).attr('min'));
+		maxValue =  parseInt($(this).attr('max'));
+		valueCurrent = parseInt($(this).val());
+		name = $(this).attr('data-name');
+
+		@if (Route::is('frontend.cart.index'))
+			var cid 				= $(this).attr('data-cid');
+			var vid 				= $(this).attr('data-id');
+
+			var list_cart 			= $('.list-vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+			var list_cart_mobile 	= $('.list-vid-mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+			var lab_total  			= $(this).parent().parent().parent().parent().parent().parent().find('.label-total');
+
+			var input_mobile 		= list_cart_mobile.find('.input-number-mobile[data-name="'+name+'"]');
+			var lab_total_mobile 	= input_mobile.parent().parent().parent().parent().parent().find('.label-total-mobile');
+
+			var action_update 		= $(this).attr('data-action-update');
+			var varian_qty 			= 0;
+
+			btn_minus = list_cart(".btn-number[data-type='minus'][data-field='"+name+"']");
+			btn_plus = list_cart(".btn-number[data-type='plus'][data-field='"+name+"']");
+		@else
+			btn_minus = $(".btn-number[data-type='minus'][data-field='"+name+"']");
+			btn_plus = $(".btn-number[data-type='plus'][data-field='"+name+"']");
+		@endif
+
+		if(valueCurrent > minValue) {
+			type = 'minus';
+			@if (Route::is('frontend.cart.index'))
+				qty_change_input_cart($(this), valueCurrent, lab_total, type);
+				// qty_minus_mobile(input_mobile, valueCurrent, lab_total_mobile, type);
+				disable_btn(btn_minus, input, vid, cid);
+			@else
+				btn_minus.removeAttr('disabled');
+				qty_change_input_product($(this));
+			@endif
+		} else {
+			btn_minus.attr('disabled', true);
+		}
+
+		if(valueCurrent < maxValue) {
+			type = 'plus';
+			@if (Route::is('frontend.cart.index'))
+				qty_change_input_cart($(this), valueCurrent, lab_total, type);
+				// qty_minus_mobile(input_mobile, valueCurrent, lab_total_mobile, type);
+				disable_btn(btn_plus, input, vid, cid);
+			@else
+				btn_plus.removeAttr('disabled');
+				qty_change_input_product($(this));
+			@endif
+			flg = 0;
+			show_tooltip($(this), flg);
+		} else {
+			flg = 1;
+			show_tooltip($(this), flg);
+			btn_plus.attr('disabled', true);
+		}
+	});
 
 	$(".input-number").keydown(function (e) {
 		// Allow: backspace, delete, tab, escape, enter and .
@@ -231,6 +291,18 @@
 			// $(this).val($(this).attr('data-oldValue'));
 		}
 	}
+
+	function qty_change_input_product(e)
+	{
+		var sumtotal = 0;
+
+		total_product(e, type);
+		sumtotal += sumtotal_product(e);
+
+		$('.price-all-product').text('IDR '+number_format(sumtotal))
+		e.attr('data-oldValue', e.val());
+	}
+
 	function qty_plus_product(e, current_val, type)
 	{
 		var old_value = 0;
@@ -238,6 +310,20 @@
 
 		old_value = current_val;
 		e.val(current_val + 1).change();
+		total_product(e, type);
+		sumtotal += sumtotal_product(e);
+
+		$('.price-all-product').text('IDR '+number_format(sumtotal))
+		e.attr('data-oldValue', old_value);
+	}
+
+	function qty_minus_product(e, current_val, type)
+	{
+		var old_value = 0;
+		var sumtotal = 0;
+
+		old_value = current_val;
+		e.val(current_val - 1).change();
 		total_product(e, type);
 		sumtotal += sumtotal_product(e);
 
@@ -265,20 +351,6 @@
 			total_all += temp;
 		});
 		return total_all;
-	}
-
-	function qty_minus_product(e, current_val, type)
-	{
-		var old_value = 0;
-		var sumtotal = 0;
-
-		old_value = current_val;
-		e.val(current_val - 1).change();
-		total_product(e, type);
-		sumtotal -= sumtotal_product(e);
-
-		$('.price-all-product').text('IDR '+number_format(sumtotal))
-		e.attr('data-oldValue', old_value);
 	}
 
 	//===== STOP IN PRODUCT =====
@@ -419,6 +491,16 @@
 		grand_total();
 	}
 
+	function qty_change_input_cart(e, current_val, lab_total, type)
+	{
+		var total_item = 0;
+
+		total_item = total(e, type);
+		lab_total.attr('data-total', total_item);
+		lab_total.find('span').text('IDR '+number_format(total_item));
+		e.attr('data-oldValue', e.val());
+	}
+
 	function total(e, flag)
 	{
 		var qty = parseInt(e.val());
@@ -463,7 +545,27 @@
 			async: true,
 			data: {qty: item_qty},
 			success: function(result) {
-				// console.log(result);
+				count_cart 	= Object.keys(result.carts).length; 
+				$('.ico-cart').find('span').html(count_cart);
+
+				$.each(result.carts, function(k, v) {
+					$.each(v.varians, function(k2, v2) {
+						if (v2.message!=='') {
+							flg = 1;
+							show_tooltip($('.input-number').find('[data-id="'+v2.varian_id+'"]'), flg);
+						}
+					});
+				});
+				
+				$.ajax({
+					url: '{{ route('frontend.cart.listBasket.ajax') }}',
+					beforeSend: function() {
+						// $('chart-dropdown').html("<img src='/Balin/web/image/loading.gif'/>");
+					},
+					success: function(msg) {
+						$('.chart-dropdown').html(msg);
+					}
+				});
 			}
 		});
 	}
@@ -505,11 +607,11 @@
 			dataType:"json",
 			data: {product_slug: pslug, product_name: pname, qty: pqty, varianids: pvarians},
 			beforeSend: function() {
-				$('.addto-cart').val('ADDING...');
+				$('.addto-cart').text('ADDING...');
 			},
 			success: function(result) {
 				count_cart 	= Object.keys(result.carts).length; 
-				$('.addto-cart').val('ADD TO CART');
+				$('.addto-cart').text('ADD TO CART');
 				$('.ico-cart').find('span').html(count_cart);
 
 					$.each(result.carts, function(k, v) {
@@ -659,14 +761,13 @@
 	function show_tooltip(input, flg)
 	{
 		if (flg == 1) {
-			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf stock barang size ini hanya tersedia ' +input.attr('max')}).tooltip('show');
+			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf stock barang size ini tersisa ' +input.attr('max')}).tooltip('show');
 			setTimeout( function() {
 				$(input).tooltip('hide');
 			}, 2000);
 		} else {
-			setTimeout( function() {
-				$(input).tooltip('hide');
-			}, 2500);
+			
+			$(input).tooltip('destroy');
 		}
 	}
 

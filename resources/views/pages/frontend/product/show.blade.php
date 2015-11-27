@@ -26,7 +26,7 @@
 				<div class="row">
 					<div class="col-md-7 col-md-offset-3">
 						@if (count($data['images'])!=1)
-							<div class="owl-carousel gallery-product" style="z-index:-1">
+							<div class="owl-carousel gallery-product">
 								@foreach ($data['images'] as $k => $v)
 									<div class="item">
 										<a href="{{ $v['image_lg'] }}" data-standard="{{ $v['image_lg'] }}">
@@ -36,7 +36,7 @@
 								@endforeach
 							</div>      
 						@else
-							<div class="owl-carousel gallery-product hidden-xs hidden-sm" style="z-index:-1">
+							<div class="owl-carousel gallery-product hidden-xs hidden-sm">
 								@foreach ($data['images'] as $k => $v)
 									<div class="item">
 										<a href="{{ $v['image_lg'] }}" data-standard="{{ $v['image_lg'] }}">
@@ -61,9 +61,14 @@
 					</div>
 				</div>
 				<div class="row">
-
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+						<a onclick="facebookShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
+						<a onclick="facebookShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-twitter"></i>&nbsp;&nbsp;tweet</a>
+					</div>
+				</div>
+				<div class="row">
 					@foreach($data['lables'] as $label)
-						<div class="col-md-2 col-sm-1 col-xs-3 p-b-sm">
+						<div class="col-md-4 col-sm-3 col-xs-3 p-b-sm">
 						<?php
 
 						switch (str_replace('_', '', strtoupper($label['lable']))) {
@@ -73,22 +78,21 @@
 								break;
 							case "HOTITEM":
 								// echo "<div class='circle-label black'><div><p style='margin-top: -6px;''>HOT ITEM</p></div></div>";
-								echo "<div class='square-label black'><div><p style='margin-top: -6px;''>HOT ITEM</p></div></div>";
+								echo "<div class='square-label black'><div>HOT ITEM</div></div>";
 								break;	
 							case "BESTSELLER":
 								// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>BEST SELLER</p></div></div>";
-								echo "<div class='square-label black'><div><p style='margin-top: -6px; font-size: 12px;'>BEST SELLER</p></div></div>";
+								echo "<div class='square-label black'><div>BEST SELLER</div></div>";
 								break;															
 							default:
 								// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</p></div></div>";
-								echo "<div class='square-label black'><div><p style='margin-top: -6px; font-size: 12px;'>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</p></div></div>";
+								echo "<div class='square-label black'><div>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</div></div>";
 								break;
 						}
 
 						?>
 						</div>
 					@endforeach									
-																	
 				</div>
 				<div class="row">
 					<div class="col-md-12">
@@ -165,7 +169,7 @@
 															@endif
 														</label>
 													  	<input type="hidden" name="varianids[{{$v['id']}}]" class="form-control pvarians" value="{{$v['id']}}">
-													  	<input type="text" name="qty[{{$v['id']}}]" class="form-control hollow form-qty input-number pqty" 
+													  	<input type="number" name="qty[{{$v['id']}}]" class="form-control hollow form-qty input-number pqty" 
 													  	value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" 
 													  	data-stock="{{ $v['stock'] }}" 
 													  	data-id="{{ $v['id'] }}" 
@@ -209,7 +213,7 @@
 							</div>
 							<div class="row m-t-sm">
 								<div class="col-sm-4 col-xs-4">
-									<a onclick="facebookShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
+									
 								</div>
 								<div class="col-sm-8 col-xs-8">
 									<div class="form-group text-right">
