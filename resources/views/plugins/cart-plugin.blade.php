@@ -8,6 +8,27 @@
 
 	var tot_qty_mobile = 0;
 
+	$(function() {
+		btn_number = $('.btn-number:disabled');
+		btn_number_mobile = $('.btn-number-mobile');
+
+		$('.input-number:disabled').each(function(e) {
+			// if ($(this).data('type')=='')
+			cid = $(this).data('cid');
+			vid = $(this).data('id');
+			fieldName = $(this).attr('data-name');
+
+			list_cart = $('.list-vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+			list_cart_mobile = $('.list-vid-mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+			input_number_mobile = list_cart_mobile.find('.input-number-mobile[data-name="'+fieldName+'"]');
+
+			flg = 2;
+			show_tooltip($(this), flg);
+			show_tooltip(input_number_mobile, flg);
+		});
+	});
+
 	// FOR DESKTOP
 	$('.btn-number').on('click',function(e){
 		e.preventDefault();
@@ -916,7 +937,13 @@
 			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf stock barang size ini tersisa ' +input.attr('max')}).tooltip('show');
 			setTimeout( function() {
 				$(input).tooltip('hide');
-			}, 2000);
+			}, 3000);
+		}
+		else if (flg == 2) {
+			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf stock barang size ini habis'}).tooltip('show');
+			setTimeout( function() {
+				$(input).tooltip('hide');
+			}, 3000);
 		} else {
 			
 			$(input).tooltip('destroy');
