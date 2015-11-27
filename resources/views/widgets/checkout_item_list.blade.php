@@ -11,20 +11,23 @@
 			</a>
 		</div>
 		<div class="col-sm-10 col-md-10 p-b-sm">
+			<div class="row m-b-xs">
+				<div class="col-md-12">
+					<h4 class="m-b-xs"><a href="{{ route('frontend.product.show', $item_list_slug) }}" class="title">{{ $item_list_name }}</a></h4>
+				</div>
+			</div>
 			<div class="row">
-				<div class="col-sm-4 col-md-4">
+				<div class="col-sm-12 col-md-12">
 					<div class="row">
 						<div class="col-sm-12 col-xs-12">
-							<a href="{{ route('frontend.product.show', $item_list_slug) }}" class="title"><h4 class="m-b-xs">{{ $item_list_name }}</h4></a>
-							<p class="m-b-sm">Size </p>
+							<p class="m-b-sm"><strong>Size</strong></p>
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-8 col-md-8">&nbsp;</div>
 			</div>
 			@foreach($item_list_size as $key => $value)
-				<div class="row">
-					<div class="col-sm-3 col-md-3">
+				<div class="row p-b-sm">
+					<div class="col-sm-2 col-md-2">
 						@if (strpos($value['size'], '.')==true)
 							<?php $frac = explode('.', $value['size']); ?>
 							{{ $frac[0].' &frac12;'}}
@@ -32,13 +35,13 @@
 							{{ $value['size'] }}
 						@endif
 					</div>
-					<div class="col-sm-1 col-md-1 text-right">
+					<div class="col-sm-1 col-md-1 text-center">
 						{{ $value['qty'] }}
 					</div>
 					<div class="col-sm-3 col-md-3 text-right">
 						@money_indo($item_list_normal_price)
 					</div>
-					<div class="col-sm-2 col-md-2 text-right">
+					<div class="col-sm-3 col-md-3 text-right">
 						@money_indo($item_list_discount_price) 
 					</div>
 					<div class="col-sm-3 col-md-3 text-right">
