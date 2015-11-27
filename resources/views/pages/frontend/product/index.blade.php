@@ -101,7 +101,7 @@
 								<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'categoriesid' => $cat->name])) }}">{{ $cat->name }}</a></li>
+										<li><a @if(Input::has('categoriesid') && Input::get('categoriesid')==$cat['id']) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'categoriesid' => $cat->id])) }}">{{ $cat->name }}</a></li>
 									</div>
 								@endforeach	
 								</ul>					
@@ -121,7 +121,7 @@
 											@foreach ($tags as $tmp)
 												@if($tg->id == $tmp->category_id)
 													<div class="col-md-3 col-sm-4">
-														<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagsname' => $tmp->name])) }}">{{ $tmp->name }}</a></li>
+														<li><a  @if(Input::has('tagsid') && Input::get('tagsid')==$tmp['id']) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagsid' => $tmp->id])) }}">{{ $tmp->name }}</a></li>
 													</div>
 										      	@endif
 											@endforeach													
@@ -211,7 +211,7 @@
 							<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-xs-12">
-										<li><a href="{{ route('frontend.product.index', array_merge(['page' => $page, 'categoriesid' => $cat->name], Input::all())) }}">{{ $cat->name }}</a></li>
+										<li><a @if(Input::has('categoriesid') && Input::get('categoriesid')==$cat['id']) class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'categoriesid' => $cat->id], Input::all())) }}">{{ $cat->name }}</a></li>
 									</div>
 								@endforeach	
 							</ul>						      		
@@ -239,7 +239,7 @@
 										@if($tg->id == $tmp->category_id)
 											<ul class="list-inline m-b-none">
 												<div class="col-xs-12">
-													<li><a href="{{ route('frontend.product.index', array_merge(['page' => $page, 'tagsname' => $tmp->name], Input::all())) }}">{{ $tmp->name }}</a></li>
+													<li><a @if(Input::has('tagsid') && Input::get('tagsid')==$tmp['id']) class="active" @endif  href="{{ route('frontend.product.index', array_merge(['page' => $page, 'tagsid' => $tmp->id], Input::all())) }}">{{ $tmp->name }}</a></li>
 												</div>
 											</ul>
 										@endif
