@@ -1,5 +1,5 @@
 <?php 
-	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Proses, Menunggu Pembayaran', 'paid' => 'Sudah dibayar, belum dikirim', 'shipping' => 'Sedang dalam pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 		<div class="row">
 		<div class="col-md-7 col-sm-7 col-xs-12">
@@ -242,10 +242,12 @@
 				</thead>
 				<tbody>
 					@forelse($transaction['transactionlogs'] as $key => $value)
+						@if(in_array($value['status'], ['wait', 'paid', 'ship', 'delivered', 'canceled']))
 						<tr>
 							<td> <strong> {{$status[$value['status']]}} </strong></td>
 							<td> @datetime_indo($value['changed_at']) </td>
 						</tr>
+						@endif
 					@empty
 						<tr>
 							<td colspan="2"> Tidak ada riwayat pesanan </td>
