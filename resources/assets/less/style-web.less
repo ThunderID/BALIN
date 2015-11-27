@@ -326,17 +326,22 @@ p {
 
 .product-info {
 	.title-product {
-		font-size:28px; 
+		font-size:29px; 
 	}
 	.caption-product {
 		font-weight:400;
 		text-transform: uppercase;
+		&.label-show {
+			font-size: 20px;
+			color: #000;
+		}
 	}
 	.text-product {
 		font-weight: 300;
 		&.small-price{
 			font-size: 10pt !important;
 			position: relative;
+			letter-spacing: 0.2em;
 			&::after {
 				border-bottom: 0.150em solid rgba(255, 0, 0, 0.8);
 				content: "";
@@ -348,6 +353,9 @@ p {
 				top: 50%;
 				max-width: inherit;
 			}
+		}
+		&.price {
+			letter-spacing: 0.1em;
 		}
 	}
 }
@@ -1291,15 +1299,26 @@ footer {
 .square-label {
 	position: relative;
 	// width: 140px;
-	padding: 10px;
+	padding: 9px;
 	background: rgba(0, 0, 0, 0.8);
 	text-align: center;
 	color: #fff;
 	font-weight: 500;
 	font-size: 13px;
 	line-height: 1;
+	width: 100px;
 	&.danger {
 		background-color: #de342e;
+	}
+	&.no-background {
+		background: transparent !important;
+		border: 2px solid #000;
+		color: #000;
+		font-weight: bold;
+		padding: 10px;
+		padding-left: 5px;
+		padding-right: 5px;
+		width: 120px;
 	}
 }
 .text-label {

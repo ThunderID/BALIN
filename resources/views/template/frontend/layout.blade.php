@@ -30,6 +30,12 @@
 		a.link-grey{
 			color:#999!important;
 		}
+		a.link-gold{
+			color:#C38322 !important;
+		}
+		a.link-gold:hover{
+			color:#E18A07 !important;
+		}
 		a.link-black {
 			color: #000 !important;
 		}
@@ -81,10 +87,11 @@
 		}
 		
 		.btn-share{
-			font-size: 12px !important; 
+			font-size: 12px !important;
 			height: 20px;
-			padding: 1px 7px !important;
+			padding: 1px 6px !important;
 			margin: 0px !important;
+			line-height: 20px;
 		}
 
 		.ribbon{

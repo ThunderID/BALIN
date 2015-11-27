@@ -24,23 +24,23 @@
 					<div class="row">
 						<div class="col-xs-12 col-md-12 col-sm-12 chart-div">
 							<div class="row chart-header">
-								<div class="col-md-1 col-sm-1 hidden-xs">
+								<div class="col-md-2 col-sm-2 hidden-xs">
 									<p>Produk</p>
 								</div>
-								<div class="col-md-11 col-sm-11 hidden-xs">
+								<div class="col-md-10 col-sm-10 hidden-xs">
 									<div class="row">
-										<div class="col-sm-3 col-md-3"></div>
+										<div class="col-sm-2 col-md-2"></div>
+										<div class="col-sm-1 col-md-1" style="margin-left:-21px;margin-right:20px;">
+											<p class="text-right">Kuantitas</p>
+										</div>
 										<div class="col-sm-3 col-md-3">
-											<p class="text-center">Kuantitas</p>
+											<p class="text-right">Harga</p>
 										</div>
-										<div class="col-sm-2 col-md-2">
-											<p class="text-left">Harga</p>
+										<div class="col-sm-3 col-md-3">
+											<p class="text-right">Diskon</p>
 										</div>
-										<div class="col-sm-2 col-md-2">
-											<p class="text-left">Diskon</p>
-										</div>
-										<div class="col-md-2 col-sm-2">
-											<p class="text-center">Total</p>
+										<div class="col-md-3 col-sm-3">
+											<p class="text-right">Total</p>
 										</div>
 									</div>
 								</div>

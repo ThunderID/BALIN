@@ -47,7 +47,7 @@
 			<h5 class="title-info m-t-md">
 				Informasi Umum 
 				<small>
-					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.edit') }}" data-modal-title="Ubah Informasi User" data-view="modal-lg" class="balin-link">
+					<a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.edit') }}" data-modal-title="Ubah Informasi User" data-view="modal-lg" class="balin-link">
 						<i class="fa fa-pencil"></i> Ubah
 					</a>
 				</small>
@@ -69,7 +69,7 @@
 			<p class="label-info">
 				Point Balin Anda <strong> @money_indo(Auth::user()->balance) </strong>
 				<small>
-					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Point Balin Anda" data-view="modal-lg">[ History ]</a>
+					<a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Point Balin Anda" data-view="modal-lg">[ History ]</a>
 				</small>
 			</p>
 			<p class="label-info">
@@ -84,13 +84,13 @@
 					<strong>{{Auth::user()->reference}} </strong> 
 				@else
 					<strong>Tidak ada</strong>
-					<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Upline Anda" data-view="modal-md">[ Masukkan Referral ]</a></small>
+					<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Upline Anda" data-view="modal-md">[ Masukkan Referral ]</a></small>
 				@endif
 			</p>
 			<p class="label-info">
 				Downline 
 				<strong>{{Auth::user()->downline}} </strong> 
-				<small><a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Downline Anda" data-view="modal-md">[ Lihat Daftar ]</a></small>
+				<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Downline Anda" data-view="modal-md">[ Lihat Daftar ]</a></small>
 			</p>
 		</div>
 	</div>
@@ -103,15 +103,7 @@
 	</div>
 
 	<div class="row content-info m-l-none m-r-none" style="padding-bottom:20px">
-		<div class="col-sm-12 border-bottom">
-			<h5 class="title-info m-t-md">Tracking Order
-				<small>
-					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.order.index')}}" data-modal-title="Lihat History Orderan" class="balin-link">
-						Daftar Order
-					</a>
-				</small>
-			</h5>
-		</div>
+
 	</div>
 
 	<div class="row content-info m-l-none m-r-none">
@@ -121,7 +113,7 @@
 			?>
 
 			@foreach ($orders as $k => $v)
-				<div class="tracking-order @if(count($orders)-1!=$k) border-bottom @endif p-b-xs">
+				<div class="tracking-order @if(count($orders)-1!=$k) border-bottom @endif p-b-sm">
 					<div class="row m-l-none m-r-none">
 						<div class="col-sm-6 p-l-none p-r-none">
 							<span class="label 
@@ -139,7 +131,7 @@
 							<p class="label-info m-b-xxs ref-number">
 								{{ $v['ref_number'] }}	
 							</p>
-							<a class="link-grey hover-black unstyle tracking-detail" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.order.show', ['ref' => $v['ref_number']]) }}" data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">(Detail)</a>
+							<a class="link-gold unstyle tracking-detail" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.order.show', ['ref' => $v['ref_number']]) }}" data-modal-title="Detail Pesanan {{ $v['ref_number'] }}"><strong>[ Detail ]</strong></a>
 						</div>
 						<?php         
 							$datetrans                          = new Carbon($v['transact_at'].' '.str_replace('-', '+' , $expired['value']));
@@ -150,7 +142,7 @@
 								<span class="tracking-cancel">
 								    <a class="link-grey hover-red unstyle link-cancel-tracking" href="#" data-toggle="modal" 
 								    data-target=".modal-user-information" data-action="{{ route('frontend.user.order.confirm') }}" data-action-parsing="{{ route('frontend.user.order.destroy', ['ref' => $v['ref_number']])  }}" data-modal-title="Pembatalan Pesanan">
-								    	Batal
+								    	[ Batal ]
 								    </a>
 								</span>
 							@endif
@@ -173,7 +165,9 @@
 						</div>
 					</div>
 				</div>
+				@if(count($orders)-1!=$k)
 				<div class="clearfix">&nbsp;</div>
+				@endif
 			@endforeach
 		</div>
 	</div>
