@@ -117,7 +117,7 @@
 	<div class="row content-info m-l-none m-r-none">
 		<div class="col-sm-12">
 			<?php
-				$orders 	= App\Models\Transaction::userid(Auth::user()->id)->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->with(['shipment', 'shipment.address'])->paginate();
+				$orders 	= App\Models\Transaction::userid(Auth::user()->id)->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->with(['shipment', 'shipment.address'])->orderby('transact_at', 'desc')->paginate();
 			?>
 
 			@foreach ($orders as $k => $v)
@@ -212,12 +212,12 @@
 @section('script')
 	@if(Input::has('ref'))
 	var event = new Event('build');
-	var actions 	= "{!! route('frontend.user.order.show', ['ref' => Input::get('ref')]) !!}";
+	var actions 	= "{!! route('frontend.any.checked.out', ['ref' => Input::get('ref')]) !!}";
 	// Listen for the event.
 	document.addEventListener('build', function (e) 
 	{
 		var action = actions;
-		var title = "Detail Pesanan {!!Input::get('ref')!!}";
+		var title = "Pesanan Disimpan";
 		var view_mode = '';
 		parsing = '';
 
