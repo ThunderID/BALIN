@@ -1,5 +1,7 @@
+@inject('setting', 'App\Models\StoreSetting')
 <?php 
 	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+	$expired 		= $setting::type('expired_paid')->ondate('now')->first();
 ?>
 
 @extends('template.frontend.layout_account')
@@ -139,6 +141,10 @@
 							</p>
 							<a class="link-grey hover-black unstyle tracking-detail" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.order.show', ['ref' => $v['ref_number']]) }}" data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">(Detail)</a>
 						</div>
+						<?php         
+							$datetrans                          = new Carbon(str_replace('-', '+' , $expired['value']));
+						?>
+
 						<div class="col-sm-6 p-l-none p-r-none">
 							@if($v['status']=='wait')
 								<span class="tracking-cancel">
@@ -157,6 +163,13 @@
 							<p class="label-info m-b-xxs">
 								a.n. {{$v['shipment']['receiver_name']}}
 							</p>
+							@if($v['current_status']=='wait')
+							<p class="label-info datetime" style="">
+								<small>
+								Pembayaran harus dilakukan sebelum @datetime_indo($datetrans)
+								</small>
+							</p>
+							@endif
 						</div>
 					</div>
 				</div>
