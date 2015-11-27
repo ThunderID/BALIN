@@ -934,7 +934,7 @@
 	function show_tooltip(input, flg)
 	{
 		if (flg == 1) {
-			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf stock barang size ini tersisa ' +input.attr('max')}).tooltip('show');
+			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf untuk ukuran ini sisa ' +input.attr('max')+' item'}).tooltip('show');
 			setTimeout( function() {
 				$(input).tooltip('hide');
 			}, 3000);

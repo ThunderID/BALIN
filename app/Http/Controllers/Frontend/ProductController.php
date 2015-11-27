@@ -40,7 +40,7 @@ class ProductController extends BaseController
 		$links									= [];
 		$sorts									= [];
 
-		$inputOnly 								= ['categoriesid','tagsid','name','sort'];
+		$inputOnly 								= ['categoriesid','tagging','name','sort'];
 
 		$inputs 								= Input::all();
 
@@ -56,9 +56,15 @@ class ProductController extends BaseController
 					case 'categoriesid':
 						$searchResult[]			= Category::id($input)->first()['name'];
 						break;
-					case 'tagsid':
-						$tag 					= Tag::id($input)->with(['category'])->first();
-						$searchResult[]			= $tag['category']['name'].' '.$tag['name'];
+					case 'tagging':
+						$tagid 					= explode(',', $input);
+						$tags 					= Tag::id($tagid)->with(['category'])->get();
+						$sr 					= '';
+						foreach ($tags as $key2 => $value) 
+						{
+							$sr					= $sr.' '.$value['category']['name'].' '.$value['name'];
+						}
+						$searchResult[]			= $sr;
 						break;
 					case 'name':
 						$searchResult[]			= $input;

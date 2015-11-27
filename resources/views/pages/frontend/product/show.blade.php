@@ -119,15 +119,17 @@
 						<div class="text-product">{!! $product['description'] !!}</div>
 					</div> 					        				
 				</div>
+				<div class="clearfix"> &nbsp;</div>
 				<div class="row">
 					<div class="col-sm-12">
 						<h4 class="caption-product label-show">Ukuran & Fit</h4>
 						<div class="text-product">{!! $product['fit'] !!}</div>
 					</div>
 				</div>
+				<div class="clearfix"> &nbsp;</div>
 				<div class="row m-t-sm m-b-md">
 					<div class="col-sm-12 col-md-12">
-						<h4 class="caption-product label-show">Pilih Ukuran Pesanan</h4>
+						<h4 class="caption-product label-show">Pilih Ukuran</h4>
 					</div>
 				</div>
 				<div class="row">

@@ -42,6 +42,15 @@ trait HasCategoriesTrait
 		return $query->whereHas('tags', function($q)use($variable){$q->id($variable);});
 	}
 
+	public function scopeTagging($query, $variable)
+	{
+		foreach ($variable as $key => $value) 
+		{
+			$query = $query->tagsid($value);
+		}
+		return $query;
+	}
+
 	public function scopeTagsName($query, $variable)
 	{
 		return $query->whereHas('tags', function($q)use($variable){$q->name($variable);});
