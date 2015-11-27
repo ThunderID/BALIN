@@ -14,15 +14,14 @@
 		<div class="row">
 			<div class="col-xs-12 col-md-12 col-sm-12 chart-div">
 				<div class="row chart-header">
-					<div class="col-sm-1 col-md-1 hidden-xs">
+					<div class="col-sm-2 col-md-1 hidden-xs">
 						<p>Produk</p>
 					</div>
-					<div class="col-sm-11 col-md-11 hidden-xs">
+					<div class="col-sm-10 col-md-11 hidden-xs">
 						<div class="row">
-							<div class="col-sm-3 col-md-3">
-							</div>
-							<div class="col-sm-2 col-md-3 text-right p-r-none">
-								<p class="text-center">Kuantitas</p>
+							<div class="col-sm-2 col-md-3"></div>
+							<div class="col-sm-3 col-md-3 text-right p-r-none">
+								<p class="text-center" style="margin-left: -35px; !important">Kuantitas</p>
 							</div>
 							<div class="col-sm-2 col-md-2">
 								<p class="text-right">Harga</p>
