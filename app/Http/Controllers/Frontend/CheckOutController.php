@@ -48,6 +48,11 @@ class CheckOutController extends BaseController
 
 	public function postCheckout()
 	{
+		if(!Input::has('term'))
+		{
+			return Redirect::back()->withInput()->withErrors('Anda harus menyetujui syarat dan ketentuan BALIN.ID.')->with('msg-type', 'danger');
+		}
+
 		$transaction           	 				= Transaction::userid(Auth::user()->id)->status('cart')->wherehas('transactiondetails', function($q){$q;})->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->first();
 		
 		if(!$transaction)
