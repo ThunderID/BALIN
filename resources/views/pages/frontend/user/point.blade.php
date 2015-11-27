@@ -3,7 +3,7 @@
 	$pointlogs 		= $points->CurrentPoint(Auth::user()->id)->orderby('created_at', 'desc')->paginate();
 	$balance 		= Auth::user()->balance;
 ?>
-<h4 style="margin-top:-50px;margin-bottom:50px;">Point Balin Anda Sekarang <span style="@if($balance >= 0) color:green; @endif"> @money_indo($balance)</span></h4>
+<h4 class="hidden-xs" style="margin-top:-50px;margin-bottom:50px;">Point Balin Anda Sekarang <span style="@if($balance >= 0) color:green; @endif"> @money_indo($balance)</span></h4>
 
 <div class="col-md-12 col-sm-12 hidden-xs">
 	<div class="row m-t-n" style="background-color:#000; color:#fff; letter-spacing: 0.1em;">
