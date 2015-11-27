@@ -1,3 +1,7 @@
+<?php 
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+?>
+
 @extends('template.frontend.layout_account')
 
 @section('right_content')
@@ -91,28 +95,12 @@
 
 	<div class="clearfix">&nbsp;</div>
 	<div class="row header-info m-l-none m-r-none">
-		<div class="col-sm-6">
+		<div class="col-sm-12">
 			<h4>Informasi Pengiriman & Tracking Order</h4>
 		</div>
 	</div>
 	<div class="row content-info m-l-none m-r-none">
-		<div class="col-sm-6">
-			<h5 class="title-info m-t-md">
-				Alamat Pengiriman
-				<small>
-					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.address.index')}}" data-modal-title="Ubah Alamat Pengiriman" class="balin-link">
-						<i class="fa fa-pencil"></i> Ubah
-					</a>
-				</small>
-			</h5>
-			<p class="label-info">No Hp <span>{{ Auth::user()->phone }}</span></p>
-			<p class="label-info">Kode Pos <span>{{ Auth::user()->zipcode }}</span></p>
-			<p class="label-info">Alamat <span>{{ Auth::user()->address }}</span></p>
-				<!-- <a class="link-grey hover-black unstyle" href="" class="balin-link text-right">Atur Buku Alamat</a><br/> -->
-			</p>
-			<p class="clearfix m-b-xxs">&nbsp;</p>
-		</div>
-		<div class="col-sm-6 border-left">
+		<div class="col-sm-12 border-left">
 			<h5 class="title-info m-t-md">Tracking Order
 				<small>
 					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.order.index')}}" data-modal-title="Lihat History Orderan" class="balin-link">
@@ -121,35 +109,50 @@
 				</small>
 			</h5>
 			<?php
-				$orders 	= App\Models\Transaction::userid(Auth::user()->id)->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->paginate();
+				$orders 	= App\Models\Transaction::userid(Auth::user()->id)->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->with(['shipment', 'shipment.address'])->paginate();
 			?>
 
 			@foreach ($orders as $k => $v)
 				<div class="tracking-order @if(count($orders)-1!=$k) border-bottom @endif p-b-xs">
-					@if($v['status']=='wait')
-						<span class="tracking-cancel">
-						    <a class="link-grey hover-red unstyle link-cancel-tracking" href="#" data-toggle="modal" 
-						    data-target=".modal-user-information" data-action="{{ route('frontend.user.order.confirm') }}" data-action-parsing="{{ route('frontend.user.order.destroy', ['ref' => $v['ref_number']])  }}" data-modal-title="Pembatalan Pesanan">
-						    	Batal
-						    </a>
-						</span>
-					@endif
-					<span class="label 
-						@if ($v['current_status']=='wait') label-default 
-						@elseif ($v['current_status']=='paid') label-info
-						@elseif ($v['current_status']=='shipping') label-primary
-						@elseif ($v['current_status']=='delivered') label-success
-						@else label-warning @endif
-					label-hollow">
-						{{ $v['current_status'] }}
-					</span>
-					<p class="label-info datetime m-t-xs m-b-xxs" style="">
-						@datetime_indo($v['transact_at'])
-					</p>	
-					<p class="label-info m-b-xxs ref-number">
-						{{ $v['ref_number'] }}	
-					</p>
-					<a class="link-grey hover-black unstyle tracking-detail" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.order.show', ['ref' => $v['ref_number']]) }}" data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">(Detail)</a>
+					<div class="row m-l-none m-r-none">
+						<div class="col-sm-6 p-l-none p-r-none">
+							<span class="label 
+								@if ($v['current_status']=='wait') label-default 
+								@elseif ($v['current_status']=='paid') label-info
+								@elseif ($v['current_status']=='shipping') label-primary
+								@elseif ($v['current_status']=='delivered') label-success
+								@else label-warning @endif
+							label-hollow">
+								{{ $status[$v['current_status']] }}
+							</span>
+							<p class="label-info datetime m-t-xs m-b-xxs" style="">
+								@datetime_indo($v['transact_at'])
+							</p>	
+							<p class="label-info m-b-xxs ref-number">
+								{{ $v['ref_number'] }}	
+							</p>
+							<a class="link-grey hover-black unstyle tracking-detail" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.order.show', ['ref' => $v['ref_number']]) }}" data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">(Detail)</a>
+						</div>
+						<div class="col-sm-6 p-l-none p-r-none">
+							@if($v['status']=='wait')
+								<span class="tracking-cancel">
+								    <a class="link-grey hover-red unstyle link-cancel-tracking" href="#" data-toggle="modal" 
+								    data-target=".modal-user-information" data-action="{{ route('frontend.user.order.confirm') }}" data-action-parsing="{{ route('frontend.user.order.destroy', ['ref' => $v['ref_number']])  }}" data-modal-title="Pembatalan Pesanan">
+								    	Batal
+								    </a>
+								</span>
+							@endif
+							<span>
+								Dikirim Ke
+							</span>
+							<p class="label-info m-b-xxs">
+								{{$v['shipment']['address']['address']}}, {{$v['shipment']['address']['zipcode']}}
+							</p>
+							<p class="label-info m-b-xxs">
+								a.n. {{$v['shipment']['receiver_name']}}
+							</p>
+						</div>
+					</div>
 				</div>
 				<div class="clearfix">&nbsp;</div>
 			@endforeach
