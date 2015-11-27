@@ -55,6 +55,10 @@ class SendBillingEmail extends Job implements SelfHandling
             $infos[$value->type]    = $value->value;
         }
 
+	    $expired           			= StoreSetting::type('expired_paid')->ondate('now')->first();
+
+        $infos[$expired['type']]	= $expired['value'];
+
         $datas          = ['bill' => $transaction, 'balin' => $infos];
 
         $mail_data      = [
