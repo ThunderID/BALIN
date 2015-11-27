@@ -30,6 +30,12 @@
 		a.link-grey{
 			color:#999!important;
 		}
+		a.link-gold{
+			color:#C38322 !important;
+		}
+		a.link-gold:hover{
+			color:#E18A07 !important;
+		}
 		a.link-black {
 			color: #000 !important;
 		}
