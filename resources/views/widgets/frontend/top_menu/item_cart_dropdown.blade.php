@@ -56,7 +56,7 @@
 			</li> 
 		</div>
 	@else
-		li class="border-top border-bottom text-center">
+		<li class="border-top border-bottom text-center">
 			<h4 class="p-t-md p-b-md m-t-none" style="text-transform:none; font-weight: 300; letter-spacing: 0.04em;">Belum ada item di Cart</h4>
 		</li>
 
