@@ -10,7 +10,7 @@ use App\Models\Courier;
 use App\Models\StoreSetting;
 use App\Jobs\ChangeStatus;
 use App\Jobs\CountShippingCost;
-use App, Input, Response, Redirect, Session, Auth, Request;
+use App, Input, Response, Redirect, Session, Auth, Request, Carbon;
 
 class CheckOutController extends BaseController 
 {
@@ -53,7 +53,7 @@ class CheckOutController extends BaseController
 			return Redirect::back()->withInput()->withErrors('Anda harus menyetujui syarat dan ketentuan BALIN.ID.')->with('msg-type', 'danger');
 		}
 
-		$transaction           	 				= Transaction::userid(Auth::user()->id)->status('cart')->wherehas('transactiondetails', function($q){$q;})->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->first();
+		$transaction           	 				= Transaction::userid(Auth::user()->id)->status('cart')->wherehas('transactiondetails', function($q){$q;})->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->orderby('transct_at', 'desc')->first();
 		
 		if(!$transaction)
 		{
@@ -187,6 +187,29 @@ class CheckOutController extends BaseController
     	{
 		    return json_decode(json_encode('IDR '.number_format($result->getData()['shipping_cost'], 0, ',', '.')));
     	}
+	}
+
+	public function checkedout($ref = null)
+	{		
+		$breadcrumb								= ['Ubah Profile' => route('frontend.user.edit')];
+		$transaction 							= Transaction::userid(Auth::user()->id)->type('sell')->refnumber($ref)->first();
+		$expire 								= StoreSetting::type('expired_paid')->ondate('now')->first();
+
+		$dateexpire 							= new Carbon(str_replace('-', '+', $expire->value));
+
+		if(!$transaction)
+		{
+			App::abort(404);
+		}
+		
+		return view('pages.frontend.user.order.checked')
+													->with('controller_name', $this->controller_name)
+													->with('subnav_active', 'account_order')
+													->with('title', 'Riwayat Pesanan #'.$ref)
+													->with('transaction', $transaction)
+													->with('dateexpire', $dateexpire)
+													->with('breadcrumb', $breadcrumb);
 
 	}
+
 }
