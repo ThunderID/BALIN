@@ -1,23 +1,23 @@
 @inject('points', 'App\Models\PointLog')
 <?php
 	$pointlogs 		= $points->CurrentPoint(Auth::user()->id)->orderby('created_at', 'desc')->paginate();
+	$balance 		= Auth::user()->balance;
 ?>
+<h4 style="margin-top:-50px;margin-bottom:50px;">Point Balin Anda Sekarang <span style="@if($balance >= 0) color:green; @endif"> @money_indo($balance)</span></h4>
+
 <div class="col-md-12 col-sm-12 hidden-xs">
 	<div class="row m-t-n" style="background-color:#000; color:#fff; letter-spacing: 0.1em;">
 		<div class="col-sm-2">
 			<h5>Tanggal</h5>
 		</div>
-		<div class="col-sm-3">
-			<h5>Status</h5>
-		</div>
 		<div class="col-sm-2">
 			<h5>Total</h5>
 		</div>
-		<div class="col-sm-3">
-			<h5>Info</h5>
-		</div>
 		<div class="col-sm-2">
 			<h5>Expired</h5>
+		</div>
+		<div class="col-sm-6">
+			<h5>Info</h5>
 		</div>
 	</div>
 </div>
@@ -43,17 +43,6 @@
 					@datetime_indo($value['created_at']) 
 				</p>
 			</div>
-			<div class="col-sm-3">
-				<p class="text-left">
-					Point anda
-					@if($value['amount'] >= 0)
-						ditambahkan
-					@else
-						dikurangkan 
-					@endif
-					@money_indo(abs($value['amount']))
-				</p>
-			</div>
 			<div class="col-sm-2">
 				<p class="text-center">
 					@if(!$is_expired)
@@ -63,14 +52,22 @@
 					@endif
 				</p>
 			</div>
-			<div class="col-sm-3">
-				<p class="text-left">
-					{!!$value['notes']!!}
-				</p>
-			</div>
 			<div class="col-sm-2">
 				<p class="text-center">
 					<i>@date_indo($value['expired_at'])</i>
+				</p>
+			</div>
+			<div class="col-sm-6">
+				<p class="text-left">
+					Point anda
+					@if($value['amount'] >= 0)
+						ditambahkan
+					@else
+						dikurangkan 
+					@endif
+					@money_indo(abs($value['amount']))
+					untuk 
+					{!!$value['notes']!!}
 				</p>
 			</div>
 		</div>
