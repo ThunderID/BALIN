@@ -61,7 +61,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left" style="margin-bottom: 33px;">
 						<a onclick="facebookShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
 						<a onclick="facebookShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-twitter"></i>&nbsp;&nbsp;tweet</a>
 					</div>
@@ -74,19 +74,19 @@
 						switch (str_replace('_', '', strtoupper($label['lable']))) {
 							case "SALE":
 								// echo "<div class='circle-label black'><div>SALE</div></div>";
-								echo "<div class='square-label black'><div>SALE</div></div>";
+								echo "<div class='square-label no-background black'><div>SALE</div></div>";
 								break;
 							case "HOTITEM":
 								// echo "<div class='circle-label black'><div><p style='margin-top: -6px;''>HOT ITEM</p></div></div>";
-								echo "<div class='square-label black'><div>HOT ITEM</div></div>";
+								echo "<div class='square-label no-background black'><div>HOT ITEM</div></div>";
 								break;	
 							case "BESTSELLER":
 								// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>BEST SELLER</p></div></div>";
-								echo "<div class='square-label black'><div>BEST SELLER</div></div>";
+								echo "<div class='square-label no-background black'><div>BEST SELLER</div></div>";
 								break;															
 							default:
 								// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</p></div></div>";
-								echo "<div class='square-label black'><div>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</div></div>";
+								echo "<div class='square-label no-background black'><div>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</div></div>";
 								break;
 						}
 
@@ -105,9 +105,9 @@
 						@endif
 
 						@if($price==$data['price'])
-							<h4 class="text-product"> @money_indo($price)</h4>
+							<h4 class="text-product price"> @money_indo($price)</h4>
 						@else
-							<h4 class="text-product"><strong>@money_indo($price)</strong></h4>
+							<h4 class="text-product price"><strong>@money_indo($price)</strong></h4>
 						@endif
 					</div>
 				</div>
@@ -115,21 +115,21 @@
 				<?php $product = json_decode($data['description'], true);?>
 				<div class="row">
 					<div class="col-md-12">
-						<h4 class="caption-product">Deskripsi</h4>
+						<h4 class="caption-product label-show">Deskripsi</h4>
 						<div class="text-product">{!! $product['description'] !!}</div>
 					</div> 					        				
 				</div>
 				<div class="clearfix"> &nbsp;</div>
 				<div class="row">
 					<div class="col-sm-12">
-						<h4 class="caption-product">Ukuran & Fit</h4>
+						<h4 class="caption-product label-show">Ukuran & Fit</h4>
 						<div class="text-product">{!! $product['fit'] !!}</div>
 					</div>
 				</div>
 				<div class="clearfix"> &nbsp;</div>
 				<div class="row m-t-sm m-b-md">
 					<div class="col-sm-12 col-md-12">
-						<h4 class="caption-product">Pilih Ukuran</h4>
+						<h4 class="caption-product label-show">Pilih Ukuran</h4>
 					</div>
 				</div>
 				<div class="row">
@@ -246,7 +246,7 @@
 		@if(isset($related[0]))
 			<div class="row m-t-lg m-b-md related-product">
 				<div class="col-sm-12">
-					<h4>Produk Lainnya</h4>
+					<h4 class="text-uppercase">Produk Lainnya</h4>
 				</div>
 			</div>
 			<div class="row">
