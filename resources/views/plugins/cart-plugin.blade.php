@@ -4,9 +4,7 @@
 	var item_qty 	= 0;
 	var pqty 		= [];
 	var flg 		= 0;
-
-	@if (Route::is('frontend.cart.index'))
-	@endif
+	input_flag 		= 0;
 
 	var tot_qty_mobile = 0;
 
@@ -106,66 +104,105 @@
 		// }
 	});
 	$('.input-number').focusin(function(){
-	   $(this).attr('data-oldValue', $(this).val());
+		$(this).attr('data-input-flag', 1);
+		old_value = $(this).attr('data-oldValue', $(this).val());
+		fieldName = $(this).attr('data-name');
+	   
+		@if (Route::is('frontend.cart.index'))
+			cid 				= $(this).attr('data-cid');
+			vid 				= $(this).attr('data-id');
+			list_cart_mobile 	= $('.list-vid-mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+			list_cart_mobile.find('.input-number-mobile[data-name="'+fieldName+'"]').attr('data-input-flag', 1); 
+		@endif
 	});
-	$('.input-number').change(function(){
-		minValue =  parseInt($(this).attr('min'));
-		maxValue =  parseInt($(this).attr('max'));
-		valueCurrent = parseInt($(this).val());
-		name = $(this).attr('data-name');
+	$('.input-number').focusout(function() {
+		$(this).attr('data-input-flag', 0);
+		fieldName = $(this).attr('data-name');
 
 		@if (Route::is('frontend.cart.index'))
-			var cid 				= $(this).attr('data-cid');
-			var vid 				= $(this).attr('data-id');
+			cid 				= $(this).attr('data-cid');
+			vid 				= $(this).attr('data-id');
+			list_cart_mobile 	= $('.list-vid-mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
 
-			var list_cart 			= $('.list-vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
-			var list_cart_mobile 	= $('.list-vid-mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
-
-			var lab_total  			= $(this).parent().parent().parent().parent().parent().parent().find('.label-total');
-
-			var input_mobile 		= list_cart_mobile.find('.input-number-mobile[data-name="'+name+'"]');
-			var lab_total_mobile 	= input_mobile.parent().parent().parent().parent().parent().find('.label-total-mobile');
-
-			var action_update 		= $(this).attr('data-action-update');
-			var varian_qty 			= 0;
-
-			btn_minus = list_cart(".btn-number[data-type='minus'][data-field='"+name+"']");
-			btn_plus = list_cart(".btn-number[data-type='plus'][data-field='"+name+"']");
-		@else
-			btn_minus = $(".btn-number[data-type='minus'][data-field='"+name+"']");
-			btn_plus = $(".btn-number[data-type='plus'][data-field='"+name+"']");
+			list_cart_mobile.find('.input-number-mobile[data-name="'+fieldName+'"]').attr('data-input-flag', 1); 
 		@endif
+	});
+	$('.input-number').change(function(){
+		check_flag = $(this).attr('data-input-flag');
+		if (check_flag==1)
+		{
+			minValue =  parseInt($(this).attr('min'));
+			maxValue =  parseInt($(this).attr('max'));
+			valueCurrent = parseInt($(this).val());
+			name = $(this).attr('data-name');
 
-		if(valueCurrent > minValue) {
-			type = 'minus';
 			@if (Route::is('frontend.cart.index'))
-				qty_change_input_cart($(this), valueCurrent, lab_total, type);
-				// qty_minus_mobile(input_mobile, valueCurrent, lab_total_mobile, type);
-				disable_btn(btn_minus, input, vid, cid);
-			@else
-				btn_minus.removeAttr('disabled');
-				qty_change_input_product($(this));
-			@endif
-		} else {
-			btn_minus.attr('disabled', true);
-		}
+				cid 				= $(this).attr('data-cid');
+				vid 				= $(this).attr('data-id');
 
-		if(valueCurrent < maxValue) {
-			type = 'plus';
-			@if (Route::is('frontend.cart.index'))
-				qty_change_input_cart($(this), valueCurrent, lab_total, type);
-				// qty_minus_mobile(input_mobile, valueCurrent, lab_total_mobile, type);
-				disable_btn(btn_plus, input, vid, cid);
+				list_cart 			= $('.list-vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+				list_cart_mobile 	= $('.list-vid-mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+				lab_total  			= $(this).parent().parent().parent().parent().parent().parent().find('.label-total');
+
+				input_mobile 		= list_cart_mobile.find('.input-number-mobile[data-name="'+name+'"]');
+				lab_total_mobile 	= input_mobile.parent().parent().parent().parent().parent().find('.label-total-mobile');
+
+				action_update 		= $(this).attr('data-action-update');
+				varian_qty 			= 0;
+
+				btn_minus = list_cart.find(".btn-number[data-type='minus'][data-field='"+name+"']");
+				btn_plus = list_cart.find(".btn-number[data-type='plus'][data-field='"+name+"']");	
 			@else
-				btn_plus.removeAttr('disabled');
-				qty_change_input_product($(this));
+				btn_minus = $(".btn-number[data-type='minus'][data-field='"+name+"']");
+				btn_plus = $(".btn-number[data-type='plus'][data-field='"+name+"']");
 			@endif
-			flg = 0;
-			show_tooltip($(this), flg);
-		} else {
-			flg = 1;
-			show_tooltip($(this), flg);
-			btn_plus.attr('disabled', true);
+
+			if(valueCurrent > minValue) {
+				type = 'minus';
+				@if (Route::is('frontend.cart.index'))
+					qty_change_input_cart($(this), valueCurrent, lab_total, type);
+					qty_change_input_cart_mobile(input_mobile, valueCurrent, lab_total_mobile, type);
+					disable_btn(btn_minus, $(this), vid, cid);
+				@else
+					btn_minus.removeAttr('disabled');
+					qty_change_input_product($(this));
+				@endif
+			} else {
+				@if (Route::is('frontend.cart.index'))
+					disable_btn(btn_minus, $(this), vid, cid);
+				@else
+					btn_minus.attr('disabled', true);
+				@endif
+			}
+
+			if(valueCurrent < maxValue) {
+				type = 'plus';
+				@if (Route::is('frontend.cart.index'))
+					qty_change_input_cart($(this), valueCurrent, lab_total, type);
+					qty_change_input_cart_mobile(input_mobile, valueCurrent, lab_total_mobile, type);
+					disable_btn(btn_plus, $(this), vid, cid);
+				@else
+					btn_plus.removeAttr('disabled');
+					qty_change_input_product($(this));
+				@endif
+				flg = 0;
+				show_tooltip($(this), flg);
+			} else {
+				flg = 1;
+				show_tooltip($(this), flg);
+
+				@if (Route::is('frontend.cart.index'))
+					disable_btn(btn_plus, $(this), vid, cid);
+				@else
+					btn_plus.attr('disabled', true);
+				@endif
+			}
+
+			@if (Route::is('frontend.cart.index'))
+				send_ajax_update(parseInt($(this).val()), action_update);
+			@endif
 		}
 	});
 
@@ -241,8 +278,108 @@
 			input_mobile.val(0);
 		}
 	});
+
 	$('.input-number-mobile').focusin(function(){
-	   $(this).attr('data-oldValue', $(this).val());
+		$(this).attr('data-input-flag', 1);
+		old_value = $(this).attr('data-oldValue', $(this).val());
+		fieldName = $(this).attr('data-name');
+	   
+		@if (Route::is('frontend.cart.index'))
+			cid 				= $(this).attr('data-cid');
+			vid 				= $(this).attr('data-id');
+			list_cart 			= $('.list-vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+			list_cart.find('.input-number[data-name="'+fieldName+'"]').attr('data-input-flag', 1); 
+		@endif
+	});
+	$('.input-number-mobile').focusout(function() {
+		$(this).attr('data-input-flag', 0);
+		fieldName = $(this).attr('data-name');
+
+		@if (Route::is('frontend.cart.index'))
+			cid 				= $(this).attr('data-cid');
+			vid 				= $(this).attr('data-id');
+			list_cart 		 	= $('.list-vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+			list_cart.find('.input-number[data-name="'+fieldName+'"]').attr('data-input-flag', 1); 
+		@endif
+	});
+
+	$('.input-number-mobile').change( function() {
+		check_flag = $(this).attr('data-input-flag');
+		if (check_flag==1)
+		{
+			minValue =  parseInt($(this).attr('min'));
+			maxValue =  parseInt($(this).attr('max'));
+			valueCurrent = parseInt($(this).val());
+			name = $(this).attr('data-name');
+
+			@if (Route::is('frontend.cart.index'))
+				cid 				= $(this).attr('data-cid');
+				vid 				= $(this).attr('data-id');
+
+				list_cart 			= $('.list-vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+				list_cart_mobile 	= $('.list-vid-mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+				lab_total_mobile 	= $(this).parent().parent().parent().parent().parent().parent().find('.label-total-mobile');
+
+				input 				= list_cart.find('.input-number[data-name="'+name+'"]');
+				lab_total			= input.parent().parent().parent().parent().parent().parent().find('.label-total');
+
+				action_update 		= $(this).attr('data-action-update');
+
+				btn_minus 			= list_cart_mobile.find(".btn-number-mobile[data-type='minus'][data-field='"+name+"']");
+				btn_plus 			= list_cart_mobile.find(".btn-number-mobile[data-type='plus'][data-field='"+name+"']");	
+			@else
+				btn_minus = $(".btn-number[data-type='minus'][data-field='"+name+"']");
+				btn_plus = $(".btn-number[data-type='plus'][data-field='"+name+"']");
+			@endif
+
+			if(valueCurrent > minValue) {
+				type = 'minus';
+				@if (Route::is('frontend.cart.index'))
+					qty_change_input_cart(input, valueCurrent, lab_total, type);
+					qty_change_input_cart_mobile($(this), valueCurrent, lab_total_mobile, type);
+					disable_btn(btn_minus, $(this), vid, cid);
+				@else
+					btn_minus.removeAttr('disabled');
+					qty_change_input_product($(this));
+				@endif
+			} else {
+				@if (Route::is('frontend.cart.index'))
+					disable_btn(btn_minus, $(this), vid, cid);
+				@else
+					btn_minus.attr('disabled', true);
+				@endif
+			}
+
+			if(valueCurrent < maxValue) {
+				type = 'plus';
+				@if (Route::is('frontend.cart.index'))
+					qty_change_input_cart(input, valueCurrent, lab_total, type);
+					qty_change_input_cart_mobile($(this), valueCurrent, lab_total_mobile, type);
+					disable_btn(btn_plus, $(this), vid, cid);
+				@else
+					btn_plus.removeAttr('disabled');
+					qty_change_input_product($(this));
+				@endif
+				flg = 0;
+				show_tooltip($(this), flg);
+			} else {
+				flg = 1;
+				show_tooltip($(this), flg);
+
+				@if (Route::is('frontend.cart.index'))
+					disable_btn(btn_plus, $(this), vid, cid);
+				@else
+					btn_plus.attr('disabled', true);
+				@endif
+			}
+
+			@if (Route::is('frontend.cart.index'))
+				send_ajax_update(parseInt($(this).val()), action_update);
+			@endif
+		}
 	});
 	
 	$(".input-number-mobile").keydown(function (e) {
@@ -421,6 +558,18 @@
 		grand_total_mobile();
 	}
 
+	function qty_change_input_cart_mobile(e, current_val, lab_total_mobile, type)
+	{
+		var sumtotal_mobile = 0;
+
+		e.val(current_val);
+		total_mobile(e, type);
+		sumtotal_mobile += sum_total_mobile(e);
+		lab_total_mobile.attr('data-subtotal', sumtotal_mobile);
+		lab_total_mobile.text('IDR '+number_format(sumtotal_mobile));
+		grand_total_mobile();
+	}
+
 	function total_mobile(e, flag)
 	{
 		var qty = parseInt(e.val());
@@ -495,10 +644,13 @@
 	{
 		var total_item = 0;
 
+		e.val(current_val);
 		total_item = total(e, type);
 		lab_total.attr('data-total', total_item);
 		lab_total.find('span').text('IDR '+number_format(total_item));
 		e.attr('data-oldValue', e.val());
+		// e.attr('value', e.val());
+		grand_total();
 	}
 
 	function total(e, flag)

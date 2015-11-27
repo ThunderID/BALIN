@@ -70,6 +70,7 @@
 										data-id="{{ $value['varian_id'] }}" 
 										data-name="qty-{{strtolower($value['size'])}}[1]"
 										data-oldValue="" 
+										data-input-flag="0"
 										data-price="{{ $item_list_normal_price }}"
 										data-discount="{{ $item_list_discount_price }}"
 										data-total="{{ (($item_list_normal_price-$item_list_discount_price)*$value['qty']) }}" 
@@ -225,15 +226,6 @@
 							</div>
 						</div>
 					</div>						
-					<div class="row">
-						<div class="col-xs-12">
-							<a href="#" class="btn-hollow hollow-black-border-transaparent btn-block m-t-md font-weight-300 ltr-space-08 btn-delete-item"
-								data-vid="{{ $key }}" data-cid="{{ $item_list_id }}">
-								HAPUS ITEM
-							</a>
-						</div>
-						<div class="clearfix">&nbsp;</div>
-					</div>
 				</div>
 			</div>
 		</div>
