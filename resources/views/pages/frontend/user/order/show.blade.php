@@ -181,6 +181,7 @@
 					@endif
 				</tbody>
 			</table>
+			@if($transaction['shipment'] && !is_null($transaction['shipment']['receipt_number']))
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
@@ -188,17 +189,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					@if($transaction['shipment'] && !is_null($transaction['shipment']['receipt_number']))
 						<tr>
 							<td><strong>{{$transaction['shipment']['receipt_number']}}</strong></td>
 						</tr>
-					@else
-						<tr>
-							<td>Belum ada resi pengiriman</td>
-						</tr>
-					@endif
 				</tbody>
 			</table>
+			@endif
 		</div>
 		<div class="col-md-4">
 			<table class="table table-bordered table-hover table-striped">
