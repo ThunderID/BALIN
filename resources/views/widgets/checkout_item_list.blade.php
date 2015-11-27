@@ -6,7 +6,7 @@
 	@endif
 	
 		<div class="col-sm-2 col-md-2 clearfix">
-			<a href="#">
+			<a href="{{ route('frontend.product.show', $item_list_slug) }}">
 				<img class="img-responsive m-t-sm" src="{{ $item_list_image }}" >
 			</a>
 		</div>
