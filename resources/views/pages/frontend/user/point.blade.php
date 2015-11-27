@@ -11,7 +11,7 @@
 			<h5>Status</h5>
 		</div>
 		<div class="col-sm-2">
-			<h5>Pointku</h5>
+			<h5>Saldo</h5>
 		</div>
 		<div class="col-sm-3">
 			<h5>Info</h5>
