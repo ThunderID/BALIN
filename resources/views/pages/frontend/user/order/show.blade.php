@@ -31,16 +31,16 @@
 			<table class="row">
 				<tbody>
 					<tr class="row">
-						<td class="col-sm-6"><strong>Invoice ID</strong></td>
-						<td> {{$transaction['ref_number']}} </td>
+						<td class="col-sm-6" valign="middle"><strong>Invoice ID</strong></td>
+						<td valign="middle"> {{$transaction['ref_number']}} </td>
 					</tr>
 					<tr class="row">
-						<td class="col-sm-6"><strong>Invoice Date</strong></td>
-						<td>@date_indo($transaction['transact_at'])</td>
+						<td class="col-sm-6" valign="middle"><strong>Invoice Date</strong></td>
+						<td valign="middle">@date_indo($transaction['transact_at'])</td>
 					</tr>
 					<tr class="row">
-						<td class="col-sm-6"><strong>Status</strong></td>
-						<td> 
+						<td class="col-sm-6" valign="middle"><strong>Status</strong></td>
+						<td valign="middle"> 
 							{{$status[$transaction['status']]}} 
 							@if($transaction['status']=='wait')
 								<small>
@@ -181,6 +181,7 @@
 					@endif
 				</tbody>
 			</table>
+			@if($transaction['shipment'] && !is_null($transaction['shipment']['receipt_number']))
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
@@ -188,17 +189,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					@if($transaction['shipment'] && !is_null($transaction['shipment']['receipt_number']))
 						<tr>
 							<td><strong>{{$transaction['shipment']['receipt_number']}}</strong></td>
 						</tr>
-					@else
-						<tr>
-							<td>Belum ada resi pengiriman</td>
-						</tr>
-					@endif
 				</tbody>
 			</table>
+			@endif
 		</div>
 		<div class="col-md-4">
 			<table class="table table-bordered table-hover table-striped">

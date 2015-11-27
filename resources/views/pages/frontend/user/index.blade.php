@@ -99,8 +99,9 @@
 			<h4>Informasi Pengiriman & Tracking Order</h4>
 		</div>
 	</div>
-	<div class="row content-info m-l-none m-r-none">
-		<div class="col-sm-12 border-left">
+
+	<div class="row content-info m-l-none m-r-none" style="padding-bottom:20px">
+		<div class="col-sm-12 border-bottom">
 			<h5 class="title-info m-t-md">Tracking Order
 				<small>
 					<a class="link-grey hover-black unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.order.index')}}" data-modal-title="Lihat History Orderan" class="balin-link">
@@ -108,6 +109,11 @@
 					</a>
 				</small>
 			</h5>
+		</div>
+	</div>
+
+	<div class="row content-info m-l-none m-r-none">
+		<div class="col-sm-12">
 			<?php
 				$orders 	= App\Models\Transaction::userid(Auth::user()->id)->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->with(['shipment', 'shipment.address'])->paginate();
 			?>
