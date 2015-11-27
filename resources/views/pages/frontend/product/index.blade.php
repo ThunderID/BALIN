@@ -1,6 +1,6 @@
 @inject('datas', 'App\Models\Product')
 @inject('category', 'App\Models\Category')
-@inject('tag', 'App\Models\tag')
+@inject('tagged', 'App\Models\tag')
 <?php 
 	$perpage = 12;
 
@@ -10,7 +10,15 @@
 	{
 		foreach ($filters as $key => $value) 
 		{
-			$datas 	= call_user_func([$datas, $key], $value);
+			if($key=='tagging')
+			{
+				$tagging = explode(',', $value);
+				$datas 	= call_user_func([$datas, $key], $tagging);
+			}
+			else
+			{
+				$datas 	= call_user_func([$datas, $key], $value);
+			}
 		}
 	}
 
@@ -31,11 +39,14 @@
 		$datas 		= $datas->get();
 	}
 
-	$category      	= $category::where('category_id', 0)
+	$category      	= $category::where('category_id', 0)->orderby('name', 'asc')
 								->get();
 
-	$tag      		= $tag::orderby('path', 0)
-								->get();								
+	$tag      		= $tagged::where('category_id', 0)->orderby('name', 'asc')
+								->get();
+
+	$tags      		= $tagged::where('category_id', '<>', 0)->orderby('name', 'asc')
+								->get();
 ?>
 
 @extends('template.frontend.layout')
@@ -98,7 +109,7 @@
 								<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'categoriesname' => $cat->name])) }}">{{ $cat->name }}</a></li>
+										<li><a @if(Input::has('categoriesid') && Input::get('categoriesid')==$cat['id']) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'categoriesid' => $cat->id])) }}">{{ $cat->name }}</a></li>
 									</div>
 								@endforeach	
 								</ul>					
@@ -115,10 +126,20 @@
 											<div class="col-md-12 col-sm-12 text-white">
 												<p class="ribbon-title">{{ strtoupper($tg->name) }}</p>
 											</div>
-											@foreach ($tag as $tmp)
+											@foreach ($tags as $tmp)
 												@if($tg->id == $tmp->category_id)
 													<div class="col-md-3 col-sm-4">
-														<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagsname' => $tmp->name])) }}">{{ $tmp->name }}</a></li>
+														<?php 
+															if(Input::has('tagging'))
+															{
+																$tagging 		= Input::get('tagging').','.$tmp['id'];
+															}
+															else
+															{
+																$tagging 		= $tmp['id'];
+															}
+														?>
+														<li><a @if(Input::has('tagging') && Input::get('tagging')==$tmp['id']) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagging' => $tagging])) }}">{{ $tmp->name }}</a></li>
 													</div>
 										      	@endif
 											@endforeach													
@@ -126,15 +147,6 @@
 									@endforeach											
 								</ul>					
 							</div>						
-						</div>						
-					</div>
-
-
-					<div class="row collapse collapse-category" id="collapseThree" data-collapse="collapse3" aria-expanded="true">
-						<div class="col-md-12 p-l-xxs ribbon-submenu">
-							<ul class="list-inline m-b-none">
-								<li><a href="#">Dummmyyyyy</a></li>
-							</ul>					
 						</div>						
 					</div>
 
@@ -217,7 +229,7 @@
 							<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-xs-12">
-										<li><a href="{{ route('frontend.product.index', array_merge(['page' => $page, 'categoriesname' => $cat->name], Input::all())) }}">{{ $cat->name }}</a></li>
+										<li><a @if(Input::has('categoriesid') && Input::get('categoriesid')==$cat['id']) class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'categoriesid' => $cat->id], Input::all())) }}">{{ $cat->name }}</a></li>
 									</div>
 								@endforeach	
 							</ul>						      		
@@ -226,7 +238,7 @@
 			  	</div>
 			</div>
 
-			<div id="modalTag" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div id="modalTag" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledbytag="mySmallModalLabel">
 			  	<div class="modal-dialog modal-sm dialog-mobile">
 			    	<div class="modal-content">
 						<div class="modal-header modal-filter-title">
@@ -241,11 +253,21 @@
 											<p class="ribbon-mobile-title"><span>{{ strtoupper($tg->name) }}</span></p>
 										</div>
 									</ul>									
-									@foreach ($tag as $tmp)
+									@foreach ($tags as $tmp)
 										@if($tg->id == $tmp->category_id)
 											<ul class="list-inline m-b-none">
 												<div class="col-xs-12">
-													<li><a href="{{ route('frontend.product.index', array_merge(['page' => $page, 'tagsname' => $tmp->name], Input::all())) }}">{{ $tmp->name }}</a></li>
+													<?php 
+														if(Input::has('tagging'))
+														{
+															$tagging 		= Input::get('tagging').','.$tmp['id'];
+														}
+														else
+														{
+															$tagging 		= $tmp['id'];
+														}
+													?>
+													<li><a @if(Input::has('tagging') && Input::get('tagging')==$tmp['id']) class="active" @endif  href="{{ route('frontend.product.index', array_merge(['page' => $page, 'tagging' => $tagging], Input::all())) }}">{{ $tmp->name }}</a></li>
 												</div>
 											</ul>
 										@endif
