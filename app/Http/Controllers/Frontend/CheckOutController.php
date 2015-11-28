@@ -150,6 +150,11 @@ class CheckOutController extends BaseController
 		}
 		elseif(Input::has('address'))
 		{
+			if(Input::get('address') == 0)
+			{
+			    return json_decode(json_encode('IDR '.number_format(0, 0, ',', '.')));
+			}
+
 			$address 			= Address::id(Input::get('address'))->first();
 			$zipcode 			= $address['zipcode'];
 		}
