@@ -15,6 +15,39 @@ a:focus {
   text-decoration: none;
   outline: none;
 }
+a .unstyle {
+  text-decoration: none;
+}
+a .unstyle:hover {
+  text-decoration: none;
+}
+a .link-grey {
+  color: #999!important;
+}
+a .link-gold {
+  color: #C38322 !important;
+}
+a .link-black {
+  color: #000 !important;
+}
+a .hover-gray:hover {
+  color: #888 !important;
+}
+a .hover-grey:hover {
+  color: #888 !important;
+}
+a .hover-gold:hover {
+  color: #E18A07 !important;
+}
+a .hover-black:hover {
+  color: #000 !important;
+}
+a .hover-white:hover {
+  color: #fff !important;
+}
+a .hover-red:hover {
+  color: #d91e18 !important;
+}
 /* COLOR */
 .orange-red {
   color: #FF3A00;
@@ -972,6 +1005,10 @@ p {
   color: #333;
   text-decoration: none;
 }
+.btn-hollow.hollow-gold {
+  background-color: #e18a07;
+  color: #fff;
+}
 .btn-hollow.btn-hollow-sm {
   padding: 5px 10px;
   font-size: 12px;
@@ -1017,6 +1054,13 @@ p {
   width: 40px;
   height: 38px;
   padding: 8px 6px;
+}
+.btn-share {
+  font-size: 12px !important;
+  height: 20px;
+  padding: 1px 6px !important;
+  margin: 0px !important;
+  line-height: 20px;
 }
 .hollow-login label {
   font-weight: 400;
@@ -1133,6 +1177,112 @@ select.form-control.hollow {
   border-color: inherit;
   color: #000;
   font-weight: bold;
+}
+.ribbon {
+  /*border-bottom: 1px solid #999;*/
+  /*border-top: 1px solid #999;*/
+  border: 2px solid #ddd;
+}
+.ribbon-menu li {
+  padding: 0px !important;
+}
+.ribbon-menu li a {
+  padding-top: 12px;
+  padding-bottom: 10px;
+  padding-right: 20px !important;
+  padding-left: 20px !important;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.ribbon-menu li a:hover {
+  color: #222;
+}
+.ribbon-menu li a.active {
+  background-color: #ddd;
+  color: #222;
+}
+.ribbon-menu li a.active i {
+  /* IE 9 */
+  -webkit-transform: rotate(180deg) scaleX(-1);
+  /* Chrome, Safari, Opera */
+  transform: rotate(180deg) scaleX(-1);
+}
+.ribbon-menu li i {
+  padding-left: 10px;
+  margin-top: 2px;
+}
+.ribbon-menu li i:hover {
+  /*background-color: #000;*/
+  background-color: #ddd;
+  color: white;
+}
+.ribbon-menu-mobile li a.active {
+  background-color: #111 !important;
+  color: white;
+}
+.ribbon-submenu {
+  background-color: #111;
+}
+.ribbon-submenu li {
+  padding: 0px !important;
+}
+.ribbon-submenu li a {
+  padding-top: 12px;
+  padding-bottom: 10px;
+  padding-right: 20px !important;
+  padding-left: 20px !important;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #111;
+  color: white;
+}
+.ribbon-submenu li a.active {
+  border: 1px solid #ddd;
+  color: #ddd;
+  font-weight: 600;
+}
+.ribbon-submenu li i {
+  padding-left: 10px;
+  margin-top: 2px;
+}
+.ribbon-submenu li:hover {
+  background-color: #000;
+  color: white;
+}
+.ribbon-submenu li:hover a {
+  color: #fff;
+  background-color: #000;
+  text-decoration: underline;
+}
+.ribbon-submenu .head-ribbon {
+  padding-left: 20px;
+  color: #999;
+  border-bottom: 1px solid #999;
+}
+.ribbon-mobile {
+  padding: 0px !important;
+}
+.ribbon-mobile-submenu {
+  padding: 0px !important;
+}
+.ribbon-mobile-title {
+  padding-top: 5px;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #444;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+.ribbon-mobile-title span {
+  background: #fff;
+  padding: 0 10px;
+}
+.ribbon-title {
+  padding: 5px;
 }
 .gallery-product {
   z-index: -1;
@@ -1420,11 +1570,67 @@ span.info {
   background-color: #000;
   color: #fff;
   padding: 15px;
-  font-weight: 300;
+  font-weight: 500;
   letter-spacing: 0.05em;
 }
 .panel-voucher .voucher-title {
-  letter-spacing: 1em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.panel-voucher ::-webkit-input-placeholder {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.04em;
+}
+.panel-voucher :-moz-placeholder {
+  /* Firefox 18- */
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.04em;
+}
+.panel-voucher ::-moz-placeholder {
+  /* Firefox 19+ */
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.04em;
+}
+.panel-voucher :-ms-input-placeholder {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.04em;
+}
+.panel-voucher .btn-hollow-voucher {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 7px 12px;
+}
+.panel-voucher .btn-hollow-voucher:hover {
+  background-color: #ddd;
+  color: #000;
+  border: 1px solid #ddd;
+  text-decoration: none;
+}
+.panel-voucher .form-control {
+  border: 0;
+}
+.panel-voucher .loading-voucher {
+  position: absolute;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  line-height: 30px;
+}
+.panel-voucher .loading-voucher img {
+  width: 20px;
 }
 .panel-subtotal {
   background-color: #ddd;
@@ -1451,6 +1657,12 @@ footer .menu-footer a {
 }
 footer .menu-footer a:hover {
   color: #eee;
+}
+footer a.footer-link {
+  color: #bbb !important;
+}
+footer a.footer-link:hover {
+  color: #fff !important;
 }
 .tp-caption.large_text {
   pposition: absolute;
@@ -1611,6 +1823,7 @@ footer .menu-footer a:hover {
   border-radius: 50%;
 }
 .tooltip-inner {
+  top: 50%;
   max-width: 200px;
   padding: 3px 8px;
   color: #fff;

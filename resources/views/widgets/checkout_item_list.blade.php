@@ -54,7 +54,11 @@
 </div>
 
 <div class="hidden-sm hidden-md hidden-lg">
-	<div class="row chart-item" style="border-bottom: 0.09em solid #ccc">
+	@if($carts[$k]['slug'] != end($carts)['slug'])
+		<div class="row chart-item" style="border-bottom: 0.09em solid #ccc">
+	@else
+		<div class="row chart-item">
+	@endif
 		<div class="col-md-12 col-sm-12 col-xs-10 col-xs-offset-1">
 			<div class="row">
 				<div class="col-sm-2 col-xs-8 col-xs-offset-2">

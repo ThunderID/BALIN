@@ -79,18 +79,18 @@
 				Kuota Invite Referral <strong>{{Auth::user()->quota}} </strong>
 			</p>
 			<p class="label-info">
-				Upline
+				Pemberi Referral Anda
 				@if (!is_null(Auth::user()->reference))
 					<strong>{{Auth::user()->reference}} </strong> 
 				@else
 					<strong>Tidak ada</strong>
-					<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Upline Anda" data-view="modal-md">[ Masukkan Referral ]</a></small>
+					<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Pemberi Referral Anda" data-view="modal-md">[ Masukkan Pemberi Referral ]</a></small>
 				@endif
 			</p>
 			<p class="label-info">
-				Downline 
+				Referral Anda 
 				<strong>{{Auth::user()->downline}} </strong> 
-				<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Downline Anda" data-view="modal-md">[ Lihat Daftar ]</a></small>
+				<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Referral Anda" data-view="modal-md">[ Lihat Daftar ]</a></small>
 			</p>
 		</div>
 	</div>
@@ -112,7 +112,7 @@
 				$orders 	= App\Models\Transaction::userid(Auth::user()->id)->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->with(['shipment', 'shipment.address'])->orderby('transact_at', 'desc')->paginate();
 			?>
 
-			@foreach ($orders as $k => $v)
+			@forelse ($orders as $k => $v)
 				<div class="tracking-order @if(count($orders)-1!=$k) border-bottom @endif p-b-sm">
 					<div class="row m-l-none m-r-none">
 						<div class="col-sm-6 p-l-none p-r-none">
@@ -168,7 +168,9 @@
 				@if(count($orders)-1!=$k)
 				<div class="clearfix">&nbsp;</div>
 				@endif
-			@endforeach
+			@empty
+				<p class="text-center p-b-xs">Tidak ada orderan, silahkan order.</p>
+			@endforelse
 		</div>
 	</div>
 
@@ -178,7 +180,7 @@
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
 				<div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
 		       		<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
 		      	</div>
 		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
@@ -192,7 +194,7 @@
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
 				<div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
 		       		<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
 		      	</div>
 		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
