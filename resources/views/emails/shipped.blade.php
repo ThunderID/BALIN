@@ -1,17 +1,34 @@
 @extends('template.email.layout')
 
 @section('content')
+	<table style="width:100%">
+		<tr class="row">
+			<td class="col-sm-2" style="width:20%">
+				{!! HTML::image('Balin/web/image/balin-white.png', null, ['class' => 'img img-responsive', 'style' => 'max-width:200px;']) !!}
+			</td>
+			<td class="col-sm-3" style="width:40%">
+				<h4>CV. BALIN INDONESIA</h4>
+				<p>Phone {!!$data['balin']['phone']!!}</p>
+				<p>Email {!!$data['balin']['email']!!}</p>
+				<p>Website <a href="{!!$data['balin']['url']!!}">www.balin.id</a></p>
+			</td>
+			<td class="col-sm-7" valign="top" style="text-align:right;width:40%">
+				<h3>Resi Pengiriman</h3>
+			</td>
+		</tr>
+	</table>
+	<hr/>
+	<br/>
 	<table class="row">
 		<tr>
 			<td class="wrapper last">
 				<table class="twelve columns">
 					<tr>
 						<td>
-							<h3>Resi Pengiriman</h3>
 							<p>	<strong>{{$data['ship']['user']['name']}}, </strong></p>
 							<p> 
 								Pesanan #{{$data['ship']['ref_number']}} sedang dalam proses pengiriman dengan nomor resi pengiriman
-								<strong>{{$data['ship']['shipment']['receipt_number']}}</strong> dengan menggunakan jasa kurir {{$data['ship']['shipment']['courier']['name']}}
+								<strong>{{$data['ship']['shipment']['receipt_number']}}</strong>, menggunakan jasa kurir {{$data['ship']['shipment']['courier']['name']}}
 								ke alamat :
 							</p>
 							<p>
@@ -27,64 +44,7 @@
 			</td>
 		</tr>
 	</table>
-
-	<table class="row footer">
-		<tr>
-			<td class="wrapper">
-				<table class="six columns">
-					<tr>
-						<td class="left-text-pad">
-							<h5>Connect With Us:</h5>
-
-							<table class="tiny-button facebook">
-								<tr>
-									<td>
-										<a href="{{$data['balin']['facebook_url']}}">Facebook</a>
-									</td>
-								</tr>
-							</table>
-							<br>
-
-							<table class="tiny-button twitter">
-								<tr>
-									<td>
-										<a href="{{$data['balin']['twitter_url']}}">Twitter</a>
-									</td>
-								</tr>
-							</table>
-						</td>
-						<td class="expander"></td>
-					</tr>
-				</table>
-			</td>
-			<td class="wrapper last">
-				<table class="six columns">
-					<tr>
-						<td class="last right-text-pad">
-							<h5>Contact Info:</h5>
-							<p>Phone : {{$data['balin']['phone']}}</p>
-							<p>Email : <strong>{{$data['balin']['email']}}</strong></p>
-						</td>
-						<td class="expander"></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</table>
-	<table class="row">
-		<tr>
-			<td class="wrapper last">
-				<table class="twelve columns">
-					<tr>
-						<td align="center">
-							<center>
-								<p style="text-align:center;"><a href="{{route('balin.about.us')}}">About Us</a> | <a href="{{route('balin.term.condition')}}">Term & Condition</a></p>
-							</center>
-						</td>
-						<td class="expander"></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</table>
+	<br/>
+	<br/>
+	<br/>
 @stop

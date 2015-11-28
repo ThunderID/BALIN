@@ -134,7 +134,7 @@
 							<a class="link-gold unstyle tracking-detail" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.order.show', ['ref' => $v['ref_number']]) }}" data-modal-title="Detail Pesanan {{ $v['ref_number'] }}"><strong>[ Detail ]</strong></a>
 						</div>
 						<?php         
-							$datetrans                          = new Carbon(str_replace('-', '+' , $expired['value']));
+							$datetrans                          = new Carbon($v['transact_at'].' '.str_replace('-', '+' , $expired['value']));
 						?>
 
 						<div class="col-sm-6 p-l-none p-r-none">

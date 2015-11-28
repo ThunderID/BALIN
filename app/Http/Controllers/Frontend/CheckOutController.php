@@ -53,7 +53,7 @@ class CheckOutController extends BaseController
 			return Redirect::back()->withInput()->withErrors('Anda harus menyetujui syarat dan ketentuan BALIN.ID.')->with('msg-type', 'danger');
 		}
 
-		$transaction           	 				= Transaction::userid(Auth::user()->id)->status('cart')->wherehas('transactiondetails', function($q){$q;})->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->orderby('transct_at', 'desc')->first();
+		$transaction           	 				= Transaction::userid(Auth::user()->id)->status('cart')->wherehas('transactiondetails', function($q){$q;})->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->orderby('transact_at', 'desc')->first();
 		
 		if(!$transaction)
 		{
@@ -212,4 +212,38 @@ class CheckOutController extends BaseController
 
 	}
 
+	public function checkvoucher()
+	{	
+		//get shipping cost
+		if(Input::has('voucher'))
+		{
+			$code 				= Input::get('voucher');
+		}
+		else
+		{
+			App::abort(404);
+		}
+
+		$voucher 				= Voucher::code($code)->type(['free_shipping_cost', 'debit_point'])->ondate('now')->first();
+
+		if(!$voucher)
+		{
+		    return json_decode(json_encode('Voucher Tidak valid!'));
+		}
+		elseif($voucher->quota - 1 < 0)
+		{
+		    return json_decode(json_encode('Voucher Tidak dapat dipakai.'));
+		}
+		else
+		{
+			if($voucher->type=='free_shipping_cost')
+			{
+			    return json_decode(json_encode('Selamat! Anda mendapat potongan : gratis biaya pengiriman.'));
+			}
+			else
+			{
+			    return json_decode(json_encode('Selamat! Anda mendapat bonus point sebesar '.$voucher->value.' (Point akan ditambahkan jika pesanan sudah dibayar)'));
+			}
+		}
+	}
 }

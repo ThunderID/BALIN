@@ -366,7 +366,11 @@
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
-						<th colspan="2">Nota Bayar</th>
+						@if($transaction['payment'])
+							<th colspan="2">Nota Bayar</th>
+						@else
+							<th colspan="2">Lakukan Pembayaran Melalui</th>
+					@endif
 					</tr>
 				</thead>
 				<tbody>
@@ -389,7 +393,7 @@
 						</tr>
 					@else
 						<tr>
-							<td colspan="2">Belum ada nota bayar</td>
+							<td colspan="2">{!!$storeinfo['bank_information']!!}</td>
 						</tr>
 					@endif
 				</tbody>
