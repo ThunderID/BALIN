@@ -318,6 +318,23 @@
 	margin-left: auto;
 	width: 100%;
 }
+.modal-fullscreen .modal-header {
+	margin-left: -55px;
+	margin-right: -55px;
+	padding-left: 70px;
+	padding-right: 70px;
+	background-color: #000;
+	color: #fff;
+}
+.modal-fullscreen .modal-header button.close {
+	background: none;
+	opacity: 1;
+	font-size: 16px;
+	color: #fff;
+	line-height: 25px;
+	outline: none;
+}
+
 @media (min-width: 768px) {
 	.modal-fullscreen .modal-dialog {
 		width: 750px;

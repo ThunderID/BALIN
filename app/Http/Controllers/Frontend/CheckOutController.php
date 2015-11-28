@@ -228,21 +228,25 @@ class CheckOutController extends BaseController
 
 		if(!$voucher)
 		{
-		    return json_decode(json_encode('Voucher Tidak valid!'));
+			return Response::json(['type' => 'error', 'msg' => 'Voucher Tidak valid!'], 200);
+		    // return json_decode(json_encode('Voucher Tidak valid!'));
 		}
 		elseif($voucher->quota - 1 < 0)
 		{
-		    return json_decode(json_encode('Voucher Tidak dapat dipakai.'));
+			return Response::json(['type' => 'error', 'msg' => 'Voucher Tidak dapat dipakai.'], 200);
+		    // return json_decode(json_encode('Voucher Tidak dapat dipakai.'));
 		}
 		else
 		{
 			if($voucher->type=='free_shipping_cost')
 			{
-			    return json_decode(json_encode('Selamat! Anda mendapat potongan : gratis biaya pengiriman.'));
+				return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat potongan : gratis biaya pengiriman.'], 200);
+			    // return json_decode(json_encode('Selamat! Anda mendapat potongan : gratis biaya pengiriman.'));
 			}
 			else
 			{
-			    return json_decode(json_encode('Selamat! Anda mendapat bonus point sebesar '.$voucher->value.' (Point akan ditambahkan jika pesanan sudah dibayar)'));
+				return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat bonus point sebesar '.$voucher->value.' (Point akan ditambahkan jika pesanan sudah dibayar)'], 200);
+			    // return json_decode(json_encode('Selamat! Anda mendapat bonus point sebesar '.$voucher->value.' (Point akan ditambahkan jika pesanan sudah dibayar)'));
 			}
 		}
 	}

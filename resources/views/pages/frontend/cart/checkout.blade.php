@@ -15,6 +15,7 @@
 			</div>
 		</div>
 		{!! Form::open(['url' => route('frontend.post.checkout'), 'method' => 'POST', 'novalidate' => 'novalidate']) !!}
+			{!! Form::hidden('voucher_code', '', ['class' => 'voucher_code']) !!}
 			<div class="row">
 				@if ($carts)
 				<div class="col-xs-12 col-sm-12 col-md-7">
@@ -87,21 +88,7 @@
 					<!-- total normal -->
 					<div class="row">
 						@if ($carts)
-							<div class="col-lg-5 col-md-4 hidden-sm hidden-xs panel-voucher" id="panel-voucher-normal">
-								<div class="row p-b-sm">
-									<div class="col-md-12">
-										<span class="voucher-title">Masukkan Kode Voucher</span>
-									</div>	
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										{!! Form::input('text', 'voucher_code', null, [
-												'class' => 'form-control hollow transaction-input-voucher-code m-b-sm',
-										]) !!}
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-7 col-md-8 hidden-sm hidden-xs checkout-bottom panel-subtotal" id="panel-subtotal-normal">
+							<div class="col-lg-12 col-md-12 hidden-sm hidden-xs checkout-bottom panel-subtotal" id="panel-subtotal-normal">
 								<div class="clearfix">&nbsp;</div>
 								<div class="row">
 									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
@@ -131,6 +118,7 @@
 										</h4>
 									</div>	
 								</div>
+								<div class="clearfix">&nbsp;</div>
 							</div>
 						@endif
 					</div>
@@ -140,82 +128,112 @@
 				</div>
 
 				@if ($carts)
-				<div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1 p-t-sm" style="background-color:#fff">
-					<div class="row">
-						<div class="m-t-sm hidden-lg hidden-md hidden-sm col-xs-12">
-							<h3 class="m-t-none m-b-md hollow-label">ALAMAT PENGIRIMAN</h3>
-						</div>						
-						<div class="col-md-12 hidden-xs">
-							<h3 class="m-t-none m-b-md hollow-label">ALAMAT PENGIRIMAN</h3>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="hollow-label" for="name">Pilih Alamat</label>
-								<select class="form-control hollow choice_address" name="address_id" id="address_id">
-									@foreach($addresses as $key => $value)
-										<option value={{$value['id']}} selected>{{$value['address']}}</option>
-									@endforeach
-									<option value="0">Tambah Alamat Baru</option>
-								</select>
+					<div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1">
+						<div class="row m-b-md">
+							<div class="col-md-12 hidden-sm hidden-xs panel-voucher panel-form-voucher" id="panel-voucher-normal">
+								<div class="row p-b-sm">
+									<div class="col-md-12">
+										<span class="voucher-title">Masukkan Kode Voucher</span>
+									</div>	
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="input-group" style="position:relative">
+											<div class="loading-voucher text-center hide">
+												{!! HTML::image('Balin/web/image/loading.gif', null, []) !!}
+											</div>
+											{!! Form::input('text', 'voucher', null, [
+													'class' => 'form-control hollow transaction-input-voucher-code m-b-sm voucher-desktop',
+													'placeholder' => 'Masukkan kode voucher anda',
+													'data-action' => route('frontend.any.check.voucher')
+											]) !!}
+											<span class="input-group-btn">
+												<button type="button" class="btn-hollow btn-hollow-voucher voucher-desktop" data-action="{{ route('frontend.any.check.voucher') }}">Gunakan</button>
+											</span>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="hollow-label" for="">Nama Penerima</label>
-								{!! Form::input('text', 'receiver_name', null, [
-										'class' 		=> 'form-control hollow transaction-input-postal-code',
-								]) !!}
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 p-t-sm" style="background-color:#fff">
+								<div class="row">
+									<div class="m-t-sm hidden-lg hidden-md hidden-sm col-xs-12">
+										<h3 class="m-t-none m-b-md hollow-label">ALAMAT PENGIRIMAN</h3>
+									</div>						
+									<div class="col-md-12 hidden-xs">
+										<h3 class="m-t-none m-b-md hollow-label">ALAMAT PENGIRIMAN</h3>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="hollow-label" for="name">Pilih Alamat</label>
+											<select class="form-control hollow choice_address" name="address_id" id="address_id">
+												@foreach($addresses as $key => $value)
+													<option value={{$value['id']}} selected>{{$value['address']}}</option>
+												@endforeach
+												<option value="0">Tambah Alamat Baru</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="hollow-label" for="">Nama Penerima</label>
+											{!! Form::input('text', 'receiver_name', null, [
+													'class' 		=> 'form-control hollow transaction-input-postal-code',
+											]) !!}
+										</div>
+									</div>
+								</div>
+								<div class="row new-address new-address-hide">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="hollow-label" for="">Alamat</label>
+											{!! Form::textarea('address', null, [
+													'class' 		=> 'form-control hollow transaction-input-address',
+													'rows'      => '2',
+													'style'     => 'resize:none;',
+											]) !!}
+										</div>
+										<div class="form-group">
+											<label class="hollow-label" for="">Kode Pos</label>
+											{!! Form::input('number', 'zipcode', null, [
+													'class' 		=> 'form-control hollow transaction-input-postal-code',
+													'id'			=> 'zipcode'
+											]) !!}
+										</div>
+										<div class="form-group">
+											<label class="hollow-label" for="">No. Tlp</label>
+											{!! Form::input('text', 'phone', null, [
+													'class' 		=> 'form-control hollow transaction-input-phone',
+											]) !!}
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 hidden-xs hidden-sm">
+										<div class="checkbox">
+											<label>
+												{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
+												Saya menyetujui <a href="#" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin 
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="clearfix">&nbsp;</div>
+								<div class="row">
+									<div class="col-md-12 hidden-xs hidden-sm">
+										<div class="form-group text-right">
+											<button type="submit" class="btn-hollow hollow-black-border" tabindex="7">Checkout</button>
+										</div>        
+									</div>        
+								</div>  
 							</div>
 						</div>
 					</div>
-					<div class="row new-address new-address-hide">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="hollow-label" for="">Alamat</label>
-								{!! Form::textarea('address', null, [
-										'class' 		=> 'form-control hollow transaction-input-address',
-										'rows'      => '2',
-										'style'     => 'resize:none;',
-								]) !!}
-							</div>
-							<div class="form-group">
-								<label class="hollow-label" for="">Kode Pos</label>
-								{!! Form::input('number', 'zipcode', null, [
-										'class' 		=> 'form-control hollow transaction-input-postal-code',
-										'id'			=> 'zipcode'
-								]) !!}
-							</div>
-							<div class="form-group">
-								<label class="hollow-label" for="">No. Tlp</label>
-								{!! Form::input('text', 'phone', null, [
-										'class' 		=> 'form-control hollow transaction-input-phone',
-								]) !!}
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12 hidden-xs hidden-sm">
-							<div class="checkbox">
-								<label>
-									{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
-									Saya menyetujui <a href="#" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin 
-								</label>
-							</div>
-						</div>
-					</div>
-					<div class="clearfix">&nbsp;</div>
-					<div class="row">
-						<div class="col-md-12 hidden-xs hidden-sm">
-							<div class="form-group text-right">
-								<button type="submit" class="btn-hollow hollow-black-border" tabindex="7">Checkout</button>
-							</div>        
-						</div>        
-					</div>  
-				</div>
 				@endif
 				<div class="clearfix hidden-xs">&nbsp;</div>
 			</div>
@@ -224,17 +242,27 @@
 			<!-- total tablet -->
 			@if ($carts)
 				<div class="row ">
-					<div class="hidden-lg hidden-md col-sm-12 hidden-xs panel-voucher p-t-sm">
+					<div class="hidden-lg hidden-md col-sm-12 hidden-xs panel-voucher panel-form-voucher-device p-t-sm">
 						<div class="row p-b-sm">
 							<div class="col-sm-12 text-center">
 								<span class="voucher-title">Masukkan Kode Voucher</span>
 							</div>	
 						</div>
 						<div class="row">
-							<div class="col-sm-12">
-								{!! Form::input('text', 'voucher_code', null, [
-										'class' => 'text-center form-control hollow transaction-input-voucher-code m-b-sm'
-								]) !!}
+							<div class="col-md-12">
+								<div class="input-group" style="position:relative">
+									<div class="loading-voucher text-center hide">
+										{!! HTML::image('Balin/web/image/loading.gif', null, []) !!}
+									</div>
+									{!! Form::input('text', 'voucher', null, [
+											'class' => 'form-control hollow transaction-input-voucher-code m-b-sm voucher-tablet',
+											'placeholder' => 'Masukkan kode voucher anda',
+											'data-action' => route('frontend.any.check.voucher')
+									]) !!}
+									<span class="input-group-btn">
+										<button type="button" class="btn-hollow btn-hollow-voucher voucher-tablet" data-action="{{ route('frontend.any.check.voucher') }}">Gunakan</button>
+									</span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -316,23 +344,33 @@
 
 			<!-- total mobile -->
 			<div class="row" style="background-color:black;">
-				<div class="hidden-lg hidden-md hidden-sm col-xs-12 panel-voucher" style="background-color:#111;">
+				<div class="hidden-lg hidden-md hidden-sm col-xs-12 panel-voucher panel-form-voucher-device" style="background-color:#111; border-bottom:1px solid #fff">
 					<div class="row p-b-sm">
 						<div class="col-xs-12">
 							<span class="voucher-title">Masukkan Kode Voucher</span>
 						</div>	
 					</div>
 					<div class="row">
-						<div class="col-xs-12">
-							{!! Form::input('text', 'voucher_code', null, [
-									'class' => 'form-control hollow transaction-input-voucher-code m-b-sm'
-							]) !!}
+						<div class="col-md-12">
+							<div class="input-group p-b-xxs" style="position:relative">
+								<div class="loading-voucher text-center hide">
+									{!! HTML::image('Balin/web/image/loading.gif', null, []) !!}
+								</div>
+								{!! Form::input('text', 'voucher', null, [
+										'class' => 'form-control hollow transaction-input-voucher-code m-b-sm voucher-mobile',
+										'placeholder' => 'Masukkan kode voucher anda',
+										'data-action' => route('frontend.any.check.voucher')
+								]) !!}
+								<span class="input-group-btn">
+									<button type="button" class="btn-hollow btn-hollow-voucher voucher-mobile" data-action="{{ route('frontend.any.check.voucher') }}">Gunakan</button>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>	
 
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-					<div class="row p-t-xs m-b-none">
+					<div class="row p-t-sm m-b-none">
 						<div class="col-xs-12">
 							<h4 style="color:#FFF;" class="text-center">Sub Total</h4>
 						</div>
@@ -348,7 +386,7 @@
 					</div>
 
 
-					<div class="row p-t-xs m-b-none">
+					<div class="row m-b-none">
 						<div class="col-xs-12">
 							<h4 style="color:#FFF;" class="text-center">Poin Anda</h4>
 						</div>
@@ -363,12 +401,12 @@
 
 
 
-					<div class="row p-t-xs m-b-none">
+					<div class="row m-b-none">
 						<div class="col-xs-12">
 							<h4 style="color:#FFF;" class="text-center">Biaya Pengiriman</h4>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row m-b-sm">
 						<div class="col-xs-12">
 							<h3 style="color:#fff;" class="text-center m-t-none shippingcost">
 								@money_indo(0)
@@ -377,9 +415,9 @@
 					</div>
 
 
-					<div class="row p-t-xs m-b-none">
+					<div class="row m-b-none" style="border-top: 1px solid #fff">
 						<div class="col-xs-12">
-							<h3 style="color:#FFF;" class="text-center">Total</h3>
+							<h3 style="color:#fff;" class="text-center">Total</h3>
 						</div>
 					</div>
 					<div class="row">
@@ -415,7 +453,7 @@
 					<div class="row p-b-md p-t-xs">
 						<div class="col-md-12">
 							<div class="form-group text-right">
-								<button type="submit" class="btn-hollow btn-block hollow-black-border" tabindex="7">Checkout</button>
+								<button type="submit" class="btn-hollow btn-block hollow-black-border" tabindex="7" style="font-size:16px">Checkout</button>
 							</div>        
 						</div>        
 					</div>  			
@@ -454,108 +492,6 @@
 
 @stop
 
-@section('script')
-	$( document ).ready(function() {
-		<!-- pre load shipping cost -->
-		if($('.choice_address').val == 0){
-			GetShippingCost( {'zipcode' : $( "#zipcode" ).val()} );
-		}else{
-			GetShippingCost( {'address' : $( "#address_id" ).val()} );
-		}
-
-		countSubTotal();
-
-		equalizePanel();
-	});
-
-	$('.choice_address').on('change', function() {
-		var val = $(this).val();
-		if (val == 0) {
-			$('.new-address').removeClass('new-address-hide');
-			$('.new-address').addClass('new-address-show');
-
-			jQuery('#zipcode').on('input propertychange paste', function() {
-				GetShippingCost( {'zipcode' : $( "#zipcode" ).val()} );
-			});			
-		}
-		else {
-			$('.new-address').removeClass('new-address-show');
-			$('.new-address').addClass('new-address-hide');
-			GetShippingCost( {'address' : $( "#address_id" ).val()} );
-		}
-	});
-
-	function setModalMaxHeight(element) {
-		this.$element     = $(element);
-		var dialogMargin  = $(window).width() > 767 ? 62 : 22;
-		var contentHeight = $(window).height() - dialogMargin;
-		var headerHeight  = this.$element.find('.modal-header').outerHeight() || 2;
-		var footerHeight  = this.$element.find('.modal-footer').outerHeight() || 2;
-		var maxHeight     = contentHeight - (headerHeight + footerHeight);
-
-		this.$element.find('.modal-content').css({
-			'overflow': 'hidden'
-		});
-
-		this.$element.find('.modal-body').css({
-			'max-height': maxHeight,
-			'overflow-y': 'auto'
-		});
-	}
-
-	$('.modal').on('show.bs.modal', function() {
-		$(this).show();
-		setModalMaxHeight(this);
-	});
-
-	$(window).resize(function() {
-		if ($('.modal.in').length != 0) {
-			setModalMaxHeight($('.modal.in'));
-		}
-
-		equalizePanel();
-	});
-
-   function GetShippingCost(e){
-		$.post( "{{route('frontend.any.zipcode')}}", e)
-			.done(function( data ) {
-			$(".shippingcost").text(data);
-			countSubTotal();
-		});        
-    };
-
-    function countSubTotal(){
-    	var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
-    	var sc = ($(".shippingcost").first().text().replace(/\./g, '')).substring(4);
-    	var yp = ($("#point").text().replace(/\./g, '')).substring(4);
-    	to = parseInt(to);
-    	sc = parseInt(sc);
-    	yp = parseInt(yp);
-
-		if(isNaN(sc)) {
-			sc = 0;
-		}
-
-    	var st = 'IDR ' + (to + sc - yp);
-
-		$(".subtotal").text(addCommas(st));
-
-
-		function addCommas(nStr)
-		{
-			nStr += '';
-			x = nStr.split('.');
-			x1 = x[0];
-			x2 = x.length > 1 ? '.' + x[1] : '';
-			var rgx = /(\d+)(\d{3})/;
-			while (rgx.test(x1)) {
-				x1 = x1.replace(rgx, '$1' + '.' + '$2');
-			}
-			return x1 + x2;
-		};
-	}
-
-	function equalizePanel() {
-		$('#panel-subtotal-normal').outerHeight(($('#panel-voucher-normal').outerHeight()));
-	}
+@section('script_plugin')
+	@include('plugins.checkout-plugin')
 @stop
