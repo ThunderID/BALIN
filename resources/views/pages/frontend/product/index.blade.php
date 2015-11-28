@@ -92,10 +92,10 @@
 						<div class="col-md-3 col-sm-3 p-l-xxs text-right">
 							<div class="row f-searching">
 								{!! Form::open(array('url' => route('frontend.product.index', Input::all()), 'method' => 'get', 'id' => 'form1', 'class' => 'form-group' )) !!}
-									<div class="col-xs-10 p-r-none p-l-none">
+									<div class="col-xs-10 col-sm-9 p-r-none p-l-none">
 										{!! Form::text('name', null, ['class' => 'form-control hollow search inp-search', 'id' => 'input-search','placeholder' => 'Cari nama produk', 'required' => 'required'] ) !!}
 									</div>
-									<div class="col-xs-2 p-l-none p-r-none p-b-xxs bt">
+									<div class="col-xs-2 col-sm-3 p-l-none p-r-none p-b-xxs bt">
 										<button type="submit"  class="btn-hollow btn-block btn-search t-sm" tabindex="21"><i class="fa fa-search" style="padding-top:3px;"></i></button>
 									</div>
 								{!! Form::close() !!}
@@ -351,17 +351,13 @@
 			  	</div>
 			</div>			
 		</div>		
-
 		<div class="row">
 			<div class="col-md-12">
 				@include('widgets.pageelements.headersearchresult', ['closeSearchLink' => route('frontend.product.index') ])
 			</div>
 		</div>
-
-
-		<div class="row carousel-holder">
-		</div>
 			
+		<div class="clearfix">&nbsp;</div>
 		<div class="row">
 			@foreach($datas as $data)
 				<div class="col-sm-4 col-md-3">
@@ -370,20 +366,18 @@
 			@endforeach
 		</div>
 
-				<div class="row">
-					<div class="col-md-12 hollow-pagination" style="text-align:right;">
-						<?Php 
-						// {!! $datas->appends(Input::all())->render() !!}
-						?>
-						<div class="mt-5">
-							@if(isset($route))
-								{!! $paginator->links(Route::currentRouteName(), $route) !!}
-							@else
-								{!! $paginator->links(Route::currentRouteName(), Input::all()) !!}
-							@endif
-						</div>						
-					</div>
-				</div>
+		<div class="row">
+			<div class="col-md-12 hollow-pagination" style="text-align:right;">
+				<?Php 
+				// {!! $datas->appends(Input::all())->render() !!}
+				?>
+				<div class="mt-5">
+					@if(isset($route))
+						{!! $paginator->links(Route::currentRouteName(), $route) !!}
+					@else
+						{!! $paginator->links(Route::currentRouteName(), Input::all()) !!}
+					@endif
+				</div>						
 			</div>
 		</div>
 	</div>
