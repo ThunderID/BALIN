@@ -53,7 +53,7 @@ class CheckOutController extends BaseController
 			return Redirect::back()->withInput()->withErrors('Anda harus menyetujui syarat dan ketentuan BALIN.ID.')->with('msg-type', 'danger');
 		}
 
-		$transaction           	 				= Transaction::userid(Auth::user()->id)->status('cart')->wherehas('transactiondetails', function($q){$q;})->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->orderby('transct_at', 'desc')->first();
+		$transaction           	 				= Transaction::userid(Auth::user()->id)->status('cart')->wherehas('transactiondetails', function($q){$q;})->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.varian.product'])->orderby('transact_at', 'desc')->first();
 		
 		if(!$transaction)
 		{
@@ -150,6 +150,11 @@ class CheckOutController extends BaseController
 		}
 		elseif(Input::has('address'))
 		{
+			if(Input::get('address') == 0)
+			{
+			    return json_decode(json_encode('IDR '.number_format(0, 0, ',', '.')));
+			}
+
 			$address 			= Address::id(Input::get('address'))->first();
 			$zipcode 			= $address['zipcode'];
 		}

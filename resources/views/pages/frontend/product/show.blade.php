@@ -170,28 +170,28 @@
 																{{ $v['size'] }}
 															@endif
 														</label>
-													  	<input type="hidden" name="varianids[{{$v['id']}}]" class="form-control pvarians" value="{{$v['id']}}">
-													  	<input type="number" name="qty[{{$v['id']}}]" class="form-control hollow form-qty input-number pqty" 
-													  	value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" 
-													  	data-stock="{{ $v['stock'] }}" 
-													  	data-id="{{ $v['id'] }}" 
-													  	data-price="{{ $data['price'] }}"
-													  	data-discount="{{ $data['discount'] }}"
-													  	data-total="0"
-													  	data-name="qty-{{strtolower($v['size'])}}[1]" 
-													  	data-oldValue="" 
-													  	data-toggle="tooltip" 
-													  	data-placement="right" 
-													  	@if($v['stock']==0){{'disabled'}}@endif>
+														<input type="hidden" name="varianids[{{$v['id']}}]" class="form-control pvarians" value="{{$v['id']}}">
+														<input type="number" name="qty[{{$v['id']}}]" class="form-control hollow form-qty input-number pqty" 
+														value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" 
+														data-stock="{{ $v['stock'] }}" 
+														data-id="{{ $v['id'] }}" 
+														data-price="{{ $data['price'] }}"
+														data-discount="{{ $data['discount'] }}"
+														data-total="0"
+														data-name="qty-{{strtolower($v['size'])}}[1]" 
+														data-oldValue="" 
+														data-toggle="tooltip" 
+														data-placement="right" 
+														@if($v['stock']==0){{'disabled'}}@endif>
 
 														<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-minus btn-number" disabled="disabled" 
 														data-type="minus" data-field="qty-{{strtolower($v['size'])}}[1]">
 															<i class="fa fa-minus"></i>
-													  	</button>
-													  	<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-plus btn-number" data-type="plus" 
-													  	data-field="qty-{{strtolower($v['size'])}}[1]" @if($v['stock']==0){{'disabled="disabled"'}}@endif>
-														  	<i class="fa fa-plus"></i>
-													  	</button>
+														</button>
+														<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-plus btn-number" data-type="plus" 
+														data-field="qty-{{strtolower($v['size'])}}[1]" @if($v['stock']==0){{'disabled="disabled"'}}@endif>
+															<i class="fa fa-plus"></i>
+														</button>
 													</div>
 												</div>
 											</div>
@@ -260,11 +260,12 @@
 	</div>
 
 	<div id="fb-root"></div>
-@stop
+	
+	@stop
 
 @section('script')
 	function facebookShare() {
-	    var myWindow = window.open("http://www.facebook.com/sharer/sharer.php?u={{ route('frontend.product.show', $data['slug']) }}#&title={{$data['name']}}", "Balin", "width=600", "height=580", "top=10", "left=10");
+		var myWindow = window.open("http://www.facebook.com/sharer/sharer.php?u={{ route('frontend.product.show', $data['slug']) }}#&title={{$data['name']}}", "Balin", "width=600", "height=580", "top=10", "left=10");
 	};
 
 	$(document).ready(function() {
@@ -295,4 +296,5 @@
 	@include('plugins.owlCarousel')
 	@include('plugins.easyzoom')
 	@include('plugins.cart-plugin')
+	@include('plugins.notif', ['data' => ['title' => 'Terima Kasih', 'content' => 'Produk telah ditambahkan di cart']])
 @stop

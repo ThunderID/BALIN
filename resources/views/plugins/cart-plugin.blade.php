@@ -805,6 +805,8 @@
 						$('.chart-dropdown').html(msg);
 					}
 				});
+
+				$('#notif-window').modal('show');
 			}
 		});
 	});

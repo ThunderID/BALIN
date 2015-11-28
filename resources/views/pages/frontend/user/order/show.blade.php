@@ -1,7 +1,7 @@
 <?php 
 	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
-		<div class="row">
+	<div class="row">
 		<div class="col-md-8 col-sm-8 col-xs-12">
 			<table>
 				<tbody>
@@ -50,8 +50,10 @@
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
-		<div class="row">
-			<div class="col-md-12 col-sm-12 hidden-xs chart-div">
+	<div class="row">
+		<!-- normal tablet -->
+		<div class="col-md-12 col-sm-12 hidden-xs chart-div">
+			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-1 col-sm-1 hidden-xs">
 						<p>No</p>
@@ -77,68 +79,183 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-12 chart-header">
-				</div>
-				<div class="row">
-					<?php $amount = 0;?>
-					@forelse($transaction['transactiondetails'] as $key => $value)
-						<div class="col-md-12">
-							<?php 
-								$amount = $amount + (($value['price'] - $value['discount']) * $value['quantity']);
-							?>
-							<div class="col-md-12">
-								<div class="row p-b-sm m-t-sm">
-									<div class="col-md-1 col-sm-1"><p>{!!($key+1)!!}</p></div>
+			</div>
+			<div class="col-md-12 chart-header">
+			</div>
+			<div class="row">
+				<?php $amount = 0; $numItems = count($transaction['transactiondetails']); $i = 0; ?>
+				@forelse($transaction['transactiondetails'] as $key => $value)
+				<div class="col-md-12">
+					<?php 
+					$amount = $amount + (($value['price'] - $value['discount']) * $value['quantity']);
+					?>
+					<div class="col-md-12">
+						<div class="row p-b-sm m-t-sm">
+							<div class="col-md-1 col-sm-1"><p>{!!($key+1)!!}</p></div>
 
-									<div class="col-md-1 col-sm-2 clearfix">
-										<img class="img-responsive m-t-sm" src="{{ $value['product']['images'][0]['thumbnail'] }}" >
-									</div>
+							<div class="col-md-1 col-sm-2 clearfix">
+								<img class="img-responsive m-t-sm" src="{{ $value['product']['images'][0]['thumbnail'] }}" >
+							</div>
 
-									<div class="col-md-10 col-sm-9 ">
-										<div class="row">
-											<div class="col-md-12 col-sm-12">
-												<p class="m-b-xs">{{ $value['product']['name'] }}</p>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-4 col-md-4">
-												<p class="m-b-sm">Size :
-												@if (strpos($value['varian']['size'], '.')==true)
-													<?php $frac = explode('.', $value['varian']['size']); ?>
-													{{ $frac[0].' &frac12;'}}
-												@else
-													{{ $value['varian']['size'] }}
-												@endif
-												</p>
-											</div>
-											<div class="col-sm-2 col-md-2 text-center">
-												{{$value['quantity']}}
-											</div>
-											<div class="col-sm-2 col-md-2 text-right">
-												@money_indo($value['price'])
-											</div>
-											<div class="col-sm-2 col-md-2 text-right">
-												@money_indo($value['discount'])
-											</div>
-											<div class="col-sm-2 col-md-2 text-right">
-												@money_indo((($value['price'] - $value['discount']) * $value['quantity']))
-											</div>
-										</div>							
+							<div class="col-md-10 col-sm-9 ">
+								<div class="row">
+									<div class="col-md-12 col-sm-12">
+										<p class="m-b-xs">{{ $value['product']['name'] }}</p>
 									</div>
 								</div>
-
-								<div class="col-md-12 clearfix border-bottom">&nbsp;</div>
-								
+								<div class="row">
+									<div class="col-sm-4 col-md-4">
+										<p class="m-b-sm">Size :
+											@if (strpos($value['varian']['size'], '.')==true)
+											<?php $frac = explode('.', $value['varian']['size']); ?>
+											{{ $frac[0].' &frac12;'}}
+											@else
+											{{ $value['varian']['size'] }}
+											@endif
+										</p>
+									</div>
+									<div class="col-sm-2 col-md-2 text-center">
+										{{$value['quantity']}}
+									</div>
+									<div class="col-sm-2 col-md-2 text-right">
+										@money_indo($value['price'])
+									</div>
+									<div class="col-sm-2 col-md-2 text-right">
+										@money_indo($value['discount'])
+									</div>
+									<div class="col-sm-2 col-md-2 text-right">
+										@money_indo((($value['price'] - $value['discount']) * $value['quantity']))
+									</div>
+								</div>							
 							</div>
 						</div>
-					@empty
-						<div class="col-md-12 text-center">
-							<p> Tidak ada data </p>
-						</div>
-					@endforelse						
+						@if(++$i !== $numItems)
+							<div class="col-md-12 clearfix border-bottom">&nbsp;</div>
+						@endif
+					</div>
 				</div>
+				@empty
+				<div class="col-md-12 text-center">
+					<p> Tidak ada data </p>
+				</div>
+				@endforelse						
 			</div>
+		</div>	
 
+		<!-- mobile -->
+		<div class="hidden-lg hidden-md hidden-sm col-xs-12">
+			<div class="row chart-item" style="margin-top: -25px; padding-top:0px; border-top: 1px solid #ddd;">
+				<?php $amount = 0;?>
+				@forelse($transaction['transactiondetails'] as $key => $value)
+				<div class="col-xs-10 col-xs-offset-1">
+					<?php 
+					$amount = $amount + (($value['price'] - $value['discount']) * $value['quantity']);
+					?>
+
+					@if($key != 0)
+						<div class="row">
+							<div class="col-xs-12 border-bottom"></div>
+						</div>
+					@endif
+
+					<div class="clearfix">&nbsp;</div>
+
+					<div class="row">
+						<p class="text-left">{!!($key+1)!!}</p>
+					</div>					
+					<div class="row" style="margin-top: -35px;">
+						<div class="col-xs-8 col-xs-offset-2">
+							 <a href="#">
+								<img class="img-responsive m-t-sm" src="{{ $value['product']['images'][0]['thumbnail'] }}" >
+							 </a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<h4 class="m-b-xs" style="font-size:20px; font-weight:300">{{ $value['product']['name'] }}</h4>
+						</div>
+					</div>
+					<div class="row m-t-sm m-b-xs ">
+						<div class="col-xs-12 text-center">
+							<p>Size</p>
+						</div>
+						<div class="col-xs-12 text-center" style="margin-top:-10px;">
+							<strong style="font-size: 16px;">
+								@if (strpos($value['varian']['size'], '.')==true)
+									<?php $frac = explode('.', $value['varian']['size']); ?>
+									{{ $frac[0].' &frac12;'}}
+								@else
+									{{ $value['varian']['size'] }}
+								@endif
+							</strong>
+						</div>
+					</div>
+					<div class="row m-t-sm m-b-none">
+						<div class="col-xs-5 text-right" style="padding-left: 20px; padding-right: 0px; margin-right: 20px;">
+							<p class="m-b-xs">Kuantitas</p>
+						</div>
+						<div class="col-xs-2 text-center" style="margin-left:-20px; padding-left:0px; margin-right:20px; padding-right:0px;">
+							:
+						</div>
+						<div class="col-xs-5 text-left" style="margin-left:-20px; padding-left: 0px; padding-right:0px;">
+							<p>
+								<strong>
+									{{$value['quantity']}}
+								</strong>
+							</p>
+						</div>
+					</div>
+					<div class="row m-b-xs m-b-none">
+						<div class="col-xs-5 text-right" style="padding-left: 20px; padding-right: 0px; margin-right: 20px;">
+							<p class="m-b-xs">Harga</p>
+						</div>
+						<div class="col-xs-2 text-center" style="margin-left:-20px; padding-left:0px; margin-right:20px; padding-right:0px;">
+							:
+						</div>
+						<div class="col-xs-5 text-left" style="margin-left:-20px; padding-left: 0px; padding-right:0px;">
+							<p>
+								<strong>
+									@money_indo($value['price'])
+								</strong>
+							</p>
+						</div>
+					</div>
+					<div class="row m-b-xs m-b-none">
+						<div class="col-xs-5 text-right" style="padding-left: 20px; padding-right: 0px; margin-right: 20px;">
+							<p class="m-b-xs">Discount</p>
+						</div>
+						<div class="col-xs-2 text-center" style="margin-left:-20px; padding-left:0px; margin-right:20px; padding-right:0px;">
+							:
+						</div>
+						<div class="col-xs-5 text-left" style="margin-left:-20px; padding-left: 0px; padding-right:0px;">
+							<p>
+								<strong>
+									@money_indo($value['discount'])
+								</strong>
+							</p>
+						</div>
+					</div>
+					<div class="row m-b-xs m-b-none">
+						<div class="col-xs-5 text-right" style="padding-left: 20px; padding-right: 0px; margin-right: 20px;">
+							<p class="m-b-xs">Total</p>
+						</div>
+						<div class="col-xs-2 text-center" style="margin-left:-20px; padding-left:0px; margin-right:20px; padding-right:0px;">
+							:
+						</div>
+						<div class="col-xs-5 text-left" style="margin-left:-20px; padding-left: 0px; padding-right:0px;">
+							<p>
+								<strong>
+									@money_indo((($value['price'] - $value['discount']) * $value['quantity']))
+								</strong>
+							</p>
+						</div>
+					</div>					
+				</div>
+				@empty
+				<div class="col-md-12 text-center">
+					<p> Tidak ada data </p>
+				</div>
+				@endforelse						
 			</div>
 		</div>
 	</div>
@@ -249,7 +366,11 @@
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
-						<th colspan="2">Nota Bayar</th>
+						@if($transaction['payment'])
+							<th colspan="2">Nota Bayar</th>
+						@else
+							<th colspan="2">Lakukan Pembayaran Melalui</th>
+					@endif
 					</tr>
 				</thead>
 				<tbody>
@@ -272,7 +393,7 @@
 						</tr>
 					@else
 						<tr>
-							<td colspan="2">Belum ada nota bayar</td>
+							<td colspan="2">{!!$storeinfo['bank_information']!!}</td>
 						</tr>
 					@endif
 				</tbody>
