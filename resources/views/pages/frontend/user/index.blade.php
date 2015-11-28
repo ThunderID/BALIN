@@ -27,8 +27,8 @@
 				</span>
 			</p>
 		</div>		
-	<div class="row">
 	</div>
+	<div class="row">
 		<div class="col-md-12">
 			<p class="m-t-md">
 			Melalui halaman profile anda, anda dapat melihat aktivitas akun anda dan mengubah informasi akun. Klik link yang tersedia untuk melihat atau mengubah profil anda.
@@ -61,10 +61,9 @@
 			<p class="label-info">Email <span>{{ Auth::user()->email }}</span></p>
 			<p class="label-info">Tanggal lahir <span>@date_indo(Auth::user()->date_of_birth)</span></p>
 			{{-- <a href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.change.password') }}" data-modal-title="Ubah Password" class="btn-hollow hollow-black-border">Ubah Password</a> --}}
-			<p class="clearfix p-b-xs">&nbsp;</p>
-			<p class="clearfix p-b-xs">&nbsp;</p>
+			<p class="clearfix p-b-xs hidden-xs">&nbsp;</p>
 		</div>
-		<div class="col-sm-6 border-left">
+		<div class="col-sm-6 border-left panel-right">
 			<h5 class="title-info m-t-md">Keanggotaan</h5>
 			<p class="label-info">
 				Point Balin Anda <strong> @money_indo(Auth::user()->balance) </strong>
@@ -84,7 +83,7 @@
 					<strong>{{Auth::user()->reference}} </strong> 
 				@else
 					<strong>Tidak ada</strong>
-					<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Pemberi Referral Anda" data-view="modal-md">[ Masukkan Pemberi Referral ]</a></small>
+					<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Pemberi Referral Anda" data-view="modal-md">[ Tambahkan ]</a></small>
 				@endif
 			</p>
 			<p class="label-info">
@@ -286,6 +285,28 @@
 	function change_action(e) {
 		e.context.firstChild.action = parsing;
 	}
+
+	$(window).ready(function() {
+		wd = $(this).width();
+
+		if (wd < 750) {
+			$('.panel-right').removeClass('border-left');
+			$('.panel-right').removeClass('border-top');
+		}
+		else {
+			$('.panel-right').addClass('border-left');
+		}
+	});
+	$(window).resize(function() {
+		wd = $(this).width();
+
+		if (wd < 750) {
+			$('.panel-right').removeClass('border-left');
+		}
+		else {
+			$('.panel-right').addClass('border-left');
+		}
+	});
 @stop
 
 @section('script_plugin')

@@ -330,10 +330,10 @@
 	width: 100%;
 }
 .modal-fullscreen .modal-header {
-	margin-left: -55px;
-	margin-right: -55px;
-	padding-left: 70px;
-	padding-right: 70px;
+	margin-left: -100px;
+	margin-right: -100px;
+	padding-left: 115px;
+	padding-right: 115px;
 	background-color: #000;
 	color: #fff;
 }
