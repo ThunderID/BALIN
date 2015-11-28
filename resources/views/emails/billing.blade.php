@@ -19,14 +19,14 @@
 </table>
 <hr/>
 <br/>
-<table style="width:100%">
+<table style="width:100%;">
 	<tr>
 		<td class="col-sm-6" style="width:55%; height:50px;text-align:left">
 			<p>{{$data['bill']['user']['name']}}, </p>
 			<p>Terima kasih telah memesan. Berikut rincian tagihan pesanan Anda.</p>
 		</td>
 		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
-			<table border="1">
+			<table style="border:2px solid;">
 				<tr>
 					<td style="background-color:white; border-radius:0px; color:black;border-bottom:none;padding:15px;">
 						Tanggal Invoice
@@ -38,7 +38,7 @@
 			</table>
 		</td>
 		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
-			<table border="1" >
+			<table style="border:2px solid;" >
 				<tr>
 					<td style="background-color:black; border-radius:0px; color:white;border-bottom:none;padding:15px;">
 						Jumlah Tagihan
@@ -50,7 +50,7 @@
 			</table>
 		</td>
 		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
-			<table border="1">
+			<table style="border:2px solid;">
 				<tr>
 					<td style="background-color:white; border-radius:0px; color:black;border-bottom:none;padding:15px;">
 						Batas Waktu
