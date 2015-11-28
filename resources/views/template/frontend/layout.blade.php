@@ -266,12 +266,23 @@
 
 		.modal-center .modal-dialog {
 			display: inline-block !important;
-			 vertical-align: middle !important;
+			vertical-align: middle !important;
 		}
 
 		.modal-center .modal-content {
 			border-radius: 0px !important;
 		}
+
+		.modal-notif .modal-dialog{
+			background-color: white;
+		}
+
+		.modal-notif .modal-header{
+			background-color: black;
+			color:white;
+			border-bottom: none;
+		}		
+
 
 		.text-white {
 			color:#888;
