@@ -21,9 +21,9 @@
 						<p class="footer-title-logo m-b-none"><a href="{{ URL::route('frontend.home.index') }}"  style="color:white;text-align:center;text-decoration:none">Website by Thunder Labs Indonesia</a></p>
 					</td>		
 					<td class="row" style="width:25%;" valign="middle">
-							<a href="{{ $data['balin']['instagram_url'] }}" target="blank" class="btn-hollow hollow-social hollow-white social-mobile" style="color:white;">{!! HTML::image('http://www.soteeoh.com/images/inst.png','', ['class' => 'img-responsive', 'style' => 'text-align:center;max-width:25px;']) !!}</a>&nbsp;&nbsp;
-							<a href="{{ $data['balin']['twitter_url'] }}" target="blank" class="btn-hollow hollow-social hollow-white social-mobile" style="color:white;">{!! HTML::image('http://peavey.com/includes/images/Twitter_logo_white_tiny.png','', ['class' => 'img-responsive', 'style' => 'text-align:center;max-width:25px;']) !!}</a>&nbsp;&nbsp;
-							<a href="{{ $data['balin']['facebook_url'] }}" target="blank" class="btn-hollow hollow-social hollow-white social-mobile" style="color:white;">{!! HTML::image('http://static1.squarespace.com/static/54e509a7e4b029114fa305cc/t/54f4c9dbe4b02c0acdf35a13/1425328607960/thefathership-fb-logo.png','', ['class' => 'img-responsive', 'style' => 'text-align:center;max-width:25px;']) !!}</a>&nbsp;&nbsp;
+							<a href="{{ $data['balin']['instagram_url'] }}" target="blank" class="btn-hollow hollow-social hollow-white social-mobile" style="color:white;">{!! HTML::image('Balin/web/image/logo-instagram.png','', ['class' => 'img-responsive', 'style' => 'text-align:center;max-width:30px;']) !!}</a>&nbsp;&nbsp;
+							<a href="{{ $data['balin']['twitter_url'] }}" target="blank" class="btn-hollow hollow-social hollow-white social-mobile" style="color:white;">{!! HTML::image('Balin/web/image/logo-twitter.png','', ['class' => 'img-responsive', 'style' => 'text-align:center;max-width:30px;']) !!}</a>&nbsp;&nbsp;
+							<a href="{{ $data['balin']['facebook_url'] }}" target="blank" class="btn-hollow hollow-social hollow-white social-mobile" style="color:white;">{!! HTML::image('Balin/web/image/logo-facebook.png','', ['class' => 'img-responsive', 'style' => 'text-align:center;max-width:30px;']) !!}</a>&nbsp;&nbsp;
 						</div>
 					</td>		
 				</tr>
