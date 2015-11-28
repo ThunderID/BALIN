@@ -240,12 +240,12 @@ class UserController extends BaseController
 
 		if($result->getStatus()=='success')
 		{
-			return Redirect::route('frontend.user.order.index')
+			return Redirect::route('frontend.user.index')
 							->with('msg','Pembatalan sudah disimpan')
 							->with('msg-type', 'success');
 		}
 
-		return Redirect::route('frontend.user.order.index')
+		return Redirect::route('frontend.user.index')
 							->withErrors($result->getErrorMessage())
 							->with('msg-type', 'danger');
 	}
