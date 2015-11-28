@@ -30,18 +30,23 @@ class UserLoggedOut
      */
     public function handle()
     {
-        $lastlogged                 = new Carbon('now');
+        $lastlogged                     = new Carbon('now');
 
-        $user                       = Auth::user();
-
-        $user->last_logged_at       = $lastlogged->format('Y-m-d H:i:s');
-
-        if(!$user->save())
+        if(Auth::check())
         {
-            return false;
-        }
+            $user                       = Auth::user();
 
-        Session::forget('baskets');
+            $user->fill([
+                    'last_logged_at'    => $lastlogged->format('Y-m-d H:i:s'),
+            ]);
+
+            if(!$user->save())
+            {
+                return false;
+            }
+
+            Session::forget('baskets');
+        }
 
         return true;
     }
