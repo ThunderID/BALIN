@@ -83,7 +83,7 @@
 			<div class="col-md-12 chart-header">
 			</div>
 			<div class="row">
-				<?php $amount = 0;?>
+				<?php $amount = 0; $numItems = count($transaction['transactiondetails']); $i = 0; ?>
 				@forelse($transaction['transactiondetails'] as $key => $value)
 				<div class="col-md-12">
 					<?php 
@@ -129,9 +129,9 @@
 								</div>							
 							</div>
 						</div>
-
-						<div class="col-md-12 clearfix border-bottom">&nbsp;</div>
-
+						@if(++$i !== $numItems)
+							<div class="col-md-12 clearfix border-bottom">&nbsp;</div>
+						@endif
 					</div>
 				</div>
 				@empty
