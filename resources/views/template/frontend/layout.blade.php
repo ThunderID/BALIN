@@ -439,6 +439,43 @@
     font-size: 1.5em;
 }
 
+
+
+
+
+@media (max-width: 359px) {
+	.info-product h4 {
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;  
+	    max-height: 58px;  
+	    font-size: 15px;
+	}	
+
+	.info-price {
+		margin-top: -30px;
+	}
+}
+
+
+@media (min-width: 360px) and (max-width: 369px){
+	.info-product h4 {
+	    font-size: 13px !important;  
+	}	
+}
+
+@media (min-width: 370px) and (max-width: 429px) {
+	.info-product h4 {
+	    font-size: 14px;  
+	}	
+}
+
+@media (min-width: 430px) and (max-width: 489px) {
+	.info-product h4 {
+	    font-size: 15px;  
+	}	
+}
+
 	</style>
 
 	<!-- Custom CSS -->
