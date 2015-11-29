@@ -164,10 +164,28 @@
 			panel_voucher = $('.panel-form-voucher');
 			panel_voucher_device = $('.panel-form-voucher-device');
 
+			modal_notif = $('.modal-notif');
+			modal_notif.find('.title').children().html('');
+			modal_notif.find('.content').html(e.msg);
+
 			setTimeout( function() {
+				$('.loading-voucher').addClass('hide');
 				panel_voucher.html('<p class="m-b-none">'+e.msg+'</p>');
 				panel_voucher_device.html('<p class="m-b-none text-center">'+e.msg+'</p>');
 			}, 2000);
+
+			$('#notif-window').modal('show');
+		}
+		else if (e.type=='error')
+		{
+			setTimeout( function() {
+				$('.loading-voucher').addClass('hide');
+			}, 1000);
+			
+			modal_notif = $('.modal-notif');
+			modal_notif.find('.title').children().html('');
+			modal_notif.find('.content').html(e.msg);
+			$('#notif-window').modal('show');
 		}
 	}
 

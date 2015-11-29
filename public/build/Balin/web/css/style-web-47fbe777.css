@@ -1060,7 +1060,7 @@ p {
   height: 20px;
   padding: 1px 6px !important;
   margin: 0px !important;
-  line-height: 20px;
+  line-height: 17px;
 }
 .hollow-login label {
   font-weight: 400;
@@ -1183,7 +1183,7 @@ select.form-control.hollow {
   /*border-top: 1px solid #999;*/
   border: 2px solid #ddd;
 }
-.ribbon-menu {
+.ribbon-menu.ribbon-desktop {
   height: 42px;
 }
 .ribbon-menu li {
@@ -1640,6 +1640,12 @@ span.info {
 }
 .panel-voucher .form-control {
   border: 0;
+  height: 34px;
+}
+@-moz-document url-prefix() {
+  .panel-voucher .form-control h1 {
+    color: red;
+  }
 }
 .panel-voucher .loading-voucher {
   position: absolute;
@@ -1651,6 +1657,11 @@ span.info {
 }
 .panel-voucher .loading-voucher img {
   width: 20px;
+}
+@-moz-document url-prefix() {
+  .panel-voucher .form-control {
+    height: 35px;
+  }
 }
 .panel-subtotal {
   background-color: #ddd;
@@ -1823,7 +1834,6 @@ footer a.footer-link:hover {
   padding: 5px;
   padding-left: 5px;
   padding-right: 5px;
-  width: 120px;
 }
 .text-label {
   font-size: 13px;

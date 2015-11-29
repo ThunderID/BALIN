@@ -192,4 +192,5 @@
 
 @section('script_plugin')
 	@include('plugins.cart-plugin')
+	@include('plugins.form_no_enter')
 @stop

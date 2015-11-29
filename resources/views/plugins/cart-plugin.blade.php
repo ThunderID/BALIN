@@ -937,8 +937,8 @@
 	{
 		if (flg == 1) {
 			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf untuk ukuran ini sisa ' +input.attr('max')+' item'}).tooltip('show');
-			$('.tooltip').css('top', -5 + 'px');
-			$('.tooltip-arrow').css('top', 25 + 'px');
+			$('.tooltip').css('top', -65 + 'px');
+			$('.tooltip-arrow').css('top', 62 + 'px');
 			setTimeout( function() {
 				$(input).tooltip('hide');
 			}, 3000);

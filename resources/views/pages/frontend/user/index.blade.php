@@ -59,7 +59,7 @@
 				</span>
 			</p>
 			<p class="label-info">Email <span>{{ Auth::user()->email }}</span></p>
-			<p class="label-info">Tanggal lahir <span>@date_indo(Auth::user()->date_of_birth)</span></p>
+			<p class="label-info p-b-xxs">Tanggal lahir <span>@date_indo(Auth::user()->date_of_birth)</span></p>
 			{{-- <a href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.change.password') }}" data-modal-title="Ubah Password" class="btn-hollow hollow-black-border">Ubah Password</a> --}}
 			<p class="clearfix p-b-xs hidden-xs">&nbsp;</p>
 		</div>
@@ -86,7 +86,7 @@
 					<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Pemberi Referral Anda" data-view="modal-md">[ Tambahkan ]</a></small>
 				@endif
 			</p>
-			<p class="label-info">
+			<p class="label-info p-b-xxs">
 				Referral Anda 
 				<strong>{{Auth::user()->downline}} </strong> 
 				<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Referral Anda" data-view="modal-md">[ Lihat Daftar ]</a></small>
@@ -286,24 +286,28 @@
 		e.context.firstChild.action = parsing;
 	}
 
-	$(window).ready(function() {
-		wd = $(this).width();
-
-		if (wd < 750) {
-			$('.panel-right').removeClass('border-left');
-			$('.panel-right').removeClass('border-top');
-		}
-		else {
-			$('.panel-right').addClass('border-left');
-		}
-	});
 	$(window).resize(function() {
 		wd = $(this).width();
 
 		if (wd < 750) {
 			$('.panel-right').removeClass('border-left');
+			$('.panel-right').addClass('border-top');
 		}
 		else {
+			$('.panel-right').removeClass('border-top');
+			$('.panel-right').addClass('border-left');
+		}
+	});
+
+	$(window).load(function() {
+		wd = $(this).width();
+
+		if (wd < 750) {
+			$('.panel-right').removeClass('border-left');
+			$('.panel-right').addClass('border-top');
+		}
+		else {
+			$('.panel-right').removeClass('border-top');
 			$('.panel-right').addClass('border-left');
 		}
 	});

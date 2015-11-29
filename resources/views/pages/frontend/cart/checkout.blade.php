@@ -14,7 +14,7 @@
 				@include('widgets.alerts')
 			</div>
 		</div>
-		{!! Form::open(['url' => route('frontend.post.checkout'), 'method' => 'POST', 'novalidate' => 'novalidate']) !!}
+		{!! Form::open(['url' => route('frontend.post.checkout'), 'method' => 'POST', 'novalidate' => 'novalidate', 'class' => 'no_enter']) !!}
 			{!! Form::hidden('voucher_code', '', ['class' => 'voucher_code']) !!}
 			<div class="row">
 				@if ($carts)
@@ -217,7 +217,7 @@
 									<div class="col-md-12 hidden-xs hidden-sm">
 										<div class="checkbox">
 											<label>
-												{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
+												<input type="checkbox" name="term" value="1" tabindex="1" required>
 												Saya menyetujui <a href="#" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin 
 											</label>
 										</div>
@@ -316,7 +316,7 @@
 								<div class="col-sm-12 text-center">
 									<div class="checkbox">
 										<label>
-											{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
+											<input type="checkbox" name="term" value="1" tabindex="1" required>
 											Saya menyetujui <a href="#" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin 
 										</label>
 									</div>
@@ -443,6 +443,7 @@
 						<div class="col-md-12">
 							<div class="checkbox">
 								<label>
+									<input type="checkbox" name="term" value="1" tabindex="1" required>
 									{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
 									Saya menyetujui <a href="#" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin 
 								</label>
@@ -494,4 +495,6 @@
 
 @section('script_plugin')
 	@include('plugins.checkout-plugin')
+	@include('plugins.notif', ['data' => ['title' => 'Terima Kasih', 'content' => 'Produk telah ditambahkan di cart']])
+	@include('plugins.form_no_enter')
 @stop

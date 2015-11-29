@@ -64,7 +64,7 @@
 				<div class="col-md-12 col-sm12 hidden-xs">
 					<div class="row ribbon">
 						<div class="col-md-9 col-sm-9 p-l-xxs">
-							<ul class="list-inline ribbon-menu m-b-none">
+							<ul class="list-inline ribbon-menu ribbon-desktop m-b-none">
 								<li>
 							        <a role="button" id="collapse1" class="menu-accordion"  data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 										KATEGORI <i class="fa fa-chevron-circle-down pull-right"></i>
@@ -359,11 +359,15 @@
 			
 		<div class="clearfix">&nbsp;</div>
 		<div class="row">
-			@foreach($datas as $data)
+			@forelse($datas as $data)
 				<div class="col-sm-4 col-md-3">
 					@include('widgets.product_card')
 				</div>
-			@endforeach
+			@empty
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-sm">
+					<p>Maaf produk yang anda cari tidak ditemukan.</p>
+				</div>
+			@endforelse
 		</div>
 
 		<div class="row">

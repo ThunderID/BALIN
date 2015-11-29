@@ -68,7 +68,7 @@
 				</div>
 				<div class="row">
 					@foreach($data['lables'] as $label)
-						<div class="col-md-4 col-sm-3 col-xs-3 p-b-sm">
+						<div class="col-md-3 col-sm-2 col-xs-3 p-b-sm">
 						<?php
 
 						switch (str_replace('_', '', strtoupper($label['lable']))) {

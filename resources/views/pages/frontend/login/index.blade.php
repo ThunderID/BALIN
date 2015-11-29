@@ -28,6 +28,7 @@
 										<div class="col-md-12">
 											<div class="sign-in">
 												<h3>Sign In</h3>
+												@include('widgets.alerts')
 												@include('widgets.login')
 											</div>
 											<div class="sign-up" style="display:none">
