@@ -35,7 +35,7 @@
 	<div class="checkbox">
 		<label class="t-xs" style="color:#666">
 			<input type="checkbox" tabindex="1" required>
-			I have read the <a href="#" class="link-black hover-grey unstyle" data-toggle="modal" data-target="#tnc"><strong>Term & Condition</strong></a> and willing to process signup. 
+			Saya menyetujui <a href="#" class="link-black hover-grey unstyle" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> untuk melakukan pendaftaran.. 
 		</label>
 	</div>
 	<div class="form-group">

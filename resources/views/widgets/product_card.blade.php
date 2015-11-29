@@ -9,19 +9,19 @@
 						switch (str_replace('_', '', strtoupper($label['lable']))) {
 							case "SALE":
 								// echo "<div class='circle-label black'><div>SALE</div></div>";
-								echo "<div class='square-label black'><div>SALE</div></div>";
+								echo "<div class='square-label black m-t-xs'><div>SALE</div></div>";
 								break;
 							case "HOTITEM":
 								// echo "<div class='circle-label black'><div><p style='margin-top: -6px;''>HOT ITEM</p></div></div>";
-								echo "<div class='square-label black'><div>HOT ITEM</div></div>";
+								echo "<div class='square-label black m-t-xs'><div>HOT ITEM</div></div>";
 								break;	
 							case "BESTSELLER":
-								// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>BEST SELLER</p></div></div>";
-								echo "<div class='square-label black'><div>BEST SELLER</div></div>";
+								// echo "<div class='circle-label black m-t-xs'><div><p style='margin-top: -6px; font-size: 12px;'>BEST SELLER</p></div></div>";
+								echo "<div class='square-label black m-t-xs'><div>BEST SELLER</div></div>";
 								break;															
 							default:
-								// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</p></div></div>";
-								echo "<div class='square-label black'><div>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</div></div>";
+								// echo "<div class='circle-label black m-t-xs'><div><p style='margin-top: -6px; font-size: 12px;'>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</p></div></div>";
+								echo "<div class='square-label black m-t-xs'><div>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</div></div>";
 								break;
 						}
 					?>
