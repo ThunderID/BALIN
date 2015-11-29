@@ -20,12 +20,12 @@ copy this code below to show notification
 	<div class="modal-dialog modal-sm" style="padding-top:0px;">
 		<div class="modal-header">
 			<div class="row">
-				<div class="col-md-12 text-center">
+				<div class="col-md-12 text-center title">
 					<strong style="letter-spacing: 3px;">{{$data['title']}}</strong>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12 text-center">
+				<div class="col-md-12 text-center content">
 					{{$data['content']}}
 				</div>
 			</div>
@@ -37,6 +37,6 @@ copy this code below to show notification
 	$('#notif-window').on('shown.bs.modal', function() {
 	    setTimeout(function(){
 			$('#notif-window').modal('toggle');
-	    }, 450);
+	    }, 800);
 	})
 </script>

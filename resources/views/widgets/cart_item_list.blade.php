@@ -39,7 +39,7 @@
 					
 					<div class="col-sm-3 col-md-3 text-center qty-{{strtolower($value['size'])}}" data-get-flag="qty-{{strtolower($value['size'])}}">
 						<div class="row qty-hollow-cart">
-							{!! Form::open(['url' => route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key] ), 'method' => 'POST', 'class' => 'form-cart']) !!}
+							{!! Form::open(['url' => route('frontend.cart.update', ['cid' => $item_list_id, 'vid' => $key] ), 'method' => 'POST', 'class' => 'form-cart no_enter']) !!}
 								{!! Form::hidden('cid', $item_list_id, ['class' => 'cid']) !!}
 								{!! Form::hidden('vid', $key, ['class' => 'vid']) !!}
 								<input type="hidden" name="varianids[{{$key}}]" class="form-control" value="{{$value['varian_id']}}">
