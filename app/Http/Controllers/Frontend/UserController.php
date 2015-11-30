@@ -128,15 +128,22 @@ class UserController extends BaseController
 		
 		$data									= Auth::user();
 
-		if(Input::has('date_of_birth'))
+		if($inputs['date_of_birth'])
 		{
-			$dob 								= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+			if(preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))
+			{
+				$dob 							= Carbon::createFromFormat('Y-m-d', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+			}
+			else
+			{
+				$dob 								= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+			}
 		}
 		else
 		{
-			return Redirect::route('frontend.user.index')
+				return Redirect::route('frontend.user.index')
 					->withInput()
-					->withErrors('Data tanggal lahir tidak di-isi')
+					->withErrors('Tanggal lahir tidak boleh kosong')
 					->with('msg-type', 'danger');
 		}
 
@@ -274,5 +281,5 @@ class UserController extends BaseController
 													->with('subnav_active', 'account_setting')
 													->with('title', 'Ubah Password')
 													->with('breadcrumb', $breadcrumb);
-	}
+	}	
 }
