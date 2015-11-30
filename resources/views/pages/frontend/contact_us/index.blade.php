@@ -81,17 +81,32 @@
 						</div>						
 					</div>														
 					<div class="row clearfix">&nbsp;</div>
-					<div class="row">
-						<div class="col-md-12 text-center">					
-							<h3>Also find us on</h3>
-						</div>
-					</div>
+					@if(!is_null($storeinfo['instagram_url']) || !is_null($storeinfo['twitter_url']) || !is_null($storeinfo['facebook_url']))
+						@if(!empty($storeinfo['instagram_url']) || !empty($storeinfo['twitter_url']) || !empty($storeinfo['facebook_url']))
+							@if($storeinfo['instagram_url'] != '' || $storeinfo['twitter_url'] != '' || $storeinfo['facebook_url'] != '' )
+								<div class="row">
+									<div class="col-md-12 text-center">					
+										<h3>Also find us on</h3>
+									</div>
+								</div>
+							@endif
+						@endif
+					@endif
+
 					<div class="clearfix">&nbsp;</div>
 					<div class="row">
 						<div class="col-md-12 text-center">
+						@if(!is_null($storeinfo['instagram_url']) && !empty($storeinfo['instagram_url'] && $storeinfo['instagram_url'] != '' ))
 							<a href="{{ $storeinfo['instagram_url'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-instagram fa-2x"></i></a>
+						@endif
+
+						@if(!is_null($storeinfo['twitter_url']) && !empty($storeinfo['twitter_url'] && $storeinfo['twitter_url'] != '' ))
 							<a href="{{ $storeinfo['twitter_url'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-twitter fa-2x"></i></a>
+						@endif
+
+						@if(!is_null($storeinfo['facebook_url']) && !empty($storeinfo['facebook_url'] && $storeinfo['facebook_url'] != '' ))
 							<a href="{{ $storeinfo['facebook_url'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook fa-2x"></i></a>
+						@endif
 						</div>
 					</div>
 				</div>

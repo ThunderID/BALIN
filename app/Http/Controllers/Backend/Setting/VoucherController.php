@@ -193,7 +193,7 @@ class VoucherController extends BaseController
 
 		$data->fill([
 			'code' 										=> $inputs['code'],
-			'type' 										=> $inputs['type'],
+			'type' 										=> (is_null($id) ? $inputs['type'] : $data['type']),
 			'value' 									=> $inputs['value'],
 			'started_at' 								=> $started_at,
 			'expired_at' 								=> $expired_at,
