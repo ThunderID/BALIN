@@ -157,24 +157,24 @@
 							<div class="row p-sm">
 								<ul class="list-inline m-b-none">
 									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'name-asc'])) }}">Nama Produk A-Z</a></li>
+										<li><a @if(Input::get('sort')=='name-asc') class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'name-asc'])) }}">Nama Produk A-Z</a></li>
 									</div>
 									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'name-desc'])) }}">Nama Produk Z-A</a></li>
-									</div>
-
-									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'price-asc'])) }}">Harga Produk Termurah</a></li>
-									</div>
-									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'price-desc'])) }}">Harga Produk Termahal</a></li>
+										<li><a @if(Input::get('sort')=='name-desc') class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'name-desc'])) }}">Nama Produk Z-A</a></li>
 									</div>
 
 									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'date-desc'])) }}">Produk Terbaru</a></li>
+										<li><a @if(Input::get('sort')=='price-asc') class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'price-asc'])) }}">Harga Produk Termurah</a></li>
 									</div>
 									<div class="col-md-3 col-sm-4">
-										<li><a href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'date-asc'])) }}">Produk Terlama</a></li>
+										<li><a @if(Input::get('sort')=='price-desc') class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'price-desc'])) }}">Harga Produk Termahal</a></li>
+									</div>
+
+									<div class="col-md-3 col-sm-4">
+										<li><a @if(Input::get('sort')=='date-desc') class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'date-desc'])) }}">Produk Terbaru</a></li>
+									</div>
+									<div class="col-md-3 col-sm-4">
+										<li><a @if(Input::get('sort')=='date-asc') class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page, 'sort' => 'date-asc'])) }}">Produk Terlama</a></li>
 									</div>																			
 								</ul>					
 							</div>						
@@ -307,22 +307,22 @@
 				      	<div class="modal-body ribbon-menu">
 							<ul class="list-inline m-b-none">
 								<div class="col-xs-12">
-									<li><a href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'name-asc'], Input::all())) }}">Nama Produk A-Z</a></li>
+									<li> <a @if(Input::get('sort')=='name-asc') class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'name-asc'], Input::all())) }}">Nama Produk A-Z</a></li>
 								</div>
 								<div class="col-xs-12">
-									<li><a href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'name-desc'], Input::all())) }}">Nama Produk Z-A</a></li>
+									<li> <a @if(Input::get('sort')=='name-desc') class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'name-desc'], Input::all())) }}">Nama Produk Z-A</a></li>
 								</div>
 								<div class="col-xs-12">
-									<li><a href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'price-asc'], Input::all())) }}">Harga Produk Termurah</a></li>
+									<li> <a @if(Input::get('sort')=='price-asc') class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'price-asc'], Input::all())) }}">Harga Produk Termurah</a></li>
 								</div>
 								<div class="col-xs-12">
-									<li><a href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'price-desc'], Input::all())) }}">Harga Produk Termahal</a></li>
+									<li> <a @if(Input::get('sort')=='price-desc') class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'price-desc'], Input::all())) }}">Harga Produk Termahal</a></li>
 								</div>
 								<div class="col-xs-12">
-									<li><a href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'date-desc'], Input::all())) }}">Produk Terbaru</a></li>
+									<li> <a @if(Input::get('sort')=='date-desc') class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'date-desc'], Input::all())) }}">Produk Terbaru</a></li>
 								</div>
 								<div class="col-xs-12">
-									<li><a href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'date-asc'], Input::all())) }}">Produk Terlama</a></li>
+									<li> <a @if(Input::get('sort')=='date-asc') class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'sort' => 'date-asc'], Input::all())) }}">Produk Terlama</a></li>
 								</div>																
 							</ul>						      		
 				      	</div>
