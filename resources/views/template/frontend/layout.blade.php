@@ -39,6 +39,9 @@
 		a.link-black {
 			color: #000 !important;
 		}
+		a.link-white {
+			color: #fff !important;
+		}
 		a.unstyle:hover{
 			 text-decoration: none;
 		}
@@ -56,6 +59,9 @@
 		}
 		a.hover-red:hover {
 			color: #d91e18 !important;
+		}
+		a.hover-gold:hover {
+			color: #e18a07 !important;
 		}
 
 		a.footer-link{
