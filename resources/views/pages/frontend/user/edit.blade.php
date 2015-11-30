@@ -1,4 +1,5 @@
 <?php
+$agent = 'Firefox';
 if (isset($_SERVER['HTTP_USER_AGENT'])) {
     $agent = $_SERVER['HTTP_USER_AGENT'];
 }
@@ -25,13 +26,17 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
 					<div class="col-md-6">
 						<div class="form-group">
 							<label class="hollow-label">Tanggal Lahir</label>
-							<?php
-								$date = null;
-								if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"d-m-Y");}
-							?>
 							@if(strlen(strstr($agent, 'Firefox')) > 0)
+								<?php
+									$date = null;
+									if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"d-m-Y");}
+								?>
 								{!! Form::text('date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-format', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
 							@else
+								<?php
+									$date = null;
+									if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"Y-m-d");}
+								?>							
 								{!! Form::input('date', 'date_of_birth', $date, ['class' => 'form-control hollow mod_dob', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
 							@endif
 						</div>
