@@ -477,4 +477,5 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	
 	Route::get('/about/use', 											['uses' => 'AboutUsController@index', 		'as' => 'balin.about.us']);
 	
+	Route::get('/404', 													['uses' => 'ErrorController@er404', 		'as' => 'frontend.error.404']);
 });
