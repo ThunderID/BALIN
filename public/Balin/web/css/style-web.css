@@ -1728,7 +1728,7 @@ footer a.footer-link:hover {
 }
 .caption-mobile {
   position: absolute;
-  top: 50%;
+  top: 49%;
   width: 100%;
 }
 .caption-mobile .left {
