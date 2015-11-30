@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Models\User;
 use App\Models\PointLog;
 use App\Models\QuotaLog;
+use App\Models\Voucher;
 use App\Models\StoreSetting;
 
 use App\Jobs\Auditors\SaveAuditPoint;
@@ -41,7 +42,8 @@ class PointLogSaved extends Job implements SelfHandling
             }
             else
             {
-                if($this->pointlog->reference->voucher->value==0)
+                $voucher                = Voucher::userid($this->pointlog->reference_id)->type('referral')->first();
+                if($voucher['value']==0)
                 {
                     $referee            = new PointLog;
 
@@ -59,11 +61,6 @@ class PointLogSaved extends Job implements SelfHandling
                         $result         = new JSend('error', (array)$this->pointlog, $referee->getError());
                     }
                 }
-            }
-
-            if($result->getStatus()=='success')
-            {
-                $result                 = $this->dispatch(new CreditQuota($this->pointlog->reference->voucher, 'Mereferensikan '.$this->pointlog->user->name));
             }
         }
 

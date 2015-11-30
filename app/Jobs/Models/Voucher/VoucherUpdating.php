@@ -24,6 +24,19 @@ class VoucherUpdating extends Job implements SelfHandling
             return new JSend('error', (array)$this->voucher, 'Tidak dapat mengubah tipe voucher.');
         }
 
+        if($this->voucher->transactions()->count())
+        {
+            return new JSend('error', (array)$this->voucher, 'Tidak dapat mengubah voucher yang telah digunakan dalam transaksi.');
+        }
+
+        foreach ($this->voucher->quotalogs as $key => $value) 
+        {
+            if($value['amount'] < 0)
+            {
+                return new JSend('error', (array)$this->voucher, 'Tidak dapat mengubah voucher yang telah digunakan sebagai referral.');
+            }
+        }
+
         return new JSend('success', (array)$this->voucher);
     }
 }
