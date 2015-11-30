@@ -1352,12 +1352,12 @@ span.info {
 	}
 	.form-control {
 		border: 0;
-		@-moz-document url-prefix() {
-		h1 {
-		color: red;
-		}
-		}
 		height: 34px;
+		&.error {
+			border-top: 1px solid #d91e18;
+			border-bottom: 1px solid #d91e18;
+			border-left: 1px solid #d91e18;
+		}
 	}
 	.loading-voucher {
 		position: absolute;

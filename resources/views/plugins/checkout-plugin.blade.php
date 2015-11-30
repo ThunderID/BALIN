@@ -48,21 +48,19 @@
 	$('button.voucher-desktop').click( function() {
 		inp = $('input.voucher-desktop');
 		voucher = get_voucher(inp);
-		set_voucher_id(inp);
-		show_voucher(voucher);
+		show_voucher(voucher, inp);
 	});
 
 	$('button.voucher-tablet').click( function() {
 		inp = $('input.voucher-tablet');
 		voucher = get_voucher(inp);
-		set_voucher_id(inp);
-		show_voucher(voucher);
+		show_voucher(voucher, inp);
 	});
 
 	$('button.voucher-mobile').click( function() {
+		inp = $('input.voucher-mobile');
 		voucher = get_voucher(inp);
-		set_voucher_id(inp);
-		show_voucher(voucher);
+		show_voucher(voucher, inp);
 	});
 
 	function setModalMaxHeight(element) {
@@ -156,7 +154,7 @@
 		return gv;
 	}
 
-	function show_voucher(e) 
+	function show_voucher(e, p) 
 	{
 		console.log(e);
 		if (e.type=='success')
@@ -167,6 +165,8 @@
 			modal_notif = $('.modal-notif');
 			modal_notif.find('.title').children().html('');
 			modal_notif.find('.content').html(e.msg);
+
+			set_voucher_id(p);
 
 			setTimeout( function() {
 				$('.loading-voucher').addClass('hide');
@@ -185,6 +185,9 @@
 			modal_notif = $('.modal-notif');
 			modal_notif.find('.title').children().html('');
 			modal_notif.find('.content').html(e.msg);
+
+			p.addClass('error');
+
 			$('#notif-window').modal('show');
 		}
 	}

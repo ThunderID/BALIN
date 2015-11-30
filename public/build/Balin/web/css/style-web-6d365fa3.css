@@ -1642,10 +1642,10 @@ span.info {
   border: 0;
   height: 34px;
 }
-@-moz-document url-prefix() {
-  .panel-voucher .form-control h1 {
-    color: red;
-  }
+.panel-voucher .form-control.error {
+  border-top: 1px solid #d91e18;
+  border-bottom: 1px solid #d91e18;
+  border-left: 1px solid #d91e18;
 }
 .panel-voucher .loading-voucher {
   position: absolute;
