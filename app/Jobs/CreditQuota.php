@@ -36,10 +36,10 @@ class CreditQuota extends Job implements SelfHandling
 
         $result                             = new JSend('success', (array)$this->voucher);
 
-        $prevquota                          = QuotaLog::notes($this->message)->first();
+        // $prevquota                          = QuotaLog::notes($this->message)->first();
 
-        if(!$prevquota)
-        {
+        // if(!$prevquota)
+        // {
             $quotalog                       = new QuotaLog;
 
             $quotalog->fill([
@@ -52,7 +52,7 @@ class CreditQuota extends Job implements SelfHandling
             {
                 $result                         = new JSend('error', (array)$this->voucher, $quotalog->getError());
             }
-        }
+        // }
 
         return $result;
     }
