@@ -30,6 +30,9 @@ a {
 	.link-black {
 		color: #000 !important;
 	}
+	.link-white {
+		color: #fff !important;
+	}
 
 	.hover-gray:hover{
 	   color:#888 !important;
@@ -79,7 +82,12 @@ a {
 	border-right: 1px solid #ccc;
 }
 .border-left {
-	border-left: 1px solid #ccc;
+	border-left-width: 1px;
+	border-left-color: #ccc;
+	border-left-style: solid;
+	&.white {
+		border-left-color: #fff;
+	}
 }
 
 /* MARGINS & PADDINGS */
@@ -1637,6 +1645,28 @@ footer {
 			font-weight: 300;
 			text-transform: uppercase;
 			color: #eee;
+			letter-spacing: 0.2em;
+		}
+	}
+	.point-info {
+		// background-color: rgba(0, 0, 0, 0.69);
+		color: #fff;
+		h4 {
+			position: relative;
+			font-size: 20px;
+			font-weight: 300;
+			text-transform: uppercase;
+			color: #eee;
+			letter-spacing: 0.2em;
+		}
+		small {
+			position: absolute;
+			top: 3px;
+			font-size: 11px;
+			letter-spacing: 0.1em;
+		}
+		p {
+			font-size: 15px;
 			letter-spacing: 0.2em;
 		}
 	}

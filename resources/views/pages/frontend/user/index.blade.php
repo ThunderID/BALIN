@@ -35,6 +35,34 @@
 			</p>
 		</div>
 	</div>
+	<div class="clearfix">&nbsp;</div>
+
+	<div class="row point-info m-l-none m-r-none">
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 header-info p-r-md p-l-md">
+			<div class="row p-md">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<h4 class="p-b-md">Referral Code <small><a href="#" class="link-white hover-gold unstyle">[?]</a></small></h4>	
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<p class="text-uppercase text-right"><strong>{{ Auth::user()->referral_code }}</strong></p>
+					<div class="clearfix">&nbsp;</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 header-info border-left">
+			<div class="row p-md">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<h4 class="p-b-md">Point Balin Anda <small><a href="#" class="link-white hover-gold unstyle">[?]</a></small></h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<p class="text-right"><strong>@money_indo(Auth::user()->balance) </strong></p>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+					<a class="link-white hover-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Point Balin Anda" data-view="modal-lg">[ History ]</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="clearfix">&nbsp;</div>
 	<div class="row header-info m-l-none m-r-none">
@@ -65,15 +93,6 @@
 		</div>
 		<div class="col-sm-6 border-left panel-right">
 			<h5 class="title-info m-t-md">Keanggotaan</h5>
-			<p class="label-info">
-				Point Balin Anda <strong> @money_indo(Auth::user()->balance) </strong>
-				<small>
-					<a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Point Balin Anda" data-view="modal-lg">[ History ]</a>
-				</small>
-			</p>
-			<p class="label-info">
-				Referral Code <strong class="text-uppercase"> {{Auth::user()->referral_code}} </strong>
-			</p>
 			<p class="label-info">
 				Kuota Invite Referral <strong>{{Auth::user()->quota}} </strong>
 			</p>

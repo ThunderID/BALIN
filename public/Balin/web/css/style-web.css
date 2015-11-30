@@ -30,6 +30,9 @@ a .link-gold {
 a .link-black {
   color: #000 !important;
 }
+a .link-white {
+  color: #fff !important;
+}
 a .hover-gray:hover {
   color: #888 !important;
 }
@@ -77,7 +80,12 @@ a .hover-red:hover {
   border-right: 1px solid #ccc;
 }
 .border-left {
-  border-left: 1px solid #ccc;
+  border-left-width: 1px;
+  border-left-color: #ccc;
+  border-left-style: solid;
+}
+.border-left.white {
+  border-left-color: #fff;
 }
 /* MARGINS & PADDINGS */
 .p-xxs {
@@ -1907,6 +1915,27 @@ footer a.footer-link:hover {
   font-weight: 300;
   text-transform: uppercase;
   color: #eee;
+  letter-spacing: 0.2em;
+}
+.user-page .point-info {
+  color: #fff;
+}
+.user-page .point-info h4 {
+  position: relative;
+  font-size: 20px;
+  font-weight: 300;
+  text-transform: uppercase;
+  color: #eee;
+  letter-spacing: 0.2em;
+}
+.user-page .point-info small {
+  position: absolute;
+  top: 3px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+.user-page .point-info p {
+  font-size: 15px;
   letter-spacing: 0.2em;
 }
 .user-page .content-info {
