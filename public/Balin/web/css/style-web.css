@@ -438,6 +438,7 @@ p {
 .page-header .navbar {
   border-radius: 0;
   border-color: none;
+  z-index: 99999;
 }
 .page-header .navbar .navbar-header img {
   height: 40px;
