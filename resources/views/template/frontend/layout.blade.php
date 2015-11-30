@@ -441,8 +441,94 @@
 }
 
 
+@media (max-width: 400px) {
+	.error-responsive {
+		padding-top: 32% !important;
+	}
+
+	.error-responsive h1 {
+		font-size: 150px;
+	}	
+}
 
 
+@media (min-width: 401px) and (max-width: 500px) {
+	.error-responsive {
+		padding-top: 23% !important;
+	}
+
+	.error-responsive h1 {
+		font-size: 160px;
+	}	
+}
+
+@media (min-width: 501px) and (max-width: 600px) {
+	.error-responsive {
+		padding-top: 18% !important;
+		padding-left: 4%;
+		padding-right: 4%;		
+	}
+
+	.error-responsive h1 {
+		font-size: 175px;
+	}	
+}
+
+@media (min-width: 601px) and (max-width: 700px) {
+	.error-responsive {
+		padding-top: 13% !important;
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+
+	.error-responsive h1 {
+		font-size: 200px;
+	}	
+}
+
+@media (min-width: 701px) and (max-width: 767px) {
+	.error-responsive {
+		padding-top: 10% !important;
+		padding-left: 13%;
+		padding-right: 13%;
+	}
+
+	.error-responsive h1 {
+		font-size: 240px;
+	}	
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.error-responsive {
+		padding-top: 6% !important;
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+
+	.error-responsive h1 {
+		font-size: 240px;
+	}	
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	.error-responsive {
+		padding-top: 5% !important;
+	}
+
+	.error-responsive h1 {
+		font-size: 240px;
+	}	
+}
+
+@media (min-width: 1200px) {
+	.error-responsive {
+		padding-top: 6% !important;
+	}
+
+	.error-responsive h1 {
+		font-size: 240px;
+	}	
+}
 
 @media (max-width: 359px) {
 	.info-product h4 {
