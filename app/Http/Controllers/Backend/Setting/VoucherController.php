@@ -6,7 +6,7 @@ use App\Models\Voucher;
 use App\Models\User;
 use App\Models\StoreSetting;
 use App\Jobs\Mailman;
-use Input, Session, DB, Redirect, Response, Carbon;
+use Input, Session, DB, Redirect, Response, Carbon, Auth;
 
 class VoucherController extends BaseController 
 {
@@ -199,6 +199,10 @@ class VoucherController extends BaseController
 			'expired_at' 								=> $expired_at,
 		]);
 
+		if(is_null($id) && $inputs['type']=='promo_referral')
+		{
+			$data->user_id 								= Auth::user()->id;
+		}
 
 		DB::beginTransaction();
 		
