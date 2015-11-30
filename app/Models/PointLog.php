@@ -157,7 +157,7 @@ class PointLog extends Eloquent
 	{
 		return 	$query->selectraw('point_logs.*')
 		->selectraw('IFNULL(SUM(point_logs.amount),0) as amount')
-		->selectraw('(SELECT IFNULL(SUM(plogs.amount),0) FROM point_logs as plogs where user_id = 4 and point_logs.created_at > plogs.created_at and plogs.deleted_at is null and plogs.expired_at > NOW()) as prev_amount')
+		->selectraw('(SELECT IFNULL(SUM(plogs.amount),0) FROM point_logs as plogs where user_id = '.$variable.' and point_logs.created_at > plogs.created_at and plogs.deleted_at is null and plogs.expired_at > NOW()) as prev_amount')
 		->userid($variable)
 		->groupby(['point_logs.reference_type', 'point_logs.reference_id'])
 		;
