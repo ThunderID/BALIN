@@ -932,6 +932,7 @@
 	{
 		if (flg == 1) {
 			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf untuk ukuran ini sisa ' +input.attr('max')+' item'}).tooltip('show');
+			$('.tooltip').css('z-index', '99');
 			$('.tooltip').css('top', -65 + 'px');
 			$('.tooltip-arrow').css('top', 59 + 'px');
 			setTimeout( function() {
@@ -941,6 +942,7 @@
 		else if (flg == 2) {
 			$(input).tooltip({delay: { "show": 1800, "hide": 800 }, title: 'Maaf stock barang size ini habis'}).tooltip('show');
 			$('.tooltip').css('top', -5 + 'px');
+			$('.tooltip').css('z-index', '99');
 			$('.tooltip-arrow').css('top', 25 + 'px');
 			setTimeout( function() {
 				$(input).tooltip('hide');

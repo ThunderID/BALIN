@@ -306,6 +306,7 @@
 
 .modal-fullscreen {
 	background-color: rgba(255, 255, 255, 0.95);
+	z-index: 99999;
 }
 .modal-fullscreen .modal-content {
 	background: transparent;
