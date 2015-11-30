@@ -324,6 +324,8 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		Route::any('audit/quota',										['uses' => 'AuditController@quota', 'as' => 'backend.report.audit.quota']);
 		});
 	});
+
+	Route::get('404',			['uses' => 'ErrorController@error_404', 'as' => 'backend.error.404']);
 });
 
 // ------------------------------------------------------------------------------------

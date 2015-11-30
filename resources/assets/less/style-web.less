@@ -119,6 +119,7 @@ p {
 	.navbar {
 		border-radius: 0;
 		border-color: none;
+		z-index: 99999;
 		.navbar-header img {
 			height: 40px;
 		}
@@ -945,8 +946,8 @@ select.form-control.hollow {
 	li {
 		padding:0px !important;
 		a {
-			padding-top: 12px;
-			padding-bottom: 10px;
+			padding-top: 13px;
+			padding-bottom: 12px;
 			padding-right: 20px !important;
 			padding-left: 20px !important;
 			text-decoration: none;
@@ -955,13 +956,17 @@ select.form-control.hollow {
 			height: 100%;
 			background-color: #ddd;
 			color: #000;
+			margin-top: 8px;
+			margin-bottom: 2px;
 			&:hover {
 				text-decoration: none;
 			}
 			&.active {
 				border: 1px solid #000;
 				color: #000;
-				font-weight: 600;		
+				font-weight: 600;
+				padding-top: 12px;
+				padding-bottom: 11px;
 			}
 		}
 		i {
@@ -1442,7 +1447,7 @@ footer {
 // SLIDER HOME MOBILE
 .caption-mobile {
 	position: absolute;
-	top: 50%;
+	top: 49%;
 	width: 100%;
 	.left {
 		left: 0;

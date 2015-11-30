@@ -438,6 +438,7 @@ p {
 .page-header .navbar {
   border-radius: 0;
   border-color: none;
+  z-index: 99999;
 }
 .page-header .navbar .navbar-header img {
   height: 40px;
@@ -1232,8 +1233,8 @@ select.form-control.hollow {
   padding: 0px !important;
 }
 .ribbon-submenu li a {
-  padding-top: 12px;
-  padding-bottom: 10px;
+  padding-top: 13px;
+  padding-bottom: 12px;
   padding-right: 20px !important;
   padding-left: 20px !important;
   text-decoration: none;
@@ -1242,6 +1243,8 @@ select.form-control.hollow {
   height: 100%;
   background-color: #ddd;
   color: #000;
+  margin-top: 8px;
+  margin-bottom: 2px;
 }
 .ribbon-submenu li a:hover {
   text-decoration: none;
@@ -1250,6 +1253,8 @@ select.form-control.hollow {
   border: 1px solid #000;
   color: #000;
   font-weight: 600;
+  padding-top: 12px;
+  padding-bottom: 11px;
 }
 .ribbon-submenu li i {
   padding-left: 10px;
@@ -1723,7 +1728,7 @@ footer a.footer-link:hover {
 }
 .caption-mobile {
   position: absolute;
-  top: 50%;
+  top: 49%;
   width: 100%;
 }
 .caption-mobile .left {

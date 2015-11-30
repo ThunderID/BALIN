@@ -13,7 +13,6 @@
 		btn_number_mobile = $('.btn-number-mobile');
 
 		$('.input-number:disabled').each(function(e) {
-			// if ($(this).data('type')=='')
 			cid = $(this).data('cid');
 			vid = $(this).data('id');
 			fieldName = $(this).attr('data-name');
@@ -437,13 +436,11 @@
 		if(valueCurrent < maxValue) {
 			flg = 0;
 			show_tooltip(t, flg);
-			// show_tooltip(list_cart.find('.input-number-mobile[data-field="'+name+'"]'), flg);
 
 			$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
 		} else {
 			flg = 2;
 			show_tooltip(t, flg);
-			// show_tooltip(list_cart.find('.input-number-mobile[data-field="'+name+'"]'), flg);
 
 			$(".btn-number[data-type='plus'][data-field='"+name+"']").attr('disabled', true);
 			// $(this).val($(this).attr('data-oldValue'));
@@ -535,14 +532,12 @@
 		if(valueCurrent < maxValue) {
 			flg = 0;
 			show_tooltip(t, flg);
-			// show_tooltip(list_cart.find('.input-number-mobile[data-field="'+name+'"]'), flg);
 
 			list_cart_mobile.find(".btn-number-mobile[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
 			list_cart.find(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
 		} else {
 			flg = 1;
 			show_tooltip(t, flg);
-			// show_tooltip(list_cart.find('.input-number-mobile[data-field="'+name+'"]'), flg);
 
 			list_cart_mobile.find(".btn-number-mobile[data-type='plus'][data-field='"+name+"']").attr('disabled', true);
 			list_cart.find(".btn-number[data-type='plus'][data-field='"+name+"']").attr('disabled', true);
@@ -944,7 +939,7 @@
 			}, 3000);
 		}
 		else if (flg == 2) {
-			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf stock barang size ini habis'}).tooltip('show');
+			$(input).tooltip({delay: { "show": 1800, "hide": 800 }, title: 'Maaf stock barang size ini habis'}).tooltip('show');
 			$('.tooltip').css('top', -5 + 'px');
 			$('.tooltip-arrow').css('top', 25 + 'px');
 			setTimeout( function() {
