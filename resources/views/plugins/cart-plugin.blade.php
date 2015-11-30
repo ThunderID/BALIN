@@ -211,7 +211,7 @@
 				flg = 0;
 				show_tooltip($(this), flg);
 			} else {
-				flg = 1;
+				flg = 2;
 				show_tooltip($(this), flg);
 
 				@if (Route::is('frontend.cart.index'))
@@ -387,7 +387,7 @@
 				flg = 0;
 				show_tooltip($(this), flg);
 			} else {
-				flg = 1;
+				flg = 2;
 				show_tooltip($(this), flg);
 
 				@if (Route::is('frontend.cart.index'))
@@ -441,7 +441,7 @@
 
 			$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
 		} else {
-			flg = 1;
+			flg = 2;
 			show_tooltip(t, flg);
 			// show_tooltip(list_cart.find('.input-number-mobile[data-field="'+name+'"]'), flg);
 
@@ -938,7 +938,7 @@
 		if (flg == 1) {
 			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf untuk ukuran ini sisa ' +input.attr('max')+' item'}).tooltip('show');
 			$('.tooltip').css('top', -65 + 'px');
-			$('.tooltip-arrow').css('top', 62 + 'px');
+			$('.tooltip-arrow').css('top', 59 + 'px');
 			setTimeout( function() {
 				$(input).tooltip('hide');
 			}, 3000);
