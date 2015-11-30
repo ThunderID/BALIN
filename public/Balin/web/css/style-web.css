@@ -1287,6 +1287,9 @@ select.form-control.hollow {
 .ribbon-mobile {
   padding: 0px !important;
 }
+.ribbon-mobile li {
+  margin-left: 0;
+}
 .ribbon-mobile-submenu {
   padding: 0px !important;
 }
