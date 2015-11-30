@@ -128,18 +128,9 @@ class UserController extends BaseController
 		
 		$data									= Auth::user();
 
-		$agent = 'Firefox';
-		if (isset($_SERVER['HTTP_USER_AGENT'])) {
-		    $agent = $_SERVER['HTTP_USER_AGENT'];
-		}
-
 		if(Input::has('date_of_birth'))
 		{
-			if(strlen(strstr($agent, 'Firefox')) > 0){
-				$dob							= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
-			}else{
-				$dob							= Carbon::createFromFormat('Y-m-d', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
-			}
+			$dob 								= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
 		}
 		else
 		{

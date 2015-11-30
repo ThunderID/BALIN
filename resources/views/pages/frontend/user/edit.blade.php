@@ -1,10 +1,3 @@
-<?php
-$agent = 'Firefox';
-if (isset($_SERVER['HTTP_USER_AGENT'])) {
-    $agent = $_SERVER['HTTP_USER_AGENT'];
-}
-?>
-
 	<div class="row">
 		<div class="col-sm-12">
 		    {!! Form::open(['url' => route('frontend.user.update'), 'method' => 'POST', 'class' => 'form']) !!}
@@ -26,19 +19,11 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
 					<div class="col-md-6">
 						<div class="form-group">
 							<label class="hollow-label">Tanggal Lahir</label>
-							@if(strlen(strstr($agent, 'Firefox')) > 0)
-								<?php
-									$date = null;
-									if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"d-m-Y");}
-								?>
-								{!! Form::text('date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-format', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
-							@else
-								<?php
-									$date = null;
-									if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"Y-m-d");}
-								?>							
-								{!! Form::input('date', 'date_of_birth', $date, ['class' => 'form-control hollow mod_dob', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
-							@endif
+							<?php
+								$date = null;
+								if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"d-m-Y");}
+							?>
+							{!! Form::text('date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-format', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -77,7 +62,6 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
 		</div>
 	</div>
 
-@if(strlen(strstr($agent, 'Firefox')) > 0)
 <script>
     $(".date-format").inputmask({
         mask: "d-m-y",
@@ -85,4 +69,3 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
         alias: "date",
     }); 
 </script>
-@endif	
