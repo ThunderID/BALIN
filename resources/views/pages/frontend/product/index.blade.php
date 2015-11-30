@@ -2,6 +2,8 @@
 @inject('category', 'App\Models\Category')
 @inject('tagged', 'App\Models\tag')
 <?php 
+	$tgs 				= explode(',', Input::get('tagging'));
+
 	$perpage = 12;
 
 	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true);
@@ -139,7 +141,7 @@
 																$tagging 		= $tmp['id'];
 															}
 														?>
-														<li><a @if(Input::has('tagging') && Input::get('tagging')==$tmp['id']) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagging' => $tagging])) }}">{{ $tmp->name }}</a></li>
+														<li><a @if(in_array($tmp['id'], $tgs)) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagging' => $tagging])) }}">{{ $tmp->name }}</a></li>
 													</div>
 										      	@endif
 											@endforeach													
@@ -267,7 +269,7 @@
 															$tagging 		= $tmp['id'];
 														}
 													?>
-													<li><a @if(Input::has('tagging') && Input::get('tagging')==$tmp['id']) class="active" @endif  href="{{ route('frontend.product.index', array_merge(['page' => $page, 'tagging' => $tagging], Input::all())) }}">{{ $tmp->name }}</a></li>
+													<li><a @if(in_array($tmp['id'], $tgs)) class="active" @endif  href="{{ route('frontend.product.index', array_merge(['page' => $page, 'tagging' => $tagging], Input::all())) }}">{{ $tmp->name }}</a></li>
 												</div>
 											</ul>
 										@endif
