@@ -265,15 +265,15 @@
 				<tbody>
 					@if($transaction['transactiondetails'])
 						<?php 
-							$discount_point = ($amount + $transaction['shipping_cost'] - $transaction['referral_discount'] - $transaction['unique_number']);
+							$discount_point = ($amount + $transaction['shipping_cost'] - $transaction['voucher_discount'] - $transaction['unique_number']);
 						?>
 						<tr>
 							<td class="text-right col-md-8 col-sm-8"><strong>Ongkos Kirim</strong></td>
 							<td class="text-right">@money_indo($transaction['shipping_cost'])</td>
 						</tr>
 						<tr>
-							<td class="text-right col-md-8 col-sm-8"><strong>Diskon Referral</strong></td>
-							<td class="text-right">@money_indo($transaction['referral_discount'])</td>
+							<td class="text-right col-md-8 col-sm-8"><strong>Diskon Voucher</strong></td>
+							<td class="text-right">@money_indo($transaction['voucher_discount'])</td>
 						</tr>
 						<tr>
 							<td class="text-right col-md-8 col-sm-8"><strong>Potongan Point</strong></td>
@@ -296,13 +296,13 @@
 				<tbody>
 					@if($transaction['transactiondetails'])
 						<?php 
-							$discount_point = ($amount + $transaction['shipping_cost'] - $transaction['referral_discount'] - $transaction['unique_number']);
+							$discount_point = ($amount + $transaction['shipping_cost'] - $transaction['voucher_discount'] - $transaction['unique_number']);
 						?>
 						<tr>
 							<td class="text-right col-xs-12"><span class="pull-left"><strong>Ongkos Kirim</strong></span>@money_indo($transaction['shipping_cost'])</td>
 						</tr>
 						<tr>
-							<td class="text-right col-xs-12"><span class="pull-left"><strong>Diskon Referral</strong></span>@money_indo($transaction['referral_discount'])</td>
+							<td class="text-right col-xs-12"><span class="pull-left"><strong>Diskon Voucher</strong></span>@money_indo($transaction['voucher_discount'])</td>
 						</tr>
 						<tr>
 							<td class="text-right col-xs-12"><span class="pull-left"><strong>Potongan Point</strong></span>@money_indo($discount_point - ($transaction['amount']))</td>
