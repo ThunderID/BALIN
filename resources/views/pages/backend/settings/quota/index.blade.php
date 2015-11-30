@@ -29,7 +29,7 @@ elseif(Input::has('desc'))
 }
 else
 {
-	$datas 			= $datas->orderby('created_at', 'desc');
+	$datas 			= $datas->orderby('created_at', 'asc');
 }
 
 $datas 				= $datas->paginate();
@@ -123,15 +123,15 @@ $datas 				= $datas->paginate();
 										<td class="text-center">@date_indo($data['created_at'])</td>
 										<td class="text-center">
 											@if($data['amount'] > 0)
-												{!!$data['amount']!!}
+												{!!abs($data['amount'])!!}
 											@endif
 										</td>
 										<td class="text-center">
 											@if($data['amount'] < 0)
-												{!!$data['amount']!!}
+												{!!abs($data['amount'])!!}
 											@endif
 										</td>
-										<td class="text-center">{{$amount}}</td>                                                                               
+										<td class="text-center">{{abs($amount)}}</td>                                                                               
 										<td class="text-center">{{$data['notes']}}</td>                                                                               
 										<td class="text-center">
 											<a href="{{ URL::route('backend.settings.quota.edit', ['vou_id' => $vou_id, 'id' => $data['id']]) }}"> Edit</a>, 

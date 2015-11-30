@@ -73,7 +73,7 @@ class SoftLaunchTableSeeder extends Seeder
 			}	
 
 			//store setting related to slider
-			foreach($slides as $key => $value)z
+			foreach($slides as $key => $value)
 			{
 				$data 								= new StoreSetting;
 				$data->fill([

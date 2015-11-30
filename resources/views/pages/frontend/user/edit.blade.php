@@ -1,3 +1,8 @@
+<?php
+if (isset($_SERVER['HTTP_USER_AGENT'])) {
+    $agent = $_SERVER['HTTP_USER_AGENT'];
+}
+?>
 
 	<div class="row">
 		<div class="col-sm-12">
@@ -24,7 +29,11 @@
 								$date = null;
 								if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"d-m-Y");}
 							?>
-							{!! Form::input('date', 'date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-picker', 'id' => 'coba', 'required' => 'required', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
+							@if(strlen(strstr($agent, 'Firefox')) > 0)
+								{!! Form::text('date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-format', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
+							@else
+								{!! Form::input('date', 'date_of_birth', $date, ['class' => 'form-control hollow mod_dob', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
+							@endif
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -63,3 +72,12 @@
 		</div>
 	</div>
 
+@if(strlen(strstr($agent, 'Firefox')) > 0)
+<script>
+    $(".date-format").inputmask({
+        mask: "d-m-y",
+        placeholder: "dd-mm-yyyy",
+        alias: "date",
+    }); 
+</script>
+@endif	

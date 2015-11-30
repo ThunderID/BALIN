@@ -31,13 +31,13 @@ class CampaignController extends BaseController
 
 	public function postreference()
 	{		
-		$voucher 								= Voucher::code(Input::get('referral_code'))->type('referral')->first();
+		$voucher 								= Voucher::code(Input::get('referral_code'))->type(['referral', 'promo_referral'])->first();
 
 		if(!$voucher || $voucher->user_id==0)
 		{
 			return Redirect::back()
 					->withInput()
-					->withErrors('Referral code tidak terdaftar')
+					->withErrors('Referral code tidak terdaftar.')
 					->with('msg-type', 'danger');
 		}
 
@@ -49,7 +49,14 @@ class CampaignController extends BaseController
 					->with('msg-type', 'danger');
 		}
 
-		$reference 								= $voucher->user;
+		if($voucher->type=='promo_referral')
+		{
+			$reference 							= $voucher;
+		}
+		else
+		{
+			$reference 							= $voucher->user;
+		}
 
 		$expired_at 							=  new Carbon('+ 3 months');
 

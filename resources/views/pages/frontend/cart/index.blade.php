@@ -63,7 +63,7 @@
 					@endforeach
 				@else
 					<div class="row chart-item">
-						<div class="col-md-11 col-sm-12 col-xs-12">
+						<div class="col-md-12 col-sm-12 col-xs-12">
 							<h4 class="text-center">Tidak ada item di cart</h4>
 						</div>
 					</div>

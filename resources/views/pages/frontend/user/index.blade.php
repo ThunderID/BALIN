@@ -333,5 +333,5 @@
 @stop
 
 @section('script_plugin')
-	@include('plugins.datepicker')
+	@include('plugins.input-mask')
 @stop

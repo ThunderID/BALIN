@@ -128,7 +128,17 @@ class UserController extends BaseController
 		
 		$data									= Auth::user();
 
-		$dob 									= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+		if(Input::has('date_of_birth'))
+		{
+			$dob 								= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+		}
+		else
+		{
+			return Redirect::route('frontend.user.index')
+					->withInput()
+					->withErrors('Data tanggal lahir tidak di-isi')
+					->with('msg-type', 'danger');
+		}
 
 		if(Input::has('password'))
 		{
@@ -161,7 +171,7 @@ class UserController extends BaseController
 		{
 			DB::rollback();
 
-			return Redirect::back()
+			return Redirect::route('frontend.user.index')
 					->withInput()
 					->withErrors($data->getError())
 					->with('msg-type', 'danger');
@@ -170,7 +180,7 @@ class UserController extends BaseController
 		{
 			DB::commit();
 
-			return Redirect::route('frontend.user.edit')
+			return Redirect::route('frontend.user.index')
 				->with('msg','Pengaturan akun sudah disimpan')
 				->with('msg-type', 'success');
 		}

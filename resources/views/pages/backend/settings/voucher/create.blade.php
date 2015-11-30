@@ -39,7 +39,7 @@
 				<div class="form-group">
 					<label for="type" class="text-capitalize">Tipe</label>
 					@if(is_null($id))
-					{!! Form::select('type', ['free_shipping_cost' => 'Potongan Shipping Cost', 'debit_point' => 'Debit Point'], $data['type'], ['class' => 'form-control', 'tabindex' => '2']) !!}
+					{!! Form::select('type', ['promo_referral' => 'Promo Referral', 'free_shipping_cost' => 'Potongan Shipping Cost', 'debit_point' => 'Debit Point'], $data['type'], ['class' => 'form-control', 'tabindex' => '2']) !!}
 					@else
 					{!! Form::label('type', $data['type'], ['class' => 'form-control', 'tabindex' => '2']) !!}
 					@endif
