@@ -70,7 +70,7 @@
 						</div>
 						<div class="clearfix">&nbsp;</div>
 						<div class="row">
-							<div class="col-md-12 text-left">
+							<div class="col-md-12 text-center">
 								<button type="button" class="btn-hollow hollow-black-border" data-dismiss="modal" aria-label="Close">Tutup</button>
 							</div>
 						</div>
