@@ -1,3 +1,9 @@
+<?php
+function isMobile() {
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+?>	
+
 {!! Form::open(['url' => route('frontend.user.store')]) !!}
 	<div class="form-group">
 		<label for="" style="font-weight:400">Name</label>
@@ -17,7 +23,11 @@
 	</div>
 	<div class="form-group">
 		<label for="" style="font-weight:400">Tanggal Lahir</label>
-		{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow date-format', 'placeholder' => 'Masukkan Tanggal Lahir']) !!}
+		@if(isMobile())
+			{!! Form::input('date', 'date_of_birth', null, ['class' => 'form-control hollow date-format', 'placeholder' => 'Masukkan Tanggal Lahir']) !!}
+		@else
+			{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow date-format', 'placeholder' => 'Masukkan Tanggal Lahir']) !!}
+		@endif		
 	</div>
 	<div class="form-group">
 		<label for="" style="font-weight:400">Jenis Kelamin</label>

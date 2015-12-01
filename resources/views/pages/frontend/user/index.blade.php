@@ -364,6 +364,12 @@
 
 	// Dispatch the event.
 	document.dispatchEvent(event);
+
+	$('#modal-balance').on('hidden.bs.modal', function () {
+		window.history.pushState('obj', 'newtitle', '/profile');
+		return false;
+	})
+
 	@endif
 
 	var view_mode = '';
