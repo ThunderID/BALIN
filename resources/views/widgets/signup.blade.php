@@ -23,7 +23,7 @@
 		<label for="" style="font-weight:400">Jenis Kelamin</label>
 		{!! Form::select('gender', ['male' => 'Laki-laki', 'female' => "Perempuan"], null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Jenis Kelamin']) !!}
 	</div>
-	<div class="form-group">
+	{{-- <div class="form-group">
 		<label for="" style="font-weight:400">Alamat</label>
 		{!! Form::textarea('address', null, [
 				'class' => 'form-control hollow', 
@@ -31,7 +31,7 @@
 				'rows' => '3',
 				'style' => 'resize:none'
 		]) !!}
-	</div>
+	</div> --}}
 	<div class="checkbox">
 		<label class="t-xs" style="color:#666">
 			<input type="checkbox" tabindex="1" required>
