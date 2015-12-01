@@ -35,8 +35,8 @@ copy this code below to show notification
 
 <script>
 	$('#notif-window').on('shown.bs.modal', function() {
-	  //   setTimeout(function(){
-			// $('#notif-window').modal('toggle');
-	  //   }, 800);
+	    setTimeout(function(){
+			$('#notif-window').modal('hide');
+	    }, 800);
 	})
 </script>
