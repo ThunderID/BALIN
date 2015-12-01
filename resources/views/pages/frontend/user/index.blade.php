@@ -38,27 +38,38 @@
 	<div class="clearfix">&nbsp;</div>
 
 	<div class="row point-info m-l-none m-r-none">
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 header-info p-r-md p-l-md">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 header-info p-r-md p-l-md">
 			<div class="row p-md">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<h4 class="p-b-md">Referral Code <small><a href="#" class="link-white hover-gold unstyle">[?]</a></small></h4>	
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-r-none">
+					<h4 class="p-b-md text-left">Referral Code 
+						<small>
+							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".referral-user-information">&nbsp;[?]</a>
+						</small>
+					</h4>	
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<p class="text-uppercase text-right"><strong>{{ Auth::user()->referral_code }}</strong></p>
-					<div class="clearfix">&nbsp;</div>
+					<p class="text-uppercase text-right hidden-xs"><strong>{{ Auth::user()->referral_code }}</strong></p>
+					<p class="text-uppercase text-left hidden-sm hidden-md hidden-lg"><strong>{{ Auth::user()->referral_code }}</strong></p>
+					<div class="clearfix hidden-xs">&nbsp;</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 header-info border-left">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 header-info p-r-md p-l-md panel-right border-left">
 			<div class="row p-md">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<h4 class="p-b-md">Point Balin Anda <small><a href="#" class="link-white hover-gold unstyle">[?]</a></small></h4>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+					<h4 class="p-b-md">Point Balin Anda 
+						<small>
+							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".point-user-information">&nbsp;[?]</a>
+						</small>
+					</h4>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<p class="text-right"><strong>@money_indo(Auth::user()->balance) </strong></p>
+					<p class="text-right hidden-xs"><strong>@money_indo(Auth::user()->balance) </strong></p>
+					<p class="text-left hidden-sm hidden-md hidden-lg"><strong>@money_indo(Auth::user()->balance) </strong></p>
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-					<a class="link-white hover-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Point Balin Anda" data-view="modal-lg">[ History ]</a>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<a class="link-white hover-gold unstyle text-right hidden-xs" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Point Balin Anda" data-view="modal-lg">[ History ]</a>
+					<a class="link-white hover-gold unstyle text-left hidden-sm hidden-md hidden-lg" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Point Balin Anda" data-view="modal-lg">[ History ]</a>
 				</div>
 			</div>
 		</div>
@@ -80,36 +91,105 @@
 					</a>
 				</small>
 			</h5>
-			<p class="label-info">
-				Username
-				<span>
-					@if(Auth::user()->gender=='female')Ms. @else Mr. @endif {{ Auth::user()->name }}
-				</span>
-			</p>
-			<p class="label-info">Email <span>{{ Auth::user()->email }}</span></p>
-			<p class="label-info p-b-xxs">Tanggal lahir <span>@date_indo(Auth::user()->date_of_birth)</span></p>
-			{{-- <a href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{ route('frontend.user.change.password') }}" data-modal-title="Ubah Password" class="btn-hollow hollow-black-border">Ubah Password</a> --}}
-			<p class="clearfix p-b-xs hidden-xs">&nbsp;</p>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+					Username
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<p class="text-right hidden-xs hidden-sm">
+						<strong>@if(Auth::user()->gender=='female')Ms. @else Mr. @endif {{ Auth::user()->name }}</strong>
+					</p>
+					<p class="text-left hidden-md hidden-lg">
+						<strong>@if(Auth::user()->gender=='female')Ms. @else Mr. @endif {{ Auth::user()->name }}</strong>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+					Email
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<p class="text-right hidden-xs hidden-sm">
+						<strong>{{ Auth::user()->email }}</strong>
+					</p>
+					<p class="text-left hidden-md hidden-lg">
+						<strong>{{ Auth::user()->email }}</strong>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+					Tanggal lahir
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<p class="text-right hidden-xs hidden-sm">
+						<strong>@date_indo(Auth::user()->date_of_birth)</strong>
+					</p>
+					<p class="text-left hidden-md hidden-lg">
+						<strong>@date_indo(Auth::user()->date_of_birth)</strong>
+					</p>
+				</div>
+			</div>
 		</div>
 		<div class="col-sm-6 border-left panel-right">
 			<h5 class="title-info m-t-md">Keanggotaan</h5>
-			<p class="label-info">
-				Kuota Invite Referral <strong>{{Auth::user()->quota}} </strong>
-			</p>
-			<p class="label-info">
-				Pemberi Referral Anda
-				@if (!is_null(Auth::user()->reference))
-					<strong>{{Auth::user()->reference}} </strong> 
-				@else
-					<strong>Tidak ada</strong>
-					<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Pemberi Referral Anda" data-view="modal-md">[ Tambahkan ]</a></small>
-				@endif
-			</p>
-			<p class="label-info p-b-xxs">
-				Referral Anda 
-				<strong>{{Auth::user()->downline}} </strong> 
-				<small><a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Referral Anda" data-view="modal-md">[ Lihat Daftar ]</a></small>
-			</p>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+					Kuota Invite Referral
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<p class="text-right hidden-xs hidden-sm">
+						<strong>{{ Auth::user()->quota }}</strong>
+					</p>
+					<p class="text-left hidden-md hidden-lg">
+						<strong>{{ Auth::user()->quota }}</strong>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+					Pemberi Referral Anda
+					@if (is_null(Auth::user()->reference))
+						<small>
+							<a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Pemberi Referral Anda" data-view="modal-md">[ Tambahkan ]</a>
+						</small>
+					@endif
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<p class="text-right hidden-xs hidden-sm">
+						@if (!is_null(Auth::user()->reference))
+							<strong>{{ Auth::user()->reference }}</strong>
+						@else
+							<strong>Tidak ada</strong>
+						@endif
+					</p>
+					<p class="text-left hidden-md hidden-lg">
+						@if (!is_null(Auth::user()->reference))
+							<strong>{{ Auth::user()->reference }}</strong>
+						@else
+							<strong>Tidak ada</strong>
+						@endif
+					</p>
+				</div>
+			</div>
+			<div class="row p-b-xs">
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+					Referral Anda 
+					<small>
+						<a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.downline')}}" data-modal-title="Lihat Referral Anda" data-view="modal-md">
+							[ Lihat Daftar ]
+						</a>
+					</small>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<p class="text-right hidden-xs hidden-sm">
+						<strong>{{Auth::user()->downline}} </strong> 
+					</p>
+					<p class="text-left hidden-md hidden-lg">
+						<strong>{{Auth::user()->downline}} </strong> 						
+					</p>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -119,11 +199,6 @@
 			<h4>Informasi Pengiriman & Tracking Order</h4>
 		</div>
 	</div>
-
-	<div class="row content-info m-l-none m-r-none" style="padding-bottom:20px">
-
-	</div>
-
 	<div class="row content-info m-l-none m-r-none">
 		<div class="col-sm-12">
 			<?php
@@ -131,7 +206,7 @@
 			?>
 
 			@forelse ($orders as $k => $v)
-				<div class="tracking-order @if(count($orders)-1!=$k) border-bottom @endif p-b-sm">
+				<div class="tracking-order @if(count($orders)-1!=$k) border-bottom @endif @if($k==0) p-t-md @endif p-b-sm">
 					<div class="row m-l-none m-r-none">
 						<div class="col-sm-6 p-l-none p-r-none">
 							<span class="label 
@@ -155,7 +230,7 @@
 							$datetrans                          = new Carbon($v['transact_at'].' '.str_replace('-', '+' , $expired['value']));
 						?>
 
-						<div class="col-sm-6 p-l-none p-r-none">
+						<div class="col-sm-6 p-t-sm p-l-none p-r-none">
 							@if($v['status']=='wait')
 								<span class="tracking-cancel">
 								    <a class="link-grey hover-red unstyle link-cancel-tracking" href="#" data-toggle="modal" 
@@ -217,6 +292,46 @@
 		      	</div>
 		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
 					
+		      	</div>
+	   		</div>
+	  	</div>
+	</div>
+
+	<!-- Modal Info Point -->
+	<div id="" class="modal point-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+				<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+		       		<h5 class="modal-title" id="exampleModalLabel">Point</h5>
+		      	</div>
+		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		      	</div>
+	   		</div>
+	  	</div>
+	</div>
+
+	<!-- Modal Info Referral Code -->
+	<div id="" class="modal referral-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+				<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+		       		<h5 class="modal-title" id="exampleModalLabel">Referral Code</h5>
+		      	</div>
+		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		      	</div>
 	   		</div>
 	  	</div>

@@ -1928,15 +1928,45 @@ footer a.footer-link:hover {
   color: #eee;
   letter-spacing: 0.2em;
 }
-.user-page .point-info small {
+@media (min-width: 768px) and (max-width: 992px) {
+  .user-page .point-info h4 {
+    font-size: 18px;
+  }
+}
+@media (max-width: 767px) {
+  .user-page .point-info h4 {
+    font-size: 16px;
+  }
+}
+.user-page .point-info a.help {
   position: absolute;
   top: 3px;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.1em;
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .user-page .point-info a.help {
+    font-size: 10px;
+  }
+}
+@media (max-width: 767px) {
+  .user-page .point-info a.help {
+    font-size: 10px;
+  }
 }
 .user-page .point-info p {
   font-size: 15px;
   letter-spacing: 0.2em;
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .user-page .point-info p {
+    font-size: 12px;
+  }
+}
+@media (max-width: 767px) {
+  .user-page .point-info p {
+    font-size: 12px;
+  }
 }
 .user-page .content-info {
   background-color: #fff;
@@ -1965,13 +1995,11 @@ footer a.footer-link:hover {
   background-color: transparent !important;
   position: relative;
 }
-.user-page .content-info p.label-info strong,
-.user-page .content-info p.label-info span {
-  position: absolute;
-  right: 0;
-}
 .user-page .content-info p.label-info small {
   font-weight: 500;
+}
+.user-page .content-info p strong {
+  color: #999;
 }
 .user-page .tracking-order {
   position: relative;

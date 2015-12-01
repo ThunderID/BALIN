@@ -782,14 +782,14 @@
 				$('.addto-cart').text('ADD TO CART');
 				$('.ico-cart').find('span').html(count_cart);
 
-					$.each(result.carts, function(k, v) {
-						$.each(v.varians, function(k2, v2) {
-							if (v2.message!=='') {
-								flg = 1;
-								show_tooltip($('.input-number').find('[data-id="'+v2.varian_id+'"]'), flg);
-							}
-						});
-					});
+					// $.each(result.carts, function(k, v) {
+					// 	$.each(v.varians, function(k2, v2) {
+					// 		if (v2.message!=='') {
+					// 			flg = 1;
+					// 			show_tooltip($('.input-number').find('[data-id="'+v2.varian_id+'"]'), flg);
+					// 		}
+					// 	});
+					// });
 				
 				$.ajax({
 					url: '{{ route('frontend.cart.listBasket.ajax') }}',
@@ -798,10 +798,10 @@
 					},
 					success: function(msg) {
 						$('.chart-dropdown').html(msg);
+						$('#notif-window').modal('show');
 					}
 				});
 
-				$('#notif-window').modal('show');
 			}
 		});
 	});
@@ -937,7 +937,7 @@
 			$('.tooltip-arrow').css('top', 59 + 'px');
 			setTimeout( function() {
 				$(input).tooltip('hide');
-			}, 3000);
+			}, 2000);
 		}
 		else if (flg == 2) {
 			$(input).tooltip({delay: { "show": 1800, "hide": 800 }, title: 'Maaf stock barang size ini habis'}).tooltip('show');
