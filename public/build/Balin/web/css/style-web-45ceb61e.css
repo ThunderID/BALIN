@@ -15,41 +15,47 @@ a:focus {
   text-decoration: none;
   outline: none;
 }
-a .unstyle {
+a.unstyle {
   text-decoration: none;
 }
-a .unstyle:hover {
+a.unstyle:hover {
   text-decoration: none;
 }
-a .link-grey {
+a.link-grey {
   color: #999!important;
 }
-a .link-gold {
+a.link-gold {
   color: #C38322 !important;
 }
-a .link-black {
+a.link-gold:hover {
+  color: #e18a07 !important;
+}
+a.link-black {
   color: #000 !important;
 }
-a .link-white {
+a.link-white {
   color: #fff !important;
 }
-a .hover-gray:hover {
+a.hover-gray:hover {
   color: #888 !important;
 }
-a .hover-grey:hover {
+a.hover-grey:hover {
   color: #888 !important;
 }
-a .hover-gold:hover {
+a.hover-gold:hover {
   color: #E18A07 !important;
 }
-a .hover-black:hover {
+a.hover-black:hover {
   color: #000 !important;
 }
-a .hover-white:hover {
+a.hover-white:hover {
   color: #fff !important;
 }
-a .hover-red:hover {
+a.hover-red:hover {
   color: #d91e18 !important;
+}
+a.hover-gold:hover {
+  color: #e18a07 !important;
 }
 /* COLOR */
 .orange-red {
@@ -436,8 +442,28 @@ a .hover-red:hover {
 .t-md {
   font-size: 20px;
 }
+.m-t-0 {
+  margin-top: 0px !important;
+}
+.m-b-0 {
+  margin-bottom: 0px;
+}
+.mb-100 {
+  margin-bottom: 100px;
+}
 p {
   font-weight: 300;
+}
+@media (max-width: 768px) {
+  .mobile-m-t-0 {
+    margin-top: 0px !important;
+  }
+  .mobile-m-t-25 {
+    margin-top: 25px !important;
+  }
+  .mobile-m-t-10 {
+    margin-top: 10px !important;
+  }
 }
 .page-header {
   padding: 0;
@@ -476,7 +502,7 @@ p {
 .page-header .navbar-nav.navbar-hollow > li a.btn-hollow:hover {
   color: #000;
 }
-.page-header .navbar-nav.navbar-hollow > li.active a {
+.page-header .navbar-nav.navbar-hollow > li.active > a {
   border-bottom: none;
   color: #fff;
   font-weight: 500;
@@ -691,6 +717,33 @@ p {
 .product-info .text-product.price {
   letter-spacing: 0.1em;
 }
+@media (max-width: 359px) {
+  .info-product h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 58px;
+    font-size: 15px;
+  }
+  .info-price {
+    margin-top: -30px;
+  }
+}
+@media (min-width: 360px) and (max-width: 369px) {
+  .info-product h4 {
+    font-size: 13px !important;
+  }
+}
+@media (min-width: 370px) and (max-width: 429px) {
+  .info-product h4 {
+    font-size: 14px;
+  }
+}
+@media (min-width: 430px) and (max-width: 489px) {
+  .info-product h4 {
+    font-size: 15px;
+  }
+}
 .myCanvas {
   -webkit-animation: fadein 2s;
   /* Safari, Chrome and Opera > 12.1 */
@@ -886,7 +939,7 @@ p {
 .chart-dropdown .cart-bottom {
   position: absolute;
   bottom: 0;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   width: 100%;
   background-color: #fff;
 }
@@ -895,6 +948,14 @@ p {
   width: 100%;
   height: 50px;
   margin-bottom: -10px;
+}
+@media (max-width: 767px) {
+  .dropdown-cart {
+    display: none !important;
+  }
+  .user-dropdown {
+    display: none !important;
+  }
 }
 .chart-dropdown-subtotal {
   /*background-color: #bbb;*/
@@ -1064,6 +1125,14 @@ p {
   height: 38px;
   padding: 8px 6px;
 }
+.hollow-social.social-mobile {
+  width: 30px;
+  height: 30px;
+  padding: 4px 5px !important;
+}
+.hollow-social.social-mobile i {
+  font-size: 1.5em;
+}
 .btn-share {
   font-size: 12px !important;
   height: 20px;
@@ -1202,6 +1271,10 @@ select.form-control.hollow {
 .ribbon-menu li:first-child {
   margin-left: 0;
 }
+.ribbon-menu li:hover {
+  background-color: #ddd;
+  color: #000;
+}
 .ribbon-menu li a {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -1215,11 +1288,11 @@ select.form-control.hollow {
 .ribbon-menu li a:hover {
   color: #222;
 }
-.ribbon-menu li.active {
+.ribbon-menu li a.active {
   background-color: #ddd;
   color: #222;
 }
-.ribbon-menu li.active i {
+.ribbon-menu li a.active i {
   /* IE 9 */
   -webkit-transform: rotate(180deg) scaleX(-1);
   /* Chrome, Safari, Opera */
@@ -1228,11 +1301,6 @@ select.form-control.hollow {
 .ribbon-menu li i {
   padding-left: 10px;
   margin-top: 2px;
-}
-.ribbon-menu li i:hover {
-  /*background-color: #000;*/
-  background-color: #ddd;
-  color: white;
 }
 .ribbon-submenu {
   background-color: #ddd;
@@ -1711,6 +1779,21 @@ footer a.footer-link {
 footer a.footer-link:hover {
   color: #fff !important;
 }
+footer .footer-title-logo {
+  letter-spacing: 0.25em !important;
+  font-size: 12px;
+}
+footer .footer-title-logo a {
+  color: white !important;
+}
+footer .footer-title-logo a:hover {
+  text-decoration: none !important;
+}
+@media (max-width: 352px) {
+  footer .footer-title-logo {
+    letter-spacing: 0.09em !important;
+  }
+}
 .tp-caption.large_text {
   pposition: absolute;
   color: #fff;
@@ -2033,4 +2116,173 @@ footer a.footer-link:hover {
   font-size: 12px;
   font-weight: 300;
   letter-spacing: 0.08em;
+}
+.dialog-mobile {
+  width: 90% !important;
+  border-radius: none !important;
+}
+.modal-filter-title {
+  background-color: black;
+  color: white;
+}
+.modal-filter-title button {
+  color: #ddd !important;
+  opacity: 1 !important;
+}
+.modal-filter-title button:hover {
+  color: white !important;
+  opacity: 1 !important;
+}
+.modal-center.modal {
+  text-align: center !important;
+  padding: 0!important;
+}
+.modal-center.modal:before {
+  content: '' !important;
+  display: inline-block !important;
+  height: 100% !important;
+  vertical-align: middle !important;
+  margin-right: -4px !important;
+}
+.modal-center .modal-dialog {
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+.modal-center .modal-content {
+  border-radius: 0px !important;
+}
+.modal-notif .modal-dialog {
+  background-color: white;
+}
+.modal-notif .modal-header {
+  background-color: black;
+  color: white;
+  border-bottom: none;
+}
+/* .modal-fullscreen */
+.modal-fullscreen {
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 99999;
+}
+.modal-fullscreen .modal-content {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.modal-backdrop.modal-backdrop-fullscreen {
+  background: #ffffff;
+}
+.modal-backdrop.modal-backdrop-fullscreen.in {
+  opacity: .97;
+  filter: alpha(opacity=97);
+}
+/* .modal-fullscreen size: we use Bootstrap media query breakpoints */
+.modal-fullscreen .modal-dialog {
+  margin: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+.modal-fullscreen .modal-header {
+  margin-left: -100px;
+  margin-right: -100px;
+  padding-left: 115px;
+  padding-right: 115px;
+  background-color: #000;
+  color: #fff;
+}
+.modal-fullscreen .modal-header button.close {
+  background: none;
+  opacity: 1;
+  font-size: 16px;
+  color: #fff;
+  line-height: 25px;
+  outline: none;
+}
+@media (min-width: 768px) {
+  .modal-fullscreen .modal-dialog {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .modal-fullscreen .modal-dialog {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .modal-fullscreen .modal-dialog {
+    width: 1170px;
+  }
+}
+@media (max-width: 400px) {
+  .error-responsive {
+    padding-top: 32% !important;
+  }
+  .error-responsive h1 {
+    font-size: 150px;
+  }
+}
+@media (min-width: 401px) and (max-width: 500px) {
+  .error-responsive {
+    padding-top: 23% !important;
+  }
+  .error-responsive h1 {
+    font-size: 160px;
+  }
+}
+@media (min-width: 501px) and (max-width: 600px) {
+  .error-responsive {
+    padding-top: 18% !important;
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+  .error-responsive h1 {
+    font-size: 175px;
+  }
+}
+@media (min-width: 601px) and (max-width: 700px) {
+  .error-responsive {
+    padding-top: 13% !important;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  .error-responsive h1 {
+    font-size: 200px;
+  }
+}
+@media (min-width: 701px) and (max-width: 767px) {
+  .error-responsive {
+    padding-top: 10% !important;
+    padding-left: 13%;
+    padding-right: 13%;
+  }
+  .error-responsive h1 {
+    font-size: 240px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .error-responsive {
+    padding-top: 6% !important;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  .error-responsive h1 {
+    font-size: 240px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .error-responsive {
+    padding-top: 5% !important;
+  }
+  .error-responsive h1 {
+    font-size: 240px;
+  }
+}
+@media (min-width: 1200px) {
+  .error-responsive {
+    padding-top: 6% !important;
+  }
+  .error-responsive h1 {
+    font-size: 240px;
+  }
 }

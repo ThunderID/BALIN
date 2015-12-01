@@ -262,7 +262,7 @@
 				<div class="clearfix">&nbsp;</div>
 				@endif
 			@empty
-				<p class="text-center p-b-xs">Tidak ada orderan, silahkan order.</p>
+				<p class="text-center p-t-sm p-b-xxs">Tidak ada data.</p>
 			@endforelse
 		</div>
 	</div>
@@ -305,7 +305,7 @@
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
 		       		<h5 class="modal-title" id="exampleModalLabel">Point</h5>
 		      	</div>
-		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
+		      	<div class="modal-body mt-75 mobile-m-t-10" style="text-align:left">
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -325,7 +325,7 @@
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
 		       		<h5 class="modal-title" id="exampleModalLabel">Referral Code</h5>
 		      	</div>
-		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
+		      	<div class="modal-body mt-75 mobile-m-t-10" style="text-align:left">
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
