@@ -45,7 +45,14 @@ class UserController extends BaseController
 			$data								= new User;
 		}
 		
-		$dob 									= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+		if(preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))
+		{
+			$dob								= Carbon::createFromFormat('Y-m-d', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+		}
+		else
+		{
+			$dob								= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+		}
 		
 		if (Input::has('password') || is_null($id))
 		{
@@ -78,20 +85,20 @@ class UserController extends BaseController
 			$errors->add('Customer', $data->getError());
 		}
 
-		if(!$errors->count())
-		{
-			$address							= new Address;
-			$address->fill([
-				'address' 						=> $inputs['address'],
-			]);
+		// if(!$errors->count())
+		// {
+		// 	$address							= new Address;
+		// 	$address->fill([
+		// 		'address' 						=> $inputs['address'],
+		// 	]);
 
-			$address->owner()->associate($data);
+		// 	$address->owner()->associate($data);
 			
-			if (!$address->save())
-			{
-				$errors->add('Address', $address->getError());
-			}
-		}
+		// 	if (!$address->save())
+		// 	{
+		// 		$errors->add('Address', $address->getError());
+		// 	}
+		// }
 		if ($errors->count())
 		{
 			DB::rollback();
