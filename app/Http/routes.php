@@ -341,8 +341,9 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 Route::group(['namespace' => 'Frontend\\'], function() 
 {
 	// ------------------------------------------------------------------------------------
-	// LOGIN PAGE
+	// SIGNUP & SIGNIN PAGE
 	// ------------------------------------------------------------------------------------
+	Route::get('join', 													['uses' => 'JoinController@index', 'as' => 'frontend.join.index']);
 
 	Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'frontend.dologin']);
 
@@ -351,6 +352,10 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	Route::get('sso/success',											['uses' => 'AuthController@getSso', 'as' => 'frontend.getsso']);
 
 	Route::post('do/signup',											['uses' => 'UserController@store', 'as' => 'frontend.user.store']);
+	
+	Route::get('join/by/invitation', 									['uses' => 'JoinController@getinvitation', 'as' => 'frontend.join.get']);
+
+	Route::post('join/by/invitation', 									['uses' => 'JoinController@postinvitation', 'as' => 'frontend.join.post']);
 	
 	// ------------------------------------------------------------------------------------
 	// FORGOT PASSWORD
@@ -434,7 +439,6 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::get('cart', 													['uses' => 'CartController@index', 'as' => 'frontend.cart.index']);
 
-	// Route::post('add/to/cart', 											['uses' => 'CartController@store', 'as' => 'frontend.cart.store']);
 	Route::any('cart/list',												['uses' => 'CartController@getListBasket', 'as' => 'frontend.cart.listBasket.ajax']);
 
 	Route::any('cart/add', 												['uses' => 'CartController@store', 'as' => 'frontend.cart.store.ajax' ]);
@@ -472,8 +476,6 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	Route::post('contact/us', 											['uses' => 'ContactUsController@submit', 'as' => 'contactus.dosubmit']);
 	
 	Route::get('contact/us/thanks', 									['uses' => 'ContactUsController@thanks', 'as' => 'contactus.thanks']);
-
-	Route::get('join', 													['uses' => 'JoinController@index', 'as' => 'frontend.join.index']);
 	
 	Route::get('/term/condition', 										['uses' => 'HomeController@index', 		'as' => 'balin.term.condition']);
 	

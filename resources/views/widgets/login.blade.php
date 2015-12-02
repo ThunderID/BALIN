@@ -8,10 +8,10 @@
 	    {!! Form::password('password', ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Password', 'required' => 'required']) !!}
 	</div>
 	{{-- <div class="checkbox">
-	    <label><input type="checkbox" tabindex="1"> Remember me</label>
+	    <label><input type="checkbox"> Remember me</label>
 	</div> --}}
-	<div class="form-group">
-	    <button type="submit" class="btn-hollow hollow-black-border " tabindex="1">Sign In</button>
+	<div class="form-group text-right">
+	    <button type="submit" class="btn-hollow hollow-black-border ">Sign In</button>
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<p class="t-xs" style="color:#666">

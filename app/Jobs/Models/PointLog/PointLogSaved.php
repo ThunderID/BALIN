@@ -15,6 +15,7 @@ use App\Models\Voucher;
 use App\Models\StoreSetting;
 
 use App\Jobs\Auditors\SaveAuditPoint;
+use App\Jobs\SendWelcomeInvitationEmail;
 
 class PointLogSaved extends Job implements SelfHandling
 {
@@ -42,8 +43,8 @@ class PointLogSaved extends Job implements SelfHandling
             }
             else
             {
-                $voucher                = Voucher::userid($this->pointlog->reference_id)->type('referral')->first();
-                if($voucher['value']==0)
+                $voucher                = Voucher::userid($this->pointlog->reference_id)->first();
+                if($voucher && $voucher['type']=='referral' && $voucher['value']==0)
                 {
                     $referee            = new PointLog;
 
@@ -58,8 +59,12 @@ class PointLogSaved extends Job implements SelfHandling
 
                     if(!$referee->save())
                     {
-                        $result         = new JSend('error', (array)$this->pointlog, $referee->getError());
+                        $result             = new JSend('error', (array)$this->pointlog, $referee->getError());
                     }
+                }
+                elseif($voucher && $voucher['type']=='promo_referral')
+                {
+                    $result                 = $this->dispatch(new SendWelcomeInvitationEmail($this->pointlog->user, $this->pointlog['amount']));
                 }
             }
         }
