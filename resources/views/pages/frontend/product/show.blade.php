@@ -1,6 +1,7 @@
 @inject('product', 'App\Models\Product')
 <?php 
 	$related 		= $product->notid($data['id'])->sellable(true)->currentprice(true)->DefaultImage(true)->take(4)->get();
+	$carts 			= Session::get('baskets');
 ?>
 
 @extends('template.frontend.layout')
@@ -172,12 +173,12 @@
 														</label>
 														<input type="hidden" name="varianids[{{$v['id']}}]" class="form-control pvarians" value="{{$v['id']}}">
 														<input type="number" name="qty[{{$v['id']}}]" class="form-control hollow form-qty input-number pqty" 
-														value="0" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" 
+														value="@if(isset($carts[$data['id']]) && $carts[$data['id']]['slug'] == $slug)@if(isset($carts[$data['id']]['varians'][$v['id']]) && ($carts[$data['id']]['varians'][$v['id']]['varian_id']  == $v['id'])){{$carts[$data['id']]['varians'][$v['id']]['qty']}}@else{{'0'}}@endif{{''}}@else{{'0'}}@endif" min="0" max="@if(50<=$v['stock']){{'50'}}@else{{ $v['stock'] }}@endif" 
 														data-stock="{{ $v['stock'] }}" 
 														data-id="{{ $v['id'] }}" 
 														data-price="{{ $data['price'] }}"
 														data-discount="{{ $data['discount'] }}"
-														data-total="0"
+														data-total="@if(isset($carts[$data['id']]) && $carts[$data['id']]['slug'] == $slug)@if(isset($carts[$data['id']]['varians'][$v['id']]) && ($carts[$data['id']]['varians'][$v['id']]['varian_id']  == $v['id'])){{($carts[$data['id']]['price']-$carts[$data['id']]['discount'])*$carts[$data['id']]['varians'][$v['id']]['qty']}}@else{{'0'}}@endif{{''}}@else{{'0'}}@endif"
 														data-name="qty-{{strtolower($v['size'])}}[1]" 
 														data-oldValue="" 
 														data-toggle="tooltip" 
@@ -209,7 +210,22 @@
 										@if($data['discount']!=0)
 											<?php $price 	= $data['promo_price'];?>
 										@endif
-										<label class="text-right m-t-xs text-product price-all-product" data-price="{{ $price }}"> @money_indo('0')</label> 
+										<?php $total = 0;?>
+										@if (!empty($carts))
+											@foreach ($carts as $k => $item)
+												<?php
+													$qty 			= 0;
+													foreach ($item['varians'] as $key => $value) 
+													{
+														$qty 		= $qty + $value['qty'];
+													}
+													$total += (($item['price']-$item['discount'])*$qty); 
+												?>
+											@endforeach
+											<label class="text-right m-t-xs text-product price-all-product" data-price="{{ $price }}"> @money_indo($total)</label> 
+										@else
+											<label class="text-right m-t-xs text-product price-all-product" data-price="{{ $price }}"> @money_indo('0')</label> 
+										@endif
 									</div>
 								</div>
 							</div>

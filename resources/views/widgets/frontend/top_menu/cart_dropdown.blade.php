@@ -1,5 +1,5 @@
 <?php
-	$carts = Session::get('baskets'); ;
+	$carts = Session::get('baskets');
 ?>
 	
 <ul class="dropdown-menu dropdown-menu-right chart-dropdown p-t-none" aria-labelledby="dLabel">

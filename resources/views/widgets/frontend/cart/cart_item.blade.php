@@ -10,7 +10,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<h4 class="m-t-none">
-							<a href="{{ route('frontend.product.show', $item['slug']) }}" class="link-black hover-black unstyle">
+							<a href="{{ route('frontend.product.show', $item['slug']) }}" class="link-black hover-grey unstyle">
 								{{ $label_name }}
 							</a>
 						</h4>							
