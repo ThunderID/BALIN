@@ -27,7 +27,17 @@ class UserCreating extends Job implements SelfHandling
         $this->user->is_active      = false;
 
         //activation link used to generate link for first claimed voucher
-        $result                     = $this->dispatch(new GenerateActivationLink($this->user));
+
+        if($this->user->is_invited==false)
+        {
+            $result                 = $this->dispatch(new GenerateActivationLink($this->user));
+        }
+        else
+        {
+            return new JSend('success', (array)$this->user);
+        }
+
+        unset($this->user->is_invited);
 
         return $result;
     }

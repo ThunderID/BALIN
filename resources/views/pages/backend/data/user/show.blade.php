@@ -112,8 +112,8 @@
 						<ul>
 						@forelse($mostbuy as $key => $value)
 							<li>
-								{!! $value['product']['name'] !!}
-								<strong>{!! $value->total_buy !!}</strong>
+								{!! $value['varian']['product']['name'] !!} 
+								<strong>{!! $value['total_buy'] !!}</strong>
 							</li>
 						@empty
 							<p class="m-l"> Tidak ada riwayat belanja </p>
@@ -131,8 +131,8 @@
 						<ul>
 						@forelse($frequentbuy as $key => $value)
 							<li>
-								{!! $value['product']['name'] !!}
-								<strong>{!! $value->frequent_buy !!}</strong>
+								{!! $value['varian']['product']['name'] !!} 
+								<strong>{!! $value['frequent_buy'] !!}</strong>
 							</li>
 						@empty
 							<p class="m-l"> Tidak ada riwayat belanja </p>

@@ -101,6 +101,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'zipcode',
 											'reference',
 											'referral_code',
+											'is_invited',
 										];
 
 	/**
@@ -112,6 +113,16 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
 	
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
+	
+	public function setIsInvited($value = null)
+    {
+    	if(is_null($value))
+    	{
+	        $this->attributes['is_invited'] = false;
+    	}
+
+        $this->attributes['is_invited'] = true;
+    }
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 

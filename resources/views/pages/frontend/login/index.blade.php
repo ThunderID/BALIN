@@ -36,6 +36,10 @@
 												<div class="clearfix">&nbsp;</div>
 												@include('widgets.alerts')
 												@include('widgets.signup')
+												<p class="t-xs" style="color:#666">Atau Signup dari akun sosial anda,</p>
+												<div class="form-group">
+													<a href="{{route('frontend.dosso')}}" class="btn-hollow hollow-black hollow-social" tabindex="2" title="facebook"><i class="fa fa-facebook"></i></a>
+												</div>
 											</div>
 											<div class="forgot" style="display:none">
 												<h3>Reset Password</h3>
