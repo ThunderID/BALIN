@@ -106,7 +106,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<a href="{{ route('frontend.product.index') }}" class="btn-hollow hollow-white btn-block">
-							Pilih Produk Lain
+							Lanjut Belanja
 						</a>
 					</div>
 				</div>
@@ -152,7 +152,7 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
 						<div class="row">
-							<a href="{{ route('frontend.product.index') }}" class="btn-hollow hollow-black-border pull-right m-r-sm">
+							<a href="{{ route('frontend.product.index') }}" class="link-black hover-gray unstyle pull-left m-r-sm">
 								Pilih Produk Lain
 							</a>
 							@if (!empty($carts))
