@@ -28,7 +28,7 @@ class Mailman extends Job implements SelfHandling
         
             $result                 = new JSend('success', null);
         }
-        catch (Exception $e) 
+        catch (\Exception $e) 
         {
             $result                 = new JSend('error', null, $e);
         }
