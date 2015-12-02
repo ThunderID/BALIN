@@ -255,4 +255,11 @@ class CheckOutController extends BaseController
 			}
 		}
 	}
+
+	public function getAddress($id)
+	{
+		$addresses 								= Address::find($id);
+
+		return Response::json(['address' => $addresses], 200);
+	}
 }

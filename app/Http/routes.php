@@ -460,6 +460,9 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	Route::any('remove/from/cart',										['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
 	
 	Route::get('empty/cart',											['uses' => 'CartController@clean', 'as' => 'frontend.cart.empty']);
+
+	// Get address
+	Route::any('get/address/{id?}',										['uses' => 'CheckOutController@getAddress', 'as' => 'frontend.address.get.ajax']);
 	
 	// ------------------------------------------------------------------------------------
 	// CHECKOUT
