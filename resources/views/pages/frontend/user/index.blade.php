@@ -122,11 +122,19 @@
 					Tanggal lahir
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<?php 
+						$date_default = \Carbon::createFromFormat('Y-m-d', '0000-00-00')->format('d-m-Y');
+						$date_bod = Auth::user()->date_of_birth->format('d-m-Y');
+					?>
 					<p class="text-right hidden-xs hidden-sm">
-						<strong>@date_indo(Auth::user()->date_of_birth)</strong>
+						@if ($date_bod!=$date_default)
+							<strong>@date_indo(Auth::user()->date_of_birth)</strong>
+						@endif
 					</p>
 					<p class="text-left hidden-md hidden-lg">
-						<strong>@date_indo(Auth::user()->date_of_birth)</strong>
+						@if ($date_bod!=$date_default)
+							<strong>@date_indo(Auth::user()->date_of_birth)</strong>
+						@endif
 					</p>
 				</div>
 			</div>
