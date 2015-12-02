@@ -48,6 +48,7 @@ class GlobalCategory extends Eloquent
 											'type'							,
 											'path'							,
 											'name'							,
+											'slug'							,
 										];
 
 	/**
@@ -66,6 +67,7 @@ class GlobalCategory extends Eloquent
 											'type'							=> 'required|in:tag,category',
 											'path'							=> 'required|max:255',
 											'name'							=> 'required|max:255',
+											'slug'							=> 'max:255',
 										];
 
 	/**
@@ -115,6 +117,16 @@ class GlobalCategory extends Eloquent
 		return 	$query->where('categories.id', $variable);
 	}
 	
+	public function scopeNotID($query, $variable)
+	{
+		if(is_array($variable))
+		{
+			return 	$query->whereNotIn('id', $variable);
+		}
+
+		return 	$query->where('id','<>', $variable);
+	}
+
 	public function scopeInnerID($query, $variable)
 	{
 		return	$query->where(function($query) use($variable) 
@@ -134,5 +146,10 @@ class GlobalCategory extends Eloquent
 	public function scopeType($query, $variable)
 	{
 		return 	$query->where('type', $variable);
+	}
+
+	public function scopeSlug($query, $variable)
+	{
+		return 	$query->where('slug', $variable);
 	}
 }

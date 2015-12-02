@@ -17,11 +17,13 @@ class CreateCategoryTable extends Migration
             $table->integer('category_id')->unsigned()->index();
             $table->string('type');
             $table->string('path');
+            $table->string('slug');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
 
             $table->index(['deleted_at', 'path', 'name']);
+            $table->index(['deleted_at', 'slug']);
         });
     }
 

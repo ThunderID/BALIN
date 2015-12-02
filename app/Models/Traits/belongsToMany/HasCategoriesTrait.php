@@ -32,6 +32,11 @@ trait HasCategoriesTrait
 		return $query->whereHas('categories', function($q)use($variable){$q->name($variable);});
 	}
 
+	public function scopeCategoriesSlug($query, $variable)
+	{
+		return $query->whereHas('categories', function($q)use($variable){$q->slug($variable);});
+	}
+
 	public function Tags()
 	{
 		return $this->belongsToMany('App\Models\Tag', 'categories_products', 'product_id', 'category_id');
@@ -42,11 +47,16 @@ trait HasCategoriesTrait
 		return $query->whereHas('tags', function($q)use($variable){$q->id($variable);});
 	}
 
+	public function scopeTagsSlug($query, $variable)
+	{
+		return $query->whereHas('tags', function($q)use($variable){$q->slug($variable);});
+	}
+
 	public function scopeTagging($query, $variable)
 	{
 		foreach ($variable as $key => $value) 
 		{
-			$query = $query->tagsid($value);
+			$query = $query->tagsslug($value);
 		}
 		return $query;
 	}

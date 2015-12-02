@@ -77,6 +77,12 @@
 					<li class="@if($subnav_active=='critical') active @endif">
 						<a href="{{ route('backend.report.critical.stock') }}"><i class="fa fa-exclamation-circle"></i> <span class="nav-label">Stok Kritis</span></a>
 					</li>
+					<li class="@if($subnav_active=='global') active @endif">
+						<a href="{{ route('backend.report.global.stock') }}"><i class="fa fa-bar-chart"></i> <span class="nav-label">Stok Gudang</span></a>
+					</li>
+					<li class="@if($subnav_active=='movement') active @endif">
+						<a href="{{ route('backend.report.movement.stock') }}"><i class="fa fa-exchange"></i> <span class="nav-label">Stok Movement</span></a>
+					</li>
 				</ul>
 			</li>
 			<li class="@if($nav_active=='market') active @endif">
