@@ -3,9 +3,10 @@ use App\Http\Controllers\BaseController;
 
 use App\Models\ShippingCost;
 use App\Models\Courier;
+use App\Jobs\ImportShippingCost;
 
 use Illuminate\Support\MessageBag;
-use Input, Session, DB, Redirect, Carbon;
+use Input, Session, DB, Redirect, Carbon, Excel, App;
 
 class ShippingCostController extends BaseController 
 {
@@ -154,4 +155,43 @@ class ShippingCostController extends BaseController
 		return $this->store($cou_id, $id);		
 	}
 
+
+	public function import($cou_id = null, $id = null)
+	{
+		$cou_id 										= Input::get('courier_id');
+
+		if (Input::hasFile('file_csv'))
+		{
+			$data 										= Input::file('file_csv');
+		}
+		else
+		{
+			App::abort(404);
+		}
+
+		$sheet 			= Excel::load($data)->toArray();				
+
+		DB::beginTransaction();
+
+        $result											= $this->dispatch(new ImportShippingCost(Courier::findorfail($cou_id), $sheet));
+
+		if ($result->getStatus()!='success')
+		{
+			DB::rollback();
+			
+			return Redirect::back()
+					->withErrors($data->getErrorMessage())
+					->with('msg-type', 'danger')
+					;
+		}
+		else
+		{
+			DB::commit();
+
+			return Redirect::route('backend.settings.courier.show', $cou_id)
+					->with('msg','Data sudah disimpan')
+					->with('msg-type', 'success')
+					;
+		}
+	}
 }

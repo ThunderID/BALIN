@@ -156,9 +156,7 @@ $shippingcosts = $shippingcosts->courierid($courier['id'])->get();
 								@endif
 							</tbody>
 						</table>
-					</div>  
-
-					
+					</div>
 
 					@include('widgets.pageelements.formmodaldelete', [
 								'modal_id'      => 'sc_del', 
