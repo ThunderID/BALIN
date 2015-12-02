@@ -255,6 +255,27 @@ class TransactionDetail extends Eloquent
 				;
 	}
 
+	public function scopeGlobalStock($query, $variable)
+	{
+		return 	$query
+					->selectraw('transaction_details.*')
+					->selectglobalstock(true)
+					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->groupBy('varian_id')
+					;
+		;
+	}
+
+	public function scopeStockMovement($query, $variable)
+	{
+		return 	$query
+					->selectraw('transaction_details.*')
+					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->orderByRaw(DB::raw('varian_id asc, transactions.transact_at asc'))
+					;
+		;
+	}
+
 	public function scopeInventoryStock($query, $variable)
 	{
 		return 	$query
@@ -263,7 +284,6 @@ class TransactionDetail extends Eloquent
 					->first()
 		;
 	}
-
 	public function scopeCountOnHoldStock($query, $variable)
 	{
 		return 	$query

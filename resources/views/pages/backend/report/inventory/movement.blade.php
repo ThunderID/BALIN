@@ -8,7 +8,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->with(['varian', 'varian.product'])->paginate();
+$datas 			= $datas->with(['varian', 'varian.product', 'transaction'])->paginate();
 
 ?>
 
@@ -23,7 +23,7 @@ $datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
 				</div>
 				<div class="col-md-4 col-sm-8 col-xs-12">
-					{!! Form::open(array('route' => 'backend.report.critical.stock', 'method' => 'get' )) !!}
+					{!! Form::open(array('route' => 'backend.report.movement.stock', 'method' => 'get' )) !!}
 						<div class="row">
 							<div class="col-md-2 col-sm-3 hidden-xs">
 							</div>
@@ -42,39 +42,17 @@ $datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 					{!! Form::close() !!}
 				</div>            
 			</div>
-			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.report.critical.stock') ])
+			@include('widgets.backend.pageelements.headersearchresult', ['closeSearchLink' => route('backend.report.movement.stock') ])
 			<div class="clearfix">&nbsp;</div>
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="table-responsive">
-						<table class="table table-bordered table-hover table-striped">
-							<thead>
-								@if($subnav_active=='critical')
-								<tr>
-									<th class="text-center">No.</th>
-									<th class=" text-left">#</th>
-									<th class="text-center">Item</th>
-									<th class=" text-center">Stok</th>
-								</tr>
-								@else
-								<tr>
-									<th rowspan="2" class="text-center">No.</th>
-									<th rowspan="2" class="text-left">#</th>
-									<th rowspan="2" class="text-center">Item</th>
-									<th colspan="4" class="text-center">Stok</th>
-								</tr>
-								<tr>
-									<th class="text-center">Gudang</th>
-									<th class="text-center">Dipesan</th>
-									<th class="text-center">Dibayar</th>
-									<th class="text-center">Display</th>
-								</tr>
-								@endif
-							</thead>
+						<table class="table table-bordered table-hover">
 							<tbody>
 								<?php
 									$nop = ($datas->currentPage() - 1) * 15;
 									$ctr = 1 + $nop;
+									$vid = 0;
 								?> 
 								@if (count($datas) == 0)
 									<tr>
@@ -82,22 +60,43 @@ $datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 											Tidak ada data
 										</td>
 									</tr>
-								@else                                                                 
+								@else
 									@foreach ($datas as $data)
+									@if($data['varian_id']!=$vid)
+									@if($vid!=0)
 									<tr>
-										<td class="text-center">{{ $ctr }}</td>
-										<td class="text-left">{{ $data['varian']['sku'] }}</td>
-										<td class="text-left">{{ $data['varian']['product']['name'] }} {{ $data['varian']['size'] }}</td>
-										@if($subnav_active=='critical')
-										<td class="text-right">{{ $data['current_stock'] }} </td>
+										<th colspan="3">&nbsp;</th>
+									</tr>
+									@endif
+									<tr>
+										<th class="text-left">Nama Barang</th>
+										<th class="text-left" colspan="2">{{ $data['varian']['product']['name'] }} {{ $data['varian']['size'] }}</th>
+									</tr>
+									<tr>
+										<th class="text-left">SKU</th>
+										<th class="text-left" colspan="2">{{ $data['varian']['sku'] }}</th>
+									</tr>
+									<tr>
+										<th class="text-left">Tanggal</th>
+										<th class="text-left">Stok Masuk</th>
+										<th class="text-left">Stok Keluar</th>
+									</tr>
+
+									@endif
+									<tr>
+										<td class="text-left">@datetime_indo($data['transaction']['transact_at'])</td>
+										@if($data['transaction']['type'] == 'buy')
+										<td class="text-right">{{$data['quantity']}}</td>
 										@else
-										<td class="text-right">{{ $data['inventory_stock'] }} </td>
-										<td class="text-right">{{ $data['on_hold_stock'] }} </td>
-										<td class="text-right">{{ $data['reserved_stock'] }} </td>
-										<td class="text-right">{{ $data['current_stock'] }} </td>
+										<td class="text-right"></td>
 										@endif
-									</tr>       
-									<?php $ctr += 1; ?>                     
+										@if($data['transaction']['type'] == 'buy')
+										<td class="text-right"></td>
+										@else
+										<td class="text-right">{{$data['quantity']}}</td>
+										@endif
+									</tr>
+									<?php $ctr += 1; $vid = $data['varian_id']; ?>
 									@endforeach 
 								@endif
 							</tbody>

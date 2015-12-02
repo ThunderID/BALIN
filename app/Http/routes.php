@@ -204,7 +204,19 @@ Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['a
 		// GUDANG - CRITICAL STOCK
 		// ------------------------------------------------------------------------------------
 		
-		Route::any('criticals',											['uses' => 'CriticalController@index', 'as' => 'backend.report.critical.stock']);
+		Route::any('criticals',											['uses' => 'WarehouseController@critical', 'as' => 'backend.report.critical.stock']);
+
+		// ------------------------------------------------------------------------------------
+		// GUDANG - GLOBAL STOCK
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('stocks',											['uses' => 'WarehouseController@stock', 'as' => 'backend.report.global.stock']);
+
+		// ------------------------------------------------------------------------------------
+		// GUDANG - GLOBAL STOCK
+		// ------------------------------------------------------------------------------------
+		
+		Route::any('movements',											['uses' => 'WarehouseController@movement', 'as' => 'backend.report.movement.stock']);
 
 		// ------------------------------------------------------------------------------------
 		// MARKET - MOST DOWNLINE
