@@ -2,14 +2,18 @@
 	<div class="col-xs-12" style="margin:5px;">
 		<div class="row">
 			<div class="col-xs-3">
-				<a href="#">
+				<a href="{{ route('frontend.product.show', $item['slug']) }}">
 					<img class="image-responsive" style="height:80px;width:60px;z-index:-1;"  src="{{ $label_image }}" >
 				</a>
 			</div>
 			<div class="col-xs-8">
 				<div class="row">
 					<div class="col-xs-12">
-						<h4 class="m-t-none">{{ $label_name }}</h4>
+						<h4 class="m-t-none">
+							<a href="{{ route('frontend.product.show', $item['slug']) }}" class="link-black hover-black unstyle">
+								{{ $label_name }}
+							</a>
+						</h4>							
 					</div>
 				</div>
 				<div class="row" style="margin-top:0px;">
