@@ -140,6 +140,7 @@ return [
         'Intervention\Image\ImageServiceProvider',
         // Barryvdh\Debugbar\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        'Maatwebsite\Excel\ExcelServiceProvider',
 
         /*
          * Application Service Providers...
@@ -205,6 +206,7 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Gate'      => Illuminate\Support\Facades\Gate::class,
         'PrettyPaginate'=> App\Classes\PrettyPaginator::class,
+        'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
     ],
 
 ];

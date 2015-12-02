@@ -7,28 +7,49 @@
 @extends('template.backend.layout') 
 
 @section('content')
+	<div class="row">
+		<div class="col-md-12">
+			<h4 class="sub-header">
+				{{$courier['name']}}
+			</h4>
+		</div>
+	</div>
+	@if(is_null($id))
+	<div class="row">
+		<div class="col-md-12">
+			<h4 class="sub-header">
+				Impor CSV
+			</h4>
+		</div>
+	</div>
+	{!! Form::open(['url' => route('backend.settings.shippingcost.import', ['cou_id' => $cou_id, 'id' => $id]), 'class' => 'form no_enter', 'files' => true]) !!}	
+        {!! Form::hidden('courier_id', $cou_id) !!}  
+		<div class="clearfix">&nbsp;</div>
+		<div class="form-group">
+			<label>Browse CSV</label>
+			<input type="file" name="file_csv">
+			<span id="helpBlock" class="help-block font-12">* Masukkan dalam bentuk .csv</span>
+		</div>
+
+		<div class="form-group text-right">
+			<input class="btn btn-primary" type="submit" value="Simpan">
+		</div>
+		{!! Form::close() !!}
+		<div class="clearfix">&nbsp;</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="sub-header">
+					Manual Input
+				</h4>
+			</div>
+		</div>
+	@endif
 	@if(!is_null($id))
 		{!! Form::open(['url' => route('backend.settings.shippingCost.update', ['cou_id' => $cou_id, 'id' => $id]), 'method' => 'PATCH']) !!}
 	@else
 		{!! Form::open(['url' => route('backend.settings.shippingCost.store', ['cou_id' => $cou_id, 'id' => $id]), 'method' => 'POST']) !!}
 	@endif
         {!! Form::hidden('id',$data['id']) !!}  
-        {!! Form::hidden('courier_id', $cou_id) !!}  
-		<div class="row">
-			<div class="col-md-12">
-				<h4 class="sub-header">
-					{{$courier['name']}}
-				</h4>
-			</div>
-		</div>
-		<div class="clearfix">&nbsp;</div>
-		<div class="row">
-			<div class="col-md-12">
-				<h4 class="sub-header">
-					Kode Pos
-				</h4>
-			</div>
-		</div>		
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
@@ -52,13 +73,6 @@
 			</div>			
 		</div>
 		<div class="clearfix">&nbsp;</div>
-		<div class="row">
-			<div class="col-md-12">
-				<h4 class="sub-header">
-					Biaya
-				</h4>
-			</div>
-		</div>		
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
