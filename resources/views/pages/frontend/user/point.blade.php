@@ -8,16 +8,16 @@
 
 <div class="col-md-12 col-sm-12 hidden-xs">
 	<div class="row m-t-n" style="background-color:#000; color:#fff; letter-spacing: 0.1em;">
-		<div class="col-sm-2">
+		<div class="col-sm-3 text-center">
 			<h5>Tanggal</h5>
 		</div>
-		<div class="col-sm-2">
-			<h5>Total</h5>
+		<div class="col-sm-2 text-right">
+			<h5 class="p-r-sm">Total</h5>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-sm-2 text-center">
 			<h5>Expired</h5>
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-5">
 			<h5>Info</h5>
 		</div>
 	</div>
@@ -39,13 +39,13 @@
 
 	<div class="col-md-12 col-sm-12 hidden-xs">
 		<div class="row m-t-sm @if($key+1!=count($pointlogs)) border-bottom @endif">
-			<div class="col-sm-2"> 
-				<p class="text-left">
-					@datetime_indo($value['created_at']) 
+			<div class="col-sm-3"> 
+				<p class="text-center">
+					@datetime_with_name_month_indo($value['created_at']) 
 				</p>
 			</div>
 			<div class="col-sm-2">
-				<p class="text-center">
+				<p class="text-right  p-r-sm">
 					@if(!$is_expired)
 						@money_indo(($value['prev_amount'] + $value['amount']))
 					@else
@@ -58,7 +58,7 @@
 					<i>@date_indo($value['expired_at'])</i>
 				</p>
 			</div>
-			<div class="col-sm-6">
+			<div class="col-sm-5">
 				<p class="text-left">
 					Point anda
 					@if($value['amount'] >= 0)
@@ -80,7 +80,7 @@
 				<div class="col-xs-12">
 						<div class="row m-b-md">
 							<div class="col-xs-12 text-center">
-								<p style="font-size:12px; margin-bottom: 5px;">@datetime_indo($value['created_at'])</p>
+								<p style="font-size:12px; margin-bottom: 5px;">@datetime_with_name_month_indo($value['created_at'])</p>
 								@if($value['amount'] >= 0)
 									<p style="font-size:16px; margin-bottom: 2px; color:green;"><span>(+)</span> &nbsp;@money_indo(abs($value['amount']))</p>
 								@else

@@ -3,6 +3,16 @@
 	$downlines 		= $points->referenceid(Auth::user()->id)->referencetype('App\Models\User')->with(['user'])->paginate();
 ?>
 
+<div class="row hidden-xs">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<h4 class="m-b-md"><strong>Sisa Kuota Referral Anda : {{ Auth::user()->quota }}</strong></h4>
+	</div>
+</div>
+<div class="row border-bottom hidden-sm hidden-md hidden-lg">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<h4 class="m-t-sm m-b-md"><strong>Sisa Kuota Referral Anda : {{ Auth::user()->quota }}</strong></h4>
+	</div>
+</div>
 <div class="col-md-12 col-sm-12 hidden-xs">
 	<div class="row m-t-n" style="background-color:#000; color:#fff; letter-spacing: 0.1em;">
 		<div class="col-sm-1">
@@ -12,7 +22,7 @@
 			<h5>Tanggal</h5>
 		</div>
 		<div class="col-sm-8">
-			<h5>Downline</h5>
+			<h5>Referral Anda</h5>
 		</div>
 	</div>
 </div>

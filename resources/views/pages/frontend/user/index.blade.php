@@ -219,7 +219,7 @@
 								{{ $status[$v['current_status']] }}
 							</span>
 							<p class="label-info datetime m-t-xs m-b-xxs" style="">
-								@datetime_indo($v['transact_at'])
+								@datetime_with_name_month_indo($v['transact_at'])
 							</p>	
 							<p class="label-info m-b-xxs ref-number">
 								{{ $v['ref_number'] }}	
@@ -251,7 +251,7 @@
 							@if($v['current_status']=='wait')
 							<p class="label-info datetime" style="">
 								<small>
-								Pembayaran harus dilakukan sebelum @datetime_indo($datetrans)
+								Pembayaran harus dilakukan sebelum @datetime_with_name_month_indo($datetrans)
 								</small>
 							</p>
 							@endif
