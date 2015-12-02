@@ -265,7 +265,7 @@ class UserController extends BaseController
 		if($result->getStatus()=='success')
 		{
 			return Redirect::route('frontend.user.index')
-							->with('msg','Pembatalan sudah disimpan')
+							->with('msg','Pesanan anda sudah dibatalkan')
 							->with('msg-type', 'success');
 		}
 

@@ -1,7 +1,7 @@
 {!! Form::open(['url' => '#', 'class' => 'form-horizontal dialog_confirm', 'data-coba' => 'yes']) !!}
 	<div class="form-group">
 		<div class="col-sm-12 text-center">
-			<p>Apakah Anda Ingin Membantalkan Pesanan?</p>
+			<p>Apakah Anda Ingin Membatalkan Pesanan?</p>
 		</div>
 	</div>
 	<div class="form-group">
