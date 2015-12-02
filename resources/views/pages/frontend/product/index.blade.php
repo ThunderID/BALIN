@@ -4,9 +4,9 @@
 <?php 
 	$tgs 				= explode(',', Input::get('tagging'));
 
-	$perpage = 12;
+	$perpage 			= 12;
 
-	$datas 			= $datas->currentprice(true)->DefaultImage(true)->sellable(true);
+	$datas 				= $datas->currentprice(true)->DefaultImage(true)->sellable(true);
 
 	if(!is_null($filters) && is_array($filters))
 	{
@@ -14,7 +14,7 @@
 		{
 			if($key=='tagging')
 			{
-				$tagging = explode(',', $value);
+				$tagging = explode('##', $value);
 				$datas 	= call_user_func([$datas, $key], $tagging);
 			}
 			else
@@ -111,7 +111,7 @@
 								<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-md-3 col-sm-4">
-										<li><a @if(Input::has('categoriesid') && Input::get('categoriesid')==$cat['id']) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'categoriesid' => $cat->id])) }}">{{ $cat->name }}</a></li>
+										<li><a @if(Input::has('categoriesslug') && Input::get('categoriesslug')==$cat['slug']) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'categoriesslug' => $cat['slug']])) }}">{{ $cat->name }}</a></li>
 									</div>
 								@endforeach	
 								</ul>					
@@ -134,14 +134,14 @@
 														<?php 
 															if(Input::has('tagging'))
 															{
-																$tagging 		= Input::get('tagging').','.$tmp['id'];
+																$tagging 		= Input::get('tagging').'##'.$tmp['slug'];
 															}
 															else
 															{
-																$tagging 		= $tmp['id'];
+																$tagging 		= $tmp['slug'];
 															}
 														?>
-														<li><a @if(in_array($tmp['id'], $tgs)) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagging' => $tagging])) }}">{{ $tmp->name }}</a></li>
+														<li><a @if(in_array($tmp['slug'], $tgs)) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagging' => $tagging])) }}">{{ $tmp->name }}</a></li>
 													</div>
 										      	@endif
 											@endforeach													
@@ -231,7 +231,7 @@
 							<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-xs-12">
-										<li><a @if(Input::has('categoriesid') && Input::get('categoriesid')==$cat['id']) class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'categoriesid' => $cat->id], Input::all())) }}">{{ $cat->name }}</a></li>
+										<li><a @if(Input::has('categoriesslug') && Input::get('categoriesslug')==$cat['slug']) class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'categoriesslug' => $cat['slug']], Input::all())) }}">{{ $cat->name }}</a></li>
 									</div>
 								@endforeach	
 							</ul>						      		
@@ -262,14 +262,14 @@
 													<?php 
 														if(Input::has('tagging'))
 														{
-															$tagging 		= Input::get('tagging').','.$tmp['id'];
+															$tagging 		= Input::get('tagging').'##'.$tmp['slug'];
 														}
 														else
 														{
-															$tagging 		= $tmp['id'];
+															$tagging 		= $tmp['slug'];
 														}
 													?>
-													<li><a @if(in_array($tmp['id'], $tgs)) class="active" @endif  href="{{ route('frontend.product.index', array_merge( Input::all(), ['page' => $page, 'tagging' => $tagging])) }}">{{ $tmp->name }}</a></li>
+													<li><a @if(in_array($tmp['slug'], $tgs)) class="active" @endif  href="{{ route('frontend.product.index', array_merge( Input::all(), ['page' => $page, 'tagging' => $tagging])) }}">{{ $tmp->name }}</a></li>
 												</div>
 											</ul>
 										@endif

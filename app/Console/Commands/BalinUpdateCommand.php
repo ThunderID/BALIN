@@ -53,10 +53,16 @@ class BalinUpdateCommand extends Command
      **/
     public function update10102015()
     {
-        Schema::table('images', function(Blueprint $table)
+         Schema::table('categories', function(Blueprint $table)
         {   
-            $table->boolean('is_default');
+            $table->string('slug');
+            $table->index(['deleted_at', 'slug']);
         });
+
+        // Schema::table('images', function(Blueprint $table)
+        // {   
+        //     $table->boolean('is_default');
+        // });
 
         // $this->info("Updating User with link and expired");
         // $types                                      = ['expired_link_duration'];

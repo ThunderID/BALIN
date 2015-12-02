@@ -27,7 +27,7 @@ class CategoryUpdating extends Job implements SelfHandling
             }
             else
             {
-                $this->category ->path = $this->category ->id;
+                $this->category->path = $this->category->id;
             }
 
             if(isset($this->category ->getOriginal()['path']))
