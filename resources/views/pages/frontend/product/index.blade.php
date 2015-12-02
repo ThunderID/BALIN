@@ -269,7 +269,7 @@
 															$tagging 		= $tmp['id'];
 														}
 													?>
-													<li><a @if(in_array($tmp['id'], $tgs)) class="active" @endif  href="{{ route('frontend.product.index', array_merge(['page' => $page, 'tagging' => $tagging], Input::all())) }}">{{ $tmp->name }}</a></li>
+													<li><a @if(in_array($tmp['id'], $tgs)) class="active" @endif  href="{{ route('frontend.product.index', array_merge( Input::all(), ['page' => $page, 'tagging' => $tagging])) }}">{{ $tmp->name }}</a></li>
 												</div>
 											</ul>
 										@endif

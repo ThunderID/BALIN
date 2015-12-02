@@ -1780,7 +1780,7 @@ footer a.footer-link:hover {
   color: #fff !important;
 }
 footer .footer-title-logo {
-  letter-spacing: 0.25em !important;
+  letter-spacing: 0.082em !important;
   font-size: 12px;
 }
 footer .footer-title-logo a {
@@ -1791,7 +1791,7 @@ footer .footer-title-logo a:hover {
 }
 @media (max-width: 352px) {
   footer .footer-title-logo {
-    letter-spacing: 0.09em !important;
+    letter-spacing: 0.082em !important;
   }
 }
 .tp-caption.large_text {

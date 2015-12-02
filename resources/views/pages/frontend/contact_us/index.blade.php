@@ -8,7 +8,7 @@
 		</div>
 		<div class="row">
 			<div class="container">
-				<div class="col-md-6 colsm-6 col-xs-12  panel">
+				<div class="col-md-6 col-sm-6 col-xs-12  panel">
 					<div class="row">
 						<div class="col-md-12">
 							<h3>Contact Us</h3>
@@ -97,15 +97,15 @@
 					<div class="row">
 						<div class="col-md-12 text-center">
 						@if(!is_null($storeinfo['instagram_url']) && !empty($storeinfo['instagram_url'] && $storeinfo['instagram_url'] != '' ))
-							<a href="{{ $storeinfo['instagram_url'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-instagram fa-2x"></i></a>
+							<a href="{{ $storeinfo['instagram_url'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border btn-hollow-xs"><i class="fa fa-instagram fa-2x"></i></a>
 						@endif
 
 						@if(!is_null($storeinfo['twitter_url']) && !empty($storeinfo['twitter_url'] && $storeinfo['twitter_url'] != '' ))
-							<a href="{{ $storeinfo['twitter_url'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-twitter fa-2x"></i></a>
+							<a href="{{ $storeinfo['twitter_url'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border btn-hollow-xs"><i class="fa fa-twitter fa-2x"></i></a>
 						@endif
 
 						@if(!is_null($storeinfo['facebook_url']) && !empty($storeinfo['facebook_url'] && $storeinfo['facebook_url'] != '' ))
-							<a href="{{ $storeinfo['facebook_url'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook fa-2x"></i></a>
+							<a href="{{ $storeinfo['facebook_url'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border btn-hollow-xs"><i class="fa fa-facebook fa-2x"></i></a>
 						@endif
 						</div>
 					</div>

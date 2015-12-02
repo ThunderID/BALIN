@@ -27,7 +27,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12 text-center">
-						<p class="footer-title-logo m-t-sm m-b-n-3"><a href="{{ URL::route('frontend.home.index') }}">Copyright 2015 CV. Balin Indonesia</a></p>
+						<p class="footer-title-logo m-t-sm m-b-xxs"><a href="{{ URL::route('frontend.home.index') }}">Copyright 2015 CV. Balin Indonesia</a></p>
 						<p class="footer-title-logo m-b-none"><a href="{{ URL::route('frontend.home.index') }}">Website by Thunder Labs Indonesia</a></p>
 					</div>
 				</div>
@@ -62,7 +62,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 text-center">
-						<p class="footer-title-logo m-t-sm m-b-n-3"><a href="{{ URL::route('frontend.home.index') }}">Copyright 2015 CV. Balin Indonesia</a></p>
+						<p class="footer-title-logo m-t-sm m-b-xxs"><a href="{{ URL::route('frontend.home.index') }}">Copyright 2015 CV. Balin Indonesia</a></p>
 						<p class="footer-title-logo m-b-none"><a href="{{ URL::route('frontend.home.index') }}">Website by Thunder Labs Indonesia</a></p>
 					</div>
 				</div>						
