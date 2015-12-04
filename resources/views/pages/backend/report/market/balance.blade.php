@@ -8,7 +8,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->paginate();
+$datas 			= $datas->customer(true)->paginate();
 
 ?>
 
@@ -50,8 +50,8 @@ $datas 			= $datas->paginate();
 							<thead>
 								<tr>
 									<th class="text-center">No.</th>
-									<th class=" text-left">Kostumer</th>
-									<th class=" text-right">Balance</th>
+									<th class=" text-center">Kostumer</th>
+									<th class=" text-center">Balance</th>
 								</tr>
 							</thead>
 							<tbody>
