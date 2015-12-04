@@ -6,6 +6,7 @@ use App\Jobs\Job;
 use App\Jobs\AddQuotaRegistration;
 use App\Jobs\AddRefferalCode;
 use App\Jobs\SendWelcomeEmail;
+use App\Jobs\SaveCampaign;
 
 use App\Libraries\JSend;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -39,6 +40,10 @@ class UserCreated extends Job implements SelfHandling
         if($result->getStatus()=='success' && !is_null($this->user->activation_link))
         {
             $result                 = $this->dispatch(new SendWelcomeEmail($this->user));
+        }
+        elseif($result->getStatus()=='success' && !is_null($this->user->activation_link))
+        {
+            $result                 = $this->dispatch(new SaveCampaign($this->user));
         }
         
         return $result;

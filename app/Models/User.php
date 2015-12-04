@@ -114,14 +114,24 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 	
-	public function setIsInvited($value = null)
+	public function setIsCampaign($value = null)
     {
     	if(is_null($value))
     	{
-	        $this->attributes['is_invited'] = false;
+	        $this->attributes['is_campaign'] = false;
     	}
 
-        $this->attributes['is_invited'] = true;
+        $this->attributes['is_campaign'] = true;
+    }
+	
+	public function setCampaignType($value = null)
+    {
+    	if(is_null($value))
+    	{
+	        $this->attributes['campaign_type'] = 'no';
+    	}
+
+        $this->attributes['campaign_type'] = $value;
     }
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/

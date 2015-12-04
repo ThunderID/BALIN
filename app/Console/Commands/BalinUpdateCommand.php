@@ -53,11 +53,20 @@ class BalinUpdateCommand extends Command
      **/
     public function update10102015()
     {
-         Schema::table('categories', function(Blueprint $table)
-        {   
-            $table->string('slug');
-            $table->index(['deleted_at', 'slug']);
+        Schema::create('user_campaign', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->string('type', 255);
+            $table->boolean('is_used');
+            $table->timestamps();
+            $table->softDeletes();
+
         });
+        // Schema::table('categories', function(Blueprint $table)
+        // {   
+        //     $table->string('slug');
+        //     $table->index(['deleted_at', 'slug']);
+        // });
 
         // Schema::table('images', function(Blueprint $table)
         // {   
