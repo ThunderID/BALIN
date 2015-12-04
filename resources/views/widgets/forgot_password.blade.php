@@ -1,4 +1,4 @@
-{!! Form::open(['url' => route('frontend.dologin')]) !!}
+{!! Form::open(['url' => route('frontend.doforgot')]) !!}
     <div class="form-group">
         <label for="email">Email</label>
         {!! Form::email('email', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Email', 'required' => 'required']) !!}
