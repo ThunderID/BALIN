@@ -60,7 +60,7 @@ class Voucher extends Eloquent
 											'code'							=> 'required|max:255|min:8',
 											'type'							=> 'required|max:255',
 											'value'							=> 'numeric',
-											'started_at'					=> 'date_format:"Y-m-d H:i:s"|after:now',
+											// 'started_at'					=> 'date_format:"Y-m-d H:i:s"|after:now',
 											'expired_at'					=> 'date_format:"Y-m-d H:i:s"|after:now',
 										];
 

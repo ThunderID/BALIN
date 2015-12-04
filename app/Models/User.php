@@ -101,7 +101,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'zipcode',
 											'reference',
 											'referral_code',
-											'is_invited',
+											// 'is_invited',
 										];
 
 	/**
