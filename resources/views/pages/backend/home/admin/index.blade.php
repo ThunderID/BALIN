@@ -4,6 +4,7 @@
 @inject('transaction', 'App\Models\Transaction')
 @inject('store', 'App\Models\StoreSetting')
 @inject('td', 'App\Models\TransactionDetail')
+@inject('courier', 'App\Models\Courier')
 
 <?php 
 $margin                 = $store->ondate('now')->type('min_margin')->first();
@@ -18,6 +19,7 @@ $wait                   = $transaction->type('sell')->status('wait')->count();
 $canceled               = $transaction->type('sell')->ondate([null , $expired->value])->status('wait')->with('user')->get();
 $stocks                 = $td->critical((0 - $critical->value))->with(['varian', 'varian.product'])->get();
 $totalproduct           = $product->get();
+$totalcourier           = $courier->wherehas('shippingcosts', function($q){$q;})->get();
 
 $carts              = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('abandoned_cart')->with(['user'])->get();
 $cancels            = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? Auth::user()->last_logged_at->format('Y-m-d H:i:s') : null), ' + 7 hours '])->type('transaction_canceled')->staff(true)->with(['user'])->get();
@@ -170,16 +172,17 @@ $policies           = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? 
                                 </td>
                             </tr>    
                             @endif   
+                            @if(!$totalcourier->count())
+                            <tr>
+                                <td class="col-sm-6">Tambahkan Kurir / Ongkos Kirim!</td>
+                                <td class="col-sm-6">
+                                    <a href="{{route('backend.settings.courier.index')}}">Proses Selanjutnya</a>
+                                </td>
+                            </tr>    
+                            @endif
                         </tbody>
                     </table> 
                 </div>
-            </div>
-        @endif
-
-        @if(!$trs->count() && !$canceled->count() && !$wait && !$stocks->count() && $product->count())
-            <div class="col-sm-12 text-center">
-                <h3>There is nothing to do</h3>
-                <h2>Keep your dashboard clean</h2>
             </div>
         @endif
     </div>
@@ -279,13 +282,6 @@ $policies           = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? 
                         </tbody>
                     </table> 
                 </div>
-            </div>
-        @endif
-
-        @if(!$margins->count() && !$negatives->count() && !$positives->count() && !$bought->count())
-            <div class="col-sm-12 text-center">
-                <h3>There is nothing to do</h3>
-                <h2>Keep your dashboard clean</h2>
             </div>
         @endif
     </div>
@@ -530,7 +526,7 @@ $policies           = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? 
             </div>
         @endif
 
-        @if(!$margins->count() && !$negatives->count() && !$positives->count() && !$bought->count() && !$trs->count() && !$canceled->count() && !$wait && !$stocks->count() && $product->count() && !$cancels->count() && !$carts->count() && !$paids->count() && !$ship->count() && !$deliver->count() && !$voucher->count() && !$point->count() && !$quota->count() && !$prices->count() && !$policies->count())
+        @if(!$margins->count() && !$negatives->count() && !$positives->count() && !$bought->count() && !$trs->count() && !$canceled->count() && !$wait && !$stocks->count() && $product->count() && !$cancels->count() && !$carts->count() && !$paids->count() && !$ship->count() && !$deliver->count() && !$voucher->count() && !$point->count() && !$quota->count() && !$prices->count() && !$policies->count() && $totalcourier)
             <div class="col-sm-12 text-center">
                 <h3>There is nothing to do</h3>
                 <h2>Keep your dashboard clean</h2>
@@ -541,6 +537,7 @@ $policies           = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? 
 
 @section('script')
     var preload_data = [];
+    var preload_data_tag = [];
 @stop
 
 @section('script_plugin')
