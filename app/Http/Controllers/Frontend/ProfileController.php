@@ -115,12 +115,12 @@ class ProfileController extends BaseController
 		$this->layout->page 					= view('pages.frontend.user.downline')
 													->with('controller_name', $this->controller_name)
 													->with('subnav_active', 'account_downline')
-													->with('title', 'Daftar Downline');
+													->with('title', 'Daftar Referral');
 
 		$this->layout->controller_name			= $this->controller_name;
 
 		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'Daftar Downline';
+		$this->layout->page->page_subtitle 		= 'Daftar Referral Anda';
 
 		return $this->layout;
 	}	
@@ -177,7 +177,7 @@ class ProfileController extends BaseController
 		if($result->getStatus()=='success')
 		{
 			return Redirect::route('frontend.profile.order.index')
-							->with('msg','Pembatalan sudah disimpan')
+							->with('msg','Pesanan anda sudah dibatalkan')
 							->with('msg-type', 'success');
 		}
 

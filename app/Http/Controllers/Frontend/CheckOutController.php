@@ -23,6 +23,8 @@ class CheckOutController extends BaseController
 
 		$baskets 								= Session::get('baskets');
 		$addresses 								= Address::oldershipmentbycustomer(Auth::user()->id)->get()->toArray();
+		$transaction           	 				= Transaction::userid(Auth::user()->id)->status('cart')->orderby('transact_at', 'desc')->first();
+
 		// $address 								= Address::ownerid(Auth::user()->id)->ownertype('App\Models\User')->first();
 		// if($address)
 		// {
@@ -36,6 +38,7 @@ class CheckOutController extends BaseController
 													->with('controller_name', $this->controller_name)
 													->with('carts', $baskets)
 													->with('addresses', $addresses)
+													->with('transaction', $transaction)
 													->with('breadcrumb', $breadcrumb);
 													
 		$this->layout->controller_name			= $this->controller_name;
@@ -48,6 +51,7 @@ class CheckOutController extends BaseController
 
 	public function postCheckout()
 	{
+
 		if(!Input::has('term'))
 		{
 			return Redirect::back()->withInput()->withErrors('Anda harus menyetujui syarat dan ketentuan BALIN.ID.')->with('msg-type', 'danger');
@@ -214,7 +218,6 @@ class CheckOutController extends BaseController
 													->with('transaction', $transaction)
 													->with('dateexpire', $dateexpire)
 													->with('breadcrumb', $breadcrumb);
-
 	}
 
 	public function checkvoucher()
@@ -258,7 +261,9 @@ class CheckOutController extends BaseController
 
 	public function getAddress($id)
 	{
-		$addresses 								= Address::find($id);
+		$addresses 								= Address::oldershipmentbycustomer(Auth::user()->id)
+													->where('addresses.id', $id)
+													->get();
 
 		return Response::json(['address' => $addresses], 200);
 	}
