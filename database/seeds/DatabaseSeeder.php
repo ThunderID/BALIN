@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
 
         // $this->call('VoucherTableSeeder');
         
-        // $this->call('UserTableSeeder');
+        $this->call('UserTableSeeder');
 
         // $this->call('PointLogTableSeeder');
         // $this->call('SupplierTableSeeder');
