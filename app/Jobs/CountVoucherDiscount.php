@@ -30,12 +30,6 @@ class CountVoucherDiscount extends Job implements SelfHandling
 
         if($this->transaction->voucher()->count() && $this->transaction->status=='paid')
         {
-            $validator                      = Validator::make($this->transaction->voucher['attributes'], $voucherrules);
-
-            if (!$validator->passes())
-            {
-                return new JSend('error', (array)$this->transaction, 'Voucher tidak dapat digunakan.');
-            }
             switch($this->transaction->voucher->type)
             {
                 case 'debit_point' :
@@ -61,6 +55,9 @@ class CountVoucherDiscount extends Job implements SelfHandling
                 break;
                 case 'referral' :
                     $result                                 = new JSend('error', (array)$this->transaction, 'Tidak dapat menggunakan kode referral sebagai voucher.');
+                break;
+                case 'debit_point' :
+                    $result                                 = new JSend('success', (array)$this->transaction);
                 break;
                 default :
                     $result                                 = new JSend('error', (array)$this->transaction, 'Voucher tidak terdaftar.');

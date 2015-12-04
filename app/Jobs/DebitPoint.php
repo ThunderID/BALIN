@@ -31,8 +31,9 @@ class DebitPoint extends Job implements SelfHandling
         if(!is_null($this->transaction->id))
         {
             $expired                        = StoreSetting::type('voucher_point_expired')->Ondate('now')->first();
+            $previous                       = PointLog::referenceid($this->transaction->id)->referencetype('App\Models\Transaction')->first();
 
-            if($expired)
+            if($expired && !$previous)
             {
                 $point                      = new PointLog;
                 $point->fill([
