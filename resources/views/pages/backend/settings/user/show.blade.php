@@ -3,7 +3,7 @@
 @inject('td', 'App\Models\TransactionDetail')
 @inject('payment', 'App\Models\Payment')
 <?php 
-	$transaction 	= $transaction->userid($id)->status(['paid', 'delivered', 'shipped'])->type('sell')->count();
+	$transaction 	= $transaction->userid($id)->status(['paid', 'packed', 'shipping', 'delivered'])->type('sell')->count();
 	$payment 		= $payment->transactionuserid($id)->sum('amount');
 	$mostbuy		= $td->mostbuybycustomer($id)->with(['product'])->get();
 	$frequentbuy	= $td->frequentbuybycustomer($id)->with(['product'])->get();

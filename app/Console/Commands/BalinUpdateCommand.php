@@ -62,6 +62,11 @@ class BalinUpdateCommand extends Command
             $table->softDeletes();
 
         });
+
+        Schema::table('transaction_logs', function (Blueprint $table) {
+            $table->text('notes');
+
+        });
         // Schema::table('categories', function(Blueprint $table)
         // {   
         //     $table->string('slug');

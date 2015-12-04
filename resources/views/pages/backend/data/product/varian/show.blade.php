@@ -120,7 +120,7 @@
 
 		<div class="col-md-4">
 			<div class="panel panel-list panel-default">
-				<div class="panel-heading">Sold Items</div>
+				<div class="panel-heading">Barang Terjual</div>
 				<div class="panel-body">
 					<h4 class="m-r-sm m-t-sm text-right">
 						@if($td['sold_item'])

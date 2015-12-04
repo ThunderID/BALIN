@@ -7,7 +7,7 @@ if(!is_null($filters) && is_array($filters))
 		$datas = call_user_func([$datas, $key], $value);
 	}
 }
-$datas 			= $datas->selectraw('shipments.*')->JoinTransactionFromShipment(true)->TransactionLogStatus(['wait', 'paid', 'shipping', 'delivered'])->with(['transaction', 'courier', 'address']);
+$datas 			= $datas->selectraw('shipments.*')->JoinTransactionFromShipment(true)->TransactionLogStatus(['wait', 'paid', 'packed', 'shipping', 'delivered'])->with(['transaction', 'courier', 'address']);
 
 if(Input::has('sort'))
 {

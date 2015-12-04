@@ -6,8 +6,8 @@
 <?php 
 // $total_product          = $product->HasStocks(true)->count();
 $total_product          = 0;
-$total_trans            = $payment->transactiontype('sell')->transactionstatus(['paid', 'shipping', 'delivered'])->transactionondate(['first day of this month', 'last day of this month'])->sum('amount');
-$freq_trans             = $transaction->type('sell')->status(['paid', 'shipping', 'delivered'])->ondate(['first day of this month', 'last day of this month'])->count();
+$total_trans            = $payment->transactiontype('sell')->transactionstatus(['paid', 'packed', 'shipping', 'delivered'])->transactionondate(['first day of this month', 'last day of this month'])->sum('amount');
+$freq_trans             = $transaction->type('sell')->status(['paid', 'packed', 'shipping', 'delivered'])->ondate(['first day of this month', 'last day of this month'])->count();
 $total_point            = $point->ondate(['first day of this month', 'last day of this month'])->debit(true)->sum('amount');
 $total_product          = $product->count();
 $waitingtrs             = $transaction->type('sell')->ondate(['first day of this week', '+ 7 hours'])->status('wait')->get();

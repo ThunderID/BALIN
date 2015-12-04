@@ -15,11 +15,13 @@ class ChangeStatus extends Job implements SelfHandling
 {
     protected $transaction;
     protected $status;
+    protected $notes;
 
-    public function __construct(Transaction $transaction, $status)
+    public function __construct(Transaction $transaction, $status, $notes = '')
     {
         $this->transaction                  = $transaction;
         $this->status                       = $status;
+        $this->notes                        = $notes;
     }
 
     public function handle()
@@ -41,6 +43,7 @@ class ChangeStatus extends Job implements SelfHandling
         $translog->fill([
                 'transaction_id'            => $this->transaction->id,
                 'status'                    => $this->status,
+                'notes'                     => $this->notes,
                 'changed_at'                => date('Y-m-d H:i:s'),
             ]);
 

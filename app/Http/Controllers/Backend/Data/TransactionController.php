@@ -432,9 +432,18 @@ class TransactionController extends BaseController
 
 	public function ChangeStatus($id = null)
 	{
+		if(Input::has('notes'))
+		{
+			$notes 						= Input::get('notes');
+		}
+		else
+		{
+			$notes 						= '';
+		}
+
 		$transaction 					= Transaction::findorfail($id);
 
-		$result                         = $this->dispatch(new ChangeStatus($transaction, strtolower(Input::get('status'))));
+		$result                         = $this->dispatch(new ChangeStatus($transaction, strtolower(Input::get('status')), $notes));
 
 		if($result->getStatus()=='success')
 		{

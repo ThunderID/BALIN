@@ -1,6 +1,6 @@
 @inject('transaction', 'App\Models\Transaction')
 <?php
-	$orders 		= $transaction->userid(Auth::user()->id)->type('sell')->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->orderby('transact_at', 'desc')->with(['transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
+	$orders 		= $transaction->userid(Auth::user()->id)->type('sell')->status(['wait', 'paid', 'packed', 'shipping', 'delivered', 'canceled'])->orderby('transact_at', 'desc')->with(['transactiondetails', 'pointlogs', 'transactionlogs'])->paginate();
 ?>
 	<div class="row">
 		<div class="col-sm-12">

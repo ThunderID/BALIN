@@ -408,7 +408,7 @@
 				</thead>
 				<tbody>
 					@forelse($transaction['transactionlogs'] as $key => $value)
-						@if(in_array($value['status'], ['wait', 'paid', 'ship', 'delivered', 'canceled']))
+						@if(in_array($value['status'], ['wait', 'paid', 'packed', 'shipping', 'delivered', 'canceled']))
 						<tr>
 							<td> <strong> {{$status[$value['status']]}} </strong></td>
 							<td> @datetime_indo($value['changed_at']) </td>
