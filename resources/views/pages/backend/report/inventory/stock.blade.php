@@ -78,9 +78,15 @@ $datas 			= $datas->with(['varian', 'varian.product'])->paginate();
 								?> 
 								@if (count($datas) == 0)
 									<tr>
+										@if($subnav_active=='critical')
 										<td colspan="4" class="text-center">
 											Tidak ada data
 										</td>
+										@else
+										<td colspan="7" class="text-center">
+											Tidak ada data
+										</td>
+										@endif
 									</tr>
 								@else                                                                 
 									@foreach ($datas as $data)

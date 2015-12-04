@@ -530,7 +530,7 @@ $policies           = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? 
             </div>
         @endif
 
-        @if(!$cancels->count() && !$carts->count() && !$paids->count() && !$ship->count() && !$deliver->count() && !$voucher->count() && !$point->count() && !$quota->count() && !$prices->count() && !$policies->count())
+        @if(!$margins->count() && !$negatives->count() && !$positives->count() && !$bought->count() && !$trs->count() && !$canceled->count() && !$wait && !$stocks->count() && $product->count() && !$cancels->count() && !$carts->count() && !$paids->count() && !$ship->count() && !$deliver->count() && !$voucher->count() && !$point->count() && !$quota->count() && !$prices->count() && !$policies->count())
             <div class="col-sm-12 text-center">
                 <h3>There is nothing to do</h3>
                 <h2>Keep your dashboard clean</h2>

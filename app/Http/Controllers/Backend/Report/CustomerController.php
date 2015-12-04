@@ -28,7 +28,7 @@ class CustomerController extends BaseController
 
 		$searchResult							= NULL;
 
-		$filters 								= ['downline' => ['first day of this month', 'last day of this month']];
+		$filters 								= ['downline' => [null, 'now']];
 
 		if(Input::has('q'))
 		{
@@ -114,7 +114,7 @@ class CustomerController extends BaseController
 														'Laporan Balance Kostumer' 	=> route('backend.report.customer.balance')
 													];
 
-		$filters 								= ['balance' => 'today'];
+		$filters 								= ['balance' => 'now'];
 		$searchResult							= NULL;
 
 		if(Input::has('q'))

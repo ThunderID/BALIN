@@ -130,22 +130,25 @@ class JoinController extends BaseController
 			$errors->add('Customer', $data->getError());
 		}
 
-		$expired_at 							=  new Carbon('+ 3 months');
-
-		$plog 									= new PointLog;
-
-		$plog->fill([
-				'user_id'						=> $data->id,
-				'expired_at'					=> $expired_at->format('Y-m-d H:i:s'),
-			]);
-
-		$plog->reference()->associate($voucher);
-
-		if(!$plog->save())
+		if(!$errors->count())
 		{
-			$errors->add('Customer', $plog->getError());
-		}
+			$expired_at 							=  new Carbon('+ 3 months');
 
+			$plog 									= new PointLog;
+
+			$plog->fill([
+					'user_id'						=> $data->id,
+					'expired_at'					=> $expired_at->format('Y-m-d H:i:s'),
+				]);
+
+			$plog->reference()->associate($voucher);
+
+			if(!$plog->save())
+			{
+				$errors->add('Customer', $plog->getError());
+			}
+		}
+		
 		if ($errors->count())
 		{
 			DB::rollback();
