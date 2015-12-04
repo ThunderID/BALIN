@@ -228,6 +228,6 @@ class CustomerController extends BaseController
 								->name($inputs['name'])
 								->get();
 								
-		return json_decode(json_encode($tmp));
+		return Response::make($tmp);
 	}
 }
