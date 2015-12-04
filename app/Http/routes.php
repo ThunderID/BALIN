@@ -514,10 +514,13 @@ Route::group(['namespace' => 'Campaign\\'], function()
 	// EARLY SIGNUP
 	// ------------------------------------------------------------------------------------
 
-	Route::get('early/sign/up', 										['uses' => 'EarlySignUpController@getinvitation', 'as' => 'frontend.early.get']);
+	Route::get('early/sign/up', 										['uses' => 'EarlySignUpController@getearlier', 'as' => 'frontend.early.get']);
 
-	Route::post('early/sign/up', 										['uses' => 'EarlySignUpController@postinvitation', 'as' => 'frontend.early.post']);
+	Route::post('early/sign/up', 										['uses' => 'EarlySignUpController@postearlier', 'as' => 'frontend.early.post']);
 
+	Route::get('promo/sign/up', 										['uses' => 'EarlySignUpController@getpromo', 'as' => 'frontend.promo.get']);
+
+	Route::post('promo/sign/up', 										['uses' => 'EarlySignUpController@postpromo', 'as' => 'frontend.promo.post']);
 });
 
 Route::get('coba', function() {

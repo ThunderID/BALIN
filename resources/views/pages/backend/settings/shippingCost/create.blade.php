@@ -49,6 +49,7 @@
 	@else
 		{!! Form::open(['url' => route('backend.settings.shippingCost.store', ['cou_id' => $cou_id, 'id' => $id]), 'method' => 'POST']) !!}
 	@endif
+        {!! Form::hidden('courier_id', $cou_id) !!}  
         {!! Form::hidden('id',$data['id']) !!}  
 		<div class="row">
 			<div class="col-md-6">

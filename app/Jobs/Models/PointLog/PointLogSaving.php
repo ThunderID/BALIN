@@ -78,7 +78,7 @@ class PointLogSaving extends Job implements SelfHandling
             }
 
         }
-        elseif($this->pointlog->reference_type=='App\Models\Voucher' && $this->pointlog->reference->type=='promo_referral')
+        elseif($this->pointlog->reference_type=='App\Models\Voucher')
         {
             //Check referee
             $reference                  = PointLog::referenceid($this->pointlog->reference->user_id)->referencetype('App\Models\User')->first();
@@ -101,31 +101,39 @@ class PointLogSaving extends Job implements SelfHandling
             }
             else
             {
-                $prev_reference         = $this->pointlog->reference_id;
-
-                $gift                   = StoreSetting::type('invitation_royalty')->Ondate('now')->first();
-
-                if(!$gift)
+                $usercampaign           = UserCampaign::userid($this->pointlog->user_id)->used(false)->first();
+                if(!$usercampaign)
                 {
-                    $result             = new JSend('error', (array)$this->pointlog, 'Tidak ada campaign untuk point reference.');
-                }
-                elseif($this->pointlog->reference->value!=0)
-                {
-                    //temporary
-                    $this->pointlog->amount = $this->pointlog->reference->value;
-                    $this->pointlog->notes  = 'Referensi promo #'.$this->pointlog->reference->code;
-                    $this->pointlog->reference_type     = 'App\Models\User';
-                    $this->pointlog->reference_id       = $this->pointlog->reference->user->id;
-                    $result                 = new JSend('success', (array)$this->pointlog);
+                    $result             = new JSend('error', (array)$this->pointlog, 'Maaf, anda tidak terdaftar untuk campaign ini.');
                 }
                 else
                 {
-                    //temporary
-                    $this->pointlog->amount = $gift->value;
-                    $this->pointlog->notes  = 'Direferensikan '.$this->pointlog->reference->user->name;
-                    $this->pointlog->reference_type     = 'App\Models\User';
-                    $this->pointlog->reference_id       = $this->pointlog->reference->user->id;
-                    $result                 = new JSend('success', (array)$this->pointlog);
+                    $prev_reference         = $this->pointlog->reference_id;
+
+                    $gift                   = StoreSetting::type('invitation_royalty')->Ondate('now')->first();
+
+                    if(!$gift)
+                    {
+                        $result             = new JSend('error', (array)$this->pointlog, 'Tidak ada campaign untuk point reference.');
+                    }
+                    elseif($this->pointlog->reference->value!=0)
+                    {
+                        //temporary
+                        $this->pointlog->amount = $this->pointlog->reference->value;
+                        $this->pointlog->notes  = 'Referensi promo #'.$this->pointlog->reference->code;
+                        $this->pointlog->reference_type     = 'App\Models\User';
+                        $this->pointlog->reference_id       = $this->pointlog->reference->user->id;
+                        $result                 = new JSend('success', (array)$this->pointlog);
+                    }
+                    else
+                    {
+                        //temporary
+                        $this->pointlog->amount = $gift->value;
+                        $this->pointlog->notes  = 'Direferensikan '.$this->pointlog->reference->user->name;
+                        $this->pointlog->reference_type     = 'App\Models\User';
+                        $this->pointlog->reference_id       = $this->pointlog->reference->user->id;
+                        $result                 = new JSend('success', (array)$this->pointlog);
+                    }
                 }
                 
                 if($result->getStatus()=='success')

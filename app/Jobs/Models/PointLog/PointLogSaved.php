@@ -13,9 +13,10 @@ use App\Models\PointLog;
 use App\Models\QuotaLog;
 use App\Models\Voucher;
 use App\Models\StoreSetting;
+use App\Models\UserCampaign;
 
 use App\Jobs\Auditors\SaveAuditPoint;
-use App\Jobs\SendWelcomeInvitationEmail;
+use App\Jobs\SendWelcomeCampaignEmail;
 
 class PointLogSaved extends Job implements SelfHandling
 {
@@ -62,9 +63,14 @@ class PointLogSaved extends Job implements SelfHandling
                         $result             = new JSend('error', (array)$this->pointlog, $referee->getError());
                     }
                 }
-                elseif($voucher && $voucher['type']=='promo_referral')
+                elseif($voucher)
                 {
-                    $result                 = $this->dispatch(new SendWelcomeInvitationEmail($this->pointlog->user, $this->pointlog['amount']));
+                    $user                   = UserCampaign::userid($this->pointlog->user_id)->used(false)->first();
+                    $user->is_used          = true;
+
+                    $user->is_used->save();
+                    
+                    $result                 = $this->dispatch(new SendWelcomeCampaignEmail($this->pointlog->user, $this->pointlog['amount']));
                 }
             }
         }

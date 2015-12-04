@@ -10,7 +10,7 @@ use App\Models\StoreSetting;
 use Exception;
 use App\Libraries\JSend;
 
-class SendWelcomeInvitationEmail extends Job implements SelfHandling
+class SendWelcomeCampaignEmail extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
