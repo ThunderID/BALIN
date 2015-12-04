@@ -367,10 +367,6 @@ Route::group(['namespace' => 'Frontend\\'], function()
 
 	Route::post('do/signup',											['uses' => 'UserController@store', 'as' => 'frontend.user.store']);
 	
-	Route::get('join/by/invitation', 									['uses' => 'JoinController@getinvitation', 'as' => 'frontend.join.get']);
-
-	Route::post('join/by/invitation', 									['uses' => 'JoinController@postinvitation', 'as' => 'frontend.join.post']);
-	
 	// ------------------------------------------------------------------------------------
 	// FORGOT PASSWORD
 	// ------------------------------------------------------------------------------------
@@ -499,4 +495,27 @@ Route::group(['namespace' => 'Frontend\\'], function()
 	Route::get('/about/use', 											['uses' => 'AboutUsController@index', 		'as' => 'balin.about.us']);
 	
 	Route::get('/404', 													['uses' => 'ErrorController@er404', 		'as' => 'frontend.error.404']);
+});
+
+// ------------------------------------------------------------------------------------
+// CAMPAIGN
+// ------------------------------------------------------------------------------------
+Route::group(['namespace' => 'Campaign\\'], function() 
+{
+	// ------------------------------------------------------------------------------------
+	// INVITATION
+	// ------------------------------------------------------------------------------------
+
+	Route::get('join/by/invitation', 									['uses' => 'InvitationController@getinvitation', 'as' => 'frontend.join.get']);
+
+	Route::post('join/by/invitation', 									['uses' => 'InvitationController@postinvitation', 'as' => 'frontend.join.post']);
+
+	// ------------------------------------------------------------------------------------
+	// EARLY SIGNUP
+	// ------------------------------------------------------------------------------------
+
+	Route::get('early/sign/up', 										['uses' => 'EarlySignUpController@getinvitation', 'as' => 'frontend.early.get']);
+
+	Route::post('early/sign/up', 										['uses' => 'EarlySignUpController@postinvitation', 'as' => 'frontend.early.post']);
+
 });

@@ -28,22 +28,36 @@ class GenerateTransactionRefNumber extends Job implements SelfHandling
                 break;
 
                 default:
-                    $prefix                         = $this->transaction->type[0].date("ymd");
+                    $prefix                         = $this->transaction->type[0].date("ym");
 
                     $latest_transaction             = Transaction::select('ref_number')
                                                         ->refnumber($prefix)
                                                         ->orderBy('ref_number', 'DESC')
                                                         ->first();
 
-
-                    if(empty($latest_transaction))
+                    if(date('Y')=='2015')
                     {
-                        $number                     = 1;
+                        if(empty($latest_transaction))
+                        {
+                            $number                     = 47;
+                        }
+                        else
+                        {
+                            $number                     = 47 + (int)substr($latest_transaction['ref_number'],7);
+                        }
                     }
                     else
                     {
-                        $number                     = 1 + (int)substr($latest_transaction['ref_number'],7);
+                        if(empty($latest_transaction))
+                        {
+                            $number                     = 1;
+                        }
+                        else
+                        {
+                            $number                     = 1 + (int)substr($latest_transaction['ref_number'],7);
+                        }
                     }
+
 
                     $ref_number                     = str_pad($number,4,"0",STR_PAD_LEFT);
 
