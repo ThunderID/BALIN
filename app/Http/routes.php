@@ -524,5 +524,5 @@ Route::group(['namespace' => 'Campaign\\'], function()
 });
 
 Route::get('coba', function() {
-	return view('pages.campaign.softlaunch.index');
+	return view('pages.campaign.softlaunch.show');
 });

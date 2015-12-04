@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Frontend;
+<?php namespace App\Http\Controllers\Campaign;
 
 use App\Http\Controllers\BaseController;
 
@@ -20,7 +20,7 @@ class EarlySignUpController extends BaseController
 		}
 
 		$breadcrumb										= ['Early Sign Up' => route('frontend.join.get')];
-		$this->layout->page 							= view('pages.frontend.login.earlier')
+		$this->layout->page 							= view('pages.campaign.softlaunch.index')
 																->with('controller_name', $this->controller_name)
 																->with('breadcrumb', $breadcrumb)
 																;
@@ -39,7 +39,7 @@ class EarlySignUpController extends BaseController
 			return Redirect::route('frontend.user.index');
 		}
 		
-		$inputs 								= Input::only('name', 'email', 'date_of_birth', 'gender');
+		$inputs 								= Input::only('name', 'email');
 		
 		if (!is_null($id))
 		{
@@ -50,14 +50,14 @@ class EarlySignUpController extends BaseController
 			$data								= new User;
 		}
 		
-		if(preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))
-		{
-			$dob								= Carbon::createFromFormat('Y-m-d', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
-		}
-		else
-		{
-			$dob								= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
-		}
+		// if(preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))
+		// {
+		// 	$dob								= Carbon::createFromFormat('Y-m-d', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+		// }
+		// else
+		// {
+		// 	$dob								= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
+		// }
 		
 		if (Input::has('password') || is_null($id))
 		{
@@ -79,9 +79,9 @@ class EarlySignUpController extends BaseController
 		$data->fill([
 			'name' 								=> $inputs['name'],
 			'email'								=> $inputs['email'],
-			'date_of_birth'						=> $dob,
+			// 'date_of_birth'						=> $dob,
 			'role'								=> 'customer',
-			'gender'							=> $inputs['gender'],
+			// 'gender'							=> $inputs['gender'],
 			'password'							=> Input::get('password'),
 		]);
 
@@ -118,7 +118,7 @@ class EarlySignUpController extends BaseController
 		}
 
 		$breadcrumb										= ['Redeem Code' => route('frontend.join.get')];
-		$this->layout->page 							= view('pages.frontend.login.code')
+		$this->layout->page 							= view('pages.campaign.softlaunch.show')
 																->with('controller_name', $this->controller_name)
 																->with('breadcrumb', $breadcrumb)
 																;

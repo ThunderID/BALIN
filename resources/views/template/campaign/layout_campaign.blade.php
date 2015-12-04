@@ -31,14 +31,30 @@
 	   {!! HTML::style('https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700') !!}
 
 	   <link rel="shortcut icon" href="{{ url('Balin/web/image/favicon.ico') }} "/>
+	   <style type="text/css">
+	   		body {
+				background: url('../../../../Balin/web/image/bg.jpg') no-repeat;
+				background-position: 80% 50%;
+				-moz-background-size: cover;
+				-webkit-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+	   		}
+
+	   		@media (min-width: 768px) and (max-width: 992px) {
+	   			body {
+					background-position: 30% 50%;
+	   			}
+	   		}
+
+	   		@media (max-width: 767px) {
+	   			body {
+					background-position: 15% 50%;
+	   			}
+	   		}
+	   </style>
 	</head>
-	<body style="
-		background: url('Balin/web/image/bg.jpg') no-repeat;
-		background-position: center center;
-		-moz-background-size: cover;
-	    -webkit-background-size: cover;
-	    -o-background-size: cover;
-	    background-size: cover;">
+	<body>
 		<div class="container" id="container">
 			@yield('content')
 		</div>

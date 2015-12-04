@@ -2290,6 +2290,10 @@ footer .footer-title-logo a:hover {
   }
 }
 .softlaunch-sign-up .form-softlaunch {
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ddd;
+  margin-top: 45%;
+}
+.softlaunch-sign-up .form-softlaunch h3 {
+  letter-spacing: 0.02em;
 }
