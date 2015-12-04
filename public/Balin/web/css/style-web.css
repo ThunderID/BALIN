@@ -82,6 +82,9 @@ a.hover-gold:hover {
   border-bottom-width: 1px;
   border-bottom-style: dashed;
 }
+.border-bottom.grey {
+  border-bottom-color: #999;
+}
 .border-right {
   border-right: 1px solid #ccc;
 }

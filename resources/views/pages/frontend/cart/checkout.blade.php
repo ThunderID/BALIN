@@ -2,6 +2,8 @@
 <?php	
 	$carts = Session::get('baskets'); 
 	$tc = $tc::type('term_and_condition')->ondate('now')->orderby('started_at', 'desc')->first();
+
+	$ra = $_SERVER['REMOTE_ADDR'];
 ?>
 @extends('template.frontend.layout')
 
@@ -90,27 +92,45 @@
 						@if ($carts)
 							<div class="col-lg-12 col-md-12 hidden-sm hidden-xs checkout-bottom panel-subtotal" id="panel-subtotal-normal">
 								<div class="clearfix">&nbsp;</div>
-								<div class="row">
+								<div class="row m-l-none m-r-none">
+									<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left text-left border-bottom">
+										<span class="">Total</span>
+									</div>
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
+										<span class="text-right" id="total">@money_indo($total)</span>
+									</div>
+								</div>
+								<div class="row m-l-none m-r-none">
 									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
 										<span class="">Poin Anda</span>
 									</div>
-									<div class="col-lg-5 col-md-5 col-sm-5 text-right p-r-lg">
+									<div class="col-lg-5 col-md-5 col-sm-5 text-right">
 										<span class="text-right" id="point">@money_indo(Auth::user()->balance)</span>
 									</div>	
 								</div>
-								<div class="row">
+								<div class="row m-l-none m-r-none">
 									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
 										<span >Biaya Pengiriman</span>
 									</div>
-									<div class="col-lg-5 col-md-5 col-sm-5 text-right p-r-lg">
-										<span class="text-right shippingcost">@money_indo(0)</span>
+									<div class="col-lg-5 col-md-5 col-sm-5 text-right">
+										<span class="text-right shippingcost" data-s="0" data-v="0">@money_indo(0)</span>
 									</div>	
 								</div>
-								<div class="row">
+								<div class="row m-l-none m-r-none">
+									<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
+										<span>
+											Angka Unik <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number" data-modal-title="Angka Unik ( Unique Number )"><i class="fa fa-question-circle"></i></a>
+										</span>
+									</div>
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
+										<span class="text-right uniquenumber" data-unique="{{ $transaction['unique_number'] }}">@money_indo_negative($transaction['unique_number'])</span>
+									</div>
+								</div>
+								<div class="row m-l-none m-r-none">
 									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
 										<h4>SubTotal</h4>
 									</div>
-									<div class="col-lg-5 col-md-5 col-sm-5 p-r-lg">
+									<div class="col-lg-5 col-md-5 col-sm-5">
 										<h4 class="text-right subtotal" style="font-weight: bold;">
 											@if ($total)
 												@money_indo($total)
@@ -171,9 +191,9 @@
 											<label class="hollow-label" for="name">Pilih Alamat</label>
 											<select class="form-control hollow choice_address" name="address_id" id="address_id">
 												@foreach($addresses as $key => $value)
-													<option value={{$value['id']}} selected>{{$value['address']}}</option>
+													<option value={{$value['id']}} data-receiver-name="{{ $value['receiver_name'] }}" data-address="{{ $value['address'] }}" data-kodepos="{{ $value['zipcode'] }}" data-phone="{{ $value['phone'] }}" data-action="{{ route('frontend.address.get.ajax', $value['id']) }}" title="{{ $value['address'] }}{{ $value['zipcode'] }}">{{ $value['receiver_name'] }} - {{$value['address']}}</option>
 												@endforeach
-												<option value="0">Tambah Alamat Baru</option>
+												<option value="0" selected>Tambah Alamat Baru</option>
 											</select>
 										</div>
 									</div>
@@ -182,18 +202,18 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label class="hollow-label" for="">Nama Penerima</label>
-											{!! Form::input('text', 'receiver_name', null, [
-													'class' 		=> 'form-control hollow transaction-input-postal-code',
+											{!! Form::input('text', 'receiver_name', Auth::user()->name, [
+													'class' 		=> 'form-control hollow ch-name',
 											]) !!}
 										</div>
 									</div>
 								</div>
-								<div class="row new-address new-address-hide">
+								<div class="row new-address">
 									<div class="col-md-12">
 										<div class="form-group">
 											<label class="hollow-label" for="">Alamat</label>
 											{!! Form::textarea('address', null, [
-													'class' 		=> 'form-control hollow transaction-input-address',
+													'class' 		=> 'form-control hollow ch-address',
 													'rows'      => '2',
 													'style'     => 'resize:none;',
 											]) !!}
@@ -201,14 +221,14 @@
 										<div class="form-group">
 											<label class="hollow-label" for="">Kode Pos</label>
 											{!! Form::input('number', 'zipcode', null, [
-													'class' 		=> 'form-control hollow transaction-input-postal-code',
+													'class' 		=> 'form-control hollow ch-zipcode',
 													'id'			=> 'zipcode'
 											]) !!}
 										</div>
 										<div class="form-group">
-											<label class="hollow-label" for="">No. Tlp</label>
+											<label class="hollow-label" for="">No. Telp</label>
 											{!! Form::input('text', 'phone', null, [
-													'class' 		=> 'form-control hollow transaction-input-phone',
+													'class' 		=> 'form-control hollow ch-phone',
 											]) !!}
 										</div>
 									</div>
@@ -273,6 +293,16 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="col-sm-7 text-left">
+									<span>Total</span>
+								</div>
+								<div class="col-sm-5 text-right">
+									<span class="text-right" id="total">@money_indo($total)</span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="col-sm-7 text-left">
 									<span>Poin Anda</span>
 								</div>
 								<div class="col-sm-5 text-right">
@@ -286,7 +316,19 @@
 									<span>Biaya Pengiriman</span>
 								</div>
 								<div class="col-sm-5 text-right">
-									<span class="text-right shippingcost">@money_indo(0)</span>
+									<span class="text-right shippingcost" data-s="0" data-v="0">@money_indo(0)</span>
+								</div>	
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="col-sm-7 text-left border-bottom grey">
+									<span>
+										Angka Unik <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number" data-modal-title="Angka Unik ( Unique Number )"><i class="fa fa-question-circle"></i></a>
+									</span>
+								</div>
+								<div class="col-sm-5 text-right border-bottom grey">
+									<span class="text-right uniquenumber" data-unique="{{ $transaction['unique_number'] }}">@money_indo_negative($transaction['unique_number'])</span>
 								</div>	
 							</div>
 						</div>
@@ -323,9 +365,7 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row clearfix">&nbsp;</div>
-
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="col-sm-12 text-center">
@@ -339,7 +379,6 @@
 					<div class="clearfix hidden-xs">&nbsp;</div>
 					<div class="clearfix hidden-xs">&nbsp;</div>
 				</div>
-
 			@endif
 
 			<!-- total mobile -->
@@ -372,7 +411,7 @@
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
 					<div class="row p-t-sm m-b-none">
 						<div class="col-xs-12">
-							<h4 style="color:#FFF;" class="text-center">Sub Total</h4>
+							<h4 style="color:#FFF;" class="text-center">Total</h4>
 						</div>
 					</div>
 					<div class="row">
@@ -384,8 +423,6 @@
 							</h3>
 						</div>
 					</div>
-
-
 					<div class="row m-b-none">
 						<div class="col-xs-12">
 							<h4 style="color:#FFF;" class="text-center">Poin Anda</h4>
@@ -398,26 +435,33 @@
 							</h3>
 						</div>
 					</div>
-
-
-
 					<div class="row m-b-none">
 						<div class="col-xs-12">
 							<h4 style="color:#FFF;" class="text-center">Biaya Pengiriman</h4>
 						</div>
 					</div>
-					<div class="row m-b-sm">
+					<div class="row">
 						<div class="col-xs-12">
-							<h3 style="color:#fff;" class="text-center m-t-none shippingcost">
+							<h3 style="color:#fff;" class="text-center m-t-none shippingcost" data-s="0" data-v="0">
 								@money_indo(0)
 							</h3>
 						</div>
 					</div>
-
-
+					<div class="row m-b-none">
+						<div class="col-xs-12">
+							<h4 style="color:#fff;" class="text-center">Angka Unik <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number" data-modal-title="Angka Unik ( Unique Number )"><i class="fa fa-question-circle"></i></a></h4>
+						</div>
+					</div>
+					<div class="row m-b-sm">
+						<div class="col-xs-12">
+							<h3 style="color:#fff;" class="text-center m-t-none uniquenumber" data-unique="{{ $transaction['unique_number'] }}">
+								@money_indo_negative($transaction['unique_number'])
+							</h3>
+						</div>
+					</div>
 					<div class="row m-b-none" style="border-top: 1px solid #fff">
 						<div class="col-xs-12">
-							<h3 style="color:#fff;" class="text-center">Total</h3>
+							<h3 style="color:#fff;" class="text-center">SubTotal</h3>
 						</div>
 					</div>
 					<div class="row">
@@ -490,7 +534,34 @@
 	</div>			
 </div>		
 
+<!-- Modal Balance -->
+<div id="modal-balance" class="modal modal-unique-number modal-fullscreen fade user-page" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  	<div class="modal-dialog modal-lg">
+    	<div class="modal-content">
+			<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+	       		<h5 class="modal-title" id="exampleModalLabel">Angka Unik ( Unique Number )</h5>
+	      	</div>
+	      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
+				Angka Unik atau Unique Number adalah kode atau angka yang kami gunakan untuk mempermudah bagian finance (keuangan) kami dalam mengenali dana pembayaran yang masuk ke rekening kami. 
+				Berbeda dengan toko online lainnya dimana kode seperti ini biasanya akan menambah jumlah pembayaran pelanggan, angka yang kami gunakan selalu minus, sehingga nilai pembayaran yang baru selalu lebih kecil dari nilai yang sebelumnya. Dengan demikian, para pelanggan kami tidak akan merasa dirugikan sepeserpun. 
+				Saat ini, Angka Unik ini hanya berlaku untuk metode pembayaran transfer saja.
+	      	</div>
+   		</div>
+  	</div>
+</div>
 
+@stop
+
+@section('script')
+	$(".modal-fullscreen").on('show.bs.modal', function () {
+	  	setTimeout( function() {
+	    	$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
+	  	}, 0);
+	});
+	$(".modal-fullscreen").on('hidden.bs.modal', function () {
+		$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
+	});
 @stop
 
 @section('script_plugin')

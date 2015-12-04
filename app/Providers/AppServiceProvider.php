@@ -38,6 +38,11 @@ class AppServiceProvider extends ServiceProvider
         {
             return "<?php echo 'IDR '.number_format($expression, 0, ',', '.'); ?>";
         });
+
+        Blade::directive('money_indo_negative', function($expression)
+        {
+            return "<?php echo 'IDR -'.number_format($expression, 0, ',', '.'); ?>";
+        });
  
         Config::set('fb_app.id', '491225264379551');
 
