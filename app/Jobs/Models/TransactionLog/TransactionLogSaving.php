@@ -49,10 +49,10 @@ class TransactionLogSaving extends Job implements SelfHandling
                         $result             = $this->dispatch(new CheckAddress($this->transactionlog->transaction));
                     }
                 break;
-                case 'paid' : 
+                case 'paid' : case 'packed' :
                     if(in_array($this->transactionlog->transaction->status, ['cart']))
                     {
-                       $result              = new JSend('error', (array)$this->transactionlog, 'Tidak dapat mengabaikan transaksi yang bukan belum di checkout.');
+                       $result              = new JSend('error', (array)$this->transactionlog, 'Tidak dapat memvalidasi transaksi yang bukan belum di checkout.');
                     }
 
                     if($result->getStatus()=='success')

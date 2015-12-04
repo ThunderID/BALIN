@@ -260,7 +260,7 @@ class TransactionDetail extends Eloquent
 		return 	$query
 					->selectraw('transaction_details.*')
 					->selectglobalstock(true)
-					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->groupBy('varian_id')
 					;
 		;
@@ -270,7 +270,7 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 					->selectraw('transaction_details.*')
-					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->orderByRaw(DB::raw('varian_id asc, transactions.transact_at asc'))
 					;
 		;
@@ -280,7 +280,7 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 					->selectinventorystock(true)
-					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->first()
 		;
 	}
@@ -288,7 +288,7 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 					->selectonholdstock(true)
-					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->first()
 		;
 	}
@@ -297,7 +297,7 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 					->selectcurrentstock(true)
-					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->first()
 					;
 		;
@@ -307,7 +307,7 @@ class TransactionDetail extends Eloquent
 	{
 		return 	$query
 					->selectreservedstock(true)
-					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->first()
 					;
 		;
@@ -318,7 +318,7 @@ class TransactionDetail extends Eloquent
 		return 	$query
 				->selectraw('transaction_details.*')
 				->selectcurrentstock(true)
-				->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+				->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 				->HavingCurrentStock($variable)
 				->orderby('current_stock', 'asc')
 				->groupBy('varian_id')
@@ -330,7 +330,7 @@ class TransactionDetail extends Eloquent
 		return 	$query
 					->selectcurrentstock(true)
 					->JoinVarianFromTransactionDetail(true)
-					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->where('varians.product_id', $variable)
 					->first()
 					;

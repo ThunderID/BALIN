@@ -152,7 +152,7 @@ class Varian extends Eloquent
 		return 	$query->selectraw('varians.*')
 					->selectglobalstock(true)
 					->JoinTransactionDetailFromVarian(true)
-					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->groupby('varians.id')
 					;
 		;
@@ -164,7 +164,7 @@ class Varian extends Eloquent
 					->selectglobalstock(true)
 					->LeftJoinTransactionDetailFromVarian(true)
 					->LeftJoinTransaction(true)
-					->LeftTransactionLogStatus(['wait', 'paid', 'shipping', 'delivered'])
+					->LeftTransactionLogStatus(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->groupby('varians.id')
 					;
 		;

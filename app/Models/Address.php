@@ -135,7 +135,7 @@ class Address extends Eloquent
 						->wherenull('transactions.deleted_at')
 						;
 					})
-					->transactionlogstatus(['wait', 'paid', 'shipping', 'delivered'])
+					->transactionlogstatus(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->extendtransactiontype('sell')
 					->groupby('addresses.id')
 				;

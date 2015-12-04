@@ -292,7 +292,7 @@ class Product extends Eloquent
 		return 	$query->selectraw('products.*')
 					->selectcurrentstock(true)
 					->JoinTransactionDetailFromProduct(true)
-					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->HavingCurrentStock(0)
 					->groupby('products.id')
 					;
@@ -304,7 +304,7 @@ class Product extends Eloquent
 		return 	$query->selectraw('products.*')
 					->selectglobalstock(true)
 					->JoinTransactionDetailFromProduct(true)
-					->TransactionStockOn(['wait', 'paid', 'shipping', 'delivered'])
+					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->groupby('products.id')
 					;
 		;
@@ -332,7 +332,7 @@ class Product extends Eloquent
 						->wherenull('transactions.deleted_at')
 						;
 					})
-					->LeftTransactionLogStatus(['wait', 'paid', 'shipping', 'delivered'])
+					->LeftTransactionLogStatus(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->groupby('products.id')
 					;
 		;

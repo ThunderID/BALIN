@@ -29,6 +29,8 @@ else
 }
 
 $datas 				= $datas->paginate();
+
+$status     = ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Packing', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 
 @extends('template.backend.layout')
@@ -114,7 +116,7 @@ $datas 				= $datas->paginate();
 											<td>{{ $data['supplier']['name'] }}</td>
 										@endif
 										<td class="text-center">@datetime_indo($data['transact_at'])</td>
-										<td class="text-center">{{ $data['status'] }} </td>
+										<td class="text-center">{{ $status[$data['status']] }} </td>
 										<td class="text-right">@money_indo($data['amount']) </td>
 										<td class="text-center">
 											<a href="{{route('backend.data.transaction.show', ['id' => $data['id'], 'type' => $data['type']])}}">Detail</a>,

@@ -1,5 +1,5 @@
 <?php 
-	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 	<div class="row">
 		<div class="col-md-8 col-sm-8 col-xs-12">
@@ -408,9 +408,14 @@
 				</thead>
 				<tbody>
 					@forelse($transaction['transactionlogs'] as $key => $value)
-						@if(in_array($value['status'], ['wait', 'paid', 'ship', 'delivered', 'canceled']))
+						@if(in_array($value['status'], ['wait', 'paid', 'packed', 'shipping', 'delivered', 'canceled']))
 						<tr>
-							<td> <strong> {{$status[$value['status']]}} </strong></td>
+							<td> 
+								<strong> {{$status[$value['status']]}} </strong>
+								@if($value['status']=='delivered')
+									<p>{{$value['notes']}}</p>
+								@endif
+							</td>
 							<td> @datetime_indo($value['changed_at']) </td>
 						</tr>
 						@endif

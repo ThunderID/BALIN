@@ -1,5 +1,6 @@
 @inject('data', 'App\Models\Transaction')
 <?php 
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Packing', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 
 @extends('template.backend.layout') 
@@ -47,7 +48,7 @@
 						<label for="status" class="text-capitalize">Status</label>
 					</div>
 					<div class="col-sm-9">
-						{!! Form::select('status', ['abandoned' => 'Terabaikan','cart' => 'Keranjang', 'wait' => 'Proses, Menunggu Pembayaran', 'paid' => 'Sudah dibayar, belum dikirim', 'shipping' => 'Sedang dalam pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pembatalan Pesanan'], $transaction['status'], ['class' => 'form-control', 'tabindex' => '1']) !!}
+						{!! Form::select('status', $status, $transaction['status'], ['class' => 'form-control', 'tabindex' => '1']) !!}
 					</div>
 				</div>
 				<div class="clearfix">&nbsp;</div>

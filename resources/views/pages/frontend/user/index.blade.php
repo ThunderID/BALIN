@@ -210,7 +210,7 @@
 	<div class="row content-info m-l-none m-r-none">
 		<div class="col-sm-12">
 			<?php
-				$orders 	= App\Models\Transaction::userid(Auth::user()->id)->status(['wait', 'paid', 'shipping', 'delivered', 'canceled'])->with(['shipment', 'shipment.address'])->orderby('transact_at', 'desc')->paginate();
+				$orders 	= App\Models\Transaction::userid(Auth::user()->id)->status(['wait', 'paid', 'packed', 'shipping', 'delivered', 'canceled'])->with(['shipment', 'shipment.address'])->orderby('transact_at', 'desc')->paginate();
 			?>
 
 			@forelse ($orders as $k => $v)
