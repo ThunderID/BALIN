@@ -410,7 +410,12 @@
 					@forelse($transaction['transactionlogs'] as $key => $value)
 						@if(in_array($value['status'], ['wait', 'paid', 'packed', 'shipping', 'delivered', 'canceled']))
 						<tr>
-							<td> <strong> {{$status[$value['status']]}} </strong></td>
+							<td> 
+								<strong> {{$status[$value['status']]}} </strong>
+								@if($value['status']=='delivered')
+									<p>{{$value['notes']}}</p>
+								@endif
+							</td>
 							<td> @datetime_indo($value['changed_at']) </td>
 						</tr>
 						@endif
