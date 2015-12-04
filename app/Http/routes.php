@@ -519,3 +519,7 @@ Route::group(['namespace' => 'Campaign\\'], function()
 	Route::post('early/sign/up', 										['uses' => 'EarlySignUpController@postinvitation', 'as' => 'frontend.early.post']);
 
 });
+
+Route::get('coba', function() {
+	return view('pages.campaign.softlaunch.index');
+});

@@ -4,7 +4,7 @@
 <table style="width:100%">
 	<tr class="row">
 		<td class="col-sm-2" style="width:20%">
-			{!! HTML::image('Balin/web/image/logo-invoice.png', null, ['class' => 'img img-responsive', 'style' => 'max-width:200px;']) !!}
+			<img src="<?php echo  $message->embed('Balin/web/image/logo-invoice.png'); ?>" class="img img-responsive" style="max-width:200px">
 		</td>
 		<td class="col-sm-3" style="width:40%">
 			<h4>CV. BALIN INDONESIA</h4>
