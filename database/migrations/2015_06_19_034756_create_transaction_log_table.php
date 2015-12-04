@@ -17,6 +17,7 @@ class CreateTransactionLogTable extends Migration
             $table->integer('transaction_id')->unsigned()->index();
             $table->string('status', 255);
             $table->datetime('changed_at');
+            $table->text('notes');
             $table->timestamps();
             $table->softDeletes();
             
