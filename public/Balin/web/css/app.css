@@ -1711,10 +1711,6 @@ span.info {
   color: #000;
   text-decoration: none;
 }
-.page-join .panel-hollow {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ddd;
-}
 .panel-voucher {
   background-color: #000;
   color: #fff;
@@ -2338,19 +2334,4 @@ footer .footer-title-logo a:hover {
 }
 .softlaunch-sign-up .form-softlaunch h3 {
   letter-spacing: 0.02em;
-}
-.bg-ground {
-  background: url('../../../../Balin/web/image/bg.jpg') no-repeat 100% 50%;
-  background-size: cover;
-}
-@media (min-width: 768px) and (max-width: 992px) {
-  .bg-ground {
-    background-position: 15% 50%;
-  }
-}
-@media (max-width: 767px) {
-  .bg-ground {
-    background-position: 15% 50%;
-    min-height: 100%;
-  }
 }
