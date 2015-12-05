@@ -514,13 +514,16 @@ Route::group(['namespace' => 'Campaign\\'], function()
 	// EARLY SIGNUP
 	// ------------------------------------------------------------------------------------
 
-	Route::get('early/sign/up', 										['uses' => 'EarlySignUpController@getearlier', 'as' => 'frontend.early.get']);
+	Route::group(['domain' => 'early.balin.id'], function()
+	{
+		Route::get('/', 										['uses' => 'EarlySignUpController@getearlier', 'as' => 'frontend.early.get']);
 
-	Route::post('early/sign/up', 										['uses' => 'EarlySignUpController@postearlier', 'as' => 'frontend.early.post']);
-	
-	Route::get('early/sign/up/sso', 									['uses' => 'EarlySignUpController@postearliersso', 'as' => 'frontend.earlysso.post']);
+		Route::post('/', 										['uses' => 'EarlySignUpController@postearlier', 'as' => 'frontend.early.post']);
+		
+		Route::get('/sso', 										['uses' => 'EarlySignUpController@postearliersso', 'as' => 'frontend.earlysso.post']);
 
-	Route::get('promo/sign/up', 										['uses' => 'EarlySignUpController@getpromo', 'as' => 'frontend.promo.get']);
+		Route::get('/redeem', 									['uses' => 'EarlySignUpController@getpromo', 'as' => 'frontend.promo.get']);
 
-	Route::post('promo/sign/up', 										['uses' => 'EarlySignUpController@postpromo', 'as' => 'frontend.promo.post']);
+		Route::post('/redeem', 									['uses' => 'EarlySignUpController@postpromo', 'as' => 'frontend.promo.post']);
+	});
 });
