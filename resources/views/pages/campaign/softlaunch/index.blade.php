@@ -16,11 +16,11 @@
 
 				<div class="form-softlaunch p-sm p-l-md p-r-md" style="@if (Session::has('msg-type') && Session::get('msg-type')=='success') margin-top: 30%; @else margin-top: 10%; @endif">
 					@if (Session::has('msg-type') && Session::get('msg-type')=='success')
-						<p class="text-center">{{ Session::get('msg') }}</p>
+						<p class="text-center">{!! Session::get('msg') !!}</p>
 					@else
 					<h3 class="m-t-xs m-b-lg">Early Sign Up</h3>
 					@include('widgets.alerts')
-					{!! Form::open(['url' => route('frontend.early.post')]) !!}
+					{!! Form::open(['url' => route('campaign.early.post')]) !!}
 						<div class="form-group">
 							<label for="" style="font-weight:400">Name</label>
 							{!! Form::text('name', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Nama', 'required']) !!}
@@ -52,18 +52,19 @@
 								{!! Form::text('voucher', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Promo Referral', 'required']) !!}
 							</div>
 						@endif
-						<div class="checkbox">
-							<label class="t-xs" style="color:#666">
-								<input type="checkbox" required>
-								Saya menyetujui <a href="#" class="link-black hover-grey unstyle" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> untuk melakukan pendaftaran.. 
-							</label>
+						<div class="form-group">
+							<p>Dengan mendaftar ke akun balin saya menyetujui <a href="#" class="link-black hover-grey unstyle" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> untuk dari pihak balin.id.</p>
+							<!-- <label class="t-xs" style="color:#666"> -->
+								<!-- <input name="term" type="checkbox" required> -->
+								<!-- Saya menyetujui <a href="#" class="link-black hover-grey unstyle" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> untuk melakukan pendaftaran.  -->
+							<!-- </label> -->
 						</div>
-						<div class="form-group text-left">
+						<div class="form-group text-let">
 						    <button type="submit" class="btn-hollow hollow-black-border">Sign Up</button>
 						</div>
 					{!! Form::close() !!}
 					<div class="form-group text-left m-t-xl m-b-xs">
-					    <a href="{{route('frontend.earlysso.post')}}" class="btn-hollow hollow-black-border"><i class="fa fa-facebook"></i>&nbsp; Sign Up with Facebook</a>
+						    <a href="{{route('campaign.earlysso.post')}}" class="btn-hollow hollow-black-border"><i class="fa fa-facebook"></i>&nbsp; Sign Up with Facebook</a>
 					</div>
 					@endif
 				</div>

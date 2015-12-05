@@ -18,10 +18,10 @@ class EarlySignUpController extends BaseController
 	{	
 		if(Auth::check())
 		{
-			return Redirect::route('frontend.promo.get');
+			return Redirect::route('campaign.promo.get');
 		}
 
-		$breadcrumb										= ['Early Sign Up' => route('frontend.early.get')];
+		$breadcrumb										= ['Early Sign Up' => route('campaign.early.get')];
 		$this->layout->page 							= view('pages.campaign.softlaunch.index')
 																->with('controller_name', $this->controller_name)
 																->with('breadcrumb', $breadcrumb)
@@ -38,9 +38,13 @@ class EarlySignUpController extends BaseController
 	{
 		if(Auth::check())
 		{
-			return Redirect::route('frontend.promo.get');
+			return Redirect::route('campaign.promo.get');
 		}
-		
+		// if(!Input::has('term'))
+		// {
+			// return Redirect::back()->withInput()->withErrors('Anda harus menyetujui syarat dan ketentuan BALIN.ID.')->with('msg-type', 'danger');
+		// }
+
 		$inputs 								= Input::only('name', 'email');
 		
 		if (!is_null($id))
@@ -117,13 +121,13 @@ class EarlySignUpController extends BaseController
 
 			Auth::loginusingid($data->id);
 
-			return Redirect::route('frontend.promo.get');
+			return Redirect::route('campaign.promo.get');
 		}
 	}
 
 	public function postearliersso()
 	{
-		Session::put('login_redirect', route('frontend.promo.get'));
+		Session::put('login_redirect', route('campaign.promo.get'));
 		Session::put('is_campaign', true);
 
 		return Socialite::driver('facebook')->redirect();
@@ -160,17 +164,17 @@ class EarlySignUpController extends BaseController
 
 	// 	Auth::loginUsingId($registered->id);
 
-	// 	return Redirect::route('frontend.promo.get');
+	// 	return Redirect::route('campaign.promo.get');
 	// }
 
 	public function getpromo()
 	{	
 		if(!Auth::check())
 		{
-			return Redirect::route('frontend.promo.get');
+			return Redirect::route('campaign.promo.get');
 		}
 
-		$breadcrumb										= ['Redeem Code' => route('frontend.join.get')];
+		$breadcrumb										= ['Redeem Code' => route('campaign.join.get')];
 		$this->layout->page 							= view('pages.campaign.softlaunch.show')
 																->with('controller_name', $this->controller_name)
 																->with('breadcrumb', $breadcrumb)
@@ -233,7 +237,7 @@ class EarlySignUpController extends BaseController
 		{
 			DB::commit();
 			Auth::logout();
-			return Redirect::route('frontend.early.get')
+			return Redirect::route('campaign.early.get')
 				->with('msg', 'Selamat!<br> Anda mendapat Balin Point senilai '.number_format($voucher['value'], 0, ',', '.').'. Dapat digunakan mulai Senin, 7 Desember 2015')
 				->with('msg-type', 'success');
 		}
