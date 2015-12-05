@@ -17,8 +17,8 @@ Route::group(['namespace' => 'Campaign\\'], function()
 	// EARLY SIGNUP
 	// ------------------------------------------------------------------------------------
 
-	Route::group(['prefix' => 'early'], function()
-	// Route::group(['domain' => 'early.balin.id'], function()
+	// Route::group(['prefix' => 'early'], function()
+	Route::group(['domain' => 'early.balin.id'], function()
 	{
 		Route::get('/', 										['uses' => 'EarlySignUpController@getearlier', 'as' => 'frontend.early.get']);
 
