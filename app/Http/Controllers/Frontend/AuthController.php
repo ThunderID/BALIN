@@ -148,7 +148,9 @@ class AuthController extends BaseController
             }
         }
 
-		return Redirect::intended($redirect);
+		return Redirect::intended($redirect)
+							->with('msg', 'Selamat anda sudah terdaftar diwebsite balin')
+							->with('msg-type', 'success');
 	}
 
 	public function activateAccount($activation_link)

@@ -121,7 +121,9 @@ class EarlySignUpController extends BaseController
 
 			Auth::loginusingid($data->id);
 
-			return Redirect::route('campaign.promo.get');
+			return Redirect::route('campaign.promo.get')
+								->with('msg', 'Selamat anda sudah terdaftar diwebsite balin')
+								->with('msg-type', 'success');
 		}
 	}
 
