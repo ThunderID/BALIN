@@ -8,7 +8,7 @@
 					@include('widgets.alerts')
 					{!! Form::open(['url' => route('campaign.promo.post')]) !!}
 						<div class="form-group m-b-xs">
-							<p class="p-xxs m-b-none">Selamat! Anda telah terdaftar dalam periode prelaunching Balin. Masukkan voucher code prelaunching dibawah ini, dapatkan promo spesial Balin point yang bisa digunakan saat Balin telah launching.</p>
+							<p class="p-xxs m-b-none">Selamat! Anda telah terdaftar dalam periode prelaunching Balin. Masukkan voucher code prelaunching di bawah ini, dapatkan promo spesial Balin point yang bisa digunakan saat Balin telah launching.</p>
 						</div>
 						<div class="form-group">
 							{!! Form::text('voucher', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Voucher Code Anda', 'required']) !!}
