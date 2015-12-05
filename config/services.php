@@ -40,4 +40,8 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET', '548dc7aa90470c9be30648377d9ce3ba'),
         'redirect'      => env('FACEBOOK_REDIRECT', 'http://localhost:8000/sso/success'),
     ],
+
+    'mandrill' => [
+        'secret' => env('MAIL_PASSWORD', ''),
+    ],
 ];
