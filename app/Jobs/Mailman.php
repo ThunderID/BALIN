@@ -21,9 +21,10 @@ class Mailman extends Job implements SelfHandling
     {
         try
         {
-            $mail->send($this->mail_data['view'], ['data' => $this->mail_data['datas']], function($message)
+            Mail::send($this->mail_data['view'], ['data' => $this->mail_data['datas']], function($message)
             {
                 $message->from(Config::get('mail.from.address'), Config::get('mail.from.name'));
+                // $message->from('help@balin.id'), 'Balin.id');
                 $message->to($this->mail_data['dest_email'], $this->mail_data['dest_name'])->subject($this->mail_data['subject']);
             }); 
         
