@@ -14,11 +14,11 @@
 				}
 				?>	
 
-				<div class="form-softlaunch p-sm" style="margin-top: 10%;">
-					@if (isset($msg-type) && $msg-type=='success')
-						<p>{{ $msg }}</p>
+				<div class="form-softlaunch p-sm p-l-md p-r-md" style="margin-top: 10%;">
+					@if (Session::has('msg-type') && Session::get('msg-type')=='success')
+						<p>{{ Session::get('msg') }}</p>
 					@else
-					<h3 class="m-t-xs">Early Sign Up</h3>
+					<h3 class="m-t-xs m-b-lg">Early Sign Up</h3>
 					{!! Form::open(['url' => route('frontend.early.post')]) !!}
 						<div class="form-group">
 							<label for="" style="font-weight:400">Name</label>
