@@ -151,7 +151,7 @@ class AuthController extends BaseController
         }
 
 		return Redirect::intended($redirect)
-							->with('msg', 'Selamat anda sudah terdaftar diwebsite balin')
+							->with('msg', 'Terima kasih sudah mendaftar diwebsite kami.')
 							->with('msg-type', 'success');
 	}
 

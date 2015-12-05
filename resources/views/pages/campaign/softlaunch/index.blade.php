@@ -16,7 +16,12 @@
 
 				<div class="form-softlaunch p-sm p-l-md p-r-md" style="@if (Session::has('msg-type') && Session::get('msg-type')=='success') margin-top: 30%; @else margin-top: 10%; @endif">
 					@if (Session::has('msg-type') && Session::get('msg-type')=='success')
-						<p class="text-center">{!! Session::get('msg') !!}</p>
+						<div class="text-center">
+							<h3 class="">Selamat!</h3> 
+							<h4 class="m-b-sm">Anda mendapat Balin Point senilai</h4> 
+							<h3 class="m-b-none">@money_indo(Session::get('msg'))</h3>
+							<h4 class="m-b-md">Dapat digunakan waktu website kami Launching</h4>
+						</div>
 					@else
 					<h3 class="m-t-xs m-b-lg">Early Sign Up</h3>
 					@include('widgets.alerts')
