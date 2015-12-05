@@ -83,16 +83,18 @@ class AuthController extends BaseController
 
 		if($registered)
 		{
-			$registered->fill([
-				'sso_id' 				=> $user->id,
-				'sso_media' 			=> 'facebook',
-				'sso_data' 				=> json_encode($user->user),
-				]);
+			// $registered->fill([
+			// 	'sso_id' 				=> $user->id,
+			// 	'sso_media' 			=> 'facebook',
+			// 	'sso_data' 				=> json_encode($user->user),
+			// 	]);
 
-			if(!$registered->save())
-			{
-				return Redirect::back()->withErrors($registered->getError())->with('msg-type', 'danger');
-			}
+			// if(!$registered->save())
+			// {
+				return Redirect::back()->withErrors($registered->getError())
+									->with('msg', 'Email sudah terdaftar')
+									->with('msg-type', 'danger');
+			// }
 		}
 		else
 		{

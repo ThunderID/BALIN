@@ -197,7 +197,7 @@ class EarlySignUpController extends BaseController
 		{
 			return Redirect::back()
 					->withInput()
-					->withErrors('Promo code tidak terdaftar.')
+					->withErrors('Voucher code tidak terdaftar.')
 					->with('msg-type', 'danger');
 		}
 
@@ -205,7 +205,7 @@ class EarlySignUpController extends BaseController
 		{
 			return Redirect::back()
 					->withInput()
-					->withErrors('Quota Promo sudah habis.')
+					->withErrors('Quota Voucher sudah habis.')
 					->with('msg-type', 'danger');
 		}
 
