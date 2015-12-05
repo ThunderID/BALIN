@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use App\Models\Transaction;
+use App\Models\TransactionLog;
 use App\Models\StoreSetting;
 
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -37,7 +38,8 @@ class SendDeliveredEmail extends Job implements SelfHandling
             throw new Exception('Sent variable must be object of a record.');
         }
 
-        $transaction    = Transaction::id($this->transaction->id)->with(['user'])->first();
+        $transaction    = Transaction::id($this->transaction->id)->with(['user', 'shipment'])->first();
+        $transactionlog = TransactionLog::transactionid($this->transaction->id)->status('delivered')->first();
 
         $info           = StoreSetting::storeinfo(true)->take(8)->get();
         $infos          = [];
@@ -47,7 +49,7 @@ class SendDeliveredEmail extends Job implements SelfHandling
             $infos[$value->type]    = $value->value;
         }
 
-        $datas          = ['delivered' => $transaction, 'balin' => $infos];
+        $datas          = ['delivered' => $transaction, 'balin' => $infos, 'notes' => $transactionlog['notes']];
 
         $mail_data      = [
                             'view'          => 'emails.delivered', 

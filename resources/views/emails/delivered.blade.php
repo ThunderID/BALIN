@@ -59,7 +59,7 @@
 						<td>
 							<p>	Dear <strong>{{$data['delivered']['user']['name']}}, </strong></p>
 							<p> 
-								Menurut pantauan kami pesanan dengan nomor inovoice #{{$data['delivered']['ref_number']}} dengan nomor resi ### sudah sampai dialamat penerima dengan rincian.
+								Menurut pantauan kami pesanan dengan nomor invoice #{{$data['delivered']['ref_number']}} dengan nomor resi #{{$data['delivered']['shipment']['receipt_number']}} sudah sampai dialamat penerima dan {{$data['notes']}}.
 							</p>
 							<p>
 								Terima kasih untuk kepercayaan anda. 
