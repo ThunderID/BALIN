@@ -63,18 +63,26 @@ class PointLogSaved extends Job implements SelfHandling
                         $result             = new JSend('error', (array)$this->pointlog, $referee->getError());
                     }
                 }
-                elseif($voucher)
-                {
-                    $user                   = UserCampaign::userid($this->pointlog->user_id)->used(false)->first();
-                    if($user)
-                    {
-                        $user->is_used          = true;
 
-                        $user->save();
-                        
-                        $result                 = $this->dispatch(new SendWelcomeCampaignEmail($this->pointlog->user, $this->pointlog['amount']));
-                    }
+                $user                   = UserCampaign::userid($this->pointlog->user_id)->used(false)->type($voucher['type'])->first();
+                if($user)
+                {
+                    $user->is_used          = true;
+
+                    $user->save();
                 }
+            }
+        }
+        elseif($this->pointlog->reference_type=='App\Models\Voucher')
+        {
+            $user                   = UserCampaign::userid($this->pointlog->user_id)->used(false)->type($this->pointlog->reference->type)->first();
+            if($user)
+            {
+                $user->is_used          = true;
+
+                $user->save();
+                
+                $result                 = $this->dispatch(new SendWelcomeCampaignEmail($this->pointlog->user, $this->pointlog['amount']));
             }
         }
 
