@@ -122,7 +122,7 @@ class EarlySignUpController extends BaseController
 			Auth::loginusingid($data->id);
 
 			return Redirect::route('campaign.promo.get')
-								->with('msg', 'Selamat anda sudah terdaftar diwebsite balin')
+								->with('msg', 'Terima kasih sudah mendaftar diwebsite kami.')
 								->with('msg-type', 'success');
 		}
 	}
@@ -197,7 +197,7 @@ class EarlySignUpController extends BaseController
 		{
 			return Redirect::back()
 					->withInput()
-					->withErrors('Promo code tidak terdaftar.')
+					->withErrors('Voucher code tidak terdaftar.')
 					->with('msg-type', 'danger');
 		}
 
@@ -205,7 +205,7 @@ class EarlySignUpController extends BaseController
 		{
 			return Redirect::back()
 					->withInput()
-					->withErrors('Quota Promo sudah habis.')
+					->withErrors('Quota Voucher sudah habis.')
 					->with('msg-type', 'danger');
 		}
 
@@ -240,8 +240,8 @@ class EarlySignUpController extends BaseController
 			DB::commit();
 			Auth::logout();
 			return Redirect::route('campaign.early.get')
-				->with('msg', 'Selamat!<br> Anda mendapat Balin Point senilai '.number_format($voucher['value'], 0, ',', '.').'. Dapat digunakan mulai Senin, 7 Desember 2015')
-				->with('msg-type', 'success');
+							->with('msg', $voucher['value'])
+							->with('msg-type', 'success');
 		}
 	}
 }
