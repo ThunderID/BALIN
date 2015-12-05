@@ -18,7 +18,7 @@ class EarlySignUpController extends BaseController
 	{	
 		if(Auth::check())
 		{
-			return Redirect::route('frontend.early.get');
+			return Redirect::route('frontend.promo.get');
 		}
 
 		$breadcrumb										= ['Early Sign Up' => route('frontend.early.get')];
@@ -38,7 +38,7 @@ class EarlySignUpController extends BaseController
 	{
 		if(Auth::check())
 		{
-			return Redirect::route('frontend.early.get');
+			return Redirect::route('frontend.promo.get');
 		}
 		
 		$inputs 								= Input::only('name', 'email');
@@ -92,12 +92,15 @@ class EarlySignUpController extends BaseController
 		{
 			$errors->add('Customer', $data->getError());
 		}
-
-		$result                 				= $this->dispatch(new SaveCampaign($data, 'promo_referral'));
-		if($result->getStatus()!='success')
+		else
 		{
-			$errors->add('Customer', $result->getErrorMessage());
+			$result                 				= $this->dispatch(new SaveCampaign($data, 'promo_referral'));
+			if($result->getStatus()!='success')
+			{
+				$errors->add('Customer', $result->getErrorMessage());
+			}
 		}
+
 
 		if ($errors->count())
 		{
@@ -231,7 +234,7 @@ class EarlySignUpController extends BaseController
 			DB::commit();
 			Auth::logout();
 			return Redirect::route('frontend.early.get')
-				->with('msg', 'Selamat! Anda mendapat promo voucher senilai '.$voucher['value'].'. Dapat digunakan mulai Senin, 7 Desember 2015')
+				->with('msg', 'Selamat! Anda mendapat Balin Point senilai '.number_format($voucher['value'], 0, ',', '.').'. Dapat digunakan mulai Senin, 7 Desember 2015')
 				->with('msg-type', 'success');
 		}
 	}

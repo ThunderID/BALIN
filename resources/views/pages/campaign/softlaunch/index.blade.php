@@ -14,11 +14,12 @@
 				}
 				?>	
 
-				<div class="form-softlaunch p-sm p-l-md p-r-md" style="margin-top: 10%;">
+				<div class="form-softlaunch p-sm p-l-md p-r-md" style="@if (Session::has('msg-type') && Session::get('msg-type')=='success') margin-top: 30%; @else margin-top: 10%; @endif">
 					@if (Session::has('msg-type') && Session::get('msg-type')=='success')
-						<p>{{ Session::get('msg') }}</p>
+						<p class="text-center">{{ Session::get('msg') }}</p>
 					@else
 					<h3 class="m-t-xs m-b-lg">Early Sign Up</h3>
+					@include('widgets.alerts')
 					{!! Form::open(['url' => route('frontend.early.post')]) !!}
 						<div class="form-group">
 							<label for="" style="font-weight:400">Name</label>
