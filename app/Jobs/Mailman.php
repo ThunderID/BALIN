@@ -9,7 +9,6 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use App\Libraries\JSend;
 use Mail;
 
-
 class Mailman extends Job implements SelfHandling
 {
     protected $mail_data;
@@ -25,9 +24,7 @@ class Mailman extends Job implements SelfHandling
         {
             Mail::send($this->mail_data['view'], ['data' => $this->mail_data['datas']], function($message)
             {
-                // $message->from(Config::get('mail.from.address'), Config::get('mail.from.name'));
-                dd($this->mail_data);
-                $message->from('help@balin.id', 'Balin.id');
+                $message->from(Config::get('mail.from.address'), Config::get('mail.from.name'));
                 $message->to($this->mail_data['dest_email'], $this->mail_data['dest_name'])->subject($this->mail_data['subject']);
             }); 
         
