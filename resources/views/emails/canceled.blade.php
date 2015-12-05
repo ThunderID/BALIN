@@ -25,9 +25,9 @@
 				<table class="twelve columns">
 					<tr>
 						<td>
-							<p>	<strong>{{$data['canceled']['user']['name']}}, </strong></p>
+							<p>Dear	<strong>{{$data['canceled']['user']['name']}}, </strong></p>
 							<p> 
-								Pesanan #{{$data['canceled']['ref_number']}} sudah dibatalkan.
+								Pesanan #{{$data['canceled']['ref_number']}} sudah dibatalkan karena belum diterima pembayaran dalam waktu 1x24 jam, atau Pesanan #{{$data['canceled']['ref_number']}} sudah dibatalkan karena permintaan customer.
 							</p>
 							<p>
 								Nikmati bonus belanja dari produk BALIN lainnya.

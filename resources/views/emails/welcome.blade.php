@@ -27,7 +27,7 @@
 						<td>
 							<h3>Selamat Datang, {{$data['user']['name']}}</h3>
 							<p>
-								Terima kasih telah mendaftar ke akun BALIN.
+								Terima kasih telah mendaftar ke website BALIN.
 							</p>
 							<p>
 								Klik link <a href="{{route('balin.claim.voucher', $data['user']['activation_link'])}}"> <strong>berikut</strong></a> untuk claim voucher perdana anda dan nikmati ratusan bonus belanja bersama BALIN !

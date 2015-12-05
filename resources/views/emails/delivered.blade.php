@@ -19,15 +19,47 @@
 	</table>
 	<hr/>
 	<br/>
+	<table style="width:100%">
+		<tr class="row">
+			<td class="col-sm-1" style="width:10%">&nbsp;</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle active">
+					<div>1</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>2</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>3</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>4</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>5</div>
+				</div>
+			</td>
+			<td class="col-sm-1" style="width:10%">&nbsp;</td>
+		</tr>
+	</table>
+	<br><br>
 	<table class="row">
 		<tr>
 			<td class="wrapper last">
 				<table class="twelve columns">
 					<tr>
 						<td>
-							<p>	<strong>{{$data['delivered']['user']['name']}}, </strong></p>
+							<p>	Dear <strong>{{$data['delivered']['user']['name']}}, </strong></p>
 							<p> 
-								Pesanan #{{$data['delivered']['ref_number']}} sudah diterima.
+								Menurut pantauan kami pesanan dengan nomor inovoice #{{$data['delivered']['ref_number']}} dengan nomor resi ### sudah sampai dialamat penerima dengan rincian.
 							</p>
 							<p>
 								Terima kasih untuk kepercayaan anda. 

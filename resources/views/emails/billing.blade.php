@@ -4,66 +4,55 @@
 <table style="width:100%">
 	<tr class="row">
 		<td class="col-sm-2" style="width:20%">
-			<img src="<?php echo  $message->embed('Balin/web/image/logo-invoice.png'); ?>" class="img img-responsive" style="max-width:200px">
+			<img src="Balin/web/image/logo-invoice.png" class="img img-responsive" style="max-width:200px">
 		</td>
-		<td class="col-sm-3" style="width:40%">
-			<h4>CV. BALIN INDONESIA</h4>
-			<p>Phone {!!$data['balin']['phone']!!}</p>
-			<p>Email {!!$data['balin']['email']!!}</p>
-			<p>Website <a href="{!!$data['balin']['url']!!}">www.balin.id</a></p>
-		</td>
-		<td class="col-sm-7" valign="top" style="text-align:right;width:40%">
+		<td class="col-sm-10" valign="top" style="text-align:right;width:40%">
 			<h3>Invoice <strong>#{!!$data['bill']['ref_number']!!}</strong></h3>
 		</td>
 	</tr>
 </table>
 <hr/>
 <br/>
+<table style="width:100%">
+	<tr class="row">
+		<td class="col-sm-1" style="width:10%">&nbsp;</td>
+		<td class="col-sm-2" style="width:3%">
+			<div class="title-circle active">
+				<div>1</div>
+			</div>
+		</td>
+		<td class="col-sm-2" style="width:3%">
+			<div class="title-circle">
+				<div>2</div>
+			</div>
+		</td>
+		<td class="col-sm-2" style="width:3%">
+			<div class="title-circle">
+				<div>3</div>
+			</div>
+		</td>
+		<td class="col-sm-2" style="width:3%">
+			<div class="title-circle">
+				<div>4</div>
+			</div>
+		</td>
+		<td class="col-sm-2" style="width:3%">
+			<div class="title-circle">
+				<div>5</div>
+			</div>
+		</td>
+		<td class="col-sm-1" style="width:10%">&nbsp;</td>
+	</tr>
+</table>
+<br><br>
 <table style="width:100%;">
 	<tr>
-		<td class="col-sm-6" style="width:55%; height:50px;text-align:left">
-			<p>{{$data['bill']['user']['name']}}, </p>
-			<p>Terima kasih telah memesan. Berikut rincian tagihan pesanan Anda.</p>
-		</td>
-		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
-			<table style="border:2px solid;">
-				<tr>
-					<td style="background-color:white; border-radius:0px; color:black;border-bottom:none;padding:15px;">
-						Tanggal Invoice
-						<br/>
-						<br/>
-						@datetime_indo($data['bill']['transact_at'])
-					</td>
-				</tr>
-			</table>
-		</td>
-		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
-			<table style="border:2px solid;" >
-				<tr>
-					<td style="background-color:black; border-radius:0px; color:white;border-bottom:none;padding:15px;">
-						Jumlah Tagihan
-						<br/>
-						<br/>
-						@money_indo($data['bill']['amount'])
-					</td>
-				</tr>
-			</table>
-		</td>
-		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
-			<table style="border:2px solid;">
-				<tr>
-					<td style="background-color:white; border-radius:0px; color:black;border-bottom:none;padding:15px;">
-						Batas Waktu
-						<br/>
-						<br/>
-						@datetime_indo(new Carbon($data['bill']['transact_at'].' '.str_replace('-', '+' , $data['balin']['expired_paid'])))
-					</td>
-				</tr>
-			</table>
+		<td class="col-sm-12" style="width:100%; height:50px;text-align:left">
+			<p>Dear {{$data['bill']['user']['name']}}, </p>
+			<p>Terima kasih telah memesan. Pesanan Anda <span style="font-weight:bold">#{!!$data['bill']['ref_number']!!}</span> menunggu pembayaran. Silakan melakukan pembayaran ke rekening bank yang berada dibawah sebelum <span style="font-weight:bold">@datetime_indo(new Carbon($data['bill']['transact_at'].' '.str_replace('-', '+' , $data['balin']['expired_paid'])))</span> atau pesanan Anda akan dibatalkan. Berikut rincian tagihan pesanan Anda.</p>
 		</td>
 	</tr>
 </table>
-<br/>
 <br/>
 <table style="width:100%">
 	<thead>
@@ -124,6 +113,49 @@
 		</tr>
 	</tbody>
 </table>
+<br><br>
+<table style="width:100%;">
+	<tr>
+		<td class="col-sm-3">&nbsp;</td>
+		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
+			<table style="border:2px solid;">
+				<tr>
+					<td style="background-color:white; border-radius:0px; color:black;border-bottom:none;padding:15px;">
+						Tanggal Invoice
+						<br/>
+						<br/>
+						@datetime_indo($data['bill']['transact_at'])
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
+			<table style="border:2px solid;" >
+				<tr>
+					<td style="background-color:black; border-radius:0px; color:white;border-bottom:none;padding:15px;">
+						Jumlah Tagihan
+						<br/>
+						<br/>
+						@money_indo($data['bill']['amount'])
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
+			<table style="border:2px solid;">
+				<tr>
+					<td style="background-color:white; border-radius:0px; color:black;border-bottom:none;padding:15px;">
+						Batas Waktu
+						<br/>
+						<br/>
+						@datetime_indo(new Carbon($data['bill']['transact_at'].' '.str_replace('-', '+' , $data['balin']['expired_paid'])))
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td class="col-sm-3">&nbsp;</td>
+	</tr>
+</table>
 <br/>
 <br/>
 <table style="width:100%">
@@ -136,6 +168,11 @@
 			<i><strong>Syarat dan Ketentuan </strong> : harap membayar selambat lambatnya {{str_replace('-', '', str_replace('days', '', $data['balin']['expired_paid']))}} hari setelah pemesanan </i>
 			</small>
 		</td>
+	</tr>
+	<tr><td colspan="2">&nbsp;</td></tr>
+	<tr><td colspan="2">&nbsp;</td></tr>
+	<tr>
+		<td colspan="2">Jika anda ada kesulitan saat memesan silahkan menghubungi Kontak Person kami.</td>
 	</tr>
 </table>
 @stop
