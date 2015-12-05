@@ -24,8 +24,8 @@
 		@endif
 
 		<!-- Custom CSS -->
-	   {!! HTML::style('Balin/web/css/bootstrap.min.css', 'secure' => 'yes') !!}
-	   {!! HTML::style('Balin/web/css/layout.css', 'secure' => 'yes') !!}
+	   {!! HTML::style('Balin/web/css/bootstrap.min.css') !!}
+	   {!! HTML::style('Balin/web/css/layout.css') !!}
 	   <link rel="stylesheet" href="{{ elixir('Balin/web/css/style-web.css') }}">
 	   {!! HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css') !!}
 	   {!! HTML::style('https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700') !!}
