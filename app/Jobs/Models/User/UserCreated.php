@@ -39,7 +39,11 @@ class UserCreated extends Job implements SelfHandling
 
         if($result->getStatus()=='success' && !is_null($this->user->activation_link) && $this->user->activation_link!='')
         {
-            $result                 = $this->dispatch(new SendWelcomeEmail($this->user));
+            $result                 = $this->dispatch(new SaveCampaign($this->user, 'referral'));
+            if($result->getStatus()=='success')
+            {
+                $result             = $this->dispatch(new SendWelcomeEmail($this->user));
+            }
         }
         
         return $result;

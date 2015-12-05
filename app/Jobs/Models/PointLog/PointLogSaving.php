@@ -30,10 +30,17 @@ class PointLogSaving extends Job implements SelfHandling
         //jika reference dari user
         if($this->pointlog->reference_type=='App\Models\User')
         {
+            //Check campaign
+            $usercampaign               = UserCampaign::userid($this->pointlog->user_id)->used(false)->type('referral')->first();
             //Check referee
             $reference                  = PointLog::referenceid($this->pointlog->reference_id)->referencetype('App\Models\User')->first();
             $user                       = PointLog::userid($this->pointlog->user_id)->referencetype('App\Models\User')->first();
-            if($reference && $this->pointlog->user_id == $reference->reference_id)
+
+            if(!$usercampaign)
+            {
+                $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat dapat menyimpan pemberi referral.');
+            }
+            elsesif($reference && $this->pointlog->user_id == $reference->reference_id)
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat memakai referensi dari pemberi referens.');
             }
@@ -82,9 +89,15 @@ class PointLogSaving extends Job implements SelfHandling
         elseif($this->pointlog->reference_type=='App\Models\Voucher')
         {
             //Check referee
+            $usercampaign               = UserCampaign::userid($this->pointlog->user_id)->used(false)->type($this->pointlog->reference->type)->first();
             $reference                  = PointLog::referenceid($this->pointlog->reference->user_id)->referencetype('App\Models\User')->first();
             $user                       = PointLog::userid($this->pointlog->reference->user_id)->referencetype('App\Models\User')->first();
-            if($reference && $this->pointlog->user_id == $reference->reference_id)
+
+            if(!$usercampaign)
+            {
+                $result             = new JSend('error', (array)$this->pointlog, 'Maaf, anda tidak terdaftar untuk campaign ini.');
+            }
+            elseif($reference && $this->pointlog->user_id == $reference->reference_id)
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat memakai referensi dari pemberi referens.');
             }
@@ -102,11 +115,6 @@ class PointLogSaving extends Job implements SelfHandling
             }
             else
             {
-                $usercampaign           = UserCampaign::userid($this->pointlog->user_id)->first();
-                if(!$usercampaign)
-                {
-                    $result             = new JSend('error', (array)$this->pointlog, 'Maaf, anda tidak terdaftar untuk campaign ini.');
-                }
                 else
                 {
                     $prev_reference         = $this->pointlog->reference_id;
@@ -122,8 +130,6 @@ class PointLogSaving extends Job implements SelfHandling
                         //temporary
                         $this->pointlog->amount = $this->pointlog->reference->value;
                         $this->pointlog->notes  = 'Referensi promo #'.$this->pointlog->reference->code;
-                        $this->pointlog->reference_type     = 'App\Models\User';
-                        $this->pointlog->reference_id       = $this->pointlog->reference->user->id;
                         $result                 = new JSend('success', (array)$this->pointlog);
                     }
                     else
@@ -131,8 +137,6 @@ class PointLogSaving extends Job implements SelfHandling
                         //temporary
                         $this->pointlog->amount = $gift->value;
                         $this->pointlog->notes  = 'Direferensikan '.$this->pointlog->reference->user->name;
-                        $this->pointlog->reference_type     = 'App\Models\User';
-                        $this->pointlog->reference_id       = $this->pointlog->reference->user->id;
                         $result                 = new JSend('success', (array)$this->pointlog);
                     }
                 }
