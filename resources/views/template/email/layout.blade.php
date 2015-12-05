@@ -63,7 +63,6 @@
 							@if(!is_null($data['balin']['facebook_url']) && !empty($data['balin']['facebook_url'] && $data['balin']['facebook_url'] != '' ))
 							<a href="{{ $data['balin']['facebook_url'] }}" target="blank" class="btn-hollow hollow-social hollow-white social-mobile" style="color:white;"><img src="<?php echo $message->embed('Balin/web/image/logo-facebook.png'); ?>" class="img-responsive" style="text-align:center;max-width:30px;"></a>&nbsp;&nbsp;
 							@endif
-						</div>
 					</td>		
 				</tr>
 				<tr><td>&nbsp;</td></tr>

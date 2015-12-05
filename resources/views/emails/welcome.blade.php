@@ -35,7 +35,7 @@
 						</td>
 						<td class="expander"></td>
 					</tr>
-			</table>
+				</table>
 			</td>
 		</tr>
 	</table>
