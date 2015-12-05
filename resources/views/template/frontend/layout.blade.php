@@ -24,7 +24,6 @@
 	@endif
 
 	<style>
-  
 		.text-product.small-price {
 			font-size: 10pt !important;
 		}  
@@ -98,7 +97,7 @@
 <body>
 	@if($controller_name == 'home') <?php $pb = 0; ?>@endif
 	
-	<div id="container">
+	<div id="container" @if(Route::is('frontend.join.index')) class="bg-ground" @endif>
 
 		<header class="page-header" @if($controller_name == 'home') style="margin:0" @endif>
 			@include('widgets.top_menu')

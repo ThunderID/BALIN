@@ -8,8 +8,8 @@
 @extends('template.frontend.layout')
 
 @section('content')
-	<div class="container-fluid page-join">
-		<div class="row mt-75 mobile-m-t-25" style="padding-top:20px">
+	<div class="container-fluid page-join" style="">
+		<div class="row mt-75 mobile-m-t-25" style="">
 			<div class="col-md-12">
 				<div class="container">
 					<div class="row">
@@ -18,7 +18,7 @@
 								<div class="col-md-5 col-xs-12 hidden-xs">
 									 <div class="row">
 										<div class="col-md-12">
-											{!! $stores['value'] !!}
+											<!-- {!! $stores['value'] !!} -->
 										</div>
 									</div>
 									<div class="clearfix">&nbsp;</div>
@@ -35,7 +35,6 @@
 											</div>
 											<div class="sign-up" style="@if (Session::has('msg-from') && Session::get('msg-from')=='sign-up') display:block; @else display:none; @endif">
 												<h3>Sign Up</h3>
-												<div class="clearfix">&nbsp;</div>
 												@if (Session::has('msg-from') && Session::get('msg-from')=='sign-up')
 													@include('widgets.alerts')
 												@endif
