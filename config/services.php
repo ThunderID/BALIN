@@ -19,10 +19,6 @@ return [
         'secret' => '',
     ],
 
-    'mandrill' => [
-        'secret' => '',
-    ],
-
     'ses' => [
         'key' => '',
         'secret' => '',
