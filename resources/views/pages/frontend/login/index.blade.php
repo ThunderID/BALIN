@@ -26,15 +26,19 @@
 								<div class="col-md-5 col-xs-12 col-md-offset-2">
 									<div class="row panel-hollow panel-default p-xs m-t-n-xs">
 										<div class="col-md-12">
-											<div class="sign-in">
+											<div class="sign-in" style="@if (Session::has('msg-from')) @if (Session::get('msg-from')=='login') display:block; @else display:none; @endif @else display:block; @endif">
 												<h3>Sign In</h3>
-												@include('widgets.alerts')
+												@if (Session::has('msg-from') && Session::get('msg-from')=='login')
+													@include('widgets.alerts')
+												@endif
 												@include('widgets.login')
 											</div>
-											<div class="sign-up" style="display:none">
+											<div class="sign-up" style="@if (Session::has('msg-from') && Session::get('msg-from')=='sign-up') display:block; @else display:none; @endif">
 												<h3>Sign Up</h3>
 												<div class="clearfix">&nbsp;</div>
-												@include('widgets.alerts')
+												@if (Session::has('msg-from') && Session::get('msg-from')=='sign-up')
+													@include('widgets.alerts')
+												@endif
 												@include('widgets.signup')
 												<p class="t-xs" style="color:#666">Atau Signup dari akun sosial anda,</p>
 												<div class="form-group">

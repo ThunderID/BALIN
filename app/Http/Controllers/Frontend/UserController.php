@@ -63,7 +63,8 @@ class UserController extends BaseController
 				return Redirect::back()
 					->withInput()
 					->withErrors($validator->errors())
-					->with('msg-type', 'danger');
+					->with('msg-type', 'danger')
+					->with('msg-from', 'sign-up');
 			}
 		}
 
@@ -107,7 +108,8 @@ class UserController extends BaseController
 			return Redirect::back()
 				->withInput()
 				->withErrors($errors)
-				->with('msg-type', 'danger');
+				->with('msg-type', 'danger')
+				->with('msg-from', 'sign-up');
 		}
 		else
 		{

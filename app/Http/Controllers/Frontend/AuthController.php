@@ -42,14 +42,14 @@ class AuthController extends BaseController
                 }
                 else
                 {
-					return Redirect::back()->withErrors(['Tidak bisa login.'])->with('msg-type', 'danger');
+					return Redirect::back()->withErrors(['Tidak bisa login.'])->with('msg-type', 'danger')->with('msg-from', 'login');
                 }
             }
 
 			return Redirect::intended($redirect);
 		}
 		
-		return Redirect::back()->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami. Harap anda memeriksa data masukkan dan mencoba lagi.'])->with('msg-type', 'danger');
+		return Redirect::back()->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami. Harap anda memeriksa data masukkan dan mencoba lagi.'])->with('msg-type', 'danger')->with('msg-from', 'login');
 	}
 
 	public function doLogout()
