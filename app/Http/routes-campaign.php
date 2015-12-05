@@ -26,7 +26,7 @@ Route::group(['namespace' => 'Campaign\\'], function()
 		
 		Route::get('/sso', 										['uses' => 'EarlySignUpController@postearliersso', 'as' => 'frontend.earlysso.post']);
 
-		Route::get('sso/success',								['uses' => 'AuthController@getSso', 'as' => 'frontend.earlysso.get']);
+		Route::get('sso/success',								['uses' => '\App\Http\Controllers\Frontend\AuthController@getSso', 'as' => 'frontend.earlysso.get']);
 
 		Route::get('/redeem', 									['uses' => 'EarlySignUpController@getpromo', 'as' => 'frontend.promo.get']);
 

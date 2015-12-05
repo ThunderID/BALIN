@@ -234,7 +234,7 @@ class EarlySignUpController extends BaseController
 			DB::commit();
 			Auth::logout();
 			return Redirect::route('frontend.early.get')
-				->with('msg', 'Selamat! Anda mendapat Balin Point senilai '.number_format($voucher['value'], 0, ',', '.').'. Dapat digunakan mulai Senin, 7 Desember 2015')
+				->with('msg', 'Selamat!<br> Anda mendapat Balin Point senilai '.number_format($voucher['value'], 0, ',', '.').'. Dapat digunakan mulai Senin, 7 Desember 2015')
 				->with('msg-type', 'success');
 		}
 	}
