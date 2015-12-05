@@ -54,9 +54,9 @@
 						<ul class="nav nav-third-level">
 							<li><a href="{{ route('backend.settings.store.index') }}">Toko</a></li>
 							<li><a href="{{ route('backend.settings.feature.index') }}">Etalase</a></li>
-							<li><a href="{{ route('backend.settings.store.edit', 8) }}">Tentang Kami</a></li>
-							<li><a href="{{ route('backend.settings.store.edit', 10) }}">Syarat & Ketentuan</a></li>
-							<li><a href="{{ route('backend.settings.store.edit', 9) }}">Mengapa bergabung</a></li>
+							<li><a href="{{ route('backend.settings.store.edit', 9) }}">Tentang Kami</a></li>
+							<li><a href="{{ route('backend.settings.store.edit', 11) }}">Syarat & Ketentuan</a></li>
+							<li><a href="{{ route('backend.settings.store.edit', 10) }}">Mengapa bergabung</a></li>
 						</ul>
 					</li>
 					<li class="@if($subnav_active=='authentication') active @endif">
