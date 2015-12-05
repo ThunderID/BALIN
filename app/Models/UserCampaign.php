@@ -95,4 +95,9 @@ class UserCampaign extends Eloquent
 	{
 		return 	$query->where('type', $variable);
 	}
+
+	public function scopeUsed($query, $variable)
+	{
+		return 	$query->where('is_used', $variable);
+	}
 }

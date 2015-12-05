@@ -4,6 +4,7 @@ use App\Http\Controllers\BaseController;
 use App\Models\User;
 use App\Models\Transaction;
 use App\Jobs\CheckValidationLink;
+use App\Jobs\SaveCampaign;
 use App\Jobs\SaveToCookie;
 use App\Jobs\SaveToTransactionDetail;
 use App\Jobs\SendResetPasswordEmail;
@@ -67,6 +68,15 @@ class AuthController extends BaseController
 
 	public function getSso()
 	{ 
+		if(Session::has('is_campaign'))
+		{
+			$is_active 					= true;
+		}
+		else
+		{
+			$is_active 					= false;
+		}
+
 		$user 							= Socialite::driver('facebook')->user();
 
 		$registered 					= User::email($user->email)->first();
@@ -95,11 +105,21 @@ class AuthController extends BaseController
 				'sso_media' 			=> 'facebook',
 				'sso_data' 				=> json_encode($user->user),
 				'role' 					=> 'customer',
+				'is_active'				=> $is_active,
 				]);
 
 			if(!$registered->save())
 			{
 				return Redirect::back()->withErrors($registered->getError())->with('msg-type', 'danger');
+			}
+
+			if($is_active)
+			{
+				$result                 				= $this->dispatch(new SaveCampaign($registered, 'promo_referral'));
+				if($result->getStatus()!='success')
+				{
+					return Redirect::back()->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
+				}
 			}
 		}
 

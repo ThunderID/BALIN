@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\BaseController;
 
-use Input, Redirect, Auth, Carbon, Validator, DB, App;
+use Input, Redirect, Auth, Carbon, Validator, DB, App, Socialite, Session;
 use Illuminate\Support\MessageBag;
 
 use App\Models\User;
 use App\Models\PointLog;
+use App\Models\Voucher;
 use App\Jobs\SaveCampaign;
 
 class EarlySignUpController extends BaseController 
@@ -118,38 +119,46 @@ class EarlySignUpController extends BaseController
 	}
 
 	public function postearliersso()
-	{ 
-		$user 							= Socialite::driver('facebook')->user();
+	{
+		Session::put('login_redirect', route('frontend.promo.get'));
+		Session::put('is_campaign', true);
 
-		$registered 					= User::email($user->email)->first();
-
-		if($registered)
-		{
-			return Redirect::back()->withErrors('Anda sudah terdaftar.')->with('msg-type', 'danger');
-		}
-		else
-		{
-			$registered 				= new User;
-			$registered->fill([
-				'name'					=> $user->name,
-				'email'					=> $user->email,
-				'gender'				=> $user->user['gender'],
-				'sso_id' 				=> $user->id,
-				'sso_media' 			=> 'facebook',
-				'sso_data' 				=> json_encode($user->user),
-				'role' 					=> 'customer',
-				]);
-
-			if(!$registered->save())
-			{
-				return Redirect::back()->withErrors($registered->getError())->with('msg-type', 'danger');
-			}
-		}
-
-		Auth::loginUsingId($registered->id);
-
-		return Redirect::route('frontend.promo.get');
+		return Socialite::driver('facebook')->redirect();
 	}
+
+	// public function postearliersso()
+	// { 
+	// 	$user 							= Socialite::driver('facebook')->user();
+
+	// 	$registered 					= User::email($user->email)->first();
+
+	// 	if($registered)
+	// 	{
+	// 		return Redirect::back()->withErrors('Anda sudah terdaftar.')->with('msg-type', 'danger');
+	// 	}
+	// 	else
+	// 	{
+	// 		$registered 				= new User;
+	// 		$registered->fill([
+	// 			'name'					=> $user->name,
+	// 			'email'					=> $user->email,
+	// 			'gender'				=> $user->user['gender'],
+	// 			'sso_id' 				=> $user->id,
+	// 			'sso_media' 			=> 'facebook',
+	// 			'sso_data' 				=> json_encode($user->user),
+	// 			'role' 					=> 'customer',
+	// 			]);
+
+	// 		if(!$registered->save())
+	// 		{
+	// 			return Redirect::back()->withErrors($registered->getError())->with('msg-type', 'danger');
+	// 		}
+	// 	}
+
+	// 	Auth::loginUsingId($registered->id);
+
+	// 	return Redirect::route('frontend.promo.get');
+	// }
 
 	public function getpromo()
 	{	
@@ -193,6 +202,7 @@ class EarlySignUpController extends BaseController
 
 		$expired_at 							=  new Carbon('+ 3 months');
 
+		$errors 								= new MessageBag();
 		$plog 									= new PointLog;
 
 		$plog->fill([
@@ -219,7 +229,7 @@ class EarlySignUpController extends BaseController
 		else
 		{
 			DB::commit();
-			return Redirect::route('frontend.promo.get')
+			return Redirect::route('frontend.user.index')
 				->with('msg', 'Data sudah disimpan')
 				->with('msg-type', 'success');
 		}

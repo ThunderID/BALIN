@@ -518,13 +518,9 @@ Route::group(['namespace' => 'Campaign\\'], function()
 
 	Route::post('early/sign/up', 										['uses' => 'EarlySignUpController@postearlier', 'as' => 'frontend.early.post']);
 	
-	Route::post('early/sign/up/sso', 									['uses' => 'EarlySignUpController@postearliersso', 'as' => 'frontend.earlysso.post']);
+	Route::get('early/sign/up/sso', 									['uses' => 'EarlySignUpController@postearliersso', 'as' => 'frontend.earlysso.post']);
 
 	Route::get('promo/sign/up', 										['uses' => 'EarlySignUpController@getpromo', 'as' => 'frontend.promo.get']);
 
 	Route::post('promo/sign/up', 										['uses' => 'EarlySignUpController@postpromo', 'as' => 'frontend.promo.post']);
-});
-
-Route::get('coba', function() {
-	return view('pages.campaign.softlaunch.show');
 });
