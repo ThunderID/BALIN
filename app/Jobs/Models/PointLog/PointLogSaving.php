@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use App\Models\PointLog;
 use App\Models\Voucher;
+use App\Models\UserCampaign;
 use App\Models\StoreSetting;
 use App\Libraries\JSend;
 
@@ -101,7 +102,7 @@ class PointLogSaving extends Job implements SelfHandling
             }
             else
             {
-                $usercampaign           = UserCampaign::userid($this->pointlog->user_id)->used(false)->first();
+                $usercampaign           = UserCampaign::userid($this->pointlog->user_id)->first();
                 if(!$usercampaign)
                 {
                     $result             = new JSend('error', (array)$this->pointlog, 'Maaf, anda tidak terdaftar untuk campaign ini.');
