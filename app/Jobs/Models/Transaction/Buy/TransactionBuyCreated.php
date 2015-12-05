@@ -25,7 +25,7 @@ class TransactionBuyCreated extends Job implements SelfHandling
     public function handle()
     {
         //save transaction log
-        $result                             = $this->dispatch(new ChangeStatus($this->transaction, 'delivered'));
+        $result                             = $this->dispatch(new ChangeStatus($this->transaction, 'delivered', 'stock'));
 
         return $result;
     }
