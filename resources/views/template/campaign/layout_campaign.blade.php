@@ -50,6 +50,7 @@
 	   		@media (max-width: 767px) {
 	   			body {
 					background-position: 15% 50%;
+					min-height: 100%;
 	   			}
 	   		}
 	   </style>

@@ -51,7 +51,6 @@
 					<td class="row" style="width:50%;" valign="middle" style="text-align:center;">
 						<a href="{{ URL::route('frontend.aboutus.index') }}" style="color:white;text-align:center;text-decoration:none">ABOUT US</a>&nbsp; <span style="color:white">|</span> &nbsp;<a href="{{ URL::route('frontend.contactus.index') }}" style="color:white;text-align:center;text-decoration:none">CONTACT US</a>
 						<p class="footer-title-logo m-t-sm m-b-none"><a href="{{ URL::route('frontend.home.index') }}"  style="color:white;text-align:center;text-decoration:none">Copyright &copy; 2015 Balin.id</a></p>
-						<p class="footer-title-logo m-b-none"><a href="{{ URL::route('frontend.home.index') }}"  style="color:white;text-align:center;text-decoration:none">Website by Thunder Labs Indonesia</a></p>
 					</td>		
 					<td class="row" style="width:25%;" valign="middle">
 							@if(!is_null($data['balin']['instagram_url']) && !empty($data['balin']['instagram_url'] && $data['balin']['instagram_url'] != '' ))
