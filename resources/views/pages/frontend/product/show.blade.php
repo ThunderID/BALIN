@@ -64,7 +64,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left" style="margin-bottom: 33px;">
 						<a onclick="facebookShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
-						<a onclick="facebookShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-twitter"></i>&nbsp;&nbsp;tweet</a>
+						<a onclick="twitterShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-twitter"></i>&nbsp;&nbsp;tweet</a>
 					</div>
 				</div>
 				<div class="row">
@@ -283,7 +283,9 @@
 	function facebookShare() {
 		var myWindow = window.open("http://www.facebook.com/sharer/sharer.php?u={{ route('frontend.product.show', $data['slug']) }}#&title={{$data['name']}}", "Balin", "width=600", "height=580", "top=10", "left=10");
 	};
-
+	function twitterShare() {
+		var myWindow = window.open("http://www.twitter.com/share?url={{ route('frontend.product.show', $data['slug']) }}#&title={{$data['name']}}", "Balin", "width=600", "height=580", "top=10", "left=10");
+	};
 	$(document).ready(function() {
 		//$('.myCanvas').change(function() {
 		//	  alert()
