@@ -40,7 +40,7 @@ class PointLogSaving extends Job implements SelfHandling
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat dapat menyimpan pemberi referral.');
             }
-            elsesif($reference && $this->pointlog->user_id == $reference->reference_id)
+            elseif($reference && $this->pointlog->user_id == $reference->reference_id)
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat memakai referensi dari pemberi referens.');
             }
@@ -115,30 +115,27 @@ class PointLogSaving extends Job implements SelfHandling
             }
             else
             {
+                $prev_reference         = $this->pointlog->reference_id;
+
+                $gift                   = StoreSetting::type('invitation_royalty')->Ondate('now')->first();
+
+                if(!$gift)
+                {
+                    $result             = new JSend('error', (array)$this->pointlog, 'Tidak ada campaign untuk point reference.');
+                }
+                elseif($this->pointlog->reference->value!=0)
+                {
+                    //temporary
+                    $this->pointlog->amount = $this->pointlog->reference->value;
+                    $this->pointlog->notes  = 'Referensi promo #'.$this->pointlog->reference->code;
+                    $result                 = new JSend('success', (array)$this->pointlog);
+                }
                 else
                 {
-                    $prev_reference         = $this->pointlog->reference_id;
-
-                    $gift                   = StoreSetting::type('invitation_royalty')->Ondate('now')->first();
-
-                    if(!$gift)
-                    {
-                        $result             = new JSend('error', (array)$this->pointlog, 'Tidak ada campaign untuk point reference.');
-                    }
-                    elseif($this->pointlog->reference->value!=0)
-                    {
-                        //temporary
-                        $this->pointlog->amount = $this->pointlog->reference->value;
-                        $this->pointlog->notes  = 'Referensi promo #'.$this->pointlog->reference->code;
-                        $result                 = new JSend('success', (array)$this->pointlog);
-                    }
-                    else
-                    {
-                        //temporary
-                        $this->pointlog->amount = $gift->value;
-                        $this->pointlog->notes  = 'Direferensikan '.$this->pointlog->reference->user->name;
-                        $result                 = new JSend('success', (array)$this->pointlog);
-                    }
+                    //temporary
+                    $this->pointlog->amount = $gift->value;
+                    $this->pointlog->notes  = 'Direferensikan '.$this->pointlog->reference->user->name;
+                    $result                 = new JSend('success', (array)$this->pointlog);
                 }
                 
                 if($result->getStatus()=='success')
