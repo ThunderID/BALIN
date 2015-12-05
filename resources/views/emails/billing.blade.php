@@ -17,26 +17,26 @@
 	<tr class="row">
 		<td class="col-sm-1" style="width:10%">&nbsp;</td>
 		<td class="col-sm-2" style="width:3%">
-			<div class="title-circle active">
+			<div class="title-circle active" style="background: url('Balin/web/image/circle-black.png')">
 				<div>1</div>
 			</div>
 		</td>
-		<td class="col-sm-2" style="width:3%">
+		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
 			<div class="title-circle">
 				<div>2</div>
 			</div>
 		</td>
-		<td class="col-sm-2" style="width:3%">
+		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
 			<div class="title-circle">
 				<div>3</div>
 			</div>
 		</td>
-		<td class="col-sm-2" style="width:3%">
+		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
 			<div class="title-circle">
 				<div>4</div>
 			</div>
 		</td>
-		<td class="col-sm-2" style="width:3%">
+		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
 			<div class="title-circle">
 				<div>5</div>
 			</div>

@@ -77,7 +77,8 @@ class UserController extends BaseController
 			'date_of_birth'						=> $dob,
 			'role'								=> 'customer',
 			'gender'							=> $inputs['gender'],
-			'password'							=> Input::get('password'),
+			'password'							=> Input::get('password'), 
+			'is_active'							=> false
 		]);
 
 		if (!$data->save())

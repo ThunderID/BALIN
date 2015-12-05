@@ -488,7 +488,6 @@
 							<div class="checkbox">
 								<label>
 									<input type="checkbox" name="term" value="1" tabindex="1" required>
-									{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
 									Saya menyetujui <a href="#" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin 
 								</label>
 							</div>
