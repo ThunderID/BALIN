@@ -8,7 +8,7 @@
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -85,10 +85,10 @@
 	</style>
 
 	<!-- Custom CSS -->
-   {!! HTML::style('Balin/web/css/bootstrap.min.css') !!}
-   {!! HTML::style('Balin/web/css/layout.css') !!}
+   {!! HTML::style('Balin/web/css/bootstrap.min.css', 'secure' => 'yes') !!}
+   {!! HTML::style('Balin/web/css/layout.css', 'secure' => 'yes') !!}
    <link rel="stylesheet" href="{{ elixir('Balin/web/css/style-web.css') }}">
-   {!! HTML::style('Balin/web/plugin/fontawesome/css/font-awesome.min.css') !!}
+   {!! HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css') !!}
    {!! HTML::style('https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700') !!}
 
    <link rel="shortcut icon" href="{{ url('Balin/web/image/favicon.ico') }} "/>
@@ -117,8 +117,8 @@
 	<!-- /.container -->
 
 	<!-- jQuery -->
-	{!! HTML::script('Balin/web/js/jquery.js') !!}
-	{!! HTML::script('Balin/web/js/bootstrap.min.js') !!}
+	{!! HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js') !!}
+	{!! HTML::script('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js') !!}
 
 	<script>
 	@yield('script')

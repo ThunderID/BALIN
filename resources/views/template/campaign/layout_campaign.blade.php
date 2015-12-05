@@ -24,10 +24,10 @@
 		@endif
 
 		<!-- Custom CSS -->
-	   {!! HTML::style('Balin/web/css/bootstrap.min.css') !!}
-	   {!! HTML::style('Balin/web/css/layout.css') !!}
+	   {!! HTML::style('Balin/web/css/bootstrap.min.css', 'secure' => 'yes') !!}
+	   {!! HTML::style('Balin/web/css/layout.css', 'secure' => 'yes') !!}
 	   <link rel="stylesheet" href="{{ elixir('Balin/web/css/style-web.css') }}">
-	   {!! HTML::style('Balin/web/plugin/fontawesome/css/font-awesome.min.css') !!}
+	   {!! HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css') !!}
 	   {!! HTML::style('https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700') !!}
 
 	   <link rel="shortcut icon" href="{{ url('Balin/web/image/favicon.ico') }} "/>
@@ -60,8 +60,8 @@
 		</div>
 
 		<!-- jQuery -->
-		{!! HTML::script('Balin/web/js/jquery.js') !!}
-		{!! HTML::script('Balin/web/js/bootstrap.min.js') !!}
+		{!! HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js') !!}
+		{!! HTML::script('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js') !!}
 
 		<script>
 			@yield('script')

@@ -1,6 +1,6 @@
-{!! HTML::style('Balin/web/plugin/revolution-slider/css/style.css') !!}
-{!! HTML::style('Balin/web/plugin/revolution-slider/css/navstylechange.css') !!}
-{!! HTML::style('Balin/web/plugin/revolution-slider/rs-plugin/css/settings.css') !!}
+{!! HTML::style('Balin/web/plugin/revolution-slider/css/style.css', 'secure' => true) !!}
+{!! HTML::style('Balin/web/plugin/revolution-slider/css/navstylechange.css', 'secure' => true) !!}
+{!! HTML::style('Balin/web/plugin/revolution-slider/rs-plugin/css/settings.css', 'secure' => true) !!}
 {!! HTML::script('Balin/web/plugin/revolution-slider/rs-plugin/js/jquery.themepunch.plugins.min.js') !!}
 {!! HTML::script('Balin/web/plugin/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js') !!}
 
