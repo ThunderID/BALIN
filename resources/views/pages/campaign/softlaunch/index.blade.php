@@ -15,6 +15,9 @@
 				?>	
 
 				<div class="form-softlaunch p-sm" style="margin-top: 10%;">
+					@if (isset($msg-type) && $msg-type=='success')
+						<p>{{ $msg }}</p>
+					@else
 					<h3 class="m-t-xs">Early Sign Up</h3>
 					{!! Form::open(['url' => route('frontend.early.post')]) !!}
 						<div class="form-group">
@@ -61,6 +64,7 @@
 					<div class="form-group text-left m-t-xl m-b-xs">
 					    <a href="{{route('frontend.earlysso.post')}}" class="btn-hollow hollow-black-border"><i class="fa fa-facebook"></i>&nbsp; Sign Up with Facebook</a>
 					</div>
+					@endif
 				</div>
 			</div>
 		</div>	
