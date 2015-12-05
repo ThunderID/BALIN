@@ -39,7 +39,7 @@ class SendCanceledEmail extends Job implements SelfHandling
 
         $transaction    = Transaction::id($this->transaction->id)->with(['user'])->first();
 
-        $info           = StoreSetting::storeinfo(true)->take(8)->get();
+        $info           = StoreSetting::storeinfo(true)->get();
         $infos          = [];
 
         foreach ($info as $key => $value) 

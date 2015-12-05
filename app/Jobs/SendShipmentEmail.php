@@ -33,7 +33,7 @@ class SendShipmentEmail extends Job implements SelfHandling
 
         $transaction    = Transaction::id($this->transaction->id)->with(['shipment', 'user', 'shipment.address', 'shipment.courier'])->first();
 
-        $info           = StoreSetting::storeinfo(true)->take(8)->get();
+        $info           = StoreSetting::storeinfo(true)->get();
         $infos          = [];
 
         foreach ($info as $key => $value) 

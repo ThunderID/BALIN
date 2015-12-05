@@ -30,7 +30,7 @@ class SendWelcomeCampaignEmail extends Job implements SelfHandling
         }
 
         //check store info
-        $info           = StoreSetting::storeinfo(true)->take(8)->get();
+        $info           = StoreSetting::storeinfo(true)->get();
         $infos          = [];
 
         foreach ($info as $key => $value) 
