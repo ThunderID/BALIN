@@ -517,6 +517,8 @@ Route::group(['namespace' => 'Campaign\\'], function()
 	Route::get('early/sign/up', 										['uses' => 'EarlySignUpController@getearlier', 'as' => 'frontend.early.get']);
 
 	Route::post('early/sign/up', 										['uses' => 'EarlySignUpController@postearlier', 'as' => 'frontend.early.post']);
+	
+	Route::post('early/sign/up/sso', 									['uses' => 'EarlySignUpController@postearliersso', 'as' => 'frontend.earlysso.post']);
 
 	Route::get('promo/sign/up', 										['uses' => 'EarlySignUpController@getpromo', 'as' => 'frontend.promo.get']);
 

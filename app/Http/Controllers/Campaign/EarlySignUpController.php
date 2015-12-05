@@ -7,6 +7,7 @@ use Illuminate\Support\MessageBag;
 
 use App\Models\User;
 use App\Models\PointLog;
+use App\Jobs\SaveCampaign;
 
 class EarlySignUpController extends BaseController 
 {
@@ -16,10 +17,10 @@ class EarlySignUpController extends BaseController
 	{	
 		if(Auth::check())
 		{
-			return Redirect::route('frontend.user.index');
+			return Redirect::route('frontend.promo.get');
 		}
 
-		$breadcrumb										= ['Early Sign Up' => route('frontend.join.get')];
+		$breadcrumb										= ['Early Sign Up' => route('frontend.early.get')];
 		$this->layout->page 							= view('pages.campaign.softlaunch.index')
 																->with('controller_name', $this->controller_name)
 																->with('breadcrumb', $breadcrumb)
@@ -36,7 +37,7 @@ class EarlySignUpController extends BaseController
 	{
 		if(Auth::check())
 		{
-			return Redirect::route('frontend.user.index');
+			return Redirect::route('frontend.promo.get');
 		}
 		
 		$inputs 								= Input::only('name', 'email');
@@ -83,15 +84,20 @@ class EarlySignUpController extends BaseController
 			'role'								=> 'customer',
 			// 'gender'							=> $inputs['gender'],
 			'password'							=> Input::get('password'),
+			'is_active'							=> true,
 		]);
-
-		$data->is_invited 						= true;
 
 		if (!$data->save())
 		{
 			$errors->add('Customer', $data->getError());
 		}
-		
+
+		$result                 				= $this->dispatch(new SaveCampaign($data, 'promo_referral'));
+		if($result->getStatus()!='success')
+		{
+			$errors->add('Customer', $result->getErrorMessage());
+		}
+
 		if ($errors->count())
 		{
 			DB::rollback();
@@ -104,17 +110,52 @@ class EarlySignUpController extends BaseController
 		else
 		{
 			DB::commit();
-			return Redirect::route('frontend.user.index')
-				->with('msg', 'Data sudah disimpan')
-				->with('msg-type', 'success');
+
+			Auth::loginusingid($data->id);
+
+			return Redirect::route('frontend.promo.get');
 		}
+	}
+
+	public function postearliersso()
+	{ 
+		$user 							= Socialite::driver('facebook')->user();
+
+		$registered 					= User::email($user->email)->first();
+
+		if($registered)
+		{
+			return Redirect::back()->withErrors('Anda sudah terdaftar.')->with('msg-type', 'danger');
+		}
+		else
+		{
+			$registered 				= new User;
+			$registered->fill([
+				'name'					=> $user->name,
+				'email'					=> $user->email,
+				'gender'				=> $user->user['gender'],
+				'sso_id' 				=> $user->id,
+				'sso_media' 			=> 'facebook',
+				'sso_data' 				=> json_encode($user->user),
+				'role' 					=> 'customer',
+				]);
+
+			if(!$registered->save())
+			{
+				return Redirect::back()->withErrors($registered->getError())->with('msg-type', 'danger');
+			}
+		}
+
+		Auth::loginUsingId($registered->id);
+
+		return Redirect::route('frontend.promo.get');
 	}
 
 	public function getpromo()
 	{	
 		if(!Auth::check())
 		{
-			return Redirect::route('frontend.user.index');
+			return Redirect::route('frontend.promo.get');
 		}
 
 		$breadcrumb										= ['Redeem Code' => route('frontend.join.get')];
@@ -178,7 +219,7 @@ class EarlySignUpController extends BaseController
 		else
 		{
 			DB::commit();
-			return Redirect::route('frontend.user.index')
+			return Redirect::route('frontend.promo.get')
 				->with('msg', 'Data sudah disimpan')
 				->with('msg-type', 'success');
 		}

@@ -90,4 +90,9 @@ class UserCampaign extends Eloquent
 
 		return 	$query->where('id', $variable);
 	}
+
+	public function scopeType($query, $variable)
+	{
+		return 	$query->where('type', $variable);
+	}
 }

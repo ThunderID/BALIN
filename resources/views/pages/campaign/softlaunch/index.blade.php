@@ -57,10 +57,10 @@
 						<div class="form-group text-left">
 						    <button type="submit" class="btn-hollow hollow-black-border">Sign Up</button>
 						</div>
-						<div class="form-group text-left m-t-xl m-b-xs">
-						    <button type="submit" class="btn-hollow hollow-black-border"><i class="fa fa-facebook"></i>&nbsp; Sign Up with Facebook</button>
-						</div>
 					{!! Form::close() !!}
+					<div class="form-group text-left m-t-xl m-b-xs">
+					    <a href="{{route('frontend.earlysso.post')}}" class="btn-hollow hollow-black-border"><i class="fa fa-facebook"></i>&nbsp; Sign Up with Facebook</a>
+					</div>
 				</div>
 			</div>
 		</div>	

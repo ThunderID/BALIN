@@ -16,10 +16,12 @@ use Exception;
 class SaveCampaign extends Job implements SelfHandling
 {
     protected $user;
+    protected $type;
 
-    public function __construct(User $user)
+    public function __construct(User $user, $type = '')
     {
         $this->user                         = $user;
+        $this->type                         = $type;
     }
 
     public function handle()
@@ -38,7 +40,7 @@ class SaveCampaign extends Job implements SelfHandling
 
             $usercamp->fill([
                     'user_id'               => $this->user->id,
-                    'type'                  => $this->user->campaign_type,
+                    'type'                  => $this->type,
                     'is_used'               => false,
                 ]);
 

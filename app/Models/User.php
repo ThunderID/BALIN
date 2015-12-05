@@ -101,7 +101,6 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'zipcode',
 											'reference',
 											'referral_code',
-											// 'is_invited',
 										];
 
 	/**
@@ -114,26 +113,6 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 	
-	public function setIsCampaign($value = null)
-    {
-    	if(is_null($value))
-    	{
-	        $this->attributes['is_campaign'] = false;
-    	}
-
-        $this->attributes['is_campaign'] = true;
-    }
-	
-	public function setCampaignType($value = null)
-    {
-    	if(is_null($value))
-    	{
-	        $this->attributes['campaign_type'] = 'no';
-    	}
-
-        $this->attributes['campaign_type'] = $value;
-    }
-
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 
 	public function getReferenceAttribute($value)
