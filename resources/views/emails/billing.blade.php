@@ -172,7 +172,7 @@
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr>
-		<td colspan="2">Jika anda ada kesulitan saat memesan silahkan menghubungi Kontak Person kami.</td>
+		<td colspan="2">Jika anda ada kesulitan saat memesan silahkan menghubungi Customer Care kami.</td>
 	</tr>
 </table>
 @stop

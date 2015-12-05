@@ -68,7 +68,7 @@
 					<tr><td>&nbsp;</td></tr>
 					<tr><td>&nbsp;</td></tr>
 					<tr>
-						<td>Jika anda ada kesulitan saat memesan silahkan menghubungi Kontak Person kami.</td>
+						<td>Jika anda ada kesulitan saat memesan silahkan menghubungi Customer Care kami.</td>
 					</tr>
 				</table>
 			</td>
