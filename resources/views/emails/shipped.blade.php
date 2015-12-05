@@ -19,6 +19,70 @@
 	</table>
 	<hr/>
 	<br/>
+	<table style="width:100%">
+		<tr class="row">
+			<td class="col-sm-1" style="width:10%">&nbsp;</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle active">
+					<div>1</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>2</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>3</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>4</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>5</div>
+				</div>
+			</td>
+			<td class="col-sm-1" style="width:10%">&nbsp;</td>
+		</tr>
+	</table>
+	<br><br>
+	<table style="width:100%">
+		<tr class="row">
+			<td class="col-sm-1" style="width:10%">&nbsp;</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle active">
+					<div>1</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>2</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>3</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>4</div>
+				</div>
+			</td>
+			<td class="col-sm-2" style="width:3%">
+				<div class="title-circle">
+					<div>5</div>
+				</div>
+			</td>
+			<td class="col-sm-1" style="width:10%">&nbsp;</td>
+		</tr>
+	</table>
+	<br><br>
 	<table class="row">
 		<tr>
 			<td class="wrapper last">

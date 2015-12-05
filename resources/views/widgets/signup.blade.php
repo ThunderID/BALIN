@@ -55,7 +55,7 @@ function isMobile() {
 		</label>
 	</div>
 	<div class="form-group text-right">
-	    <a class="link-black">Cancel</a>&nbsp;&nbsp;&nbsp;
+	    <a class="link-black btn-cancel">Cancel</a>&nbsp;&nbsp;&nbsp;
 	    <button type="submit" class="btn-hollow hollow-black-border">Sign Up</button>
 	</div>
 {!! Form::close() !!}
