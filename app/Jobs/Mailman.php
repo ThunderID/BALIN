@@ -7,6 +7,8 @@ use Config;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Bus\SelfHandling;
 use App\Libraries\JSend;
+use Mail;
+
 
 class Mailman extends Job implements SelfHandling
 {
