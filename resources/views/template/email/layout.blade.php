@@ -8,6 +8,8 @@
 			body {
 				font-family: 'Roboto', sans-serif;
 				font-size: 14px;
+				line-height: 30px;
+				font-weight:300;
 			}
 			.title-circle {
 				width: 55px;
@@ -35,6 +37,23 @@
 			.title-circle.active:after {
 				background: #000;
 			}
+
+			a:link, a:visited { color:#555;}
+			a.btn:link, a.btn:link { 
+				text-decoration:none; 
+				letter-spacing:2px; 
+				padding-top:15px; 
+				padding-bottom:15px; 
+				padding-right:15%; 
+				padding-left:15%; 
+				color:black !important;
+				border:1px solid black;
+			}
+
+			a.btn:hover { 
+				background:#eee;
+			}
+
 		</style>
 	</head>
 	<body>
