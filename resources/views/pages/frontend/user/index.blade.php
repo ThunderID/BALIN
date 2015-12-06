@@ -273,7 +273,7 @@
 				<div class="clearfix">&nbsp;</div>
 				@endif
 			@empty
-				<p class="text-center p-t-sm p-b-xxs">Tidak ada data.</p>
+				<p class="text-center p-t-sm p-b-xxs">Anda belum mempunyai history belanja.</p>
 			@endforelse
 		</div>
 	</div>
