@@ -63,8 +63,8 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left" style="margin-bottom: 33px;">
-						<a onclick="facebookShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
-						<a onclick="twitterShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-twitter"></i>&nbsp;&nbsp;tweet</a>
+						<!-- <a onclick="facebookShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
+						<a onclick="twitterShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-twitter"></i>&nbsp;&nbsp;tweet</a> -->
 					</div>
 				</div>
 				<div class="row">
