@@ -366,8 +366,20 @@
 					@include('widgets.product_card')
 				</div>
 			@empty
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-sm">
-					<p>Maaf produk yang anda cari tidak ditemukan.</p>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-md text-center">
+				<?php $flag=0; ?>
+					@if(!is_null($filters) && is_array($filters))
+						@foreach ($filters as $key => $value)
+							@if($key=='name')
+								<?php $flag=1; ?>
+							@endif
+						@endforeach
+					@endif
+					@if ($flag==1)
+						<h4>Maaf produk yang anda cari tidak ditemukan</h4>
+					@else
+						<h3 class="m-b-none">Coming Soon</h3><br><h4>Please stay tuned to be the first to know when our product is ready</h4>
+					@endif
 				</div>
 			@endforelse
 		</div>

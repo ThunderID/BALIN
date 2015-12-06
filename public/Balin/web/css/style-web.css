@@ -492,6 +492,9 @@ a.hover-gold:hover {
 .mb-100 {
   margin-bottom: 100px;
 }
+.text-red {
+  color: #d91e18 !important;
+}
 p {
   font-weight: 300;
 }

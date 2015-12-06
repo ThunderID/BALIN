@@ -43,9 +43,9 @@
 								<a href="{{ URL::route('frontend.join.index') }}" data-scroll>Sign In</a>
 							</li>
 						@endif
-						<li @if($controller_name == 'aboutus') class=active @endif>
-							<a href="{{ URL::route('frontend.aboutus.index') }}" data-scroll>About Us</a>
-						</li>
+						<!-- <li @if($controller_name == 'aboutus') class=active @endif> -->
+							<!-- <a href="{{ URL::route('frontend.aboutus.index') }}" data-scroll>About Us</a> -->
+						<!-- </li> -->
 						<!-- <li>
 							<a href="{{ URL::route('frontend.home.index') }}#contact-us" data-scroll>Contact Us</a>
 						</li> -->
