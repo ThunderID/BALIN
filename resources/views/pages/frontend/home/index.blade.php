@@ -18,7 +18,7 @@
 						@if(isset($value['images'][0]))
 						<img src="{!!$value['images'][0]['image_lg']!!}"   alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 						@endif
-						<?php $content 		= json_decode($value->value, true); ?>
+						<?php $content 		= json_decode($value->value, true);?>
 
 						<?php $i = 0; ?>
 						@foreach ($content as $k => $v)
@@ -40,12 +40,16 @@
 									data-endeasing="Power1.easeIn"
 									data-captionhidden="off"
 									style="z-index: 6">
-									@if(isset($v['slider_button_url'])) 
+									@if (($k == 'button')&&($v['button_active']=='1'))
 										<a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black hollow-black-border @if($loc_x=='left') m-l-xs @else m-r-xs @endif"> 
 											{!! $v['slider_'. $k] !!} 
 										</a> 
 									@else 
-										{!! $v['slider_'. $k] !!} 
+										@if ($content['button']['button_active']=='0')
+											<a href="{!!$content['button']['slider_button_url']!!}" class="link-white">{!! $v['slider_'. $k] !!}</a>
+										@else
+											{!! $v['slider_'. $k] !!}
+										@endif
 									@endif
 								</div>
 							@endif
@@ -74,7 +78,7 @@
 								?>
 								<div class="@if($loc_x=='left') left @else right @endif">
 									@if ($k=='title')
-										<h3>{!! $v['slider_'. $k] !!} </h3>
+										<h3><a href="{!!$content['button']['slider_button_url']!!}" class="link-white unstyle">{!! $v['slider_'. $k] !!}</a></h3>
 									@endif
 
 									@if (isset($v['slider_button_url'])) 
@@ -116,7 +120,6 @@
 
 	$(document).ready(function () {
 		var width = $(window).height();
-		console.log(width);
 	});
 @stop
 

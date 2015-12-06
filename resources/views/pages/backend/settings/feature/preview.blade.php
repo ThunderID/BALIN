@@ -43,12 +43,16 @@
 								data-endeasing="Power1.easeIn"
 								data-captionhidden="off"
 								style="z-index: 6">
-								@if(isset($v['slider_button_url'])) 
+								@if (($k == 'button')&&($v['button_active']=='1'))
 									<a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black hollow-black-border @if($loc_x=='left') m-l-xs @else m-r-xs @endif"> 
 										{!! $v['slider_'. $k] !!} 
 									</a> 
 								@else 
-									{!! $v['slider_'. $k] !!} 
+									@if ($content['button']['button_active']=='0')
+										<a href="{!!$content['button']['slider_button_url']!!}" class="link-white">{!! $v['slider_'. $k] !!}</a>
+									@else
+										{!! $v['slider_'. $k] !!}
+									@endif
 								@endif
 							</div>
 						@endif
@@ -73,13 +77,11 @@
 							?>
 							<div class="@if($loc_x=='left') left @else right @endif">
 								@if ($k=='title')
-									<h3>{!! $v['slider_'. $k] !!} </h3>
-								@elseif ($k=='content')
-									<p class="m-t-sm">{!! $v['slider_'. $k] !!} </p>
-								@else
-									<a href="{!!$v['slider_button_url']!!}" class="btn-hollow hollow-black btn-hollow-xs">
-										{!! $v['slider_'. $k] !!} 
-									</a>
+									<h3><a href="{!!$content['button']['slider_button_url']!!}" class="link-white unstyle">{!! $v['slider_'. $k] !!}</a></h3>
+								@endif
+
+								@if (isset($v['slider_button_url'])) 
+									<?php $action=$v['slider_button_url']; ?>
 								@endif
 							</div>
 
