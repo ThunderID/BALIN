@@ -157,7 +157,9 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					Pemberi Referral Anda
+					@if (Auth::user()->reference!=false || is_null(Auth::user()->reference))
+						Pemberi Referral Anda
+					@endif
 					@if (is_null(Auth::user()->reference))
 						<small>
 							<a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Pemberi Referral Anda" data-view="modal-md">[ Tambahkan ]</a>
