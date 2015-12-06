@@ -306,7 +306,7 @@
 				<div class="form-group">
 					<label for="slider_button_url" class="text-capitalize">URL Tombol</label>
 					{!! Form::text('slider_button_url', isset($value['button']['slider_button_url']) ? $value['button']['slider_button_url'] : '', [
-								'class'         => 'form-control', 
+								'class'         => 'form-control btn-url', 
 								'tabindex'      => '16',
 								'placeholder'   => 'Masukkan URL tombol',
 					]) !!}										
@@ -358,6 +358,7 @@
 		}
 
 		e.parent().parent().siblings().find('.form-control').prop( "disabled", stat );
+		e.parent().parent().siblings().find('.form-control.btn-url').prop( "disabled", false );
 	}
 
 	function store() {

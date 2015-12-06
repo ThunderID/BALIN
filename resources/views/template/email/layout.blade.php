@@ -42,31 +42,6 @@
 			@yield('content')
 			<div class="clearfix">&nbsp;</div>
 			<div class="clearfix">&nbsp;</div>
-			<table style="width:100%;background-color:black;">
-				<tr><td>&nbsp;</td></tr>
-				<tr class="col-xs-12" style="text-align:center">
-					<td class="row" style="width:25%;" valign="middle" halign="middle" style = "text-align:center;">
-						<a href="{{ URL::route('frontend.home.index') }}" style = "text-align:center;"><img src="<?php echo $message->embed('Balin/web/image/logo.png'); ?>" class="img-responsive" style="text-align:center;"></a>
-					</td>
-					<td class="row" style="width:50%;" valign="middle" style="text-align:center;">
-						<a href="{{ URL::route('frontend.aboutus.index') }}" style="color:white;text-align:center;text-decoration:none">ABOUT US</a>&nbsp; <span style="color:white">|</span> &nbsp;<a href="{{ URL::route('frontend.contactus.index') }}" style="color:white;text-align:center;text-decoration:none">CONTACT US</a>
-						<p class="footer-title-logo m-t-sm m-b-none"><a href="{{ URL::route('frontend.home.index') }}"  style="color:white;text-align:center;text-decoration:none">Copyright &copy; 2015 Balin.id</a></p>
-					</td>		
-					<td class="row" style="width:25%;" valign="middle">
-							@if(!is_null($data['balin']['instagram_url']) && !empty($data['balin']['instagram_url'] && $data['balin']['instagram_url'] != '' ))
-							<a href="{{ $data['balin']['instagram_url'] }}" target="blank" class="btn-hollow hollow-social hollow-white social-mobile" style="color:white;">
-							<img src="<?php echo $message->embed('Balin/web/image/logo-instagram.png'); ?>" class="img-responsive" style="text-align:center;max-width:30px;"></a>&nbsp;&nbsp;
-							@endif
-							@if(!is_null($data['balin']['twitter_url']) && !empty($data['balin']['twitter_url'] && $data['balin']['twitter_url'] != '' ))
-								<a href="{{ $data['balin']['twitter_url'] }}" target="blank" class="btn-hollow hollow-social hollow-white social-mobile" style="color:white;"><img src="<?php echo $message->embed('Balin/web/image/logo-twitter.png'); ?>" class="img-responsive" style="text-align:center;max-width:30px;"></a>&nbsp;&nbsp;
-							@endif
-							@if(!is_null($data['balin']['facebook_url']) && !empty($data['balin']['facebook_url'] && $data['balin']['facebook_url'] != '' ))
-							<a href="{{ $data['balin']['facebook_url'] }}" target="blank" class="btn-hollow hollow-social hollow-white social-mobile" style="color:white;"><img src="<?php echo $message->embed('Balin/web/image/logo-facebook.png'); ?>" class="img-responsive" style="text-align:center;max-width:30px;"></a>&nbsp;&nbsp;
-							@endif
-					</td>		
-				</tr>
-				<tr><td>&nbsp;</td></tr>
-			</table>
 		</div>
 	</body>
 </html>
