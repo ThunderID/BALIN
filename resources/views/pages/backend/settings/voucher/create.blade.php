@@ -62,7 +62,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="start">Mulai</label>
-					{!! Form::text('started_at', $data['started_at'], [
+					{!! Form::text('started_at', (!is_null($data['started_at']) ? $data['started_at']->format('d-m-Y h:i') : ''), [
 								'class'         => 'form-control date-time-format',
 								'tabindex'      => '4', 
 								'placeholder'   => 'dd-mm-yyyy hh:mm'
@@ -72,7 +72,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="start">Expire</label>
-					{!! Form::text('expired_at', $data['expired_at'], [
+					{!! Form::text('expired_at', (!is_null($data['expired_at']) ? $data['expired_at']->format('d-m-Y h:i') : ''), [
 								'class'         => 'form-control date-time-format',
 								'tabindex'      => '5', 
 								'placeholder'   => 'dd-mm-yyyy hh:mm'
