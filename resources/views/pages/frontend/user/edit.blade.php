@@ -26,14 +26,26 @@ function isMobile() {
 							<label class="hollow-label">Tanggal Lahir</label>
 							@if(isMobile())
 								<?php
+								if(Auth::user()['date_of_birth']->format('Y-m-d')=="-0001-11-30")
+								{
 									$date = null;
-									if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"Y-m-d");}
+								}
+								else
+								{
+									$date = Auth::user()['date_of_birth']->format('Y-m-d');
+								}
 								?>
 								{!! Form::input('date','date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-format', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
 							@else
 								<?php
+								if(Auth::user()['date_of_birth']->format('Y-m-d')=="-0001-11-30")
+								{
 									$date = null;
-									if(strtotime(Auth::user()['date_of_birth']) != 0){$date = date_format(Auth::user()['date_of_birth'],"d-m-Y");}
+								}
+								else
+								{
+									$date = Auth::user()['date_of_birth']->format('Y-m-d');
+								}
 								?>
 								{!! Form::text('date_of_birth', $date, ['class' => 'form-control hollow mod_dob date-format', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
 							@endif

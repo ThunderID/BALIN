@@ -137,6 +137,7 @@
 							<strong>@date_indo(Auth::user()->date_of_birth)</strong>
 						@endif
 					</p>
+					<br/>
 				</div>
 			</div>
 		</div>
