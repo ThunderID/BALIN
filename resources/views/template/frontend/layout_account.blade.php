@@ -13,7 +13,9 @@
 			{{-- </div> --}}
 			<div class="col-sm-12 col-xs-12">
 				<div class="row">
-					@include('widgets.alerts')
+					<div class="col-sm-12">
+						@include('widgets.alerts')
+					</div>
 				</div>
 				<div class="row user-page">
 					<div class="col-sm-12">

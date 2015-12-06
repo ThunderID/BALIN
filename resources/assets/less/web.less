@@ -1941,12 +1941,19 @@ footer {
 	width: 100%;
 }
 .modal-fullscreen .modal-header {
-	margin-left: -100px;
-	margin-right: -100px;
-	padding-left: 115px;
-	padding-right: 115px;
+	margin-left: -10%;
+	margin-right: -10%;
+	padding-left: 11%;
+	padding-right: 11%;
 	background-color: #000;
 	color: #fff;
+
+	@media (max-width: 1200px) {
+		margin-left: -35%;
+		margin-right: -35%;
+		padding-left: 35%;
+		padding-right: 35%;
+	}
 }
 .modal-fullscreen .modal-header button.close {
 	background: none;
