@@ -43,7 +43,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-r-none">
 					<h4 class="p-b-md text-left">Referral Code 
 						<small>
-							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".referral-user-information">&nbsp;[?]</a>
+							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".referral-user-information"><i class="fa fa-question-circle"></i></a>
 						</small>
 					</h4>	
 				</div>
@@ -59,7 +59,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
 					<h4 class="p-b-md">Point Balin Anda 
 						<small>
-							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".point-user-information">&nbsp;[?]</a>
+							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".point-user-information"><i class="fa fa-question-circle fa-1x"></i></a>
 						</small>
 					</h4>
 				</div>
