@@ -34,7 +34,7 @@ class SendResetPasswordEmail extends Job implements SelfHandling
         if($result->getStatus()=='success')
         {
 	        //check store info
-	        $info								= StoreSetting::storeinfo(true)->take(8)->get();
+	        $info								= StoreSetting::storeinfo(true)->get();
 	        $infos								= [];
 
 	        foreach ($info as $key => $value) 

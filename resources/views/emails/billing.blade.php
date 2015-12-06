@@ -4,7 +4,7 @@
 <table style="width:100%">
 	<tr class="row">
 		<td class="col-sm-2" style="width:20%">
-			<img src="Balin/web/image/logo-invoice.png" class="img img-responsive" style="max-width:200px">
+			<img src="<?php echo $message->embed('Balin/web/image/logo-invoice.png'); ?>" class="img img-responsive" style="max-width:200px">
 		</td>
 		<td class="col-sm-10" valign="top" style="text-align:right;width:40%">
 			<h3>Invoice <strong>#{!!$data['bill']['ref_number']!!}</strong></h3>
@@ -17,26 +17,26 @@
 	<tr class="row">
 		<td class="col-sm-1" style="width:10%">&nbsp;</td>
 		<td class="col-sm-2" style="width:3%">
-			<div class="title-circle active">
+			<div class="title-circle active" style="background: url('Balin/web/image/circle-black.png')">
 				<div>1</div>
 			</div>
 		</td>
-		<td class="col-sm-2" style="width:3%">
+		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
 			<div class="title-circle">
 				<div>2</div>
 			</div>
 		</td>
-		<td class="col-sm-2" style="width:3%">
+		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
 			<div class="title-circle">
 				<div>3</div>
 			</div>
 		</td>
-		<td class="col-sm-2" style="width:3%">
+		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
 			<div class="title-circle">
 				<div>4</div>
 			</div>
 		</td>
-		<td class="col-sm-2" style="width:3%">
+		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
 			<div class="title-circle">
 				<div>5</div>
 			</div>
@@ -158,21 +158,36 @@
 </table>
 <br/>
 <br/>
-<table style="width:100%">
+<table style="width:100%; background-color:#ddd; padding: 10px;"> 
 	<tr class="col-sm-8">
 		<td>
 			<strong>Pembayaran dilakukan melalui </strong> {!!$data['balin']['bank_information']!!}
 		</td>
-		<td style="width:30%;text-align:right;">
+	</tr>
+</table>
+<table style="width:100%; background-color:#ddd"> 
+		<td style="width:30%;text-align:left;">
 			<small>
 			<i><strong>Syarat dan Ketentuan </strong> : harap membayar selambat lambatnya {{str_replace('-', '', str_replace('day', '', str_replace('s', '', $data['balin']['expired_paid'])))}} hari setelah pemesanan </i>
 			</small>
 		</td>
 	</tr>
+</table>
+<table style="width:100%;">
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr>
-		<td colspan="2">Jika anda ada kesulitan saat memesan silahkan menghubungi Kontak Person kami.</td>
+		<td colspan="2">
+			Jika anda ada kesulitan saat memesan silahkan menghubungi layanan pelanggan kami.
+		</td>
+	</tr>
+	<tr>
+		<td>Email</td>
+		<td>: {{$data['balin']['email']}}</td>
+	</tr>
+	<tr>
+		<td>Telepon</td>
+		<td>: {{$data['balin']['phone']}}</td>
 	</tr>
 </table>
 @stop

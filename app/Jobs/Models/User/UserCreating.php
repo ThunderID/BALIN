@@ -24,7 +24,10 @@ class UserCreating extends Job implements SelfHandling
 
     public function handle()
     {
-        $this->user->is_active      = false;
+        if(is_null($this->user->is_active))
+        {
+            $this->user->is_active      = false;
+        }
 
         //activation link used to generate link for first claimed voucher
         if($this->user->is_active==false)

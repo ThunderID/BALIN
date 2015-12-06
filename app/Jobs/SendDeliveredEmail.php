@@ -41,7 +41,7 @@ class SendDeliveredEmail extends Job implements SelfHandling
         $transaction    = Transaction::id($this->transaction->id)->with(['user', 'shipment'])->first();
         $transactionlog = TransactionLog::transactionid($this->transaction->id)->status('delivered')->first();
 
-        $info           = StoreSetting::storeinfo(true)->take(8)->get();
+        $info           = StoreSetting::storeinfo(true)->get();
         $infos          = [];
 
         foreach ($info as $key => $value) 

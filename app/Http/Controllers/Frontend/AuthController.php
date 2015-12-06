@@ -42,14 +42,14 @@ class AuthController extends BaseController
                 }
                 else
                 {
-					return Redirect::back()->withErrors(['Tidak bisa login.'])->with('msg-type', 'danger');
+					return Redirect::back()->withErrors(['Tidak bisa login.'])->with('msg-type', 'danger')->with('msg-from', 'login');
                 }
             }
 
 			return Redirect::intended($redirect);
 		}
 		
-		return Redirect::back()->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami. Harap anda memeriksa data masukkan dan mencoba lagi.'])->with('msg-type', 'danger');
+		return Redirect::back()->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami. Harap anda memeriksa data masukkan dan mencoba lagi.'])->with('msg-type', 'danger')->with('msg-from', 'login');
 	}
 
 	public function doLogout()
@@ -83,16 +83,18 @@ class AuthController extends BaseController
 
 		if($registered)
 		{
-			$registered->fill([
-				'sso_id' 				=> $user->id,
-				'sso_media' 			=> 'facebook',
-				'sso_data' 				=> json_encode($user->user),
-				]);
+			// $registered->fill([
+			// 	'sso_id' 				=> $user->id,
+			// 	'sso_media' 			=> 'facebook',
+			// 	'sso_data' 				=> json_encode($user->user),
+			// 	]);
 
-			if(!$registered->save())
-			{
-				return Redirect::back()->withErrors($registered->getError())->with('msg-type', 'danger');
-			}
+			// if(!$registered->save())
+			// {
+				return Redirect::back()->withErrors($registered->getError())
+									->with('msg', 'Email sudah terdaftar')
+									->with('msg-type', 'danger');
+			// }
 		}
 		else
 		{
@@ -148,7 +150,9 @@ class AuthController extends BaseController
             }
         }
 
-		return Redirect::intended($redirect);
+		return Redirect::intended($redirect)
+							->with('msg', 'Terima kasih sudah mendaftar diwebsite kami.')
+							->with('msg-type', 'success');
 	}
 
 	public function activateAccount($activation_link)

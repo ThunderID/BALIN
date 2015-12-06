@@ -488,7 +488,6 @@
 							<div class="checkbox">
 								<label>
 									<input type="checkbox" name="term" value="1" tabindex="1" required>
-									{!! Form::input('checkbox', 'term', '1', ['required' => true]) !!}
 									Saya menyetujui <a href="#" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin 
 								</label>
 							</div>
@@ -510,20 +509,20 @@
 
 
 	<!-- Term and Condition -->
-	<div id="tnc" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-		<div class="modal-dialog modal-md">
+	<div id="tnc" class="modal modal-left modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="exampleModalLabel">Syarat & Ketentuan</h4>
+					<h4 class="modal-title text-center" id="exampleModalLabel">Syarat & Ketentuan</h4>
 				</div>
-				<div class="modal-body ribbon-menu">
+				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12" style="color: #000">
 							{!! $tc['value'] !!}
 						</div>
 					</div>
-					<div class="row">
+					<div class="row m-t-md">
 						<div class="col-md-12">
 							<button type="button" class="btn-hollow hollow-black-border" data-dismiss="modal" aria-label="Close">Tutup</button>
 						</div>

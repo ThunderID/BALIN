@@ -7,6 +7,7 @@
 @extends('template.frontend.layout_account')
 
 @section('right_content')
+	@include('widgets.alerts')
 	<div class="row">
 		<div class="col-md-8 col-sm-10 col-xs-12">
 			<p class="m-t-md user-hello">

@@ -117,6 +117,8 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
 	public function getReferenceAttribute($value)
 	{
+		$campaign 						= UserCampaign::userid($this->id)->type('referral')->used(false)->first();
+		
 		$reference 						= PointLog::userid($this->id)->referencetype('App\Models\User')->first();
 
 		if($reference)
@@ -124,7 +126,12 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 			return $reference->reference->name;
 		}
 
-		return null;
+		if($campaign)
+		{
+			return null;
+		}
+
+		return false;
 	}
 
 	public function getDownlineAttribute($value)

@@ -63,7 +63,8 @@ class UserController extends BaseController
 				return Redirect::back()
 					->withInput()
 					->withErrors($validator->errors())
-					->with('msg-type', 'danger');
+					->with('msg-type', 'danger')
+					->with('msg-from', 'sign-up');
 			}
 		}
 
@@ -77,7 +78,8 @@ class UserController extends BaseController
 			'date_of_birth'						=> $dob,
 			'role'								=> 'customer',
 			'gender'							=> $inputs['gender'],
-			'password'							=> Input::get('password'),
+			'password'							=> Input::get('password'), 
+			'is_active'							=> false
 		]);
 
 		if (!$data->save())
@@ -106,13 +108,14 @@ class UserController extends BaseController
 			return Redirect::back()
 				->withInput()
 				->withErrors($errors)
-				->with('msg-type', 'danger');
+				->with('msg-type', 'danger')
+				->with('msg-from', 'sign-up');
 		}
 		else
 		{
 			DB::commit();
 			return Redirect::route('frontend.user.index')
-				->with('msg', 'Data sudah disimpan')
+				->with('msg', 'Terima kasih sudah mendaftar diwebsite kami.')
 				->with('msg-type', 'success');
 		}
 	}
