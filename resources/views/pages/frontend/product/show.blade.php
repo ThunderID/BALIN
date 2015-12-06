@@ -185,7 +185,18 @@
 														data-placement="right" 
 														@if($v['stock']==0){{'disabled'}}@endif>
 
-														<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-minus btn-number" disabled="disabled" 
+														<button type="button" class="btn-hollow btn-hollow-sm btn-qty qty-minus btn-number" 
+														@if (isset($carts[$data['id']]) && $carts[$data['id']]['slug'] == $slug)
+															@if (isset($carts[$data['id']]['varians'][$v['id']]))
+																@if ($carts[$data['id']]['varians'][$v['id']]['qty'] <= 0)
+																	disabled="disabled"
+																@endif
+															@else
+																disabled="disabled"
+															@endif
+														@else
+															disabled="disabled"
+														@endif
 														data-type="minus" data-field="qty-{{strtolower($v['size'])}}[1]">
 															<i class="fa fa-minus"></i>
 														</button>
@@ -213,14 +224,16 @@
 										<?php $total = 0;?>
 										@if (!empty($carts))
 											@foreach ($carts as $k => $item)
-												<?php
-													$qty 			= 0;
-													foreach ($item['varians'] as $key => $value) 
-													{
-														$qty 		= $qty + $value['qty'];
-													}
-													$total += (($item['price']-$item['discount'])*$qty); 
-												?>
+												@if ($k==$data['id'])
+													<?php
+														$qty 			= 0;
+														foreach ($item['varians'] as $key => $value) 
+														{
+															$qty 		= $qty + $value['qty'];
+														}
+														$total += (($item['price']-$item['discount'])*$qty); 
+													?>
+												@endif
 											@endforeach
 											<label class="text-right m-t-xs text-product price-all-product" data-price="{{ $price }}"> @money_indo($total)</label> 
 										@else
