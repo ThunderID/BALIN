@@ -5,7 +5,7 @@
 		<tr>
 			<td style="width:5%"></td>
 			<td style="width:90%">
-				<img src="Balin/web/image/balin-white.png" style="max-width:150px; text-align:left;">
+				<img src="<?php echo $message->embed('Balin/web/image/balin-white.png'); ?>" style="max-width:150px; text-align:left;">
 			</td>
 			<td style="width:5%"></td>
 		</tr>
