@@ -140,6 +140,7 @@ class FeatureController extends BaseController
 		else
 		{
 			$button 									=	[
+																'button_active'				=> 0,
 																'slider_button_url'			=> $inputs['slider_button_url'],
 															];
 		}			
