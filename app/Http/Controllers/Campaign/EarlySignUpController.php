@@ -122,7 +122,7 @@ class EarlySignUpController extends BaseController
 			Auth::loginusingid($data->id);
 
 			return Redirect::route('campaign.promo.get')
-								->with('msg', 'Terima kasih sudah mendaftar diwebsite kami.')
+								->with('msg', 'Terima kasih sudah mendaftar di website kami.')
 								->with('msg-type', 'success');
 		}
 	}

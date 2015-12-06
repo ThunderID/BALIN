@@ -18,9 +18,9 @@
 					@if (Session::has('msg-type') && Session::get('msg-type')=='success')
 						<div class="text-center">
 							<h3 class="">Selamat!</h3> 
-							<h4 class="m-b-sm">Anda mendapat Balin Point senilai</h4> 
+							<p class="m-b-sm m-t-md">Anda mendapatkan Balin Point senilai</p> 
 							<h3 class="m-b-none">@money_indo(Session::get('msg'))</h3>
-							<h4 class="m-b-md">Dapat digunakan waktu website kami Launching</h4>
+							<p class="m-t-md m-b-md">Balin Point anda dapat digunakan untuk berbelanja di Balin.id. Stay tuned dan Balin will be launched on December 7th, 2015! </p>
 						</div>
 					@else
 					<h3 class="m-t-xs m-b-lg">Early Sign Up</h3>

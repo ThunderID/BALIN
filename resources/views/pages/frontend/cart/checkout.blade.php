@@ -94,7 +94,7 @@
 								<div class="clearfix">&nbsp;</div>
 								<div class="row m-l-none m-r-none">
 									<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left text-left border-bottom">
-										<span class="">Total</span>
+										<span class="">Subtotal</span>
 									</div>
 									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
 										<span class="text-right" id="total">@money_indo($total)</span>
@@ -119,16 +119,16 @@
 								<div class="row m-l-none m-r-none">
 									<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
 										<span>
-											Angka Unik <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number" data-modal-title="Angka Unik ( Unique Number )"><i class="fa fa-question-circle"></i></a>
+											Angka Unik <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number" data-modal-title="Pengenal Pembayaran"><i class="fa fa-question-circle"></i></a>
 										</span>
 									</div>
 									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
-										<span class="text-right uniquenumber" data-unique="{{ $transaction['unique_number'] }}">@money_indo_negative($transaction['unique_number'])</span>
+										<span class="text-right uniquenumber text-red" data-unique="{{ $transaction['unique_number'] }}">@money_indo_negative($transaction['unique_number'])</span>
 									</div>
 								</div>
 								<div class="row m-l-none m-r-none">
 									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
-										<h4>SubTotal</h4>
+										<h4>Total Pembayaran</h4>
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5">
 										<h4 class="text-right subtotal" style="font-weight: bold;">
@@ -153,7 +153,7 @@
 							<div class="col-md-12 hidden-sm hidden-xs panel-voucher panel-form-voucher" id="panel-voucher-normal">
 								<div class="row p-b-sm">
 									<div class="col-md-12">
-										<span class="voucher-title">Masukkan Kode Voucher</span>
+										<span class="voucher-title">Punya Promo Code ?</span>
 									</div>	
 								</div>
 								<div class="row">
