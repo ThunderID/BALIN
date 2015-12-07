@@ -114,9 +114,10 @@ class UserController extends BaseController
 		else
 		{
 			DB::commit();
-			return Redirect::route('frontend.user.index')
-				->with('msg', 'Terima kasih sudah mendaftar diwebsite kami.')
-				->with('msg-type', 'success');
+			return Redirect::route('frontend.join.index')
+				->with('msg', 'Terima kasih sudah mendaftar, Balin telah mengirimkan hadiah selamat datang untuk Anda melalui email Anda')
+				->with('msg-type', 'success')
+				->with('msg-from', 'login');
 		}
 	}
 
