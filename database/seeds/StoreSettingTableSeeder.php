@@ -37,8 +37,8 @@ class StoreSettingTableSeeder extends Seeder
 		$slidevalues								= ['http://localhost:8000/Balin/web/balin/wallpaper1.jpg', 'http://localhost:8000/Balin/web/balin/wallpaper2.jpg', 'http://localhost:8000/Balin/web/balin/wallpaper3.jpg'];
 		
 		//store setting related to policy
-		$policies 									= ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift', 'critical_stock', 'min_margin', 'item_for_one_package'];
-		$polvals 									= [' + 1 day', ' - 1 day', '+ 5 days', '+ 1 year', '10000', '50000', '100', '+ 2 hours', '10', '10000', ' + 3 months', '1', '+ 3 months', '10000', '2', '50000', '2'];
+		$policies 									= ['expired_cart', 'expired_paid', 'expired_shipped', 'expired_point', 'referral_royalty', 'invitation_royalty', 'limit_unique_number', 'expired_link_duration', 'first_quota', 'downline_purchase_bonus', 'downline_purchase_bonus_expired', 'downline_purchase_quota_bonus', 'voucher_point_expired', 'welcome_gift', 'critical_stock', 'min_margin', 'item_for_one_package', 'expired_point_warn'];
+		$polvals 									= [' + 1 day', ' - 1 day', '+ 5 days', '+ 1 year', '10000', '50000', '100', '+ 2 hours', '10', '10000', ' + 3 months', '1', '+ 3 months', '10000', '2', '50000', '2', '+ 3 days'];
 
 		try
 		{

@@ -3,7 +3,7 @@
 
 <?php 
 $datas 		= $datas::policies()->get(); 
-$polvals 	= [' + 1 day', ' - 2 days', '+ 5 days', '+ 1 year', '10000', '50000', '100', '+ 2 hours', '10', '10000', ' + 3 months', '1', '+ 3 months', '10000', '2', '50000', '2'];
+$polvals 	= [' + 1 day', ' - 1 day', '+ 5 days', '+ 1 year', '10000', '50000', '100', '+ 2 hours', '10', '10000', ' + 3 months', '1', '+ 3 months', '10000', '2', '50000', '2', '+ 3 days'];
 ?>
 
 @section('content')

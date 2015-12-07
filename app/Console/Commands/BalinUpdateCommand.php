@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Database\Schema\Blueprint;
-use App\Models\Policy;
+use App\Models\StoreSetting;
 use Schema;
 
 class BalinUpdateCommand extends Command
@@ -53,20 +53,50 @@ class BalinUpdateCommand extends Command
      **/
     public function update10102015()
     {
-        Schema::create('user_campaign', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
-            $table->string('type', 255);
-            $table->boolean('is_used');
-            $table->timestamps();
-            $table->softDeletes();
+        $types                                      = ['expired_point_warn'];
+        $values                                     = ['+ 2 days'];
+        try
+        {
+            $i                                      = 0;
+            foreach($types as $key => $value)
+            {
+                $data                               = new StoreSetting;
+                $data->fill([
+                    'type'                          => $value,
+                    'value'                         => $values[$key],
+                    'started_at'                    => date('Y-m-d H:i:s', strtotime('+ 2 hours')),
+                ]);
 
-        });
+                if (!$data->save())
+                {
+                    print_r($data->getError());
+                    exit;
+                }
+            }   
+        }
+        catch (Exception $e) 
+        {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+            echo 'Caught exception: ',  $e->getFile(), "\n";
+            echo 'Caught exception: ',  $e->getLine(), "\n";
+        }
 
-        Schema::table('transaction_logs', function (Blueprint $table) {
-            $table->text('notes');
+        $this->info("Add expired point warn duration");
 
-        });
+        // Schema::create('user_campaign', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('user_id')->unsigned()->index();
+        //     $table->string('type', 255);
+        //     $table->boolean('is_used');
+        //     $table->timestamps();
+        //     $table->softDeletes();
+
+        // });
+
+        // Schema::table('transaction_logs', function (Blueprint $table) {
+        //     $table->text('notes');
+
+        // });
         // Schema::table('categories', function(Blueprint $table)
         // {   
         //     $table->string('slug');
@@ -86,7 +116,7 @@ class BalinUpdateCommand extends Command
         //     $i                                      = 0;
         //     foreach($types as $key => $value)
         //     {
-        //         $data                               = new Policy;
+        //         $data                               = new StoreSetting;
         //         $data->fill([
         //             'type'                          => $value,
         //             'value'                         => $values[$key],
