@@ -97,7 +97,7 @@
 <body>
 	@if($controller_name == 'home') <?php $pb = 0; ?>@endif
 	
-	<div id="container" @if(Route::is('frontend.join.index')) class="bg-ground" @endif>
+	<div id="container" @if(Route::is('frontend.join.index')||Route::is('balin.claim.voucher')) class="bg-ground" @endif>
 
 		<header class="page-header" @if($controller_name == 'home') style="margin:0" @endif>
 			@include('widgets.top_menu')
