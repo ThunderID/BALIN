@@ -185,9 +185,5 @@
 		<td>Email</td>
 		<td>: {{$data['balin']['email']}}</td>
 	</tr>
-	<tr>
-		<td>Telepon</td>
-		<td>: {{$data['balin']['phone']}}</td>
-	</tr>
 </table>
 @stop

@@ -71,7 +71,6 @@
 						<td>
 							Jika anda ada kesulitan saat memesan silahkan menghubungi layanan pelanggan kami.
 							<p>Email : {{$data['balin']['email']}}</p>
-							<p>Telepon : {{$data['balin']['phone']}}</p>
 						</td>
 					</tr>
 				</table>

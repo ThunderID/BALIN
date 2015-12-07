@@ -28,23 +28,19 @@ class TransactionSellSaving extends Job implements SelfHandling
     public function handle()
     {
         //need to check user active or not
-        $result                             = new JSend('success', (array)$this->transaction);
-        if($this->transaction->status=='cart' || $this->transaction->status=='na')
-        {
-            $result                         = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
-
-            if($result->getStatus()=='success')
-            {
-                $result                     = $this->dispatch(new GenerateTransactionDate($this->transaction));
-            }
-
-            if($result->getStatus()=='success')
-            {
-                $result                     = $this->dispatch(new GenerateTransactionUniqNumber($this->transaction));
-            }
-        }
+        $result                             = $this->dispatch(new GenerateTransactionRefNumber($this->transaction));
+        
         if($result->getStatus()=='success')
         {
+            if($this->transaction->status=='cart' || $this->transaction->status=='na')
+            {
+                $result                     = $this->dispatch(new GenerateTransactionDate($this->transaction));
+                if($result->getStatus()=='success')
+                {
+                    $result                     = $this->dispatch(new GenerateTransactionUniqNumber($this->transaction));
+                }
+            }
+        
             $result                         = $this->dispatch(new CountVoucherDiscount($this->transaction));
         }
 
