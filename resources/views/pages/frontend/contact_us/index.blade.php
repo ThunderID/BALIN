@@ -69,12 +69,7 @@
 						<div class="col-md-12 text-center">						
 							<p><i class="fa fa-map-marker"></i> &nbsp;{{ $storeinfo['address'] }}</p>
 						</div>						
-					</div>		
-					<div class="row">
-						<div class="col-md-12 text-center">						
-							<p><i class="fa fa-phone"></i> &nbsp;{{ $storeinfo['phone'] }}</p>
-						</div>						
-					</div>	
+					</div>
 					<div class="row">
 						<div class="col-md-12 text-center">						
 							<p><i class="fa fa-envelope"></i> &nbsp;{{ $storeinfo['email'] }}</p>

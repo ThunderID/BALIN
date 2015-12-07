@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Jobs\Job;
 use App\Models\Transaction;
 use App\Models\StoreSetting;
+use App\Models\PointLog;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,7 +37,7 @@ class SendBillingEmail extends Job implements SelfHandling
 		$transaction 	= Transaction::id($this->transaction->id)->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.product', 'shipment', 'shipment.address', 'user'])->first();
 
 		$point 			= 0;
-		$plogs 			= $this->transaction->pointlogs;
+		$plogs 			= PointLog::referenceid($this->transaction->id)->referencetype('App\Models\Transaction')->get();
 
 		foreach ($plogs as $key => $value) 
 		{
@@ -45,6 +46,7 @@ class SendBillingEmail extends Job implements SelfHandling
 				$point = $point - $value->amount;
 			}
 		}
+
 		$transaction['discount_point']	= $point;
 
         $info           = StoreSetting::storeinfo(true)->get();
