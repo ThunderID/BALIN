@@ -2,8 +2,6 @@
 <?php	
 	$carts = Session::get('baskets'); 
 	$tc = $tc::type('term_and_condition')->ondate('now')->orderby('started_at', 'desc')->first();
-
-	$ra = $_SERVER['REMOTE_ADDR'];
 ?>
 @extends('template.frontend.layout')
 

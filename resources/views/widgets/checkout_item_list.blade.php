@@ -45,7 +45,7 @@
 						@money_indo($item_list_discount_price) 
 					</div>
 					<div class="col-sm-3 col-md-3 text-right">
-						@money_indo($item_list_total_price)
+						@money_indo(($item_list_normal_price-$item_list_discount_price)*$value['qty'])
 					</div>
 				</div>
 			@endforeach
