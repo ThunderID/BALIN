@@ -61,43 +61,44 @@
 						<h3 class="title-product caption-product">{{ $data['name'] }}</h3>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left" style="margin-bottom: 33px;">
+				<!-- <div class="row"> -->
+					<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left" style="margin-bottom: 33px;"> -->
 						<!-- <a onclick="facebookShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-facebook"></i>&nbsp;&nbsp;share</a>
 						<a onclick="twitterShare()" href="javascript:void(0);" class="btn btn-share btn-hollow hollow-social hollow-black hollow-black-border "><i class="fa fa-twitter"></i>&nbsp;&nbsp;tweet</a> -->
+					<!-- </div> -->
+				<!-- </div> -->
+				@if (count($data['lables'])!=0)
+					<div class="row m-t-xs m-b-xs">
+						@foreach($data['lables'] as $label)
+							<div class="col-md-3 col-sm-2 col-xs-3 p-b-sm">
+							<?php
+
+							switch (str_replace('_', '', strtoupper($label['lable']))) {
+								case "SALE":
+									// echo "<div class='circle-label black'><div>SALE</div></div>";
+									echo "<div class='square-label no-background black'><div>SALE</div></div>";
+									break;
+								case "HOTITEM":
+									// echo "<div class='circle-label black'><div><p style='margin-top: -6px;''>HOT ITEM</p></div></div>";
+									echo "<div class='square-label no-background black'><div>HOT ITEM</div></div>";
+									break;	
+								case "BESTSELLER":
+									// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>BEST SELLER</p></div></div>";
+									echo "<div class='square-label no-background black'><div>BEST SELLER</div></div>";
+									break;															
+								default:
+									// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</p></div></div>";
+									echo "<div class='square-label no-background black'><div>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</div></div>";
+									break;
+							}
+
+							?>
+							</div>
+						@endforeach									
 					</div>
-				</div>
-				<div class="row">
-					@foreach($data['lables'] as $label)
-						<div class="col-md-3 col-sm-2 col-xs-3 p-b-sm">
-						<?php
-
-						switch (str_replace('_', '', strtoupper($label['lable']))) {
-							case "SALE":
-								// echo "<div class='circle-label black'><div>SALE</div></div>";
-								echo "<div class='square-label no-background black'><div>SALE</div></div>";
-								break;
-							case "HOTITEM":
-								// echo "<div class='circle-label black'><div><p style='margin-top: -6px;''>HOT ITEM</p></div></div>";
-								echo "<div class='square-label no-background black'><div>HOT ITEM</div></div>";
-								break;	
-							case "BESTSELLER":
-								// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>BEST SELLER</p></div></div>";
-								echo "<div class='square-label no-background black'><div>BEST SELLER</div></div>";
-								break;															
-							default:
-								// echo "<div class='circle-label black'><div><p style='margin-top: -6px; font-size: 12px;'>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</p></div></div>";
-								echo "<div class='square-label no-background black'><div>" . str_replace('_', ' ', strtoupper($label['lable'])) . "</div></div>";
-								break;
-						}
-
-						?>
-						</div>
-					@endforeach									
-				</div>
+				@endif
 				<div class="row">
 					<div class="col-md-12">
-						<div class="clearfix">&nbsp;</div>
 						{{-- <h4 class="caption-product">Price</h4> --}}
 						<?php $price 	= $data['price'];?>
 						@if($data['discount']!=0)
