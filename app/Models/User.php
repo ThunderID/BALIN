@@ -117,21 +117,28 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
 	public function getReferenceAttribute($value)
 	{
-		$campaign 						= UserCampaign::userid($this->id)->type('referral')->used(false)->first();
-		
+		// referal
 		$reference 						= PointLog::userid($this->id)->referencetype('App\Models\User')->first();
-
 		if($reference)
 		{
 			return $reference->reference->name;
 		}
 
-		if($campaign)
+		// promo referal
+		$reference 						= Voucher::type('promo_referal')->ofPointLogUserId($this->id)->first();
+		if($reference)
 		{
-			return null;
+			return $reference->user->name;
 		}
 
-		return false;
+
+		// $campaign 						= UserCampaign::userid($this->id)->type('promo_referral')->used(false)->first();
+		// if($campaign)
+		// {
+		// 	return null;
+		// }
+
+		return null;
 	}
 
 	public function getDownlineAttribute($value)

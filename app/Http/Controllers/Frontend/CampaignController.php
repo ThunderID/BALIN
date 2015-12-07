@@ -53,7 +53,7 @@ class CampaignController extends BaseController
 					->with('msg-type', 'danger');
 		}
 
-		if($voucher->quota - 1 < 0)
+		if($voucher->quota <= 1)
 		{
 			return Redirect::back()
 					->withInput()
@@ -100,6 +100,10 @@ class CampaignController extends BaseController
 					->withInput()
 					->withErrors($plog->getError())
 					->with('msg-type', 'danger');
+		}
+		else
+		{
+			$msg 								= 'Selamat anda mendapatkan Balin Point senilai IDR '.number_format($plog->amount, 0, ',', '.');
 		}
 
 		DB::commit();

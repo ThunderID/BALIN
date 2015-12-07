@@ -105,41 +105,41 @@ Route::group(['namespace' => 'Frontend\\', 'prefix' => ''], function()
 
 	Route::group(['middleware' => 'redirectsave'], function() 
 	{
-	// ------------------------------------------------------------------------------------
-	// CART
-	// ------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------
+		// CART
+		// ------------------------------------------------------------------------------------
 
-	Route::get('cart', 													['uses' => 'CartController@index', 'as' => 'frontend.cart.index']);
+		Route::get('cart', 													['uses' => 'CartController@index', 'as' => 'frontend.cart.index']);
 
-	Route::any('cart/list',												['uses' => 'CartController@getListBasket', 'as' => 'frontend.cart.listBasket.ajax']);
+		Route::any('cart/list',												['uses' => 'CartController@getListBasket', 'as' => 'frontend.cart.listBasket.ajax']);
 
-	Route::any('cart/add', 												['uses' => 'CartController@store', 'as' => 'frontend.cart.store.ajax' ]);
+		Route::any('cart/add', 												['uses' => 'CartController@store', 'as' => 'frontend.cart.store.ajax' ]);
 
-	Route::any('update/cart/{cid?}/{vid?}',								['uses' => 'CartController@update', 'as' => 'frontend.cart.update']);
+		Route::any('update/cart/{cid?}/{vid?}',								['uses' => 'CartController@update', 'as' => 'frontend.cart.update']);
 
-	Route::any('remove/from/cart',										['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
-	
-	Route::get('empty/cart',											['uses' => 'CartController@clean', 'as' => 'frontend.cart.empty']);
-
-	// Get address
-	Route::any('get/address/{id?}',										['uses' => 'CheckOutController@getAddress', 'as' => 'frontend.address.get.ajax']);
-	
-	// ------------------------------------------------------------------------------------
-	// CHECKOUT
-	// ------------------------------------------------------------------------------------
-	
-	Route::group(['middleware' => 'customer'], function() 
-	{
-		Route::get('checkout',											['uses' => 'CheckOutController@getCheckout', 'as' => 'frontend.get.checkout']);
+		Route::any('remove/from/cart',										['uses' => 'CartController@destroy', 'as' => 'frontend.cart.destroy']);
 		
-		Route::post('checkout',											['uses' => 'CheckOutController@postCheckout', 'as' => 'frontend.post.checkout']);
+		Route::get('empty/cart',											['uses' => 'CartController@clean', 'as' => 'frontend.cart.empty']);
+
+		// Get address
+		Route::any('get/address/{id?}',										['uses' => 'CheckOutController@getAddress', 'as' => 'frontend.address.get.ajax']);
 		
-		Route::any('ship/cost',											['uses' => 'CheckOutController@getShippingCost', 'as' => 'frontend.any.zipcode']);
+		// ------------------------------------------------------------------------------------
+		// CHECKOUT
+		// ------------------------------------------------------------------------------------
 		
-		Route::any('check/voucher',										['uses' => 'CheckOutController@checkvoucher', 'as' => 'frontend.any.check.voucher']);
-		
-		Route::any('checked/out',										['uses' => 'CheckOutController@checkedout', 'as' => 'frontend.any.checked.out']);
-	});
+		Route::group(['middleware' => 'customer'], function() 
+		{
+			Route::get('checkout',											['uses' => 'CheckOutController@getCheckout', 'as' => 'frontend.get.checkout']);
+			
+			Route::post('checkout',											['uses' => 'CheckOutController@postCheckout', 'as' => 'frontend.post.checkout']);
+			
+			Route::any('ship/cost',											['uses' => 'CheckOutController@getShippingCost', 'as' => 'frontend.any.zipcode']);
+			
+			Route::any('check/voucher',										['uses' => 'CheckOutController@checkvoucher', 'as' => 'frontend.any.check.voucher']);
+			
+			Route::any('checked/out',										['uses' => 'CheckOutController@checkedout', 'as' => 'frontend.any.checked.out']);
+		});
 	});
 
 	Route::get('why/join',												['uses' => 'WhyJoinController@index', 'as' => 'frontend.whyjoin.index']);

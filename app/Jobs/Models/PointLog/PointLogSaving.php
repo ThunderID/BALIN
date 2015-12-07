@@ -31,16 +31,17 @@ class PointLogSaving extends Job implements SelfHandling
         if($this->pointlog->reference_type=='App\Models\User')
         {
             //Check campaign
-            $usercampaign               = UserCampaign::userid($this->pointlog->user_id)->used(false)->type('referral')->first();
+            // $usercampaign               = UserCampaign::userid($this->pointlog->user_id)->used(false)->type('referral')->first();
             //Check referee
             $reference                  = PointLog::referenceid($this->pointlog->reference_id)->referencetype('App\Models\User')->first();
             $user                       = PointLog::userid($this->pointlog->user_id)->referencetype('App\Models\User')->first();
 
-            if(!$usercampaign)
-            {
-                $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat dapat menyimpan pemberi referral.');
-            }
-            elseif($reference && $this->pointlog->user_id == $reference->reference_id)
+            // if(!$usercampaign)
+            // {
+            //     $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat dapat menyimpan pemberi referral.');
+            // }
+            // elseif($reference && $this->pointlog->user_id == $reference->reference_id)
+            if($reference && $this->pointlog->user_id == $reference->reference_id)
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat memakai referensi dari pemberi referens.');
             }
@@ -89,15 +90,16 @@ class PointLogSaving extends Job implements SelfHandling
         elseif($this->pointlog->reference_type=='App\Models\Voucher')
         {
             //Check referee
-            $usercampaign               = UserCampaign::userid($this->pointlog->user_id)->used(false)->type($this->pointlog->reference->type)->first();
+            // $usercampaign               = UserCampaign::userid($this->pointlog->user_id)->used(false)->type($this->pointlog->reference->type)->first();
             $reference                  = PointLog::referenceid($this->pointlog->reference->user_id)->referencetype('App\Models\User')->first();
             $user                       = PointLog::userid($this->pointlog->reference->user_id)->referencetype('App\Models\User')->first();
 
-            if(!$usercampaign)
-            {
-                $result             = new JSend('error', (array)$this->pointlog, 'Maaf, anda tidak terdaftar untuk campaign ini.');
-            }
-            elseif($reference && $this->pointlog->user_id == $reference->reference_id)
+            // if(!$usercampaign)
+            // {
+            //     $result             = new JSend('error', (array)$this->pointlog, 'Maaf, anda tidak terdaftar untuk campaign ini.');
+            // }
+            // elseif($reference && $this->pointlog->user_id == $reference->reference_id)
+            if($reference && $this->pointlog->user_id == $reference->reference_id)
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat memakai referensi dari pemberi referens.');
             }

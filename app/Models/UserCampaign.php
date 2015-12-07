@@ -93,7 +93,14 @@ class UserCampaign extends Eloquent
 
 	public function scopeType($query, $variable)
 	{
-		return 	$query->where('type', $variable);
+		if (is_array($variable))
+		{
+			return 	$query->whereIn('type', $variable);
+		}
+		else
+		{
+			return 	$query->where('type', $variable);
+		}
 	}
 
 	public function scopeUsed($query, $variable)

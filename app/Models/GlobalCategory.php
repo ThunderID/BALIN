@@ -150,6 +150,23 @@ class GlobalCategory extends Eloquent
 
 	public function scopeSlug($query, $variable)
 	{
-		return 	$query->where('slug', $variable);
+		if (is_array($variable))
+		{
+			return $query->whereIn('slug', $variable);
+		}
+		else
+		{
+			return 	$query->where('slug', $variable);
+		}
+	}
+
+	public function scopeRoot($q)
+	{
+		return $q->where('category_id', '=', 0);
+	}
+
+	public function getIsRootAttribute()
+	{
+		return $this->category_id == 0;
 	}
 }

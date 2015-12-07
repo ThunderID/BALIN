@@ -54,9 +54,16 @@ trait HasCategoriesTrait
 
 	public function scopeTagging($query, $variable)
 	{
-		foreach ($variable as $key => $value) 
+		if (is_array($variable))
 		{
-			$query = $query->tagsslug($value);
+			foreach ($variable as $key => $value) 
+			{
+				$query = $query->tagsslug($value);
+			}
+		}
+		else
+		{
+			$query = $query->tagsslug($variable);
 		}
 		return $query;
 	}
