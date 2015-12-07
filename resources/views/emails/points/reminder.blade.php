@@ -19,9 +19,8 @@
 			<td width="10%"></td>
 			<td width="80%">
 				<p>Dear {{$data['points']['user']['name']}}, </p>
-
-				<p>Point BALIN Anda anda sebesar @money_indo($data['points']['amount'])</p>
-				<p>Akan expired tanggal {{$data['expired']}}</p>
+				<p>BALIN Point Anda sebesar @money_indo($data['points']['amount'])</p>
+				<p>Akan expired pada tanggal {{$data['expired']}}</p>
 				<p>Ayo Segera Gunakan Point Anda !</p>
 			</td>
 			<td width="10%"></td>
