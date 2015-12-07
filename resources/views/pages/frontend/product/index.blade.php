@@ -2,7 +2,7 @@
 @inject('category', 'App\Models\Category')
 @inject('tagged', 'App\Models\tag')
 <?php 
-	$tgs 				= explode(',', Input::get('tagging'));
+	$tgs 				= explode('##', Input::get('tagging'));
 
 	$perpage 			= 12;
 
