@@ -39,6 +39,7 @@ class ProductController extends BaseController
 		$searchResult							= [];
 		$links									= [];
 		$sorts									= [];
+		$tagparent								= [];
 
 		$inputOnly 								= ['categoriesslug','tagging','name','sort'];
 
@@ -63,6 +64,7 @@ class ProductController extends BaseController
 						{
 							$tag 				= Tag::slug($value)->with(['category'])->first();
 							$sr					= $sr.' '.$tag['category']['name'].' '.$tag['name'];
+							$tagparent[$tag['slug']]= $tag['category_id'];
 						}
 						$searchResult[]			= $sr;
 						break;
@@ -147,6 +149,7 @@ class ProductController extends BaseController
 													->with('breadcrumb', $breadcrumb)
 													->with('balance', $balance)
 													->with('page', $page)
+													->with('tagparent', $tagparent)
 													->with('links', $links)
 													;
 
