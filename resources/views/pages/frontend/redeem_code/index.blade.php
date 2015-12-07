@@ -40,36 +40,51 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
 	<div class="row point-info m-l-none m-r-none">
 		<div class="col-sm-12 header-info p-lg" id="panel-voucher-normal">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
-					<div class="row p-b-md p-t-none">
-						<div class="col-md-12">
-							<h4 class="m-t-sm p-b-sm">Punya Referral Code ?</h4>
-						</div>	
-					</div>
-					{!! Form::open() !!}
-						<div class="row">
+					@if (is_null(Auth::user()->reference))
+						<div class="row p-b-md p-t-none">
 							<div class="col-md-12">
-								<div class="input-group" style="position:relative">
-									<div class="loading-voucher text-center hide">
-										{!! HTML::image('Balin/web/image/loading.gif', null, []) !!}
+								<h4 class="m-t-sm p-b-sm">Punya Referral Code ?</h4>
+							</div>	
+						</div>
+						{!! Form::open(['url' => route('frontend.user.reference.post')]) !!}
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group" style="position:relative">
+										<div class="loading-voucher text-center hide" style="line-height:30px">
+											{!! HTML::image('Balin/web/image/loading.gif', null, ['style' => 'width:20px']) !!}
+										</div>
+										{!! Form::hidden('from', 'frontend.redeem.index') !!}
+										{!! Form::input('text', 'referral_code', null, [
+												'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
+												'placeholder' => 'Masukkan referral code anda',
+												'data-action' => route('frontend.user.reference.post')
+										]) !!}
+										<span class="input-group-btn">
+											<button type="submit" class="btn-hollow hollow-black" data-action="{{ route('frontend.user.reference.post') }}">Gunakan</button>
+										</span>
 									</div>
-									{!! Form::input('text', 'voucher', null, [
-											'class' => 'form-control hollow transaction-input-voucher-code m-b-sm voucher-desktop',
-											'placeholder' => 'Masukkan referral code anda',
-											'data-action' => route('frontend.any.check.voucher')
-									]) !!}
-									<span class="input-group-btn">
-										<button type="button" class="btn-hollow hollow-black" data-action="{{ route('frontend.any.check.voucher') }}">Gunakan</button>
-									</span>
 								</div>
 							</div>
+						{!! Form::close() !!}
+					@else
+						<div class="row p-b-md p-t-none">
+							<div class="col-md-12 text-center">
+								<h4 class="m-t-sm p-b-sm">REFERRAL ANDA</h4>
+							</div>	
 						</div>
-					{!! Form::close() !!}
+						<div class="row">
+							<div class="col-md-12 text-center">
+								{{ Auth::user()->reference }}
+							</div>
+						</div>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -145,38 +160,83 @@
 @stop
 
 @section('script')
-	@if(Input::has('ref'))
-	var event = new Event('build');
-	var actions 	= "{!! route('frontend.any.checked.out', ['ref' => Input::get('ref')]) !!}";
-	// Listen for the event.
-	document.addEventListener('build', function (e) 
-	{
-		var action = actions;
-		var title = "Pesanan Disimpan";
-		var view_mode = '';
-		parsing = '';
+	$('button.check-voc-ref').click( function() {
+		console.log('yes');
+		inp = $('input.check-voc-ref');
+		voucher = get_voucher(inp);
+		show_voucher(voucher, inp);
+	});
 
-		$('#modal-balance').find('.modal-body').html('loading...');
-		$('#modal-balance').find('.modal-title').html(title);
-		$('#modal-balance').find('.modal-dialog').addClass(view_mode);
-		$('#modal-balance').find('.modal-body').load(action, function() {
-			if (parsing !== null && parsing !== undefined) {
-				change_action($(this), parsing);
+	function get_voucher(e) {
+		value = e.val();
+		action = e.attr('data-action');
+		var gv;
+		
+		$.ajax({
+			url: action,
+			type: 'post',
+			dataType: 'json', 
+			async: false,
+			data: {voucher: value},
+			beforeSend: function() {
+				$('.loading-voucher').removeClass('hide');
+			},
+			success: function(data) {
+				// $('.loading-voucher').addClass('hide');
+				gv = data;
 			}
 		});
 
-		$('#modal-balance').modal('show');
-	}, false);
+		return gv;
+	}
 
-	// Dispatch the event.
-	document.dispatchEvent(event);
+	function show_voucher(e, p) 
+	{
+		if (e.type=='success')
+		{
+			panel_voucher = $('.panel-form-voucher');
+			panel_voucher_device = $('.panel-form-voucher-device');
+
+			modal_notif = $('.modal-notif');
+			modal_notif.find('.title').children().html('');
+			modal_notif.find('.content').html(e.msg);
+
+			set_voucher_id(p);
+
+			if (e.discount==true) {
+				$('.shippingcost').text('IDR 0');
+				$('.shippingcost').attr('data-s', 0);
+				$('.shippingcost').attr('data-v', 1);
+			}
+
+			setTimeout( function() {
+				$('.loading-voucher').addClass('hide');
+				panel_voucher.html('<p class="m-b-none">'+e.msg+'</p>');
+				panel_voucher_device.html('<p class="m-b-none text-center">'+e.msg+'</p>');
+			}, 2000);
+
+			$('#notif-window').modal('show');
+		}
+		else if (e.type=='error')
+		{
+			setTimeout( function() {
+				$('.loading-voucher').addClass('hide');
+			}, 1000);
+			
+			modal_notif = $('.modal-notif');
+			modal_notif.find('.title').children().html('');
+			modal_notif.find('.content').html(e.msg);
+
+			p.addClass('error');
+
+			$('#notif-window').modal('show');
+		}
+	}
 
 	$('#modal-balance').on('hidden.bs.modal', function () {
 		window.history.pushState('obj', 'newtitle', '/profile');
 		return false;
 	})
-
-	@endif
 
 	var view_mode = '';
 	var parsing = '';
@@ -197,27 +257,11 @@
 		});
 	});
 
-	$('.submodal-user-information').on('show.bs.modal', function(e) {
-		var action = $(e.relatedTarget).attr('data-action');
-		var title = $(e.relatedTarget).attr('data-modal-title');
-		var view_mode = $(e.relatedTarget).attr('data-view');
-		parsing = $(e.relatedTarget).attr('data-action-parsing');
-
-		$(this).find('.modal-body').html('loading...');
-		$(this).find('.modal-title').html(title);
-		$(this).find('.modal-dialog').addClass(view_mode);
-		$(this).find('.modal-body').load(action, function() {
-			if (parsing !== null && parsing !== undefined) {
-				change_action($(this), parsing);
-			}
-		});
-	});
 
 	$('.modal-balance').on('hidden.bs.modal', function(e) {
 		$('.modal-dialog').removeClass(view_mode);
 		$(this).find('.modal-body').removeData('bs.modal');
 	});
-
 	$(".modal-fullscreen").on('show.bs.modal', function () {
 	  	setTimeout( function() {
 	    	$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
@@ -227,19 +271,13 @@
 		$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
 	});
 
-	// After load event
-	function change_action(e) {
-		e.context.firstChild.action = parsing;
-	}
-
 	$(window).resize(function() {
 		wd = $(this).width();
 
 		if (wd < 750) {
 			$('.panel-right').removeClass('border-left');
 			$('.panel-right').addClass('border-top');
-		}
-		else {
+		} else {
 			$('.panel-right').removeClass('border-top');
 			$('.panel-right').addClass('border-left');
 		}
@@ -247,12 +285,10 @@
 
 	$(window).load(function() {
 		wd = $(this).width();
-
 		if (wd < 750) {
 			$('.panel-right').removeClass('border-left');
 			$('.panel-right').addClass('border-top');
-		}
-		else {
+		} else {
 			$('.panel-right').removeClass('border-top');
 			$('.panel-right').addClass('border-left');
 		}
@@ -261,4 +297,5 @@
 
 @section('script_plugin')
 	@include('plugins.input-mask')
+	@include('plugins.notif', ['data' => ['title' => 'Terima Kasih', 'content' => 'Produk telah ditambahkan di cart']])
 @stop

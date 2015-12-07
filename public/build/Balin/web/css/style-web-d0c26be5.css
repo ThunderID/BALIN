@@ -587,10 +587,10 @@ p {
 .badge-hollow {
   background-color: #d91e18;
   border-radius: 3px;
-  padding: 3px 6px;
+  padding: 2px 4px;
   position: absolute;
-  top: 5px;
-  right: -5px;
+  top: 6px;
+  right: 0px;
 }
 .page-header {
   padding: 0;

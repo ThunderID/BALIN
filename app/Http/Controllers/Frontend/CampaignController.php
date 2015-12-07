@@ -34,6 +34,15 @@ class CampaignController extends BaseController
 	{		
 		$voucher 								= Voucher::code(Input::get('referral_code'))->type(['referral', 'promo_referral'])->first();
 
+		if (is_null(Input::get('from')))
+		{
+			$from = 'frontend.user.index';
+		}
+		else 
+		{
+			$from = Input::get('from');
+		}
+
 		if(!$voucher || $voucher->user_id==0)
 		{
 			return Redirect::back()
@@ -92,8 +101,7 @@ class CampaignController extends BaseController
 		}
 
 		DB::commit();
-
-			return Redirect::route('frontend.user.index')
+			return Redirect::route($from)
 				->with('msg','Pemberi referensi sudah disimpan')
 				->with('msg-type', 'success');
 	}
