@@ -253,7 +253,7 @@ class CheckOutController extends BaseController
 			}
 			else
 			{
-				return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat bonus point sebesar '.$voucher->value.' (Point akan ditambahkan jika pesanan sudah dibayar)', 'discount' => false], 200);
+				return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat bonus balin point sebesar '.$voucher->value.' (Balin Point akan ditambahkan jika pesanan sudah dibayar)', 'discount' => false], 200);
 			    // return json_decode(json_encode('Selamat! Anda mendapat bonus point sebesar '.$voucher->value.' (Point akan ditambahkan jika pesanan sudah dibayar)'));
 			}
 		}

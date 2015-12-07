@@ -39,7 +39,7 @@ class SaveAuditPoint extends Job implements SelfHandling
                     'user_id'               => (Auth::check() ? Auth::user()->id : '0'),
                     'type'                  => 'point_added',
                     'ondate'                => Carbon::now()->format('Y-m-d H:i:s'),
-                    'event'                 => 'Penambahan point sebesar '.$this->pointlog->amount.' untuk '.$this->pointlog->user->name,
+                    'event'                 => 'Penambahan balin point sebesar '.$this->pointlog->amount.' untuk '.$this->pointlog->user->name,
                 ]);
 
             $audit->table()->associate($this->pointlog);

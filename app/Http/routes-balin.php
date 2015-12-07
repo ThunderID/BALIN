@@ -11,8 +11,8 @@
 // 	return Redirect::route('frontend.home.index'); 
 // }]);
 
-
-Route::group(['namespace' => 'Frontend\\', 'domain' => 'balin.id'], function() 
+// Route::group(['namespace' => 'Frontend\\', 'domain' => 'balin.id'], function() 
+Route::group(['namespace' => 'Frontend\\', 'prefix' => ''], function() 
 {
 	// ------------------------------------------------------------------------------------
 	// SIGNUP & SIGNIN PAGE
@@ -92,7 +92,7 @@ Route::group(['namespace' => 'Frontend\\', 'domain' => 'balin.id'], function()
 
 		Route::get('edit/cart', 										['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
 
-		Route::get('/info',												['uses' => 'RedeemController@index', 'as' => 'frontend.redeem.index']);
+		Route::get('/redeem/code',										['uses' => 'RedeemController@index', 'as' => 'frontend.redeem.index']);
 	});
 	
 	Route::get('do/logout',												['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);

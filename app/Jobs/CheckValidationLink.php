@@ -85,12 +85,12 @@ class CheckValidationLink extends Job implements SelfHandling
 			}
 			else
 			{
-			    $result						= new JSend('error', (array)$this->user, 'Tidak dapat klaim point.');
+			    $result						= new JSend('error', (array)$this->user, 'Tidak dapat klaim balin point.');
 			}
 		}
 		elseif($this->user['is_active'])
 		{
-		    $result							= new JSend('error', (array)$this->user, 'Point sudah pernah di klaim.');
+		    $result							= new JSend('error', (array)$this->user, 'Balin Point sudah pernah di klaim.');
 		}
 
 		return $result;

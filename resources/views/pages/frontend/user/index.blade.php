@@ -57,7 +57,7 @@
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 header-info p-r-md p-l-md panel-right border-left">
 			<div class="row p-md">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
-					<h4 class="p-b-md">Point Balin Anda 
+					<h4 class="p-b-md">Balin Point Anda 
 						<small>
 							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".point-user-information"><i class="fa fa-question-circle fa-1x"></i></a>
 						</small>
@@ -314,15 +314,15 @@
 	    	<div class="modal-content">
 				<div class="modal-header">
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-		       		<h5 class="modal-title" id="exampleModalLabel">Point</h5>
+		       		<h5 class="modal-title" id="exampleModalLabel">Balin Point</h5>
 		      	</div>
 		      	<div class="modal-body mt-75 mobile-m-t-10" style="text-align:left">
-					<p>Point Balin ini adalah voucher discount yang dapat anda gunakan untuk pembelian produk di Balin</p>
-					<p>Untuk menambah jumlah Point Balin ini, ajak teman dan kerabat anda untuk melakukan registrasi di situs Balin.id dan berikan kode referal anda kepada mereka. Dengan menggunakan kode referal anda, teman anda akan mendapatkan Point Balin sebesar Rp. 50.000 dan anda akan mendapatkan Point Balin sebesar Rp. 10.000.</p>
-					<p>Kode referal anda, pada mulanya hanya dapat anda berikan kepada 10 orang teman anda. Apabila teman yang menggunakan kode referal anda melakukan pembelian, anda akan mendapatkan tambahan kuota tersebut menjadi 11 dan anda akan mendapatkan Point Balin sebesar Rp. 10.000, dan demikian seterusnya tanpa ada batasnya.</p>
+					<p>Balin Point ini adalah voucher discount yang dapat anda gunakan untuk pembelian produk di Balin</p>
+					<p>Untuk menambah jumlah Balin Point ini, ajak teman dan kerabat anda untuk melakukan registrasi di situs Balin.id dan berikan kode referal anda kepada mereka. Dengan menggunakan kode referal anda, teman anda akan mendapatkan Balin Point sebesar Rp. 50.000 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000.</p>
+					<p>Kode referal anda, pada mulanya hanya dapat anda berikan kepada 10 orang teman anda. Apabila teman yang menggunakan kode referal anda melakukan pembelian, anda akan mendapatkan tambahan kuota tersebut menjadi 11 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000, dan demikian seterusnya tanpa ada batasnya.</p>
 					<p>Semakin banyak teman yang menggunakan referal anda dan semakin sering teman yang anda referensikan melakukan pembelian, semakin besar voucher yang anda dapatkan.</p>
 
-					<p>Point Balin tidak dapat diuangkan.</p>
+					<p>Balin Point tidak dapat diuangkan.</p>
 		      	</div>
 	   		</div>
 	  	</div>
@@ -337,11 +337,11 @@
 		       		<h5 class="modal-title" id="exampleModalLabel">Referral Code</h5>
 		      	</div>
 		      	<div class="modal-body mt-75 mobile-m-t-10" style="text-align:left">
-					<p>Kode referal adalah kode akun anda di Balin.id. Anda dapat mengajak teman atau kerabat anda untuk mendaftar ke situs Balin.id dan berikan kode referal anda. Dengan menggunakan kode referal anda, teman anda akan mendapatkan Point Balin sebesar Rp. 50.000 dan anda akan mendapatkan Point Balin sebesar Rp. 10.000</p>
-					<p>Kode referal anda, pada mulanya hanya dapat anda berikan kepada 10 orang teman anda. Apabila teman yang menggunakan kode referal anda melakukan pembelian, anda akan mendapatkan tambahan kuota tersebut menjadi 11 dan anda akan mendapatkan Point Balin sebesar Rp. 10.000, dan demikian seterusnya tanpa ada batasnya.</p>
+					<p>Kode referal adalah kode akun anda di Balin.id. Anda dapat mengajak teman atau kerabat anda untuk mendaftar ke situs Balin.id dan berikan kode referal anda. Dengan menggunakan kode referal anda, teman anda akan mendapatkan Balin Point sebesar Rp. 50.000 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000</p>
+					<p>Kode referal anda, pada mulanya hanya dapat anda berikan kepada 10 orang teman anda. Apabila teman yang menggunakan kode referal anda melakukan pembelian, anda akan mendapatkan tambahan kuota tersebut menjadi 11 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000, dan demikian seterusnya tanpa ada batasnya.</p>
 					<p>Semakin banyak teman yang menggunakan referal anda dan semakin sering teman yang anda referensikan melakukan pembelian, semakin besar voucher yang anda dapatkan.</p>
 
-					<p>Point Balin tidak dapat diuangkan.</p>
+					<p>Balin Point tidak dapat diuangkan.</p>
 		      	</div>
 	   		</div>
 	  	</div>

@@ -26,7 +26,7 @@ class UserDeleting extends Job implements SelfHandling
 
         if($this->user->pointlogs->count())
         {
-            return new JSend('error', (array)$this->user, 'Tidak bisa menghapus User yang memiliki point.');
+            return new JSend('error', (array)$this->user, 'Tidak bisa menghapus User yang memiliki balin point.');
         }
 
         if($this->user->quotalogs->count())
