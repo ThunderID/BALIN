@@ -47,32 +47,45 @@
 		<div class="col-sm-12 header-info p-lg" id="panel-voucher-normal">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
-					@if (is_null(Auth::user()->reference))
-						<div class="row p-b-md p-t-none">
-							<div class="col-md-12">
-								<h4 class="m-t-sm p-b-sm">Punya Referral Code ?</h4>
-							</div>	
-						</div>
-						{!! Form::open(['url' => route('frontend.user.reference.post')]) !!}
-							<div class="row">
+					@if (Auth::user()->reference!=false || is_null(Auth::user()->reference))
+						@if (is_null(Auth::user()->reference))
+							<div class="row p-b-md p-t-none">
 								<div class="col-md-12">
-									<div class="input-group" style="position:relative">
-										<div class="loading-voucher text-center hide" style="line-height:30px">
-											{!! HTML::image('Balin/web/image/loading.gif', null, ['style' => 'width:20px']) !!}
+									<h4 class="m-t-sm p-b-sm">Punya Referral Code ?</h4>
+								</div>	
+							</div>
+							{!! Form::open(['url' => route('frontend.user.reference.post')]) !!}
+								<div class="row">
+									<div class="col-md-12">
+										<div class="input-group" style="position:relative">
+											<div class="loading-voucher text-center hide" style="line-height:30px">
+												{!! HTML::image('Balin/web/image/loading.gif', null, ['style' => 'width:20px']) !!}
+											</div>
+											{!! Form::hidden('from', 'frontend.redeem.index') !!}
+											{!! Form::input('text', 'referral_code', null, [
+													'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
+													'placeholder' => 'Masukkan referral code anda',
+													'data-action' => route('frontend.user.reference.post')
+											]) !!}
+											<span class="input-group-btn">
+												<button type="submit" class="btn-hollow hollow-black" data-action="{{ route('frontend.user.reference.post') }}">Gunakan</button>
+											</span>
 										</div>
-										{!! Form::hidden('from', 'frontend.redeem.index') !!}
-										{!! Form::input('text', 'referral_code', null, [
-												'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
-												'placeholder' => 'Masukkan referral code anda',
-												'data-action' => route('frontend.user.reference.post')
-										]) !!}
-										<span class="input-group-btn">
-											<button type="submit" class="btn-hollow hollow-black" data-action="{{ route('frontend.user.reference.post') }}">Gunakan</button>
-										</span>
 									</div>
 								</div>
+							{!! Form::close() !!}
+						@else
+							<div class="row p-b-md p-t-none">
+								<div class="col-md-12 text-center">
+									<h4 class="m-t-sm p-b-sm">REFERRAL ANDA</h4>
+								</div>	
 							</div>
-						{!! Form::close() !!}
+							<div class="row">
+								<div class="col-md-12 text-center">
+									{{ Auth::user()->reference }}
+								</div>
+							</div>
+						@endif
 					@else
 						<div class="row p-b-md p-t-none">
 							<div class="col-md-12 text-center">
