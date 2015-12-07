@@ -138,7 +138,7 @@ class TagController extends BaseController
 				'category_id' 						=> $inputs['parent'],
 				'type' 								=> 'tag',
 				'name' 								=> $inputs['name'],
-				'path'								=> $inputs['parent'],
+				'path'								=> (is_null($id) ? $inputs['parent'] : $data['path']),
 			]);
 		}
 		else
