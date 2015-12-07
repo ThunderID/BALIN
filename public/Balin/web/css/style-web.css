@@ -37,6 +37,81 @@
 .text-superlight {
   font-weight: 200 !important;
 }
+.text-white {
+  color: #fff !important;
+}
+.text-black {
+  color: #000 !important;
+}
+.text-red {
+  color: #d91e18 !important;
+}
+.text-grey {
+  color: #999 !important;
+}
+.text-grey-dark {
+  color: #888 !important;
+}
+.text-grey-light {
+  color: #ccc !important;
+}
+.text-uppercase {
+  text-transform: uppercase;
+}
+.text-strikethrough {
+  font-size: 9px !important;
+  position: relative;
+}
+.text-strikethrough::after {
+  position: absolute;
+  border-bottom: 0.18em solid rgba(255, 0, 0, 0.8);
+  content: "";
+  left: 0;
+  line-height: 1em;
+  margin-top: calc(-0.1em);
+  right: 0;
+  top: 50%;
+  max-width: inherit;
+}
+.text-shadow {
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+}
+a:hover {
+  text-decoration: none;
+}
+.hover-grey {
+  color: #999;
+}
+.hover-black {
+  color: #000;
+}
+.hover-white {
+  color: #fff;
+}
+.hover-gold {
+  color: #e18a07;
+}
+.hover-red {
+  color: #d91e18;
+}
+p {
+  line-height: 2em;
+}
+.letter-space-xs {
+  letter-spacing: 0.02em;
+}
+.letter-space-sm {
+  letter-spacing: 0.04em;
+}
+.letter-space-regular {
+  letter-spacing: 0.06em;
+}
+.letter-space-md {
+  letter-spacing: 0.08em;
+}
+.letter-space-lg {
+  letter-spacing: 0.1em;
+}
 .p-xxs {
   padding: 5px;
 }
@@ -508,6 +583,14 @@ p {
   .mobile-m-t-10 {
     margin-top: 10px !important;
   }
+}
+.badge-hollow {
+  background-color: #d91e18;
+  border-radius: 3px;
+  padding: 3px 6px;
+  position: absolute;
+  top: 5px;
+  right: -5px;
 }
 .page-header {
   padding: 0;
