@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Frontend;
+<?php namespace App\Http\Controllers\Campaign;
 
 use App\Http\Controllers\BaseController;
 
@@ -20,7 +20,7 @@ class InvitationController extends BaseController
 			return Redirect::route('frontend.user.index');
 		}
 
-		$breadcrumb										= ['Sign In By Invitation' => route('frontend.join.get')];
+		$breadcrumb										= ['Sign In By Invitation' => route('campaign.join.get')];
 		$this->layout->page 							= view('pages.frontend.login.invitation')
 																->with('controller_name', $this->controller_name)
 																->with('breadcrumb', $breadcrumb)
