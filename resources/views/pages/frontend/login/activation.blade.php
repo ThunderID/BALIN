@@ -14,13 +14,12 @@
 											<div class="col-md-12 text-center">
 												<h3 class="">Selamat!</h3> 
 												<p class="m-b-sm m-t-md">Anda mendapatkan Balin Point senilai</p> 
-												<h3 class="m-b-none">@money_indo($amount)</h3>
+												<h3 class="m-b-md">@money_indo($amount)</h3>
 												@if(Auth::check())
 													<p>Cek buku tabungan anda sekarang juga.</p>
 													<a href="{{ URL::route('frontend.user.point') }}" class="btn-hollow hollow-black hollow-black-border" tabindex="6">Buku Tabungan</a>
 												@else
-													<p>Klik untuk sign in</p>
-													<a href="{{ URL::route('frontend.join.index') }}" class="btn-hollow hollow-black hollow-black-border" tabindex="6">Sign In</a>
+													<a href="{{ URL::route('frontend.join.index') }}" class="btn-hollow hollow-black hollow-black-border" tabindex="6">SIGN IN NOW</a>
 												@endif
 											</div>
 										</div>	
