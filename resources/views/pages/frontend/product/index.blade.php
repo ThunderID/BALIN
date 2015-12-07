@@ -134,7 +134,20 @@
 														<?php 
 															if(Input::has('tagging'))
 															{
-																$tagging 		= Input::get('tagging').'##'.$tmp['slug'];
+																$tagg 				= '';
+																foreach ($tgs as $tg2) 
+																{
+																	if($tagparent[$tg2]==$tmp['category_id'])
+																	{
+																		$tagg 		= $tagg.'##'.$tmp['slug'];
+																	}
+																	else
+																	{
+																		$tagg 		= $tagg.'##'.$tg2;
+																	}
+																}
+
+																$tagging 			= $tagg;
 															}
 															else
 															{
@@ -262,7 +275,20 @@
 													<?php 
 														if(Input::has('tagging'))
 														{
-															$tagging 		= Input::get('tagging').'##'.$tmp['slug'];
+															$tagg 				= '';
+															foreach ($tgs as $tg2) 
+															{
+																if($tagparent[$tg2]==$tmp['category_id'])
+																{
+																	$tagg 		= $tagg.'##'.$tmp['slug'];
+																}
+																else
+																{
+																	$tagg 		= $tagg.'##'.$tg2;
+																}
+															}
+
+															$tagging 			= $tagg;
 														}
 														else
 														{
