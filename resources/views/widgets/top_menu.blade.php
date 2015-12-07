@@ -40,7 +40,7 @@
 						</li> --}}
 						@if (Auth::user())
 							<li @if($controller_name == 'redeem') class=active @endif sytle="position:relative">
-								<a href="{{ URL::route('frontend.redeem.index') }}">Balin Point 
+								<a href="{{ URL::route('frontend.redeem.index') }}">Referal &amp; Point
 									<span class="badge badge-hollow"><i class="fa fa-exclamation"></i></span>
 								</a>
 							</li>
