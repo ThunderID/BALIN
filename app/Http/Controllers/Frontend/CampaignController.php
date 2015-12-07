@@ -36,11 +36,13 @@ class CampaignController extends BaseController
 
 		if (is_null(Input::get('from')))
 		{
-			$from = 'frontend.user.index';
+			$from 								= 'frontend.user.index';
+			$msg 								= 'Pemberi referensi sudah disimpan';
 		}
 		else 
 		{
-			$from = Input::get('from');
+			$from 								= Input::get('from');
+			$msg 								= 'Selamat anda mendapatkan Balin Point senilai IDR '.number_format($voucher['value'], 0, ',', '.');
 		}
 
 		if(!$voucher || $voucher->user_id==0)
@@ -102,7 +104,7 @@ class CampaignController extends BaseController
 
 		DB::commit();
 			return Redirect::route($from)
-				->with('msg','Pemberi referensi sudah disimpan')
+				->with('msg', $msg)
 				->with('msg-type', 'success');
 	}
 }
