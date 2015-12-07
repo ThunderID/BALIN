@@ -91,6 +91,8 @@ Route::group(['namespace' => 'Frontend\\', 'domain' => 'balin.id'], function()
 		Route::post('/reference', 										['uses' => 'CampaignController@postreference', 'as' => 'frontend.user.reference.post']);
 
 		Route::get('edit/cart', 										['uses' => 'CartController@edit', 'as' => 'frontend.cart.edit']);
+
+		Route::get('/info',												['uses' => 'RedeemController@index', 'as' => 'frontend.redeem.index']);
 	});
 	
 	Route::get('do/logout',												['uses' => 'AuthController@doLogout', 'as' => 'frontend.dologout']);
