@@ -99,7 +99,7 @@
 	
 	<div id="container" @if(Route::is('frontend.join.index')) class="bg-ground" @endif>
 
-		<header class="page-header" @if($controller_name == 'home') style="margin:0" @endif>
+		<header class="page-header" style="{{ $controller_name == 'home' ? 'margin-top:0px' : ''}}">
 			@include('widgets.top_menu')
 		</header>
 

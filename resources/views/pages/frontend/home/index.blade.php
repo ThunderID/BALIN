@@ -8,7 +8,7 @@
 @section('content')
 	<!-- Full Page Image Background Carousel Header -->
 	
-	<div class="tp-banner-container hidden-xs">
+	<div class="tp-banner-container hidden-xs" style='margin-top:50px'>
 		<div class="tp-banner" >
 			<ul>
 				<!-- SLIDE 1-->
