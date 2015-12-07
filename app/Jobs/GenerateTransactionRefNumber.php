@@ -21,49 +21,47 @@ class GenerateTransactionRefNumber extends Job implements SelfHandling
     {
         if(is_null($this->transaction->id) || $this->transaction->ref_number=='0000000000')
         {
-            switch ($this->transaction->status) 
+            if($this->transaction->type=='sell' && in_array($this->transaction->status, ['na', 'cart', 'abandoned']))
             {
-                case 'cart':
-                    $this->transaction->ref_number  = '0000000000';
-                break;
+                $this->transaction->ref_number  = '0000000000';
+            }
+            else
+            {
+                $prefix                         = $this->transaction->type[0].date("ym");
 
-                default:
-                    $prefix                         = $this->transaction->type[0].date("ym");
+                $latest_transaction             = Transaction::select('ref_number')
+                                                    ->refnumber($prefix)
+                                                    ->status(['wait', 'paid', 'packed', 'shipping', 'delivered', 'canceled'])
+                                                    ->orderBy('ref_number', 'DESC')
+                                                    ->first();
 
-                    $latest_transaction             = Transaction::select('ref_number')
-                                                        ->refnumber($prefix)
-                                                        ->orderBy('ref_number', 'DESC')
-                                                        ->first();
-
-                    if(date('Y')=='2015')
+                if(date('Y')=='2015')
+                {
+                    if(empty($latest_transaction))
                     {
-                        if(empty($latest_transaction))
-                        {
-                            $number                     = 47;
-                        }
-                        else
-                        {
-                            $number                     = 47 + (int)substr($latest_transaction['ref_number'],7);
-                        }
+                        $number                     = 47;
                     }
                     else
                     {
-                        if(empty($latest_transaction))
-                        {
-                            $number                     = 1;
-                        }
-                        else
-                        {
-                            $number                     = 1 + (int)substr($latest_transaction['ref_number'],7);
-                        }
+                        $number                     = 1 + (int)substr($latest_transaction['ref_number'],6);
                     }
+                }
+                else
+                {
+                    if(empty($latest_transaction))
+                    {
+                        $number                     = 1;
+                    }
+                    else
+                    {
+                        $number                     = 1 + (int)substr($latest_transaction['ref_number'],6);
+                    }
+                }
 
 
-                    $ref_number                     = str_pad($number,4,"0",STR_PAD_LEFT);
+                $ref_number                     = str_pad($number,4,"0",STR_PAD_LEFT);
 
-                    $this->transaction->ref_number  = $prefix . $ref_number;
-                    
-                break;
+                $this->transaction->ref_number  = $prefix . $ref_number;
             }
         }
 
