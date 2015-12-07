@@ -3,11 +3,12 @@
 @section('content')
 	<table style="width:100%">
 		<tr>
-			<td style="width:5%"></td>
-			<td style="width:90%">
-				<img src="<?php echo $message->embed('Balin/web/image/balin-white.png'); ?>" style="max-width:150px; text-align:left;">
+			<td width="10%"></td>
+			<td width="80%">
+				{{-- <img src="{{ $message->embed('Balin/web/image/balin-white.png') }}" style="max-width:150px; text-align:left;"> --}}
+				<img src="{{ $message->embed('Balin/web/image/balin-white.png') }}" style="max-width:150px; text-align:left;">
 			</td>
-			<td style="width:5%"></td>
+			<td width="10%"></td>
 		</tr>
 
 		<tr>
@@ -15,42 +16,52 @@
 		</tr>
 
 		<tr>
-			<td style="width:5%"></td>
-			<td style="width:90%">
-				<p>Welcome, {{$data['user']['name']}}</p>
+			<td width="10%"></td>
+			<td width="80%">
+				<p>Dear {{$data['user']['name']}}, </p>
 
-				<p>
-					Lorem ipsum Sint incididunt commodo irure enim esse elit commodo aliquip Duis esse elit et deserunt ut aute nostrud ut sit laborum cupidatat elit dolore consequat ut veniam laborum tempor aute culpa nulla sunt amet consectetur est pariatur esse Ut Ut qui veniam eu reprehenderit fugiat ea sed elit enim deserunt aliquip fugiat tempor aute Excepteur sint dolor incididunt labore voluptate cillum nostrud ullamco ad ex velit tempor mollit nisi et cupidatat Excepteur veniam labore Ut consectetur qui laboris tempor laboris reprehenderit aliquip proident esse pariatur pariatur dolor aliquip ofﬁcia nisi reprehenderit aute velit occaecat do cillum ullamco sunt cillum fugiat sit commodo Ut sed culpa veniam ex in non et ex ut laboris esse esse reprehenderit nostrud id nisi irure cillum et tempor sed consectetur sunt ut ut commodo enim aliqua adipisicing adipisicing amet esse quis et ad Ut nulla tempor ex qui anim esse et amet aute ea ut nostrud qui sunt consectetur ad Excepteur irure do est esse sunt Excepteur in ad non tempor ex dolor in et dolor ea nisi ullamco sit laborum anim pariatur mollit Ut cillum sit sint mollit eu Excepteur consectetur eiusmod Duis dolore mollit in reprehenderit culpa incididunt tempor Duis dolore id irure et dolore in quis mollit dolore Duis sed Excepteur nostrud eiusmod et id commodo sunt.
+				<p>Selamat datang, Anda telah terdaftar di <a href='https://balin.id'>Balin.id</a></p>
+
+				<p>Dengan menjadi bagian dari Balin.id, anda juga dapat menikmati fasilitas yang kami berikan berupa Kode Referal dan Balin Point. Dengan kode Referal, 
+				anda dapat mengajak teman atau kerabat anda untuk mendaftar ke situs Balin.id dan berikan kode referal anda. Dengan menggunakan kode referal anda, 
+				teman anda akan mendapatkan Balin Point sebesar Rp. 50.000 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000. Kode referal anda, pada mulanya 
+				hanya dapat anda berikan kepada 10 orang teman anda. Apabila teman yang menggunakan kode referal anda melakukan pembelian, anda akan mendapatkan 
+				tambahan kuota tersebut menjadi 11 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000, dan demikian seterusnya tanpa ada batasnya. Balin Point
+				tersebut dapat anda gunakan untuk berbelanja di Balin.id, namun tidak dapat diuangkan.
 				</p>
+
+				<p>Semakin banyak teman yang menggunakan referal anda dan semakin sering teman yang anda referensikan melakukan pembelian, semakin besar voucher yang anda dapatkan.</p>
+
+				<p>Untuk memulai, Balin telah menyediakan Balin Point untuk anda. Klaim Balin Point tersebut dengan klik tombol di bawah ini.</p>
 			</td>
-			<td style="width:5%"></td>
+			<td width="10%"></td>
 		</tr>
 
 		<tr>
-			<td></br></br></td>
+			<td></br></td>
 		</tr>
 
 		<tr>
-			<td style="width:5"></td>
+			<td width="10%"></td>
 			<td style="width:90%; text-align:center;">
-				<a href="{{route('balin.claim.voucher', $data['user']['activation_link'])}}" style="text-decoration:none; letter-spacing:2px; padding-top:15px; padding-bottom:15px; padding-right:15%; padding-left:15%; background-color:black; color:white;">REDEEM MY VOUCHER</a>
+				<a href="{{route('balin.claim.voucher', $data['user']['activation_link'])}}" class='btn'>KLAIM BALIN POINT</a>
 			</td>
-			<td style="width:5%"></td>
+			<td width="10%"></td>
 		</tr>
 
 		<tr>
-			<td></br></br></td>
+			<td><br></td>
 		</tr>	
 
 		<tr>
-			<td style="width:5%"></td>
-			<td style="width:90%">
+			<td width="10%"></td>
+			<td width="80%">
 				<p>
 					Kind Regards, </br>
 					Balin.id
 				</p>
 			</td>
-			<td style="width:5%"></td>
+			<td width="10%"></td>
 		</tr>
 
 	</table>

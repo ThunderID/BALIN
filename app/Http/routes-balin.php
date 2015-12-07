@@ -12,7 +12,7 @@
 // }]);
 
 
-Route::group(['namespace' => 'Frontend\\', 'domain' => 'tmp.balin.id'], function() 
+Route::group(['namespace' => 'Frontend\\', 'domaina' => 'tmp.balin.id'], function() 
 {
 	// ------------------------------------------------------------------------------------
 	// SIGNUP & SIGNIN PAGE

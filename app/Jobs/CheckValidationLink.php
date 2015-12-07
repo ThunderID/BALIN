@@ -34,9 +34,18 @@ class CheckValidationLink extends Job implements SelfHandling
 		{
 			$gift                    		= StoreSetting::type('welcome_gift')->Ondate('now')->first();
 
+			$store                    		= StoreSetting::type('voucher_point_expired')->Ondate('now')->first();
+
             if($gift)
             {
-            	$expired_at 				= new Carbon('+ 3 months');
+            	if($store)
+            	{
+	            	$expired_at 			= new Carbon($store->value);
+            	}
+            	else
+            	{
+	            	$expired_at 			= new Carbon('+ 3 months');
+            	}
 
 				DB::BeginTransaction();
 
@@ -69,6 +78,8 @@ class CheckValidationLink extends Job implements SelfHandling
 					else
 					{
 						DB::commit();
+
+						$result				= new JSend('success', (array)$point['attributes']);
 					}
 				}
 			}
