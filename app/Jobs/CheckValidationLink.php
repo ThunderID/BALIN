@@ -79,7 +79,7 @@ class CheckValidationLink extends Job implements SelfHandling
 					{
 						DB::commit();
 
-						$result				= new JSend('success', (array)$point);
+						$result				= new JSend('success', (array)$point['attributes']);
 					}
 				}
 			}
