@@ -7,6 +7,7 @@ use Illuminate\Support\MessageBag;
 
 use App\Models\User;
 use App\Models\PointLog;
+use App\Models\StoreSetting;
 
 class InvitationController extends BaseController 
 {
@@ -112,7 +113,16 @@ class InvitationController extends BaseController
 
 		if(!$errors->count())
 		{
-			$expired_at 							=  new Carbon('+ 3 months');
+			$store                    		= StoreSetting::type('voucher_point_expired')->Ondate('now')->first();
+
+	    	if($store)
+	    	{
+	        	$expired_at 				= new Carbon($store->value);
+	    	}
+	    	else
+	    	{
+	        	$expired_at 				= new Carbon('+ 3 months');
+	    	}
 
 			$plog 									= new PointLog;
 

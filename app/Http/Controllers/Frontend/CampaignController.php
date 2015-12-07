@@ -6,6 +6,7 @@ use Input, Redirect, Auth, Carbon, Validator, DB, App;
 
 use App\Models\User;
 use App\Models\PointLog;
+use App\Models\StoreSetting;
 use App\Models\Voucher;
 
 class CampaignController extends BaseController 
@@ -57,8 +58,17 @@ class CampaignController extends BaseController
 		{
 			$reference 							= $voucher->user;
 		}
+		
+		$store                    		= StoreSetting::type('voucher_point_expired')->Ondate('now')->first();
 
-		$expired_at 							=  new Carbon('+ 3 months');
+    	if($store)
+    	{
+        	$expired_at 				= new Carbon($store->value);
+    	}
+    	else
+    	{
+        	$expired_at 				= new Carbon('+ 3 months');
+    	}
 
 		DB::beginTransaction();
 
