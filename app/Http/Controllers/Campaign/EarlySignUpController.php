@@ -8,6 +8,7 @@ use Illuminate\Support\MessageBag;
 use App\Models\User;
 use App\Models\PointLog;
 use App\Models\Voucher;
+use App\Models\StoreSetting;
 use App\Jobs\SaveCampaign;
 
 class EarlySignUpController extends BaseController 
@@ -209,7 +210,16 @@ class EarlySignUpController extends BaseController
 					->with('msg-type', 'danger');
 		}
 
-		$expired_at 							=  new Carbon('+ 3 months');
+		$expire 								= StoreSetting::type('voucher_point_expired')->ondate('now')->first();
+
+		if($expire)
+		{
+			$expired_at 						=  new Carbon($expire->value);
+		}
+		else
+		{
+			$expired_at 						=  new Carbon('+ 3 months');
+		}
 
 		$errors 								= new MessageBag();
 		$plog 									= new PointLog;

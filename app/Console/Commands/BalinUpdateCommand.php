@@ -64,7 +64,7 @@ class BalinUpdateCommand extends Command
                 $data->fill([
                     'type'                          => $value,
                     'value'                         => $values[$key],
-                    'started_at'                    => date('Y-m-d H:i:s', strtotime('+ 2 hours')),
+                    'started_at'                    => date('Y-m-d H:i:s', strtotime('+ 10 minutes ')),
                 ]);
 
                 if (!$data->save())
