@@ -7,7 +7,7 @@
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 header-info p-r-md p-l-md">
 			<div class="row p-md">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-r-none">
-					<h4 class="p-b-md text-left">Referral Code 
+					<h4 class="p-b-md text-left">Referal Code 
 						<small>
 							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".referral-user-information"><i class="fa fa-question-circle"></i></a>
 						</small>
@@ -48,7 +48,7 @@
 				<div class="col-sm-6 col-sm-offset-3">
 					<div class="row p-b-md p-t-none">
 						<div class="col-md-12">
-							<h4 class="m-t-sm">Punya Referral Code ?</h4>
+							<h4 class="m-t-sm">Punya Referal Code ?</h4>
 						</div>	
 					</div>
 					{!! Form::open(['url' => route('frontend.user.reference.post')]) !!}
@@ -135,13 +135,13 @@
 	  	</div>
 	</div>
 
-	<!-- Modal Info Referral Code -->
+	<!-- Modal Info Referal Code -->
 	<div id="" class="modal referral-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
 				<div class="modal-header">
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-		       		<h5 class="modal-title" id="exampleModalLabel">Referral Code</h5>
+		       		<h5 class="modal-title" id="exampleModalLabel">Referal Code</h5>
 		      	</div>
 		      	<div class="modal-body mt-75 mobile-m-t-10" style="text-align:left">
 					<p>Kode referal adalah kode akun anda di Balin.id. Anda dapat mengajak teman atau kerabat anda untuk mendaftar ke situs Balin.id dan berikan kode referal anda. Dengan menggunakan kode referal anda, teman anda akan mendapatkan Balin Point sebesar Rp. 50.000 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000</p>
