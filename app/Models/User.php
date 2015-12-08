@@ -82,7 +82,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 											'name'							=> 'required|max:255',
 											'email'							=> 'max:255|email',
 											'role'							=> 'required|max:255',
-											// 'date_of_birth'					=> 'date_format:"Y-m-d H:i:s"|before:now'
+											'date_of_birth'					=> 'date_format:"Y-m-d H:i:s"|before:13 years ago'
 										];
 
 	/**
