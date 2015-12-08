@@ -51,11 +51,11 @@ function isMobile() {
 	<div class="checkbox">
 		<label class="t-xs" style="color:#666">
 			<input type="checkbox" required>
-			Saya menyetujui <a href="#" class="link-black hover-grey unstyle" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> untuk melakukan pendaftaran.. 
+			Saya menyetujui <a href="#" class="link-black unstyle" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> untuk melakukan pendaftaran.. 
 		</label>
 	</div>
 	<div class="form-group text-right">
-	    <a class="link-black btn-cancel">Cancel</a>&nbsp;&nbsp;&nbsp;
+	    <a href="#" class="link-black btn-cancel">Cancel</a>&nbsp;&nbsp;&nbsp;
 	    <button type="submit" class="btn-hollow hollow-black-border">Sign Up</button>
 	</div>
 {!! Form::close() !!}

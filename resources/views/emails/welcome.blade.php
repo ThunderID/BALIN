@@ -1,20 +1,15 @@
 @extends('template.email.layout')
 
 @section('content')
-	<table style="width:100%">
+	<table style="width:100%;">
 		<tr>
 			<td width="10%"></td>
 			<td width="80%">
 				{{-- <img src="{{ $message->embed('Balin/web/image/balin-white.png') }}" style="max-width:150px; text-align:left;"> --}}
-				<img src="{{ $message->embed('Balin/web/image/balin-white.png') }}" style="max-width:150px; text-align:left;">
+				<img src="{{ $message->embed('Balin/web/image/balin-white.png') }}" style="max-width:150px; text-align:left; margin-bottom:40px;">
 			</td>
 			<td width="10%"></td>
 		</tr>
-
-		<tr>
-			<td></br></br></td>
-		</tr>
-
 		<tr>
 			<td width="10%"></td>
 			<td width="80%">
