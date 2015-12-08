@@ -19,13 +19,21 @@
 			<td width="10%"></td>
 			<td width="80%">
 				<p>Dear {{$data['user']['name']}}, </p>
-				<p>
-					Klik link <a href="{{route('frontend.get.forgot', $data['user']['reset_password_link'])}}"> <strong>berikut</strong></a> reset password anda.
-				</p>
-		<tr>
-			<td><br></td>
-		</tr>	
 
+				<p>
+					Klik link <a href="{{route('frontend.get.forgot', $data['user']['reset_password_link'])}}"> <strong>berikut</strong></a> untuk reset password anda.
+				</p>
+			</td>
+			<td width="10%"></td>
+		</tr>
+
+		<tr>
+			<td></br></td>
+		</tr>
+
+		<tr>
+			<td></br></br></td>
+		</tr>
 		<tr>
 			<td width="10%"></td>
 			<td width="80%">

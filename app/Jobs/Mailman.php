@@ -24,7 +24,7 @@ class Mailman extends Job implements SelfHandling
         {
             Mail::send($this->mail_data['view'], ['data' => $this->mail_data['datas']], function($message)
             {
-                $message->from(Config::get('mail.from.address'), Config::get('mail.from.name'));
+                // $message->from(Config::get('mail.from.address'), Config::get('mail.from.name'));
                 $message->to($this->mail_data['dest_email'], $this->mail_data['dest_name'])->subject($this->mail_data['subject']);
             }); 
         
@@ -32,6 +32,7 @@ class Mailman extends Job implements SelfHandling
         }
         catch (\Exception $e) 
         {
+            dD($e);
             $result                 = new JSend('error', null, $e);
         }
         

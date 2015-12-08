@@ -11,8 +11,8 @@
 // 	return Redirect::route('frontend.home.index'); 
 // }]);
 
-// Route::group(['namespace' => 'Frontend\\', 'prefix' => ''], function() 
-Route::group(['namespace' => 'Frontend\\', 'domain' => 'balin.id'], function() 
+Route::group(['namespace' => 'Frontend\\', 'prefix' => ''], function() 
+// Route::group(['namespace' => 'Frontend\\', 'domain' => 'balin.id'], function() 
 {
 	// ------------------------------------------------------------------------------------
 	// SIGNUP & SIGNIN PAGE
