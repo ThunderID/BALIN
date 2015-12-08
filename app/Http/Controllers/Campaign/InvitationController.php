@@ -65,7 +65,7 @@ class InvitationController extends BaseController
 		{
 			return Redirect::back()
 					->withInput()
-					->withErrors('Quota referral sudah habis.')
+					->withErrors('Quota Referral sudah habis.')
 					->with('msg-type', 'danger');
 		}
 		

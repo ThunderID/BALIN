@@ -44,7 +44,7 @@ class PointLogSaving extends Job implements SelfHandling
             // elseif($reference && $this->pointlog->user_id == $reference->reference_id)
             if($user || $alreadyhasvoucher)
             {
-                $result                 = new JSend('error', (array)$this->pointlog, 'Maaf, Anda sudah mempunyai referral code.');
+                $result                 = new JSend('error', (array)$this->pointlog, 'Maaf, Anda tidak dapat menambahkan referral code, karena anda sudah menggunakan referral code '.$this->pointlog->reference->referral_code);
             }
             elseif($reference && $this->pointlog->user_id == $reference->reference_id)
             {
