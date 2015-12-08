@@ -139,7 +139,7 @@ class CheckOutController extends BaseController
 		{
 			$cookie = Session::forget('baskets');
 
-			return Redirect::route('frontend.user.index', ['ref' => $result->getData()['attributes']['ref_number']]);
+			return Redirect::route('frontend.user.index', ['ref' => $result->getData()['ref_number']]);
 		}
 
 		return Redirect::back()->withInput()->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
