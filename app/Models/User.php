@@ -86,6 +86,15 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 										];
 
 	/**
+	 * Basic error message of rule
+	 *
+	 * @var array
+	 */
+	protected $message				=	[
+											'date_of_birth.before'			=> 'Anda harus berusia lebih dari 13 tahun untuk mendaftar ke akun balin.',
+										];
+
+	/**
 	 * The appends attributes from mutator and accessor
 	 *
 	 * @var array

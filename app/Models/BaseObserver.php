@@ -29,7 +29,7 @@ class BaseObserver
 
 	public function Saving($model)
 	{
-		$validator 				= Validator::make($model['attributes'], $model['rules']);
+		$validator 				= Validator::make($model['attributes'], $model['rules'], (isset($model['message']) ? $model['message'] : []));
 
 		if (!$validator->passes())
 		{
