@@ -20,7 +20,10 @@
 		<div class="tp-banner" >
 			<ul>
 				<!-- SLIDE 1-->
-				<li data-transition="fade" data-slotamount="5" data-masterspeed="700" >
+				<li data-transition="fade" data-slotamount="5" data-masterspeed="700" 
+					@if (($value['title']['title_active']=='0') && ($value['content']['content_active']=='0') && ($value['button']['button_active']=='0')) 
+						data-link="{!!$value['button']['slider_button_url']!!}"
+					@endif >
 					<!-- MAIN IMAGE -->
 					<img src="{!!$images['image_lg']!!}"   alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 					<?php $i = 0; ?>
@@ -48,8 +51,8 @@
 										{!! $v['slider_'. $k] !!} 
 									</a> 
 								@else 
-									@if ($content['button']['button_active']=='0')
-										<a href="{!!$content['button']['slider_button_url']!!}" class="link-white">{!! $v['slider_'. $k] !!}</a>
+									@if ($value['button']['button_active']=='0')
+										<a href="{!!$value['button']['slider_button_url']!!}" class="link-white">{!! $v['slider_'. $k] !!}</a>
 									@else
 										{!! $v['slider_'. $k] !!}
 									@endif
@@ -63,34 +66,40 @@
 		</div>
 	</div>
 
-	<section class="container-fluid hidden-sm hidden-md hidden-lg">
+	<section class="container-fluid hidden-sm hidden-md hidden-lg m-t-55">
 		<div class="row">
 			<?php $i = 0; ?>
 			<div class="col-xs-12 p-l-none p-r-none m-t-lg" style="position:relative">
 				<div class="caption-mobile">
-					@foreach ($value as $k => $v)
-						@if ($v[$k.'_active']=='1')
-							<?php 
-								$loc = explode('-', $v['slider_'. $k .'_location']); 
-								$loc_x = strtolower($loc[1]);
-								$loc_y = strtolower($loc[0]);
-							?>
-							<div class="@if($loc_x=='left') left @else right @endif">
-								@if ($k=='title')
-									<h3><a href="{!!$content['button']['slider_button_url']!!}" class="link-white unstyle">{!! $v['slider_'. $k] !!}</a></h3>
-								@endif
+					@if (($value['title']['title_active']!='0') && ($value['content']['content_active']!='0') && ($value['button']['button_active']!='0'))
+						@foreach ($value as $k => $v)
+							@if ($v[$k.'_active']=='1')
+								<?php 
+									$loc = explode('-', $v['slider_'. $k .'_location']); 
+									$loc_x = strtolower($loc[1]);
+									$loc_y = strtolower($loc[0]);
+								?>
+								<div class="@if($loc_x=='left') left @else right @endif">
+									@if ($k=='title')
+										<h3><a href="{!!$value['button']['slider_button_url']!!}" class="link-white unstyle">{!! $v['slider_'. $k] !!}</a></h3>
+									@endif
 
-								@if (isset($v['slider_button_url'])) 
-									<?php $action=$v['slider_button_url']; ?>
-								@endif
-							</div>
+									@if (isset($v['slider_button_url'])) 
+										<?php $action=$v['slider_button_url']; ?>
+									@endif
+								</div>
 
-						@endif
-					@endforeach
+							@endif
+						@endforeach
+					@else
+						<?php $action=$value['button']['slider_button_url']; ?>
+					@endif
 				</div>
-				@if(isset($value['images'][0]))
-					<img src="{!!$value['images'][0]['image_lg']!!}" style="" class="img-responsive">
-				@endif
+				<a href="{{ $action }}">
+					@if(isset($value['images'][0]))
+						<img src="{!!$value['images'][0]['image_lg']!!}" style="" class="img-responsive">
+					@endif
+				</a>
 			</div>
 		</div>
 	</section>

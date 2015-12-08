@@ -46,14 +46,23 @@
 		<div class="col-sm-12 header-info p-lg" id="panel-voucher-normal">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
-					@if (is_null(Auth::user()->reference))
-						<div class="row p-b-md p-t-none">
-							<div class="col-md-12">
-								<h4 class="m-t-sm p-b-sm">Punya Referral Code ?</h4>
-							</div>	
-						</div>
-						{!! Form::open(['url' => route('frontend.user.reference.post')]) !!}
+					<div class="row p-b-md p-t-none">
+						<div class="col-md-12">
+							<h4 class="m-t-sm">Punya Referral Code ?</h4>
+						</div>	
+					</div>
+					{!! Form::open(['url' => route('frontend.user.reference.post')]) !!}
+						@if ((Auth::user()->reference))
 							<div class="row">
+							    <div class="col-lg-12">
+							        <div class="alert alert-danger text-white alert-dismissable">
+							            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						                Maaf anda sudah mempunyai referral code
+							        </div>
+							    </div>
+							</div>
+						@endif
+							<div class="row m-b-sm">
 								<div class="col-md-12">
 									<div class="input-group" style="position:relative">
 										<div class="loading-voucher text-center hide" style="line-height:30px">
@@ -71,9 +80,8 @@
 									</div>
 								</div>
 							</div>
-						{!! Form::close() !!}
-					@else
-						<div class="row p-b-md p-t-none">
+					{!! Form::close() !!}
+						<!-- <div class="row p-b-md p-t-none">
 							<div class="col-md-12 text-center">
 								<h4 class="m-t-sm p-b-sm">REFERRAL ANDA</h4>
 							</div>	
@@ -82,8 +90,7 @@
 							<div class="col-md-12 text-center">
 								{{ Auth::user()->reference }}
 							</div>
-						</div>
-					@endif
+						</div> -->
 				</div>
 			</div>
 		</div>

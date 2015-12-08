@@ -79,7 +79,7 @@
 			</ul>
 		</div>
 	</div>
-	<section class="container-fluid hidden-sm hidden-md hidden-lg">
+	<section class="container-fluid hidden-sm hidden-md hidden-lg m-t-55">
 		<div class="row">
 			@forelse($stores as $key => $value)
 				<?php $content 		= json_decode($value->value, true); $action=''; ?>
@@ -87,25 +87,29 @@
 				<?php $i = 0; ?>
 				<div class="col-xs-12 p-l-none p-r-none border-bottom" style="position:relative;">
 					<div class="caption-mobile">
-						@foreach ($content as $k => $v)
-							@if ($v[$k.'_active']=='1')
-								<?php 
-									$loc = explode('-', $v['slider_'. $k .'_location']); 
-									$loc_x = strtolower($loc[1]);
-									$loc_y = strtolower($loc[0]);
-								?>
-								<div class="@if($loc_x=='left') left @else right @endif">
-									@if ($k=='title')
-										<h3><a href="{!!$content['button']['slider_button_url']!!}" class="link-white unstyle">{!! $v['slider_'. $k] !!}</a></h3>
-									@endif
+						@if (($content['title']['title_active']!='0') && ($content['content']['content_active']!='0') && ($content['button']['button_active']!='0'))
+							@foreach ($content as $k => $v)
+								@if ($v[$k.'_active']=='1')
+									<?php 
+										$loc = explode('-', $v['slider_'. $k .'_location']); 
+										$loc_x = strtolower($loc[1]);
+										$loc_y = strtolower($loc[0]);
+									?>
+									<div class="@if($loc_x=='left') left @else right @endif">
+										@if ($k=='title')
+											<h3><a href="{!!$content['button']['slider_button_url']!!}" class="link-white unstyle">{!! $v['slider_'. $k] !!}</a></h3>
+										@endif
 
-									@if (isset($v['slider_button_url'])) 
-										<?php $action=$v['slider_button_url']; ?>
-									@endif
-								</div>
+										@if (isset($v['slider_button_url'])) 
+											<?php $action=$v['slider_button_url']; ?>
+										@endif
+									</div>
 
-							@endif
-						@endforeach
+								@endif
+							@endforeach
+						@else
+							<?php $action=$content['button']['slider_button_url']; ?>
+						@endif
 					</div>
 					<a href="{{ $action }}">
 						@if(isset($value['images'][0]))
