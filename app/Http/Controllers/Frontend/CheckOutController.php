@@ -201,7 +201,7 @@ class CheckOutController extends BaseController
 	public function checkedout($ref = null)
 	{		
 		$breadcrumb								= ['Ubah Profile' => route('frontend.user.edit')];
-		$transaction 							= Transaction::userid(Auth::user()->id)->type('sell')->refnumber($ref)->first();
+		$transaction 							= Transaction::userid(Auth::user()->id)->type('sell')->refnumber(Input::get('ref'))->first();
 		$expire 								= StoreSetting::type('expired_paid')->ondate('now')->first();
 
 		$dateexpire 							= new Carbon(str_replace('-', '+', $expire->value));
@@ -210,7 +210,7 @@ class CheckOutController extends BaseController
 		{
 			App::abort(404);
 		}
-		
+
 		return view('pages.frontend.user.order.checked')
 													->with('controller_name', $this->controller_name)
 													->with('subnav_active', 'account_order')
