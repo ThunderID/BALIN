@@ -35,13 +35,18 @@ class PointLogSaving extends Job implements SelfHandling
             //Check referee
             $reference                  = PointLog::referenceid($this->pointlog->reference_id)->referencetype('App\Models\User')->first();
             $user                       = PointLog::userid($this->pointlog->user_id)->referencetype('App\Models\User')->first();
+            $alreadyhasvoucher          = PointLog::userid($this->pointlog->user_id)->referencetype('App\Models\Voucher')->first();
 
             // if(!$usercampaign)
             // {
             //     $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat dapat menyimpan pemberi referral.');
             // }
             // elseif($reference && $this->pointlog->user_id == $reference->reference_id)
-            if($reference && $this->pointlog->user_id == $reference->reference_id)
+            if($user || $alreadyhasvoucher)
+            {
+                $result                 = new JSend('error', (array)$this->pointlog, 'Maaf, Anda sudah mempunyai referral code.');
+            }
+            elseif($reference && $this->pointlog->user_id == $reference->reference_id)
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat memakai referensi dari pemberi referens.');
             }
@@ -91,15 +96,21 @@ class PointLogSaving extends Job implements SelfHandling
         {
             //Check referee
             // $usercampaign               = UserCampaign::userid($this->pointlog->user_id)->used(false)->type($this->pointlog->reference->type)->first();
-            $reference                  = PointLog::referenceid($this->pointlog->reference->user_id)->referencetype('App\Models\User')->first();
-            $user                       = PointLog::userid($this->pointlog->reference->user_id)->referencetype('App\Models\User')->first();
+            $reference                      = PointLog::referenceid($this->pointlog->reference->user_id)->referencetype('App\Models\User')->first();
+            $user                           = PointLog::userid($this->pointlog->reference->user_id)->referencetype('App\Models\User')->first();
+            $alreadyhasvoucher              = PointLog::userid($this->pointlog->user_id)->referencetype('App\Models\Voucher')->first();
+            $alreadyhasreferral             = PointLog::userid($this->pointlog->user_id)->referencetype('App\Models\User')->first();
 
             // if(!$usercampaign)
             // {
             //     $result             = new JSend('error', (array)$this->pointlog, 'Maaf, anda tidak terdaftar untuk campaign ini.');
             // }
             // elseif($reference && $this->pointlog->user_id == $reference->reference_id)
-            if($reference && $this->pointlog->user_id == $reference->reference_id)
+            if($alreadyhasvoucher || $alreadyhasreferral)
+            {
+                $result                 = new JSend('error', (array)$this->pointlog, 'Maaf, Anda sudah mempunyai referral code.');
+            }
+            elseif($reference && $this->pointlog->user_id == $reference->reference_id)
             {
                 $result                 = new JSend('error', (array)$this->pointlog, 'Tidak dapat memakai referensi dari pemberi referens.');
             }

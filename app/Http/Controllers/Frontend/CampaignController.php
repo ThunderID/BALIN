@@ -53,7 +53,7 @@ class CampaignController extends BaseController
 					->with('msg-type', 'danger');
 		}
 
-		if($voucher->quota <= 1)
+		if($voucher->quota < 1)
 		{
 			return Redirect::back()
 					->withInput()
