@@ -56,7 +56,7 @@ class TransactionLogSaved extends Job implements SelfHandling
                     $result                     = $this->dispatch(new SaveAuditAbandonCart($this->transactionlog->transaction));
                 break;
                 case 'wait' :
-                    $result                     = $this->dispatch(new CreditPoint($this->transactionlog->transaction));
+                    $result                     = $this->dispatch(new CreditPoint(Transaction::id($this->transactionlog->transaction_id)->first()));
                     if($result->getStatus()=='success')
                     {
                         $result                 = $this->dispatch(new SendBillingEmail($this->transactionlog->transaction));
