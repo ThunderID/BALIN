@@ -189,7 +189,7 @@ $policies           = $audit->ondate([(!is_null(Auth::user()->last_logged_at) ? 
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
-                                <th colspan="2">Penambahan Point Manual</th>
+                                <th colspan="2">Penambahan Balin Point Manual</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\BaseController;
 
-use Cookie, Response, Input, Auth, App, Config;
+use Cookie, Response, Input, Auth, App, Config, \Illuminate\Support\Collection;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Tag;
@@ -35,100 +35,158 @@ class ProductController extends BaseController
 		}
 
 
-		$filters 								= null;
+		$filters 								= new Collection;
 		$searchResult							= [];
 		$links									= [];
 		$sorts									= [];
 
-		$inputOnly 								= ['categoriesslug','tagging','name','sort'];
+		$all_tags 								= Tag::orderby('name')->get();
 
-		$inputs 								= Input::all();
-
-		foreach ($inputs as $key => $input) 
+		$links["page"]			= "page";
+		foreach (Input::all() as $key => $value) 
 		{
-			if(in_array($key, $inputOnly))
+				// array_push($links, ["page" => $page, 'id' => $key] );
+			switch ($key)
 			{
-				$filters[$key] 					= $input;
-				array_push($links, ["page" => $page, 'id' => $key] );
+				case 'category':
+					$filters->push(['key' => 'category', 'value' =>  $value, 'object' => Category::slug($value)->first()]);
+					$searchResult[]			= Category::slug($value)->first()['name'];
+					break;
+				case 'name':
+					$filters->push(['key' => 'name', 'value' =>  $value]);
+					$searchResult[]			= $value;
+					break;
+				case 'sort':
+					$filters->push(['key' => 'sort', 'value' =>  $value]);
+					$tmp 					= explode('-', $value);
 
-				switch ($key) 
-				{
-					case 'categoriesslug':
-						$searchResult[]			= Category::slug($input)->first()['name'];
-						break;
-					case 'tagging':
-						$tagid 					= explode('##', $input);
-						$sr 					= '';
-						foreach ($tagid as $key2 => $value) 
-						{
-							$tag 				= Tag::slug($value)->with(['category'])->first();
-							$sr					= $sr.' '.$tag['category']['name'].' '.$tag['name'];
-						}
-						$searchResult[]			= $sr;
-						break;
-					case 'name':
-						$searchResult[]			= $input;
-						break;	
-					case 'sort':
-						$tmp 					= explode('-', $input);
+					switch ($tmp[0]) {
+						case 'name':
+							if($tmp[1] == 'asc')
+							{
+								$searchResult[]			= 'urutan nama produk A-Z';
+							}
+							else if($tmp[1] == 'desc')
+							{
+								$searchResult[]			= 'urutan nama produk Z-A';
+							}
+							break;
+						case 'price':
 
-						switch ($tmp[0]) {
-							case 'name':
-								if($tmp[1] == 'asc')
-								{
-									$searchResult[]			= 'urutan nama produk A-Z';
-								}
-								else if($tmp[1] == 'desc')
-								{
-									$searchResult[]			= 'urutan nama produk Z-A';
-								}
-								break;
-							case 'price':
-
-								if($tmp[1] == 'asc')
-								{
-									$searchResult[]			= 'urutan produk termurah';
-								}
-								else if($tmp[1] == 'desc')
-								{
-									$searchResult[]			= 'urutan produk termahal';
-								}	
-								break;
-							case 'date':
-								if($tmp[1] == 'asc')
-								{
-									$searchResult[]			= 'urutan produk terlama';
-								}
-								else if($tmp[1] == 'desc')
-								{
-									$searchResult[]			= 'urutan produk terbaru';
-								}															
-								break;								
-							default:
-								$searchResult[]			= 'urutan ' . $tmp[0];
-								break;
-						}
-						break;																		
-					default:
-						$searchResult[]			= null;
-						break;
-				}
+							if($tmp[1] == 'asc')
+							{
+								$searchResult[]			= 'urutan produk termurah';
+							}
+							else if($tmp[1] == 'desc')
+							{
+								$searchResult[]			= 'urutan produk termahal';
+							}	
+							break;
+						case 'date':
+							if($tmp[1] == 'asc')
+							{
+								$searchResult[]			= 'urutan produk terlama';
+							}
+							else if($tmp[1] == 'desc')
+							{
+								$searchResult[]			= 'urutan produk terbaru';
+							}															
+							break;								
+						default:
+							$searchResult[]			= 'urutan ' . $tmp[0];
+							break;
+					}
+					break;				
+				default:
+					if ($all_tags->where('slug', strtolower($key))->first()->is_root)
+					{
+						$filters->push(['key' => 'tagging.' . $key, 'value' => $value, 'object' => $all_tags->where('slug', strtolower($value))->first()]);
+					}
+					break;
 			}
+
+			// if(in_array($key, $inputOnly))
+			// {
+			// 	$filters[$key] 					= $input;
+			// 	array_push($links, ["page" => $page, 'id' => $key] );
+
+			// 	switch ($key) 
+			// 	{
+			// 		case 'categoriesslug':
+			// 			$searchResult[]			= Category::slug($input)->first()['name'];
+			// 			break;
+			// 		case 'tagging':
+			// 			$tagid 					= explode('##', $input);
+			// 			$sr 					= '';
+			// 			foreach ($tagid as $key2 => $value) 
+			// 			{
+			// 				$tag 				= Tag::slug($value)->with(['category'])->first();
+			// 				$sr					= $sr.' '.$tag['category']['name'].' '.$tag['name'];
+			// 			$searchResult[]			= $sr;
+			// 			break;
+			// 		case 'name':
+			// 			$searchResult[]			= $input;
+			// 			break;	
+			// 		case 'sort':
+			// 			$tmp 					= explode('-', $input);
+
+			// 			switch ($tmp[0]) {
+			// 				case 'name':
+			// 					if($tmp[1] == 'asc')
+			// 					{
+			// 						$searchResult[]			= 'urutan nama produk A-Z';
+			// 					}
+			// 					else if($tmp[1] == 'desc')
+			// 					{
+			// 						$searchResult[]			= 'urutan nama produk Z-A';
+			// 					}
+			// 					break;
+			// 				case 'price':
+
+			// 					if($tmp[1] == 'asc')
+			// 					{
+			// 						$searchResult[]			= 'urutan produk termurah';
+			// 					}
+			// 					else if($tmp[1] == 'desc')
+			// 					{
+			// 						$searchResult[]			= 'urutan produk termahal';
+			// 					}	
+			// 					break;
+			// 				case 'date':
+			// 					if($tmp[1] == 'asc')
+			// 					{
+			// 						$searchResult[]			= 'urutan produk terlama';
+			// 					}
+			// 					else if($tmp[1] == 'desc')
+			// 					{
+			// 						$searchResult[]			= 'urutan produk terbaru';
+			// 					}															
+			// 					break;								
+			// 				default:
+			// 					$searchResult[]			= 'urutan ' . $tmp[0];
+			// 					break;
+			// 			}
+			// 			break;																		
+			// 		default:
+			// 			$searchResult[]			= null;
+			// 			break;
+			// 	}
+			// }
 		}
 
-		foreach ($links as $key => $link) 
-		{
-			$tmplink							= [];
-			foreach ($filters as $key2 => $filter) 
-			{
-				if($link['id'] != $key2)
-				{
-					$tmplink[$key2] 			= $filter; 
-				}
-			}
-			$links[$key] 						= array_merge($links[$key], $tmplink);
-			unset($links[$key]['id']);
-		}
+		// foreach ($links as $key => $link) 
+		// {
+		// 	$tmplink							= [];
+		// 	foreach ($filters as $key2 => $filter) 
+		// 	{
+		// 		if($link['id'] != $key2)
+		// 		{
+		// 			$tmplink[$key2] 			= $filter; 
+		// 		}
+		// 	}
+		// 	$links[$key] 						= array_merge($links[$key], $tmplink);
+		// 	unset($links[$key]['id']);
+		// }
 
 		if(Auth::check())
 		{
@@ -143,11 +201,11 @@ class ProductController extends BaseController
 		$this->layout->page 					= view('pages.frontend.product.index')
 													->with('controller_name', $this->controller_name)
 													->with('filters', $filters)
-													->with('searchResult', $searchResult)
 													->with('breadcrumb', $breadcrumb)
 													->with('balance', $balance)
 													->with('page', $page)
 													->with('links', $links)
+													->with('all_tags', $all_tags)
 													;
 
 		$this->layout->controller_name			= $this->controller_name;
@@ -158,8 +216,9 @@ class ProductController extends BaseController
 		$meta_desc								= null;
 		if(count($searchResult) > 0)
 		{
-			foreach ($filters as $key => $filter) 
+			foreach (array_flatten($filters) as $key => $filter) 
 			{
+
 				$meta_desc						= $meta_desc . $filter ;
 
 				if (end($filters) != $filter)

@@ -174,7 +174,9 @@ class AuthController extends BaseController
 		if ($result->getStatus()=='success')
 		{
 			$this->layout->page 					= view('pages.frontend.login.activation')
-														->with('controller_name', $this->controller_name);
+														->with('controller_name', $this->controller_name)
+														->with('amount', $result->getData()['amount'])
+														;
 
 			$this->layout->controller_name			= $this->controller_name;
 

@@ -70,9 +70,15 @@ class CartController extends BaseController
 	public function update($cid = null, $vid = null)
 	{
 		$baskets 								= Session::get('baskets');
+
 		$baskets[$cid]['varians'][$vid]['qty']	= Input::get('qty');
 		$product 								= Product::id($cid)->currentprice(true)->sellable(true)->defaultimage(true)->first();
-		$varianids[] 							= $vid;
+
+		$varianids 								= null;
+		foreach ($baskets[$cid]['varians'] as $key => $value) 
+		{
+			$varianids[]						= $key;
+		}
 
 		$temp_basket 							= $this->addToCart($baskets, $product, Input::get('qty'), $varianids);
 

@@ -93,6 +93,16 @@ class StoreController extends BaseController
 					$errors->add('Store', $setting->getError());
 				}
 			}
+			else
+			{
+				$setting 						= StoreSetting::findorfail($value->id);
+				$setting->fill(['value' => '', 'started_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+				
+				if(!$setting->save())
+				{
+					$errors->add('Store', $setting->getError());
+				}	
+			}
 		}
 
 		if($errors->count())

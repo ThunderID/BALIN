@@ -138,7 +138,7 @@ class CategoryController extends BaseController
 				'category_id' 						=> $inputs['parent'],
 				'type' 								=> 'category',
 				'name' 								=> $inputs['name'],
-				'path'								=> $inputs['parent'],
+				'path'								=> (is_null($id) ? $inputs['parent'] : $data['path']),
 			]);
 		}
 		else

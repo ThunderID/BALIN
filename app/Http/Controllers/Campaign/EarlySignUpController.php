@@ -8,6 +8,7 @@ use Illuminate\Support\MessageBag;
 use App\Models\User;
 use App\Models\PointLog;
 use App\Models\Voucher;
+use App\Models\StoreSetting;
 use App\Jobs\SaveCampaign;
 
 class EarlySignUpController extends BaseController 
@@ -122,7 +123,7 @@ class EarlySignUpController extends BaseController
 			Auth::loginusingid($data->id);
 
 			return Redirect::route('campaign.promo.get')
-								->with('msg', 'Terima kasih sudah mendaftar diwebsite kami.')
+								->with('msg', 'Terima kasih sudah mendaftar di website kami.')
 								->with('msg-type', 'success');
 		}
 	}
@@ -209,7 +210,16 @@ class EarlySignUpController extends BaseController
 					->with('msg-type', 'danger');
 		}
 
-		$expired_at 							=  new Carbon('+ 3 months');
+		$store                    		= StoreSetting::type('voucher_point_expired')->Ondate('now')->first();
+
+    	if($store)
+    	{
+        	$expired_at 				= new Carbon($store->value);
+    	}
+    	else
+    	{
+        	$expired_at 				= new Carbon('+ 3 months');
+    	}
 
 		$errors 								= new MessageBag();
 		$plog 									= new PointLog;

@@ -18,7 +18,7 @@
 				hideThumbs:10,
 				fullWidth:"off",
 				fullScreen:"on",
-				fullScreenOffsetContainer: ".page-header",
+				fullScreenOffsetContainer: ".navbar-fixed-top",
 				touchenabled:"on",
 				navigationType:"bullet",
 				soloArrowLeftHOffset:80,

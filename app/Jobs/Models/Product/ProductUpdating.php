@@ -21,10 +21,10 @@ class ProductUpdating extends Job implements SelfHandling
     public function handle()
     {
         //count transaction if any then fails
-        if($this->product->transactiondetails()->count() > 0)
-        {
-            return new JSend('error', (array)$this->product, 'Tidak bisa edit data produk yang telah memiliki transaksi');
-        }
+        // if($this->product->transactiondetails()->count() > 0)
+        // {
+        //     return new JSend('error', (array)$this->product, 'Tidak bisa edit data produk yang telah memiliki transaksi');
+        // }
 
         return new JSend('success', (array)$this->product);
     }

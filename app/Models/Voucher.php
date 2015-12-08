@@ -19,6 +19,8 @@ class Voucher extends Eloquent
 	use \App\Models\Traits\hasMany\HasTransactionsTrait;
 	use \App\Models\Traits\hasMany\HasQuotaLogsTrait;
 	use \App\Models\Traits\belongsTo\HasUserTrait;
+	use \App\Models\Traits\morphMany\HasPointLogsTrait;
+	
 
 	/**
 	 * The database table used by the model.

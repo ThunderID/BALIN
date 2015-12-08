@@ -52,19 +52,19 @@
 
 		.tag-sale {
 			position: absolute;
-		    bottom: 0;
-		    width: 100%;
-		    background-color: rgba(117, 170, 219, 0.81);
-		    color: #fff;
-		    text-align: center;
-		    padding: 15px;
-		    line-height: 16px;
-		    font-size: 16px;
+			bottom: 0;
+			width: 100%;
+			background-color: rgba(117, 170, 219, 0.81);
+			color: #fff;
+			text-align: center;
+			padding: 15px;
+			line-height: 16px;
+			font-size: 16px;
 		}
 		.tag-sale p {
 			margin-bottom: 0;
-		    font-weight: 500;
-		    letter-spacing: 0.2em;
+			font-weight: 500;
+			letter-spacing: 0.2em;
 		}
 		.tag-info {
 			background-color: rgba(0, 0, 0, 0.7);
@@ -74,10 +74,10 @@
 			padding-right: 8px;
 		}
 		.tag-info p{
-		    margin-bottom: 0;
-		    color: #fff;
-		    font-size: 15px;
-		    letter-spacing: 0.02em;
+			margin-bottom: 0;
+			color: #fff;
+			font-size: 15px;
+			letter-spacing: 0.02em;
 		}
 
 
@@ -97,9 +97,9 @@
 <body>
 	@if($controller_name == 'home') <?php $pb = 0; ?>@endif
 	
-	<div id="container" @if(Route::is('frontend.join.index')) class="bg-ground" @endif>
+	<div id="container" @if(Route::is('frontend.join.index')||Route::is('balin.claim.voucher')) class="bg-ground" @endif>
 
-		<header class="page-header" @if($controller_name == 'home') style="margin:0" @endif>
+		<header class="page-header" style="{{ $controller_name == 'home' ? 'margin-top:0px' : ''}}">
 			@include('widgets.top_menu')
 		</header>
 
@@ -132,6 +132,17 @@
 
 	</script>
 	@yield('script_plugin')
+
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-71083357-1', 'auto');
+		ga('send', 'pageview');
+
+	</script>
 </body>
 
 </html>

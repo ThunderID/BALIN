@@ -38,14 +38,21 @@
 						{{-- <li @if($controller_name == 'whyjoin') class=active @endif>
 							<a href="{{ URL::route('frontend.whyjoin.index') }}" data-scroll>Why Join</a>
 						</li> --}}
+						@if (Auth::user())
+							<li @if($controller_name == 'redeem') class=active @endif sytle="position:relative">
+								<a href="{{ URL::route('frontend.redeem.index') }}">Referal &amp; Point
+									<span class="badge badge-hollow"><i class="fa fa-exclamation"></i></span>
+								</a>
+							</li>
+						@endif
 						@if (!Auth::user())
 							<li @if($controller_name == 'join') class=active @endif >
 								<a href="{{ URL::route('frontend.join.index') }}" data-scroll>Sign In</a>
 							</li>
 						@endif
-						<li @if($controller_name == 'aboutus') class=active @endif>
-							<a href="{{ URL::route('frontend.aboutus.index') }}" data-scroll>About Us</a>
-						</li>
+						<!-- <li @if($controller_name == 'aboutus') class=active @endif> -->
+							<!-- <a href="{{ URL::route('frontend.aboutus.index') }}" data-scroll>About Us</a> -->
+						<!-- </li> -->
 						<!-- <li>
 							<a href="{{ URL::route('frontend.home.index') }}#contact-us" data-scroll>Contact Us</a>
 						</li> -->

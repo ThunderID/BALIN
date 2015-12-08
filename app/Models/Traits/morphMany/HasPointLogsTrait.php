@@ -19,4 +19,11 @@ trait HasPointLogsTrait
 	{
 		return $this->morphMany('App\Models\PointLog', 'reference');
 	}
+
+	public function scopeOfPointLogUserId($q, $v)
+	{
+		return $this->whereHas('PointLogs', function($q) use ($v) { 
+			$q->where('point_logs.user_id', '=', $v);
+		});
+	}
 }

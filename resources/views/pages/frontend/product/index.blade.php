@@ -2,37 +2,36 @@
 @inject('category', 'App\Models\Category')
 @inject('tagged', 'App\Models\tag')
 <?php 
-	$tgs 				= explode(',', Input::get('tagging'));
-
 	$perpage 			= 12;
 
 	$datas 				= $datas->currentprice(true)->DefaultImage(true)->sellable(true);
 
-	if(!is_null($filters) && is_array($filters))
+	if($filters->count())
 	{
-		foreach ($filters as $key => $value) 
+		foreach ($filters as $filter) 
 		{
-			if($key=='tagging')
+			if(str_is('tagging.*', $filter['key']))
 			{
-				$tagging = explode('##', $value);
-				$datas 	= call_user_func([$datas, $key], $tagging);
+				$datas 	= call_user_func([$datas, 'tagging'], $filter['value']);
+			}
+			elseif(str_is('category', $filter['key']))
+			{
+				$datas 	= call_user_func([$datas, 'categoriesslug'], $filter['value']);
 			}
 			else
 			{
-				$datas 	= call_user_func([$datas, $key], $value);
+				$datas 	= call_user_func([$datas, $filter['key']], $filter['value']);
 			}
 		}
 	}
 
 
-	$totalItems 	= $datas->get();
-
-	$paginator 		= new PrettyPaginate(count($totalItems) , (int)$page, $perpage, count($datas));
+	$paginator 		= new PrettyPaginate($datas->count() , (int)$page, $perpage, $datas->count());
 
 
-	$datas 			= $datas->take($perpage)->skip(($page-1) * $perpage);
+	$datas 			= $datas->with('lables')->take($perpage)->skip(($page-1) * $perpage);
 
-	if(!Input::has('sort'))
+	if(!$filters->has('sort'))
 	{
 		$datas 		= $datas->orderby('products.created_at','desc')->get();
 	}
@@ -44,11 +43,17 @@
 	$category      	= $category::where('category_id', 0)->orderby('name', 'asc')
 								->get();
 
-	$tag      		= $tagged::where('category_id', 0)->orderby('name', 'asc')
+	$tag_types      		= $tagged::where('category_id', 0)->orderby('name', 'asc')
 								->get();
-
-	$tags      		= $tagged::where('category_id', '<>', 0)->orderby('name', 'asc')
-								->get();
+	// get current tag
+	$current_tag = [];
+	foreach ($tag_types as $tag_type)
+	{
+		if (Input::has($tag_type->slug))
+		{
+			$current_tag[$tag_type->slug] = Input::get($tag_type->slug);
+		}
+	}
 ?>
 
 @extends('template.frontend.layout')
@@ -111,7 +116,7 @@
 								<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-md-3 col-sm-4">
-										<li><a @if(Input::has('categoriesslug') && Input::get('categoriesslug')==$cat['slug']) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'categoriesslug' => $cat['slug']])) }}">{{ $cat->name }}</a></li>
+										<li><a @if(Input::has('category') && Input::get('category')==$cat['slug']) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'category' => $cat['slug']])) }}">{{ $cat->name }}</a></li>
 									</div>
 								@endforeach	
 								</ul>					
@@ -123,28 +128,20 @@
 						<div class="col-md-12 p-l-xxs ribbon-submenu">
 							<div class="row p-sm">
 								<ul class="list-inline m-b-none">
-									@foreach ($tag as $tg)
-										@if($tg->category_id == 0)
+									@foreach ($tag_types as $tag_type)
+										@if($tag_type->is_root)
 											<div class="col-md-12 col-sm-12 text-white">
-												<p class="ribbon-title">{{ strtoupper($tg->name) }}</p>
+												<p class="ribbon-title">{{ strtoupper($tag_type->name) }}</p>
 											</div>
-											@foreach ($tags as $tmp)
-												@if($tg->id == $tmp->category_id)
+											{{-- LIST OF TAGS --}}
+											@foreach ($all_tags as $tag)
+												@if ($tag_type->id == $tag->category_id)
 													<div class="col-md-3 col-sm-4">
-														<?php 
-															if(Input::has('tagging'))
-															{
-																$tagging 		= Input::get('tagging').'##'.$tmp['slug'];
-															}
-															else
-															{
-																$tagging 		= $tmp['slug'];
-															}
-														?>
-														<li><a @if(in_array($tmp['slug'], $tgs)) class="active" @endif href="{{ route('frontend.product.index', array_merge(Input::all(), ['page' => $page,'tagging' => $tagging])) }}">{{ $tmp->name }}</a></li>
+														<li><a class='{{ $filters->where("value", $tag->slug)->count() ? "active": ""}}' href='{{ route("frontend.product.index", ["page" => $page] + array_except($current_tag, [$tag_type->slug]) + [$tag_type->slug => $tag->slug]) }}' class=''>{{ $tag->name }}</a></li>
 													</div>
-										      	@endif
-											@endforeach													
+												@endif
+											@endforeach
+
 								      	@endif
 									@endforeach											
 								</ul>					
@@ -231,7 +228,7 @@
 							<ul class="list-inline m-b-none">
 								@foreach ($category as $cat)
 									<div class="col-xs-12">
-										<li><a @if(Input::has('categoriesslug') && Input::get('categoriesslug')==$cat['slug']) class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'categoriesslug' => $cat['slug']], Input::all())) }}">{{ $cat->name }}</a></li>
+										<li><a @if(Input::has('category') && Input::get('category')==$cat['slug']) class="active" @endif href="{{ route('frontend.product.index', array_merge(['page' => $page, 'category' => $cat['slug']], Input::all())) }}">{{ $cat->name }}</a></li>
 									</div>
 								@endforeach	
 							</ul>						      		
@@ -248,32 +245,23 @@
 				       		<h4 class="modal-title" id="exampleModalLabel">Filter</h4>
 				      	</div>
 				      	<div class="modal-body ribbon-menu p-t-0">
-							@foreach ($tag as $tg)
-								@if($tg->category_id == 0)
+							@foreach ($tag_types as $tag_type)
+								@if($tag_type->category_id == 0)
 									<ul class="list-inline m-b-none">
 										<div class="col-xs-12 m-t-xs">
-											<p class="ribbon-mobile-title"><span>{{ strtoupper($tg->name) }}</span></p>
+											<p class="ribbon-mobile-title"><span>{{ strtoupper($tag_type->name) }}</span></p>
 										</div>
-									</ul>									
-									@foreach ($tags as $tmp)
-										@if($tg->id == $tmp->category_id)
+									</ul>	
+									{{-- LIST OF TAGS --}}
+									@foreach ($all_tags as $tag)
+										@if ($tag_type->id == $tag->category_id)
 											<ul class="list-inline m-b-none">
 												<div class="col-xs-12">
-													<?php 
-														if(Input::has('tagging'))
-														{
-															$tagging 		= Input::get('tagging').'##'.$tmp['slug'];
-														}
-														else
-														{
-															$tagging 		= $tmp['slug'];
-														}
-													?>
-													<li><a @if(in_array($tmp['slug'], $tgs)) class="active" @endif  href="{{ route('frontend.product.index', array_merge( Input::all(), ['page' => $page, 'tagging' => $tagging])) }}">{{ $tmp->name }}</a></li>
+													<li><a class='{{ $filters->where("value", $tag->slug)->count() ? "active": ""}}' href='{{ route("frontend.product.index", ["page" => $page] + array_except($current_tag, [$tag_type->slug]) + [$tag_type->slug => $tag->slug]) }}' class=''>{{ $tag->name }}</a></li>
 												</div>
 											</ul>
 										@endif
-									@endforeach						      		
+									@endforeach
 						      	@endif
 							@endforeach	
 				      	</div>
@@ -355,7 +343,35 @@
 		</div>		
 		<div class="row">
 			<div class="col-md-12">
-				@include('widgets.pageelements.headersearchresult', ['closeSearchLink' => route('frontend.product.index') ])
+				{{-- @include('widgets.pageelements.headersearchresult', ['closeSearchLink' => route('frontend.product.index') ]) --}}
+				@if (count($filters))
+					<p class='m-t-md'>Menampilkan
+
+{{-- 					@if ($filters->where('key', 'sort')->count())
+						{{ $filters->where('key', 'sort')->first()['value'] }}
+					@endif
+ --}}
+					@foreach ($filters as $filter)
+						@if (!str_is('sort', $filter['key']))
+							<?php 
+								$filters_except_this=[];
+								foreach ($filters->reject(function($item) use ($filter) { return $item['key'] == $filter['key']; }) as $kept_filters)
+								{
+									if (str_is('*.*', $kept_filters['key']))
+									{
+										$filters_except_this[explode('.', $kept_filters['key'])[1]] = $kept_filters['value'];
+									}
+									else
+									{
+										$filters_except_this[$kept_filters['key']] = $kept_filters['value'];
+									}
+								}
+							?>
+							<a href="{{ route('frontend.product.index') . '?'. http_build_query($filters_except_this) }}" class='p-l-xs p-r-xs'><i class='fa fa-times-circle'></i> {{ array_key_exists('object', $filter) ? $filter['object']->name : $filter['value'] }}</a>
+						@endif
+					@endforeach
+					</p>
+				@endif
 			</div>
 		</div>
 			
@@ -366,8 +382,20 @@
 					@include('widgets.product_card')
 				</div>
 			@empty
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-sm">
-					<p>Maaf produk yang anda cari tidak ditemukan.</p>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-md text-center">
+				<?php $flag=0; ?>
+					@if(!is_null($filters) && is_array($filters))
+						@foreach ($filters as $key => $value)
+							@if($key=='name')
+								<?php $flag=1; ?>
+							@endif
+						@endforeach
+					@endif
+					@if ($flag==1)
+						<h4>Maaf produk yang anda cari tidak ditemukan</h4>
+					@else
+						<h3 class="m-b-none">Coming Soon</h3><br><h4>Please stay tuned to be the first to know when our product is ready</h4>
+					@endif
 				</div>
 			@endforelse
 		</div>

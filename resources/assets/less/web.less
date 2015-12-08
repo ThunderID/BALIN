@@ -132,6 +132,9 @@ a {
 	margin-bottom: 100px;
 }
 
+.text-red {
+	color: #d91e18 !important;
+}
 p {
 	font-weight: 300;
 }
@@ -150,6 +153,14 @@ p {
 	}	
 }
 
+.badge-hollow {
+	background-color: #d91e18;
+	border-radius: 3px;
+	padding: 2px 4px;
+	position: absolute;
+	top: 6px;
+	right: 0px;
+}
 .page-header {
 	padding: 0;
 	margin-bottom: 10px;
@@ -1771,10 +1782,10 @@ footer {
 		a.help {
 			position: absolute;
 			top: 3px;
-			font-size: 10px;
+			font-size: 13px;
 			letter-spacing: 0.1em;
 			@media (min-width: 768px) and (max-width: 992px) {
-				font-size: 10px;
+				font-size: 11px;
 			}
 			@media (max-width: 767px) {
 				font-size: 10px;
@@ -1938,12 +1949,19 @@ footer {
 	width: 100%;
 }
 .modal-fullscreen .modal-header {
-	margin-left: -100px;
-	margin-right: -100px;
-	padding-left: 115px;
-	padding-right: 115px;
+	margin-left: -10%;
+	margin-right: -10%;
+	padding-left: 11%;
+	padding-right: 11%;
 	background-color: #000;
 	color: #fff;
+
+	@media (max-width: 1200px) {
+		margin-left: -35%;
+		margin-right: -35%;
+		padding-left: 35%;
+		padding-right: 35%;
+	}
 }
 .modal-fullscreen .modal-header button.close {
 	background: none;

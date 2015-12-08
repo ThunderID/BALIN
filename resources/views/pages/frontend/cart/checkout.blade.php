@@ -2,8 +2,6 @@
 <?php	
 	$carts = Session::get('baskets'); 
 	$tc = $tc::type('term_and_condition')->ondate('now')->orderby('started_at', 'desc')->first();
-
-	$ra = $_SERVER['REMOTE_ADDR'];
 ?>
 @extends('template.frontend.layout')
 
@@ -94,7 +92,7 @@
 								<div class="clearfix">&nbsp;</div>
 								<div class="row m-l-none m-r-none">
 									<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left text-left border-bottom">
-										<span class="">Total</span>
+										<span class="">Subtotal</span>
 									</div>
 									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
 										<span class="text-right" id="total">@money_indo($total)</span>
@@ -119,16 +117,16 @@
 								<div class="row m-l-none m-r-none">
 									<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
 										<span>
-											Angka Unik <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number" data-modal-title="Angka Unik ( Unique Number )"><i class="fa fa-question-circle"></i></a>
+											Pengenal Pembayaran <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number"><i class="fa fa-question-circle"></i></a>
 										</span>
 									</div>
 									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
-										<span class="text-right uniquenumber" data-unique="{{ $transaction['unique_number'] }}">@money_indo_negative($transaction['unique_number'])</span>
+										<span class="text-right uniquenumber text-red" data-unique="{{ $transaction['unique_number'] }}">@money_indo_negative($transaction['unique_number'])</span>
 									</div>
 								</div>
 								<div class="row m-l-none m-r-none">
 									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
-										<h4>SubTotal</h4>
+										<h4>Total Pembayaran</h4>
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5">
 										<h4 class="text-right subtotal" style="font-weight: bold;">
@@ -153,7 +151,7 @@
 							<div class="col-md-12 hidden-sm hidden-xs panel-voucher panel-form-voucher" id="panel-voucher-normal">
 								<div class="row p-b-sm">
 									<div class="col-md-12">
-										<span class="voucher-title">Masukkan Kode Voucher</span>
+										<span class="voucher-title">Punya Promo Code ?</span>
 									</div>	
 								</div>
 								<div class="row">
@@ -164,7 +162,7 @@
 											</div>
 											{!! Form::input('text', 'voucher', null, [
 													'class' => 'form-control hollow transaction-input-voucher-code m-b-sm voucher-desktop',
-													'placeholder' => 'Masukkan kode voucher anda',
+													'placeholder' => 'Masukkan promo code anda',
 													'data-action' => route('frontend.any.check.voucher')
 											]) !!}
 											<span class="input-group-btn">
@@ -265,7 +263,7 @@
 					<div class="hidden-lg hidden-md col-sm-12 hidden-xs panel-voucher panel-form-voucher-device p-t-sm">
 						<div class="row p-b-sm">
 							<div class="col-sm-12 text-center">
-								<span class="voucher-title">Masukkan Kode Voucher</span>
+								<span class="voucher-title">PUNYAKU PROMO CODE ?</span>
 							</div>	
 						</div>
 						<div class="row">
@@ -276,7 +274,7 @@
 									</div>
 									{!! Form::input('text', 'voucher', null, [
 											'class' => 'form-control hollow transaction-input-voucher-code m-b-sm voucher-tablet',
-											'placeholder' => 'Masukkan kode voucher anda',
+											'placeholder' => 'Masukkan promo code anda',
 											'data-action' => route('frontend.any.check.voucher')
 									]) !!}
 									<span class="input-group-btn">
@@ -324,7 +322,7 @@
 							<div class="col-sm-12">
 								<div class="col-sm-7 text-left border-bottom grey">
 									<span>
-										Angka Unik <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number" data-modal-title="Angka Unik ( Unique Number )"><i class="fa fa-question-circle"></i></a>
+										Pengenal Pembayaran  <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number"><i class="fa fa-question-circle"></i></a>
 									</span>
 								</div>
 								<div class="col-sm-5 text-right border-bottom grey">
@@ -386,7 +384,7 @@
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12 panel-voucher panel-form-voucher-device" style="background-color:#111; border-bottom:1px solid #fff">
 					<div class="row p-b-sm">
 						<div class="col-xs-12">
-							<span class="voucher-title">Masukkan Kode Voucher</span>
+							<span class="voucher-title">PUNYA PROMO CODE ?</span>
 						</div>	
 					</div>
 					<div class="row">
@@ -397,7 +395,7 @@
 								</div>
 								{!! Form::input('text', 'voucher', null, [
 										'class' => 'form-control hollow transaction-input-voucher-code m-b-sm voucher-mobile',
-										'placeholder' => 'Masukkan kode voucher anda',
+										'placeholder' => 'Masukkan promo code anda',
 										'data-action' => route('frontend.any.check.voucher')
 								]) !!}
 								<span class="input-group-btn">
@@ -449,7 +447,7 @@
 					</div>
 					<div class="row m-b-none">
 						<div class="col-xs-12">
-							<h4 style="color:#fff;" class="text-center">Angka Unik <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number" data-modal-title="Angka Unik ( Unique Number )"><i class="fa fa-question-circle"></i></a></h4>
+							<h4 style="color:#fff;" class="text-center">Pengenal Pembayaran  <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number"><i class="fa fa-question-circle"></i></a></h4>
 						</div>
 					</div>
 					<div class="row m-b-sm">
@@ -509,20 +507,20 @@
 
 
 	<!-- Term and Condition -->
-	<div id="tnc" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-		<div class="modal-dialog modal-md">
+	<div id="tnc" class="modal modal-left modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="exampleModalLabel">Syarat & Ketentuan</h4>
+					<h4 class="modal-title text-center" id="exampleModalLabel">Syarat & Ketentuan</h4>
 				</div>
-				<div class="modal-body ribbon-menu">
+				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12" style="color: #000">
 							{!! $tc['value'] !!}
 						</div>
 					</div>
-					<div class="row">
+					<div class="row m-t-md">
 						<div class="col-md-12">
 							<button type="button" class="btn-hollow hollow-black-border" data-dismiss="modal" aria-label="Close">Tutup</button>
 						</div>
@@ -539,12 +537,12 @@
     	<div class="modal-content">
 			<div class="modal-header">
 	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-	       		<h5 class="modal-title" id="exampleModalLabel">Angka Unik ( Unique Number )</h5>
+	       		<h5 class="modal-title" id="exampleModalLabel">Pengenal Pembayaran </h5>
 	      	</div>
 	      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
-				Angka Unik atau Unique Number adalah kode atau angka yang kami gunakan untuk mempermudah bagian finance (keuangan) kami dalam mengenali dana pembayaran yang masuk ke rekening kami. 
+				Pengenal Pembayaran adalah kode atau angka yang kami gunakan untuk mempermudah bagian finance (keuangan) kami dalam mengenali dana pembayaran yang masuk ke rekening kami. 
 				Berbeda dengan toko online lainnya dimana kode seperti ini biasanya akan menambah jumlah pembayaran pelanggan, angka yang kami gunakan selalu minus, sehingga nilai pembayaran yang baru selalu lebih kecil dari nilai yang sebelumnya. Dengan demikian, para pelanggan kami tidak akan merasa dirugikan sepeserpun. 
-				Saat ini, Angka Unik ini hanya berlaku untuk metode pembayaran transfer saja.
+				Saat ini, Pengenal Pembayaran ini hanya berlaku untuk metode pembayaran transfer saja.
 	      	</div>
    		</div>
   	</div>

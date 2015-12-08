@@ -6,6 +6,7 @@ use Input, Redirect, Auth, Carbon, Validator, DB, App;
 
 use App\Models\User;
 use App\Models\PointLog;
+use App\Models\StoreSetting;
 use App\Models\Voucher;
 
 class CampaignController extends BaseController 
@@ -33,6 +34,17 @@ class CampaignController extends BaseController
 	{		
 		$voucher 								= Voucher::code(Input::get('referral_code'))->type(['referral', 'promo_referral'])->first();
 
+		if (is_null(Input::get('from')))
+		{
+			$from 								= 'frontend.user.index';
+			$msg 								= 'Pemberi referensi sudah disimpan';
+		}
+		else 
+		{
+			$from 								= Input::get('from');
+			$msg 								= 'Selamat anda mendapatkan Balin Point senilai IDR '.number_format($voucher['value'], 0, ',', '.');
+		}
+
 		if(!$voucher || $voucher->user_id==0)
 		{
 			return Redirect::back()
@@ -41,7 +53,7 @@ class CampaignController extends BaseController
 					->with('msg-type', 'danger');
 		}
 
-		if($voucher->quota - 1 < 0)
+		if($voucher->quota <= 1)
 		{
 			return Redirect::back()
 					->withInput()
@@ -57,8 +69,17 @@ class CampaignController extends BaseController
 		{
 			$reference 							= $voucher->user;
 		}
+		
+		$store                    		= StoreSetting::type('voucher_point_expired')->Ondate('now')->first();
 
-		$expired_at 							=  new Carbon('+ 3 months');
+    	if($store)
+    	{
+        	$expired_at 				= new Carbon($store->value);
+    	}
+    	else
+    	{
+        	$expired_at 				= new Carbon('+ 3 months');
+    	}
 
 		DB::beginTransaction();
 
@@ -80,11 +101,14 @@ class CampaignController extends BaseController
 					->withErrors($plog->getError())
 					->with('msg-type', 'danger');
 		}
+		else
+		{
+			$msg 								= 'Selamat anda mendapatkan Balin Point senilai IDR '.number_format($plog->amount, 0, ',', '.');
+		}
 
 		DB::commit();
-
-			return Redirect::route('frontend.user.index')
-				->with('msg','Pemberi referensi sudah disimpan')
+			return Redirect::route($from)
+				->with('msg', $msg)
 				->with('msg-type', 'success');
 	}
 }

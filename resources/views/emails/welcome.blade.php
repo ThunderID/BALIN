@@ -2,42 +2,68 @@
 
 @section('content')
 	<table style="width:100%">
-		<tr class="row">
-			<td class="col-sm-2" style="width:20%">
-				<img src="<?php echo $message->embed('Balin/web/image/balin-white.png'); ?>" class="img img-responsive" style="max-width:200px">
-			</td>
-			<td class="col-sm-3" style="width:40%">
-				<h4>CV. BALIN INDONESIA</h4>
-				<!-- <p>Phone {!!$data['balin']['phone']!!}</p> -->
-				<p>Email {!!$data['balin']['email']!!}</p>
-				<p>Website <a href="{!!$data['balin']['url']!!}">www.balin.id</a></p>
-			</td>
-			<td class="col-sm-7" valign="top" style="text-align:right;width:40%">
-				<!--  -->
-			</td>
-		</tr>
-	</table>
-	<hr/>
-	<br/>
-	<table class="row">
 		<tr>
-			<td class="wrapper last">
-				<table class="twelve columns">
-					<tr>
-						<td>
-							<h3>Selamat Datang, {{$data['user']['name']}}</h3>
-							<p>
-								Terima kasih telah mendaftar ke website BALIN.
-							</p>
-							<p>
-								Klik link <a href="{{route('balin.claim.voucher', $data['user']['activation_link'])}}"> <strong>berikut</strong></a> untuk claim voucher perdana anda dan nikmati ratusan bonus belanja bersama BALIN !
-							</p>
-						</td>
-						<td class="expander"></td>
-					</tr>
-				</table>
+			<td width="10%"></td>
+			<td width="80%">
+				{{-- <img src="{{ $message->embed('Balin/web/image/balin-white.png') }}" style="max-width:150px; text-align:left;"> --}}
+				<img src="{{ $message->embed('Balin/web/image/balin-white.png') }}" style="max-width:150px; text-align:left;">
 			</td>
+			<td width="10%"></td>
 		</tr>
+
+		<tr>
+			<td></br></br></td>
+		</tr>
+
+		<tr>
+			<td width="10%"></td>
+			<td width="80%">
+				<p>Dear {{$data['user']['name']}}, </p>
+
+				<p>Selamat datang, Anda telah terdaftar di <a href='https://balin.id'>Balin.id</a></p>
+
+				<p>Dengan menjadi bagian dari Balin.id, anda juga dapat menikmati fasilitas yang kami berikan berupa Kode Referal dan Balin Point. Dengan kode Referal, 
+				anda dapat mengajak teman atau kerabat anda untuk mendaftar ke situs Balin.id dan berikan kode referal anda. Dengan menggunakan kode referal anda, 
+				teman anda akan mendapatkan Balin Point sebesar Rp. 50.000 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000. Kode referal anda, pada mulanya 
+				hanya dapat anda berikan kepada 10 orang teman anda. Apabila teman yang menggunakan kode referal anda melakukan pembelian, anda akan mendapatkan 
+				tambahan kuota tersebut menjadi 11 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000, dan demikian seterusnya tanpa ada batasnya. Balin Point
+				tersebut dapat anda gunakan untuk berbelanja di Balin.id, namun tidak dapat diuangkan.
+				</p>
+
+				<p>Semakin banyak teman yang menggunakan referal anda dan semakin sering teman yang anda referensikan melakukan pembelian, semakin besar voucher yang anda dapatkan.</p>
+
+				<p>Untuk memulai, Balin telah menyediakan Balin Point untuk anda. Klaim Balin Point tersebut dengan klik tombol di bawah ini.</p>
+			</td>
+			<td width="10%"></td>
+		</tr>
+
+		<tr>
+			<td></br></td>
+		</tr>
+
+		<tr>
+			<td width="10%"></td>
+			<td style="width:90%; text-align:center;">
+				<a href="{{route('balin.claim.voucher', $data['user']['activation_link'])}}" class='btn'>KLAIM BALIN POINT</a>
+			</td>
+			<td width="10%"></td>
+		</tr>
+
+		<tr>
+			<td><br></td>
+		</tr>	
+
+		<tr>
+			<td width="10%"></td>
+			<td width="80%">
+				<p>
+					Kind Regards, </br>
+					Balin.id
+				</p>
+			</td>
+			<td width="10%"></td>
+		</tr>
+
 	</table>
 	</br>
 	</br>

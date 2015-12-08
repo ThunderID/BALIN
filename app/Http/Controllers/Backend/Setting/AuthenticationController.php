@@ -120,7 +120,7 @@ class AuthenticationController extends BaseController
 		}
 		else
 		{
-			$authentication 			= User::authentication(true)->id($id)->first();
+			$authentication 			= User::role(['staff', 'store_manager', 'admin'])->id($id)->first();
 
 			if(!$authentication)
 			{

@@ -73,7 +73,7 @@ class CheckOutController extends BaseController
 				return Redirect::back()->withErrors('Tidak ada voucher.')->with('msg-type', 'danger');
 			}
 
-			if($vouchers->quota - 1 < 0)
+			if($vouchers->quota - 1 <= 0)
 			{
 				return Redirect::back()->withErrors('Voucher tidak dapat digunakan.')->with('msg-type', 'danger');
 			}
@@ -253,7 +253,7 @@ class CheckOutController extends BaseController
 			}
 			else
 			{
-				return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat bonus point sebesar '.$voucher->value.' (Point akan ditambahkan jika pesanan sudah dibayar)', 'discount' => false], 200);
+				return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat bonus balin point sebesar '.$voucher->value.' (Balin Point akan ditambahkan jika pesanan sudah dibayar)', 'discount' => false], 200);
 			    // return json_decode(json_encode('Selamat! Anda mendapat bonus point sebesar '.$voucher->value.' (Point akan ditambahkan jika pesanan sudah dibayar)'));
 			}
 		}

@@ -43,7 +43,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-r-none">
 					<h4 class="p-b-md text-left">Referral Code 
 						<small>
-							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".referral-user-information">&nbsp;[?]</a>
+							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".referral-user-information"><i class="fa fa-question-circle"></i></a>
 						</small>
 					</h4>	
 				</div>
@@ -57,9 +57,9 @@
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 header-info p-r-md p-l-md panel-right border-left">
 			<div class="row p-md">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
-					<h4 class="p-b-md">Point Balin Anda 
+					<h4 class="p-b-md">Balin Point Anda 
 						<small>
-							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".point-user-information">&nbsp;[?]</a>
+							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".point-user-information"><i class="fa fa-question-circle fa-1x"></i></a>
 						</small>
 					</h4>
 				</div>
@@ -68,8 +68,8 @@
 					<p class="text-left hidden-sm hidden-md hidden-lg"><strong>@money_indo(Auth::user()->balance) </strong></p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<a class="link-white hover-gold unstyle text-right hidden-xs" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Point Balin Anda" data-view="modal-lg">[ History ]</a>
-					<a class="link-white hover-gold unstyle text-left hidden-sm hidden-md hidden-lg" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Point Balin Anda" data-view="modal-lg">[ History ]</a>
+					<a class="link-white hover-gold unstyle text-right hidden-xs" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Balin Point Anda" data-view="modal-lg">[ History ]</a>
+					<a class="link-white hover-gold unstyle text-left hidden-sm hidden-md hidden-lg" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route("frontend.user.point")}}" data-modal-title="History Balin Point Anda" data-view="modal-lg">[ History ]</a>
 				</div>
 			</div>
 		</div>
@@ -136,6 +136,7 @@
 							<strong>@date_indo(Auth::user()->date_of_birth)</strong>
 						@endif
 					</p>
+					<br/>
 				</div>
 			</div>
 		</div>
@@ -156,7 +157,9 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					Pemberi Referral Anda
+					@if (Auth::user()->reference!=false || is_null(Auth::user()->reference))
+						Pemberi Referral Anda
+					@endif
 					@if (is_null(Auth::user()->reference))
 						<small>
 							<a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="{{route('frontend.user.reference.get')}}" data-modal-title="Pemberi Referral Anda" data-view="modal-md">[ Tambahkan ]</a>
@@ -270,7 +273,7 @@
 				<div class="clearfix">&nbsp;</div>
 				@endif
 			@empty
-				<p class="text-center p-t-sm p-b-xxs">Tidak ada data.</p>
+				<p class="text-center p-t-sm p-b-xxs">Anda belum mempunyai history belanja.</p>
 			@endforelse
 		</div>
 	</div>
@@ -311,15 +314,15 @@
 	    	<div class="modal-content">
 				<div class="modal-header">
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-		       		<h5 class="modal-title" id="exampleModalLabel">Point</h5>
+		       		<h5 class="modal-title" id="exampleModalLabel">Balin Point</h5>
 		      	</div>
 		      	<div class="modal-body mt-75 mobile-m-t-10" style="text-align:left">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					<p>Balin Point ini adalah voucher discount yang dapat anda gunakan untuk pembelian produk di Balin</p>
+					<p>Untuk menambah jumlah Balin Point ini, ajak teman dan kerabat anda untuk melakukan registrasi di situs Balin.id dan berikan kode referal anda kepada mereka. Dengan menggunakan kode referal anda, teman anda akan mendapatkan Balin Point sebesar Rp. 50.000 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000.</p>
+					<p>Kode referal anda, pada mulanya hanya dapat anda berikan kepada 10 orang teman anda. Apabila teman yang menggunakan kode referal anda melakukan pembelian, anda akan mendapatkan tambahan kuota tersebut menjadi 11 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000, dan demikian seterusnya tanpa ada batasnya.</p>
+					<p>Semakin banyak teman yang menggunakan referal anda dan semakin sering teman yang anda referensikan melakukan pembelian, semakin besar voucher yang anda dapatkan.</p>
+
+					<p>Balin Point tidak dapat diuangkan.</p>
 		      	</div>
 	   		</div>
 	  	</div>
@@ -334,12 +337,11 @@
 		       		<h5 class="modal-title" id="exampleModalLabel">Referral Code</h5>
 		      	</div>
 		      	<div class="modal-body mt-75 mobile-m-t-10" style="text-align:left">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					<p>Kode referal adalah kode akun anda di Balin.id. Anda dapat mengajak teman atau kerabat anda untuk mendaftar ke situs Balin.id dan berikan kode referal anda. Dengan menggunakan kode referal anda, teman anda akan mendapatkan Balin Point sebesar Rp. 50.000 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000</p>
+					<p>Kode referal anda, pada mulanya hanya dapat anda berikan kepada 10 orang teman anda. Apabila teman yang menggunakan kode referal anda melakukan pembelian, anda akan mendapatkan tambahan kuota tersebut menjadi 11 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000, dan demikian seterusnya tanpa ada batasnya.</p>
+					<p>Semakin banyak teman yang menggunakan referal anda dan semakin sering teman yang anda referensikan melakukan pembelian, semakin besar voucher yang anda dapatkan.</p>
+
+					<p>Balin Point tidak dapat diuangkan.</p>
 		      	</div>
 	   		</div>
 	  	</div>
