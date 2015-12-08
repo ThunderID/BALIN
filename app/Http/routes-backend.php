@@ -7,12 +7,12 @@
 // ------------------------------------------------------------------------------------
 // LOGIN PAGE
 // ------------------------------------------------------------------------------------
-Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\'], function()
+Route::group(['domain' => 'editorial.balin.id', 'namespace' => 'Backend\\'], function()
 {
 	Route::post('/login',												['uses' => 'AuthController@doLogin', 	'as' => 'backend.dologin']);
 });
 
-Route::group(['prefix' => 'cms', 'namespace' => 'Backend\\', 'middleware' => ['auth', 'staff']], function()
+Route::group(['domain' => 'editorial.balin.id', 'namespace' => 'Backend\\', 'middleware' => ['auth', 'staff']], function()
 {
 	Route::get('/change-password',										['uses' => 'PasswordController@create', 'as' => 'backend.changePassword']);
 	
