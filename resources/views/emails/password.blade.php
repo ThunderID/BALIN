@@ -2,39 +2,41 @@
 
 @section('content')
 	<table style="width:100%">
-		<tr class="row">
-			<td class="col-sm-2" style="width:20%">
-				{!! HTML::image('Balin/web/image/balin-white.png', null, ['class' => 'img img-responsive', 'style' => 'max-width:200px;']) !!}
-			</td>
-			<td class="col-sm-3" style="width:40%">
-				<h4>CV. BALIN INDONESIA</h4>
-				<p>Phone {!!$data['balin']['phone']!!}</p>
-				<p>Email {!!$data['balin']['email']!!}</p>
-				<p>Website <a href="{!!$data['balin']['url']!!}">www.balin.id</a></p>
-			</td>
-			<td class="col-sm-7" valign="top" style="text-align:right;width:40%">
-				<!--  -->
-			</td>
-		</tr>
-	</table>
-	<hr/>
-
-	<table class="row">
 		<tr>
-			<td class="wrapper last">
-				<table class="twelve columns">
-					<tr>
-						<td>
-							<h3>{{$data['user']['name']}},</h3>
-							<p>
-								Klik link <a href="{{route('frontend.get.forgot', $data['user']['reset_password_link'])}}"> <strong>berikut</strong></a> reset password anda.
-							</p>
-						</td>
-						<td class="expander"></td>
-					</tr>
-			</table>
+			<td width="10%"></td>
+			<td width="80%">
+				{{-- <img src="{{ $message->embed('Balin/web/image/balin-white.png') }}" style="max-width:150px; text-align:left;"> --}}
+				<img src="{{ $message->embed('Balin/web/image/balin-white.png') }}" style="max-width:150px; text-align:left;">
 			</td>
+			<td width="10%"></td>
 		</tr>
+
+		<tr>
+			<td></br></br></td>
+		</tr>
+
+		<tr>
+			<td width="10%"></td>
+			<td width="80%">
+				<p>Dear {{$data['user']['name']}}, </p>
+				<p>
+					Klik link <a href="{{route('frontend.get.forgot', $data['user']['reset_password_link'])}}"> <strong>berikut</strong></a> reset password anda.
+				</p>
+		<tr>
+			<td><br></td>
+		</tr>	
+
+		<tr>
+			<td width="10%"></td>
+			<td width="80%">
+				<p>
+					Kind Regards, </br>
+					Balin.id
+				</p>
+			</td>
+			<td width="10%"></td>
+		</tr>
+
 	</table>
 	</br>
 	</br>

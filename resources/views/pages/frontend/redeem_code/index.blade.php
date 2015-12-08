@@ -52,34 +52,24 @@
 						</div>	
 					</div>
 					{!! Form::open(['url' => route('frontend.user.reference.post')]) !!}
-						@if ((Auth::user()->reference))
-							<div class="row">
-							    <div class="col-lg-12">
-							        <div class="alert alert-danger text-white alert-dismissable">
-							            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						                Maaf anda sudah mempunyai referral code
-							        </div>
-							    </div>
-							</div>
-						@endif
-							<div class="row m-b-sm">
-								<div class="col-md-12">
-									<div class="input-group" style="position:relative">
-										<div class="loading-voucher text-center hide" style="line-height:30px">
-											{!! HTML::image('Balin/web/image/loading.gif', null, ['style' => 'width:20px']) !!}
-										</div>
-										{!! Form::hidden('from', 'frontend.redeem.index') !!}
-										{!! Form::input('text', 'referral_code', null, [
-												'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
-												'placeholder' => 'Masukkan referral code anda',
-												'data-action' => route('frontend.user.reference.post')
-										]) !!}
-										<span class="input-group-btn">
-											<button type="submit" class="btn-hollow hollow-black" data-action="{{ route('frontend.user.reference.post') }}">Gunakan</button>
-										</span>
+						<div class="row m-b-sm">
+							<div class="col-md-12">
+								<div class="input-group" style="position:relative">
+									<div class="loading-voucher text-center hide" style="line-height:30px">
+										{!! HTML::image('Balin/web/image/loading.gif', null, ['style' => 'width:20px']) !!}
 									</div>
+									{!! Form::hidden('from', 'frontend.redeem.index') !!}
+									{!! Form::input('text', 'referral_code', null, [
+											'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
+											'placeholder' => 'Masukkan referral code anda',
+											'data-action' => route('frontend.user.reference.post')
+									]) !!}
+									<span class="input-group-btn">
+										<button type="submit" class="btn-hollow hollow-black" data-action="{{ route('frontend.user.reference.post') }}">Gunakan</button>
+									</span>
 								</div>
 							</div>
+						</div>
 					{!! Form::close() !!}
 						<!-- <div class="row p-b-md p-t-none">
 							<div class="col-md-12 text-center">

@@ -639,8 +639,8 @@ p {
 }
 @media (min-width: 767px) and (max-width: 992px) {
   .page-header .navbar-nav.navbar-hollow > li {
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 6px;
+    padding-right: 6px;
   }
 }
 @media (max-width: 767px) {
