@@ -89,12 +89,12 @@ class AuthController extends BaseController
 			// 	'sso_data' 				=> json_encode($user->user),
 			// 	]);
 
-			// if(!$registered->save())
-			// {
+			if($registered->sso_id != $user->id)
+			{
 				return Redirect::back()->withErrors($registered->getError())
 									->with('msg', 'Email sudah terdaftar')
 									->with('msg-type', 'danger');
-			// }
+			}
 		}
 		else
 		{

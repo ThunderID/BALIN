@@ -32,9 +32,9 @@ return [
     ],
 
     'facebook' => [
-        'client_id'     => env('FACEBOOK_CLIENT_ID', '491225264379551'),
-        'client_secret' => env('FACEBOOK_CLIENT_SECRET', '548dc7aa90470c9be30648377d9ce3ba'),
-        'redirect'      => env('FACEBOOK_REDIRECT', 'http://localhost:8000/sso/success'),
+        'client_id'     => env('FACEBOOK_CLIENT_ID', ''),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET', ''),
+        'redirect'      => env('FACEBOOK_REDIRECT', ''),
     ],
 
     'mandrill' => [
