@@ -1,38 +1,18 @@
 <script type="text/javascript">
-	$( document ).ready(function() {
-		<!-- pre load shipping cost -->
-		if($('.choice_address').val == 0){
-			GetShippingCost( {'zipcode' : $( "#zipcode" ).val()} );
-		}else{
-			GetShippingCost( {'address' : $( "#address_id" ).val()} );
-		}
+	// $( document ).ready(function() {
+	// 	<!-- pre load shipping cost -->
+	// 	if($('.choice_address').val == 0){
+	// 		GetShippingCost( {'zipcode' : $( "#zipcode" ).val()} );
+	// 	}else{
+	// 		GetShippingCost( {'address' : $( "#address_id" ).val()} );
+	// 	}
 
-		countSubTotal();
-	});
-
-	$('choice_address').focusin( function() {
-		// console.log('yes');
-	});
-
-	// $('.choice_address').click( function() {
-	//     var options = $(this).find("option");
-	//     var count = options.length;
-	//     if (typeof(count) === "undefined" || count < 2)
-	//     {
-	//         $('.new-address').removeClass('new-address-hide');
-	// 		$('.new-address').addClass('new-address-show');
-
-	// 		jQuery('#zipcode').on('input propertychange paste', function() {
-	// 			GetShippingCost( {'zipcode' : $( "#zipcode" ).val()} );
-	// 		});
-	//     }
+	// 	countSubTotal();
 	// });
 
 	$('.choice_address').on('change', function() {
 		var val = $(this).val();
 		if (val == 0) {
-			// $('.new-address').removeClass('new-address-hide');
-			// $('.new-address').addClass('new-address-show');
 			jQuery('#zipcode').on('input propertychange paste', function() {
 				GetShippingCost( {'zipcode' : $( "#zipcode" ).val()} );
 			});	
@@ -40,9 +20,6 @@
 			parsing_address(ga);
 		}
 		else {
-			// $('.new-address').removeClass('new-address-show');
-			// $('.new-address').addClass('new-address-hide');
-
 			GetShippingCost( {'address' : $( "#address_id" ).val()} );
 			ga = get_address($(this));
 			parsing_address(ga);
@@ -75,35 +52,6 @@
 		countSubTotal();
 	});
 
-	// function setModalMaxHeight(element) {
-	// 	this.$element     = $(element);
-	// 	var dialogMargin  = $(window).width() > 767 ? 62 : 22;
-	// 	var contentHeight = $(window).height() - dialogMargin;
-	// 	var headerHeight  = this.$element.find('.modal-header').outerHeight() || 2;
-	// 	var footerHeight  = this.$element.find('.modal-footer').outerHeight() || 2;
-	// 	var maxHeight     = contentHeight - (headerHeight + footerHeight);
-
-	// 	this.$element.find('.modal-content').css({
-	// 		'overflow': 'hidden'
-	// 	});
-
-	// 	this.$element.find('.modal-body').css({
-	// 		'max-height': maxHeight,
-	// 		'overflow-y': 'auto'
-	// 	});
-	// }
-
-	// $('.modal').on('show.bs.modal', function() {
-	// 	$(this).show();
-	// 	setModalMaxHeight(this);
-	// });
-
-	// $(window).resize(function() {
-	// 	if ($('.modal.in').length != 0) {
-	// 		setModalMaxHeight($('.modal.in'));
-	// 	}
-	// });
-
    function GetShippingCost(e){
    		cv = parseInt($('.shippingcost').attr('data-v'));
 		$.post( "{{route('frontend.any.zipcode')}}", e)
@@ -120,6 +68,7 @@
     	var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
     	var sc = ($(".shippingcost").first().text().replace(/\./g, '')).substring(4);
     	var yp = ($("#point").text().replace(/\./g, '')).substring(4);
+    	st = 0;
     	uqnum = parseInt($('.uniquenumber').attr('data-unique'));
     	to = parseInt(to);
     	sc = parseInt(sc);
@@ -128,9 +77,13 @@
 		if(isNaN(sc)) {
 			sc = 0;
 		}
-		
-    	var st = 'IDR ' + ((to + sc - yp)-uqnum);
-
+		st = ((to + sc - yp)-uqnum);
+    	if (st && st < 0) {
+    		st = 'IDR ' + 0;
+    	} else {	
+    		st = 'IDR ' + st;
+    	}
+    	// console.log(st);
 		$(".subtotal").text(addCommas(st));
 
 		function addCommas(nStr)

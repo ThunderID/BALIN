@@ -4,7 +4,7 @@
 	<table style="width:100%">
 		<tr class="row">
 			<td class="col-sm-2" style="width:20%">
-				<img src="Balin/web/image/logo-invoice.png" class="img img-responsive" style="max-width:200px">
+				<img src="{{ $message->embed('Balin/web/image/logo-invoice.png') }}" class="img img-responsive" style="max-width:200px">
 			</td>
 			<td class="col-sm-10" valign="top" style="text-align:right;width:40%">
 				<h3>Validasi Pembayaran</h3>
@@ -15,30 +15,32 @@
 	<br/>
 	<table style="width:100%">
 		<tr class="row">
-			<td class="col-sm-1" style="width:10%">&nbsp;</td>
-			<td class="col-sm-2" style="width:3%">
-				<div class="title-circle">
+			<td style="width:10%">&nbsp;</td>
+			<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
+				<div style="width:50px; margin: 0 auto;">
 					<div>1</div>
+					<p style="margin-bottom:0;">Checkout</p>
 				</div>
 			</td>
-			<td class="col-sm-2" style="width:3%">
-				<div class="title-circle active">
+			<td style="width:2%;">&nbsp;</td>
+			<td style="width:3%; text-align:center; padding: 5px; background-color: #000; color: #fff;">
+				<div style="width:50px; margin: 0 auto;">
 					<div>2</div>
+					<p style="margin-bottom:0;">Paid</p>
 				</div>
 			</td>
-			<td class="col-sm-2" style="width:3%">
-				<div class="title-circle">
+			<td style="width:2%;">&nbsp;</td>
+			<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
+				<div style="width:50px; margin: 0 auto;">
 					<div>3</div>
+					<p style="margin-bottom:0;">Shipped</p>
 				</div>
 			</td>
-			<td class="col-sm-2" style="width:3%">
-				<div class="title-circle">
+			<td style="width:2%;">&nbsp;</td>
+			<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
+				<div style="width:50px; margin: 0 auto;">
 					<div>4</div>
-				</div>
-			</td>
-			<td class="col-sm-2" style="width:3%">
-				<div class="title-circle">
-					<div>5</div>
+					<p style="margin-bottom:0;">Deliverd</p>
 				</div>
 			</td>
 			<td class="col-sm-1" style="width:10%">&nbsp;</td>
@@ -65,17 +67,17 @@
 								@if($data['paid']['payment']) 
 									@date_indo($data['paid']['payment']['ondate']) 
 								@else 
-									@date_info($data['paid']['updated_at']) 
+									@date_indo($data['paid']['updated_at']) 
 								@endif
 							</p>
 							@if($data['paid']['payment'])
-							<p>
-								Atas nama {{$data['paid']['payment']['account_name']}} melalui rekening {{$data['paid']['payment']['destination']}}
-							</p>
+								<p>
+									Atas nama {{$data['paid']['payment']['account_name']}} melalui rekening {{$data['paid']['payment']['destination']}}
+								</p>
 							@else
-							<p>
-								Menggunakan point BALIN sebesar @money_indo(abs($point))
-							</p>
+								<p>
+									Menggunakan point BALIN sebesar @money_indo(abs($point))
+								</p>
 							@endif
 							<p>
 								Pengiriman akan diproses selambat lambatnya 2 (dua) hari kerja setelah pembayaran di validasi.

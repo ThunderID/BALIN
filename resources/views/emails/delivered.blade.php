@@ -3,17 +3,11 @@
 @section('content')
 	<table style="width:100%">
 		<tr class="row">
-			<td class="col-sm-2" style="width:20%">
-				{!! HTML::image('Balin/web/image/balin-white.png', null, ['class' => 'img img-responsive', 'style' => 'max-width:200px;']) !!}
+			<td style="width:60%">
+				<img src="{{ $message->embed('Balin/web/image/balin-white.png') }}" style="max-width:200px; text-align:left;">
 			</td>
-			<td class="col-sm-3" style="width:40%">
-				<h4>CV. BALIN INDONESIA</h4>
-				<p>Phone {!!$data['balin']['phone']!!}</p>
-				<p>Email {!!$data['balin']['email']!!}</p>
-				<p>Website <a href="{!!$data['balin']['url']!!}">www.balin.id</a></p>
-			</td>
-			<td class="col-sm-7" valign="top" style="text-align:right;width:40%">
-				<h3>Pesanan Sudah Lengkap</h3>
+			<td valign="top" style="text-align:right;width:40%">
+				<h3>Pesanan Anda Sudah Tiba Di Tujuan</h3>
 			</td>
 		</tr>
 	</table>
@@ -21,30 +15,32 @@
 	<br/>
 	<table style="width:100%">
 		<tr class="row">
-			<td class="col-sm-1" style="width:10%">&nbsp;</td>
-			<td class="col-sm-2" style="width:3%">
-				<div class="title-circle active">
+			<td style="width:10%">&nbsp;</td>
+			<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
+				<div style="width:50px; margin: 0 auto;">
 					<div>1</div>
+					<p style="margin-bottom:0;">Checkout</p>
 				</div>
 			</td>
-			<td class="col-sm-2" style="width:3%">
-				<div class="title-circle">
+			<td style="width:2%;">&nbsp;</td>
+			<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
+				<div style="width:50px; margin: 0 auto;">
 					<div>2</div>
+					<p style="margin-bottom:0;">Paid</p>
 				</div>
 			</td>
-			<td class="col-sm-2" style="width:3%">
-				<div class="title-circle">
+			<td style="width:2%;">&nbsp;</td>
+			<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
+				<div style="width:50px; margin: 0 auto;">
 					<div>3</div>
+					<p style="margin-bottom:0;">Shipped</p>
 				</div>
 			</td>
-			<td class="col-sm-2" style="width:3%">
-				<div class="title-circle">
+			<td style="width:2%;">&nbsp;</td>
+			<td style="width:3%; text-align:center; padding: 5px; background-color: #000; color: #fff;">
+				<div style="width:50px; margin: 0 auto;">
 					<div>4</div>
-				</div>
-			</td>
-			<td class="col-sm-2" style="width:3%">
-				<div class="title-circle">
-					<div>5</div>
+					<p style="margin-bottom:0;">Deliverd</p>
 				</div>
 			</td>
 			<td class="col-sm-1" style="width:10%">&nbsp;</td>

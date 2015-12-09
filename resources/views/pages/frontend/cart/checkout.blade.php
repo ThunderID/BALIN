@@ -130,10 +130,11 @@
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5">
 										<h4 class="text-right subtotal" style="font-weight: bold;">
-											@if ($total && $total < 0)
+											<?php $total_pembayaran = $total - Auth::user()->balance - $transaction['unique_number']; ?>
+											@if ($total_pembayaran && $total_pembayaran < 0)
 												@money_indo(0)
 											@else
-												@money_indo($total)
+												@money_indo($total_pembayaran)
 											@endif
 										</h4>
 									</div>	
@@ -265,7 +266,7 @@
 					<div class="hidden-lg hidden-md col-sm-12 hidden-xs panel-voucher panel-form-voucher-device p-t-sm">
 						<div class="row p-b-sm">
 							<div class="col-sm-12 text-center">
-								<span class="voucher-title">PUNYAKU PROMO CODE ?</span>
+								<span class="voucher-title">PUNYA PROMO CODE ?</span>
 							</div>	
 						</div>
 						<div class="row">
@@ -339,10 +340,11 @@
 								</div>
 								<div class="col-sm-5">
 									<h4 class="text-right subtotal" style="font-weight: bold;">
-										@if ($total < 0)
+										<?php $total_pembayaran = $total - Auth::user()->balance - $transaction['unique_number']; ?>
+										@if ($total_pembayaran && $total_pembayaran < 0)
 											@money_indo(0)
 										@else
-											@money_indo($total)
+											@money_indo($total_pembayaran)
 										@endif
 									</h4>
 								</div>	
@@ -463,14 +465,17 @@
 					</div>
 					<div class="row m-b-none" style="border-top: 1px solid #fff">
 						<div class="col-xs-12">
-							<h3 style="color:#fff;" class="text-center">SubTotal</h3>
+							<h3 style="color:#fff;" class="text-center">Total Pembayaran</h3>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-12">
 							<h2 style="color:#fff;" class="text-center m-t-none subtotal">
-								@if (isset($total))
-									@money_indo($total)
+								<?php $total_pembayaran = $total - Auth::user()->balance - $transaction['unique_number']; ?>
+								@if ($total_pembayaran && $total_pembayaran < 0)
+									@money_indo(0)
+								@else
+									@money_indo($total_pembayaran)
 								@endif
 							</h2>
 						</div>

@@ -4,7 +4,7 @@
 <table style="width:100%">
 	<tr class="row">
 		<td class="col-sm-2" style="width:20%">
-			<img src="<?php echo $message->embed('Balin/web/image/logo-invoice.png'); ?>" class="img img-responsive" style="max-width:200px">
+			<img src="{{ $message->embed('Balin/web/image/logo-invoice.png') }}" class="img img-responsive" style="max-width:200px">
 		</td>
 		<td class="col-sm-10" valign="top" style="text-align:right;width:40%">
 			<h3>Invoice <strong>#{!!$data['bill']['ref_number']!!}</strong></h3>
@@ -15,30 +15,32 @@
 <br/>
 <table style="width:100%">
 	<tr class="row">
-		<td class="col-sm-1" style="width:10%">&nbsp;</td>
-		<td class="col-sm-2" style="width:3%">
-			<div class="title-circle active" style="background: url('Balin/web/image/circle-black.png')">
+		<td style="width:10%">&nbsp;</td>
+		<td style="width:3%; text-align:center; padding: 5px; background-color: #000; color: #fff;">
+			<div style="width:50px; margin: 0 auto;">
 				<div>1</div>
+				<p style="margin-bottom:0;">Checkout</p>
 			</div>
 		</td>
-		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
-			<div class="title-circle">
+		<td style="width:2%;">&nbsp;</td>
+		<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
+			<div style="width:50px; margin: 0 auto;">
 				<div>2</div>
+				<p style="margin-bottom:0;">Paid</p>
 			</div>
 		</td>
-		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
-			<div class="title-circle">
+		<td style="width:2%;">&nbsp;</td>
+		<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
+			<div style="width:50px; margin: 0 auto;">
 				<div>3</div>
+				<p style="margin-bottom:0;">Shipped</p>
 			</div>
 		</td>
-		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
-			<div class="title-circle">
+		<td style="width:2%;">&nbsp;</td>
+		<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
+			<div style="width:50px; margin: 0 auto;">
 				<div>4</div>
-			</div>
-		</td>
-		<td class="col-sm-2" style="width:3%" style="background: url('Balin/web/image/circle-grey.png')">
-			<div class="title-circle">
-				<div>5</div>
+				<p style="margin-bottom:0;">Deliverd</p>
 			</div>
 		</td>
 		<td class="col-sm-1" style="width:10%">&nbsp;</td>
@@ -48,45 +50,47 @@
 <table style="width:100%;">
 	<tr>
 		<td class="col-sm-3">&nbsp;</td>
-		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
-			<table style="border:2px solid;">
-				<tr>
-					<td style="background-color:white; border-radius:0px; color:black;border-bottom:none;padding:15px;">
-						Tanggal Invoice
-						<br/>
-						<br/>
-						@datetime_indo($data['bill']['transact_at'])
-					</td>
-				</tr>
-			</table>
+		<td class="col-sm-2" style="width:25%; 
+									height:50px;
+									border:2px solid;
+									border-radius:0px; 
+									background-color:white; 
+									color:black;
+									text-align:center;
+									padding:15px;">
+			Tanggal Invoice
+			<br/>
+			<br/>
+			@datetime_indo($data['bill']['transact_at'])
 		</td>
-		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
-			<table style="border:2px solid;" >
-				<tr>
-					<td style="background-color:black; border-radius:0px; color:white;border-bottom:none;padding:15px;">
-						Jumlah Tagihan
-						<br/>
-						<br/>
-						@if($data['bill']['amount'] < 0)
-						@money_indo(0)
-						@else
-						@money_indo($data['bill']['amount'])
-						@endif
-					</td>
-				</tr>
-			</table>
+		<td class="col-sm-2" style="width:25%; 
+									height:50px;
+									border-radius:0px; 
+									background-color:black; 
+									color:white;
+									text-align:center;
+									padding:15px;">
+			Jumlah Tagihan
+			<br/>
+			<br/>
+			@if($data['bill']['amount'] < 0)
+				@money_indo(0)
+			@else
+				@money_indo($data['bill']['amount'])
+			@endif
 		</td>
-		<td class="col-sm-2" style="width:15%; height:50px;text-align:center;">
-			<table style="border:2px solid;">
-				<tr>
-					<td style="background-color:white; border-radius:0px; color:black;border-bottom:none;padding:15px;">
-						Batas Waktu
-						<br/>
-						<br/>
-						@datetime_indo(new Carbon($data['bill']['transact_at'].' '.str_replace('-', '+' , $data['balin']['expired_paid'])))
-					</td>
-				</tr>
-			</table>
+		<td class="col-sm-2" style="width:25%; 
+									height:50px;
+									border:2px solid;
+									border-radius:0px; 
+									background-color:white; 
+									color:black;
+									text-align:center;
+									padding:15px;">
+			Batas Waktu
+			<br/>
+			<br/>
+			@datetime_indo(new Carbon($data['bill']['transact_at'].' '.str_replace('-', '+' , $data['balin']['expired_paid'])))
 		</td>
 		<td class="col-sm-3">&nbsp;</td>
 	</tr>
@@ -95,13 +99,13 @@
 <table style="width:100%;">
 	<tr>
 		<td class="col-sm-12" style="width:100%; height:50px;text-align:left">
-			<p>Dear {{$data['bill']['user']['name']}}, </p>
+			<p>Dear <strong>{{$data['bill']['user']['name']}},</strong> </p>
 			<p>Terima kasih telah memesan. Pesanan Anda <span style="font-weight:bold">#{!!$data['bill']['ref_number']!!}</span> menunggu pembayaran. Silakan melakukan pembayaran ke rekening bank yang berada dibawah sebelum <span style="font-weight:bold">@datetime_indo(new Carbon($data['bill']['transact_at'].' '.str_replace('-', '+' , $data['balin']['expired_paid'])))</span> atau pesanan Anda akan dibatalkan. Berikut rincian tagihan pesanan Anda.</p>
 		</td>
 	</tr>
 </table>
 <br/>
-<table style="width:100%">
+<table style="width:100%; font-size:11px;">
 	<thead>
 		<tr>
 			<th class="col-md-1 text-center" style="text-align:center;background-color:black;color:white;padding:10px;">No</th>
@@ -134,32 +138,43 @@
 			<td colspan="6">&nbsp;</td>
 		</tr>
 		<tr>
-			<td colspan="4" style="border:none;"></td>
-			<td>Ongkos Kirim</td>
-			<td class="text-right" style="text-align:right;padding:3px;">@money_indo($data['bill']['shipping_cost'])</td>
+			<td colspan="2">&nbsp;</td>
+			<td colspan="2" style="text-align:left;">Sub Total</td>
+			<td style="text-align:right;">IDR</td>
+			<td style="text-align:right;padding:5px;">@money_indo_for_email($amount)</td>
 		</tr>
 		<tr>
-			<td colspan="4" style="border:none;"></td>
-			<td>Diskon Voucher</td>
-			<td class="text-right" style="text-align:right;padding:3px;">@money_indo(($data['bill']['voucher_discount'] ? $data['bill']['voucher_discount'] : 0))</td>
+			<td colspan="2">&nbsp;</td>
+			<td colspan="2" style="text-align:left;">Ongkos Kirim</td>
+			<td style="text-align:right;">IDR</td>
+			<td style="text-align:right;padding:5px;">@money_indo_for_email($data['bill']['shipping_cost'])</td>
 		</tr>
 		<tr>
-			<td colspan="4" style="border:none;"></td>
-			<td>Balin Point</td>
-			<td class="text-right" style="text-align:right;padding:3px;">@money_indo($data['bill']['discount_point'])</td>
+			<td colspan="2">&nbsp;</td>
+			<td colspan="2" style="text-align:left;">Diskon Voucher</td>
+			<td style="text-align:right;">IDR</td>
+			<td style="text-align:right;padding:5px;">@money_indo_for_email(($data['bill']['voucher_discount'] ? $data['bill']['voucher_discount'] : 0))</td>
 		</tr>
 		<tr>
-			<td colspan="4" style="border:none;"></td>
-			<td>Potongan Transfer</td>
-			<td class="text-right" style="text-align:right;padding:3px;">@money_indo($data['bill']['unique_number'])</td>
+			<td colspan="2">&nbsp;</td>
+			<td colspan="2" style="text-align:left;">Balin Point yang digunakan</td>
+			<td style="text-align:right;">IDR</td>
+			<td style="text-align:right;padding:5px;">@money_indo_for_email($data['bill']['discount_point'])</td>
 		</tr>
 		<tr>
-			<td colspan="4" style="border:none;"></td>
-			<td>Total Bayar</td>
+			<td colspan="2">&nbsp;</td>
+			<td colspan="2" style="text-align:left;">Potongan Transfer</td>
+			<td style="text-align:right;">IDR</td>
+			<td style="text-align:right;padding:5px;">@money_indo_for_email($data['bill']['unique_number'])</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+			<td colspan="2" style="text-align:left;">Total Bayar</td>
+			<td style="text-align:right;">IDR</td>
 			@if($data['bill']['amount'] < 0)
-			<td class="text-right" style="text-align:right;padding:3px;">@money_indo(0)</td>
+				<td style="text-align:right;padding:5px;">@money_indo_for_email(0)</td>
 			@else
-			<td class="text-right" style="text-align:right;padding:3px;">@money_indo($data['bill']['amount'])</td>
+				<td style="text-align:right;padding:5px;">@money_indo_for_email($data['bill']['amount'])</td>
 			@endif
 		</tr>
 	</tbody>
@@ -173,7 +188,8 @@
 		</td>
 	</tr>
 </table>
-<table style="width:100%; background-color:#ddd"> 
+<table style="width:100%; background-color:#ddd; padding: 10px;"> 
+	<tr>
 		<td style="width:30%;text-align:left;">
 			<small>
 			<i><strong>Syarat dan Ketentuan </strong> : harap membayar selambat lambatnya {{str_replace('-', '', str_replace('day', '', str_replace('s', '', $data['balin']['expired_paid'])))}} hari setelah pemesanan </i>

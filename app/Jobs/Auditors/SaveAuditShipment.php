@@ -33,24 +33,27 @@ class SaveAuditShipment extends Job implements SelfHandling
 
         $datetrans                          = Carbon::now();
 
-        $datepay                            = $this->transaction->payment->ondate;
+        if ($this->transaction->payment()->count())
+        {      
+            $datepay                            = $this->transaction->payment->ondate;
 
-        $difference                         = $datepay->diff($datetrans)->days;
+            $difference                         = $datepay->diff($datetrans)->days;
 
-        $audit                              = new Auditor;
+            $audit                              = new Auditor;
 
-        $audit->fill([
-                'user_id'                   => (Auth::check() ? Auth::user()->id : '0'),
-                'type'                      => 'transaction_shipping',
-                'ondate'                    => Carbon::now()->format('Y-m-d H:i:s'),
-                'event'                     => 'Pengiriman Barang. Selisih waktu validasi pembayaran dan pengiriman : '.$difference.' hari',
-            ]);
+            $audit->fill([
+                    'user_id'                   => (Auth::check() ? Auth::user()->id : '0'),
+                    'type'                      => 'transaction_shipping',
+                    'ondate'                    => Carbon::now()->format('Y-m-d H:i:s'),
+                    'event'                     => 'Pengiriman Barang. Selisih waktu validasi pembayaran dan pengiriman : '.$difference.' hari',
+                ]);
 
-        $audit->table()->associate($this->transaction);
+            $audit->table()->associate($this->transaction);
 
-        if(!$audit->save())
-        {
-            $result                         = new JSend('error', (array)$this->transaction, $audit->getError());
+            if(!$audit->save())
+            {
+                $result                         = new JSend('error', (array)$this->transaction, $audit->getError());
+            }
         }
 
         return $result;
