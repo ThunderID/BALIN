@@ -13,6 +13,7 @@ use App\Models\Transaction;
 
 use App\Jobs\CreditPoint;
 use App\Jobs\RevertPoint;
+use App\Jobs\ChangeStatus;
 use App\Jobs\SaveAuditor;
 use App\Jobs\AddQuotaForUpline;
 use App\Jobs\AddPointForUpline;

@@ -33,24 +33,27 @@ class SaveAuditPayment extends Job implements SelfHandling
 
         $datetrans                          = Carbon::now();
 
-        $datepay                            = $this->transaction->payment->ondate;
-
-        $difference                         = $datepay->diff($datetrans)->days;
-
-        $audit                              = new Auditor;
-
-        $audit->fill([
-                'user_id'                   => (Auth::check() ? Auth::user()->id : '0'),
-                'type'                      => 'transaction_paid',
-                'ondate'                    => Carbon::now()->format('Y-m-d H:i:s'),
-                'event'                     => 'Validasi Pembayaran. Selisih waktu bayar dan validasi : '.$difference.' hari',
-            ]);
-
-        $audit->table()->associate($this->transaction);
-
-        if(!$audit->save())
+        if($this->transaction->payment)
         {
-            $result                         = new JSend('error', (array)$this->transaction, $audit->getError());
+            $datepay                            = $this->transaction->payment->ondate;
+
+            $difference                         = $datepay->diff($datetrans)->days;
+
+            $audit                              = new Auditor;
+
+            $audit->fill([
+                    'user_id'                   => (Auth::check() ? Auth::user()->id : '0'),
+                    'type'                      => 'transaction_paid',
+                    'ondate'                    => Carbon::now()->format('Y-m-d H:i:s'),
+                    'event'                     => 'Validasi Pembayaran. Selisih waktu bayar dan validasi : '.$difference.' hari',
+                ]);
+
+            $audit->table()->associate($this->transaction);
+
+            if(!$audit->save())
+            {
+                $result                         = new JSend('error', (array)$this->transaction, $audit->getError());
+            }
         }
 
         return $result;
