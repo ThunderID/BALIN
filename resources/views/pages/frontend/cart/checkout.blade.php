@@ -130,7 +130,9 @@
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5">
 										<h4 class="text-right subtotal" style="font-weight: bold;">
-											@if ($total)
+											@if ($total && $total < 0)
+												@money_indo(0)
+											@else
 												@money_indo($total)
 											@endif
 										</h4>
