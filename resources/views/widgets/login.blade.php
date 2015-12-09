@@ -21,5 +21,5 @@
 		<a href="javascript:void(0);" class="btn-signup">Sign Up</a> 
 		atau login dengan akun sosial,
 	</p>
-	<a href="{{route('frontend.dosso')}}" class="btn-hollow hollow-black-border hollow-social" title="facebook"><i class="fa fa-facebook"></i></a>
+	{{-- <a href="{{route('frontend.dosso')}}" class="btn-hollow hollow-black-border hollow-social" title="facebook"><i class="fa fa-facebook"></i></a> --}}
 {!! Form::close() !!}
