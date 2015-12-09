@@ -119,6 +119,11 @@ class Transaction extends Eloquent
 			$amount 					= $amount - $this->unique_number;
 		}
 
+		if($amount < 0)
+		{
+			return 0;
+		}
+
 		return $amount;
 	}
 

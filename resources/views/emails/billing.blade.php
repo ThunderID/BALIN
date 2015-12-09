@@ -67,7 +67,11 @@
 						Jumlah Tagihan
 						<br/>
 						<br/>
+						@if($data['bill']['amount'] < 0)
+						@money_indo(0)
+						@else
 						@money_indo($data['bill']['amount'])
+						@endif
 					</td>
 				</tr>
 			</table>
@@ -152,7 +156,11 @@
 		<tr>
 			<td colspan="4" style="border:none;"></td>
 			<td>Total Bayar</td>
+			@if($data['bill']['amount'] < 0)
+			<td class="text-right" style="text-align:right;padding:3px;">@money_indo(0)</td>
+			@else
 			<td class="text-right" style="text-align:right;padding:3px;">@money_indo($data['bill']['amount'])</td>
+			@endif
 		</tr>
 	</tbody>
 </table>

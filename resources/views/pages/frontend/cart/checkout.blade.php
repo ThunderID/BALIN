@@ -335,11 +335,13 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="col-sm-7 text-left">
-									<h4>SubTotal</h4>
+									<h4>Total Pembayaran</h4>
 								</div>
 								<div class="col-sm-5">
 									<h4 class="text-right subtotal" style="font-weight: bold;">
-										@if ($total)
+										@if ($total < 0)
+											@money_indo(0)
+										@else
 											@money_indo($total)
 										@endif
 									</h4>
