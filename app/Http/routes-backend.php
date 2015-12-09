@@ -80,6 +80,8 @@ Route::group(['domain' => 'editorial.balin.id', 'namespace' => 'Backend\\', 'mid
 		
 		Route::any('ajax/get-transaction-by-amount',					['uses' => 'TransactionController@getTransactionByAmount', 'as' => 'backend.transaction.ajax.getByAmount']);
 		
+		Route::any('transactions/resend/email/{id}',					['uses' => 'TransactionController@ResendEmail', 'as' => 'backend.data.transaction.email']);
+		
 		// ------------------------------------------------------------------------------------
 		// PAYMENT
 		// ------------------------------------------------------------------------------------

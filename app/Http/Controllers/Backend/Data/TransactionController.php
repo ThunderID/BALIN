@@ -9,8 +9,14 @@ use App\Models\Address;
 use App\Models\Shipment;
 use App\Models\Voucher;
 use App\Jobs\ChangeStatus;
+use App\Jobs\SendBillingEmail;
+use App\Jobs\SendPaymentEmail;
+use App\Jobs\SendShipmentEmail;
+use App\Jobs\SendDeliveredEmail;
+use App\Jobs\SendCanceledEmail;
 
 use Illuminate\Support\MessageBag;
+use App\Libraries\JSend;
 
 use Input, DB, Redirect, Response, App;
 
@@ -449,6 +455,44 @@ class TransactionController extends BaseController
 		{
 			return Redirect::back()
 					->with('msg', 'Data transaksi #'.$transaction->ref_number. ' sudah disimpan')
+					->with('msg-type','success');
+		}
+
+		return Redirect::back()
+				->withErrors($result->getErrorMessage())
+				->with('msg-type','danger');
+	}
+
+	public function ResendEmail($id = null)
+	{
+		$transaction 					= Transaction::findorfail($id);
+
+		switch ($transaction->status) 
+		{
+			case 'wait':
+				$result					= $this->dispatch(new SendBillingEmail($transaction));
+				break;
+			case 'paid': case 'packed' :
+				$result					= $this->dispatch(new SendPaymentEmail($transaction));
+				break;
+			case 'shipping':
+				$result					= $this->dispatch(new SendShipmentEmail($transaction));
+				break;
+			case 'delivered':
+				$result					= $this->dispatch(new SendDeliveredEmail($transaction));
+				break;
+			case 'canceled':
+				$result					= $this->dispatch(new SendCanceledEmail($transaction));
+				break;
+			default:
+				$result 				= new JSend('success', (array)$transaction);
+				break;
+		}
+
+		if($result->getStatus()=='success')
+		{
+			return Redirect::back()
+					->with('msg', 'Email transaksi #'.$transaction->ref_number. ' sudah dikirim')
 					->with('msg-type','success');
 		}
 

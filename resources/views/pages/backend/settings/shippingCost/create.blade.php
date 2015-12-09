@@ -98,7 +98,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="start_date" class="text-capitalize">Waktu Berlaku</label>
-					{!! Form::input('date','date', $date, [
+					{!! Form::input('text','date', $date, [
 								'class'         		=> 'form-control date-time-format', 
 								'tabindex'      		=> '5',
 								'placeholder'   		=> 'dd-mm-yyyy hh:mm',
