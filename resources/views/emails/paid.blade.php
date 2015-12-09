@@ -52,13 +52,26 @@
 					<tr>
 						<td>
 							<br/>
+							<?php
+								$point 			= 0;
+								foreach ($data['paid']['pointlogs'] as $key => $value) 
+								{
+									$point 		= $point + $value['amount'];
+								}
+							?>
 							<p>Dear <strong>{{$data['paid']['user']['name']}}, </strong></p>
 							<p> 
-								Pembayaran untuk pesanan #{{$data['paid']['ref_number']}} telah kami terima pada tanggal @date_indo($data['paid']['payment']['ondate'])
+								Pembayaran untuk pesanan #{{$data['paid']['ref_number']}} telah kami terima pada tanggal @if($data['paid']['payment']) @date_indo($data['paid']['payment']['ondate']) @else @date_info($data['paid']['transact_at']) @endif
 							</p>
+							@if($data['paid']['payment'])
 							<p>
 								Atas nama {{$data['paid']['payment']['account_name']}} melalui rekening {{$data['paid']['payment']['destination']}}
 							</p>
+							@else
+							<p>
+								Menggunakan point BALIN sebesar @money_indo($point)
+							</p>
+							@endif
 							<p>
 								Pengiriman akan diproses selambat lambatnya 2 (dua) hari kerja setelah pembayaran di validasi.
 							</p>

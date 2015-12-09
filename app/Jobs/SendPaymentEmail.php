@@ -37,7 +37,7 @@ class SendPaymentEmail extends Job implements SelfHandling
             throw new Exception('Sent variable must be object of a record.');
         }
 
-        $transaction    = Transaction::id($this->transaction->id)->with(['payment', 'user'])->first();
+        $transaction    = Transaction::id($this->transaction->id)->with(['payment', 'user', 'pointlogs'])->first();
 
         $info           = StoreSetting::storeinfo(true)->get();
         $infos          = [];
