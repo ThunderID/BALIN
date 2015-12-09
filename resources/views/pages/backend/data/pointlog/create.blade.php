@@ -54,7 +54,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="start_date" class="text-capitalize">Expire</label>
-					{!! Form::input('date','date', $date, [
+					{!! Form::input('text','date', $date, [
 								'class'         		=> 'form-control date-time-format', 
 								'tabindex'      		=> '2',
 								'placeholder'   		=> 'dd-mm-yyyy hh:mm',
