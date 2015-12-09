@@ -61,7 +61,7 @@
 							?>
 							<p>Dear <strong>{{$data['paid']['user']['name']}}, </strong></p>
 							<p> 
-								Pembayaran untuk pesanan #{{$data['paid']['ref_number']}} telah kami terima pada tanggal @if($data['paid']['payment']) @date_indo($data['paid']['payment']['ondate']) @else @date_info($data['paid']['transact_at']) @endif
+								Pembayaran untuk pesanan #{{$data['paid']['ref_number']}} telah kami terima pada tanggal @if($data['paid']['payment']) @date_indo($data['paid']['payment']['ondate']) @else @date_info($data['paid']['updated_at']) @endif
 							</p>
 							@if($data['paid']['payment'])
 							<p>
@@ -69,7 +69,7 @@
 							</p>
 							@else
 							<p>
-								Menggunakan point BALIN sebesar @money_indo($point)
+								Menggunakan point BALIN sebesar @money_indo(abs($point))
 							</p>
 							@endif
 							<p>
