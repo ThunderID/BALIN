@@ -34,9 +34,10 @@ class CreditPoint extends Job implements SelfHandling
         $sumpoints                          = PointLog::userid($this->transaction->user_id)->onactive('now')->sum('amount');
 
         $idx                                = 0;
-        $currentamount                       = 0;
+        $currentamount                      = 0;
+        $transactionamount                  = $this->transaction->amount;
 
-        while($currentamount <= $this->transaction->amount && $points && isset($points[$idx]))
+        while($transactionamount <= $this->transaction->amount && $points && isset($points[$idx]) && $transactionamount > 0)
         {
             //count left over point per debit to credit
             $currentamount                  = $points[$idx]['amount'];
@@ -47,9 +48,9 @@ class CreditPoint extends Job implements SelfHandling
             }
 
             //if leftover more than 0
-            if($currentamount > 0 && $currentamount >= $this->transaction->amount)
+            if($currentamount > 0 && $currentamount >= $transactionamount)
             {
-                $camount                    = 0 - $this->transaction->amount;
+                $camount                    = 0 - $transactionamount;
             }
             else
             {
@@ -73,6 +74,8 @@ class CreditPoint extends Job implements SelfHandling
                 {
                     return new JSend('error', (array)$this->transaction, $point->getError());
                 }
+
+                $transactionamount           = $transactionamount + $camount;
             }
 
             $idx++;
