@@ -49,7 +49,7 @@ $status     = ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Ch
 					{!! Form::open(array('route' => 'backend.data.transaction.index', 'method' => 'get' )) !!}
 						<div class="row">
 							<div class="col-md-5 col-sm-5 col-xs-12" style="padding-right:2px;">
-								{!! Form::select('status', ['' => 'Status','abandoned' => 'Terabaikan','cart' => 'Keranjang', 'wait' => 'Proses, Menunggu Pembayaran', 'paid' => 'Sudah dibayar, belum dikirim', 'shipping' => 'Sedang dalam pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pembatalan Pesanan'], Input::get('status'), ['class' => 'form-control', 'tabindex' => '1']) !!}
+								{!! Form::select('status', array_merge(['' => 'Status'], $status), Input::get('status'), ['class' => 'form-control', 'tabindex' => '1']) !!}
 							</div>
 							<div class="col-md-5 col-sm-5 col-xs-12" style="padding-right:2px;">
 								{!! Form::input('text', 'q', Null ,[
