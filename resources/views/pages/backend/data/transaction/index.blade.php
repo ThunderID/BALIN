@@ -120,7 +120,7 @@ $status     = ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Ch
 										<td class="text-right">@money_indo($data['amount']) </td>
 										<td class="text-center">
 											@if($data['type']=='sell' && in_array($data['status'], ['wait', 'paid', 'shipping', 'delivered', 'canceled', 'packed']))
-											<a href="{{route('backend.data.transaction.email', ['id' => $data['id'], 'type' => $data['type']])}}">Resend Mail</a>,
+											<a href="{{route('backend.data.transaction.email', ['id' => $data['id'], 'type' => $data['type'], 'status' => $data['status']])}}">Resend Mail</a>,
 											@endif
 											<a href="{{route('backend.data.transaction.show', ['id' => $data['id'], 'type' => $data['type']])}}">Detail</a>,
 											<!-- <a href="{{route('backend.data.transaction.edit', ['id' => $data['id'], 'type' => $data['type']])}}">Edit</a>, -->

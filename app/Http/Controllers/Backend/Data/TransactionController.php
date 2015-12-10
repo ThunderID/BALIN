@@ -467,22 +467,48 @@ class TransactionController extends BaseController
 	{
 		$transaction 					= Transaction::findorfail($id);
 
-		switch ($transaction->status) 
+		if(Input::has('status'))
+		{
+			$status 					= Input::get('status');
+		}
+		else
+		{
+			App::abort(404);
+		}
+
+		$result 						= new JSend('error', (array)$transaction, 'Status tidak valid.');
+		
+		switch ($status) 
 		{
 			case 'wait':
-				$result					= $this->dispatch(new SendBillingEmail($transaction));
+				if(in_array($transaction->status, ['wait', 'paid', 'packed', 'shipping', 'delivered']))
+				{
+					$result					= $this->dispatch(new SendBillingEmail($transaction));
+				}
 				break;
 			case 'paid': case 'packed' :
-				$result					= $this->dispatch(new SendPaymentEmail($transaction));
+				if(in_array($transaction->status, ['paid', 'packed', 'shipping', 'delivered']))
+				{
+					$result					= $this->dispatch(new SendPaymentEmail($transaction));
+				}
 				break;
 			case 'shipping':
-				$result					= $this->dispatch(new SendShipmentEmail($transaction));
+				if(in_array($transaction->status, ['shipping', 'delivered']))
+				{
+					$result					= $this->dispatch(new SendShipmentEmail($transaction));
+				}
 				break;
 			case 'delivered':
-				$result					= $this->dispatch(new SendDeliveredEmail($transaction));
+				if(in_array($transaction->status, ['delivered']))
+				{
+					$result					= $this->dispatch(new SendDeliveredEmail($transaction));
+				}
 				break;
 			case 'canceled':
-				$result					= $this->dispatch(new SendCanceledEmail($transaction));
+			if(in_array($transaction->status, ['canceled']))
+				{
+					$result					= $this->dispatch(new SendCanceledEmail($transaction));
+				}
 				break;
 			default:
 				$result 				= new JSend('success', (array)$transaction);
