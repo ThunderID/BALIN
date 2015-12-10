@@ -5,7 +5,7 @@
 <?php 
 	$stock		= $store->ondate('now')->type('critical_stock')->first();
 	$suppliers 	= $data->where('products.id', $id)->suppliers(true)->get();
-	$stocks 	= $data::where('products.id', $id)->globalstock(true)->first();
+	$stocks 	= $data::id($id)->globalstock(true)->first();
 	$data 		= $data::where('products.id', $id)->first();
 
 	$lables		= $data['lables'];

@@ -48,6 +48,7 @@ trait HasStatusTrait
 			 {
                                     $join->on ( 'transaction_details.transaction_id', '=', 'transactions.id' )
                                     ->wherenull('transactions.deleted_at')
+                                    
                                     ;
 			})
 		;
@@ -62,7 +63,7 @@ trait HasStatusTrait
 			 ->join('transaction_logs', function ($join) use($variable) 
 			 {
                                     $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
-									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null))'), DB::raw(''), DB::raw(''))
+									->on(DB::raw('(transaction_logs.id = (select id from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null order by tl2.changed_at desc limit 1))'), DB::raw(''), DB::raw(''))
                                     ->where('transaction_logs.status', '=', $variable)
                                     ->wherenull('transaction_logs.deleted_at')
                                     ;
@@ -75,7 +76,7 @@ trait HasStatusTrait
 			 ->join('transaction_logs', function ($join) use($variable) 
 			 {
                                     $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
-									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null))'), DB::raw(''), DB::raw(''))
+									->on(DB::raw('(transaction_logs.id = (select id from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null order by tl2.changed_at desc limit 1))'), DB::raw(''), DB::raw(''))
                                     ->whereIn('transaction_logs.status', $variable)
                                     ->wherenull('transaction_logs.deleted_at')
                                     ;
@@ -93,7 +94,7 @@ trait HasStatusTrait
 			 ->leftjoin('transaction_logs', function ($join) use($variable) 
 			 {
                                     $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
-									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null))'), DB::raw(''), DB::raw(''))
+									->on(DB::raw('(transaction_logs.changed_at = (select id from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null order by tl2.changed_at desc limit 1))'), DB::raw(''), DB::raw(''))
                                     ->where('transaction_logs.status', '=', $variable)
                                     ->wherenull('transaction_logs.deleted_at')
                                     ;
@@ -106,7 +107,7 @@ trait HasStatusTrait
 			 ->leftjoin('transaction_logs', function ($join) use($variable) 
 			 {
                                     $join->on ( 'transaction_logs.transaction_id', '=', 'transactions.id' )
-									->on(DB::raw('(transaction_logs.changed_at = (select max(changed_at) from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null))'), DB::raw(''), DB::raw(''))
+									->on(DB::raw('(transaction_logs.changed_at = (select id from transaction_logs as tl2 where tl2.transaction_id = transaction_logs.transaction_id and tl2.deleted_at is null order by tl2.changed_at desc limit 1))'), DB::raw(''), DB::raw(''))
                                     ->whereIn('transaction_logs.status', $variable)
                                     ->wherenull('transaction_logs.deleted_at')
                                     ;
