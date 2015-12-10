@@ -16,31 +16,31 @@
 	<table style="width:100%">
 		<tr class="row">
 			<td style="width:10%">&nbsp;</td>
-			<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
-				<div style="width:50px; margin: 0 auto;">
-					<div>1</div>
-					<p style="margin-bottom:0;">Checkout</p>
+			<td style="width:3%; text-align:center;">
+				<div style="width:100px; margin: 0 auto; text-align:center;">
+					<div style="padding: 15px;background-color: #ddd;width: 40px;margin: 0 auto;font-size: 30px">1</div>
+					<p style="margin-bottom:0; text-transform:uppercase; color: #999">Checkout</p>
 				</div>
 			</td>
-			<td style="width:2%;">&nbsp;</td>
-			<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
-				<div style="width:50px; margin: 0 auto;">
-					<div>2</div>
-					<p style="margin-bottom:0;">Paid</p>
+			<td style="width:3%;">&nbsp;</td>
+			<td style="width:3%; text-align:center;">
+				<div style="width:100px; margin: 0 auto; text-align:center">
+					<div style="padding: 15px;background-color: #ddd; width: 40px;margin: 0 auto;font-size: 30px">2</div>
+					<p style="margin-bottom:0; text-transform:uppercase; color: #999;">Paid</p>
 				</div>
 			</td>
-			<td style="width:2%;">&nbsp;</td>
-			<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
-				<div style="width:50px; margin: 0 auto;">
-					<div>3</div>
-					<p style="margin-bottom:0;">Shipping</p>
+			<td style="width:3%;">&nbsp;</td>
+			<td style="width:3%; text-align:center;">
+				<div style="width:100px; margin: 0 auto; text-align:center">
+					<div style="padding: 15px;background-color: #ddd;width: 40px;margin: 0 auto;font-size: 30px">3</div>
+					<p style="margin-bottom:0; text-transform:uppercase; color: #999;">Shipping</p>
 				</div>
 			</td>
-			<td style="width:2%;">&nbsp;</td>
-			<td style="width:3%; text-align:center; padding: 5px; background-color: #000; color: #fff;">
-				<div style="width:50px; margin: 0 auto;">
-					<div>4</div>
-					<p style="margin-bottom:0;">Delivered</p>
+			<td style="width:3%;">&nbsp;</td>
+			<td style="width:3%; text-align:center;">
+				<div style="width:100px; margin: 0 auto; text-align:center;">
+					<div style="padding: 15px;background-color: #000; color: #fff;width: 40px;margin: 0 auto;font-size: 30px">4</div>
+					<p style="margin-bottom:0; text-transform:uppercase;">Delivered</p>
 				</div>
 			</td>
 			<td class="col-sm-1" style="width:10%">&nbsp;</td>

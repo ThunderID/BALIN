@@ -1,6 +1,6 @@
 @inject('data', 'App\Models\Transaction')
 <?php 
-	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Packing', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Packing', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan']; ?>
 ?>
 
 @extends('template.backend.layout') 
@@ -230,6 +230,129 @@
 							<td colspan="2"> Tidak ada riwayat pesanan </td>
 						</tr>
 					@endforelse
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="clearfix">&nbsp;</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<h4>Manajemen Email</h4>
+		</div>
+	</div>
+	<?php
+		switch ($transaction['status']) {
+			case 'wait':
+				$checkout = 1;
+				$paid = 0;
+				$shipped = 0;
+				$delivered = 0;
+				break;
+			case 'paid':
+				$checkout = 1;
+				$paid = 1;
+				$shipped = 0;
+				$delivered = 0;
+				break;
+			case 'packing':
+				$checkout = 1;
+				$paid = 1;
+				$shipped = 0;
+				$delivered = 0;
+				break;
+			case 'shipped':
+				$checkout = 1;
+				$paid = 1;
+				$shipped = 1;
+				$delivered = 0;
+				break;
+			case 'delivered':
+				$checkout = 1;
+				$paid = 1;
+				$shipped = 1;
+				$delivered = 1;
+				break;
+			default:
+				$checkout = 0;
+				$paid = 0;
+				$shipped = 0;
+				$delivered = 0;
+				break;
+		}
+	?>
+	
+	<div class="row">
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			{!! Form::open() !!}
+				<table class="table table-bordered table-hover table-striped">
+					<thead>
+						<tr>
+							<th colspan="2">Status : Checkout</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center" colspan="2">
+								<a href="{{ route('backend.data.transaction.show', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'wait']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($checkout==0)? 'disabled="disabled"' : '' }}>
+									Resend Email
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			{!! Form::close() !!}
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			{!! Form::open() !!}
+				<table class="table table-bordered table-hover table-striped">
+					<thead>
+						<tr>
+							<th colspan="2">Status : Pembayaran Diterima</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center" colspan="2">
+								<a href="{{ route('backend.data.transaction.show', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'paid']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($paid==0)? 'disabled="disabled"' : '' }}>Resend Email</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			{!! Form::close() !!}
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			{!! Form::open() !!}
+				<table class="table table-bordered table-hover table-striped">
+					<thead>
+						<tr>
+							<th colspan="2">Status : Dalam Pengiriman</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center" colspan="2">
+								<a href="{{ route('backend.data.transaction.show', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'shipped']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($shipped==0)? 'disabled="disabled"' : '' }}>Resend Email</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			{!! Form::close() !!}
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<table class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<th colspan="2">Status : Pesanan Complete </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="text-center" colspan="2">
+							<a href="{{ route('backend.data.transaction.show', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'delivered']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($delivered==0)? 'disabled="disabled"' : '' }}
+							>Resend Email</a>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
