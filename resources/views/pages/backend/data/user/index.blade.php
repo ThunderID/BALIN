@@ -69,7 +69,7 @@ $datas          = $datas->with(['addresses'])->orderby('name')->paginate();
                                         <td class="text-center">{{$ctr}}</td>
                                         <td>
                                             {{$data['name']}}
-                                            @if($data->is_active)
+                                            @if($data['is_active'])
                                                 <label class="label label-success pull-right">active</label><br/>
                                             @else
                                                 <label class="label label-danger pull-right">inactive</label><br/>
@@ -78,6 +78,10 @@ $datas          = $datas->with(['addresses'])->orderby('name')->paginate();
                                         <td class="text-center">{{$data['phone']}}</td>
                                         <td class="text-center">{{$data['email']}}</td>
                                         <td class="text-center">
+                                            @if(!$data['is_active'])
+                                                <a href="{{ route('backend.data.customer.mail', $data['id']) }}">Resend Mail</a>, 
+                                            @endif
+
                                             <a href="{{ route('backend.data.customer.show', $data['id']) }}">Detail</a>, 
                                             <a href="{{ route('backend.data.customer.edit', $data['id']) }}">Edit</a>, 
                                             <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#cus_del"

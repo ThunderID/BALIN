@@ -78,13 +78,13 @@ $datas          = $datas->with(['addresses'])->orderby('name')->paginate();
                                         <td class="text-center">{{$ctr}}</td>
                                         <td>
                                             {{$data['name']}}
-                                            @if($data->is_active)
+                                            @if($data['is_active'])
                                                 <label class="label label-success pull-right">active</label>
                                             @else
                                                 <label class="label label-danger pull-right">inactive</label>
                                             @endif
                                         </td>
-                                        <td>{!!str_replace('_', ' ', $data->role)!!}</td>
+                                        <td>{!!str_replace('_', ' ', $data['role'])!!}</td>
                                         <td>{{$data['phone']}}</td>
                                         <td>{{$data['email']}}</td>
                                         <td class="text-center">

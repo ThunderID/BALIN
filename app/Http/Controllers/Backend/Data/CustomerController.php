@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend\Data;
 use App\Http\Controllers\BaseController;
 use App\Models\User;
 use Input, Session, DB, Redirect, Response, App, Validator, Carbon;
+use App\Jobs\SendWelcomeEmail;
+use App\Libraries\JSend;
 
 class CustomerController extends BaseController
 {
@@ -229,5 +231,30 @@ class CustomerController extends BaseController
 								->get();
 								
 		return Response::make($tmp);
+	}
+
+	public function ResendEmail($id = null)
+	{
+		$user 						= User::findorfail($id);
+
+		if(!$user['is_active'])
+		{
+			$result					= $this->dispatch(new SendWelcomeEmail($user));
+		}
+		else
+		{
+			$result					= new JSend('error', 'Kostumer sudah pernah dikirimi mail.');
+		}
+
+		if($result->getStatus()=='success')
+		{
+			return Redirect::back()
+					->with('msg', 'Email welcome kostumer '.$user['name']. ' sudah dikirim')
+					->with('msg-type','success');
+		}
+
+		return Redirect::back()
+				->withErrors($result->getErrorMessage())
+				->with('msg-type','danger');
 	}
 }
