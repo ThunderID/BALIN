@@ -105,6 +105,34 @@
 
 		@yield('content')
 
+		<div class="navbar navbar-default navbar-fixed-bottom hidden-lg hidden-md hidden-sm col-xs-12" role="navigation" style="border-top: solid 2px #ddd">
+			<div class="nav navbar-nav text-center" style="margin-top:0px !important; margin-bottom:0px !important;">
+				<div onclick="location.href='{{ URL::route('frontend.home.index') }}';" class="col-xs-{{(Auth::user())?"3":"4"}} text-center" style="border-right:1px solid #ddd; height:75px; padding-top: 8px; padding-bottom: 8px;">
+					{!! HTML::image('Balin/web/image/home.png', 'image' ,['style' => 'padding-top:6px; padding-bottom:6px; height:37px; width:25px; margin: 0 auto;']) !!}
+					<p style="font-size:11px;">Home</p>
+				</div>
+				<div onclick="location.href='{{ URL::route('frontend.product.index') }}';" class="col-xs-{{(Auth::user())?"3":"4"}} text-center" style="border-right:1px solid #ddd; height:75px; padding-top: 8px; padding-bottom: 8px;">
+					{!! HTML::image('Balin/web/image/product.png', 'image' ,['style' => 'padding-top:6px; padding-bottom:6px; height:37px; width:25px; margin: 0 auto;']) !!}
+					<p style="font-size:11px;">Produk</p>
+				</div>
+				@if (Auth::user())
+				<div onclick="location.href='{{ URL::route('frontend.user.index') }}';" class="col-xs-3 text-center" style="border-right:1px solid #ddd; height:75px; padding-top: 8px; padding-bottom: 8px;">
+					{!! HTML::image('Balin/web/image/profile.png', 'image' ,['style' => 'padding-top:6px; padding-bottom:6px; height:37px; width:25px; margin: 0 auto;']) !!}
+					<p style="font-size:11px;">Profile</p>
+				</div>
+				@endif
+				@if (Auth::user())
+				<div onclick="location.href='{{ URL::route('frontend.dologout') }}';" class="col-xs-3 text-center" style="height:75px; padding-top: 8px; padding-bottom: 8px;">
+					{!! HTML::image('Balin/web/image/sign-out.png', 'image' ,['style' => 'padding-top:6px; padding-bottom:6px; height:37px; width:25px; margin: 0 auto;']) !!}
+				@else
+				<div onclick="location.href='{{ URL::route('frontend.join.index') }}';" class="col-xs-4 text-center" style="height:75px; padding-top: 8px; padding-bottom: 8px;">
+					{!! HTML::image('Balin/web/image/sign-in.png', 'image' ,['style' => 'padding-top:6px; padding-bottom:6px; height:37px; width:25px; margin: 0 auto;']) !!}
+				@endif
+					<p style="font-size:11px;">{{(Auth::user())?"Log Out":"Sign In"}}</p>
+				</div>		
+			</div>
+		</div>
+
 	</div>
 
 	@if ($controller_name != 'home')
