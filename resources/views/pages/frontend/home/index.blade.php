@@ -120,6 +120,12 @@
 			@empty
 			@endforelse
 		</div>
+		<div class="row">
+			<div class="hidden-lg hidden-md hidden-sm col-xs-12">
+				<div class="row clearfix" style="margin-top:76px;">
+				</div>
+			</div>
+		</div>			
 	</section>
 @stop
 
