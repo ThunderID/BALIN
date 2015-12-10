@@ -48,6 +48,7 @@ trait HasStatusTrait
 			 {
                                     $join->on ( 'transaction_details.transaction_id', '=', 'transactions.id' )
                                     ->wherenull('transactions.deleted_at')
+                                    
                                     ;
 			})
 		;

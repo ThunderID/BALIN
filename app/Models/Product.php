@@ -303,10 +303,26 @@ class Product extends Eloquent
 	{
 		return 	$query->selectraw('products.*')
 					->selectglobalstock(true)
-					->JoinTransactionDetailFromProduct(true)
-					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
+					->leftjoin('varians', function ($join) use($variable) 
+					{
+						$join->on ( 'varians.product_id', '=', 'products.id' )
+						->wherenull('varians.deleted_at')
+						;
+					})
+					->leftjoin('transaction_details', function ($join) use($variable) 
+					{
+						$join->on ( 'transaction_details.varian_id', '=', 'varians.id' )
+						->wherenull('transaction_details.deleted_at')
+						;
+					})
+					->leftjoin('transactions', function ($join) use($variable) 
+					{
+						$join->on ( 'transactions.id', '=', 'transaction_details.transaction_id' )
+						->wherenull('transactions.deleted_at')
+						;
+					})
+					->LeftTransactionLogStatus(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->groupby('products.id')
-					;
 		;
 	}
 

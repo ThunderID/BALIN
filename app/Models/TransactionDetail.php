@@ -260,7 +260,13 @@ class TransactionDetail extends Eloquent
 		return 	$query
 					->selectraw('transaction_details.*')
 					->selectglobalstock(true)
-					->TransactionStockOn(['wait', 'paid', 'packed', 'shipping', 'delivered'])
+					->leftjoin('transactions', function ($join) use($variable) 
+					{
+						$join->on ( 'transactions.id', '=', 'transaction_details.transaction_id' )
+						->wherenull('transactions.deleted_at')
+						;
+					})
+					->LeftTransactionLogStatus(['wait', 'paid', 'packed', 'shipping', 'delivered'])
 					->groupBy('varian_id')
 					;
 		;
