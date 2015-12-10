@@ -33,14 +33,14 @@
 			<td style="width:3%; text-align:center; padding: 5px; background-color: #000; color: #fff;">
 				<div style="width:50px; margin: 0 auto;">
 					<div>3</div>
-					<p style="margin-bottom:0;">Shipped</p>
+					<p style="margin-bottom:0;">Shipping</p>
 				</div>
 			</td>
 			<td style="width:2%;">&nbsp;</td>
 			<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
 				<div style="width:50px; margin: 0 auto;">
 					<div>4</div>
-					<p style="margin-bottom:0;">Deliverd</p>
+					<p style="margin-bottom:0;">Delivered</p>
 				</div>
 			</td>
 			<td class="col-sm-1" style="width:10%">&nbsp;</td>
@@ -57,16 +57,59 @@
 							<p> 
 								Pesanan #{{$data['ship']['ref_number']}} sedang dalam proses pengiriman dengan nomor resi pengiriman
 								<strong>{{$data['ship']['shipment']['receipt_number']}}</strong>, menggunakan jasa kurir {{$data['ship']['shipment']['courier']['name']}}
-								ke alamat :
+								ke tujuan pengiriman :
 							</p>
 							<p>
-								{{$data['ship']['shipment']['address']['address']}}
-							</p>
-							<p>
-								Silahkan gunakan nomor resi untuk track pengiriman.
+								Nama Penerima :  {{$data['ship']['shipment']['receiver_name']}} <br>
+								No Telp : {{$data['ship']['shipment']['address']['phone']}} <br>
+								Alamat : {{$data['ship']['shipment']['address']['address']}} , {{$data['ship']['shipment']['address']['zipcode']}}
 							</p>
 						</td>
-						<td class="expander"></td>
+					<tr>
+						<td>
+							<h3>Rincian Pesanan</h3>
+							<table style="width:100%; font-size:11px;">
+								<thead>
+									<tr>
+										<th class="col-md-1 text-center" style="text-align:center;background-color:black;color:white;padding:10px;">No</th>
+										<!-- <th>Item#</th> -->
+										<th class="text-center col-md-4" style="text-align:left;background-color:black;color:white;padding:10px;">Item</th>
+										<th class="text-center col-md-1" style="text-align:center;background-color:black;color:white;padding:10px;">Qty</th>
+										<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Harga @</th>
+										<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Diskon</th>
+										<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php $amount = 0;?>
+									@forelse($data['ship']['transactiondetails'] as $key => $value)
+										<?php $amount = $amount + (($value['price'] - $value['discount']) * $value['quantity']);?>
+										<tr>
+											<td class="text-center" style="text-align:center;background-color:#C6C6C6;padding:5px;">{!!($key+1)!!}</td>
+											<td style="text-align:left;background-color:#C6C6C6;padding:5px;"> {{$value['varian']['product']['name']}} {{$value['varian']['size']}}</td>
+											<td class="text-center" style="text-align:center;background-color:#C6C6C6;padding:5px;"> {{$value['quantity']}} </td>
+											<td class="text-right" style="text-align:right;background-color:#C6C6C6;padding:5px;"> @money_indo($value['price']) </td>
+											<td class="text-right" style="text-align:right;background-color:#C6C6C6;padding:5px;"> @money_indo($value['discount']) </td>
+											<td class="text-right" style="text-align:right;background-color:#C6C6C6;padding:5px;"> @money_indo((($value['price'] - $value['discount']) * $value['quantity'])) </td>
+										</tr>
+									@empty
+										<tr>
+											<td colspan="6"> Tidak ada data </td>
+										</tr>
+									@endforelse
+									<tr>
+										<td colspan="6">&nbsp;</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p style="font-size:11px;">
+								* Silahkan gunakan nomor resi untuk track pengiriman.
+							</p>
+						</td>
 					</tr>
 				</table>
 			</td>

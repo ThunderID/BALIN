@@ -38,7 +38,7 @@ class SendDeliveredEmail extends Job implements SelfHandling
             throw new Exception('Sent variable must be object of a record.');
         }
 
-        $transaction    = Transaction::id($this->transaction->id)->with(['user', 'shipment'])->first();
+        $transaction    = Transaction::id($this->transaction->id)->with(['transactiondetails', 'transactiondetails.varian', 'transactiondetails.product', 'user', 'shipment'])->first();
         $transactionlog = TransactionLog::transactionid($this->transaction->id)->status('delivered')->first();
 
         $info           = StoreSetting::storeinfo(true)->get();

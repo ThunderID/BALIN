@@ -100,7 +100,7 @@
 								</div>
 								<div class="row m-l-none m-r-none">
 									<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
-										<span class="">Poin Anda</span>
+										<span class="">Balin Point Anda</span>
 									</div>
 									<div class="col-lg-5 col-md-5 col-sm-5 text-right">
 										<span class="text-right" id="point">@money_indo(Auth::user()->balance)</span>
@@ -304,7 +304,7 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="col-sm-7 text-left">
-									<span>Poin Anda</span>
+									<span>Balin Point Anda</span>
 								</div>
 								<div class="col-sm-5 text-right">
 									<span class="text-right" id="point">@money_indo(Auth::user()->balance)</span>
@@ -429,7 +429,7 @@
 					</div>
 					<div class="row m-b-none">
 						<div class="col-xs-12">
-							<h4 style="color:#FFF;" class="text-center">Poin Anda</h4>
+							<h4 style="color:#FFF;" class="text-center">Balin Point Anda</h4>
 						</div>
 					</div>
 					<div class="row">

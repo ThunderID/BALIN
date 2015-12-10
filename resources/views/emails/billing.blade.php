@@ -33,14 +33,14 @@
 		<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
 			<div style="width:50px; margin: 0 auto;">
 				<div>3</div>
-				<p style="margin-bottom:0;">Shipped</p>
+				<p style="margin-bottom:0;">Shipping</p>
 			</div>
 		</td>
 		<td style="width:2%;">&nbsp;</td>
 		<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
 			<div style="width:50px; margin: 0 auto;">
 				<div>4</div>
-				<p style="margin-bottom:0;">Deliverd</p>
+				<p style="margin-bottom:0;">Delivered</p>
 			</div>
 		</td>
 		<td class="col-sm-1" style="width:10%">&nbsp;</td>
@@ -110,11 +110,11 @@
 		<tr>
 			<th class="col-md-1 text-center" style="text-align:center;background-color:black;color:white;padding:10px;">No</th>
 			<!-- <th>Item#</th> -->
-			<th class="text-center col-md-4" style="text-align:center;background-color:black;color:white;padding:10px;">Item</th>
+			<th class="text-center col-md-4" style="text-align:left;background-color:black;color:white;padding:10px;">Item</th>
 			<th class="text-center col-md-1" style="text-align:center;background-color:black;color:white;padding:10px;">Qty</th>
-			<th class="text-right col-md-2" style="text-align:center;background-color:black;color:white;padding:10px;">Harga @</th>
-			<th class="text-right col-md-2" style="text-align:center;background-color:black;color:white;padding:10px;">Diskon</th>
-			<th class="text-right col-md-2" style="text-align:center;background-color:black;color:white;padding:10px;">Total</th>
+			<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Harga @</th>
+			<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Diskon</th>
+			<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Total</th>
 		</tr>
 	</thead>
 	<tbody>
