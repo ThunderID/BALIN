@@ -22,4 +22,6 @@
 		atau login dengan akun sosial,
 	</p>
 	{{-- <a href="{{route('frontend.dosso')}}" class="btn-hollow hollow-black-border hollow-social" title="facebook"><i class="fa fa-facebook"></i></a> --}}
+				</div>
+			</a>
 {!! Form::close() !!}
