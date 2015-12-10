@@ -12,5 +12,5 @@ return [
     'username'          => env('MAIL_USERNAME',''),
     'password'          => env('MAIL_PASSWORD',''),
     'sendmail'          => '/usr/sbin/sendmail -bs',
-    'pretend'           => false,
+    'pretend'           => env('MAIL_PRETEND', 'false'),
 ];
