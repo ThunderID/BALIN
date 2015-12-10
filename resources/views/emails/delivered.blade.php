@@ -7,7 +7,7 @@
 				<img src="{{ $message->embed('Balin/web/image/balin-white.png') }}" style="max-width:200px; text-align:left;">
 			</td>
 			<td valign="top" style="text-align:right;width:40%">
-				<h3>Pesanan Anda Sudah Tiba Di Tujuan</h3>
+				<h3>Pesanan Anda Sudah Tiba<br>Di Tujuan</h3>
 			</td>
 		</tr>
 	</table>
@@ -33,7 +33,7 @@
 			<td style="width:3%; text-align:center; padding: 5px; background-color: #ddd;">
 				<div style="width:50px; margin: 0 auto;">
 					<div>3</div>
-					<p style="margin-bottom:0;">Shipped</p>
+					<p style="margin-bottom:0;">Shipping</p>
 				</div>
 			</td>
 			<td style="width:2%;">&nbsp;</td>
@@ -55,9 +55,11 @@
 						<td>
 							<p>	Dear <strong>{{$data['delivered']['user']['name']}}, </strong></p>
 							<p> 
-								Menurut pantauan kami pesanan dengan nomor invoice #{{$data['delivered']['ref_number']}} dengan nomor resi #{{$data['delivered']['shipment']['receipt_number']}} sudah sampai dialamat penerima dan {{$data['notes']}}.
+								Menurut pantauan kami pesanan dengan nomor invoice <strong>#{{$data['delivered']['ref_number']}}</strong> dengan nomor resi <strong>{{$data['delivered']['shipment']['receipt_number']}}</strong> sudah sampai dialamat penerima dan <strong>{{$data['notes']}}.</strong>
 							</p>
 						</td>
+					</tr>
+					<tr>
 						<td>
 							<h3>Rincian Pesanan</h3>
 							<table style="width:100%; font-size:11px;">
@@ -65,11 +67,11 @@
 									<tr>
 										<th class="col-md-1 text-center" style="text-align:center;background-color:black;color:white;padding:10px;">No</th>
 										<!-- <th>Item#</th> -->
-										<th class="text-center col-md-4" style="text-align:center;background-color:black;color:white;padding:10px;">Item</th>
+										<th class="text-center col-md-4" style="text-align:left;background-color:black;color:white;padding:10px;">Item</th>
 										<th class="text-center col-md-1" style="text-align:center;background-color:black;color:white;padding:10px;">Qty</th>
-										<th class="text-right col-md-2" style="text-align:center;background-color:black;color:white;padding:10px;">Harga @</th>
-										<th class="text-right col-md-2" style="text-align:center;background-color:black;color:white;padding:10px;">Diskon</th>
-										<th class="text-right col-md-2" style="text-align:center;background-color:black;color:white;padding:10px;">Total</th>
+										<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Harga @</th>
+										<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Diskon</th>
+										<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Total</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -95,6 +97,8 @@
 								</tbody>
 							</table>
 						</td>
+					</tr>
+					<tr>
 						<td>
 							<p>
 								Terima kasih untuk kepercayaan anda. 
