@@ -123,6 +123,46 @@
 						<tr>
 							<td colspan="6">&nbsp;</td>
 						</tr>
+						<tr>
+							<td colspan="2">&nbsp;</td>
+							<td colspan="2" style="text-align:left;">Sub Total</td>
+							<td style="text-align:right;">IDR</td>
+							<td style="text-align:right;padding:5px;">@money_indo_for_email($amount)</td>
+						</tr>
+						<tr>
+							<td colspan="2">&nbsp;</td>
+							<td colspan="2" style="text-align:left;">Ongkos Kirim</td>
+							<td style="text-align:right;">IDR</td>
+							<td style="text-align:right;padding:5px;">@money_indo_for_email($data['paid']['shipping_cost'])</td>
+						</tr>
+						<tr>
+							<td colspan="2">&nbsp;</td>
+							<td colspan="2" style="text-align:left;">Diskon Voucher</td>
+							<td style="text-align:right;">IDR</td>
+							<td style="text-align:right;padding:5px;">@money_indo_for_email(($data['paid']['voucher_discount'] ? $data['paid']['voucher_discount'] : 0))</td>
+						</tr>
+						<tr>
+							<td colspan="2">&nbsp;</td>
+							<td colspan="2" style="text-align:left;">Balin Point yang digunakan</td>
+							<td style="text-align:right;">IDR</td>
+							<td style="text-align:right;padding:5px;">@money_indo_for_email($data['paid']['discount_point'])</td>
+						</tr>
+						<tr>
+							<td colspan="2">&nbsp;</td>
+							<td colspan="2" style="text-align:left;">Potongan Transfer</td>
+							<td style="text-align:right;">IDR</td>
+							<td style="text-align:right;padding:5px;">@money_indo_for_email($data['paid']['unique_number'])</td>
+						</tr>
+						<tr>
+							<td colspan="2">&nbsp;</td>
+							<td colspan="2" style="text-align:left;">Total Bayar</td>
+							<td style="text-align:right;">IDR</td>
+							@if($data['paid']['amount'] < 0)
+								<td style="text-align:right;padding:5px;">@money_indo_for_email(0)</td>
+							@else
+								<td style="text-align:right;padding:5px;">@money_indo_for_email($data['paid']['amount'])</td>
+							@endif
+						</tr>
 					</tbody>
 				</table>
 			</td>

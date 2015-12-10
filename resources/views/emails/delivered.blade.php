@@ -67,11 +67,8 @@
 									<tr>
 										<th class="col-md-1 text-center" style="text-align:center;background-color:black;color:white;padding:10px;">No</th>
 										<!-- <th>Item#</th> -->
-										<th class="text-center col-md-4" style="text-align:left;background-color:black;color:white;padding:10px;">Item</th>
+										<th colspan="4" class="text-center col-md-4" style="text-align:left;background-color:black;color:white;padding:10px;">Item</th>
 										<th class="text-center col-md-1" style="text-align:center;background-color:black;color:white;padding:10px;">Qty</th>
-										<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Harga @</th>
-										<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Diskon</th>
-										<th class="text-right col-md-2" style="text-align:right;background-color:black;color:white;padding:10px;">Total</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -80,11 +77,8 @@
 										<?php $amount = $amount + (($value['price'] - $value['discount']) * $value['quantity']);?>
 										<tr>
 											<td class="text-center" style="text-align:center;background-color:#C6C6C6;padding:5px;">{!!($key+1)!!}</td>
-											<td style="text-align:left;background-color:#C6C6C6;padding:5px;"> {{$value['varian']['product']['name']}} {{$value['varian']['size']}}</td>
+											<td colspan="4" style="text-align:left;background-color:#C6C6C6;padding:5px;"> {{$value['varian']['product']['name']}} {{$value['varian']['size']}}</td>
 											<td class="text-center" style="text-align:center;background-color:#C6C6C6;padding:5px;"> {{$value['quantity']}} </td>
-											<td class="text-right" style="text-align:right;background-color:#C6C6C6;padding:5px;"> @money_indo($value['price']) </td>
-											<td class="text-right" style="text-align:right;background-color:#C6C6C6;padding:5px;"> @money_indo($value['discount']) </td>
-											<td class="text-right" style="text-align:right;background-color:#C6C6C6;padding:5px;"> @money_indo((($value['price'] - $value['discount']) * $value['quantity'])) </td>
 										</tr>
 									@empty
 										<tr>
