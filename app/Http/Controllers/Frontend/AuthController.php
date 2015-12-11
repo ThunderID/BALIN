@@ -103,7 +103,8 @@ class AuthController extends BaseController
 			{
 				return Redirect::back()->withErrors($registered->getError())
 									->with('msg', 'Email sudah terdaftar')
-									->with('msg-type', 'danger');
+									->with('msg-type', 'danger')
+									->with('msg-from', 'login');
 			}
 		}
 		else
@@ -122,7 +123,7 @@ class AuthController extends BaseController
 
 			if(!$registered->save())
 			{
-				return Redirect::back()->withErrors($registered->getError())->with('msg-type', 'danger');
+				return Redirect::back()->withErrors($registered->getError())->with('msg-type', 'danger')->with('msg-from', 'login');
 			}
 
 			if($is_active)
@@ -130,7 +131,7 @@ class AuthController extends BaseController
 				$result                 				= $this->dispatch(new SaveCampaign($registered, 'promo_referral'));
 				if($result->getStatus()!='success')
 				{
-					return Redirect::back()->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
+					return Redirect::back()->withErrors($result->getErrorMessage())->with('msg-type', 'danger')->with('msg-from', 'login');
 				}
 			}
 		}
@@ -150,17 +151,27 @@ class AuthController extends BaseController
             if($result->getStatus()=='success' && !is_null($result->getData()))
             {
             	$baskets 			= $result->getData();
-				Session::put('baskets', $baskets);
 
-				return Redirect::intended(route($redirect));
+            	if ($redirect=='frontend.get.checkout')
+            	{
+            		return Redirect::intended(route($redirect));
+            	}
+            	else
+            	{
+            		return Redirect::intended(route('frontend.redeem.index'));
+            	}
+
+            	Session::put('baskets', $baskets);
+
+				// return Redirect::intended(route($redirect));
             }
             else
             {
-				return Redirect::back()->withErrors(['Tidak bisa login.'])->with('msg-type', 'danger');
+				return Redirect::back()->withErrors(['Tidak bisa login.'])->with('msg-type', 'danger')->with('msg-from', 'login');
             }
         }
 
-		return Redirect::intended($redirect)
+		return Redirect::intended(route('frontend.redeem.index'))
 							->with('msg', 'Terima kasih sudah mendaftar diwebsite kami.')
 							->with('msg-type', 'success');
 	}
