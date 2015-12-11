@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use Session, Request;
+use Session, Request, Route;
 
 class RedirectSave
 {
@@ -37,8 +37,9 @@ class RedirectSave
     {
         if ($this->auth->guest()) 
         {
-            Session::put('login_redirect', Request::url());
+            Session::put('login_redirect', Route::currentRouteName());
         }
+
 
         return $next($request);
     }

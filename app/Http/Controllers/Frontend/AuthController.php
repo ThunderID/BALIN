@@ -36,17 +36,27 @@ class AuthController extends BaseController
                 if($result->getStatus()=='success' && !is_null($result->getData()))
                 {
                 	$baskets 			= $result->getData();
-					Session::put('baskets', $baskets);
 
-					return Redirect::intended($redirect);
+					if ($redirect=='frontend.get.checkout')
+					{
+						return Redirect::intended(route($redirect));
+					}
+					else
+					{
+						return Redirect::intended(route('frontend.redeem.index'));
+					}
+
+					Session::put('baskets', $baskets);
                 }
                 else
                 {
 					return Redirect::back()->withErrors(['Tidak bisa login.'])->with('msg-type', 'danger')->with('msg-from', 'login');
                 }
             }
+			return Redirect::intended(route('frontend.redeem.index'));
 
-			return Redirect::intended($redirect);
+
+			// return Redirect::intended($redirect);
 		}
 		
 		return Redirect::back()->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami. Harap anda memeriksa data masukkan dan mencoba lagi.'])->with('msg-type', 'danger')->with('msg-from', 'login');
@@ -142,7 +152,7 @@ class AuthController extends BaseController
             	$baskets 			= $result->getData();
 				Session::put('baskets', $baskets);
 
-				return Redirect::intended($redirect);
+				return Redirect::intended(route($redirect));
             }
             else
             {
