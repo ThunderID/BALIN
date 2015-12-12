@@ -63,7 +63,7 @@
 							?>
 							<p>Dear Bpk/Ibu <strong>{{$data['paid']['user']['name']}}, </strong></p>
 							<p> 
-								Pembayaran untuk pesanan #{{$data['paid']['ref_number']}} telah kami terima pada tanggal 
+								Pembayaran untuk pesanan <strong>#{{$data['paid']['ref_number']}}</strong> telah kami terima pada tanggal 
 								@if($data['paid']['payment']) 
 									@date_indo($data['paid']['payment']['ondate']) 
 								@else 

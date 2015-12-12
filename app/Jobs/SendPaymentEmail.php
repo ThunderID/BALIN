@@ -54,7 +54,7 @@ class SendPaymentEmail extends Job implements SelfHandling
                             'datas'         => $datas,
                             'dest_email'    => $transaction['user']['email'], 
                             'dest_name'     => $transaction['user']['name'], 
-                            'subject'       => 'BALIN - Payment Validation', 
+                            'subject'       => 'BALIN - Payment Received', 
                         ];
 
         // call email send job

@@ -350,36 +350,36 @@
 
 @section('script')
 	@if(Input::has('ref'))
-	var event = new Event('build');
-	var actions 	= "{!! route('frontend.any.checked.out', ['ref' => Input::get('ref')]) !!}";
-	// Listen for the event.
-	document.addEventListener('build', function (e) 
-	{
-		var action = actions;
-		var title = "Pesanan Disimpan";
-		var view_mode = '';
-		parsing = '';
+		var event = new Event('build');
+		var actions 	= "{!! route('frontend.any.checked.out', ['ref' => Input::get('ref')]) !!}";
+		console.log(actions);
+		// Listen for the event.
+		document.addEventListener('build', function (e) 
+		{
+			var action = actions;
+			var title = "Pesanan Disimpan";
+			var view_mode = '';
+			parsing = '';
 
-		$('#modal-balance').find('.modal-body').html('loading...');
-		$('#modal-balance').find('.modal-title').html(title);
-		$('#modal-balance').find('.modal-dialog').addClass(view_mode);
-		$('#modal-balance').find('.modal-body').load(action, function() {
-			if (parsing !== null && parsing !== undefined) {
-				change_action($(this), parsing);
-			}
+			$('#modal-balance').find('.modal-body').html('loading...');
+			$('#modal-balance').find('.modal-title').html(title);
+			$('#modal-balance').find('.modal-dialog').addClass(view_mode);
+			$('#modal-balance').find('.modal-body').load(action, function() {
+				if (parsing !== null && parsing !== undefined) {
+					change_action($(this), parsing);
+				}
+			});
+
+			$('#modal-balance').modal('show');
+		}, false);
+
+		// Dispatch the event.
+		document.dispatchEvent(event);
+
+		$('#modal-balance').on('hidden.bs.modal', function () {
+			window.history.pushState('obj', 'newtitle', '/profile');
+			return false;
 		});
-
-		$('#modal-balance').modal('show');
-	}, false);
-
-	// Dispatch the event.
-	document.dispatchEvent(event);
-
-	$('#modal-balance').on('hidden.bs.modal', function () {
-		window.history.pushState('obj', 'newtitle', '/profile');
-		return false;
-	})
-
 	@endif
 
 	var view_mode = '';
