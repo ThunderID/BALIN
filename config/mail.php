@@ -5,7 +5,7 @@ return [
     'host'              => env('MAIL_HOST', 'smtp.mandrillapp.com'),
     'port'              => env('MAIL_PORT', 587),
     'from'              => [
-                            'address'           => env('MAIL_USERNAME', 587), 
+                            'address'           => env('MAIL_FROM', 'help@balin.id'), 
                             'name'              => 'Balin.id'
                             ],
     'encryption'        => env('MAIL_ENCRYPTION', 'tls'),
