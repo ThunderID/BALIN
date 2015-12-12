@@ -3,6 +3,7 @@
 namespace App\Jobs\Models\TransactionLog;
 
 use App\Jobs\Job;
+use App\Jobs\Mailman;
 use App\Libraries\JSend;
 
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -10,6 +11,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use App\Models\TransactionLog;
 use App\Models\Transaction;
+use App\Models\User;
 
 use App\Jobs\CreditPoint;
 use App\Jobs\RevertPoint;
@@ -28,6 +30,9 @@ use App\Jobs\Auditors\SaveAuditPayment;
 use App\Jobs\Auditors\SaveAuditShipment;
 use App\Jobs\Auditors\SaveAuditCanceled;
 use App\Jobs\Auditors\SaveAuditDelivered;
+
+use App, Carbon;
+
 
 class TransactionLogSaved extends Job implements SelfHandling
 {
@@ -60,6 +65,28 @@ class TransactionLogSaved extends Job implements SelfHandling
                     $result                     = $this->dispatch(new CreditPoint(Transaction::id($this->transactionlog->transaction_id)->first()));
                     if($result->getStatus()=='success')
                     {
+                        $transaction_tmp        = Transaction::id($this->transactionlog->transaction_id)->first();
+
+                        $datas                  =   [   
+                                                        'name'          => User::find($transaction_tmp->user_id)['name'],
+                                                        'date'          => $transaction_tmp->transact_at,
+                                                        'resi'          => $transaction_tmp->ref_number,
+                                                    ];
+
+
+                        //get default help balin address from env
+                        $dest = env('DEFAULT_MAIL', 'help@balin.id');
+
+                        $mail_data              =   [
+                                                        'view'          => 'emails.userCheckout', 
+                                                        'datas'         => $datas,
+                                                        'dest_email'    => $dest, 
+                                                        'dest_name'     => 'Balin Admin', 
+                                                        'subject'       => 'BALIN - Customer Checkout', 
+                                                    ];
+
+                        $result                 = $this->dispatch(new Mailman($mail_data));
+
                         $result                 = $this->dispatch(new SendBillingEmail($this->transactionlog->transaction));
                     }
 
