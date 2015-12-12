@@ -7,7 +7,7 @@
 				<table class="twelve columns">
 					<tr>
 						<td>
-							<h3>Selamat Datang, {{$data['user']['name']}}</h3>
+							<p>Selamat Datang, Bpk/Ibu <strong>{{$data['user']['name']}}</strong></p>
 							<p>
 								Terima kasih telah mendaftar ke akun BALIN.
 								Kode Referral Anda : <strong>{{$data['user']['referral_code']}}</strong>

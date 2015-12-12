@@ -61,7 +61,7 @@
 									$point 		= $point + $value['amount'];
 								}
 							?>
-							<p>Dear <strong>{{$data['paid']['user']['name']}}, </strong></p>
+							<p>Dear Bpk/Ibu <strong>{{$data['paid']['user']['name']}}, </strong></p>
 							<p> 
 								Pembayaran untuk pesanan #{{$data['paid']['ref_number']}} telah kami terima pada tanggal 
 								@if($data['paid']['payment']) 

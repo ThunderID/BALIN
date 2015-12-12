@@ -13,7 +13,7 @@
 		<tr>
 			<td width="10%"></td>
 			<td width="80%">
-				<p>Dear {{$data['user']['name']}}, </p>
+				<p>Dear Bpk/Ibu <strong>{{$data['user']['name']}},</strong></p>
 
 				<p>Selamat datang, Anda telah terdaftar di <a href='https://balin.id'>Balin.id</a></p>
 

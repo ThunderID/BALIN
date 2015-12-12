@@ -99,7 +99,7 @@
 <table style="width:100%;">
 	<tr>
 		<td class="col-sm-12" style="width:100%; height:50px;text-align:left">
-			<p>Dear <strong>{{$data['bill']['user']['name']}},</strong> </p>
+			<p>Dear Bpk/Ibu <strong>{{$data['bill']['user']['name']}},</strong> </p>
 			<p>Terima kasih telah memesan. Pesanan Anda <span style="font-weight:bold">#{!!$data['bill']['ref_number']!!}</span> menunggu pembayaran. Silakan melakukan pembayaran ke rekening bank yang berada dibawah sebelum <span style="font-weight:bold">@datetime_indo(new Carbon($data['bill']['transact_at'].' '.str_replace('-', '+' , $data['balin']['expired_paid'])))</span> atau pesanan Anda akan dibatalkan. Berikut rincian tagihan pesanan Anda.</p>
 		</td>
 	</tr>

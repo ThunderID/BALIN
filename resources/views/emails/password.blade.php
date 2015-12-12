@@ -18,7 +18,7 @@
 		<tr>
 			<td width="10%"></td>
 			<td width="80%">
-				<p>Dear {{$data['user']['name']}}, </p>
+				<p>Dear Bpk/Ibu <strong>{{$data['user']['name']}},</strong></p>
 
 				<p>
 					Klik link <a href="{{route('frontend.get.forgot', $data['user']['reset_password_link'])}}"> <strong>berikut</strong></a> untuk reset password anda.

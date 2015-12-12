@@ -17,7 +17,7 @@
 		<tr>
 			<td style="width:5%"></td>
 			<td style="width:90%">
-				<p>Welcome, {{$data['user']['name']}}</p>
+				<p>Dear, Bpk/Ibu <strong>{{$data['user']['name']}}</strong></p>
 
 				<p>
 					Terima kasih telah mendaftar ke akun BALIN. </br>
