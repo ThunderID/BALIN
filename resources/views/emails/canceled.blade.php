@@ -19,7 +19,7 @@
 						<td>
 							<p>Dear	Bpk/Ibu <strong>{{$data['canceled']['user']['name']}}, </strong></p>
 							<p> 
-								Pesanan #{{$data['canceled']['ref_number']}} sudah dibatalkan karena belum diterima pembayaran dalam waktu 1x24 jam, atau Pesanan #{{$data['canceled']['ref_number']}} sudah dibatalkan karena permintaan customer.
+								Pesanan <strong>#{{$data['canceled']['ref_number']}}</strong> sudah dibatalkan karena belum diterima pembayaran dalam waktu 1x24 jam, atau Pesanan <strong>#{{$data['canceled']['ref_number']}}</strong> sudah dibatalkan karena permintaan customer.
 							</p>
 							<p>
 								Nikmati bonus belanja dari produk BALIN lainnya.

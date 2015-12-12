@@ -55,7 +55,7 @@
 						<td>
 							<p>Dear	Bpk/Ibu <strong>{{$data['ship']['user']['name']}}, </strong></p>
 							<p> 
-								Pesanan #{{$data['ship']['ref_number']}} sedang dalam proses pengiriman dengan nomor resi pengiriman
+								Pesanan <strong>#{{$data['ship']['ref_number']}}</strong> sedang dalam proses pengiriman dengan nomor resi pengiriman
 								<strong>{{$data['ship']['shipment']['receipt_number']}}</strong>, menggunakan jasa kurir {{$data['ship']['shipment']['courier']['name']}}
 								ke tujuan pengiriman :
 							</p>
