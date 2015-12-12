@@ -8,7 +8,7 @@ if(!is_null($filters) && is_array($filters))
         $datas = call_user_func([$datas, $key], $value);
     }
 }
-$datas          = $datas->with(['addresses'])->orderby('name')->paginate();
+$datas          = $datas->with(['addresses'])->orderby('created_at', 'desc')->paginate();
 ?>
 
 @extends('template.backend.layout')
@@ -47,8 +47,9 @@ $datas          = $datas->with(['addresses'])->orderby('name')->paginate();
                                 <tr>
                                     <th class="text-center">No.</th>
                                     <th class="col-md-3">Nama</th>
-                                    <th class="col-md-3 text-center">Nomor Telepon</th>
+                                    <th class="col-md-2 text-center">Nomor Telepon</th>
                                     <th class="col-md-3 text-center">Email</th>
+                                    <th class="col-md-2 text-center">Tgl Join</th>
                                     <th class="text-center">Kontrol</th>
                                 </tr>
                             </thead>
@@ -77,6 +78,7 @@ $datas          = $datas->with(['addresses'])->orderby('name')->paginate();
                                         </td>
                                         <td class="text-center">{{$data['phone']}}</td>
                                         <td class="text-center">{{$data['email']}}</td>
+                                        <td class="text-center">@datetime_indo($data['created_at'])</td>
                                         <td class="text-center">
                                             @if(!$data['is_active'])
                                                 <a href="{{ route('backend.data.customer.mail', $data['id']) }}">Resend Mail</a>, 
