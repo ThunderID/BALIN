@@ -8,7 +8,7 @@
 @section('content')
 	<!-- Full Page Image Background Carousel Header -->
 	
-	<div class="tp-banner-container hidden-xs" style='margin-top:50px'>
+	<div class="tp-banner-container hidden-xs hidden-sm " style='margin-top:50px'>
 		<div class="tp-banner" >
 			<ul>
 				<!-- SLIDE 1-->
@@ -79,7 +79,7 @@
 			</ul>
 		</div>
 	</div>
-	<section class="container-fluid hidden-sm hidden-md hidden-lg m-t-55">
+	<section class="container-fluid hidden-md hidden-lg m-t-55">
 		<div class="row">
 			@forelse($stores as $key => $value)
 				<?php $content 		= json_decode($value->value, true); $action=''; ?>
@@ -144,10 +144,6 @@
 		$('.sign-up').hide();
 		$('.sign-in').hide();
 		$('.forgot').show();
-	});
-
-	$(document).ready(function () {
-		var width = $(window).height();
 	});
 @stop
 
