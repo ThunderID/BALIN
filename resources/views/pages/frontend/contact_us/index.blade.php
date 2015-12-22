@@ -74,7 +74,17 @@
 						<div class="col-md-12 text-center">						
 							<p><i class="fa fa-envelope"></i> &nbsp;{{ $storeinfo['email'] }}</p>
 						</div>						
-					</div>														
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+							<p><i class="fa fa-mobile"></i> &nbsp;{{ $storeinfo['phone'] }}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+							<p><i class="fa fa-whatsapp"></i> &nbsp;{{ $storeinfo['phone'] }}</p>
+						</div>
+					</div>
 					<div class="row clearfix">&nbsp;</div>
 					@if(!is_null($storeinfo['instagram_url']) || !is_null($storeinfo['twitter_url']) || !is_null($storeinfo['facebook_url']))
 						@if(!empty($storeinfo['instagram_url']) || !empty($storeinfo['twitter_url']) || !empty($storeinfo['facebook_url']))
