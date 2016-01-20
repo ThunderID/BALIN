@@ -406,10 +406,12 @@
 				// {!! $datas->appends(Input::all())->render() !!}
 				?>
 				<div class="mt-5">
-					@if(isset($route))
-						{!! $paginator->links(Route::currentRouteName(), $route) !!}
-					@else
-						{!! $paginator->links(Route::currentRouteName(), Input::all()) !!}
+					@if ($flag)
+						@if(isset($route))
+							{!! $paginator->links(Route::currentRouteName(), $route) !!}
+						@else
+							{!! $paginator->links(Route::currentRouteName(), Input::all()) !!}
+						@endif
 					@endif
 				</div>						
 			</div>
