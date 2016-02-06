@@ -24,7 +24,7 @@
 				@endif
 					<div class="row">
 						<div class="col-xs-12 col-md-12 col-sm-12 chart-div">
-							<div class="row chart-header">
+							<div class="row chart-header m-t-sm">
 								<div class="col-md-2 col-sm-2 hidden-xs">
 									<p>Produk</p>
 								</div>
@@ -151,7 +151,7 @@
 				@if ($carts)
 					<div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1">
 						<div class="row m-b-md">
-							<div class="col-md-12 hidden-sm hidden-xs panel-voucher panel-form-voucher" id="panel-voucher-normal">
+							<div class="col-md-12 hidden-xs hidden-sm hidden-md hidden-lg panel-voucher panel-form-voucher" id="panel-voucher-normal">
 								<div class="row p-b-sm">
 									<div class="col-md-12">
 										<span class="voucher-title">Punya Promo Code ?</span>
@@ -263,7 +263,7 @@
 			<!-- total tablet -->
 			@if ($carts)
 				<div class="row ">
-					<div class="hidden-lg hidden-md col-sm-12 hidden-xs panel-voucher panel-form-voucher-device p-t-sm">
+					<div class="hidden-xs hidden-sm hidden-md hidden-lg col-sm-12 panel-voucher panel-form-voucher-device p-t-sm">
 						<div class="row p-b-sm">
 							<div class="col-sm-12 text-center">
 								<span class="voucher-title">PUNYA PROMO CODE ?</span>
@@ -387,7 +387,7 @@
 
 			<!-- total mobile -->
 			<div class="row" style="background-color:black;">
-				<div class="hidden-lg hidden-md hidden-sm col-xs-12 panel-voucher panel-form-voucher-device" style="background-color:#111; border-bottom:1px solid #fff">
+				<div class="hidden-lg hidden-md hidden-sm hidden-xs col-xs-12 panel-voucher panel-form-voucher-device" style="background-color:#111; border-bottom:1px solid #fff">
 					<div class="row p-b-sm">
 						<div class="col-xs-12">
 							<span class="voucher-title">PUNYA PROMO CODE ?</span>
