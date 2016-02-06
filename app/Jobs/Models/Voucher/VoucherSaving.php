@@ -19,6 +19,22 @@ class VoucherSaving extends Job implements SelfHandling
 
     public function handle()
     {
+        if(is_null($this->voucher->id))
+        {
+            $id                             = 0;
+        }
+        else
+        {
+            $id                             = $this->voucher->id;
+        }
+
+        $voucher                               = Voucher::code($this->voucher->code)->notid($id)->first();
+
+        if($voucher)
+        {
+            return new JSend('error', (array)$this->voucher, 'Code sudah terdaftar.');
+        }
+
         if($this->voucher->type=='referral' && ($this->voucher->user_id==0 || !is_null($this->voucher->started_at) || !is_null($this->voucher->expired_at)))
         {
             return new JSend('error', (array)$this->voucher, 'Voucher referral hanya dapat digunakan untuk pelanggan dan tanpa batas waktu.');
