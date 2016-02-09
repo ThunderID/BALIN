@@ -406,7 +406,7 @@
 				// {!! $datas->appends(Input::all())->render() !!}
 				?>
 				<div class="mt-5">
-					@if ($flag)
+					@if (!isset($flag))
 						@if(isset($route))
 							{!! $paginator->links(Route::currentRouteName(), $route) !!}
 						@else
