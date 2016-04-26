@@ -8,7 +8,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use App\Models\GlobalCategory;
 use App\Libraries\JSend;
 
-class GlobalCategoryDeleting extends Job implements SelfHandling
+class GlobalCategoryRestored extends Job implements SelfHandling
 {
     protected $category;
 

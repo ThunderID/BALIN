@@ -294,7 +294,7 @@
 					<tbody>
 						<tr>
 							<td class="text-center" colspan="2">
-								<a href="{{ route('backend.data.transaction.show', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'wait']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($checkout==0)? 'disabled="disabled"' : '' }}>
+								<a href="{{ route('backend.data.transaction.email', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'wait']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($checkout==0)? 'disabled="disabled"' : '' }}>
 									Resend Email
 								</a>
 							</td>
@@ -314,7 +314,7 @@
 					<tbody>
 						<tr>
 							<td class="text-center" colspan="2">
-								<a href="{{ route('backend.data.transaction.show', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'paid']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($paid==0)? 'disabled="disabled"' : '' }}>Resend Email</a>
+								<a href="{{ route('backend.data.transaction.email', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'paid']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($paid==0)? 'disabled="disabled"' : '' }}>Resend Email</a>
 							</td>
 						</tr>
 					</tbody>
@@ -332,7 +332,7 @@
 					<tbody>
 						<tr>
 							<td class="text-center" colspan="2">
-								<a href="{{ route('backend.data.transaction.show', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'shipped']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($shipped==0)? 'disabled="disabled"' : '' }}>Resend Email</a>
+								<a href="{{ route('backend.data.transaction.email', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'shipped']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($shipped==0)? 'disabled="disabled"' : '' }}>Resend Email</a>
 							</td>
 						</tr>
 					</tbody>
@@ -349,7 +349,7 @@
 				<tbody>
 					<tr>
 						<td class="text-center" colspan="2">
-							<a href="{{ route('backend.data.transaction.show', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'delivered']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($delivered==0)? 'disabled="disabled"' : '' }}
+							<a href="{{ route('backend.data.transaction.email', ['id' => $transaction['id'], 'type' => 'sell', 'status' => 'delivered']) }}" class="btn btn-sm btn-primary m-sm" tabindex="2" {{ ($delivered==0)? 'disabled="disabled"' : '' }}
 							>Resend Email</a>
 						</td>
 					</tr>

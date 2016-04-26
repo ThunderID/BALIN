@@ -8,7 +8,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use App\Models\Tag;
 use App\Libraries\JSend;
 
-class TagDeleting extends Job implements SelfHandling
+class TagRestoring extends Job implements SelfHandling
 {
     protected $category;
 
