@@ -62,7 +62,7 @@ class Product extends Eloquent
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:50',
+											'name'							=> 'required|max:255',
 											'upc'							=> 'required|max:255',
 											'slug'							=> 'required|max:255',
 										];
