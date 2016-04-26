@@ -149,7 +149,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-
+        Sichikawa\LaravelSendgridDriver\MailServiceProvider::class,
     ],
 
     /*

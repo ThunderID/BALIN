@@ -40,4 +40,8 @@ return [
     'mandrill' => [
         'secret' => env('MAIL_PASSWORD', ''),
     ],
+
+    'sendgrid' => [
+        'api_key' => env('MAIL_KEY', ''),
+    ]
 ];
