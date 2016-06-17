@@ -54,7 +54,7 @@
 					<div class="col-xs-12 m-t-sm text-center">
 						<ul class="list-inline menu-footer">
 							<li><a href="{{ URL::route('frontend.aboutus.index') }}">ABOUT US</a></li>
-							<li>|</li>
+							<li class="hidden-xxs">|</li>
 							<li><a href="{{ URL::route('frontend.contactus.index') }}">CONTACT US</a></li>
 						</ul>
 					</div>		

@@ -80,7 +80,26 @@
 			letter-spacing: 0.02em;
 		}
 
+		.home-tab{
+			color: #777 !important;
+		}
 
+		.home-tab-active{
+			color: black !important;
+			border-bottom: black 1px solid !important;
+			pointer-events: none;
+		    cursor: default;
+		}
+
+		@media screen and (max-width: 304px) {
+			.btn-pre-top{
+				margin-top: -30px;		
+			}	
+
+			.hidden-xxs{
+				display: none !important;
+			}			
+		}
 	</style>
 
 	<!-- Custom CSS -->
@@ -99,7 +118,7 @@
 	
 	<div id="container" @if(Route::is('frontend.join.index')||Route::is('balin.claim.voucher')) class="bg-ground" @endif>
 
-		<header class="page-header" style="{{ $controller_name == 'home' ? 'margin-top:0px' : ''}}">
+		<header class="page-header">
 			@include('widgets.top_menu')
 		</header>
 
@@ -135,11 +154,9 @@
 
 	</div>
 
-	@if ($controller_name != 'home')
-		<div class="container"></div>
-		<!-- <div id="footer"></div> -->
-		@include('widgets.footer')
-	@endif
+	<div class="container"></div>
+	<!-- <div id="footer"></div> -->
+	@include('widgets.footer')
 
 	<!-- /.container -->
 

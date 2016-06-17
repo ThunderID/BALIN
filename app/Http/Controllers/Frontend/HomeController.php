@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\BaseController;
+use App\Models\Product;
 use Config;
 
 class HomeController extends BaseController 
@@ -17,6 +18,13 @@ class HomeController extends BaseController
 
 	public function index()
 	{
+		//get data
+		$Product 								= new Product;
+
+		$datas['batik_wanita']					= $Product->take(4)->get();
+		$datas['batik_pria']					= $Product->skip(4)->take(4)->get();
+		$datas['all']							= $Product->skip(8)->take(4)->get();
+
 		$this->layout->page 					= view('pages.frontend.home.index')
 													->with('controller_name', $this->controller_name);
 		
@@ -24,6 +32,7 @@ class HomeController extends BaseController
 
 		$this->layout->page->page_title 		= 'BALIN.ID';
 		$this->layout->page->page_subtitle 		= 'Fashionable and Modern Batik';
+		$this->layout->page->datas 				= $datas;
 
 		$this->layout->page->metas 				= 	[
 														'og:type' 			=> 'website', 

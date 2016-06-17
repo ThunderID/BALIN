@@ -42,7 +42,7 @@ class ProductController extends BaseController
 
 		$all_tags 								= Tag::orderby('name')->get();
 
-		$links["page"]			= "page";
+		$links["page"]							= "page";
 		foreach (Input::all() as $key => $value) 
 		{
 				// array_push($links, ["page" => $page, 'id' => $key] );

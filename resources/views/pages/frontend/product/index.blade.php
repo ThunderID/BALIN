@@ -347,7 +347,7 @@
 				@if (count($filters))
 					<p class='m-t-md'>Menampilkan
 
-{{-- 					@if ($filters->where('key', 'sort')->count())
+{{-- 				@if ($filters->where('key', 'sort')->count())
 						{{ $filters->where('key', 'sort')->first()['value'] }}
 					@endif
  --}}
